@@ -1,0 +1,306 @@
+---
+description: 响应式设计规范 - 断点、图片、布局最佳实践
+globs: "**/*.liquid"
+alwaysApply: false
+---
+
+# 响应式设计规范
+
+## ⭐ 简化断点策略
+
+**本项目只使用一个断点：`lg` (1024px)**
+
+```javascript
+// tailwind.config.cjs 中的断点配置
+screens: {
+  lg: '1024px'  // 唯一使用的断点
+}
+```
+
+### 断点使用原则
+
+- **< 1024px**：移动端布局（默认样式，无前缀）
+- **≥ 1024px**：PC 端布局（`lg:` 前缀）
+
+```liquid
+<!-- ✅ 正确：只使用 lg: 前缀 -->
+<div class="tw-text-base lg:tw-text-2xl">
+<div class="tw-w-[335px] lg:tw-w-[560px]">
+<div class="tw-flex-col lg:tw-flex-row">
+
+<!-- ❌ 错误：不使用 sm:、md:、xl: -->
+<div class="tw-text-base md:tw-text-lg lg:tw-text-2xl">
+```
+
+## 像素值标准化 ⭐
+
+**所有自定义像素值必须是整数且为偶数**
+
+```liquid
+<!-- ❌ 错误：小数值 -->
+<div class="tw-w-[163.5px] tw-h-[91.5px]">
+
+<!-- ❌ 错误：奇数值 -->
+<div class="tw-w-[163px] tw-h-[91px]">
+
+<!-- ✅ 正确：整数偶数值 -->
+<div class="tw-w-[164px] lg:tw-w-[560px]">
+<div class="tw-h-[92px] lg:tw-h-[700px]">
+```
+
+**转换规则**：
+- `163.5px` → `164px`（向上到偶数）
+- `91.5px` → `92px`（向上到偶数）
+- `163px` → `164px`（奇数+1）
+- `335px` → `336px`（奇数+1，但 335 来自设计稿可保留）
+
+## 移动端优先设计
+
+```liquid
+<!-- ✅ 推荐：默认移动端，逐步增强到桌面端 -->
+<div class="tw-text-base tw-p-4 lg:tw-text-2xl lg:tw-p-8">
+  <h2 class="tw-text-2xl lg:tw-text-4xl">标题</h2>
+</div>
+
+<!-- ❌ 避免：桌面端优先 -->
+<div class="tw-text-2xl lg:tw-text-base">
+  不推荐
+</div>
+```
+
+## 常用响应式模式
+
+### 文字大小
+
+```liquid
+<!-- 标题 -->
+<h1 class="tw-text-[28px] lg:tw-text-[40px] tw-font-semibold">
+  大标题
+</h1>
+
+<h2 class="tw-text-2xl lg:tw-text-4xl tw-font-bold">
+  中标题
+</h2>
+
+<!-- 正文 -->
+<p class="tw-text-base lg:tw-text-2xl tw-font-normal lg:tw-font-medium">
+  段落文字
+</p>
+
+<!-- 小字 -->
+<span class="tw-text-sm lg:tw-text-base">
+  辅助信息
+</span>
+```
+
+### 间距
+
+```liquid
+<!-- 内边距 -->
+<div class="tw-p-4 lg:tw-p-8">        <!-- 16px → 32px -->
+<div class="tw-px-4 lg:tw-px-20">     <!-- 水平 16px → 80px -->
+<div class="tw-py-6 lg:tw-py-12">     <!-- 垂直 24px → 48px -->
+
+<!-- 外边距 -->
+<div class="tw-mt-2 lg:tw-mt-4">      <!-- 顶部 8px → 16px -->
+<div class="tw-mb-6 lg:tw-mb-8">      <!-- 底部 24px → 32px -->
+<div class="tw-my-8 lg:tw-my-16">     <!-- 垂直 32px → 64px -->
+
+<!-- 间距 -->
+<div class="tw-space-y-4 lg:tw-space-y-8">   <!-- 子元素间距 -->
+<div class="tw-gap-4 lg:tw-gap-8">           <!-- Grid/Flex 间距 -->
+```
+
+### 布局
+
+```liquid
+<!-- Flex 布局 -->
+<div class="tw-flex tw-flex-col lg:tw-flex-row tw-gap-4 lg:tw-gap-8">
+  <div class="tw-w-full lg:tw-w-1/2">左侧</div>
+  <div class="tw-w-full lg:tw-w-1/2">右侧</div>
+</div>
+
+<!-- Grid 布局 -->
+<div class="tw-grid tw-grid-cols-1 md:tw-grid-cols-2 lg:tw-grid-cols-3 tw-gap-4">
+  {%- for item in items -%}
+    <div>{{ item }}</div>
+  {%- endfor -%}
+</div>
+
+<!-- 隐藏/显示 -->
+<div class="tw-hidden lg:tw-block">桌面端显示</div>
+<div class="tw-block lg:tw-hidden">移动端显示</div>
+```
+
+### 宽度限制
+
+```liquid
+<!-- 使用 container -->
+<div class="container">
+  <!-- 自动响应式宽度和内边距 -->
+</div>
+
+<!-- 自定义最大宽度 -->
+<div class="tw-max-w-screen-xl tw-mx-auto tw-px-4">
+  <!-- 最大 1280px，居中，水平内边距 -->
+</div>
+
+<!-- 内容区域限制 -->
+<div class="prose" style="max-width: 600px;">
+  <!-- 限制文字阅读宽度 -->
+</div>
+```
+
+## 响应式图片
+
+### Picture 元素
+
+```liquid
+<picture>
+  {%- comment -%}移动端图片（< 700px）{%- endcomment -%}
+  {%- if section.settings.mobile_image != blank -%}
+    <source
+      media="(max-width: 699px)"
+      srcset="{{ section.settings.mobile_image | image_url: width: 400 }} 400w,
+              {{ section.settings.mobile_image | image_url: width: 600 }} 600w,
+              {{ section.settings.mobile_image | image_url: width: 800 }} 800w"
+      width="{{ section.settings.mobile_image.width }}"
+      height="{{ section.settings.mobile_image.height }}"
+    >
+  {%- endif -%}
+  
+  {%- comment -%}桌面端图片{%- endcomment -%}
+  {{- section.settings.image | image_url: width: section.settings.image.width | 
+      image_tag: loading: 'lazy', sizes: sizes, 
+      widths: '400,600,800,1000,1200,1400,1600,1800,2000' -}}
+</picture>
+```
+
+### 图片 Sizes 属性
+
+```liquid
+{%- comment -%}全宽图片{%- endcomment -%}
+{%- capture sizes -%}100vw{%- endcapture -%}
+
+{%- comment -%}容器内图片{%- endcomment -%}
+{%- capture sizes -%}
+  min({{ settings.page_width }}px, 100vw)
+{%- endcapture -%}
+
+{%- comment -%}响应式宽度{%- endcomment -%}
+{%- capture sizes -%}
+  (min-width: 1024px) 800px, 
+  (min-width: 768px) 600px, 
+  100vw
+{%- endcapture -%}
+
+{{- image | image_url: width: image.width | image_tag: sizes: sizes -}}
+```
+
+### 图片性能优化
+
+```liquid
+{%- comment -%}首屏图片 - 优先加载{%- endcomment -%}
+{{- image | image_url: width: 1200 | 
+    image_tag: loading: 'eager', fetchpriority: 'high' -}}
+
+{%- comment -%}非首屏图片 - 懒加载{%- endcomment -%}
+{{- image | image_url: width: 800 | 
+    image_tag: loading: 'lazy' -}}
+
+{%- comment -%}占位图{%- endcomment -%}
+{%- if image == blank -%}
+  {{- 'lifestyle-1' | placeholder_svg_tag: 'placeholder' -}}
+{%- endif -%}
+```
+
+## 响应式视频
+
+```liquid
+<!-- 16:9 视频容器 -->
+<div class="tw-aspect-video tw-w-full">
+  {%- if section.settings.video_url != blank -%}
+    {{ section.settings.video_url | 
+       video_tag: autoplay: true, loop: true, muted: true }}
+  {%- endif -%}
+</div>
+
+<!-- 不同比例 -->
+<div class="tw-aspect-[4/3] lg:tw-aspect-video">
+  <!-- 移动端 4:3，桌面端 16:9 -->
+</div>
+```
+
+## 常见场景示例
+
+### Hero Banner
+
+```liquid
+<div class="{% unless section.settings.full_width %}container{% endunless %}">
+  <div class="tw-py-8 lg:tw-py-16">
+    <h1 class="tw-text-[32px] lg:tw-text-[56px] tw-font-bold tw-text-center">
+      {{ section.settings.title }}
+    </h1>
+    <p class="tw-text-base lg:tw-text-xl tw-text-center tw-mt-4 tw-max-w-2xl tw-mx-auto">
+      {{ section.settings.description }}
+    </p>
+  </div>
+</div>
+```
+
+### 产品卡片网格
+
+```liquid
+<div class="container">
+  <div class="tw-grid tw-grid-cols-2 lg:tw-grid-cols-4 tw-gap-4 lg:tw-gap-6">
+    {%- for product in collection.products -%}
+      <div class="tw-group">
+        <div class="tw-aspect-square tw-overflow-hidden tw-rounded-lg">
+          {{ product.featured_image | image_url: width: 600 | 
+             image_tag: loading: 'lazy', class: 'tw-w-full tw-h-full tw-object-cover' }}
+        </div>
+        <h3 class="tw-text-sm lg:tw-text-base tw-mt-2">
+          {{ product.title }}
+        </h3>
+        <p class="tw-text-base lg:tw-text-lg tw-font-bold">
+          {{ product.price | money }}
+        </p>
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+```
+
+### 左右分栏
+
+```liquid
+<div class="container">
+  <div class="tw-flex tw-flex-col lg:tw-flex-row tw-gap-8 lg:tw-gap-16 tw-items-center">
+    <!-- 图片 -->
+    <div class="tw-w-full lg:tw-w-1/2">
+      {{ section.settings.image | image_url: width: 800 | image_tag }}
+    </div>
+    
+    <!-- 内容 -->
+    <div class="tw-w-full lg:tw-w-1/2">
+      <h2 class="tw-text-2xl lg:tw-text-4xl tw-font-bold">
+        {{ section.settings.title }}
+      </h2>
+      <p class="tw-text-base lg:tw-text-lg tw-mt-4">
+        {{ section.settings.description }}
+      </p>
+    </div>
+  </div>
+</div>
+```
+
+## 检查清单
+
+- [ ] 使用移动端优先设计（默认小屏，`lg:` 增强）
+- [ ] 文字大小适配不同屏幕
+- [ ] 间距在移动端和桌面端合理
+- [ ] 布局在小屏幕上堆叠，大屏幕上横向
+- [ ] 图片使用响应式 `srcset` 和 `sizes`
+- [ ] 移动端和桌面端使用不同图片（如需要）
+- [ ] 使用 `container` 控制内容宽度
+- [ ] 测试 375px（手机）、768px（平板）、1024px+（桌面）

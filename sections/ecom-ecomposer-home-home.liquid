@@ -2,7 +2,7 @@
  EComposer (https://ecomposer.io)
  You SHOULD NOT modify source code in this page because
  It is automatically generated from EComposer
- At 2026-02-26 06:31:06
+ At 2026-03-06 08:43:59
  {% endcomment %} 
  
  {% assign ecom_root_url = routes.root_url %}
@@ -211,7 +211,7 @@
  <a class="ecom-collection__product-form__actions--view-more ecom-collection__product-view-more-before ecom-child-element"
  
  target=""
- href="{%- if is_collection-%}{{- product.url | within: collection -}}{% else %}{{- product.url -}}{%-endif-%}"
+ href="{%- if is_collection-%}{%- if request.locale.root_url.size > 1 -%}{%- assign clean_product_url = product.url | remove_first: request.locale.root_url -%}{%- else -%}{%- assign clean_product_url = product.url -%}{%- endif -%}{%- assign collection_aware_url = clean_product_url | within: collection -%}{{- collection_aware_url -}}{% else %}{{- product.url -}}{%-endif-%}"
  title="{{ product.title | escape }}">
  
  <span class="ecom-collection__product-view-more-text">
@@ -282,7 +282,7 @@
  <a class="ecom-collection__product-form__actions--view-more ecom-collection__product-view-more-before ecom-child-element"
  
  target=""
- href="{%- if is_collection-%}{{- product.url | within: collection -}}{% else %}{{- product.url -}}{%-endif-%}"
+ href="{%- if is_collection-%}{%- if request.locale.root_url.size > 1 -%}{%- assign clean_product_url = product.url | remove_first: request.locale.root_url -%}{%- else -%}{%- assign clean_product_url = product.url -%}{%- endif -%}{%- assign collection_aware_url = clean_product_url | within: collection -%}{{- collection_aware_url -}}{% else %}{{- product.url -}}{%-endif-%}"
  title="{{ product.title | escape }}">
  
  <span class="ecom-collection__product-view-more-text">
@@ -310,7 +310,7 @@
  <a class="ecom-collection__product-form__actions--view-more ecom-collection__product-view-more-before ecom-child-element"
  
  target=""
- href="{%- if is_collection-%}{{- product.url | within: collection -}}{% else %}{{- product.url -}}{%-endif-%}"
+ href="{%- if is_collection-%}{%- if request.locale.root_url.size > 1 -%}{%- assign clean_product_url = product.url | remove_first: request.locale.root_url -%}{%- else -%}{%- assign clean_product_url = product.url -%}{%- endif -%}{%- assign collection_aware_url = clean_product_url | within: collection -%}{{- collection_aware_url -}}{% else %}{{- product.url -}}{%-endif-%}"
  title="{{ product.title | escape }}">
  
  <span class="ecom-collection__product-view-more-text">
@@ -379,7 +379,7 @@
  {{ the_ecom_hook }}
  {% endunless %}
  {%- endif -%}
- <a href="{%- if is_collection-%}{{- product.url | within: collection -}}{% else %}{{- product.url -}}{%-endif-%}" target="" title="{{product.title | escape }}" class="ecom-collection__product-item--inner ecom-image-default">
+ <a href="{%- if is_collection-%}{%- if request.locale.root_url.size > 1 -%}{%- assign clean_product_url = product.url | remove_first: request.locale.root_url -%}{%- else -%}{%- assign clean_product_url = product.url -%}{%- endif -%}{%- assign collection_aware_url = clean_product_url | within: collection -%}{{- collection_aware_url -}}{% else %}{{- product.url -}}{%-endif-%}" target="" title="{{product.title | escape }}" class="ecom-collection__product-item--inner ecom-image-default">
  {%- if product.featured_media -%}
  {%- liquid
  assign featured_media_aspect_ratio = product.featured_media.aspect_ratio
@@ -495,7 +495,7 @@
  
  >
  <a
- href="{%- if is_collection-%}{{- product.url | within: collection -}}{% else %}{{- product.url -}}{%-endif-%}"
+ href="{%- if is_collection-%}{%- if request.locale.root_url.size > 1 -%}{%- assign clean_product_url = product.url | remove_first: request.locale.root_url -%}{%- else -%}{%- assign clean_product_url = product.url -%}{%- endif -%}{%- assign collection_aware_url = clean_product_url | within: collection -%}{{- collection_aware_url -}}{% else %}{{- product.url -}}{%-endif-%}"
  title="{{product.title | escape }}"
  target=""
  class="ecom-collection__product-item-information-title ecom-title-one-row"

@@ -1,0 +1,470 @@
+---
+description: Shopify Liquid 主题开发规范 - 样式、布局、Schema、轮播等最佳实践
+globs: sections/**/*.liquid
+alwaysApply: false
+---
+
+# Shopify 主题开发规范
+
+本规范适用于 Shopify Liquid 主题开发，确保代码质量、一致性和可维护性。
+
+## 1. 样式实现
+
+### 优先使用 Tailwind CSS
+
+```liquid
+<!-- ✅ 推荐：使用 Tailwind 类（tw- 前缀） -->
+<div class="tw-flex tw-items-center tw-justify-between tw-p-4 tw-bg-white">
+  <h2 class="tw-text-2xl tw-font-bold">标题</h2>
+</div>
+
+<!-- ❌ 避免：内联样式或自定义 CSS（除非必要） -->
+<div style="display: flex; padding: 16px;">
+  <h2 style="font-size: 24px; font-weight: bold;">标题</h2>
+</div>
+```
+
+### Tailwind 配置说明
+
+- **前缀**：所有 Tailwind 类必须使用 `tw-` 前缀
+- **响应式**：只使用 `lg:` 断点（1024px）区分移动端和 PC 端
+- **容器**：使用 `container` 类控制内容宽度（见第2条）
+
+### 像素值标准化规则 ⭐
+
+**所有自定义像素值必须是整数且为偶数**
+
+```liquid
+<!-- ❌ 错误：小数值 -->
+<div class="tw-w-[163.5px] tw-h-[91.5px]">
+
+<!-- ❌ 错误：奇数值 -->
+<div class="tw-w-[163px] tw-h-[91px]">
+
+<!-- ✅ 正确：整数偶数值（四舍五入到最接近的偶数） -->
+<div class="tw-w-[164px] tw-h-[92px]">
+
+<!-- ✅ 正确：使用 Tailwind 标准类（更推荐） -->
+<div class="tw-w-40 tw-h-24">  <!-- 40 = 160px, 24 = 96px -->
+```
+
+**转换规则**：
+- `163.5px` → `164px`（向上取整到偶数）
+- `91.5px` → `92px`（向上取整到偶数）
+- `163px` → `164px`（奇数加1变偶数）
+- `91px` → `92px`（奇数加1变偶数）
+
+**原因**：
+- 确保布局在不同设备上的一致性
+- 避免亚像素渲染问题
+- 方便使用 `/2` 计算居中和间距
+- 提高代码可读性和可维护性
+
+## 2. 布局容器
+
+### Section 内容宽度使用 Container
+
+```liquid
+<!-- ✅ 推荐：使用 container 控制宽度 -->
+<div class="{% unless section.settings.full_width %}container{% endunless %}">
+  <div class="tw-py-8">
+    <!-- 内容区域 -->
+  </div>
+</div>
+
+<!-- ✅ 配合 full_width 设置 -->
+<div class="about-banner {% unless section.settings.full_width %}container{% endunless %}">
+  <div class="content-over-media {% unless section.settings.full_width %}rounded{% endunless %}">
+    <!-- 全宽/容器宽度切换 -->
+  </div>
+</div>
+```
+
+### Container 配置（来自 tailwind.config.cjs）
+
+```javascript
+container: {
+  center: true,
+  screens: {
+    sm: '640px',
+    md: '768px',
+    lg: '1024px',
+    xl: '1280px'
+  },
+  padding: {
+    DEFAULT: '1rem',
+    sm: '1rem',
+    lg: '1.25rem',
+    xl: '2.5rem'
+  }
+}
+```
+
+## 3. Schema 配置规范
+
+### 必须提供有效的默认值
+
+```json
+{
+  "type": "image_picker",
+  "id": "image",
+  "label": "背景图片",
+  "info": "推荐尺寸: 1920x1080px"
+  // ✅ image_picker 不需要 default，会自动处理空值
+}
+
+{
+  "type": "url",
+  "id": "button_link",
+  "label": "按钮链接",
+  "default": "/"
+  // ✅ url 类型必须提供默认值，避免空链接报错
+}
+
+{
+  "type": "video_url",
+  "id": "video",
+  "label": "视频链接",
+  "accept": ["youtube", "vimeo"],
+  "default": "https://www.youtube.com/watch?v=_9VUPq3SxOc"
+  // ✅ video_url 必须提供有效的默认视频链接
+}
+
+{
+  "type": "color",
+  "id": "bg_color",
+  "label": "背景颜色",
+  "default": "#FFFFFF"
+  // ✅ color 类型必须提供有效的十六进制颜色值
+}
+```
+
+### Schema 字段类型注意事项
+
+| 类型 | 是否需要默认值 | 示例默认值 | 注意事项 |
+|------|----------------|-----------|----------|
+| `image_picker` | ❌ 否 | - | Liquid 中用 `!= blank` 判断 |
+| `url` | ✅ 是 | `"/"` | 必须是有效 URL 或相对路径 |
+| `video_url` | ✅ 是 | YouTube/Vimeo 链接 | 必须是有效的视频链接 |
+| `color` | ✅ 是 | `"#FFFFFF"` | 必须是十六进制格式 |
+| `text` / `textarea` | ⚠️ 建议 | `""` | 避免 null 错误 |
+| `number` / `range` | ✅ 是 | 数字值 | 必须在 min/max 范围内 |
+
+## 4. 轮播功能 - Swiper
+
+### 优先使用 swiper-container Web Component
+
+```liquid
+<!-- ✅ 推荐：使用 Swiper Element（Web Component） -->
+<swiper-container
+  class="my-swiper"
+  slides-per-view="1"
+  navigation="true"
+  pagination="true"
+  loop="true"
+  autoplay-delay="3000"
+>
+  {%- for block in section.blocks -%}
+    <swiper-slide>
+      <img src="{{ block.settings.image | image_url }}" alt="{{ block.settings.title }}">
+    </swiper-slide>
+  {%- endfor -%}
+</swiper-container>
+
+<script type="module">
+  import Swiper from 'swiper/element/bundle';
+  Swiper.register();
+</script>
+```
+
+### Swiper Thumbs（Tab 联动）
+
+```liquid
+<!-- 主轮播 -->
+<swiper-container
+  id="main-swiper-{{ section.id }}"
+  thumbs-swiper="#thumbs-swiper-{{ section.id }}"
+  space-between="30"
+  slides-per-view="1"
+>
+  <!-- slides -->
+</swiper-container>
+
+<!-- 缩略图轮播（Tab） -->
+<swiper-container
+  id="thumbs-swiper-{{ section.id }}"
+  slides-per-view="auto"
+  watch-slides-progress="true"
+>
+  <!-- thumb slides -->
+</swiper-container>
+```
+
+### 获取 Swiper 示例代码
+
+使用 Swiper MCP 工具获取官方示例：
+
+```javascript
+// 调用 MCP 工具
+CallMcpTool({
+  server: "user-swiper",
+  toolName: "get-demo",
+  arguments: {
+    slug: "navigation",  // demo 类型
+    framework: "element" // 使用 Web Component
+  }
+})
+```
+
+## 5. JavaScript 交互实现 ⭐
+
+### 使用 Islands 架构 - 自定义元素
+
+**所有需要 JavaScript 的板块必须使用自定义元素（Custom Elements）方式实现，文件放在 `frontend/islands/` 目录**
+
+#### 基本结构
+
+```javascript
+// frontend/islands/anchor-navigation.js
+
+/**
+ * 锚点导航组件
+ * 功能：页面内锚点跳转、滚动监听、激活状态追踪
+ */
+export default class AnchorNavigation extends HTMLElement {
+  constructor() {
+    super()
+    
+    // 组件状态
+    this.state = {
+      activeId: null,
+      isSticky: false
+    }
+    
+    // 绑定方法
+    this.handleScroll = this.handleScroll.bind(this)
+    this.handleClick = this.handleClick.bind(this)
+  }
+
+  connectedCallback() {
+    this.init()
+  }
+
+  disconnectedCallback() {
+    this.cleanup()
+  }
+
+  init() {
+    // 初始化逻辑
+    this.setupEventListeners()
+    this.observeSections()
+  }
+
+  cleanup() {
+    // 清理事件监听器，避免内存泄漏
+    window.removeEventListener('scroll', this.handleScroll)
+  }
+}
+
+// 注册自定义元素
+customElements.define('anchor-navigation', AnchorNavigation)
+```
+
+#### 在 Liquid 中使用
+
+```liquid
+<!-- sections/q-anchor-navigation.liquid -->
+
+<!-- HTML 结构 -->
+<anchor-navigation 
+  class="tw-sticky tw-top-0 tw-z-40 tw-bg-white"
+  data-offset="0"
+>
+  <nav class="container tw-flex tw-justify-center tw-gap-8 tw-py-4">
+    <a href="#overall" class="nav-item" data-target="overall">Overall</a>
+    <a href="#features" class="nav-item" data-target="features">Features</a>
+  </nav>
+</anchor-navigation>
+
+<!-- 引入 JavaScript -->
+<script type="module">
+  import AnchorNavigation from '{{ 'anchor-navigation.js' | asset_url }}'
+</script>
+```
+
+#### Islands 文件命名规范
+
+| 组件类型 | 文件名 | 自定义元素名 |
+|---------|--------|-------------|
+| 锚点导航 | `anchor-navigation.js` | `<anchor-navigation>` |
+| 产品轮播 | `product-swiper.js` | `<product-swiper>` |
+| 倒计时 | `countdown-timer.js` | `<countdown-timer>` |
+| 手风琴 | `accordion.js` | `<accordion-panel>` |
+
+#### 关键实践
+
+**✅ 推荐**：
+- 使用 `connectedCallback()` 初始化
+- 使用 `disconnectedCallback()` 清理资源
+- 使用 `data-*` 属性传递配置
+- 使用增量 DOM 更新（只更新变化部分）
+- 使用事件委托优化性能
+
+**❌ 避免**：
+- 在 `<script>` 标签中直接写大量逻辑
+- 使用全局变量污染命名空间
+- 忘记清理事件监听器
+- 使用 `innerHTML` 进行状态更新（会丢失 DOM 状态）
+
+#### 完整示例参考
+
+查看项目中的示例文件：
+- `frontend/islands/example-component.js` - 完整功能示例
+- `frontend/islands/isolated-widget.js` - Shadow DOM 隔离示例
+
+### 5.1 Sticky 定位规范
+
+**方案 A：贴顶部**（推荐简单场景）
+
+```liquid
+<!-- ✅ 直接使用 Tailwind sticky 类 -->
+<div class="tw-sticky tw-top-0 tw-z-40 tw-bg-white tw-border-b">
+  <nav>导航内容</nav>
+</div>
+```
+
+**CSS 配置**：
+```css
+/* 自动配置，无需额外 CSS */
+position: sticky;
+top: 0;
+z-index: 40; /* 低于主导航(50)，高于内容(10) */
+```
+
+**Z-index 层级规范**：
+
+| 层级 | Z-index | 说明 |
+|------|---------|------|
+| 模态框 | 50 | 最高层 |
+| 主导航 | 50 | 全局导航栏 |
+| 锚点导航 | 40 | 页面内导航 |
+| 悬浮按钮 | 30 | 返回顶部等 |
+| 内容层 | 10 | 默认内容 |
+
+### 5.2 响应式设计
+
+```liquid
+<!-- 移动端优先 -->
+<div class="tw-text-base tw-p-4 lg:tw-text-2xl lg:tw-p-8">
+  <h2 class="tw-text-[28px] lg:tw-text-[40px]">
+    响应式标题
+  </h2>
+</div>
+
+<!-- 移动端和桌面端不同图片 -->
+<picture>
+  {%- if section.settings.mobile_image != blank -%}
+    <source
+      media="(max-width: 699px)"
+      srcset="{{ section.settings.mobile_image | image_url: width: 800 }}"
+    >
+  {%- endif -%}
+  {{ section.settings.image | image_url | image_tag }}
+</picture>
+```
+
+### 5.2 性能优化
+
+```liquid
+<!-- ✅ 图片懒加载（首屏除外） -->
+{{- image | image_url: width: 800 | image_tag: loading: 'lazy' -}}
+
+<!-- ✅ 首屏图片优先加载 -->
+{{- image | image_url: width: 1200 | image_tag: loading: 'eager', fetchpriority: 'high' -}}
+
+<!-- ✅ 响应式图片尺寸 -->
+{{- image | image_url: width: image.width | image_tag: 
+    sizes: sizes, 
+    widths: '400,600,800,1000,1200,1400,1600' -}}
+```
+
+### 5.3 代码注释
+
+```liquid
+{%- comment -%}
+  Section: 功能名称
+  
+  功能说明：
+  - 主要功能描述
+  - 技术实现方式
+  
+  技术栈：
+  - Swiper.js (swiper/element/bundle)
+  - Tailwind CSS (tw- 前缀)
+  
+  版本：1.0.0
+{%- endcomment -%}
+```
+
+### 5.4 Liquid 最佳实践
+
+```liquid
+<!-- ✅ 使用 != blank 判断 -->
+{%- if section.settings.title != blank -%}
+  <h2>{{ section.settings.title }}</h2>
+{%- endif -%}
+
+<!-- ✅ 使用 default 过滤器提供后备值 -->
+<div style="background: {{ section.settings.bg_color | default: '#FFFFFF' }};">
+
+<!-- ✅ 循环使用 forloop 变量 -->
+{%- for block in section.blocks -%}
+  <div data-index="{{ forloop.index }}">
+    {{ block.settings.content }}
+  </div>
+{%- endfor -%}
+
+<!-- ✅ 使用 capture 构建复杂变量 -->
+{%- capture sizes -%}
+  {% if section.settings.full_width %}100vw{% else %}min({{ settings.page_width }}px, 100vw){% endif %}
+{%- endcapture -%}
+```
+
+### 5.5 验证代码
+
+在创建或修改 Liquid 文件后，使用 Shopify Dev MCP 验证：
+
+```javascript
+// 1. 先调用 learn_shopify_api 获取 conversationId
+CallMcpTool({
+  server: "user-shopify-dev-mcp",
+  toolName: "learn_shopify_api"
+})
+
+// 2. 验证主题文件
+CallMcpTool({
+  server: "user-shopify-dev-mcp",
+  toolName: "validate_theme",
+  arguments: {
+    conversationId: "...",
+    absoluteThemePath: "/path/to/theme",
+    filesCreatedOrUpdated: [
+      { path: "sections/my-section.liquid" }
+    ]
+  }
+})
+```
+
+## 检查清单
+
+创建新 Section 时确保：
+
+- [ ] 使用 Tailwind CSS（tw- 前缀）实现样式
+- [ ] 使用 `container` 类控制内容宽度
+- [ ] Schema 中的 url、video_url、color 提供有效默认值
+- [ ] 轮播功能使用 `swiper-container` 实现
+- [ ] 添加响应式断点（移动端优先）
+- [ ] 图片设置正确的 loading 和 sizes 属性
+- [ ] 使用 `!= blank` 判断条件渲染
+- [ ] 添加清晰的注释说明功能
+- [ ] 使用 Shopify Dev MCP 验证代码

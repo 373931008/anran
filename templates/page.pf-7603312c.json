@@ -3,9 +3,17 @@
     "pf-7603312c": {
       "type": "pf-7603312c",
       "settings": {}
+    },
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
     }
   },
   "order": [
+    "main",
     "pf-7603312c"
   ]
 }

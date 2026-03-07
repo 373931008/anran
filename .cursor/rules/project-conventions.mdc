@@ -1,0 +1,148 @@
+---
+description: Siipet 主题项目通用开发规范 - 适用于所有文件
+alwaysApply: true
+---
+
+# Siipet 主题开发通用规范
+
+本规范适用于整个 Siipet Shopify 主题项目的所有代码文件。
+
+## 技术栈
+
+- **框架**: Shopify Liquid
+- **样式**: Tailwind CSS v3.4（前缀: `tw-`）
+- **构建**: Vite
+- **轮播**: Swiper.js (Web Component)
+- **MCP 工具**:
+  - `user-Figma`: Figma 设计稿读取
+  - `user-shopify-dev-mcp`: Shopify 代码验证
+  - `user-swiper`: Swiper 官方示例和文档
+
+## 代码风格
+
+### 1. 使用中文注释
+
+```liquid
+{%- comment -%}
+  功能：产品轮播展示
+  描述：使用 Swiper 实现产品图片轮播
+{%- endcomment -%}
+```
+
+### 2. 文件命名规范
+
+- **Sections**: `q-feature-name.liquid`（q- 前缀）
+- **Snippets**: `kebab-case.liquid`
+- **Assets**: `kebab-case.js` / `kebab-case.css`
+
+### 3. 代码组织
+
+```liquid
+{%- comment -%}注释{%- endcomment -%}
+
+<style>
+  /* 组件专属样式 */
+</style>
+
+<div class="section-name">
+  <!-- 主要内容 -->
+</div>
+
+<script>
+  // JavaScript 逻辑
+</script>
+
+{% schema %}
+{
+  "name": "Section Name",
+  "settings": []
+}
+{% endschema %}
+```
+
+## MCP 工具使用
+
+### Figma 设计稿
+
+从 Figma 链接提取设计：
+
+```javascript
+// 1. 获取元数据
+get_metadata({ fileKey, nodeId })
+
+// 2. 获取设计截图
+get_screenshot({ fileKey, nodeId })
+
+// 3. 生成代码
+get_design_context({ fileKey, nodeId })
+```
+
+### Shopify 验证
+
+验证 Liquid 代码：
+
+```javascript
+// 1. 初始化
+learn_shopify_api()
+
+// 2. 验证文件
+validate_theme({
+  conversationId,
+  absoluteThemePath,
+  filesCreatedOrUpdated: [{ path }]
+})
+```
+
+### Swiper 示例
+
+获取轮播示例代码：
+
+```javascript
+get_demo({
+  slug: "navigation",
+  framework: "element"
+})
+```
+
+## 提交规范
+
+### Git Commit 消息
+
+```bash
+feat: 添加产品轮播 Section
+fix: 修复移动端布局问题
+style: 优化按钮样式
+refactor: 重构图片加载逻辑
+docs: 更新开发文档
+```
+
+### 类型说明
+
+- `feat`: 新功能
+- `fix`: Bug 修复
+- `style`: 样式调整
+- `refactor`: 代码重构
+- `docs`: 文档更新
+- `perf`: 性能优化
+- `test`: 测试相关
+
+## 开发流程
+
+1. **需求分析** - 理解功能需求和设计稿
+2. **技术选型** - 选择合适的技术方案（Swiper、Tailwind 等）
+3. **开发实现** - 编写 Liquid + Tailwind CSS
+4. **代码验证** - 使用 Shopify Dev MCP 验证
+5. **测试检查** - 移动端 + 桌面端测试
+6. **提交代码** - 遵循 Commit 规范
+
+## 注意事项
+
+- ✅ 始终使用 `tw-` 前缀的 Tailwind 类
+- ✅ 使用 `container` 控制内容宽度
+- ✅ Schema 配置提供有效默认值
+- ✅ 轮播优先使用 `swiper-container`
+- ✅ 响应式设计（移动端优先）
+- ✅ 图片优化（lazy loading、responsive sizes）
+- ❌ 避免内联样式
+- ❌ 避免硬编码尺寸（使用 Tailwind 类）
+- ❌ 避免复杂的自定义 JavaScript（优先使用 Swiper）

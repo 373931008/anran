@@ -64,11 +64,10 @@
                 alt="{{ article.image.src.alt | escape }}"
                 class="motion-reduce"
                 {% unless lazy_load == false %}
-                    loading="{% if loopIndex > 2 %}lazy{% else %}eager{% endif %}"
+                  loading="lazy"
                 {% endunless %}
                 width="{{ article.image.width }}"
                 height="{{ article.image.height }}"
-                {% if loopIndex <= 2 %}style="transition: none;" fetchpriority="high"{% endif %}
               >
               {% comment %}theme-check-enable ImgLazyLoading{% endcomment %}
             </div>

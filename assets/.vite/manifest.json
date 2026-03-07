@@ -1,0 +1,23 @@
+{
+  "frontend/entrypoints/theme.css": {
+    "file": "newtralchair.theme.min.js",
+    "name": "theme",
+    "src": "frontend/entrypoints/theme.css",
+    "isEntry": true
+  },
+  "frontend/entrypoints/theme.js": {
+    "file": "newtralchair.theme.min2.js",
+    "name": "theme",
+    "src": "frontend/entrypoints/theme.js",
+    "isEntry": true,
+    "dynamicImports": [
+      "frontend/islands/global-modal.js"
+    ]
+  },
+  "frontend/islands/global-modal.js": {
+    "file": "newtralchair.global-modal.min.js",
+    "name": "global-modal",
+    "src": "frontend/islands/global-modal.js",
+    "isDynamicEntry": true
+  }
+}
