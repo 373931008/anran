@@ -1,0 +1,16 @@
+# 构建输出目录
+assets
+
+# 依赖目录
+node_modules
+
+# 压缩文件
+*.min.js
+*.min.css
+
+# 第三方库
+vendor
+
+# 临时文件
+.tmp
+.cache

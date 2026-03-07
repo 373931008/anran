@@ -1,26 +1,12 @@
 <!doctype html>
-<html class="no-js" lang="{{ request.locale.iso_code }}">
+<html class="js" lang="{{ request.locale.iso_code }}">
   <head>
+ {%- render 'ecom_header' -%}
     <meta charset="utf-8">
-    <meta name="facebook-domain-verification" content="co150jslgfqcj5zg6hvdenm1o9zn5i" />
-    <meta name="google-site-verification" content="yCLyIelyobqFnbA3zrSFMBtJlIFhTHBxeTuih6FEaWE" />
-    <meta name="p:domain_verify" content="58cea62fb1ce6523199612fa85ff1661"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="theme-color" content="">
     <link rel="canonical" href="{{ canonical_url }}">
-
-    {% render 'opt' %}
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=TAG_ID"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'TAG_ID');
-    </script>
-
-    {%- render 'ecom_header' -%}
 
     {%- if settings.favicon != blank -%}
       <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
@@ -39,30 +25,22 @@
 
     {% if page_description %}
       <meta name="description" content="{{ page_description | escape }}">
-    {% else %}
-      <meta name="description" content="{{ page_title | escape }}">
     {% endif %}
 
     {% render 'meta-tags' %}
 
-    {% render 'noindex-tags' %}
-
-    {%- unless settings.type_body_font.system? -%}
-      <link rel="preload" as="font" href="{{ settings.type_body_font | font_url }}" type="font/woff2" crossorigin>
-    {%- endunless -%}
-    {%- unless settings.type_header_font.system? -%}
-      <link rel="preload" as="font" href="{{ settings.type_header_font | font_url }}" type="font/woff2" crossorigin>
-    {%- endunless -%}
-
     <script src="{{ 'constants.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'pubsub.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'global.js' | asset_url }}" defer="defer" load></script>
+    <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'details-disclosure.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'details-modal.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'search-form.js' | asset_url }}" defer="defer"></script>
+
     {%- if settings.animations_reveal_on_scroll -%}
       <script src="{{ 'animations.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
 
-    {% comment %} {{ content_for_header }} {% endcomment %}
-    {% render 'content_for_header' %}
+    {{ content_for_header }}
 
     {%- liquid
       assign body_font_bold = settings.type_body_font | font_modify: 'weight', 'bold'
@@ -279,6 +257,26 @@
     {% endstyle %}
 
     {{ 'base.css' | asset_url | stylesheet_tag }}
+    <link rel="stylesheet" href="{{ 'component-cart-items.css' | asset_url }}" media="print" onload="this.media='all'">
+
+    {%- if settings.cart_type == 'drawer' -%}
+      {{ 'component-cart-drawer.css' | asset_url | stylesheet_tag }}
+      {{ 'component-cart.css' | asset_url | stylesheet_tag }}
+      {{ 'component-totals.css' | asset_url | stylesheet_tag }}
+      {{ 'component-price.css' | asset_url | stylesheet_tag }}
+      {{ 'component-discounts.css' | asset_url | stylesheet_tag }}
+    {%- endif -%}
+
+    {%- unless settings.type_body_font.system? -%}
+      {% comment %}theme-check-disable AssetPreload{% endcomment %}
+      <link rel="preload" as="font" href="{{ settings.type_body_font | font_url }}" type="font/woff2" crossorigin>
+      {% comment %}theme-check-enable AssetPreload{% endcomment %}
+    {%- endunless -%}
+    {%- unless settings.type_header_font.system? -%}
+      {% comment %}theme-check-disable AssetPreload{% endcomment %}
+      <link rel="preload" as="font" href="{{ settings.type_header_font | font_url }}" type="font/woff2" crossorigin>
+      {% comment %}theme-check-enable AssetPreload{% endcomment %}
+    {%- endunless -%}
 
     {%- if localization.available_countries.size > 1 or localization.available_languages.size > 1 -%}
       {{ 'component-localization-form.css' | asset_url | stylesheet_tag: preload: true }}
@@ -294,96 +292,12 @@
       >
     {%- endif -%}
 
-    <script load>
-      document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+    <script>
       if (Shopify.designMode) {
         document.documentElement.classList.add('shopify-design-mode');
       }
     </script>
-  {{ 'huk-megamenu.css' | asset_url | stylesheet_tag }}
-<script src="{{ 'huk-megamenu.js' | asset_url }}" defer="defer" load></script>
-  {% include "huk-mega-menu-pro" %}
-  {% include 'hulk_po_vd.liquid' %}
-      {%- if settings.predictive_search_enabled -%}
-      <link
-        rel="stylesheet"
-        href="{{ 'component-predictive-search.css' | asset_url }}"
-        media="print"
-        onload="this.media='all'"
-      >
-    {%- endif -%}
-    <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-W7NJDZVT');</script>
-<!-- End Google Tag Manager -->
-    <!-- Event snippet for 联系人网页二次浏览 conversion page -->
-<script>
-window.addEventListener('load', function(event){
-
-if (window.location.href.indexOf("contact") > 0) {
-      gtag('event', 'conversion', {'send_to': 'AW-16533710986/ppawCMbgt60ZEIrR8cs9'});
-
-  }
-
-});
-</script>
-
-  <style>
-    .ecom-slider--container,
-    .ecom-slider--container .ecom-swiper-container{
-      opacity:1 !important;
-    }
-    .h1,.h2,.h3,.h4,.h5,.h6{
-      margin: 0;
-      padding: 0;
-      border: 0;
-      vertical-align: baseline;
-    }
-    {% if template.name == 'index' %}
-    @media screen and (max-width: 768px) {
-      .ecom-collection__product-item{
-        max-width:none !important;
-      }
-      .ecom-animation,
-      .ecom-collection__product-main.ecom-swiper-container{
-        opacity: 1 !important;
-        visibility: visible !important;
-      }
-      .ecom-xxxigdg1ji{
-        min-height:460px;
-      }
-    }
-    {% endif %}
-    @media screen and (max-width: 768px) {
-      .ecom-swiper-wrapper > .ecom-product-single__media--thumbnail:first-child{
-        opacity: 1 !important;
-        width: 100% !important; 
-      }
-    }
-    {% if template.name == 'product' %}
-    @media screen and (max-width: 768px) {
-      .ecom-product-single__media--thumbs .ecom-swiper-wrapper > div:first-child{
-        min-height: 300px;
-      }
-    }
-    {% endif %}
-  </style>
-  <style class="yiguo">
-    #ss-chat-p iframe{
-      width:1px !important;
-      height:1px !important;
-    }
-
-    html body{
-      overflow: auto !important;
-    }
-  </style>
   {% include 'pagefly-app-header' %}</head>
- 
-
 
   <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
     <a class="skip-to-content-link button visually-hidden" href="#MainContent">
@@ -407,7 +321,7 @@ if (window.location.href.indexOf("contact") > 0) {
       <li id="a11y-new-window-message">{{ 'accessibility.link_messages.new_window' | t }}</li>
     </ul>
 
-    <script load>
+    <script>
       window.shopUrl = '{{ request.origin }}';
       window.routes = {
         cart_add_url: '{{ routes.cart_add_url }}',
@@ -436,6 +350,9 @@ if (window.location.href.indexOf("contact") > 0) {
         itemRemoved: `{{ 'sections.quick_order_list.items_removed.one' | t: quantity: '[quantity]' }}`,
         viewCart: `{{- 'sections.quick_order_list.view_cart' | t -}}`,
         each: `{{- 'sections.quick_order_list.each' | t: money: '[money]' }}`,
+        min_error: `{{- 'sections.quick_order_list.min_error' | t: min: '[min]' }}`,
+        max_error: `{{- 'sections.quick_order_list.max_error' | t: max: '[max]' }}`,
+        step_error: `{{- 'sections.quick_order_list.step_error' | t: step: '[step]' }}`,
       };
 
       window.accessibilityStrings = {
@@ -445,66 +362,16 @@ if (window.location.href.indexOf("contact") > 0) {
         playSlideshow: `{{ 'sections.slideshow.play_slideshow' | t }}`,
         recipientFormExpanded: `{{ 'recipient.form.expanded' | t }}`,
         recipientFormCollapsed: `{{ 'recipient.form.collapsed' | t }}`,
+        countrySelectorSearchCount: `{{ 'localization.country_results_count' | t: count: '[count]' }}`,
       };
     </script>
-
-    <script>(function(w,d,t,r,u){var f,n,i;w[u]=w[u]||[],f=function(){var o={ti:"97086918", enableAutoSpaTracking: true};o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad")},n=d.createElement(t),n.src=r,n.async=1,n.onload=n.onreadystatechange=function(){var s=this.readyState;s&&s!=="loaded"&&s!=="complete"||(f(),n.onload=n.onreadystatechange=null)},i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i)})(window,document,"script","//bat.bing.com/bat.js","uetq");</script>
 
     {%- if settings.predictive_search_enabled -%}
       <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
-  {%- render "ecom_footer"-%}
-   {%- render "scroll-to-top"-%}
-    <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W7NJDZVT"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
 
-<!-- Event snippet for 订阅追踪 conversion page -->
-<script load>
-window.addEventListener('load', function(event){
-
-document.querySelectorAll('[type="submit"]').forEach(function(e){
-        e.addEventListener('click', function(e){
-        const form = e.target.closest('form');
-        if (form.checkValidity() === false)
-                    throw new Error('form.checkValidity() === false');
-
-        let email = form.querySelector('input[type="email"]').value.trim().toLowerCase();
-        gtag('set', 'user_data',{"email": email});
-        gtag('event', 'conversion', {'send_to': 'AW-16533710986/ZEhyCMPgt60ZEIrR8cs9'});
-
-        });
-    
-});
-
-});
-
-    let events = [
-      "scroll",
-      "wheel",
-      "mouseenter",
-      "mousemove",
-      "mouseover",
-      "keydown",
-      "click",
-      "touchstart",
-      "touchmove",
-      "touchend",
-    ];
-    let flag = false;
-    function actionEvent() {
-        if(flag) return;
-        document.querySelector('.yiguo')?.remove();
-        flag = true;
-    }
-    events.forEach(function (eventType) {
-      window.addEventListener(eventType, actionEvent, {
-        passive: true,
-      });
-    });
-</script>
-<script>!(function(){const sc=document.createElement('script');sc.src="https://apps.voc.ai/api_v2/gpt/bots/livechat/embed.js?id=23989&token=68F1D4FAE4B0ADF4D54BCF7F";sc.async=true;sc.defer=true;document.body.appendChild(sc);})()
-</script></body>
-    {% render 'bottom' %}
+    {%- if settings.cart_type == 'drawer' -%}
+      <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
+  {%- render "ecom_footer"-%}</body>
 </html>

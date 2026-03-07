@@ -1,1 +1,1 @@
-{"layout":"theme","sections":{"ecom-support-page":{"type":"ecom-support-page","settings":{}}},"order":["ecom-support-page"]}
+{"layout":"theme","sections":{"ecom-support-page":{"type":"ecom-support-page","settings":{}},"main":{"type":"main-page","settings":{"padding_top":28,"padding_bottom":28}}},"order":["main","ecom-support-page"]}
