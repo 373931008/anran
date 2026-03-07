@@ -10,7 +10,7 @@ alwaysApply: true
 ## 技术栈
 
 - **框架**: Shopify Liquid
-- **样式**: Tailwind CSS v3.4（前缀: `tw-`）
+- **样式**: 原生 CSS（可配合项目现有样式）
 - **构建**: Vite
 - **轮播**: Swiper.js (Web Component)
 - **MCP 工具**:
@@ -129,20 +129,19 @@ docs: 更新开发文档
 ## 开发流程
 
 1. **需求分析** - 理解功能需求和设计稿
-2. **技术选型** - 选择合适的技术方案（Swiper、Tailwind 等）
-3. **开发实现** - 编写 Liquid + Tailwind CSS
+2. **技术选型** - 选择合适的技术方案（Swiper 等）
+3. **开发实现** - 编写 Liquid + CSS
 4. **代码验证** - 使用 Shopify Dev MCP 验证
 5. **测试检查** - 移动端 + 桌面端测试
 6. **提交代码** - 遵循 Commit 规范
 
 ## 注意事项
 
-- ✅ 始终使用 `tw-` 前缀的 Tailwind 类
 - ✅ 使用 `container` 控制内容宽度
 - ✅ Schema 配置提供有效默认值
 - ✅ 轮播优先使用 `swiper-container`
 - ✅ 响应式设计（移动端优先）
 - ✅ 图片优化（lazy loading、responsive sizes）
 - ❌ 避免内联样式
-- ❌ 避免硬编码尺寸（使用 Tailwind 类）
+- ❌ 避免硬编码尺寸（使用 CSS 类或变量）
 - ❌ 避免复杂的自定义 JavaScript（优先使用 Swiper）

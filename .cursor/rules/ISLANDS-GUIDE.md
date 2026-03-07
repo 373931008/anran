@@ -101,9 +101,9 @@ export default class YourComponent extends HTMLElement {
    * 渲染组件
    */
   render() {
-    // 优先使用模板字符串 + Tailwind 类
+    // 使用模板字符串 + 项目样式类
     this.innerHTML = `
-      <div class="tw-p-4">
+      <div class="component-inner">
         <!-- 内容 -->
       </div>
     `
@@ -174,7 +174,7 @@ export default class YourComponent extends HTMLElement {
    */
   renderErrorState() {
     this.innerHTML = `
-      <div class="tw-p-4 tw-bg-red-50 tw-text-red-700">
+      <div class="error-state">
         组件加载失败
       </div>
     `
@@ -197,12 +197,12 @@ customElements.define('your-component', YourComponent)
 
 <!-- 使用自定义元素 -->
 <your-component 
-  class="tw-block"
+  class="your-component"
   data-option1="value1"
   data-option2
 >
   <!-- 可选：初始内容（无 JS 时显示） -->
-  <div class="tw-p-4">
+  <div class="loading-placeholder">
     加载中...
   </div>
 </your-component>

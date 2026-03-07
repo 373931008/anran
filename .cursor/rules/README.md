@@ -18,14 +18,13 @@
 
 **核心要点**:
 
-- ✅ **样式**: 优先使用 Tailwind CSS（`tw-` 前缀）
+- ✅ **样式**: 使用项目现有 CSS 或自定义样式
 - ✅ **布局**: 使用 `container` 类控制内容宽度
 - ✅ **Schema**: 所有 `url`、`video_url`、`color` 必须提供有效默认值
 - ✅ **轮播**: 优先使用 `swiper-container` Web Component
 - ✅ **验证**: 使用 Shopify Dev MCP 验证代码
 
 **包含内容**:
-- Tailwind CSS 使用规范
 - Container 布局配置
 - Schema 字段类型注意事项（含完整类型表格）
 - Swiper 轮播实现（包括 Thumbs 联动）
@@ -51,7 +50,6 @@
 ### 3. 响应式设计规范 (`responsive-design.mdc`)
 
 **包含内容**:
-- Tailwind 断点配置
 - 移动端优先设计原则
 - 常用响应式模式：
   - 文字大小适配
@@ -95,30 +93,11 @@ Cursor 会根据文件类型自动应用对应的规则：
 | `color` | ✅ 是 | `"#FFFFFF"` |
 | `number`/`range` | ✅ 是 | 具体数字 |
 
-### Tailwind 配置
-
-- **前缀**: `tw-`
-- **断点**: **只使用 `lg: 1024px`**（移动端 < 1024px，PC 端 ≥ 1024px）
-- **Container**: 自动居中，响应式内边距
-- **像素值**: **必须是整数且为偶数**（如 `164px` 而非 `163.5px`）
-
 ### 响应式设计原则 ⭐
 
-```liquid
-<!-- ✅ 正确：只使用 lg 断点 -->
-<div class="tw-w-[336px] lg:tw-w-[560px]">
-<div class="tw-text-base lg:tw-text-2xl">
-<div class="tw-flex-col lg:tw-flex-row">
-
-<!-- ❌ 错误：不使用其他断点 -->
-<div class="tw-text-base md:tw-text-lg lg:tw-text-2xl">
-
-<!-- ❌ 错误：小数或奇数像素值 -->
-<div class="tw-w-[163.5px] tw-h-[91px]">
-
-<!-- ✅ 正确：整数偶数像素值 -->
-<div class="tw-w-[164px] tw-h-[92px]">
-```
+- 移动端优先，使用媒体查询或项目约定的断点（如 `lg: 1024px`）
+- Container 自动居中，响应式内边距
+- 像素值建议使用整数（如 `164px`），便于一致性与性能
 
 ### 像素值转换规则
 
@@ -155,8 +134,8 @@ Cursor 会根据文件类型自动应用对应的规则：
 </style>
 
 <div class="{% unless section.settings.full_width %}container{% endunless %}">
-  <div class="tw-py-8 lg:tw-py-16">
-    <h2 class="tw-text-2xl lg:tw-text-4xl tw-font-bold tw-text-center">
+  <div class="section-block">
+    <h2 class="section-title">
       {{ section.settings.title }}
     </h2>
     
@@ -164,11 +143,11 @@ Cursor 会根据文件类型自动应用对应的规则：
       slides-per-view="1"
       navigation="true"
       pagination="true"
-      class="tw-mt-8"
+      class="feature-swiper"
     >
       {%- for block in section.blocks -%}
         <swiper-slide>
-          <div class="tw-aspect-video">
+          <div class="aspect-video">
             {{ block.settings.image | image_url: width: 800 | 
                image_tag: loading: 'lazy' }}
           </div>

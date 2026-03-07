@@ -1,12 +1,11 @@
 # Shopify Vite 主题开发模板
 
-一个现代化的Shopify主题开发模板，基于原生JavaScript + Vite构建工具 + TailwindCSS样式，提供高性能的开发体验。
+一个现代化的Shopify主题开发模板，基于原生JavaScript + Vite构建工具，提供高性能的开发体验。
 **专为只使用原生JavaScript的开发者设计，无需学习复杂框架！**
 
 ## ✨ 特性
 
 - 🚀 **Vite**: 快速的开发构建工具，支持HMR和代码分割
-- 🎨 **TailwindCSS**: 实用优先的CSS框架，带`tw-`前缀避免冲突
 - 🎯 **原生JavaScript**: 纯JavaScript开发，无需学习复杂框架
 - 📦 **模块化**: 简单的ES6模块，容易理解和使用
 - 🔧 **代码质量**: ESLint + Prettier + Husky + lint-staged 完整工作流
@@ -19,7 +18,6 @@
 ## 🛠 技术栈
 
 - **构建工具**: Vite 5.3.5 + Shopify CLI
-- **样式框架**: TailwindCSS 3.4.17 (前缀: `tw-`)
 - **JavaScript**: ES6+ 模块，Island架构
 - **代码质量**: ESLint + Prettier + PostCSS
 - **包管理器**: pnpm
@@ -57,7 +55,6 @@ shopify-vite-theme/
 ├── .theme-check.yml        # 主题检查配置
 ├── .eslintrc.cjs           # ESLint配置
 ├── .prettierrc.cjs         # Prettier配置
-├── tailwind.config.cjs     # TailwindCSS配置
 ├── postcss.config.cjs      # PostCSS配置
 ├── vite.config.mjs         # Vite配置
 ├── CHANGELOG.md            # 版本更新日志
@@ -167,10 +164,10 @@ export default class MyComponent extends HTMLElement {
   // 渲染页面内容 - 就是设置innerHTML
   render() {
     this.innerHTML = `
-      <div class="tw-p-4 tw-bg-blue-100 tw-rounded">
+      <div class="counter-wrapper">
         <h3>计数器组件</h3>
         <p>当前计数: <span class="count-display">${this.state.count}</span></p>
-        <button class="increment-btn tw-px-4 tw-py-2 tw-bg-blue-500 tw-text-white tw-rounded">
+        <button class="increment-btn btn-primary">
           点击增加
         </button>
       </div>
@@ -267,22 +264,9 @@ customElements.define('isolated-widget', IsolatedWidget)
 
 ## 🎨 样式开发指南
 
-### TailwindCSS使用
-
-所有Tailwind类都使用`tw-`前缀，避免与现有样式冲突：
-
-```html
-<div class="tw-flex tw-items-center tw-justify-between tw-p-4">
-  <h1 class="tw-text-2xl tw-font-bold tw-text-gray-900">标题</h1>
-  <button class="tw-px-4 tw-py-2 tw-bg-blue-500 tw-text-white tw-rounded hover:tw-bg-blue-600">
-    按钮
-  </button>
-</div>
-```
-
 ### 自定义样式
 
-1. **CSS变量方式**（推荐）：
+使用 CSS 变量和常规类名编写样式（推荐）：
 
 ```css
 /* frontend/styles/base.css */
@@ -294,17 +278,12 @@ customElements.define('isolated-widget', IsolatedWidget)
 .my-component {
   background-color: var(--color-primary);
 }
-```
 
-2. **Tailwind组件层**：
-
-```css
-/* frontend/entrypoints/theme.css */
-@layer components {
-  .btn-primary {
-    @apply tw-px-4 tw-py-2 tw-bg-blue-500 tw-text-white tw-rounded;
-    @apply hover:tw-bg-blue-600 focus:tw-outline-none focus:tw-ring-2;
-  }
+.btn-primary {
+  padding: 0.5rem 1rem;
+  background: var(--color-primary);
+  color: white;
+  border-radius: 0.25rem;
 }
 ```
 
@@ -353,8 +332,7 @@ git commit -m "feat: 添加新功能"  # 会自动触发pre-commit检查
 
 **推荐扩展**（自动推荐安装）：
 - ESLint - 代码质量检查
-- Prettier - 代码格式化  
-- Tailwind CSS IntelliSense - Tailwind智能提示
+- Prettier - 代码格式化
 - Shopify Liquid - Liquid语法支持
 - Path Intellisense - 路径智能提示
 - Auto Rename Tag - 标签自动重命名
@@ -362,7 +340,6 @@ git commit -m "feat: 添加新功能"  # 会自动触发pre-commit检查
 **工作区设置**：
 - 保存时自动格式化
 - ESLint自动修复
-- Liquid文件Tailwind支持
 - 文件关联配置
 
 ### 性能监控
@@ -403,7 +380,6 @@ const results = await search.predictive('search query')
 
 - `.eslintrc.cjs`: ESLint规则配置
 - `.prettierrc.cjs`: 代码格式化配置
-- `tailwind.config.cjs`: TailwindCSS自定义配置
 - `postcss.config.cjs`: PostCSS插件配置
 - `vite.config.mjs`: Vite构建配置
 - `jsconfig.json`: JavaScript项目配置
@@ -416,7 +392,6 @@ const results = await search.predictive('search query')
 - **Swiper**: 现代触摸滑块
 - **Motion**: Web动画API封装
 - **Lucky Canvas**: 抽奖组件
-- **Tailwind Merge**: 智能合并Tailwind类名
 
 ### 添加新依赖
 
@@ -452,7 +427,7 @@ pnpm add -D package-name
 
 ### 2. 样式不生效
 
-确认是否使用了`tw-`前缀，检查Tailwind配置文件。
+检查 CSS 文件是否正确引入，类名是否与样式表一致。
 
 ### 3. Island组件不加载
 
@@ -465,7 +440,6 @@ pnpm add -D package-name
 ## 📚 参考资源
 
 - [Vite文档](https://vitejs.dev/)
-- [TailwindCSS文档](https://tailwindcss.com/)
 - [Shopify主题开发文档](https://shopify.dev/themes)
 - [Web Components规范](https://developer.mozilla.org/en-US/docs/Web/Web_Components)
 

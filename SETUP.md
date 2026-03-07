@@ -65,7 +65,6 @@ pnpm run vite:dev
 
 ### 可选修改的文件
 
-- [ ] `tailwind.config.cjs` - 添加自定义颜色和样式
 - [ ] `frontend/styles/base.css` - 修改CSS变量和基础样式
 - [ ] `README.md` - 更新项目说明文档
 
@@ -109,7 +108,6 @@ pnpm run vite:dev
   "recommendations": [
     "esbenp.prettier-vscode",
     "dbaeumer.vscode-eslint",
-    "bradlc.vscode-tailwindcss",
     "sissel.shopify-liquid"
   ]
 }
@@ -122,9 +120,6 @@ pnpm run vite:dev
 {
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "tailwindCSS.includeLanguages": {
-    "liquid": "html"
-  },
   "files.associations": {
     "*.liquid": "liquid"
   }
@@ -157,9 +152,9 @@ export default class ProductCard extends HTMLElement {
 
   render() {
     this.innerHTML = `
-      <div class="tw-bg-white tw-rounded-lg tw-shadow-md tw-p-4">
-        <h3 class="tw-text-lg tw-font-semibold">产品标题</h3>
-        <p class="tw-text-gray-600">产品描述</p>
+      <div class="product-card">
+        <h3 class="product-card__title">产品标题</h3>
+        <p class="product-card__desc">产品描述</p>
       </div>
     `
   }
@@ -196,9 +191,8 @@ customElements.define('product-card', ProductCard)
 
 ### 样式不显示
 
-1. **确认使用tw-前缀**
-2. **检查Tailwind配置文件路径**
-3. **确认CSS文件正确导入**
+1. **确认类名与样式表中一致**
+2. **确认 CSS 文件已正确引入**
 
 ### Island组件不工作
 
@@ -209,7 +203,6 @@ customElements.define('product-card', ProductCard)
 ## 📚 学习资源
 
 - [Vite官方文档](https://vitejs.dev/)
-- [TailwindCSS文档](https://tailwindcss.com/)
 - [Web Components MDN](https://developer.mozilla.org/docs/Web/Web_Components)
 - [Shopify主题开发](https://shopify.dev/themes)
 

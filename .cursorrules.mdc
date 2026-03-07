@@ -12,7 +12,6 @@ alwaysApply: true
 - **平台**: Shopify
 - **模板引擎**: Liquid
 - **构建工具**: Vite 5.3.5 + Shopify CLI
-- **样式框架**: TailwindCSS 3.4.17 (前缀: `tw-`)
 - **包管理器**: pnpm
 - **主要库**: GSAP, Swiper, Motion, Lucky-Canvas
 - **代码质量**: ESLint, Prettier, PostCSS
@@ -35,26 +34,6 @@ vite-theme/
 ```
 
 ## 🎨 样式规范
-
-### Tailwind CSS 使用规范
-1. **始终使用 `tw-` 前缀**：
-   ```liquid
-   <div class="tw-flex tw-items-center tw-justify-between">
-   ```
-
-2. **响应式设计优先**：
-   ```liquid
-   <div class="tw-grid tw-grid-cols-1 md:tw-grid-cols-2 lg:tw-grid-cols-3">
-   ```
-
-3. **自定义样式放在 `@layer components` 中**：
-   ```css
-   @layer components {
-     .btn-primary {
-       @apply tw-px-4 tw-py-2 tw-bg-blue-500 tw-text-white tw-rounded;
-     }
-   }
-   ```
 
 ## ⚡ JavaScript 编码规范
 
@@ -99,7 +78,7 @@ export default class MyComponent extends HTMLElement {
   }
   
   renderErrorState() {
-    this.innerHTML = '<div class="tw-text-red-500">Component failed to load</div>'
+    this.innerHTML = '<div class="error-message">Component failed to load</div>'
   }
 }
 ```
@@ -131,9 +110,9 @@ export default class MyComponent extends HTMLElement {
   // 初次渲染使用模板字符串
   render() {
     this.innerHTML = `
-      <div class="tw-p-4 tw-border tw-rounded">
+      <div class="counter-box">
         <span class="count-display">${this.state.count}</span>
-        <button class="increment-btn tw-px-4 tw-py-2 tw-bg-blue-500 tw-text-white">
+        <button class="increment-btn btn-primary">
           增加
         </button>
       </div>
@@ -191,7 +170,7 @@ export default class MyComponent extends HTMLElement {
 ```
 
 **优点**: 样式隔离，避免CSS冲突
-**缺点**: 不能使用Tailwind类名，调试困难
+**缺点**: 需在 Shadow 内写样式，调试相对麻烦
 **使用场景**: 需要完全样式隔离的独立组件
 
 ##### C. 避免方式：频繁innerHTML重写 (★☆☆☆☆)
@@ -345,7 +324,7 @@ if (device.isMobile()) {
 
 // DOM操作
 const button = dom.find('.submit-btn')
-dom.addClass(button, ['tw-bg-blue-500', 'tw-text-white'])
+dom.addClass(button, ['btn-primary'])
 
 // HTTP请求
 const products = await http.get('/api/products')
@@ -437,35 +416,34 @@ export default class SearchComponent extends HTMLElement {
 ```liquid
 <!-- 基础模板：3个关键点 -->
 <swiper-container 
-  class="tw-flex tw-w-full tw-aspect-[16/9]"  <!-- 1. aspect-ratio自适应 -->
+  class="swiper-aspect-16-9"  <!-- 1. 容器设宽高比，避免 CLS -->
   slides-per-view="1" 
   loop="true">
-  <swiper-slide class="tw-flex tw-shrink-0">  <!-- 2. tw-shrink-0防止压缩 -->
+  <swiper-slide class="swiper-slide-fixed">  <!-- 2. slide 不收缩 -->
     <!-- 3. 图片预设尺寸：使用 image_url + img 或 image_tag -->
     {{- image | image_url: width: 1920 | image_tag: 
-        class: 'tw-w-full tw-h-full tw-object-cover' -}}
+        class: 'img-cover' -}}
   </swiper-slide>
 </swiper-container>
 ```
 
 **3个防止CLS的关键点**：
-1. `tw-aspect-[x/y]` - 容器宽高比（根据宽度自适应高度）
-2. `tw-shrink-0` - slide不被压缩
-3. `width/height` - 图片预设尺寸（使用 `image_url` 或 `image_tag`）
+1. 容器设宽高比（如 CSS `aspect-ratio: 16/9`）
+2. slide 使用不收缩的样式（如 `flex-shrink: 0`）
+3. 图片设 `width`/`height`（使用 `image_url` 或 `image_tag`）
 
 #### 使用场景
 
 ##### 1. Banner轮播
 ```liquid
 <swiper-container 
-  class="tw-flex tw-w-full tw-aspect-[16/9] lg:tw-aspect-[21/9]"
+  class="swiper-banner"
   slides-per-view="1"
   loop="true"
   autoplay="true"
   pagination="true">
   {% for banner in section.settings.banners %}
-    <swiper-slide class="tw-flex tw-shrink-0">
-      <!-- 方式1: 使用 image_url 过滤器 -->
+    <swiper-slide class="swiper-slide-fixed">
       <img 
         src="{{ banner.image | image_url: width: 1920 }}" 
         srcset="{{ banner.image | image_url: width: 768 }} 768w,
@@ -475,7 +453,7 @@ export default class SearchComponent extends HTMLElement {
         alt="{{ banner.title }}"
         width="1920"
         height="1080"
-        class="tw-w-full tw-h-full tw-object-cover">
+        class="img-cover">
     </swiper-slide>
   {% endfor %}
 </swiper-container>
@@ -484,22 +462,21 @@ export default class SearchComponent extends HTMLElement {
 ##### 2. 产品轮播
 ```liquid
 <swiper-container 
-  class="tw-flex tw-w-full"
+  class="swiper-products"
   slides-per-view="1.2"
   space-between="16"
   breakpoints='{"640": {"slidesPerView": 2}, "768": {"slidesPerView": 3}, "1024": {"slidesPerView": 4}}'>
   {% for product in collection.products %}
-    <swiper-slide class="tw-flex tw-shrink-0">
-      <div class="tw-flex tw-flex-col tw-w-full tw-bg-white tw-rounded-lg tw-overflow-hidden">
-        <div class="tw-aspect-square">
-          <!-- 方式2: 使用 image_tag -->
+    <swiper-slide class="swiper-slide-fixed">
+      <div class="product-card">
+        <div class="product-card__image">
           {{- product.featured_image | image_url: width: 400 | image_tag: 
-              class: 'tw-w-full tw-h-full tw-object-cover',
+              class: 'img-cover',
               alt: product.title -}}
         </div>
-        <div class="tw-p-4">
-          <h3 class="tw-font-semibold tw-line-clamp-2">{{ product.title }}</h3>
-          <p class="tw-text-lg tw-font-bold tw-mt-2">{{ product.price | money }}</p>
+        <div class="product-card__body">
+          <h3 class="product-card__title">{{ product.title }}</h3>
+          <p class="product-card__price">{{ product.price | money }}</p>
         </div>
       </div>
     </swiper-slide>
@@ -530,18 +507,18 @@ customElements.define('banner-slider', BannerSlider)
 
 #### 常用宽高比
 
-| 场景 | 宽高比 | Tailwind类名 |
-|------|--------|--------------|
-| 横版Banner | 16:9 | `tw-aspect-[16/9]` |
-| 超宽Banner | 21:9 | `tw-aspect-[21/9]` |
-| 产品图片 | 1:1 | `tw-aspect-square` |
-| 竖版海报 | 3:4 | `tw-aspect-[3/4]` |
-| 手机屏幕 | 9:16 | `tw-aspect-[9/16]` |
+| 场景 | 宽高比 | CSS 示例 |
+|------|--------|----------|
+| 横版Banner | 16:9 | `aspect-ratio: 16/9` |
+| 超宽Banner | 21:9 | `aspect-ratio: 21/9` |
+| 产品图片 | 1:1 | `aspect-ratio: 1/1` |
+| 竖版海报 | 3:4 | `aspect-ratio: 3/4` |
+| 手机屏幕 | 9:16 | `aspect-ratio: 9/16` |
 
 #### 快速检查清单
 
-- [ ] `swiper-container` 是否有 `tw-flex` 和 `tw-aspect-[x/y]`？
-- [ ] `swiper-slide` 是否有 `tw-shrink-0`？
+- [ ] `swiper-container` 是否设置了宽高比避免 CLS？
+- [ ] `swiper-slide` 是否使用不收缩样式？
 - [ ] 图片是否使用 `image_url` 过滤器或 `image_tag` 标签？
 - [ ] 图片是否有 `width` 和 `height` 属性？
 - [ ] 非首屏图片是否使用 `loading="lazy"`？
@@ -562,7 +539,7 @@ customElements.define('banner-slider', BannerSlider)
   width="800"
   height="800"
   loading="lazy"
-  class="tw-w-full tw-h-full tw-object-cover">
+  class="img-cover">
 ```
 
 **方式2：使用 `image_tag`（简洁，Shopify推荐）**
@@ -571,7 +548,7 @@ customElements.define('banner-slider', BannerSlider)
 {{- product.featured_image 
     | image_url: width: 800 
     | image_tag: 
-        class: 'tw-w-full tw-h-full tw-object-cover',
+        class: 'img-cover',
         alt: product.title -}}
 ```
 
@@ -588,10 +565,10 @@ customElements.define('banner-slider', BannerSlider)
 ```liquid
 <!-- 非首屏轮播：延迟加载 -->
 <banner-slider client:visible>
-  <swiper-container class="tw-flex tw-aspect-[16/9]">
-    <swiper-slide class="tw-flex tw-shrink-0">
+  <swiper-container class="swiper-aspect-16-9">
+    <swiper-slide class="swiper-slide-fixed">
       {{- banner.image | image_url: width: 1920 | image_tag: 
-          class: 'tw-w-full tw-h-full tw-object-cover' -}}
+          class: 'img-cover' -}}
     </swiper-slide>
   </swiper-container>
 </banner-slider>
@@ -606,7 +583,7 @@ customElements.define('banner-slider', BannerSlider)
     width="1920"
     height="1080"
     loading="lazy"
-    class="tw-w-full tw-h-full tw-object-cover">
+    class="img-cover">
 </picture>
 ```
 
@@ -617,7 +594,6 @@ customElements.define('banner-slider', BannerSlider)
 - **Swiper**: 现代触摸滑块
 - **Motion**: Web Animation API 封装
 - **Lucky Canvas**: 抽奖组件
-- **Tailwind Merge**: 智能合并Tailwind类名
 
 ### 构建配置
 ```javascript
@@ -658,7 +634,7 @@ export default defineConfig({
 - [ ] 是否实现了适当的错误处理？
 - [ ] 是否遵循了函数长度和参数限制？
 - [ ] 是否使用了有意义的变量和函数命名？
-- [ ] 是否使用了正确的Tailwind前缀 `tw-`？
+- [ ] 样式类名是否与项目现有规范一致？
 - [ ] 是否优先使用utils.js中的工具函数而非重复造轮子？
 - [ ] 是否正确导入了所需的工具函数？
 
