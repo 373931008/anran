@@ -1,0 +1,50 @@
+# Shopify CLI ignore file
+# Files and directories listed here will not be uploaded to Shopify
+
+# Development files
+package.json
+pnpm-lock.yaml
+yarn.lock
+package-lock.json
+node_modules/
+
+# Build configuration
+postcss.config.cjs
+tailwind.config.cjs
+vite.config.mjs
+jsconfig.json
+
+# Code quality tools
+.eslintrc.cjs
+.eslintignore
+.prettierrc.cjs
+.prettierignore
+.editorconfig
+.browserslistrc
+.nvmrc
+
+# Git and editor files
+.gitignore
+.git/
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Documentation
+*.md
+LICENSE
+
+# Frontend source code (gets compiled to assets/)
+frontend/
+
+# Development tools
+.shopifyignore
+.theme-check.yml
+.cursorrules.mdc
+
+# Temporary files
+.tmp/
+.cache/
+dist/
+*.log
