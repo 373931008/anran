@@ -1,0 +1,637 @@
+{% assign headings = content | split: '<h2' %}
+{% if headings.size > 1 %}
+  <style>
+    .table-of-contents ol {
+      padding: 0;
+      margin: 0;
+    }
+    .mobile-navbar,.modal-container {
+      display: none;
+    }
+    .table-of-contents-fixed {
+      position: fixed;
+      left: 2%;
+      top: 160px;
+      z-index: 30;
+      border-radius: 8px;
+      max-height: 700px;
+      min-width: 300px;
+      max-width: 360px;
+      background: #fff;
+      word-break: break-word;
+      color: rgba(53, 53, 53, 0.75);
+      font-size: 16px;
+    }
+    .close {
+      position: absolute;
+      right: -12px;
+      top: -36px;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      cursor: pointer;
+      background: rgba(0, 0, 0, 0.3);
+    }
+    .scroll-container {
+      max-height: 500px;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+    /* 设置滚动条的样式 */
+    .scroll-container::-webkit-scrollbar {
+      width: 4px;
+      height: 4px;
+      margin: 8px;
+    }
+    /* 滚动槽 */
+    .scroll-container::-webkit-scrollbar-track {
+      border-radius: 6px;
+      background-color: #fff;
+    }
+    /* 滚动条滑块 */
+    .scroll-container::-webkit-scrollbar-thumb {
+      background: #666666;
+      border-radius: 6px;
+    }
+    .scroll-container::-webkit-scrollbar-thumb:hover {
+      background: #969696;
+    }
+    .scroll-container::-webkit-scrollbar-thumb:window-inactive {
+      background: #666666;
+      border-radius: 6px;
+    }
+    .scroll-container::-webkit-scrollbar-thumb:window-inactive:hover {
+      background: #969696;
+    }
+    .nav-close {
+      padding: 0px;
+      min-width: 0;
+      border-radius: 50%;
+    }
+    .nav-close .close {
+      display: none;
+    }
+    .expand-icon {
+      display: none;
+    }
+    .nav-close .expand-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      box-shadow: rgb(221, 221, 221) 0px 0px 2px 2px !important;
+      transition: box-shadow 200ms ease-in-out 0s, transform 300ms ease 0s !important;
+      animation: 300ms ease-in-out 0s 1 normal none running fade-in !important;
+    }
+    .nav-close .expand-icon:hover {
+      box-shadow: rgb(187, 187, 187) 0px 0px 8px 3px !important;
+      transform: rotate(180deg) !important;
+    }
+    .expand {
+      padding: 14px 0px 24px 20px;
+      border-radius: 8px;
+      box-shadow: rgb(221, 221, 221) 0px 0px 10px 2px;
+      animation: 300ms ease-in-out 0s 1 normal none running fade-in !important;
+    }
+    .nav-close .expand {
+      display: none;
+    }
+    .table-of-contents-none {
+      display: none;
+    }
+    html {
+      scroll-padding-top: 0px;
+    }
+    .h2-nav {
+      font-size: 16px !important;
+    }
+    .h3-nav {
+      font-size: 14px !important;
+    }
+
+    .table-of-contents ol {
+      list-style-type: none;
+    }
+    #blog-navbar ol li {
+      position: relative;
+      margin-bottom: 6px;
+      padding-right: 12px;
+    }
+    #blog-navbar ol li a {
+      display: inline-block;
+      width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      padding-left: 10px;
+      border-radius: 4px;
+      transition: background 100ms ease 0s !important;
+    }
+    .nav-icon {
+      position: absolute;
+      left: -6px;
+      top: 12px;
+      width: 12px;
+      height: 8px;
+      -webkit-transition: transform 0.2s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+      transition: transform 0.2s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+      -webkit-transform: rotate(90deg);
+      transform: translate(-100%, 0) rotate(90deg);
+    }
+    #blog-navbar.table-of-contents ol a {
+      color: black;
+      text-decoration: none;
+      font-weight: normal;
+    }
+    .table-of-contents a:hover,
+    li.h2Title-scroll-active > a {
+      background: rgba(193, 193, 193, 0.8);
+    }
+    ol ol,
+    ul ul {
+      margin: 4px 0 5px 12px !important;
+    }
+    .childTitle {
+      opacity: 0;
+      visibility: hidden;
+      display: none;
+    }
+    .auto-expand .nav-icon,
+    .h2Title-active .nav-icon {
+      transform: translate(-100%, 0) rotate(180deg);
+    }
+    .h2Title-active .childTitle,
+    .auto-expand .childTitle {
+      display: block;
+      opacity: 1;
+      visibility: visible;
+      height: auto;
+    }
+    @keyframes fade-in {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    @media screen and (max-width: 1400px) {
+      .table-of-contents-fixed {
+        display: none;
+      }
+      .mobile-navbar {
+        position: fixed;
+        left: 2%;
+        top: 160px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        overflow: hidden;
+        z-index: 30;
+        display: block;
+        cursor: pointer;
+        box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.28);
+        background: #fff;
+      }
+      .mobile-navbar .menu {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .mobile-navbar .menu svg {
+        display: block;
+        width: 24px;
+        height: 24px;
+      }
+      .modal-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        visibility: hidden;
+        transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+        z-index: 999;
+      }
+      .modal-container ol{
+        padding: 0px;
+      }
+      .modal-container.show {
+        opacity: 1;
+        visibility: visible;
+        display:block;
+      }
+      .expand{
+        padding-right:20px;
+      }
+      .modal {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding-top: 20px;
+        padding-bottom: 100px;
+        background: #fff;
+        transform: translateY(100%);
+        transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+        border-radius: 40px 40px 0 0;
+      }
+      .modal.show {
+        transform: translateY(0);
+      }
+      .modal .expand {
+        border-radius: 40px 40px 0 0;
+        box-shadow: none;
+        font-size: 2rem;
+      }
+      .scroll-container {
+        max-height: 50vh;
+      }
+      ol.h2Title{
+        margin:0 20px;
+        list-style:none;
+      }
+      ol.h2Title li a{
+        padding:10px 0;
+        display:block;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+      }
+    
+      ol.h2Title li:first-child{
+        border-top: 1px solid rgba(0,0,0,0.1);
+      }
+      .childTitle{
+        display:block;
+        opacity:1;
+        visibility:visible;
+      }
+      .childTitle li{
+        margin-left: 20px;
+        list-style:none;
+      }
+      .childTitle li:first-child{
+        border-top:none !important;
+      }
+      .childTitle li:last-child{
+        border-bottom:none !important;
+      }
+    }
+  </style>
+
+  <div class="table-of-contents table-of-contents-fixed nav-close" id="blog-navbar">
+    <div class="close">
+      <svg
+        t="1706701776780"
+        class="icon"
+        viewBox="0 0 1024 1024"
+        version="1.1"
+        xmlns="http://www.w3.org/2000/svg"
+        p-id="4202"
+        width="16"
+        height="16"
+      >
+        <path d="M928 576h-832c-35.2 0-64-28.8-64-64s28.8-64 64-64h832c35.2 0 64 28.8 64 64s-28.8 64-64 64z" fill="#fff" p-id="4203"></path>
+      </svg>
+    </div>
+    <div class="expand-icon">
+      <svg
+        t="1706702878009"
+        class="icon"
+        viewBox="0 0 1024 1024"
+        version="1.1"
+        xmlns="http://www.w3.org/2000/svg"
+        p-id="4354"
+        width="16"
+        height="16"
+      >
+        <path d="M0 0l128 0 0 128-128 0 0-128Z" fill="#515151" p-id="4355"></path><path d="M256 0l768 0 0 128-768 0 0-128Z" fill="#515151" p-id="4356"></path><path d="M0 448l128 0 0 128-128 0 0-128Z" fill="#515151" p-id="4357"></path><path d="M256 448l768 0 0 128-768 0 0-128Z" fill="#515151" p-id="4358"></path><path d="M0 896l128 0 0 128-128 0 0-128Z" fill="#515151" p-id="4359"></path><path d="M256 896l768 0 0 128-768 0 0-128Z" fill="#515151" p-id="4360"></path>
+      </svg>
+    </div>
+    <div class="expand">
+      <p>Table of Contents</p>
+      <div class="scroll-container">
+        <ol class="h2Title">
+          {% for heading in headings %}
+            {% unless forloop.first %}
+              {% assign heading_parts = heading | split: '</h2>' %}
+              {% assign headingContentHTML = '<h2 ' | append: heading_parts[0] | append: '</h2>' | strip_html %}
+              {% if headingContentHTML != '' %}
+                {% assign children_parts = heading_parts[1] | split: '</h3>' %}
+                <li class="h2-nav">
+                  {% if children_parts.size > 1 %}
+                    <svg
+                      style="cursor:pointer;"
+                      class="nav-icon"
+                      width="12"
+                      height="8"
+                      viewBox="0 0 12 8"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M10.2871 7.4316C10.4823 7.62686 10.7989 7.62686 10.9942 7.4316L11.7871 6.63871C11.9823 6.44345 11.9823 6.12687 11.7871 5.9316L6.42387 0.568397C6.2286 0.373135 5.91202 0.373135 5.71676 0.568396L0.353554 5.9316C0.158291 6.12686 0.158291 6.44345 0.353554 6.63871L1.14645 7.4316C1.34171 7.62686 1.65829 7.62686 1.85355 7.4316L5.71676 3.5684C5.91202 3.37314 6.2286 3.37314 6.42387 3.5684L10.2871 7.4316Z" fill="#371D37"></path>
+                    </svg>
+                  {% endif %}
+                  {% comment %}添加 allow-hash-change 防止theme.js中逻辑冲突 {% endcomment %}
+                  <a
+                    allow-hash-change
+                    href="#{{ headingContentHTML | strip }}"
+                    title="{{ headingContentHTML }}"
+                    class="{% unless children_parts.size > 1 %}no-child{% endunless %}"
+                  >
+                    {{- headingContentHTML -}}
+                  </a>
+                  {% if children_parts.size > 1 %}
+                    <ol class="childTitle">
+                      {% for headingsChild in children_parts %}
+                        {% assign H3headings = headingsChild | split: '<h3' %}
+                        {% if H3headings.size > 1 %}
+                          {% for H3Heading in H3headings %}
+                            {% unless forloop.first %}
+                              {% assign H3headingContentHTML = '<h3 '
+                                | append: H3Heading
+                                | append: '</h3>'
+                                | strip_html
+                              %}
+                              <li class="h3-nav">
+                                <a allow-hash-change href="#{{H3headingContentHTML}}" title="{{H3headingContentHTML}}">
+                                  {{- H3headingContentHTML -}}
+                                </a>
+                              </li>
+                            {% endunless %}
+                          {% endfor %}
+                        {% endif %}
+                      {% endfor %}
+                    </ol>
+                  {% endif %}
+                </li>
+              {% endif %}
+            {% endunless %}
+          {% endfor %}
+        </ol>
+      </div>
+    </div>
+  </div>
+  {% comment %} 移动端 {% endcomment %}
+  <div class="mobile-navbar">
+    <div class="menu">
+      <svg
+        t="1706702878009"
+        class="icon"
+        viewBox="0 0 1024 1024"
+        version="1.1"
+        xmlns="http://www.w3.org/2000/svg"
+        p-id="4354"
+        width="16"
+        height="16"
+      >
+        <path d="M0 0l128 0 0 128-128 0 0-128Z" fill="#515151" p-id="4355"></path><path d="M256 0l768 0 0 128-768 0 0-128Z" fill="#515151" p-id="4356"></path><path d="M0 448l128 0 0 128-128 0 0-128Z" fill="#515151" p-id="4357"></path><path d="M256 448l768 0 0 128-768 0 0-128Z" fill="#515151" p-id="4358"></path><path d="M0 896l128 0 0 128-128 0 0-128Z" fill="#515151" p-id="4359"></path><path d="M256 896l768 0 0 128-768 0 0-128Z" fill="#515151" p-id="4360"></path>
+      </svg>
+    </div>
+  </div>
+  <div class="modal-container">
+    <div class="modal">
+      <div class="expand">
+        <p>Table of Contents</p>
+        <div class="scroll-container">
+          <ol class="h2Title">
+            {% for heading in headings %}
+              {% unless forloop.first %}
+                {% assign heading_parts = heading | split: '</h2>' %}
+                {% assign headingContentHTML = '<h2 ' | append: heading_parts[0] | append: '</h2>' | strip_html %}
+                {% if headingContentHTML != '' %}
+                  {% assign children_parts = heading_parts[1] | split: '</h3>' %}
+                  <li class="h2-nav">
+                    {% if children_parts.size > 1 %}
+                      <svg
+                        style="cursor:pointer;"
+                        class="nav-icon"
+                        width="12"
+                        height="8"
+                        viewBox="0 0 12 8"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M10.2871 7.4316C10.4823 7.62686 10.7989 7.62686 10.9942 7.4316L11.7871 6.63871C11.9823 6.44345 11.9823 6.12687 11.7871 5.9316L6.42387 0.568397C6.2286 0.373135 5.91202 0.373135 5.71676 0.568396L0.353554 5.9316C0.158291 6.12686 0.158291 6.44345 0.353554 6.63871L1.14645 7.4316C1.34171 7.62686 1.65829 7.62686 1.85355 7.4316L5.71676 3.5684C5.91202 3.37314 6.2286 3.37314 6.42387 3.5684L10.2871 7.4316Z" fill="#371D37"></path>
+                      </svg>
+                    {% endif %}
+                    {% comment %}添加 allow-hash-change 防止theme.js中逻辑冲突 {% endcomment %}
+                    <a
+                      allow-hash-change
+                      href="#{{ headingContentHTML | strip }}"
+                      title="{{ headingContentHTML }}"
+                      class="{% unless children_parts.size > 1 %}no-child{% endunless %}"
+                    >
+                      {{- headingContentHTML -}}
+                    </a>
+                    {% if children_parts.size > 1 %}
+                      <ol class="childTitle">
+                        {% for headingsChild in children_parts %}
+                          {% assign H3headings = headingsChild | split: '<h3' %}
+                          {% if H3headings.size > 1 %}
+                            {% for H3Heading in H3headings %}
+                              {% unless forloop.first %}
+                                {% assign H3headingContentHTML = '<h3 '
+                                  | append: H3Heading
+                                  | append: '</h3>'
+                                  | strip_html
+                                %}
+                                <li class="h3-nav">
+                                  <a
+                                    allow-hash-change
+                                    href="#{{H3headingContentHTML}}"
+                                    title="{{H3headingContentHTML}}"
+                                  >
+                                    {{- H3headingContentHTML -}}
+                                  </a>
+                                </li>
+                              {% endunless %}
+                            {% endfor %}
+                          {% endif %}
+                        {% endfor %}
+                      </ol>
+                    {% endif %}
+                  </li>
+                {% endif %}
+              {% endunless %}
+            {% endfor %}
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function debounce(func, delay = 50) {
+      let timeoutId;
+
+      return function() {
+        const context = this;
+        const args = arguments;
+
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
+          func.apply(context, args);
+        }, delay);
+      };
+    }
+    //初始化函数
+    function init() {
+      const navContainer = document.querySelector('.table-of-contents-fixed')
+      const scrollContainer = document.querySelector('.scroll-container')
+      const navIcon = document.querySelectorAll('.nav-icon')
+      const articleTitle = Array.from(document.querySelectorAll('[data-blog-title]'))
+      const getHTMLStyle = window.getComputedStyle(document.documentElement)['scroll-padding-top'].split('px')
+      const HTMLScrollPaddingTop = getHTMLStyle.length === 2 ?  +getHTMLStyle[0] : 0;
+      const postContent = document.querySelector('[data-post-content]');
+      const postContentHeight = postContent.clientHeight;
+      const defaultExpand = false;
+      if(defaultExpand){
+        navContainer.classList.remove('nav-close')
+      }
+
+      // 给所有标题加上锚点
+      articleTitle.forEach(item => !item.id && (item.id=item.textContent.trim()))
+      //获取所有所有侧边栏li
+      const tableTitle = Array.from(
+        document.querySelectorAll('.table-of-contents li')
+      )
+      Array.from(navIcon).forEach(icon => {
+        icon.addEventListener('click', function () {
+          if(this.parentElement.classList.contains('auto-expand')){
+            this.parentElement.classList.remove('auto-expand')
+            return
+          }
+          this.parentElement.classList.toggle('h2Title-active')
+        })
+      })
+
+      let activeTitleIndex = undefined
+      const showChildList = (ele) => {
+        if(window.getComputedStyle(ele).visibility === 'hidden'){
+          ele.parentElement.parentElement.classList.add('auto-expand')
+        }
+      }
+      const DebounceScrollTo = debounce(function(distanceTop,fixedTop){
+        {% comment %} 容错 {% endcomment %}
+        if(!distanceTop) return
+        {% comment %} 60px为滚动时顶部预留空间 {% endcomment %}
+        const willDis = distanceTop + scrollContainer.scrollTop - fixedTop - 60
+
+        if(Math.abs(scrollContainer.scrollTop - willDis) < 25) return
+        scrollContainer.scrollTo({
+          top:willDis < 50 ? 0 : willDis,
+          left: 0,
+          behavior: 'smooth',
+        })
+      },10)
+      const scrollHandle = debounce(function (fixedTop) {
+        {% comment %} 记录所有标题距离顶部的距离 {% endcomment %}
+
+        let topList  = articleTitle.map((item, index) => {
+          let distanceTop = item.getBoundingClientRect().top
+          return {
+            value:Math.abs(distanceTop - HTMLScrollPaddingTop),
+            originValue:distanceTop,
+            ele:item,
+            index
+          }
+        })
+
+        {% comment %} 计算出最近的标题 {% endcomment %}
+        let minTop = topList.sort((a,b) => a.value-b.value)[0];
+
+        let index = minTop.index;
+        let currentNavTitle = tableTitle[index];
+        {% comment %} 文章主体的距离顶部距离 {% endcomment %}
+        let postTop = postContent.getBoundingClientRect().top;
+
+        if (activeTitleIndex !== undefined) {
+          tableTitle[activeTitleIndex].classList.remove('h2Title-scroll-active')
+        }
+        {% comment %} 自动滚动导航栏 {% endcomment %}
+        DebounceScrollTo(currentNavTitle.getBoundingClientRect().top,fixedTop)
+        if(currentNavTitle.classList.contains('h2-nav')&&!currentNavTitle.classList.contains('auto-expand')){
+          currentNavTitle.classList.add('auto-expand')
+        }
+        // 如果当前元素不可见，则给父元素添加展开类
+        showChildList(currentNavTitle)
+
+        {% comment %} postTop < 0意味着用户正在阅读文章内容， postContentHeight < Math.abs(postTop) 意味着用户阅读完毕{% endcomment %}
+        if(postContentHeight >= Math.abs(postTop) && postTop < 0){
+          currentNavTitle.classList.add('h2Title-scroll-active')
+          activeTitleIndex = index
+        }
+      },100)
+
+      //监听滑动，判断标题位置以及设置对应的侧边栏li样式
+      {% comment %} 160 === fixed top {% endcomment %}
+      const scrollHandleFun = scrollHandle.bind(null,160)
+      window.addEventListener('scroll',scrollHandleFun)
+
+
+
+      {% comment %} 折叠展开目录 {% endcomment %}
+      const close = document.querySelector('.table-of-contents-fixed .close')
+      const expand = document.querySelector('.expand-icon')
+      const closeFun = () => {
+        navContainer.classList.add('nav-close')
+      }
+      close.addEventListener('click',closeFun)
+      const expandFun = () => {
+        navContainer.classList.remove('nav-close')
+      }
+      expand.addEventListener('click',expandFun)
+
+
+      window.addEventListener("beforeunload", (event) => {
+        window.removeEventListener('scroll',scrollHandleFun);
+        close.removeEventListener('click',closeFun)
+        expand.removeEventListener('click',expandFun)
+      });
+
+
+      {% comment %} 移动端逻辑 {% endcomment %}
+      const btn = document.querySelector('.mobile-navbar');
+      btn && btn.addEventListener('click',openMenu)
+      const modalContainer = document.querySelector('.modal-container')
+      const modal = document.querySelector('.modal')
+      function openMenu (){
+        documentTop = document.scrollingElement.scrollTop;
+        document.body.style.position = "fixed"
+        document.body.style.top = -documentTop + "px";
+        modalContainer?.classList.add('show')
+        modal?.classList.add('show')
+      }
+
+      {% comment %} 关闭弹框 {% endcomment %}
+      function closeMenu () {
+        document.body.style.position = "static";
+        document.body.style.top = "auto";
+        document.scrollingElement.scrollTop = documentTop;
+        modalContainer.classList.remove('show')
+        modal.classList.remove('show')
+      }
+      modalContainer && modalContainer.addEventListener('click',closeMenu)
+
+      {% comment %} 点击跳转 {% endcomment %}
+      modal && modal.addEventListener('click',function(e){
+        if(e.target.tagName === 'A'){
+          closeMenu()
+        }
+        e.stopPropagation()
+      }) 
+    }
+    init()
+  </script>
+{% endif %}

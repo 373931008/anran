@@ -1,0 +1,20 @@
+{% assign domcontentloadeda = "document.addEventListener('DOMContentLoaded'" %}
+{% assign startasyncLoadinga = "document.addEventListener(window.service_expired ? 'DOMContentLoaded' : 'StartAsyncLoading'" %}
+{% assign domcontentloaded = 'e.addEventListener("DOMContentLoaded"' %}
+{% assign startasyncLoading = "e.addEventListener(window.service_expired ? 'DOMContentLoaded' : 'StartAsyncLoading'" %}
+{% assign rapp = ', asyncLoad' -%}
+{%- assign napp = ', function(){}' %}
+
+{% assign rappload = 'if(window.attachEvent)' %}
+{% assign nappload = "window.addEventListener(window.in_service ? 'StartAsyncLoading' : 'load' ,function(event){asyncLoad();});if(window.attachEvent)" %}
+{{
+  content_for_header
+  | replace: '<script>var Shopify', '<script load>var Shopify'
+  | replace: '<script>!function(o){function n()', '<script load>!function(o){function n()'
+  | replace: '<script type="module">', '<script type="module" load>'
+  | replace: '<script>window.ShopifyPay', '<script load>window.ShopifyPay'
+  | replace: '<script id="apple-pay-shop-capabilities"', '<script id="apple-pay-shop-capabilities" load'
+  | replace: '<script', '<script data-plugin-src'
+  | replace: rapp, napp
+  | replace: rappload, nappload
+}}

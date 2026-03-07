@@ -1,0 +1,890 @@
+{% comment %}
+ EComposer (https://ecomposer.io)
+ You SHOULD NOT modify source code in this page because
+ It is automatically generated from EComposer
+ At 2026-01-16 07:22:41
+ {% endcomment %} 
+ 
+ {% assign ecom_root_url = routes.root_url %}
+ {% if ecom_root_url != '/'%}
+ {% assign ecom_root_url = routes.root_url | append: '/' %}
+ {% endif %}
+ <link rel="stylesheet" media="print" onload="this.media='all'" id="ecom-vendors-simple_slider_css" href="https://cdn.ecomposer.app/vendors/css/ec_splide.min.css?ver=3.0" /><link rel="stylesheet" media="print" onload="this.media='all'" id="ecom-vendors-modal_css" href="https://cdn.ecomposer.app/vendors/css/ecom_modal.css" /><link rel="stylesheet" media="print" onload="this.media='all'" id="ecom-vendors-slider_css" href="https://cdn.ecomposer.app/vendors/css/ecom-swiper@11.css" /><link rel="stylesheet" media="all" id="ecom-vendors-css_ecomposer_base" href="https://cdn.ecomposer.app/vendors/css/ecom-base.css?v=2.1" /><noscript><link rel="stylesheet" media="all" onload="this.media='all'" id="ecom-vendors-simple_slider_css" href="https://cdn.ecomposer.app/vendors/css/ec_splide.min.css?ver=3.0" /><link rel="stylesheet" media="all" onload="this.media='all'" id="ecom-vendors-modal_css" href="https://cdn.ecomposer.app/vendors/css/ecom_modal.css" /><link rel="stylesheet" media="all" onload="this.media='all'" id="ecom-vendors-slider_css" href="https://cdn.ecomposer.app/vendors/css/ecom-swiper@11.css" /><link rel="stylesheet" media="all" id="ecom-vendors-css_ecomposer_base" href="https://cdn.ecomposer.app/vendors/css/ecom-base.css?v=2.1" /></noscript><script type="text/javascript" asyc="async" id="ecom-vendors-simple_slider_js" src="https://cdn.ecomposer.app/vendors/js/ec-splide.min.js?ver=3.0" ></script><script type="text/javascript" asyc="async" id="ecom-vendors-modal_js" src="https://cdn.ecomposer.app/vendors/js/ecom_modal_new.js" ></script><script type="text/javascript" asyc="async" id="ecom-vendors-zoom_js" src="https://cdn.ecomposer.app/vendors/js/ecom_zoom.js" ></script><script type="text/javascript" asyc="async" id="ecom-vendors-light_galerry" src="https://cdn.ecomposer.app/vendors/js/ecom-light-galerry.js" ></script><script type="text/javascript" asyc="async" id="ecom-vendors-countdown_js" src="https://cdn.ecomposer.app/vendors/js/ecom-countdown.js?ver=2.0" ></script><script type="text/javascript" asyc="async" id="ecom-vendors-slider_js" src="https://cdn.ecomposer.app/vendors/js/ecom-swiper@11.0.5.js" ></script>
+{%capture section_id %}ecom-ecomposer-product-v2-product{% endcapture%}{% if section and section_id == section.id and headless == true %}
+{{ content_for_header }}
+{% render 'ecom_header', ECOM_THEME: true %}{% endif %}<link href="https://fonts.googleapis.com/css?family=Inter:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet"/>
+{{'ecom-65af7ebfe66d4685150cbd02.css' | asset_url | stylesheet_tag }}
+<script src="{{'ecom-65af7ebfe66d4685150cbd02.js' | asset_url }}" defer="defer"></script>
+<script type="text/javascript" class="ecom-page-info">
+ window.EComposer = window.EComposer || {};
+ window.EComposer.TEMPLATE_ID="65af7ebfe66d4685150cbd02";
+ window.EComposer.TEMPLATE = {"template_id":"65af7ebfe66d4685150cbd02","title":"EComposer-product-v2","type":"product","slug":"ecom-ecomposer-product-v2","plan_id":1};
+ </script>
+<div class="ecom-builder" id="ecom-ecomposer-product-v2"><div class="ecom-sections" data-section-id="{{section.id}}">
+ {% comment %}
+ // Reactive
+ * this.data.settings.product
+ {% endcomment %}
+ {% liquid
+ unless recommendations.performed
+ if request.page_type != 'product' or product == blank
+ assign selected_product = 'anran-q3-4k-8mp-solar-battery-camera'
+ if selected_product == blank or selected_product == '' or all_products[selected_product] == blank
+ assign product = collections['all'].products.first
+ else
+ assign product = all_products[selected_product]
+ if product.id == blank
+ assign product = collections['all'].products.last
+ endif
+ endif
+ endif
+ endunless
+ %}
+ {%- if product != blank -%}
+ {%- capture ec_form_id -%}product_form_{{ product.id }}_ecom-9zqkhrar886{%- endcapture -%}
+ {%- form 'product', product, id: ec_form_id, class: "ecom-product-form ecom-product-form--single ecom-click", product_id: product.id, data-product_id: product.id,data-product-id: product.id, data-handle: product.handle-%}
+ <section class="ecom-row ecom-core ecom-section ecom-9zqkhrar886" data-id="ecom-9zqkhrar886" style="z-index: inherit;"><div class="core__row--columns"><div class="ecom-column ecom-core core__column--first ecom-2ok1pwl7yp7"><div class="core__column--wrapper" id="ecom-2ok1pwl7yp7"><div class="ecom-column__overlay"><div class="ecom-overlay"></div></div><div class="core__blocks"><div class="core__blocks--body"><div class="ecom-block ecom-core core__block elmspace ecom-42nsruhnen8"><div class="ecom-element ecom-product-single ecom-product-single__media ecom-position-sticky" section_id="ecom-9zqkhrar886"><div class="ecom-product-single__media-wrapper 
+ {% if product.media.size == 1 %}
+ ecom-dont-has-many-images
+ {% endif %}
+ "><div class="ecom-product-single__media-container ecom-product-single__media--slider ecom-product-single__media--horizontal ecom-product-single__media-tablet--horizontal ecom-product-single__media-mobile--horizontal"><div class="ec_splide ecom-product-single__media--featured ecom-swiper-container" data-direction="ltr" data-breakpoints="{&quot;0&quot;:{&quot;perPage&quot;:1},&quot;768&quot;:{},&quot;1025&quot;:{&quot;perPage&quot;:1,&quot;gap&quot;:0}}" data-priority="variant"><div class="ec_splide__track">
+ {% comment %}
+ Reactivity
+ *this.data.settings.image_action
+ *this.data.settings.enable_zoom
+ *this.data.settings.grid_advance_number_images
+ {% endcomment %}
+ 
+ {%- liquid
+ if product.has_only_default_variant
+ assign target = product
+ else
+ assign target = product.selected_or_first_available_variant
+ endif
+ -%}
+ 
+ 
+ 
+ {% assign img_padding = 1 | times: 1 %}
+ {% assign img_padding__tablet = 1 | times: 1 %}
+ {% assign img_padding__mobile = 1 | times: 1 %}
+ <div class="ec_splide__list ecom-swiper-wrapper ecom-product-single__media--images ecom-swiper-wrapper ecom-product-single__media--images-layout__slider{% if product.images.size == 1 %} ecom-product-single__only{% endif %}">
+ {% assign use_limit = undefined %}
+ {% assign limit_images = undefined %}
+ {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
+ {% for media in product.media %}
+ {% assign media_ration = 1 | divided_by: media.aspect_ratio | times: 100 %}
+ {% assign img_ration = 1 | divided_by: media.aspect_ratio | times: 100 %}
+ 
+ {% assign image = media.preview_image %}
+ {% case media.media_type %}
+ {% when 'image' %}
+ {%if use_limit and forloop.index > limit_images%}{% break %}{% endif %}
+ {% assign fetchpriority = 'low'%}
+ {% assign lazyload = 'low'%}
+ {% if forloop.first %}
+ {% assign fetchpriority = 'high'%}
+ {% assign lazyload = 'eager'%}
+ {% endif %}
+ <div class="ec_splide__slide ec_splide__slide ecom-product-single__media--image ecom-splide-slide ecom-flex ecom-image-align- ecom-image-align---tablet ecom-image-align---mobile " data-index="{{forloop.index0}}" {% if variant_images contains media.src %} data-variant_id="{{ product.images | where: 'src', image.src | map: 'variants' | map: 'id' | join: ',' }}"{% endif %} style="--img_padding: {{ img_ration | divided_by: img_padding }}%;--img_padding__tablet: {{ img_ration | divided_by: img_padding__tablet }}%;--img_padding__mobile: {{ img_ration | divided_by: img_padding__mobile }}%" data-half-width="{% assign img_ration_half = 1 | divided_by: image.aspect_ratio | times: 50 %}{{img_ration_half}}" data-full-width="{% assign img_ration_full = 1 | divided_by: media.aspect_ratio | times: 100 %}{{img_ration_full}}">
+ 
+ 
+ {%- assign img_master = media | image_url: width: 2048 -%}
+ {{ media | image_url: width: 1946 | image_tag:
+ sizes: sizes,
+ widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946',
+ class: 'ecom-image-default'
+ 
+ ,loading: lazyload
+ ,fetchpriority: fetchpriority
+ ,alt: media.alt | escape
+ }}
+ 
+ 
+ </div>
+ {% when 'external_video'%}
+ <div class="ec_splide__slide ecom-product-single__media--image ecom-splide-slide ecom-flex ecom-image-align- ecom-image-align---tablet ecom-image-align---mobile ecom-product-single__media---external-video ecom-product-single__media--full" data-position="{{media.position}}" style="--img_padding: {{ media_ration | divided_by: img_padding }}%;--img_padding__tablet: {{ media_ration | divided_by: img_padding__tablet }}%;--img_padding__mobile: {{ media_ration | divided_by: img_padding__mobile }}%;" >
+ {{ media | external_video_tag: image_size:'master' }}
+ </div>
+ {% when 'video' %}
+ {% assign videoUrl = '' %}
+ {% for source in media.sources %}
+ {% if source.format == "mp4" %}
+ {% assign videoUrl = source.url %}
+ {% break %}
+ {% endif %}
+ {% endfor %}
+ <div data-stopdrag="true" class="ec_splide__slide ecom-product-single__media--image ecom-splide-slide ecom-flex ecom-image-align- ecom-image-align---tablet ecom-image-align---mobile ecom-product-single__media--video ecom-product-single__media--full ecom-swiper-no-swiping" data-position="{{media.position}}" style="--img_padding: {{ img_ration | divided_by: img_padding }}%;--img_padding__tablet: {{ img_ration | divided_by: img_padding__tablet }}%;--img_padding__mobile: {{ img_ration | divided_by: img_padding__mobile }}%" >
+ {{ media | video_tag: image_size:'master', class: 'ecom-media-video', controls: undefined, autoplay: undefined, muted: undefined,loop: undefined }}
+ 
+ <button class="ecom-product-single__media--play-control" type="button">
+ <span class="ecom-product-single__media--play-control-wrapper">
+ <span class="visually-hidden">Play video</span>
+ <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" fill="currentColor"><defs><style>.fa-secondary{opacity:.4}</style></defs><path class="fa-primary" d="M361 215C375.3 223.8 384 239.3 384 256C384 272.7 375.3 288.2 361 296.1L73.03 472.1C58.21 482 39.66 482.4 24.52 473.9C9.377 465.4 0 449.4 0 432V80C0 62.64 9.377 46.63 24.52 38.13C39.66 29.64 58.21 29.99 73.03 39.04L361 215z"></path></svg>
+ </span>
+ </button>
+ 
+ </div>
+ {% when 'model' %}
+ <div class="ec_splide__slide ecom-product-single__media--image ecom-splide-slide ecom-flex ecom-image-align- ecom-image-align---tablet ecom-image-align---mobile ecom-swiper-no-swiping ecom-product-single__media--model ecom-product-single__media--full" data-stopdrag="true" data-position="{{media.position}}">
+ <div class="ecom-product-single__media--model-wrapper">
+ {{ media | model_viewer_tag: image_size:'master', reveal: 'interaction', toggleable: true, data-model-id: media.id }}
+ </div>
+ </div>
+ {% else %}
+ <div data-media-type="{{media.media_type}}" class="ec_splide__slide ecom-product-single__media--image ecom-splide-slide ecom-flex ecom-image-align- ecom-image-align---tablet ecom-image-align---mobile ecom-swiper-no-swiping ecom-product-single__media--full" data-position="{{media.position}}">
+ <div class="ecom-product-single__media" style="--img_padding: {{ img_ration | divided_by: img_padding }}%;--img_padding__tablet: {{ img_ration | divided_by: img_padding__tablet }}%;--img_padding__mobile: {{ img_ration | divided_by: img_padding__mobile }}%">
+ {{ media | media_tag: image_size:'master', class: 'ecom-product-single__media--item' }}
+ </div>
+ </div>
+ {% endcase %}
+ {% endfor %}
+ </div>
+ </div><div class="ec_splide__arrows"><button type="button" class="ec_splide__arrow ec_splide__arrow--next ecom-swiper-button ecom-swiper-button-next ecom-swiper-controls"><svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+ <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+ </svg></button><button type="button" class="ec_splide__arrow ec_splide__arrow--prev ecom-swiper-button ecom-swiper-button-prev ecom-swiper-controls"><svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+ <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+ </svg></button></div><ul class="ec_splide__pagination ecom-swiper-pagination"></ul></div><div class="ec_splide ecom-product-single__media--thumbs ecom-product-single__init-thumb-hidden ecom-swiper-container" data-direction="ltr" data-breakpoints="{&quot;0&quot;:{&quot;perPage&quot;:1,&quot;gap&quot;:10,&quot;thumbnail_position&quot;:&quot;column&quot;},&quot;768&quot;:{&quot;perPage&quot;:3,&quot;gap&quot;:8,&quot;thumbnail_position&quot;:&quot;column&quot;},&quot;1025&quot;:{&quot;perPage&quot;:4,&quot;gap&quot;:20,&quot;thumbnail_position&quot;:&quot;column&quot;}}"><div class="ec_splide__track">
+ {%- if product.media.size > 1 -%}
+ <div class="ec_splide__list ecom-swiper-wrapper{% if product.images.size == 1 %} ecom-product-single__only{% endif %}">
+ {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
+ {% for media in product.media %}
+ {% if media.media_type == 'image' %}
+ {% assign image = media.preview_image %}
+ {% assign fetchpriority = 'low'%}
+ {% if forloop.first %}
+ {% assign fetchpriority = 'high'%}
+ {% endif %}
+ <div class="ec_splide__slide ecom-product-single__media--thumbnail ecom-splide-slide" {% if variant_images contains media.src %} data-variant_id="{{ product.images | where: 'src', image.src | map: 'variants' | map: 'id' | join: ',' }}"{% endif %}>
+ <img
+ class="ecom-product-thumbnail"
+ src="{{ media | image_url: width: 300 ,height: 300 , crop: 'center' }}"
+ alt="{{ media.alt }}",
+ fetchpriority="{{ fetchpriority }}"
+ ,loading="lazy"
+ />
+ </div>
+ {% else %}
+ <div class="ec_splide__slide ecom-product-single__media--thumbnail ecom-splide-slide">
+ <div class="ecom-product-single__media--thumbnail--icon">
+ {% if media.media_type == 'model' %}
+ <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="currentColor"><path d="M 16 4.40625 L 15.59375 4.59375 L 5.59375 9.09375 L 5 9.34375 L 5 22.03125 L 5.5 22.3125 L 15.5 27.875 L 16 28.15625 L 16.5 27.875 L 26.5 22.3125 L 27 22.03125 L 27 9.34375 L 26.40625 9.09375 L 16.40625 4.59375 Z M 16 6.59375 L 23.6875 10.03125 L 16 13.875 L 8.3125 10.03125 Z M 7 11.625 L 15 15.625 L 15 25.28125 L 7 20.84375 Z M 25 11.625 L 25 20.84375 L 17 25.28125 L 17 15.625 Z"></path></svg>
+ {% else %}
+ <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" fill="currentColor"><defs><style>.fa-secondary{opacity:.4}</style></defs><path class="fa-primary" d="M361 215C375.3 223.8 384 239.3 384 256C384 272.7 375.3 288.2 361 296.1L73.03 472.1C58.21 482 39.66 482.4 24.52 473.9C9.377 465.4 0 449.4 0 432V80C0 62.64 9.377 46.63 24.52 38.13C39.66 29.64 58.21 29.99 73.03 39.04L361 215z"></path></svg>
+ {% endif %}
+ </div>
+ <img src="{{ media | image_url: width: 300 ,height: 300 , crop: 'center' }}" alt="{{ media.alt }}" loading="lazy"/>
+ </div>
+ {% endif %}
+ {% endfor %}
+ </div>
+ {%- endif -%}
+ </div><div class="ec_splide__arrows"><button type="button" class="ec_splide__arrow ec_splide__arrow--next ecom-swiper-button-next ecom-swiper-controls-thumb"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="currentColor"><path d="M 12.96875 4.28125 L 11.53125 5.71875 L 21.8125 16 L 11.53125 26.28125 L 12.96875 27.71875 L 23.96875 16.71875 L 24.65625 16 L 23.96875 15.28125 Z"></path></svg></button><button type="button" class="ec_splide__arrow ec_splide__arrow--prev ecom-swiper-button-prev ecom-swiper-controls-thumb"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="currentColor"><path d="M 19.03125 4.28125 L 8.03125 15.28125 L 7.34375 16 L 8.03125 16.71875 L 19.03125 27.71875 L 20.46875 26.28125 L 10.1875 16 L 20.46875 5.71875 Z"></path></svg></button></div></div></div></div><div class="ecom-hidden-content">
+ <script type="application/json" id="Product-model-{{ product.id }}">
+ {{ product.media | where: 'media_type', 'model' | json }}
+ </script>
+ </div></div></div> </div></div></div></div> <div class="ecom-column ecom-core core__column--last ecom-h5546ot1ka8"><div class="core__column--wrapper" id="ecom-h5546ot1ka8"><div class="ecom-column__overlay"><div class="ecom-overlay"></div></div><div class="core__blocks"><div class="core__blocks--body"><div class="ecom-block ecom-core core__block elmspace ecom-4zr294aqc38"><div class="ecom-element ecom-product-single ecom-product-single__title" section_id="ecom-9zqkhrar886"><div class="ecom-product-single__title-wrapper"><div class="ecom-product-single__title-container"><h1 class="ecom-product__heading" href="{{ product.url }}" title="{{ product.title }}">{{ product.title }}</h1></div></div></div></div> <div class="ecom-animation ecom-block ecom-core core__block ecom-qrgw14cpgy" ec-delay="600"><div class="ecom-element ecom-product-single ecom-product-single__price" section_id="ecom-9zqkhrar886"><div class="ecom-product-single__price-wrapper"><div class="ecom-product-single__price-container"><div class="ecom-product-single__price-container-grid"><div class="ecom-product-single ecom-product-single__price--prices">
+ {%- liquid
+ if product.has_only_default_variant
+ assign target = product
+ else
+ assign target = product.selected_or_first_available_variant
+ endif
+ -%}
+ <div class="ecom-product-single__price--sale {% if target.compare_at_price == nil or target.compare_at_price <= target.price %} ecom-product-single__price-normal {% endif %}" data-price="{{target.price}}">
+ {%- if settings.currency_code_enabled -%}
+ {{target.price | money_with_currency}}
+ {%- else -%}
+ {{target.price| money }}
+ {%- endif -%}
+ </div>
+ 
+ 
+ <div class="ecom-product-single__price--regular" {%- if target.compare_at_price == nil or target.compare_at_price <= target.price -%} style="display:none" {% endif %}>
+ {%- if settings.currency_code_enabled -%}
+ {{target.compare_at_price | money_with_currency}}
+ {%- else -%}
+ {{target.compare_at_price | money }}
+ {%- endif -%}
+ </div>
+ 
+ {%- capture taxes_text -%}Tax included.{%- endcapture -%}
+ {%- if cart.taxes_included or shop.shipping_policy.body != blank -%}
+ {% if taxes_text %}
+ <div class="ec-product__tax caption rte">
+ {%- if shop.taxes_included -%}
+ Tax included.
+ {%- endif -%}
+ {%- if shop.shipping_policy.body != blank -%}
+ Free Shipping
+ {%- endif -%}
+ </div>
+ {%- endif -%}
+ {%- endif -%}
+ </div><div class="ecom-product-single__price--badges-wrapper">
+ <div class="ecom-product-single__price--badges">
+ {%- assign savings = target.compare_at_price | minus: target.price | times: 100.0 | divided_by: target.compare_at_price | round -%}
+ 
+ <span class="ecom-product-single__price--badges-sale" data-have-sale="{%- unless target.compare_at_price == nil or target.compare_at_price <= target.price or target.available != true -%}true{%endunless%}" data-text=" {price}% OFF" data-sale="{{savings}}" data-type="percent" style="{%- unless target.compare_at_price == nil or target.compare_at_price <= target.price or target.available != true -%} display: none;{% endunless %}">
+ {price}% OFF
+ </span>
+ <span class="ecom-product-single__price--badges-sold-out" {% if target.available %} style="display:none" {% endif %}>
+ Sold out
+ </span>
+ </div>
+ </div></div><div class="ecom-product-single-afterpay">
+ 
+ </div></div></div></div></div> <div class="ecom-block ecom-core core__block elmspace ecom-xitpo9l1nj"><div class="ecom-element ecom-product-single ecom-product-single__rating" section_id="ecom-9zqkhrar886"><div class="ecom-product-single__rating-wrapper" data-review-platform="
+ {%- assign review_platform = shop.metafields.ecomposer.app_review.value -%}
+ {{review_platform}}
+ "><div class="ecom-product-single__rating-container">
+ {%- if review_platform -%}
+ {%- if EComBuilderMode == true -%}
+ <div class="ecom-theme-app-extensions-skeleton">
+ <div class="ecom-app-extension-info">
+ <span class="ecom-theme-app-extension-icon">
+ <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M364.2 267.2l-104.8-15.28L212.6 156.7C208.7 148.8 200.7 143.9 191.9 143.9C183.2 143.8 175.1 148.8 171.4 156.7L124.5 251.1L19.71 267.2C.9566 269.9-6.618 293.1 7.007 306.5l75.87 74l-17.1 104.6c-1.25 6.75 .5878 13.51 4.963 18.63C74.22 509 80.64 512 87.52 512c3.625 0 7.436-.9554 10.69-2.705l93.79-49.38l93.74 49.38c3.25 1.625 6.991 2.675 10.62 2.675c6.75 0 13.23-2.97 17.61-8.22c4.25-5.125 6.273-11.98 5.148-18.61L301.2 380.5l75.92-74C390.6 293 383.1 269.1 364.2 267.2zM266.7 369.3l17.62 103.1l-92.5-48.75l-92.5 48.75l17.62-103.1L42.22 296.1l103.4-15l46.38-93.88l46.13 93.88l103.5 15L266.7 369.3zM256 112h64v64C320 184.8 327.2 192 336 192S352 184.8 352 176v-64h64c8.844 0 16-7.156 16-16s-7.154-15.1-15.1-15.1L352 80v-64C352 7.156 344.8 0 336 0S320 7.156 320 16v64l-63.99 .0022C247.2 80 240 87.16 240 96S247.2 112 256 112zM496 208h-32v-32c0-8.844-7.155-15.1-15.1-15.1S432 167.2 432 176v32h-32c-8.844 0-15.1 7.162-15.1 16.01S391.2 240 400 240h32v32c0 8.844 7.158 16.01 16 16.01S464 280.8 464 272v-32h32c8.844 0 16-7.151 16-15.99S504.8 208 496 208z"/></svg>
+ </span>
+ <div class="ecom-theme-app-extension-content">
+ <span class="ecom-theme-app-extension-title">{{review_platform | replace: '_', ' ' | replace: '-', ' ' | capitalize}}</span>
+ <div class="ecom-placeholder-on-builder-mode" data-ecom-placeholder="The rating element will display when published to Online store"></div>
+ </div>
+ </div>
+ </div>
+ {%- else -%}
+ {%- case review_platform -%}
+ {%- when 'none' -%}
+ <div class="ecom-theme-app-extensions-skeleton">
+ <p>Please select the rating platform in settings</p>
+ </div>
+ {%- when 'ali-reviews' -%}
+ <div product-id="{{ product.id }}" product-handle="{{ product.handle }}" class="alireviews-review-star-rating"></div>
+ {%- when 'okendo' -%}
+ <div data-oke-star-rating="" data-oke-reviews-product-id="shopify-{{product.id}}"></div>
+ {%- when 'vital-reviews'-%}
+ <div class="bundle-aggregated_reviews"></div>
+ {%- when 'opinew-reviews' -%}
+ <div id='opinew-stars-plugin-product'>{% render 'opinew_review_stars_product' product:product %}</div>
+ {%- when 'judgeme' -%}
+ <div style='{{ jm_style }}' class='jdgm-widget jdgm-preview-badge' data-id='{{ product.id }}'>
+ {{ product.metafields.judgeme.badge }}
+ </div> 
+ {%- when 'product-reviews-addon' -%}
+ <span class="stamped-product-reviews-badge stamped-main-badge" data-id="{{ product.id }}" data-product-sku="{{ product.handle }}" style="display: inline-block;">{{- product.metafields.stamped.badge -}}</span>
+ {%- when 'areviews-aliexpress'-%}
+ <div class="areviews_header_stars"></div>
+ {%- when 'loox'-%}
+ <a href="#looxReviews">
+ <div class="loox-rating" data-id="{{ product.id }}" data-rating="{{ product.metafields.loox.avg_rating }}" data-raters="{{ product.metafields.loox.num_reviews }}"></div>
+ </a>
+ {% when 'ryviu'%}
+ {%- if EComBuilderMode == true -%}
+ <div class="ecom-theme-app-extensions-skeleton">
+ <div class="ecom-app-extension-info">
+ <span class="ecom-theme-app-extension-icon">
+ <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M364.2 267.2l-104.8-15.28L212.6 156.7C208.7 148.8 200.7 143.9 191.9 143.9C183.2 143.8 175.1 148.8 171.4 156.7L124.5 251.1L19.71 267.2C.9566 269.9-6.618 293.1 7.007 306.5l75.87 74l-17.1 104.6c-1.25 6.75 .5878 13.51 4.963 18.63C74.22 509 80.64 512 87.52 512c3.625 0 7.436-.9554 10.69-2.705l93.79-49.38l93.74 49.38c3.25 1.625 6.991 2.675 10.62 2.675c6.75 0 13.23-2.97 17.61-8.22c4.25-5.125 6.273-11.98 5.148-18.61L301.2 380.5l75.92-74C390.6 293 383.1 269.1 364.2 267.2zM266.7 369.3l17.62 103.1l-92.5-48.75l-92.5 48.75l17.62-103.1L42.22 296.1l103.4-15l46.38-93.88l46.13 93.88l103.5 15L266.7 369.3zM256 112h64v64C320 184.8 327.2 192 336 192S352 184.8 352 176v-64h64c8.844 0 16-7.156 16-16s-7.154-15.1-15.1-15.1L352 80v-64C352 7.156 344.8 0 336 0S320 7.156 320 16v64l-63.99 .0022C247.2 80 240 87.16 240 96S247.2 112 256 112zM496 208h-32v-32c0-8.844-7.155-15.1-15.1-15.1S432 167.2 432 176v32h-32c-8.844 0-15.1 7.162-15.1 16.01S391.2 240 400 240h32v32c0 8.844 7.158 16.01 16 16.01S464 280.8 464 272v-32h32c8.844 0 16-7.151 16-15.99S504.8 208 496 208z"/></svg>
+ </span>
+ <div class="ecom-theme-app-extension-content">
+ <span class="ecom-theme-app-extension-title">Ryviu</span>
+ <div class="ecom-placeholder-on-builder-mode" data-ecom-placeholder="The rating element will display when published to Online store"></div>
+ </div>
+ </div>
+ {%- else -%}
+ <div class="review-widget">
+ <ryviu-widget-total
+ reviews_data="{{product.metafields.ryviu.product_reviews_info | escape }}"
+ product_id="{{product.id}}" handle="{{product.handle}}">
+ </ryviu-widget-total>
+ </div>
+ {%- endif -%}
+ {%- when 'yotpo-social-reviews' -%}
+ <div class="yotpo bottomLine" style="display:inline-block" data-product-id="{{ product.id }}"> </div>
+ {%- when 'aliexpress-reviews-importer'-%}
+ <div id="shop_booster_rate_6" product-id="{{ product.id }}"></div>
+ {%- when 'rivyo-product-review'-%}
+ <div class="wc_product_review_badge" data-handle="{{ product.handle }}" data-product_id="{{ product.id }}"></div>
+ {%-when 'growave' -%}
+ {% capture the_snippet_review_avg %}{% render 'ssw-widget-avg-rate-listing', product: product %}{% endcapture %}
+ {% unless the_snippet_review_avg contains 'Liquid error' %}
+ {{ the_snippet_review_avg }}
+ {% endunless %}
+ {%- when 'smart-aliexpress-reviews'-%}
+ <a href="#scm-reviews-importer">
+ <div id="scm-product-detail-rate" class="scm-reviews-rate" data-rate-version2= {{ product.metafields.scm_review_importer.reviewsData.reviewCountInfo | json}}>
+ </div>
+ </a>
+ {%- when 'photo-reviews' -%}
+ <div id='opinew-stars-plugin-product'>{% render 'opinew_review_stars_product' product:product %}</div>
+ {%- when 'lai-reviews' -%}
+ <div class="scm-reviews-rate" data-rate-version2="{{ product.metafields.scm_review_importer.reviewsData.reviewCountInfo | json | escape }}" data-product-id="{{ product.id }}"></div>
+ {%- when 'product-reviews' -%}
+ <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+ {%- when 'rivyo' -%}
+ <div class="wc_product_review_badge" data-handle="{{ product.handle }}" data-product_id="{{ product.id }}"></div>
+ {%- when 'sealapps-product-review' -%}
+ <div class="custom-vstar-rating-widget" product-id="{{ product.id }}"></div>
+ {%- when 'ali-product-review' -%}
+ <div product-id="{{ product.id }}" class="alr-display-review-badge"></div>
+ {%- when 'klaviyo-reviews' -%}
+ <div class="klaviyo-star-rating-widget" data-id="{{product.id}}" data-product-title="{{product.title}}" data-product-type="{{product.type}}"></div>
+ {%- when 'air-reviews' -%}
+ <div class="AirReviews-Widget AirReviews-Widget--Stars" data-review-avg="{{ product.metafields.air_reviews_product.review_avg }}" data-review-count="{{ product.metafields.air_reviews_product.review_count }}"></div>
+ {%- when 'ait-product-reviews' -%}
+ <span class="egg-product-reviews-rating" data-id="{{ product.id }}" id="{{ product.id }}"></span>
+ {%- when 'trustify-reviews' -%}
+ <div
+ class="trustify-review-stars"
+ data-review-type="product"
+ data-product-id="{{ product.id }}"
+ data-product-handle="{{ product.handle }}"
+ data-review-avg="{{ product.metafields.tr_reviews_product.review_avg }}"
+ data-review-count="{{ product.metafields.tr_reviews_product.review_count }}"
+ >
+ </div>
+ {% else %}
+ <p>The rating platform not supported</p>
+ {%-endcase-%}
+ {% endif %}
+ {%- else -%}
+ <div class="ecom-theme-app-extensions-skeleton">
+ <p>Please select the rating platform in settings</p>
+ </div>
+ {%- endif -%}
+ </div></div></div></div> <div class="ecom-block ecom-core core__block ecom-zno999xbotm"><div class="ecom__element ecom-element element__divi" section_id="ecom-9zqkhrar886"><div class="ecom__element-divi" style="--divi-line-height: 1px;"><div class="divi-line divi-style" style="display: block;"></div><div class="divi-cont" style="--flex-desktop: 0.5; --flex-tablet: 0.5; --flex-mobile: 0.5; --divider-width: auto; --divider-width-tablet: auto; --divider-width-mobile: auto; display: none;"><div class="divi-cont-before divi-style" style="display: block;"></div><div class="divi-cont-after divi-style" style="display: block;"></div></div></div></div></div> <div class="ecom-block ecom-core core__block ecom-2pz9f1i67hy"><div class="ecom__element ecom-element element__code exporting" section_id="ecom-9zqkhrar886">{{ product.metafields.custom.product_selling_point | metafield_tag }}</div></div> <div class="ecom-block ecom-core core__block ecom-zs2xe2jn0hg"><div class="ecom__element ecom-element element__divi" section_id="ecom-9zqkhrar886"><div class="ecom__element-divi" style="--divi-line-height: 1px;"><div class="divi-line divi-style" style="display: block;"></div><div class="divi-cont" style="--flex-desktop: 0.5; --flex-tablet: 0.5; --flex-mobile: 0.5; --divider-width: auto; --divider-width-tablet: auto; --divider-width-mobile: auto; display: none;"><div class="divi-cont-before divi-style" style="display: block;"></div><div class="divi-cont-after divi-style" style="display: block;"></div></div></div></div></div> <div class="ecom-block ecom-core core__block elmspace ecom-etmjifwm6z"><div class="ecom-row ecom-core core__block ecom-43rpjeisfoj" data-id="ecom-43rpjeisfoj" style="z-index: inherit;">
+ {% assign condition = true %}
+ {%- assign checkCondition = true -%} {% assign metafields = product.metafields.custom.product_discount.value | default: '' %}
+ {%- if metafields != blank -%}
+ {%- assign checkCondition = true -%}
+ {%- else -%}
+ {%- assign checkCondition = false -%}
+ {%- endif -%}
+ {%- if condition and checkCondition -%} {%- assign condition = true -%} {%- else -%} {%- assign condition = false -%} {%- endif -%}
+ {% if condition %}
+ <div class="core__row--columns"><div class="ecom-column ecom-core core__column--first core__column--last ecom-3f58rm2lus5"><div class="core__column--wrapper" id="ecom-3f58rm2lus5"><div class="ecom-column__overlay"><div class="ecom-overlay"></div></div><div class="core__blocks"><div class="core__blocks--body"><div class="ecom-block ecom-core core__block elmspace ecom-wzgfbsojzn"><div class="ecom-element ecom-base-elements ecom-element__countdown" section_id="ecom-9zqkhrar886"><div class="ecom-element__countdown-wrapper ecom-flex"><div class="ecom-element__countdown-container"><div class="ecom-element__countdown--time" data-countdown-to="2024/2/03 05:30 GMT-0000" data-countdown-from="2022/5/01 05:30 GMT-0000" data-evergreen-cd-time="0:0:0" data-evergreen-redirect-url="" data-evergreen-restart="{&quot;type&quot;:&quot;&quot;,&quot;data&quot;:&quot;0:0:0&quot;}" data-countdown-restart="true" data-countdown-type="time" data-trans-week="[%-W] week%!W" data-trans-day="[%-d] day%!d" data-trans-hour="[%-H] hr%!H" data-trans-minute="[%-M] min%!M" data-trans-second="[%-S] sec%!S" data-show-fields="day,hour,minute,second"></div><div></div></div></div></div></div> <div class="ecom-block ecom-core core__block ecom-ltewje790h"><div class="ecom__element ecom-element element__code exporting" section_id="ecom-9zqkhrar886"><div>
+ <product-discount class="product-discount" style="height: 100px; opacity: 1;">
+ <div class="coupon-wrap">
+ <div class="coupon-code">
+ <p class="coupon-code-discount">
+ <span class="js-discount-sales">{{ product.metafields.custom.product_discount }}</span>
+ <span>OFF</span>
+ </p>
+ <p class="coupon-code-details">
+ <span>Code:</span>
+ <span class="js-discount-code">{{ product.metafields.custom.product_code }}</span>
+ </p>
+ </div>
+ <div class="coupon-btn-wrap">
+ <button class="index-btn index-btn-secondary js-code-copy" data-copy="Copy" data-copied="Copied">Copy</button >
+ </div>
+ </div>
+ </product-discount>
+</div>
+
+<style>
+.product-discount {
+ overflow: hidden;
+ opacity: 0;
+}
+
+
+.coupon-wrap {
+ display: flex;
+ background-color: #ff5c0024;
+ border-radius: 8px;
+
+ 
+}
+
+.coupon-code {
+ min-width: 160px;
+padding-top: 12px;
+padding-left: 12px;
+padding-right: 10px;
+padding-bottom: 12px;
+
+}
+
+.coupon-code-discount {
+ margin: 0 0 0;
+ font-size: 20px;
+ font-weight: 700;
+color: #ed844a;
+}
+
+.coupon-code-details {
+ font-size: 14px;
+ font-weight: 600;
+}
+
+.coupon-code p {
+ margin: 0 0;
+}
+
+
+.coupon-btn-wrap {
+border-left:1px #fff dashed;
+padding-left:10px;
+
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ text-align: center;
+}
+
+.index-btn-secondary {
+ color: #fff;
+ border-color: #fff;
+}
+
+.index-btn {
+ border-radius: 50px;
+ box-sizing: border-box;
+ display: inline-flex;
+ border: 2px solid transparent;
+ padding: 15px 28px;
+ font-size: 16px;
+ line-height: 1;
+ font-weight: 600;
+ transition: .1s ease-out;
+ align-items: center;
+ justify-content: center;
+ text-align: center;
+ -moz-column-gap: 4px;
+ column-gap: 4px;
+background-color: #ed844a;
+
+
+}
+.index-btn:active {
+ background-color: #fff;
+ color: #ed844a;
+}
+
+</style>
+
+
+<script>
+var copyBtn = document.querySelector('.js-code-copy');
+var discountCode = document.querySelector('.js-discount-code');
+
+copyBtn.addEventListener('click', function(event) {
+ event.preventDefault(); // 阻止默认的链接行为
+
+ var dataCopy = copyBtn.getAttribute('data-copy');
+ var dataCopied = copyBtn.getAttribute('data-copied');
+ var codeToCopy = discountCode.textContent;
+
+ navigator.clipboard.writeText(codeToCopy).then(function() {
+ copyBtn.textContent = dataCopied;
+ setTimeout(function() {
+ copyBtn.textContent = dataCopy;
+ }, 3000);
+ });
+});
+
+</script></div></div> <div class="ecom-block ecom-core core__block ecom-1e7t8xr2t3p"><div class="ecom__element ecom-element element__divi" section_id="ecom-9zqkhrar886"><div class="ecom__element-divi" style="--divi-line-height: 1px;"><div class="divi-line divi-style" style="display: block;"></div><div class="divi-cont" style="--flex-desktop: 0.5; --flex-tablet: 0.5; --flex-mobile: 0.5; --divider-width: auto; --divider-width-tablet: auto; --divider-width-mobile: auto; display: none;"><div class="divi-cont-before divi-style" style="display: block;"></div><div class="divi-cont-after divi-style" style="display: block;"></div></div></div></div></div> </div></div></div></div> </div><div class="ecom-section__overlay"><div class="ecom-overlay"></div></div> 
+ {% endif %}
+ </div></div> <div class="ecom-block ecom-core core__block ecom-z07ue0z5sy9"><div class="ecom-element ecom-product-single ecom-product-single__variant-picker" section_id="ecom-9zqkhrar886"><div class="ecom-product-single__variant-picker-wrapper ecom_not_hide_dropdown_arrow"><div class="ecom-product-single__variant-picker-container {% if product.has_only_default_variant%} ecom-product-single__variant-picker--only-default{% endif%} " data-picker-type="image" data-ecom-placeholder="">
+ {%- liquid
+ assign ecom_has_variant_picker = true
+ assign tag_name = 'script'
+ assign variant_selected = product.selected_or_first_available_variant
+ assign checkIsHighVariant = false
+ if product.variants_count > 250
+ assign checkIsHighVariant = true
+ endif
+ -%}
+ {% if checkIsHighVariant %} 
+ <div data-high-variant-product="{{ checkIsHighVariant }}"></div>
+ <{{tag_name}} type="application/json" data-selected-variant>
+ {
+ "id": {{ variant_selected.id | json }},
+ "title": {{ variant_selected.title | json }},
+ "price": {{ variant_selected.price | json }},
+ "available": {{ variant_selected.available | json }},
+ "compare_at_price": {{ variant_selected.compare_at_price | json }},
+ "featured_image": {{ variant_selected.featured_image | json }},
+ "featured_media": {{ variant_selected.featured_media | json }},
+ "sku": {{ variant_selected.sku | json }},
+ "barcode": {{ variant_selected.barcode | json }},
+ "options": {{ variant_selected.options | json }},
+ "option1": {{ variant_selected.option1 | json }},
+ "option2": {{ variant_selected.option2 | json }},
+ "option3": {{ variant_selected.option3 | json }},
+ "inventory_management": {{ variant_selected.inventory_management | json }},
+ "inventory_policy": {{ variant_selected.inventory_policy | json }},
+ "inventory_quantity": {{ variant_selected.inventory_quantity | json }},
+ "requires_selling_plan": {{ variant_selected.requires_selling_plan | json }},
+ "selling_plan_allocations": {{ variant_selected.selling_plan_allocations | json }},
+ "quantity_rule": {
+ "min": {{ variant_selected.quantity_rule.min | json }},
+ "max": {{ variant_selected.quantity_rule.max | json }},
+ "increment": {{ variant_selected.quantity_rule.increment | json }}
+ },
+ "unit_price": {{ variant_selected.unit_price | json }},
+ "unit_price_measurement": {{ variant_selected.unit_price_measurement | json }}
+ }
+ </{{tag_name}}>
+ {% endif %}
+ <div class="ecom-product-single__variant-picker--main">
+ {%- capture swatch_option_temp -%}Choice{%- endcapture-%}
+ {%- assign swatch_option_temp = swatch_option_temp | split: ',' -%}
+ {% assign swatch_option = "" %}
+ {% for item in swatch_option_temp %}
+ {% assign normalizedItem = item | strip %}
+ {% assign swatch_option = swatch_option | append: normalizedItem %}
+ {% unless forloop.last %}
+ {% assign swatch_option = swatch_option | append: ',' %}
+ {% endunless %}
+ {% endfor %}
+ {%- assign swatch_option = swatch_option | split: ',' -%}
+ {% unless product.has_only_default_variant %}
+ {%- for option in product.options_with_values -%}
+ {%- if swatch_option contains option.name -%}
+ {% assign option_index = option.position | minus: 1 %}
+ <div class="ecom-product-single__picker-main ecom-product-single__picker-option-{{option.name | handleize }}">
+ <span class="ecom-product-single__picker-main-label ecom-product-single__picker--option-label" data-option-index="{{option_index}}">
+ <span class="ecom-product-variant--option-label-text">{{ option.name }}</span>
+ </span>
+ <ul class="ecom-product-single__picker-images-list">
+ {%- for option_value in option.values -%}
+ {%- assign option_variant = option_value.variant -%}
+ <li data-option-index="{{ option_index }}"
+ class="ecom-image-default ecom-product-single__swatch-item ecom-product-single__picker-images-item {% if option_value.selected %}ecom-image-active{% endif %} "
+ data-value="{{ option_value | escape }}"
+ data-option-value-id="{{ option_value.id }}"
+ data-product-url="{{ option_value.product_url }}">
+ <img src="{{ option_variant.featured_image | default: product.featured_image | image_url: width: 360 , crop: 'center' }}" alt="{{ option_value }}" />
+ </li>
+ {%- endfor -%}
+ </ul>
+ </div>
+ {% continue %}
+ {%-endif-%}
+ {% assign option_index = option.position | minus: 1 %}
+ <div class="ecom-product-single__picker-option-{{option.name | handleize }}">
+ <span class="ecom-product-single__picker-radio-label ecom-product-single__picker--option-label" data-option-index="{{option_index}}">
+ <span class="ecom-product-variant--option-label-text">{{option.name}}</span>
+ </span>
+ 
+ <ul class="ecom-product-single__picker-radio-list">
+ {% for option_value in option.values %}
+ <li class="ecom-product-single__swatch-item ecom-product-single__picker-radio-list-item {% if option_value.selected %}ecom-button-active{% endif %} "
+ data-option-index="{{ option_index }}"
+ data-value="{{ option_value | escape }}"
+ data-option-value-id="{{ option_value.id }}"
+ data-product-url="{{ option_value.product_url }}">
+ {{option_value}}
+ </li>
+ {% endfor %}
+ </ul>
+ 
+ </div>
+ {%- endfor -%}
+ {% endunless %}
+ </div><div class="ecom-product-single__variant-picker--options"> 
+ {%- if product.variants_count > 250 -%}
+ <input type="hidden" name="id" value="{{ variant_selected.id }}"
+ data-product-id="{{product.id}}"
+ data-json-product="product-json-{{product.id}}-ecom-z07ue0z5sy9"
+ id="ecom-variant-selector-{{product.id}}-ecom-z07ue0z5sy9"
+ ec-variants={{ product.variants_count }}
+ >
+ {%- else -%}
+ <select name="id"
+ class="ecom-product-single-select-id {% if product.has_only_default_variant %} ecom-product-single__picker-default-variant {% endif %}"
+ data-product-id="{{product.id}}"
+ data-json-product="product-json-{{product.id}}-ecom-z07ue0z5sy9"
+ id="ecom-variant-selector-{{product.id}}-ecom-z07ue0z5sy9"
+ >
+ {% unless product.has_only_default_variant %}
+ 
+ {% endunless %}
+ {% for variant in product.variants %}
+ <option value="{{variant.id}}"
+ {% if variant_selected.id == variant.id %}selected="selected"{% endif %}>
+ {{variant.title}}
+ </option>
+ {% endfor %}
+ </select>
+ {%- endif -%}
+ {% unless product.has_only_default_variant %}
+ {%- for option in product.options_with_values -%}
+ {% assign option_index = option.position | minus: 1 %}
+ <div class="selector-wrapper">
+ <label for="ecom-variant-selector-{{product.id}}-ecom-z07ue0z5sy9-option-{{option_index}}"><span class="ecom-product-variant--option-label-text">{{option.name}}</span></label>
+ <select class="single-option-selector"
+ id="ecom-variant-selector-{{product.id}}-ecom-z07ue0z5sy9-option-{{option_index}}"
+ data-option-index="{{option_index}}">
+ {% for option_value in option.values %}
+ <option value="{{option_value | escape}}"
+ {% if option_value.selected %}selected="selected"{% endif %}
+ 
+ data-option-value-id="{{option_value.id}}"
+ data-product-url="{{option_value.product_url}}">
+ {{option_value}}
+ </option>
+ {% endfor %}
+ </select>
+ </div>
+ {%- endfor -%}
+ {% endunless %}
+ </div><div class="ecom-product-single__variant-picker--json">
+ <script type="application/json" id="product-json-{{product.id}}-ecom-z07ue0z5sy9">
+ {%- render "ecom_product_json", product: product, checkIsHighVariant: checkIsHighVariant -%}
+ </script>
+ </div></div></div></div></div> <div class="ecom-block ecom-core core__block elmspace ecom-zo7nhxxv7xs"><div class="ecom-row ecom-core core__block ecom-6sz384b8p87" data-id="ecom-6sz384b8p87" style="z-index: inherit;"><div class="core__row--columns"><div class="ecom-column ecom-core core__column--first core__column--last ecom-19kjlj2703s"><div class="core__column--wrapper" id="ecom-19kjlj2703s"><div class="ecom-column__overlay"><div class="ecom-overlay"></div></div><div class="core__blocks"><div class="core__blocks--body"><div class="ecom-block ecom-core core__block ecom-width-mb ecom-bl03aiqipic"><div class="ecom-element ecom-product-single ecom-product-single__quantity" section_id="ecom-9zqkhrar886">
+ {%- liquid
+ assign selected_variant = product.selected_variant | default: product.selected_or_first_available_variant
+ assign quantity_rule = selected_variant.quantity_rule
+ assign current_inventory_quantity = selected_variant.inventory_quantity
+ if selected_variant.inventory_management != null and current_inventory_quantity > 0 and selected_variant.inventory_policy != 'continue'
+ assign max_qty = current_inventory_quantity
+ endif
+ if selected_variant.quantity_rule.max and max_qty > selected_variant.quantity_rule.max
+ assign max_qty = selected_variant.quantity_rule.max
+ endif
+ -%}
+ <div class="ecom-product-single__quantity-wrapper"><div class="ecom-product-single__quantity-container"><label class="ecom-product-single__quantity-container-label" for="quantity"></label><div class="ecom-product-single__quantity-controls"><button type="button" class="ecom-product-single__quantity-controls-button ecom-product-single__quantity-controls-minus" aria-label="control minus"><span class="ecom-flex ecom-fl_center ecom-al_center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor"><path d="M400 288h-352c-17.69 0-32-14.32-32-32.01s14.31-31.99 32-31.99h352c17.69 0 32 14.3 32 31.99S417.7 288 400 288z"></path></svg></span></button><label for="quantity" style="display: none;">Quantity</label><input name="quantity" type="number" id="quantity" min="1" max="{{ max_qty | default: 9999 }}" class="ecom-product-single__quantity-input" data-min-value="1" data-max-value="{{ max_qty | default: 9999 }}" required=""><button type="button" class="ecom-product-single__quantity-controls-button ecom-product-single__quantity-controls-plus" aria-label="control plus"><span class="ecom-flex ecom-fl_center .ecom-al_center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor"><path d="M432 256c0 17.69-14.33 32.01-32 32.01H256v144c0 17.69-14.33 31.99-32 31.99s-32-14.3-32-31.99v-144H48c-17.67 0-32-14.32-32-32.01s14.33-31.99 32-31.99H192v-144c0-17.69 14.33-32.01 32-32.01s32 14.32 32 32.01v144h144C417.7 224 432 238.3 432 256z"></path></svg></span></button></div></div></div></div></div> <div class="ecom-block ecom-core core__block ecom-width-desktop ecom-width-mb ecom-28h2ah49gr5 ec-button-action"><div class="ecom-element ecom-product-single ecom-product-single__add-to-cart" section_id="ecom-9zqkhrar886"><div class="ecom-product-single__add-to-cart-wrapper"><div class="ecom-product-single__add-to-cart-container"><div class="ecom-product-single__add-to-cart-buttons"><div class="ecom-product-single__add-to-cart-buttons-wrapper"><button type="submit" class="ecom-product-single__add-to-cart--submit ecom-flex" data-text-add-cart="Add To Cart" data-text-pre-order="Pre Order" data-text-unavailable="Unavailable" data-text-outstock="Out stock" data-text-added-cart="Added to cart" data-message-added-cart="Added to cart" data-href="#" data-target="" data-action="popup" data-variant-id="{{product.first_available_variant.id}}" name="add"><span class="ecom-add-to-cart-text">Add To Cart</span><span class="ecom__element--button-icon"><svg width="21" height="21" viewBox="0 0 21 21" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M13.7823 9.18774V5.25024C13.7823 4.38 13.4366 3.5454 12.8212 2.93005C12.2059 2.3147 11.3713 1.96899 10.5011 1.96899C9.63081 1.96899 8.79621 2.3147 8.18086 2.93005C7.56551 3.5454 7.2198 4.38 7.2198 5.25024V9.18774M17.1563 7.44387L18.2614 17.9439C18.3227 18.5257 17.8677 19.0315 17.2823 19.0315H3.7198C3.58174 19.0316 3.44518 19.0027 3.31901 18.9467C3.19284 18.8906 3.07987 18.8086 2.98745 18.7061C2.89503 18.6035 2.82522 18.4826 2.78255 18.3513C2.73989 18.22 2.72532 18.0812 2.73981 17.9439L3.84581 7.44387C3.87132 7.20198 3.98548 6.97811 4.16627 6.81541C4.34707 6.65271 4.5817 6.5627 4.82493 6.56274H16.1772C16.6812 6.56274 17.1038 6.94337 17.1563 7.44387ZM7.54793 9.18774C7.54793 9.27477 7.51336 9.35823 7.45182 9.41976C7.39029 9.4813 7.30683 9.51587 7.2198 9.51587C7.13278 9.51587 7.04932 9.4813 6.98779 9.41976C6.92625 9.35823 6.89168 9.27477 6.89168 9.18774C6.89168 9.10072 6.92625 9.01726 6.98779 8.95572C7.04932 8.89419 7.13278 8.85962 7.2198 8.85962C7.30683 8.85962 7.39029 8.89419 7.45182 8.95572C7.51336 9.01726 7.54793 9.10072 7.54793 9.18774ZM14.1104 9.18774C14.1104 9.27477 14.0759 9.35823 14.0143 9.41976C13.9528 9.4813 13.8693 9.51587 13.7823 9.51587C13.6953 9.51587 13.6118 9.4813 13.5503 9.41976C13.4887 9.35823 13.4542 9.27477 13.4542 9.18774C13.4542 9.10072 13.4887 9.01726 13.5503 8.95572C13.6118 8.89419 13.6953 8.85962 13.7823 8.85962C13.8693 8.85962 13.9528 8.89419 14.0143 8.95572C14.0759 9.01726 14.1104 9.10072 14.1104 9.18774Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></span></button></div></div></div></div></div></div> </div></div></div></div> </div><div class="ecom-section__overlay"><div class="ecom-overlay"></div></div> </div></div> <div class="ecom-block ecom-core core__block elmspace ecom-k9kzm2bmglc"><div class="ecom-element ecom-product-single ecom-product-single__buy_it_now_btn" data-preview-mode="true" section_id="ecom-9zqkhrar886"><div class="ecom-product-single__buy_it_now_btn-buttons-wrapper"><button type="button" class="ecom-product-single__buy_it_now_btn--checkout animated" data-variant-id="{{product.first_available_variant.id}}"><span>Buy Now</span></button></div></div></div> <div class="ecom-block ecom-core core__block ecom-b01v30ufv4"><div class="ecom__element ecom-element element__divi" section_id="ecom-9zqkhrar886"><div class="ecom__element-divi" style="--divi-line-height: 1px;"><div class="divi-line divi-style" style="display: block;"></div><div class="divi-cont" style="--flex-desktop: 0.5; --flex-tablet: 0.5; --flex-mobile: 0.5; --divider-width: auto; --divider-width-tablet: auto; --divider-width-mobile: auto; display: none;"><div class="divi-cont-before divi-style" style="display: block;"></div><div class="divi-cont-after divi-style" style="display: block;"></div></div></div></div></div> <div class="ecom-block ecom-core core__block elmspace ecom-jbrovtuxdw"><div class="ecom-row ecom-core core__block ecom-50qcc63dw8" data-id="ecom-50qcc63dw8" style="z-index: inherit;"><div class="core__row--columns"><div class="ecom-column ecom-core core__column--first core__column--last ecom-auh32s9kydh"><div class="core__column--wrapper" id="ecom-auh32s9kydh"><div class="ecom-column__overlay"><div class="ecom-overlay"></div></div><div class="core__blocks"><div class="core__blocks--body"><div class="ecom-block ecom-core core__block elmspace ecom-pmkwuduw18f"><div class="ecom-element ecom-base-iconlist" section_id="ecom-9zqkhrar886"><ul class="ecom-iconlist--list" data-layout="default"><li class="ecom-iconlist--item ecom-html"><div class="ecom-iconlist--container"><span class="ecom-iconlist--icon" data-image="false"><svg version="1.1" id="lni_lni-money-protection" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 64 64" style="enable-background:new 0 0 64 64;" xml:space="preserve" fill="currentColor"><g><path d="M54.3,7.2L33.2,1.4c-0.8-0.2-1.5-0.2-2.3,0L9.7,7.2c-1.9,0.5-3.2,2.3-3.2,4.3v15.4c0,15.8,9.4,29.7,23.8,35.6c0.5,0.2,1.1,0.3,1.7,0.3s1.1-0.1,1.7-0.3c14.5-5.9,23.8-19.9,23.8-35.7V11.4C57.5,9.5,56.2,7.7,54.3,7.2z M54,26.7c0,14.2-8.7,27.2-21.6,32.4c-0.2,0.1-0.5,0.1-0.7,0C18.5,53.9,10,41.2,10,26.8V11.4c0-0.4,0.3-0.8,0.7-0.9l21.1-5.8c0.1,0,0.2,0,0.2,0s0.2,0,0.2,0l21.1,5.8c0.4,0.1,0.7,0.5,0.7,0.9V26.7z"></path><path d="M35.6,27.6h-7.3c-1.9,0-3.5-1.6-3.5-3.6s1.6-3.6,3.5-3.6h11.6c1,0,1.8-0.8,1.8-1.8s-0.8-1.8-1.8-1.8h-6.2v-2.2c0-1-0.8-1.8-1.8-1.8s-1.8,0.8-1.8,1.8v2.2h-1.9c-3.9,0-7,3.2-7,7.1s3.2,7.1,7,7.1h7.3c1.9,0,3.5,1.6,3.5,3.6c0,2-1.6,3.6-3.5,3.6H24.1c-1,0-1.8,0.8-1.8,1.8s0.8,1.8,1.8,1.8h6.2v2.2c0,1,0.8,1.8,1.8,1.8s1.8-0.8,1.8-1.8v-2.2h1.9c3.9,0,7-3.2,7-7.1C42.7,30.8,39.5,27.6,35.6,27.6z"></path></g></svg></span><div class="ecom-iconlist-content"><p class="ecom-iconlist--title">Free Returns</p></div></div></li><li class="ecom-iconlist--item ecom-html"><div class="ecom-iconlist--container"><span class="ecom-iconlist--icon" data-image="false"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor"><path d="M257.1 87.53C245.8 87.53 234.7 88.66 223.1 90.8V42.06C234.8 40.39 245.9 39.53 257.1 39.53C313.1 39.53 364.1 60.83 402.5 95.77L437.6 60.69C447.7 50.61 464.9 57.75 464.9 72V177.4C464.9 186.2 457.7 193.4 448.9 193.4H343.5C329.3 193.4 322.1 176.1 332.2 166.1L368.5 129.8C338.9 103.5 299.9 87.53 257.1 87.53V87.53zM89.14 255.5C89.14 266.6 90.22 277.5 92.27 288H43.56C41.96 277.4 41.14 266.6 41.14 255.5C41.14 200.4 61.82 150 95.85 111.9L60.69 76.69C50.61 66.61 57.74 49.38 71.1 49.38H177.4C186.2 49.38 193.4 56.54 193.4 65.38V170.7C193.4 185 176.1 192.1 166.1 182.1L129.9 145.9C104.5 175.3 89.14 213.6 89.14 255.5L89.14 255.5zM182.1 348.2L147.5 382.8C176.9 408.2 215.2 423.5 257.1 423.5C267.7 423.5 277.1 422.6 288 420.7V469.3C277.9 470.8 267.6 471.5 257.1 471.5C201.1 471.5 151.6 450.9 113.5 416.8L76.69 453.6C66.61 463.7 49.37 456.5 49.37 442.3V336.9C49.37 328.1 56.54 320.9 65.37 320.9H170.7C184.1 320.9 192.1 338.1 182.1 348.2V348.2zM348.2 332.2L382.9 366.9C409.2 337.3 425.1 298.3 425.1 255.5C425.1 244.8 424.1 234.2 422.2 224H470.9C472.4 234.3 473.1 244.8 473.1 255.5C473.1 311.5 451.8 362.5 416.9 400.9L453.6 437.6C463.7 447.7 456.5 464.9 442.3 464.9H336.9C328.1 464.9 320.9 457.7 320.9 448.9V343.5C320.9 329.3 338.1 322.1 348.2 332.2V332.2z"></path></svg></span><div class="ecom-iconlist-content"><p class="ecom-iconlist--title">Carbon Neutral</p><div class="ecom-iconlist--des"><br><u></u></div></div></div></li></ul></div></div> <div class="ecom-block ecom-core core__block elmspace ecom-0owst6wsnb1"><div class="ecom-element ecom-base-iconlist" section_id="ecom-9zqkhrar886"><ul class="ecom-iconlist--list" data-layout="default"><li class="ecom-iconlist--item ecom-html"><div class="ecom-iconlist--container"><span class="ecom-iconlist--icon" data-image="false"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" fill="currentColor"><path d="M168 336C181.3 336 192 346.7 192 360C192 373.3 181.3 384 168 384H120C106.7 384 96 373.3 96 360C96 346.7 106.7 336 120 336H168zM360 336C373.3 336 384 346.7 384 360C384 373.3 373.3 384 360 384H248C234.7 384 224 373.3 224 360C224 346.7 234.7 336 248 336H360zM512 32C547.3 32 576 60.65 576 96V416C576 451.3 547.3 480 512 480H64C28.65 480 0 451.3 0 416V96C0 60.65 28.65 32 64 32H512zM512 80H64C55.16 80 48 87.16 48 96V128H528V96C528 87.16 520.8 80 512 80zM528 224H48V416C48 424.8 55.16 432 64 432H512C520.8 432 528 424.8 528 416V224z"></path></svg></span><div class="ecom-iconlist-content"><p class="ecom-iconlist--title">Paypal &amp; Credit Card Secure Payments</p></div></div></li></ul></div></div> </div></div></div></div> </div><div class="ecom-section__overlay"><div class="ecom-overlay"></div></div> </div></div> </div></div></div></div> </div><div class="ecom-section__overlay"><div class="ecom-overlay"></div></div> </section>
+ {% unless ecom_has_variant_picker %}
+ <input type="hidden" name="id" value="{{product.selected_or_first_available_variant.id}}" />
+ <script type="application/json" id="product-json-{{product.id}}-ecom-9zqkhrar886">
+ {%- render "ecom_product_json", product: product, checkIsHighVariant: product.variants_count > 250 -%}
+ </script>
+ {% endunless %}
+ {%- endform -%}
+ {% assign ecom_has_variant_picker = false %}
+ {%- endif -%}
+ <section class="ecom-row ecom-core ecom-section ecom-t75frujf44l" data-id="ecom-t75frujf44l" style="z-index: inherit;"><div class="core__row--columns"><div class="ecom-column ecom-core core__column--first core__column--last ecom-sqdosau6nm"><div class="core__column--wrapper" id="ecom-sqdosau6nm"><div class="ecom-column__overlay"><div class="ecom-overlay"></div></div><div class="core__blocks"><div class="core__blocks--body"><div class="ecom-block ecom-core core__block elmspace ecom-ph3v3rnyize"><div class="ecom__element element__heading ecom-element ecom-html ecom-type-deffault" section_id="ecom-t75frujf44l"><h3 class="ecom__heading ecom-db">Quick Intro</h3></div></div> <div class="ecom-block ecom-core core__block elmspace ecom-dum1k2l1hau"><div class="ecom-elements ecom-base-element ecom-elements-slider"><div class="ecom-core ecom-group core__block ecom-jck0x66vml"> <div class="core__group--wrapper" data-r="" style=""><div class="ecom-slider--container"><div class="ecom-element ecom-slider slider__body ecom-swiper-container" data-option-swiper="{&quot;direction&quot;:&quot;horizontal&quot;,&quot;freeMode&quot;:false,&quot;loop&quot;:false,&quot;breakpoints&quot;:{&quot;0&quot;:{&quot;slidesPerView&quot;:1},&quot;768&quot;:{},&quot;1025&quot;:{&quot;slidesPerView&quot;:2}},&quot;autoplay&quot;:{&quot;enabled&quot;:false,&quot;delay&quot;:6000,&quot;pauseOnMouseEnter&quot;:false,&quot;disableOnInteraction&quot;:false,&quot;reverseDirection&quot;:false},&quot;speed&quot;:500,&quot;effect&quot;:&quot;slide&quot;,&quot;grabCursor&quot;:true,&quot;slideActiveClass&quot;:&quot;ecom-box-active&quot;,&quot;centeredSlides&quot;:false,&quot;watchOverflow&quot;:true,&quot;autoHeight&quot;:false,&quot;cubeEffect&quot;:{&quot;slideShadows&quot;:true,&quot;shadowOffset&quot;:20},&quot;creativeEffect&quot;:{},&quot;fadeEffect&quot;:{&quot;crossFade&quot;:true},&quot;pagination&quot;:{&quot;el&quot;:&quot;.ecom-swiper-pagination&quot;,&quot;type&quot;:&quot;bullets&quot;,&quot;clickable&quot;:true},&quot;navigation&quot;:{&quot;nextEl&quot;:&quot;.ecom-swiper-button-next&quot;,&quot;prevEl&quot;:&quot;.ecom-swiper-button-prev&quot;},&quot;slidesPerGroup&quot;:1}"><div class="ecom-swiper-wrapper"><div class="ecom-swiper-slide" style=""><div class="ecom-content-item"><div class="ecom-content-item__container ecom-transition-undefined"><div class="ecom-block ecom-core core__block elmspace ecom-lz2vb9hd1hc"><section class="ecom-row ecom-core ecom-section ecom-6pd5b383y3d" data-id="ecom-6pd5b383y3d" style="z-index: inherit;"><div class="core__row--columns"><div class="ecom-column ecom-core core__column--first core__column--last ecom-f3lvu2epin"><div class="core__column--wrapper" id="ecom-f3lvu2epin"><div class="ecom-column__overlay"><div class="ecom-overlay"></div></div><div class="core__blocks"><div class="core__blocks--body"><div class="ecom-block ecom-core core__block elmspace ecom-i6vguevj5we"><div class="ecom__element ecom-element element__code exporting" section_id="ecom-t75frujf44l">{% assign product_image_metafield = product.metafields.custom.product_image_intro_01 %}
+<img src="{{ product_image_metafield | img_url: 'original' }}" alt="Product Image 01" style="border-radius: 24px;"></div></div> </div></div></div></div> </div><div class="ecom-section__overlay"><div class="ecom-overlay"></div></div> </section></div> </div></div></div><div class="ecom-swiper-slide" style=""><div class="ecom-content-item"><div class="ecom-content-item__container ecom-transition-undefined"><div class="ecom-block ecom-core core__block elmspace ecom-964miib5xbk"><section class="ecom-row ecom-core ecom-section ecom-88nmiiqtqom" data-id="ecom-88nmiiqtqom" style="z-index: inherit;"><div class="core__row--columns"><div class="ecom-column ecom-core core__column--first core__column--last ecom-qgq22gsthri"><div class="core__column--wrapper" id="ecom-qgq22gsthri"><div class="ecom-column__overlay"><div class="ecom-overlay"></div></div><div class="core__blocks"><div class="core__blocks--body"><div class="ecom-block ecom-core core__block elmspace ecom-3ai41onut3"><div class="ecom__element ecom-element element__code exporting" section_id="ecom-t75frujf44l">{% assign product_image_metafield = product.metafields.custom.product_image_intro_02 %}
+<img src="{{ product_image_metafield | img_url: 'original' }}" alt="Product Image 02" style="border-radius: 24px;"></div></div> </div></div></div></div> </div><div class="ecom-section__overlay"><div class="ecom-overlay"></div></div> </section></div> </div></div></div><div class="ecom-swiper-slide" style=""><div class="ecom-content-item"><div class="ecom-content-item__container ecom-transition-undefined"><div class="ecom-block ecom-core core__block elmspace ecom-09mitsnwbrv"><section class="ecom-row ecom-core ecom-section ecom-mz225gm6ezc" data-id="ecom-mz225gm6ezc" style="z-index: inherit;"><div class="core__row--columns"><div class="ecom-column ecom-core core__column--first core__column--last ecom-f1r0d42qmb"><div class="core__column--wrapper" id="ecom-f1r0d42qmb"><div class="ecom-column__overlay"><div class="ecom-overlay"></div></div><div class="core__blocks"><div class="core__blocks--body"><div class="ecom-block ecom-core core__block elmspace ecom-sw428ez54ke"><div class="ecom__element ecom-element element__code exporting" section_id="ecom-t75frujf44l">{% assign product_image_metafield = product.metafields.custom.product_image_intro_03 %}
+<img src="{{ product_image_metafield | img_url: 'original' }}" alt="Product Image 03" style="border-radius: 24px;"></div></div> </div></div></div></div> </div><div class="ecom-section__overlay"><div class="ecom-overlay"></div></div> </section></div> </div></div></div><div class="ecom-swiper-slide" style=""><div class="ecom-content-item"><div class="ecom-content-item__container ecom-transition-undefined"><div class="ecom-block ecom-core core__block elmspace ecom-pupgnctf48"><section class="ecom-row ecom-core ecom-section ecom-dvlm1lx6uii" data-id="ecom-dvlm1lx6uii" style="z-index: inherit;"><div class="core__row--columns"><div class="ecom-column ecom-core core__column--first core__column--last ecom-v28ls6bwa1m"><div class="core__column--wrapper" id="ecom-v28ls6bwa1m"><div class="ecom-column__overlay"><div class="ecom-overlay"></div></div><div class="core__blocks"><div class="core__blocks--body"><div class="ecom-block ecom-core core__block elmspace ecom-r4bdj2j29ia"><div class="ecom__element ecom-element element__code exporting" section_id="ecom-t75frujf44l">{% assign product_image_metafield = product.metafields.custom.product_image_intro_04 %}
+<img src="{{ product_image_metafield | img_url: 'original' }}" alt="Product Image 04" style="border-radius: 24px;"></div></div> </div></div></div></div> </div><div class="ecom-section__overlay"><div class="ecom-overlay"></div></div> </section></div> </div></div></div><div class="ecom-swiper-slide" style=""><div class="ecom-content-item"><div class="ecom-content-item__container ecom-transition-undefined"><div class="ecom-block ecom-core core__block elmspace ecom-de48casr13k"><section class="ecom-row ecom-core ecom-section ecom-kb102fabej" data-id="ecom-kb102fabej" style="z-index: inherit;"><div class="core__row--columns"><div class="ecom-column ecom-core core__column--first core__column--last ecom-1qq356ddvgc"><div class="core__column--wrapper" id="ecom-1qq356ddvgc"><div class="ecom-column__overlay"><div class="ecom-overlay"></div></div><div class="core__blocks"><div class="core__blocks--body"><div class="ecom-block ecom-core core__block elmspace ecom-ai1tgnl6wu7"><div class="ecom__element ecom-element element__code exporting" section_id="ecom-t75frujf44l">{% assign product_image_metafield = product.metafields.custom.product_image_intro_05 %}
+<img src="{{ product_image_metafield | img_url: 'original' }}" alt="Product Image 05" style="border-radius: 24px;"></div></div> </div></div></div></div> </div><div class="ecom-section__overlay"><div class="ecom-overlay"></div></div> </section></div> </div></div></div></div></div><div class="ecom-swiper-navigation-position" data-position="center"><button type="button" class="ecom-swiper-button ecom-swiper-button-prev" data-ecnav-id="ecom-jck0x66vml" style="--ecom-position: absolute; --ecom-position__tablet: absolute; --ecom-position__mobile: absolute;"><svg xmlns="http: //www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></button><button type="button" class="ecom-swiper-button ecom-swiper-button-next" data-ecnav-id="ecom-jck0x66vml" style="--ecom-position: absolute; --ecom-position__tablet: absolute; --ecom-position__mobile: absolute;"><svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></button></div><div data-position="bottom_center" data-ecnav-id="ecom-jck0x66vml" class="ecom-swiper-pagination-position ecom-swiper-pagination"></div></div></div> </div></div></div> </div></div></div></div> </div><div class="ecom-section__overlay"><div class="ecom-overlay"></div></div> </section>
+ {% comment %}
+ // Reactive
+ * this.data.settings.product
+ {% endcomment %}
+ {% liquid
+ unless recommendations.performed
+ if request.page_type != 'product' or product == blank
+ assign selected_product = 'anran-q3-4k-8mp-solar-battery-camera'
+ if selected_product == blank or selected_product == '' or all_products[selected_product] == blank
+ assign product = collections['all'].products.first
+ else
+ assign product = all_products[selected_product]
+ if product.id == blank
+ assign product = collections['all'].products.last
+ endif
+ endif
+ endif
+ endunless
+ %}
+ {%- if product != blank -%}
+ {%- capture ec_form_id -%}product_form_{{ product.id }}_ecom-akla2i45ybq{%- endcapture -%}
+ {%- form 'product', product, id: ec_form_id, class: "ecom-product-form ecom-product-form--single ecom-click", product_id: product.id, data-product_id: product.id,data-product-id: product.id, data-handle: product.handle-%}
+ <section class="ecom-row ecom-core ecom-section ecom-akla2i45ybq" data-id="ecom-akla2i45ybq" style="z-index: inherit;"><div class="core__row--columns"><div class="ecom-column ecom-core core__column--first core__column--last ecom-shylkovl00p"><div class="core__column--wrapper" id="ecom-shylkovl00p"><div class="ecom-column__overlay"><div class="ecom-overlay"></div></div><div class="core__blocks"><div class="core__blocks--body"><div class="ecom-block ecom-core core__block elmspace ecom-1fee7mb7ynrj"><div class="ecom-core ecom-group core__block ecom-qmpg9ho7e28"> <div class="core__group--wrapper tabs__wrapper ecom__element ecom__tabs tabs__wrapper--horizontal" data-r="" style=""><div class="tabs__navs-wrapper ecom-flex tabs__navs--horizontal"><div class="tabs__navs"><div class="tabs__navs--items"><div class="ecom-items tabs__nav ecom-item-active" data-target="" data-target-id="#ecom-wrt3zkp2we"><div class="tabs_nav--content_right"><div class="tabs_nav--content"><h3 class="tabs_nav--text ecom-items--text">Overview</h3></div><div class="tabs_nav--sub-text"></div></div></div><div class="ecom-items tabs__nav" data-target="" data-target-id="#ecom-8n7cg8fnxz4"><div class="tabs_nav--content_right"><div class="tabs_nav--content"><h3 class="tabs_nav--text ecom-items--text">Specs</h3></div><div class="tabs_nav--sub-text"></div></div></div><div class="ecom-items tabs__nav" data-target="" data-target-id="#ecom-f9t8e4evo7i"><div class="tabs_nav--content_right"><div class="tabs_nav--content"><div class="tabs_nav--text ecom-items--text">FAQ</div></div><div class="tabs_nav--sub-text"></div></div></div></div></div></div><div class="core__group--items"><div id="ecom-wrt3zkp2we" class="core__group--item tab__item ecom-item-active ecom-item-group-init" data-id="ecom-wrt3zkp2we" style=""><div class="core__group--body tabs__body"><div class="core__blocks"><div class="core__blocks--body"><div class="ecom-block ecom-core core__block elmspace ecom-45jxvsjnb6t"><div class="ecom-core ecom-group core__block ecom-olwuvur6h2 hide-on-mobile"> <div class="core__group--wrapper tabs__wrapper ecom__element ecom__tabs tabs__wrapper--horizontal" data-r="" style=""><div class="tabs__navs-wrapper ecom-flex tabs__navs--horizontal"><div class="tabs__navs"><div class="tabs__navs--items"><div class="ecom-items tabs__nav ecom-item-active" data-target="" data-target-id="#ecom-jj2m1rk8w5"><div class="tabs_nav--content_right"><div class="tabs_nav--content"><h3 class="tabs_nav--text ecom-items--text">overview</h3></div><div class="tabs_nav--sub-text"></div></div></div><div class="ecom-items tabs__nav" data-target="" data-target-id="#ecom-gtefav5npig"><div class="tabs_nav--content_right"><div class="tabs_nav--content"><div class="tabs_nav--text ecom-items--text">overview</div></div><div class="tabs_nav--sub-text"></div></div></div><div class="ecom-items tabs__nav" data-target="" data-target-id="#ecom-gfbuq5kxemc"><div class="tabs_nav--content_right"><div class="tabs_nav--content"><h3 class="tabs_nav--text ecom-items--text">overview</h3></div><div class="tabs_nav--sub-text"></div></div></div><div class="ecom-items tabs__nav" data-target="##review" data-target-id="#ecom-tkwvauvlxag"><div class="tabs_nav--content_right"><div class="tabs_nav--content"><h3 class="tabs_nav--text ecom-items--text">overview</h3></div><div class="tabs_nav--sub-text"></div></div></div><div class="ecom-items tabs__nav" data-target="" data-target-id="#ecom-7tdh2i2my3o"><div class="tabs_nav--content_right"><div class="tabs_nav--content"><div class="tabs_nav--text ecom-items--text">overview</div></div><div class="tabs_nav--sub-text"></div></div></div></div></div></div><div class="core__group--items"><div id="ecom-jj2m1rk8w5" class="core__group--item tab__item ecom-item-active ecom-item-group-init" data-id="ecom-jj2m1rk8w5" style=""><div class="core__group--body tabs__body"><div class="core__blocks"><div class="core__blocks--body"><div class="ecom-block ecom-core core__block elmspace ecom-70j4mnc029"><div class="ecom-element ecom-product-single ecom-product-single__metafield" section_id="ecom-akla2i45ybq"><div class="ecom-product-single__metafield-wrapper"><div class="ecom-product-single__metafield-container">{% assign product_image_metafield = product.metafields.custom.overview_image_01 %}
+<img src="{{ product_image_metafield | img_url: 'original' }}" alt="Product Image"></div></div></div></div> </div></div></div></div><div id="ecom-gtefav5npig" class="core__group--item tab__item" data-id="ecom-gtefav5npig" style=""><div class="core__group--body tabs__body"><div class="core__blocks"><div class="core__blocks--body"><div class="ecom-block ecom-core core__block elmspace ecom-n86k6mu4v9s"><div class="ecom-element ecom-product-single ecom-product-single__metafield" section_id="ecom-akla2i45ybq"><div class="ecom-product-single__metafield-wrapper"><div class="ecom-product-single__metafield-container">{% assign product_image_metafield = product.metafields.custom.overview_image_02 %}
+<img src="{{ product_image_metafield | img_url: 'original' }}" alt="Product Image"></div></div></div></div> </div></div></div></div><div id="ecom-gfbuq5kxemc" class="core__group--item tab__item" data-id="ecom-gfbuq5kxemc" style=""><div class="core__group--body tabs__body"><div class="core__blocks"><div class="core__blocks--body"><div class="ecom-block ecom-core core__block elmspace ecom-qjdhdwqzny"><div class="ecom-element ecom-product-single ecom-product-single__metafield" section_id="ecom-akla2i45ybq"><div class="ecom-product-single__metafield-wrapper"><div class="ecom-product-single__metafield-container">{% assign product_image_metafield = product.metafields.custom.overview_image_03 %}
+<img src="{{ product_image_metafield | img_url: 'original' }}" alt="Product Image"></div></div></div></div> </div></div></div></div><div id="ecom-tkwvauvlxag" class="core__group--item tab__item" data-id="ecom-tkwvauvlxag" style=""><div class="core__group--body tabs__body"><div class="core__blocks"><div class="core__blocks--body"><div class="ecom-block ecom-core core__block elmspace ecom-l7apfxqzk5"><div class="ecom-element ecom-product-single ecom-product-single__metafield" section_id="ecom-akla2i45ybq"><div class="ecom-product-single__metafield-wrapper"><div class="ecom-product-single__metafield-container">{% assign product_image_metafield = product.metafields.custom.overview_image_04 %}
+<img src="{{ product_image_metafield | img_url: 'original' }}" alt="Product Image"></div></div></div></div> </div></div></div></div><div id="ecom-7tdh2i2my3o" class="core__group--item tab__item" data-id="ecom-7tdh2i2my3o" style=""><div class="core__group--body tabs__body"><div class="core__blocks"><div class="core__blocks--body"><div class="ecom-block ecom-core core__block elmspace ecom-xs2brjv7oar"><div class="ecom-element ecom-product-single ecom-product-single__metafield" section_id="ecom-akla2i45ybq"><div class="ecom-product-single__metafield-wrapper"><div class="ecom-product-single__metafield-container">{% assign product_image_metafield = product.metafields.custom.overview_image_05 %}
+<img src="{{ product_image_metafield | img_url: 'original' }}" alt="Product Image"></div></div></div></div> </div></div></div></div></div></div> </div></div> <div class="ecom-block ecom-core core__block elmspace ecom-uhmwq5ys1r"><section class="ecom-row ecom-core ecom-section ecom-5lwxydln4c4" data-id="ecom-5lwxydln4c4" style="z-index: inherit;"><div class="core__row--columns"><div class="ecom-column ecom-core core__column--first ecom-4xwh8gge7qn"><div class="core__column--wrapper" id="ecom-4xwh8gge7qn"><div class="ecom-column__overlay"><div class="ecom-overlay"></div></div><div class="core__blocks"><div class="core__blocks--body"><div class="ecom-block ecom-core core__block elmspace ecom-8w3tbc7qalx"><div class="ecom-element ecom-product-single ecom-product-single__metafield" section_id="ecom-akla2i45ybq"><div class="ecom-product-single__metafield-wrapper"><div class="ecom-product-single__metafield-container">{% assign product_image_metafield = product.metafields.custom.overview_extra_image_01 %}
+<img src="{{ product_image_metafield | img_url: 'original' }}" alt="Product Image">
+{{product.metafields.custom.overview_extra_text_01 | metafield_tag}}</div></div></div></div> </div></div></div></div> <div class="ecom-column ecom-core ecom-o60sypxako"><div class="core__column--wrapper" id="ecom-o60sypxako"><div class="ecom-column__overlay"><div class="ecom-overlay"></div></div><div class="core__blocks"><div class="core__blocks--body"><div class="ecom-block ecom-core core__block elmspace ecom-sdzr38ld6b"><div class="ecom-element ecom-product-single ecom-product-single__metafield" section_id="ecom-akla2i45ybq"><div class="ecom-product-single__metafield-wrapper"><div class="ecom-product-single__metafield-container">{% assign product_image_metafield = product.metafields.custom.overview_extra_image_02 %}
+<img src="{{ product_image_metafield | img_url: 'original' }}" alt="Product Image">
+{{product.metafields.custom.overview_extra_text_02 | metafield_tag}}</div></div></div></div> </div></div></div></div> <div class="ecom-column ecom-core ecom-ny54kcbhzb"><div class="core__column--wrapper" id="ecom-ny54kcbhzb"><div class="ecom-column__overlay"><div class="ecom-overlay"></div></div><div class="core__blocks"><div class="core__blocks--body"><div class="ecom-block ecom-core core__block elmspace ecom-7xh5gp2utwi"><div class="ecom-element ecom-product-single ecom-product-single__metafield" section_id="ecom-akla2i45ybq"><div class="ecom-product-single__metafield-wrapper"><div class="ecom-product-single__metafield-container">{% assign product_image_metafield = product.metafields.custom.overview_extra_image_03 %}
+<img src="{{ product_image_metafield | img_url: 'original' }}" alt="Product Image">
+{{product.metafields.custom.overview_extra_text_03 | metafield_tag}}</div></div></div></div> </div></div></div></div> <div class="ecom-column ecom-core core__column--last ecom-lv1s690ozuo"><div class="core__column--wrapper" id="ecom-lv1s690ozuo"><div class="ecom-column__overlay"><div class="ecom-overlay"></div></div><div class="core__blocks"><div class="core__blocks--body"><div class="ecom-block ecom-core core__block elmspace ecom-3ed3p5pcqh2"><div class="ecom-element ecom-product-single ecom-product-single__metafield" section_id="ecom-akla2i45ybq"><div class="ecom-product-single__metafield-wrapper"><div class="ecom-product-single__metafield-container">{% assign product_image_metafield = product.metafields.custom.overview_extra_image_04 %}
+<img src="{{ product_image_metafield | img_url: 'original' }}" alt="Product Image">
+{{product.metafields.custom.overview_extra_text_04 | metafield_tag}}</div></div></div></div> </div></div></div></div> </div><div class="ecom-section__overlay"><div class="ecom-overlay"></div></div> </section></div> <div class="ecom-block ecom-core core__block elmspace ecom-khluxip9ea"><section class="ecom-row ecom-core ecom-section ecom-d435ssav3bp" data-id="ecom-d435ssav3bp" style="z-index: inherit;"><div class="core__row--columns"><div class="ecom-column ecom-core core__column--first core__column--last ecom-8xjeymhn6m2"><div class="core__column--wrapper" id="ecom-8xjeymhn6m2"><div class="ecom-column__overlay"><div class="ecom-overlay"></div></div><div class="core__blocks"><div class="core__blocks--body"><div class="ecom-block ecom-core core__block elmspace ecom-a7x1uenk3ni"><div class="ecom-element ecom-product-single ecom-product-single__metafield" section_id="ecom-akla2i45ybq"><div class="ecom-product-single__metafield-wrapper"><div class="ecom-product-single__metafield-container">{% for product in product.metafields.custom.overview_extra_image_list.value %}
+ <img src="{{ product | img_url: 'original' }}" alt="Product Image">
+ {% endfor %}</div></div></div></div> </div></div></div></div> </div><div class="ecom-section__overlay"><div class="ecom-overlay"></div></div> </section></div> </div></div></div></div><div id="ecom-8n7cg8fnxz4" class="core__group--item tab__item" data-id="ecom-8n7cg8fnxz4" style=""><div class="core__group--body tabs__body"><div class="core__blocks"><div class="core__blocks--body"><div class="ecom-block ecom-core core__block elmspace ecom-nukjx4mvhss"><section class="ecom-row ecom-core ecom-section ecom-se780u1n4i" data-id="ecom-se780u1n4i" style="z-index: inherit;"><div class="core__row--columns"><div class="ecom-column ecom-core core__column--first ecom-jchf5ahmly"><div class="core__column--wrapper" id="ecom-jchf5ahmly"><div class="ecom-column__overlay"><div class="ecom-overlay"></div></div><div class="core__blocks"><div class="core__blocks--body"><div class="ecom-block ecom-core core__block elmspace ecom-0879nyfir8gi"><div class="ecom-element ecom-product-single ecom-product-single__metafield" section_id="ecom-akla2i45ybq"><div class="ecom-product-single__metafield-wrapper"><div class="ecom-product-single__metafield-container"><p style="font-size: 16px;color: black;font-weight: bold;">
+{{product.metafields.custom.product_rich_text_01_ | metafield_tag}}</p></div></div></div></div> </div></div></div></div> <div class="ecom-column ecom-core core__column--last ecom-gut48qih3rc"><div class="core__column--wrapper" id="ecom-gut48qih3rc"><div class="ecom-column__overlay"><div class="ecom-overlay"></div></div><div class="core__blocks"><div class="core__blocks--body"><div class="ecom-block ecom-core core__block elmspace ecom-cwk7upxwlxm"><div class="ecom-element ecom-product-single ecom-product-single__metafield" section_id="ecom-akla2i45ybq"><div class="ecom-product-single__metafield-wrapper"><div class="ecom-product-single__metafield-container"><p style="font-size: 16px;color: black;font-weight: bold;">
+{{product.metafields.custom.product_rich_text_02 | metafield_tag|replace: '..........', '<br />'}}</p></div></div></div></div> </div></div></div></div> </div><div class="ecom-section__overlay"><div class="ecom-overlay"></div></div> </section></div> <div class="ecom-block ecom-core core__block elmspace ecom-r4wmo1in42"><section class="ecom-row ecom-core ecom-section ecom-zamvmfc50np" data-id="ecom-zamvmfc50np" style="z-index: inherit;"><div class="core__row--columns"><div class="ecom-column ecom-core core__column--first core__column--last ecom-mliudmtqf9b"><div class="core__column--wrapper" id="ecom-mliudmtqf9b"><div class="ecom-column__overlay"><div class="ecom-overlay"></div></div><div class="core__blocks"><div class="core__blocks--body"><div class="ecom-block ecom-core core__block elmspace ecom-47yylixdi9n"><div class="ecom-element ecom-product-single ecom-product-single__metafield" section_id="ecom-akla2i45ybq"><div class="ecom-product-single__metafield-wrapper"><div class="ecom-product-single__metafield-container">{% assign rich_text_metafield = product.metafields.custom.product_rich_text %}
+{{ rich_text_metafield | metafield_tag | replace: ' ', '&nbsp;'}}
+{% for product in product.metafields.custom.product_add_image_list.value %}
+ <img src="{{ product | img_url: 'original' }}" alt="Product Image">
+{% endfor %}</div></div></div></div> </div></div></div></div> </div><div class="ecom-section__overlay"><div class="ecom-overlay"></div></div> </section></div> </div></div></div></div><div id="ecom-f9t8e4evo7i" class="core__group--item tab__item" data-id="ecom-f9t8e4evo7i" style=""><div class="core__group--body tabs__body"><div class="core__blocks"></div></div></div></div></div> </div></div> </div></div></div></div> </div><div class="ecom-section__overlay"><div class="ecom-overlay"></div></div> </section>
+ {% unless ecom_has_variant_picker %}
+ <input type="hidden" name="id" value="{{product.selected_or_first_available_variant.id}}" />
+ <script type="application/json" id="product-json-{{product.id}}-ecom-akla2i45ybq">
+ {%- render "ecom_product_json", product: product, checkIsHighVariant: product.variants_count > 250 -%}
+ </script>
+ {% endunless %}
+ {%- endform -%}
+ {% assign ecom_has_variant_picker = false %}
+ {%- endif -%}
+ 
+ {% comment %}
+ // Reactive
+ * this.data.settings.product
+ {% endcomment %}
+ {% liquid
+ unless recommendations.performed
+ if request.page_type != 'product' or product == blank
+ assign selected_product = 'anran-q3-4k-8mp-solar-battery-camera'
+ if selected_product == blank or selected_product == '' or all_products[selected_product] == blank
+ assign product = collections['all'].products.first
+ else
+ assign product = all_products[selected_product]
+ if product.id == blank
+ assign product = collections['all'].products.last
+ endif
+ endif
+ endif
+ endunless
+ %}
+ {%- if product != blank -%}
+ {%- capture ec_form_id -%}product_form_{{ product.id }}_ecom-8x6qktw2pai{%- endcapture -%}
+ {%- form 'product', product, id: ec_form_id, class: "ecom-product-form ecom-product-form--single ecom-click", product_id: product.id, data-product_id: product.id,data-product-id: product.id, data-handle: product.handle-%}
+ <section class="ecom-row ecom-core ecom-section ecom-8x6qktw2pai" data-id="ecom-8x6qktw2pai" style="z-index: inherit;"><div class="core__row--columns"><div class="ecom-column ecom-core core__column--first core__column--last ecom-47brcbr8l4c"><div class="core__column--wrapper" id="ecom-47brcbr8l4c"><div class="ecom-column__overlay"><div class="ecom-overlay"></div></div><div class="core__blocks"><div class="core__blocks--body"><div class="ecom-block ecom-core core__block elmspace ecom-0e2wsaz4lnyc"><div class="ecom-element ecom-product-single ecom-product-single__review" section_id="ecom-8x6qktw2pai"><div class="ecom-product-single__review-wrapper" data-review-platform="{%- assign review_platform = shop.metafields.ecomposer.app_review.value -%}{{review_platform}}"><div class="ecom-product-single__review-container">
+ {%- if review_platform and review_platform != 'none' -%}
+ {%- if EComBuilderMode == true -%}
+ <div class="ecom-theme-app-extensions-skeleton">
+ <div class="ecom-app-extension-info">
+ <span class="ecom-theme-app-extension-icon">
+ <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M416 176C416 78.8 322.9 0 208 0S0 78.8 0 176c0 41.48 17.07 79.54 45.44 109.6c-15.17 32.34-38.65 58.07-38.95 58.38c-6.514 6.836-8.309 16.91-4.568 25.67C5.754 378.4 14.26 384 23.66 384c54.19 0 97.76-20.73 125.9-39.17C168.1 349.4 187.7 352 208 352C322.9 352 416 273.2 416 176zM208 320c-16.96 0-34.04-2.098-50.75-6.232L143.7 310.4L132 318.1c-20.43 13.38-51.58 28.99-89.85 32.97c9.377-12.11 22.3-30.63 32.24-51.82l9.242-19.71L68.72 263.7C44.7 238.2 32 207.9 32 176C32 96.6 110.1 32 208 32S384 96.6 384 176S305 320 208 320zM606.4 435.4C627.6 407.1 640 372.9 640 336C640 238.8 554 160 448 160c-.3145 0-.6191 .041-.9336 .043C447.5 165.3 448 170.6 448 176c0 5.43-.4668 10.76-.9414 16.09C447.4 192.1 447.7 192 448 192c88.22 0 160 64.6 160 144c0 28.69-9.424 56.45-27.25 80.26l-13.08 17.47l11.49 18.55c6.568 10.61 13.18 19.74 18.61 26.74c-18.26-1.91-36.45-6.625-54.3-14.09l-12.69-5.305l-12.58 5.557C495.9 475 472.3 480 448 480c-75.05 0-137.7-46.91-154.9-109.7c-10.1 3.336-20.5 6.132-31.2 8.271C282.7 455.1 357.1 512 448 512c29.82 0 57.94-6.414 83.12-17.54C555 504.5 583.7 512 616.3 512c9.398 0 17.91-5.57 21.73-14.32c3.74-8.758 1.945-18.84-4.568-25.67C633.3 471.8 619.6 456.8 606.4 435.4z"/></svg>
+ </span>
+ <div class="ecom-theme-app-extension-content">
+ <span class="ecom-theme-app-extension-title">{{review_platform | replace: '_', ' ' | replace: '-', ' ' | capitalize}}</span>
+ <div class="ecom-placeholder-on-builder-mode" data-ecom-placeholder="The review element will display when published to Online store"></div>
+ </div>
+ </div>
+ </div>
+ {%- else -%}
+ {%- case review_platform -%}
+ {%- when 'none' -%}
+ <div class="ecom-theme-app-extensions-skeleton">
+ <p>Please select the integrated review app platform in settings</p>
+ </div>
+ {%- when 'ali-reviews' -%}
+ <div class="alireviews-review-box"></div>
+ {%- when 'opinew-reviews' -%}
+ <div style="clear:both;"></div><div id="opinew-reviews-product-page-code" class="opw-widget-wrapper-default">
+ <span id="opinew-plugin" data-server-address="https://api.opinew.com"
+ data-opw-prodreviews="{{ product.metafields.opinew_metafields['product_plugin'] }}"
+ data-opinew-shop-id="{{ shop.id }}" data-shop-url="{{shop.domain}}"
+ data-platform-product-id="{{product.id}}">
+ <span id="opinew_product_plugin_app"></span>
+ </span>
+ </div>
+ {%- when 'judgeme' -%}
+ <div style='clear:both'></div>
+ <div id='judgeme_product_reviews' class='jdgm-widget jdgm-review-widget' data-id='{{ product.id }}'>
+ {{ product.metafields.judgeme.widget }}
+ </div>
+ {%- when 'product-reviews-addon' -%}
+ <div id="stamped-main-widget"
+ data-widget-style="standard"
+ data-product-id="{{ product.id }}"
+ data-name="{{ product.title | escape }}"
+ data-url="{{ shop.url }}{{ product.url }}"
+ data-image-url="{{ product.featured_image | product_img_url: "large" |replace: '?', '%3F' | replace: '&','%26'}}"
+ data-description="{{ product.description | escape }}"
+ data-product-sku="{{product.handle}}"
+ data-widget-language="{{ language }}">
+ </div>
+ {%- when 'areviews-aliexpress'-%}
+ <div class="page-full">{%- render 'aliexpress_reviews', product: product-%}</div>
+ {%- when 'loox'-%}
+ <div id="looxReviews" data-product-id="{{product.id}}" >{{- product.metafields.loox.reviews -}}</div>
+ {% when 'ryviu'%}
+ <div class="lt-block-reviews">
+ <ryviu-widget product_id="{{product.id}}" handle="{{product.handle}}" title_product="{{product.title}}" image_product="{{ product.featured_image.src | image_url: width: 100 }}"></ryviu-widget>
+ </div>
+ {%- when 'yotpo-social-reviews' -%}
+ <div class="yotpo yotpo-main-widget" data-product-id="{{ product.id }}" data-name="{{ product.title | escape }}" data-url="{{ shop.url }}{{ product.url }}" data-image-url="{{ product.featured_image | product_img_url: "large" |replace: '?', '%3F' | replace: '&','%26'}}" data-description="{{ product.description | escape }}"></div>
+ {%- when 'aliexpress-reviews-importer'-%}
+ <div id="shopbooster-ali" product-id="{{ product.id }}" ></div>
+ {%- when 'rivyo-product-review'-%}
+ <div id="wc_review_section" class="wc_review_main_content" data-url="{{ shop.url }}" data-handle="{{ product.handle }}" data-product_id="{{ product.id }}" data-limit="0"></div>
+ {%-when 'growave' -%}
+ {% capture the_snippet_reviews %}{% render 'socialshopwave-widget-recommends' with 1, product: product %}{% endcapture %}
+ {% unless the_snippet_reviews contains 'Liquid error' %}
+ {{ the_snippet_reviews }}
+ {% endunless %}
+ {%- when 'smart-aliexpress-reviews'-%}
+ {% render "reviews-importer" product: product%}
+ {%- when 'vital-reviews'-%}
+ <div id="bundle-product_reviews"></div>
+ {%- when 'photo-reviews' -%}
+ <div style="clear:both;"></div>
+ <div id="opinew-reviews-product-page-code" class="">
+ <span id="opinew-plugin" data-server-address="https://www.opinew.com" data-opw-prodreviews="{{ product.metafields.opinew_metafields['product_plugin'] }}" data-opinew-shop-id="{{ shop.id }}" data-shop-url="{{shop.domain}}" data-platform-product-id="{{product.id}}">
+ <span id="opinew_product_plugin_app"></span>
+ </span>
+ </div>
+ {%- when 'product-reviews' -%}
+ <div id="shopify-product-reviews" data-id="{{product.id}}">{{- product.metafields.spr.reviews -}}</div>
+ {%- when 'lai-reviews' -%}
+ {%- if EComBuilderMode -%}
+ <div class="ecom-placeholder-on-builder-mode" data-ecom-placeholder="Lai review form will display when published to Online store"></div>
+ {%- endif -%}
+ {% assign smaTemplatePageBuilderCurrent = template | split: '.' | first %}
+ {% if smaTemplatePageBuilderCurrent != 'product' %}
+ <div class="scm-container custom" style="display: none;">
+ <div id="scm-reviews-importer" class="scm-reviews-importer">
+ <iframe id="scm-reviews-importer-iframe" width="100%"></iframe>
+ </div>
+ </div>
+ {% endif %}
+ {% assign random_number = "now" | date: "%N" | modulo: 1000 | plus: 0 %}<script>var sectionConfig= (typeof sectionConfig == "undefined" || sectionConfig == null) ? {} : sectionConfig;var scmCustomData= (typeof scmCustomData == "undefined" || scmCustomData == null) ? {} : scmCustomData;var scmCustomDataWigetAll= (typeof scmCustomDataWigetAll == "undefined" || scmCustomDataWigetAll == null) ? [] : scmCustomDataWigetAll; scmCustomDataWigetAll['{{ random_number }}'] ={"id_iframe" : "{{ random_number }}","productId" : "{{ product.id }}","typePage" : 'productPage',"sectionConfig" : JSON.stringify(sectionConfig),"scmCustomData" : JSON.stringify(scmCustomData),'dataProduct' : []};sectionConfig= null;scmCustomData= null;scmCustomDataWigetAll['{{ random_number }}'].dataProduct['product']= {{ product | json }};{% for metafieldValue in product.metafields.scm_review_importer %}scmCustomDataWigetAll['{{ random_number }}'].dataProduct['{{ metafieldValue[0] }}']= `{{ metafieldValue[1] | json }}`;{% endfor %}</script>
+ <div class="scm-container" style="display: none;">
+ <div class="scm-reviews-importer" data-product-id= {{ product.id }}>
+ <iframe class="scm-reviews-importer-iframe" width="100%" title="Sma reviews section Product page" data-idIframe="{{ random_number }}"></iframe>
+ </div>
+ </div>
+ {%- when 'rivyo' -%}
+ <div id="wc_review_section" class="wc_review_main_content" data-url="{{ shop.url }}" data-handle="{{ product.handle }}" data-product_id="{{ product.id }}" data-limit="0"></div>
+ {%- when 'sealapps-product-review' -%}
+ <div class="custom-vstar-review-widget" style="width:100%"></div>
+ {%- when 'klaviyo-reviews' -%}
+ <div id="klaviyo-reviews-all" data-id="{{product.id}}"></div> 
+ {%- when 'air-reviews' -%}
+ <div class="AirReviews-Widget AirReviews-Widget--Block"></div>
+ {%- when 'ait-product-reviews' -%}
+ <div id="aio-product-detial-reviews" class="page-width" attr-value="{{ product.id }}"></div>
+ {%- when 'trustify-reviews' -%}
+ <div class="trustify-review-box"></div>
+ {% else %}
+ <div class="ecom-theme-app-extensions-skeleton">
+ <p>The reivew platform not supported</p>
+ </div>
+ {%-endcase-%}
+ {%- endif -%}
+ {%- else -%}
+ <div class="ecom-theme-app-extensions-skeleton">
+ <p>Please select the integrated review app platform in settings</p>
+ </div>
+ {%- endif -%}
+ </div></div></div></div> <div class="ecom-block ecom-core core__block elmspace ecom-cje0xe11mdr"><div class="ecom-element ecom-product-single ecom-product-single__metafield" section_id="ecom-8x6qktw2pai"><div class="ecom-product-single__metafield-wrapper"><div class="ecom-product-single__metafield-container">{% assign rich_text_metafield = product.metafields.custom.faq%}
+{{ rich_text_metafield | metafield_tag | replace: ' ', ' '}}</div></div></div></div> </div></div></div></div> </div><div class="ecom-section__overlay"><div class="ecom-overlay"></div></div> </section>
+ {% unless ecom_has_variant_picker %}
+ <input type="hidden" name="id" value="{{product.selected_or_first_available_variant.id}}" />
+ <script type="application/json" id="product-json-{{product.id}}-ecom-8x6qktw2pai">
+ {%- render "ecom_product_json", product: product, checkIsHighVariant: product.variants_count > 250 -%}
+ </script>
+ {% endunless %}
+ {%- endform -%}
+ {% assign ecom_has_variant_picker = false %}
+ {%- endif -%}
+ 
+</div></div>
+{% schema %}
+{
+ "name": "EComposer-product-v2",
+ "settings": [
+ {
+ "type": "header",
+ "content": "The section was generated by [Ecomposer](https:\/\/ecomposer.io).",
+ "info": "\n EComposer is a Visual Page Builder app on Shopify AppStore.\n It provides 100+ pre-built templates in library,\n so you can build unlimited pages that you can imagine with it.\n Please don't add Shopify sections to EComposer's page in the theme customize. If you do this, Shopify sections will be deleted when you republish your page in EComposer\n "
+ },
+ {
+ "type": "header",
+ "content": "[EDIT WITH EComposer APP \u2192](https:\/\/ecomposer.app\/shop?open_builder=1&page=product&id=65af7ebfe66d4685150cbd02&utm_source=theme-customize)",
+ "info": "(*You must install the app to start editing this section [Learn more](https:\/\/help.ecomposer.io\/docs\/getting-started\/installation\/))"
+ }
+ ],
+ "locales": {}
+}
+{% endschema %}

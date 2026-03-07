@@ -1,0 +1,100 @@
+{% assign seo_post_size = collection.metafields.custom.collectionrichtext | metafield_tag | strip_html | size %}
+{% if collection.metafields.custom.seo_post_html.value != blank or seo_post_size > 0 %}
+  <style>
+      .rich-text__wrapper--left {
+        text-align: left;
+      }
+      .rich-text__wrapper--center {
+        text-align: center;
+      }
+      .rich-text__wrapper--right {
+      text-align: right;
+    }
+    @media screen and (min-width: 750px) {
+      body .section-{{ section.id }}-padding {
+        padding-top: {{ section.settings.padding_top }}px;
+        padding-bottom: {{ section.settings.padding_bottom }}px;
+        padding-left: {{ section.settings.padding_left }}px;
+        padding-right: {{ section.settings.padding_right }}px;
+      }
+    }
+    {% comment %} 移动端 {% endcomment %}
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+      padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+      padding-left: {{ section.settings.padding_left | times: 0.75 | round: 0}}px;
+      padding-right: {{ section.settings.padding_right | times: 0.75 | round: 0}}px;
+    }
+  </style>
+
+  <div class="page-width">
+    <article class="section-{{ section.id }}-padding">
+      <div
+        class="rich-text__text rich-text__wrapper--{{ section.settings.content_position }} rte"
+        {{ block.shopify_attributes }}
+      >
+        {{ collection.metafields.custom.collectionrichtext | metafield_tag }}
+        {{ collection.metafields.custom.seo_post_html.value }}
+      </div>
+    </article>
+  </div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "集合页文章",
+  "settings": [
+    {
+      "type": "text_alignment",
+      "id": "content_position",
+      "default": "left",
+      "label": "内容对齐"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "顶部填充",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "底部填充",
+      "default": 52
+    },
+    {
+      "type": "range",
+      "id": "padding_left",
+      "min": 0,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "左侧填充",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_right",
+      "min": 0,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "右侧填充",
+      "default": 0
+    },
+  ],
+  "presets": [
+    {
+      "name": "集合页文章",
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,14 @@
+<!-- 系列页 -->
+{% if template contains "collection" and collection.handle == "vendors" %}
+    <meta name="robots" content="noindex, follow">
+{% endif %}
+
+<!-- 产品类型页 -->
+{% if template contains "collection" and collection.handle == "types" %}
+    <meta name="robots" content="noindex, follow">
+{% endif %}
+
+<!-- 其他默认页面 -->
+{% if (template contains "collection" and collection.handle == "all") or (template contains "collection" and collection.handle == "new") or (canonical_url == "https://YOURWEBSITE.com/collections") %}
+    <meta name="robots" content="noindex, follow">
+{% endif %}

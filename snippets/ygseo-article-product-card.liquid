@@ -1,0 +1,263 @@
+{% comment %}
+  产品卡片组件
+  接收参数:
+  - product: 产品对象
+{% endcomment %}
+
+{% if product != blank %}
+  {% if index == 1 %}
+    <style>
+      #ygseo-product-card {
+        background-color: #f5f5f5;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      }
+
+      #ygseo-product-card .ygseo-product-card__content {
+        display: flex;
+        align-items: center;
+      }
+
+      #ygseo-product-card .ygseo-product-card__image-container {
+        flex: 0 0 33.333%;
+        margin-right: 20px;
+        overflow: hidden;
+        border-radius: 4px;
+      }
+
+      #ygseo-product-card .ygseo-product-card__image-link {
+        display: block;
+        text-decoration: none;
+        overflow: hidden;
+        background: transparent;
+      }
+
+      #ygseo-product-card .ygseo-product-card__image {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+        border-radius: 4px;
+        transition: transform 0.3s ease;
+      }
+
+      #ygseo-product-card .ygseo-product-card__image:hover {
+        transform: scale(1.05);
+      }
+
+      #ygseo-product-card .ygseo-product-card__info {
+        flex: 1;
+      }
+
+      #ygseo-product-card .ygseo-product-card__title {
+        font-size: 18px;
+        font-weight: 600;
+        margin: 0 0 10px;
+      }
+
+      #ygseo-product-card .ygseo-product-card__title a {
+        color: #333;
+        text-decoration: none;
+      }
+
+      #ygseo-product-card .ygseo-product-card__price {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+
+      #ygseo-product-card .ygseo-product-card__description {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 15px;
+      }
+
+      #ygseo-product-card .ygseo-product-card__actions {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+      }
+
+      #ygseo-product-card .ygseo-product-card__learn-more {
+        height: 45px;
+        line-height: 45px;
+
+        flex: 1;
+        display: inline-block;
+        background: #fff;
+        color: #333;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        text-align: center;
+      }
+
+      #ygseo-product-card .ygseo-product-card__learn-more:hover {
+        background-color: #f0f0f0;
+        border-color: #ccc;
+      }
+
+      #ygseo-product-card .ygseo-product-card__form {
+        flex: 1;
+        margin: 0 !important;
+      }
+
+      #ygseo-product-card .ygseo-product-card__add-to-cart {
+        height: 44px;
+        line-height: 44px;
+        width: 100%;
+        display: inline-block;
+        background-color: #000;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-align: center;
+        margin: 0 !important;
+      }
+
+      #ygseo-product-card .ygseo-product-card__add-to-cart:hover {
+        background-color: #333;
+      }
+
+      @media screen and (max-width: 767px) {
+        #ygseo-product-card .ygseo-product-card__content {
+          flex-direction: column;
+        }
+
+        #ygseo-product-card .ygseo-product-card__image-container {
+          margin-right: 0;
+          margin-bottom: 15px;
+          width: 100%;
+        }
+
+        #ygseo-product-card .ygseo-product-card__actions {
+          flex-direction: column;
+          gap: 10px;
+        }
+        #ygseo-product-card .ygseo-product-card__form,
+        #ygseo-product-card .ygseo-product-card__learn-more,
+        #ygseo-product-card .ygseo-product-card__add-to-cart {
+          width: 100%;
+          text-align: center;
+        }
+      }
+    </style>
+  {% endif %}
+
+  <div id="ygseo-product-card">
+    <div class="ygseo-product-card__content">
+      <div class="ygseo-product-card__image-container">
+        <a href="{{ product.url }}" class="ygseo-product-card__image-link">
+          {% if product.featured_media %}
+            <img
+              src="{{ product.featured_media | img_url: '300x300', crop: 'center' }}"
+              alt="{{ product.featured_media.alt | escape }}"
+              class="ygseo-product-card__image"
+              loading="lazy"
+              width="150"
+              height="150"
+            >
+          {% else %}
+            {{ 'product-1' | placeholder_svg_tag: 'ygseo-product-card__image placeholder' }}
+          {% endif %}
+        </a>
+      </div>
+      <div class="ygseo-product-card__info">
+        <h3 class="ygseo-product-card__title">
+          <a href="{{ product.url }}">{{ product.title }}</a>
+        </h3>
+
+        <div class="ygseo-product-card__price">
+          {% if product.price_min != product.price_max %}
+            <span class="ygseo-product-card__price-amount">
+              {{ 'customer.order.price' | t }}: {{ product.price_min | money }} - {{ product.price_max | money }}
+            </span>
+          {% else %}
+            <span class="ygseo-product-card__price-amount">
+              {{ 'customer.order.price' | t }}: {{ product.price | money }}
+            </span>
+          {% endif %}
+        </div>
+
+        <div class="ygseo-product-card__description">
+          {{ product.description | strip_html | truncatewords: 10 }}
+        </div>
+
+        <div class="ygseo-product-card__actions">
+          <a href="{{ product.url }}" class="ygseo-product-card__learn-more">{{ 'pagefly.products.product.view_details' | t }}</a>
+
+          <div class="ygseo-product-card__form">
+            <input type="hidden" class="product-variant-id" value="{{ product.selected_or_first_available_variant.id }}">
+            <button type="submit" class="ygseo-product-card__add-to-cart">{{'products.product.add_to_cart' | t}}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% if last %}
+    <script>
+  window.addEventListener('DOMContentLoaded', function() {
+      const cartDrawer = document.querySelector('[href$="/cart"]');
+      const buttons = document.querySelectorAll('.ygseo-product-card__add-to-cart');
+      function addToCartDrawer(button) {
+        const variantId = parseInt(button.parentNode.querySelector('.product-variant-id').value);
+        const originalText = button.innerHTML;
+
+        button.innerHTML = 'Adding...';
+        button.disabled = true;
+
+        fetch(`${Shopify.routes.root}cart/add.js`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest',
+          },
+          body: JSON.stringify({
+            items: [
+              {
+                id: variantId,
+                quantity: 1,
+              },
+            ],
+          }),
+        })
+          .then(async (response) => {
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
+            const cart = await (await fetch(`${Shopify.routes.root}cart.js`)).json();
+            cartDrawer?.click();
+          })
+          .catch((error) => {
+            console.error('[YGSEO Product Card] Add to cart error:', error);
+            document.documentElement.dispatchEvent(
+              new CustomEvent('cart:error', {
+                detail: {
+                  message: 'Adding cart failed, please try again later.',
+                  error: error.message,
+                },
+              })
+            );
+          })
+          .finally(() => {
+            button.innerHTML = originalText;
+            button.disabled = false;
+          });
+      }
+
+      buttons.forEach((button) => {
+        button.addEventListener('click', () => addToCartDrawer(button));
+      });
+     })
+    </script>
+  {% endif %}
+{% endif %}

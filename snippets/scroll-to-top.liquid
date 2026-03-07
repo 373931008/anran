@@ -1,0 +1,77 @@
+{% comment %}
+修改 ‘1200’ 来决定客户需要滚动多远才显示按钮：
+{% endcomment %}
+{% assign vertical_offset_for_trigger = 1200 %}
+{% comment %}
+修改 ‘em’ 前的数字来更改按钮距离浏览器底部的距离：
+{% endcomment %}
+<!-- {% assign position_from_bottom = '2.2em' %} -->
+<a href="#" title="Back to the top" class="back-to-top">
+<i class="fa fa-angle-double-up fa-2x"></i>
+</a>
+{{ '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css' | stylesheet_tag }}
+<style>
+@media screen and (max-width: 500px) {
+.back-to-top {
+bottom: 6em;
+}
+}
+@media screen and (min-width: 1024px) {
+.back-to-top {
+bottom: 2.2em;
+}
+}
+.back-to-top {
+position: fixed;
+right: 0em;
+  bottom: 8em;
+text-decoration: none;
+color: #3449b6;
+font-size: 16px;
+padding: 0.3em;
+display: none;
+-webkit-border-top-left-radius: 3px;
+-webkit-border-bottom-left-radius: 3px;
+-moz-border-radius-topleft: 3px;
+-moz-border-radius-bottomleft: 3px;
+border-radius: 3px;
+z-index: 60000;
+}
+.back-to-top i {
+vertical-align: middle;
+}
+.back-to-top span {
+padding-left: 0.5em;
+}
+.back-to-top i + span {
+padding-left: 0;
+}
+.back-to-top:hover {
+text-decoration: none;
+color: #555;
+}
+</style>
+
+<script src='https://code.jquery.com/jquery-3.3.1.min.js'></script> <!-- 如主题已引入，则不必重复引入 -->
+
+<script>
+window.onload = function() {
+jQuery(function($) {
+var offset = {{ vertical_offset_for_trigger }};
+var duration = 500;
+$(window).scroll(function() {
+if ($(this).scrollTop() > offset) {
+$('.back-to-top').fadeIn(duration);
+}
+else {
+$('.back-to-top').fadeOut(duration);
+}
+});
+$('.back-to-top').unbind('click.smoothscroll').bind('click', function(e) {
+e.preventDefault();
+$('html, body').animate( { scrollTop: 0 }, duration);
+return false;
+})
+});
+}
+</script>
