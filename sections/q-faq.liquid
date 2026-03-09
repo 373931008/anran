@@ -1,19 +1,577 @@
+{%- comment -%}
+  Section: q-faq
+  
+  功能说明：
+  - FAQ 常见问题板块，支持 Tab 分类切换
+  - 每个 Tab 下有多个手风琴式问答条目（slide down 动画）
+  - summary 行有 #D9E2F2 背景，答案区无背景
+  - 内容区最大宽度 968px
+  - Tab 切换使用 Islands 架构（faq-tabs 自定义元素）
+  - 复用通用头部 snippet（q-section-header）
+  
+  技术栈：
+  - Islands: frontend/islands/faq-tabs.js
+  - Snippet: snippets/q-section-header.liquid
+  
+  版本：1.1.0
+{%- endcomment -%}
 
+{%- liquid
+  assign tab_blocks = section.blocks | where: 'type', 'tab'
+  assign item_blocks = section.blocks | where: 'type', 'item'
+  assign has_tabs = false
+  if tab_blocks.size > 0
+    assign has_tabs = true
+  endif
+  assign first_tab_index = '1'
+-%}
+
+<style>
+  .section-{{ section.id }} {
+    --faq-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --faq-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --faq-padding-top-desktop: {{ section.settings.padding_top_desktop }}px;
+    --faq-padding-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --faq-tab-border-color: {{ section.settings.tab_border_color }};
+    --faq-tab-text-color: {{ section.settings.tab_text_color }};
+    --faq-tab-active-bg: {{ section.settings.tab_active_bg }};
+    --faq-tab-active-text-color: {{ section.settings.tab_active_text_color }};
+  }
+
+  .section-{{ section.id }}.q-faq {
+    font-family: var(--font-body-family);
+    padding-top: var(--faq-padding-top-mobile, 40px);
+    padding-bottom: var(--faq-padding-bottom-mobile, 40px);
+    background: #F3F7FF;
+  }
+
+  .section-{{ section.id }} .q-faq__inner, .section-{{ section.id }} .q-section-header {
+    max-width: 968px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .section-{{ section.id }} .q-faq__tab-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .section-{{ section.id }} .q-faq__tab-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 204px;
+    height: 38px;
+    border-radius: 100px;
+    border: 1.5px solid var(--faq-tab-border-color, #d9e2f2);
+    background: transparent;
+    color: var(--faq-tab-text-color, #2d4e76);
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+  }
+
+  .section-{{ section.id }} .q-faq__tab-btn--active {
+    background: var(--faq-tab-active-bg, #2d4e76);
+    color: var(--faq-tab-active-text-color, #ffffff);
+    border-color: var(--faq-tab-active-bg, #2d4e76);
+    font-weight: 500;
+  }
+
+  .section-{{ section.id }} .q-faq__list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .section-{{ section.id }} .q-faq__item {
+    background: transparent;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+
+  .section-{{ section.id }} .q-faq__summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    height: 51px;
+    background: #d9e2f2;
+    border-radius: 5px;
+    color: #2d4e76;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    list-style: none;
+    gap: 12px;
+  }
+
+  .section-{{ section.id }} .q-faq__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .section-{{ section.id }} .q-faq__question {
+    flex: 1;
+    line-height: 1.4;
+  }
+
+  .section-{{ section.id }} .q-faq__icon {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+  }
+
+  .section-{{ section.id }} .q-faq__item[data-open] .q-faq__icon {
+    transform: rotate(180deg);
+  }
+
+  .section-{{ section.id }} .q-faq__answer-wrap {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .section-{{ section.id }} .q-faq__answer {
+    padding: 14px 16px 16px;
+    color: #2d4e76;
+    font-size: 12px;
+    line-height: 1.6;
+  }
+
+  .section-{{ section.id }} .q-faq__answer p {
+    margin: 0;
+  }
+
+  .section-{{ section.id }} .q-faq__answer p + p {
+    margin-top: 8px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}.q-faq {
+      padding-top: var(--faq-padding-top-desktop, 60px);
+      padding-bottom: var(--faq-padding-bottom-desktop, 60px);
+    }
+
+    .section-{{ section.id }} .q-faq__tab-bar {
+      flex-direction: row;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .section-{{ section.id }} .q-faq__tab-btn {
+      width: 204px;
+      height: 48px;
+    }
+
+    .section-{{ section.id }} .q-faq__item {
+      border-radius: 10px;
+    }
+
+    .section-{{ section.id }} .q-faq__summary {
+      height: 74px;
+      padding: 0 24px;
+      font-size: 20px;
+      border-radius: 10px;
+    }
+
+    .section-{{ section.id }} .q-faq__icon {
+      width: 34px;
+      height: 34px;
+    }
+
+    .section-{{ section.id }} .q-faq__answer {
+      padding: 16px 24px 20px;
+      font-size: 16px;
+    }
+
+    .section-{{ section.id }} .q-faq__list {
+      gap: 10px;
+    }
+  }
+</style>
+
+<div class="q-faq section-{{ section.id }}">
+  <div class="page-width">
+    {%- render 'q-section-header', section: section -%}
+
+    <faq-tabs client:visible>
+      <div class="q-faq__inner">
+        {%- if has_tabs -%}
+          <div class="q-faq__tab-bar" role="tablist">
+            {%- for block in tab_blocks -%}
+              {%- assign tab_num = forloop.index | append: '' -%}
+              <button
+                class="q-faq__tab-btn{% if forloop.first %} q-faq__tab-btn--active{% endif %}"
+                data-tab="{{ tab_num }}"
+                role="tab"
+                aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+                {{ block.shopify_attributes }}
+              >
+                {{- block.settings.tab_label | default: 'Tab' -}}
+              </button>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+
+        <div class="q-faq__list">
+          {%- for block in item_blocks -%}
+            {%- assign tab_group = block.settings.tab_index | default: '1' -%}
+            <div
+              class="q-faq__item{% if forloop.first and tab_group == first_tab_index %} q-faq__item--default-open{% endif %}"
+              data-tab-group="{{ tab_group }}"
+              {% unless tab_group == first_tab_index %}hidden{% endunless %}
+              {{ block.shopify_attributes }}
+            >
+              <div class="q-faq__summary" role="button" tabindex="0" aria-expanded="{% if forloop.first and tab_group == first_tab_index %}true{% else %}false{% endif %}">
+                <span class="q-faq__question">{{- block.settings.question -}}</span>
+                <span class="q-faq__icon" aria-hidden="true">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 9L12 15L18 9" stroke="#2d4e76" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+              </div>
+              {%- if block.settings.answer != blank -%}
+                <div class="q-faq__answer-wrap">
+                  <div class="q-faq__answer">
+                    {{- block.settings.answer -}}
+                  </div>
+                </div>
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </faq-tabs>
+  </div>
+</div>
 
 {% schema %}
 {
-  "name": "q-faq",
+  "name": "Q-FAQ",
   "tag": "section",
   "class": "section",
   "disabled_on": {
     "groups": ["header", "footer"]
   },
   "settings": [
+    {
+      "type": "header",
+      "content": "上下边距"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "上边距（移动端）",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "下边距（移动端）",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "label": "上边距（桌面端）",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "label": "下边距（桌面端）",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Tab 颜色"
+    },
+    {
+      "type": "color",
+      "id": "tab_text_color",
+      "label": "默认文字色",
+      "default": "#2d4e76"
+    },
+    {
+      "type": "color",
+      "id": "tab_border_color",
+      "label": "默认边框色",
+      "default": "#d9e2f2"
+    },
+    {
+      "type": "color",
+      "id": "tab_active_bg",
+      "label": "激活背景色",
+      "default": "#2d4e76"
+    },
+    {
+      "type": "color",
+      "id": "tab_active_text_color",
+      "label": "激活文字色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "板块标题"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "header_title",
+      "label": "标题",
+      "default": "Questions? We've Got Answers"
+    },
+    {
+      "type": "richtext",
+      "id": "header_description",
+      "label": "描述"
+    },
+    {
+      "type": "checkbox",
+      "id": "header_center",
+      "label": "居中对齐",
+      "default": true
+    },
+    {
+      "type": "color_background",
+      "id": "header_em_color",
+      "label": "em 高亮色",
+      "default": "#2d4e76"
+    },
+    {
+      "type": "range",
+      "id": "header_title_size_desktop",
+      "label": "标题字号（桌面端）",
+      "min": 20,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 46
+    },
+    {
+      "type": "range",
+      "id": "header_title_size_mobile",
+      "label": "标题字号（移动端）",
+      "min": 16,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 26
+    },
+    {
+      "type": "range",
+      "id": "header_desc_size_desktop",
+      "label": "描述字号（桌面端）",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "header_desc_size_mobile",
+      "label": "描述字号（移动端）",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "header_margin_bottom_desktop",
+      "label": "标题下边距（桌面端）",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "header_margin_bottom_mobile",
+      "label": "标题下边距（移动端）",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "Tab 分类",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tab_label",
+          "label": "Tab 标签",
+          "default": "Tab"
+        }
+      ]
+    },
+    {
+      "type": "item",
+      "name": "FAQ 条目",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "问题",
+          "default": "FAQ question goes here?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "答案",
+          "default": "<p>FAQ answer goes here.</p>"
+        },
+        {
+          "type": "select",
+          "id": "tab_index",
+          "label": "所属 Tab",
+          "default": "1",
+          "options": [
+            { "value": "1", "label": "Tab 1" },
+            { "value": "2", "label": "Tab 2" },
+            { "value": "3", "label": "Tab 3" },
+            { "value": "4", "label": "Tab 4" },
+            { "value": "5", "label": "Tab 5" }
+          ]
+        }
+      ]
+    }
   ],
   "presets": [
     {
-      "name": "q-faq",
+      "name": "Q-FAQ",
       "blocks": [
+        {
+          "type": "tab",
+          "settings": {
+            "tab_label": "Security Camera"
+          }
+        },
+        {
+          "type": "tab",
+          "settings": {
+            "tab_label": "Shipping & Returns"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "question": "Does the camera come with an SD card?",
+            "answer": "<p>Only the G1 model includes a built-in SD card in the package. Other camera models do NOT come with an SD card. You will need to purchase one separately.</p>",
+            "tab_index": "1"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "question": "What format of SD card does the camera support?",
+            "answer": "<p>The camera supports microSD cards up to 128GB in FAT32 or exFAT format.</p>",
+            "tab_index": "1"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "question": "Do you have to have Alexa for this?",
+            "answer": "<p>No, Alexa is not required. The camera works independently via the mobile app. Alexa integration is optional for voice control.</p>",
+            "tab_index": "1"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "question": "What is the viewing angle and What range of coverage is it?",
+            "answer": "<p>The camera has a 130° wide-angle lens with up to 30 feet of night vision range.</p>",
+            "tab_index": "1"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "question": "How long does it take to fully charge a low-power battery camera?",
+            "answer": "<p>It takes approximately 4-6 hours to fully charge the battery using the included USB-C cable.</p>",
+            "tab_index": "1"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "question": "Will this camera record continuously if I insert an SD card?",
+            "answer": "<p>Yes, with a microSD card inserted, the camera supports continuous local recording.</p>",
+            "tab_index": "1"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "question": "Why the Solar Panel Might Not Be Charging?",
+            "answer": "<p>Ensure the solar panel is placed in direct sunlight for at least 6 hours per day. Clean the panel surface if dirty and check the cable connection.</p>",
+            "tab_index": "1"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "question": "How long does shipping take?",
+            "answer": "<p>Standard shipping takes 5-7 business days. Expedited shipping (2-3 business days) is available at checkout.</p>",
+            "tab_index": "2"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "question": "What is your return policy?",
+            "answer": "<p>We offer a 30-day hassle-free return policy. Items must be in their original packaging and unused condition. Contact our support team to initiate a return.</p>",
+            "tab_index": "2"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "question": "Do you offer free shipping?",
+            "answer": "<p>Yes! Free standard shipping is available on all orders over $50. Orders below $50 have a flat shipping fee of $4.99.</p>",
+            "tab_index": "2"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "question": "Can I track my order?",
+            "answer": "<p>Absolutely. Once your order ships, you will receive a tracking number via email. You can also track your order through your account dashboard.</p>",
+            "tab_index": "2"
+          }
+        }
       ]
     }
   ]
