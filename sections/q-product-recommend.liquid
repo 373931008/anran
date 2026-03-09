@@ -1,0 +1,960 @@
+{%- comment -%}
+  Section: q-product-recommend
+
+  功能说明：
+  - "Pair Up Our Products" 产品推荐板块
+  - 支持 Tab 切换（You May Also Like / Recently Viewed）
+  - 移动端：Swiper 横向滑动（约 1.3 张/屏，右侧卡片露出）
+  - 桌面端：4 列网格静态展示
+  - 卡片包含：产品图片、名称、评分、特性、价格、Shop Now 按钮、优惠徽标
+
+  技术栈：
+  - Islands: frontend/islands/product-recommend.js
+  - Swiper Element (Web Component)
+  - Snippet: snippets/q-section-header.liquid
+
+  版本：1.0.0
+{%- endcomment -%}
+
+{%- liquid
+  assign tab_blocks = section.blocks | where: 'type', 'tab'
+  assign card_blocks = section.blocks | where: 'type', 'product_card'
+  assign has_tabs = false
+  if tab_blocks.size > 0
+    assign has_tabs = true
+  endif
+-%}
+
+<style>
+  .section-{{ section.id }} {
+    --pr-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --pr-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --pr-padding-top-desktop: {{ section.settings.padding_top_desktop }}px;
+    --pr-padding-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --pr-tab-active-bg: {{ section.settings.tab_active_bg }};
+  }
+
+  .section-{{ section.id }}.q-product-recommend {
+    padding-top: var(--pr-padding-top-mobile, 40px);
+    padding-bottom: var(--pr-padding-bottom-mobile, 40px);
+    font-family: var(--font-body-family);
+  }
+
+  /* Tab 切换栏 */
+  .section-{{ section.id }} .q-pr__tab-bar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .section-{{ section.id }} .q-pr__tab-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 37px;
+    padding: 0 20px;
+    border-radius: 100px;
+    border: 1.5px solid #6cbce7;
+    background: transparent;
+    color: #2d4e76;
+    font-size: 12px;
+    font-weight: 500;
+    font-family: var(--font-body-family);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s, color 0.2s, border-color 0.2s, opacity 0.2s;
+  }
+
+  .section-{{ section.id }} .q-pr__tab-btn:hover:not(.q-pr__tab-btn--active) {
+    background: rgba(108, 188, 231, 0.12);
+    border-color: #367cf6;
+    color: #367cf6;
+  }
+
+  .section-{{ section.id }} .q-pr__tab-btn:active:not(.q-pr__tab-btn--active) {
+    background: rgba(108, 188, 231, 0.25);
+  }
+
+  .section-{{ section.id }} .q-pr__tab-btn--active {
+    background: var(--pr-tab-active-bg, linear-gradient(90deg, #6CBCE7 0%, #367CF6 57.21%));
+    color: #ffffff;
+    border-color: transparent;
+  }
+
+  .section-{{ section.id }} .q-pr__tab-btn--active:hover {
+    opacity: 0.85;
+  }
+
+  /* Swiper 移动端容器 */
+  .section-{{ section.id }} .q-pr__swiper {
+    overflow: visible;
+  }
+
+  .section-{{ section.id }} swiper-container {
+    --swiper-wrapper-transition-timing-function: ease;
+  }
+
+  /* 产品卡片 */
+  .section-{{ section.id }} .q-pr__card {
+    background: #ffffff;
+    border: 1px solid #6cbce7;
+    border-radius: 15px;
+    box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  /* 卡片图片区 */
+  .section-{{ section.id }} .q-pr__card-image {
+    position: relative;
+    background: #ffffff;
+    border-radius: 14px 14px 0 0;
+    overflow: hidden;
+    height: 188px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .section-{{ section.id }} .q-pr__card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  /* 卡片内容区 */
+  .section-{{ section.id }} .q-pr__card-body {
+    padding: 10px 15px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+  }
+
+  /* 商品名称 */
+  .section-{{ section.id }} .q-pr__card-title {
+    color: #1e1e1e;
+    font-size: 15px;
+    font-weight: 500;
+    font-family: var(--font-body-family);
+    line-height: 1.3;
+    margin: 0;
+  }
+
+  /* 评分行 */
+  .section-{{ section.id }} .q-pr__card-rating {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* Judge.me badge 适配 */
+  .section-{{ section.id }} .q-pr__judgeme-badge .jdgm-prev-badge {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .section-{{ section.id }} .q-pr__judgeme-badge .jdgm-prev-badge__stars {
+    font-size: 12px;
+  }
+
+  .section-{{ section.id }} .q-pr__judgeme-badge .jdgm-prev-badge__text {
+    font-size: 10px;
+    color: #1e1e1e;
+  }
+
+  .section-{{ section.id }} .q-pr__stars {
+    display: flex;
+    gap: 1px;
+  }
+
+  .section-{{ section.id }} .q-pr__stars svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .section-{{ section.id }} .q-pr__review-count {
+    color: #1e1e1e;
+    font-size: 10px;
+    font-family: var(--font-body-family);
+  }
+
+  /* 分隔线 */
+  .section-{{ section.id }} .q-pr__divider {
+    border: none;
+    border-top: 1px solid #e0e0e0;
+    margin: 2px 0;
+  }
+
+  /* 特性列表 */
+  .section-{{ section.id }} .q-pr__features {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .section-{{ section.id }} .q-pr__feature {
+    color: #2d4e76;
+    font-size: 10px;
+    font-family: var(--font-body-family);
+    line-height: 2.4;
+  }
+
+  /* 价格行 */
+  .section-{{ section.id }} .q-pr__price-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: auto;
+  }
+
+  .section-{{ section.id }} .q-pr__price {
+    color: #b51010;
+    font-size: 18px;
+    font-weight: 600;
+    font-family: var(--font-body-family);
+  }
+
+  .section-{{ section.id }} .q-pr__price-compare {
+    color: #4e5357;
+    font-size: 14px;
+    text-decoration: line-through;
+    font-family: var(--font-body-family);
+  }
+
+  .section-{{ section.id }} .q-pr__shop-btn {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 26px;
+    padding: 0 14px;
+    border-radius: 100px;
+    background: #faa61a;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 600;
+    font-family: var(--font-body-family);
+    text-decoration: none;
+    white-space: nowrap;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, opacity 0.2s;
+  }
+
+  .section-{{ section.id }} .q-pr__shop-btn:hover {
+    background: #e8940f;
+  }
+
+  .section-{{ section.id }} .q-pr__shop-btn:active {
+    opacity: 0.8;
+  }
+
+  /* 优惠徽标 */
+  .section-{{ section.id }} .q-pr__save-badge {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .section-{{ section.id }} .q-pr__save-badge svg {
+    width: 10px;
+    height: 10px;
+    flex-shrink: 0;
+  }
+
+  .section-{{ section.id }} .q-pr__save-text {
+    color: #367cf6;
+    font-size: 10px;
+    font-family: var(--font-body-family);
+  }
+
+  /* 桌面端 */
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}.q-product-recommend {
+      padding-top: var(--pr-padding-top-desktop, 60px);
+      padding-bottom: var(--pr-padding-bottom-desktop, 60px);
+    }
+
+    .section-{{ section.id }} .q-pr__card-image {
+      height: 238px;
+    }
+
+    .section-{{ section.id }} .q-pr__tab-btn {
+      height: 45px;
+      font-size: 14px;
+      padding: 0 28px;
+    }
+
+    .section-{{ section.id }} .q-pr__tab-bar {
+      margin-bottom: 24px;
+    }
+
+    /* 桌面端 4 列网格 */
+    .section-{{ section.id }} .q-pr__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .section-{{ section.id }} .q-pr__grid-item[hidden] {
+      display: none;
+    }
+
+    .section-{{ section.id }} .q-pr__card-title {
+      font-size: 18px;
+    }
+
+    .section-{{ section.id }} .q-pr__card-body {
+      padding: 14px 20px 18px;
+      gap: 8px;
+    }
+
+    .section-{{ section.id }} .q-pr__stars svg {
+      width: 15px;
+      height: 15px;
+    }
+
+    .section-{{ section.id }} .q-pr__review-count {
+      font-size: 14px;
+    }
+
+    .section-{{ section.id }} .q-pr__feature {
+      font-size: 12px;
+    }
+
+    .section-{{ section.id }} .q-pr__price {
+      font-size: 22px;
+    }
+
+    .section-{{ section.id }} .q-pr__price-compare {
+      font-size: 16px;
+    }
+
+    .section-{{ section.id }} .q-pr__shop-btn {
+      height: 37px;
+      padding: 0 18px;
+      font-size: 14px;
+    }
+
+    .section-{{ section.id }} .q-pr__save-badge svg {
+      width: 12px;
+      height: 12px;
+    }
+
+    .section-{{ section.id }} .q-pr__save-text {
+      font-size: 12px;
+    }
+  }
+
+  /* 移动端隐藏桌面端网格，桌面端隐藏移动端 Swiper */
+  .section-{{ section.id }} .q-pr__grid {
+    display: none;
+  }
+
+  .section-{{ section.id }} .q-pr__swiper-wrap {
+    display: block;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-pr__grid {
+      display: grid;
+    }
+
+    .section-{{ section.id }} .q-pr__swiper-wrap {
+      display: none;
+    }
+  }
+</style>
+
+<div class="q-product-recommend section-{{ section.id }}">
+  <div class="page-width">
+    {%- render 'q-section-header', section: section -%}
+
+    <product-recommend-tabs client:visible>
+      {%- if has_tabs -%}
+        <div class="q-pr__tab-bar" role="tablist">
+          {%- for block in tab_blocks -%}
+            <button
+              class="q-pr__tab-btn{% if forloop.first %} q-pr__tab-btn--active{% endif %}"
+              data-tab="{{ forloop.index }}"
+              role="tab"
+              aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+              {{ block.shopify_attributes }}
+            >
+              {{- block.settings.tab_label | default: 'Tab' -}}
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      {%- comment -%} 移动端：Swiper 横向滑动 {%- endcomment -%}
+      <div class="q-pr__swiper-wrap">
+        <swiper-container
+          class="q-pr__swiper"
+          slides-per-view="1.3"
+          space-between="12"
+          free-mode="true"
+        >
+          {%- for block in card_blocks -%}
+            {%- assign tab_group = block.settings.tab_id | default: '1' -%}
+            {%- assign product_item = block.settings.product -%}
+            <swiper-slide
+              data-tab-group="{{ tab_group }}"
+              {% unless forloop.index <= 4 %}style="display:none"{% endunless %}
+            >
+              <div class="q-pr__card">
+                <div class="q-pr__card-image">
+                  {%- if block.settings.custom_image != blank -%}
+                    {{- block.settings.custom_image | image_url: width: 460 | image_tag:
+                        loading: 'lazy',
+                        widths: '230, 460',
+                        sizes: '(min-width: 750px) 25vw, 80vw',
+                        alt: block.settings.custom_title
+                    -}}
+                  {%- elsif product_item != blank -%}
+                    {%- assign card_image = product_item.featured_image -%}
+                    {%- if card_image != blank -%}
+                      {{- card_image | image_url: width: 460 | image_tag:
+                          loading: 'lazy',
+                          widths: '230, 460',
+                          sizes: '(min-width: 750px) 25vw, 80vw',
+                          alt: product_item.title
+                      -}}
+                    {%- else -%}
+                      {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                    {%- endif -%}
+                  {%- else -%}
+                    {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                  {%- endif -%}
+                </div>
+
+                <div class="q-pr__card-body">
+                  <p class="q-pr__card-title">
+                    {%- if block.settings.custom_title != blank -%}
+                      {{- block.settings.custom_title -}}
+                    {%- elsif product_item != blank -%}
+                      {{- product_item.title -}}
+                    {%- else -%}
+                      Product Name
+                    {%- endif -%}
+                  </p>
+
+                  <div class="q-pr__card-rating">
+                    {%- if product_item != blank -%}
+                      <div class="q-pr__judgeme-badge jdgm-widget jdgm-preview-badge" data-id="{{ product_item.id }}">
+                        {{- product_item.metafields.judgeme.badge -}}
+                      </div>
+                    {%- elsif block.settings.review_count != blank -%}
+                      <div class="q-pr__stars" aria-hidden="true">
+                        {%- for i in (1..5) -%}
+                          <svg viewBox="0 0 24 24" fill="#faa61a" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                          </svg>
+                        {%- endfor -%}
+                      </div>
+                      <span class="q-pr__review-count">{{ block.settings.review_count }}</span>
+                    {%- endif -%}
+                  </div>
+
+                  <hr class="q-pr__divider">
+
+                  {%- if block.settings.feature_1 != blank or block.settings.feature_2 != blank -%}
+                    <div class="q-pr__features">
+                      {%- if block.settings.feature_1 != blank -%}
+                        <span class="q-pr__feature">{{ block.settings.feature_1 }}</span>
+                      {%- endif -%}
+                      {%- if block.settings.feature_2 != blank -%}
+                        <span class="q-pr__feature">{{ block.settings.feature_2 }}</span>
+                      {%- endif -%}
+                    </div>
+                  {%- endif -%}
+
+                  <div class="q-pr__price-row">
+                    <span class="q-pr__price">
+                      {%- if product_item != blank -%}
+                        {{- product_item.price | money -}}
+                      {%- else -%}
+                        {{- block.settings.custom_price | default: '$0.00' -}}
+                      {%- endif -%}
+                    </span>
+                    {%- if product_item != blank and product_item.compare_at_price > product_item.price -%}
+                      <span class="q-pr__price-compare">{{- product_item.compare_at_price | money -}}</span>
+                    {%- elsif block.settings.custom_compare_price != blank -%}
+                      <span class="q-pr__price-compare">{{- block.settings.custom_compare_price -}}</span>
+                    {%- endif -%}
+                    <a
+                      href="{% if product_item != blank %}{{ product_item.url }}{% else %}{{ block.settings.button_link }}{% endif %}"
+                      class="q-pr__shop-btn"
+                    >
+                      {{- block.settings.button_label | default: 'Shop Now' -}}
+                    </a>
+                  </div>
+
+                  {%- if block.settings.save_badge != blank -%}
+                    <div class="q-pr__save-badge">
+                      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M9 11l3 3L22 4" stroke="#367cf6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="#367cf6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                      <span class="q-pr__save-text">{{ block.settings.save_badge }}</span>
+                    </div>
+                  {%- endif -%}
+                </div>
+              </div>
+            </swiper-slide>
+          {%- endfor -%}
+        </swiper-container>
+      </div>
+
+      {%- comment -%} 桌面端：4 列网格 {%- endcomment -%}
+      <div class="q-pr__grid">
+        {%- for block in card_blocks -%}
+          {%- assign tab_group = block.settings.tab_id | default: '1' -%}
+          {%- assign product_item = block.settings.product -%}
+          <div
+            class="q-pr__grid-item"
+            data-tab-group="{{ tab_group }}"
+            {% unless tab_group == '1' %}hidden{% endunless %}
+            {{ block.shopify_attributes }}
+          >
+            <div class="q-pr__card">
+              <div class="q-pr__card-image">
+                {%- if block.settings.custom_image != blank -%}
+                  {{- block.settings.custom_image | image_url: width: 460 | image_tag:
+                      loading: 'lazy',
+                      widths: '230, 460',
+                      sizes: '(min-width: 750px) 25vw, 80vw',
+                      alt: block.settings.custom_title
+                  -}}
+                {%- elsif product_item != blank -%}
+                  {%- assign card_image = product_item.featured_image -%}
+                  {%- if card_image != blank -%}
+                    {{- card_image | image_url: width: 460 | image_tag:
+                        loading: 'lazy',
+                        widths: '230, 460',
+                        sizes: '(min-width: 750px) 25vw, 80vw',
+                        alt: product_item.title
+                    -}}
+                  {%- else -%}
+                    {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                  {%- endif -%}
+                {%- else -%}
+                  {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                {%- endif -%}
+              </div>
+
+              <div class="q-pr__card-body">
+                <p class="q-pr__card-title">
+                  {%- if block.settings.custom_title != blank -%}
+                    {{- block.settings.custom_title -}}
+                  {%- elsif product_item != blank -%}
+                    {{- product_item.title -}}
+                  {%- else -%}
+                    Product Name
+                  {%- endif -%}
+                </p>
+
+                <div class="q-pr__card-rating">
+                  {%- if product_item != blank -%}
+                    <div class="q-pr__judgeme-badge jdgm-widget jdgm-preview-badge" data-id="{{ product_item.id }}">
+                      {{- product_item.metafields.judgeme.badge -}}
+                    </div>
+                  {%- elsif block.settings.review_count != blank -%}
+                    <div class="q-pr__stars" aria-hidden="true">
+                      {%- for i in (1..5) -%}
+                        <svg viewBox="0 0 24 24" fill="#faa61a" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                      {%- endfor -%}
+                    </div>
+                    <span class="q-pr__review-count">{{ block.settings.review_count }}</span>
+                  {%- endif -%}
+                </div>
+
+                <hr class="q-pr__divider">
+
+                {%- if block.settings.feature_1 != blank or block.settings.feature_2 != blank -%}
+                  <div class="q-pr__features">
+                    {%- if block.settings.feature_1 != blank -%}
+                      <span class="q-pr__feature">{{ block.settings.feature_1 }}</span>
+                    {%- endif -%}
+                    {%- if block.settings.feature_2 != blank -%}
+                      <span class="q-pr__feature">{{ block.settings.feature_2 }}</span>
+                    {%- endif -%}
+                  </div>
+                {%- endif -%}
+
+                <div class="q-pr__price-row">
+                  <span class="q-pr__price">
+                    {%- if product_item != blank -%}
+                      {{- product_item.price | money -}}
+                    {%- else -%}
+                      {{- block.settings.custom_price | default: '$0.00' -}}
+                    {%- endif -%}
+                  </span>
+                  {%- if product_item != blank and product_item.compare_at_price > product_item.price -%}
+                    <span class="q-pr__price-compare">{{- product_item.compare_at_price | money -}}</span>
+                  {%- elsif block.settings.custom_compare_price != blank -%}
+                    <span class="q-pr__price-compare">{{- block.settings.custom_compare_price -}}</span>
+                  {%- endif -%}
+                  <a
+                    href="{% if product_item != blank %}{{ product_item.url }}{% else %}{{ block.settings.button_link }}{% endif %}"
+                    class="q-pr__shop-btn"
+                  >
+                    {{- block.settings.button_label | default: 'Shop Now' -}}
+                  </a>
+                </div>
+
+                {%- if block.settings.save_badge != blank -%}
+                  <div class="q-pr__save-badge">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path d="M9 11l3 3L22 4" stroke="#367cf6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="#367cf6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="q-pr__save-text">{{ block.settings.save_badge }}</span>
+                  </div>
+                {%- endif -%}
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </product-recommend-tabs>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Q-Product Recommend",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "上下边距"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "上边距（移动端）",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "下边距（移动端）",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "label": "上边距（桌面端）",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "label": "下边距（桌面端）",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Tab 样式"
+    },
+    {
+      "type": "color_background",
+      "id": "tab_active_bg",
+      "label": "激活 Tab 背景色",
+      "default": "linear-gradient(90deg, #6CBCE7 0%, #367CF6 57.21%)"
+    },
+    {
+      "type": "header",
+      "content": "板块标题"
+    },
+    {
+      "type": "richtext",
+      "id": "header_title",
+      "label": "标题",
+      "default": "<p>Pair Up Our Products to Unlock Features and Save</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "header_description",
+      "label": "描述"
+    },
+    {
+      "type": "checkbox",
+      "id": "header_center",
+      "label": "居中对齐",
+      "default": true
+    },
+    {
+      "type": "color_background",
+      "id": "header_em_color",
+      "label": "em 高亮色",
+      "default": "#FF6B35"
+    },
+    {
+      "type": "range",
+      "id": "header_title_size_desktop",
+      "label": "标题字号（桌面端）",
+      "min": 20,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 42
+    },
+    {
+      "type": "range",
+      "id": "header_title_size_mobile",
+      "label": "标题字号（移动端）",
+      "min": 16,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 22
+    },
+    {
+      "type": "range",
+      "id": "header_desc_size_desktop",
+      "label": "描述字号（桌面端）",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "header_desc_size_mobile",
+      "label": "描述字号（移动端）",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "header_margin_bottom_desktop",
+      "label": "标题下边距（桌面端）",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "header_margin_bottom_mobile",
+      "label": "标题下边距（移动端）",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "Tab 标签",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tab_label",
+          "label": "Tab 名称",
+          "default": "You May Also Like"
+        }
+      ]
+    },
+    {
+      "type": "product_card",
+      "name": "产品卡片",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "关联产品"
+        },
+        {
+          "type": "select",
+          "id": "tab_id",
+          "label": "所属 Tab",
+          "default": "1",
+          "options": [
+            { "value": "1", "label": "Tab 1" },
+            { "value": "2", "label": "Tab 2" },
+            { "value": "3", "label": "Tab 3" },
+            { "value": "4", "label": "Tab 4" }
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_image",
+          "label": "产品图片（优先于关联产品图片）"
+        },
+        {
+          "type": "text",
+          "id": "custom_title",
+          "label": "产品名称（优先于关联产品标题）",
+          "default": "ANRAN C3 5MP Integrated Solar Battery Camera"
+        },
+        {
+          "type": "header",
+          "content": "手动填写信息（未关联产品时使用）"
+        },
+        {
+          "type": "text",
+          "id": "custom_price",
+          "label": "现价",
+          "default": "$79.99"
+        },
+        {
+          "type": "text",
+          "id": "custom_compare_price",
+          "label": "原价（划线）",
+          "default": "$149.99"
+        },
+        {
+          "type": "header",
+          "content": "卡片内容"
+        },
+        {
+          "type": "text",
+          "id": "review_count",
+          "label": "评价数",
+          "default": "236 reviews"
+        },
+        {
+          "type": "text",
+          "id": "feature_1",
+          "label": "特性 1",
+          "default": "360° Coverage and Tracking"
+        },
+        {
+          "type": "text",
+          "id": "feature_2",
+          "label": "特性 2",
+          "default": "Full Protection for the whole Home"
+        },
+        {
+          "type": "text",
+          "id": "save_badge",
+          "label": "优惠徽标",
+          "default": "Save 50%"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "按钮文字",
+          "default": "Shop Now"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "按钮链接",
+          "default": "/"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Q-Product Recommend",
+      "blocks": [
+        {
+          "type": "tab",
+          "settings": {
+            "tab_label": "You May Also Like"
+          }
+        },
+        {
+          "type": "tab",
+          "settings": {
+            "tab_label": "Recently Viewed"
+          }
+        },
+        {
+          "type": "product_card",
+          "settings": {
+            "tab_id": "1",
+            "custom_title": "ANRAN C3 5MP Integrated Solar Battery Camera",
+            "custom_price": "$79.99",
+            "custom_compare_price": "$149.99",
+            "review_count": "236 reviews",
+            "feature_1": "360° Coverage and Tracking",
+            "feature_2": "Full Protection for the whole Home",
+            "save_badge": "Save 50%"
+          }
+        },
+        {
+          "type": "product_card",
+          "settings": {
+            "tab_id": "1",
+            "custom_title": "ANRAN C3 5MP Integrated Solar Battery Camera",
+            "custom_price": "$79.99",
+            "custom_compare_price": "$149.99",
+            "review_count": "236 reviews",
+            "feature_1": "360° Coverage and Tracking",
+            "feature_2": "Full Protection for the whole Home",
+            "save_badge": "Save 50%"
+          }
+        },
+        {
+          "type": "product_card",
+          "settings": {
+            "tab_id": "1",
+            "custom_title": "ANRAN C3 5MP Integrated Solar Battery Camera",
+            "custom_price": "$79.99",
+            "custom_compare_price": "$149.99",
+            "review_count": "236 reviews",
+            "feature_1": "360° Coverage and Tracking",
+            "feature_2": "Full Protection for the whole Home",
+            "save_badge": "Save 50%"
+          }
+        },
+        {
+          "type": "product_card",
+          "settings": {
+            "tab_id": "1",
+            "custom_title": "ANRAN C3 5MP Integrated Solar Battery Camera",
+            "custom_price": "$79.99",
+            "custom_compare_price": "$149.99",
+            "review_count": "236 reviews",
+            "feature_1": "360° Coverage and Tracking",
+            "feature_2": "Full Protection for the whole Home",
+            "save_badge": "Save 50%"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

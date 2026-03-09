@@ -72,7 +72,16 @@
     font-size: 16px;
     font-weight: 500;
     cursor: pointer;
-    transition: background 0.2s, color 0.2s, border-color 0.2s;
+    transition: background 0.2s, color 0.2s, border-color 0.2s, opacity 0.2s;
+  }
+
+  .section-{{ section.id }} .q-faq__tab-btn:hover:not(.q-faq__tab-btn--active) {
+    background: rgba(45, 78, 118, 0.08);
+    border-color: var(--faq-tab-text-color, #2d4e76);
+  }
+
+  .section-{{ section.id }} .q-faq__tab-btn:active:not(.q-faq__tab-btn--active) {
+    background: rgba(45, 78, 118, 0.18);
   }
 
   .section-{{ section.id }} .q-faq__tab-btn--active {
@@ -80,6 +89,10 @@
     color: var(--faq-tab-active-text-color, #ffffff);
     border-color: var(--faq-tab-active-bg, #2d4e76);
     font-weight: 500;
+  }
+
+  .section-{{ section.id }} .q-faq__tab-btn--active:hover {
+    opacity: 0.85;
   }
 
   .section-{{ section.id }} .q-faq__list {

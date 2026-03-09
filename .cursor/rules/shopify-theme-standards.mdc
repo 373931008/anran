@@ -83,11 +83,6 @@ alwaysApply: false
     </swiper-slide>
   {%- endfor -%}
 </swiper-container>
-
-<script type="module">
-  import Swiper from 'swiper/element/bundle';
-  Swiper.register();
-</script>
 ```
 
 ### Swiper Thumbs（Tab 联动）
