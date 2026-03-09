@@ -4,15 +4,9 @@
  * @description
  * 实现产品推荐板块的 Tab 分类切换功能
  * - 点击 Tab 按钮后，显示对应分类的产品卡片，隐藏其余分类
- * - 同步更新移动端 Swiper slide 的显示状态
- * - 同步更新桌面端网格项的显示状态
+ * - 移动端和桌面端共用同一套 swiper-slide 卡片，通过 CSS 切换布局
  *
- * @features
- * - 事件委托监听 Tab 按钮点击
- * - 切换激活 Tab 样式（aria-selected）
- * - 显示/隐藏对应分类的卡片（Swiper slide + 桌面网格项）
- *
- * @version 1.0.0
+ * @version 2.0.0
  */
 export default class ProductRecommendTabs extends HTMLElement {
   constructor() {
@@ -80,7 +74,7 @@ export default class ProductRecommendTabs extends HTMLElement {
       })
     }
 
-    // 更新移动端 Swiper slides 显示
+    // 更新卡片显示（移动端 Swiper / 桌面端 Grid 共用）
     if (this.swiper) {
       const slides = this.swiper.querySelectorAll('swiper-slide')
       slides.forEach((slide) => {
@@ -91,22 +85,12 @@ export default class ProductRecommendTabs extends HTMLElement {
         }
       })
 
-      // 切换后重置滚动位置并更新 Swiper
+      // 切换后重置滚动位置并更新 Swiper（仅移动端有效）
       if (animate && this.swiper.swiper) {
         this.swiper.swiper.slideTo(0, 0)
         this.swiper.swiper.update()
       }
     }
-
-    // 更新桌面端网格项显示
-    const gridItems = this.querySelectorAll('.q-pr__grid-item')
-    gridItems.forEach((item) => {
-      if (item.dataset.tabGroup === tabId) {
-        item.hidden = false
-      } else {
-        item.hidden = true
-      }
-    })
   }
 }
 
