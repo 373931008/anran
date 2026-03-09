@@ -96,12 +96,32 @@
     display: flex;
     gap: 12px;
   }
+  
+  .section-{{ section.id }} swiper-container::part(container) {
+    overflow: visible;
+  }
 
-  /* 所有 slide 等高（Swiper wrapper 默认 align-items: stretch） */
+  /* 所有 slide 等高，slides-per-view="auto" 时宽度由 CSS 控制 */
   .section-{{ section.id }} swiper-slide {
     height: auto;
-    padding-bottom: 10px;
+    width: 228px;
     flex-shrink: 0;
+  }
+
+  @media screen and (min-width: 640px) {
+    .section-{{ section.id }} swiper-slide {
+      width: 328px;
+    }
+  }
+
+  @media screen and (min-width: 1600px) {
+    .section-{{ section.id }} .q-pr__swiper {
+      overflow: hidden;
+    }
+
+    .section-{{ section.id }} swiper-slide {
+      width: calc((100% - 20px * 3) / 4);
+    }
   }
 
   /* 产品卡片 */
@@ -217,6 +237,7 @@
   /* 价格行 */
   .section-{{ section.id }} .q-pr__price-row {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 8px;
     margin-top: auto;
@@ -364,22 +385,12 @@
 
   @media screen and (min-width: 1600px) {
     .section-{{ section.id }} swiper-container {
-      gap: 32px;
+      gap: 20px;
     }
   }
 
-  /* 桌面端：覆盖 Swiper 布局，改为 4 列网格 */
+  /* 桌面端 slide 高度修正 */
   @media screen and (min-width: 750px) {
-    .section-{{ section.id }} swiper-container {
-      {% comment %} display: grid !important;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px; {% endcomment %}
-    }
-
-    .section-{{ section.id }} swiper-container::part(container) {
-      {% comment %} display: contents; {% endcomment %}
-    }
-
     .section-{{ section.id }} swiper-slide {
       height: auto !important;
     }
@@ -410,8 +421,8 @@
       {%- comment -%} 产品卡片：移动端 Swiper 滑动，桌面端 CSS Grid {%- endcomment -%}
       <swiper-container
         class="q-pr__swiper"
-        slides-per-view="1.3"
-        breakpoints='{"640": {"slidesPerView": 2.3, "spaceBetween": 16}, "1280": {"slidesPerView": 3.3, "spaceBetween": 20}, "1600": {"slidesPerView": 4, "spaceBetween": 32}}'
+        slides-per-view="auto"
+        breakpoints='{"640": {"spaceBetween": 16}, "1280": {"spaceBetween": 20}, "1600": {"spaceBetween": 32}}'
         space-between="12"
       >
         {%- for block in card_blocks -%}
