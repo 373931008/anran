@@ -7,9 +7,145 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
- {
+{
   "layout": "theme",
   "sections": {
+    "q-setup-steps": {
+      "type": "q-setup-steps",
+      "blocks": {
+        "step-1": {
+          "type": "step",
+          "settings": {
+            "image": "shopify://shop_images/Rectangle_189.jpg",
+            "title": "Wireless, Battery-Powered Installation",
+            "description": "Skip the hassle of wiring. The battery-powered design makes installation quick, clean, and stress-free—no outlets needed."
+          }
+        },
+        "step-2": {
+          "type": "step",
+          "settings": {
+            "image": "shopify://shop_images/Rectangle_189_1.jpg",
+            "title": "Bluetooth Setup",
+            "description": "Connect in seconds with Bluetooth-assisted setup. Just enable Bluetooth, select your Wi-Fi, and you're ready to go—simple and foolproof."
+          }
+        },
+        "step-3": {
+          "type": "step",
+          "settings": {
+            "image": "shopify://shop_images/Rectangle_189_2.jpg",
+            "title": "Wall or Ceiling Mount",
+            "description": "Mount it on a wall or ceiling to fit your space. Flexible installation options make it easy to place the camera exactly where you need it."
+          }
+        }
+      },
+      "block_order": [
+        "step-1",
+        "step-2",
+        "step-3"
+      ],
+      "settings": {
+        "header_title": "Set Up in Minutes. <em>Wire-Free Installation.</em>",
+        "header_description": "",
+        "header_center": false,
+        "header_em_color": "linear-gradient(90deg, #6CBCE7 0%, #367CF6 100%)",
+        "header_title_size_desktop": 42,
+        "header_title_size_mobile": 26,
+        "header_desc_size_desktop": 16,
+        "header_desc_size_mobile": 12,
+        "header_margin_bottom_desktop": 40,
+        "header_margin_bottom_mobile": 24,
+        "bg_color": "#FFFFFF",
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60
+      }
+    },
+    "q-compare-table": {
+      "type": "q-compare-table",
+      "blocks": {
+        "product-1": {
+          "type": "product",
+          "settings": {
+            "product_image": "shopify://shop_images/image_290.jpg",
+            "product_name": "Q3M8",
+            "specs": "2K / 3MP\n360 Degrees\n50 Feet\nWi-Fi\nAlexa, Assistant\nSolar & Battery Powered\nNight Color\n5000 mAh, 5W, 5V\nSD Card, up to 128GB",
+            "button_link": "/",
+            "button_label": "Shop now"
+          }
+        },
+        "product-2": {
+          "type": "product",
+          "settings": {
+            "product_image": "shopify://shop_images/image_290.jpg",
+            "product_name": "C3M5",
+            "specs": "3MP\n135 Degrees\n55 Feet\nWi-Fi\nAmazon Alexa\nSolar Powered\nNight Color\n5000 mAh, 5W, 5V\nSD Card, up to 128GB",
+            "button_link": "/",
+            "button_label": "Shop now"
+          }
+        },
+        "product-3": {
+          "type": "product",
+          "settings": {
+            "product_image": "shopify://shop_images/image_290.jpg",
+            "product_name": "Q4M5",
+            "specs": "2K / 3MP\n360 Degrees\n50 Feet\nWi-Fi\nAlexa, Assistant\nSolar & Battery Powered\nNight Color\n5000 mAh, 5W, 5V\nSD Card, up to 128GB",
+            "button_link": "/",
+            "button_label": "Shop now"
+          }
+        }
+      },
+      "block_order": [
+        "product-1",
+        "product-2",
+        "product-3"
+      ],
+      "settings": {
+        "header_title": "Discover What's <em>Popular</em>",
+        "header_description": "",
+        "header_center": true,
+        "header_em_color": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 67%)",
+        "header_title_size_desktop": 42,
+        "header_title_size_mobile": 26,
+        "header_desc_size_desktop": 16,
+        "header_desc_size_mobile": 12,
+        "header_margin_bottom_desktop": 40,
+        "header_margin_bottom_mobile": 24,
+        "feature_col_title": "Feature",
+        "feature_rows": "Video Capture Resolution\nViewing Angle\nNight Vision Range\nConnectivity Protocol\nController Type\nPower Source\nLow Light Technology\nBattery Power\nMax Supported",
+        "btn_color": "#faa61a",
+        "bg_color": "#f3f7ff",
+        "card_bg_color": "#ffffff",
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60
+      }
+    },
+    "q-full-width-image": {
+      "type": "q-full-width-image",
+      "settings": {
+        "image_desktop": "shopify://shop_images/image_287.jpg",
+        "image_mobile": "shopify://shop_images/image_287.jpg",
+        "image_height_desktop": 740,
+        "image_height_mobile": 500,
+        "show_overlay": true,
+        "overlay_position": "top",
+        "overlay_opacity": 80,
+        "title": "Weather-Resistant Design",
+        "description": "<p>IP65 weatherproof design, built to withstand heat, cold, rain, or sun. in temperatures from -4°F to 140°F (-20°C to 60°C)</p>",
+        "text_align": "center",
+        "text_position": "top",
+        "title_color": "#ffffff",
+        "desc_color": "#ffffff",
+        "title_size_desktop": 42,
+        "title_size_mobile": 24,
+        "desc_size_desktop": 16,
+        "desc_size_mobile": 12,
+        "text_padding_desktop": 48,
+        "text_padding_mobile": 24
+      }
+    },
     "q-hero-banner": {
       "type": "q-hero-banner",
       "settings": {
@@ -638,6 +774,9 @@
     }
   },
   "order": [
+    "q-setup-steps",
+    "q-compare-table",
+    "q-full-width-image",
     "q-hero-banner",
     "q-trial-guarantee",
     "q-product-specs",

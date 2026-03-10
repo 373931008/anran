@@ -1,0 +1,265 @@
+{%- comment -%}
+  Section: q-setup-steps
+  功能说明：
+  - "安装步骤" 特色展示板块
+  - 桌面端：3 列等宽卡片横排（图片 + 标题 + 描述）
+  - 移动端：Swiper 横向滑动（约显示 1.3 张，右侧卡片露出提示可滑动）
+  技术栈：
+  - Swiper Element (Web Component)，纯展示，无 Islands JS
+  - Snippet: snippets/q-section-header.liquid
+  版本：1.0.0
+{%- endcomment -%}
+
+<style>
+  .section-{{ section.id }} {
+    --ss-bg: {{ section.settings.bg_color }};
+    --ss-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --ss-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --ss-padding-top-desktop: {{ section.settings.padding_top_desktop }}px;
+    --ss-padding-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+  }
+
+  .section-{{ section.id }}.q-setup-steps {
+    background: var(--ss-bg, #ffffff);
+    padding-top: var(--ss-padding-top-mobile, 40px);
+    padding-bottom: var(--ss-padding-bottom-mobile, 40px);
+    font-family: var(--font-body-family);
+    overflow: hidden;
+  }
+
+  /* ─── 移动端 Swiper ─── */
+  .section-{{ section.id }} .q-ss__swiper-wrap {
+    overflow: visible;
+  }
+
+  .section-{{ section.id }} swiper-container {
+    overflow: visible;
+  }
+
+  .section-{{ section.id }} swiper-container::part(container) {
+    overflow: visible;
+  }
+
+  /* slides-per-view="auto"，宽度由 CSS 控制 */
+  .section-{{ section.id }} swiper-slide {
+    width: 260px;
+    height: auto;
+    flex-shrink: 0;
+  }
+
+  /* 桌面端隐藏 swiper，改为 3 列 Grid */
+  .section-{{ section.id }} .q-ss__grid {
+    display: none;
+  }
+
+  /* ─── 卡片公共样式 ─── */
+  .section-{{ section.id }} .q-ss__card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  /* 图片容器 */
+  .section-{{ section.id }} .q-ss__card-img {
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    background: #f5f5f5;
+  }
+
+  .section-{{ section.id }} .q-ss__card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .section-{{ section.id }} .q-ss__card-img .placeholder-svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* 卡片文字区 */
+  .section-{{ section.id }} .q-ss__card-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1e1e1e;
+    margin: 0;
+    line-height: 1.35;
+    font-family: var(--font-body-family);
+  }
+
+  .section-{{ section.id }} .q-ss__card-desc {
+    font-size: 13px;
+    color: #4e5357;
+    line-height: 1.6;
+    margin: 0;
+    font-family: var(--font-body-family);
+  }
+
+  /* ─── 桌面端 ─── */
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}.q-setup-steps {
+      padding-top: var(--ss-padding-top-desktop, 60px);
+      padding-bottom: var(--ss-padding-bottom-desktop, 60px);
+    }
+
+    /* 隐藏 swiper，展示 grid */
+    .section-{{ section.id }} .q-ss__swiper-wrap {
+      display: none;
+    }
+
+    .section-{{ section.id }} .q-ss__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .section-{{ section.id }} .q-ss__card-img {
+      border-radius: 10px;
+    }
+
+    .section-{{ section.id }} .q-ss__card-title {
+      font-size: 18px;
+    }
+
+    .section-{{ section.id }} .q-ss__card-desc {
+      font-size: 14px;
+    }
+  }
+</style>
+
+<div class="q-setup-steps section-{{ section.id }}">
+  <div class="page-width">
+    {%- render 'q-section-header', section: section -%}
+
+    {%- comment -%} 移动端：Swiper 横向滑动 {%- endcomment -%}
+    <div class="q-ss__swiper-wrap">
+      <swiper-container
+        slides-per-view="auto"
+        space-between="14"
+        grab-cursor="true"
+      >
+        {%- for block in section.blocks -%}
+          <swiper-slide {{ block.shopify_attributes }}>
+            <div class="q-ss__card">
+              <div class="q-ss__card-img">
+                {%- if block.settings.image != blank -%}
+                  {{- block.settings.image | image_url: width: 600 | image_tag:
+                      loading: 'lazy',
+                      widths: '300, 600',
+                      sizes: '(min-width: 750px) 33vw, 80vw',
+                      alt: block.settings.title
+                  -}}
+                {%- else -%}
+                  {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                {%- endif -%}
+              </div>
+              {%- if block.settings.title != blank -%}
+                <p class="q-ss__card-title">{{ block.settings.title }}</p>
+              {%- endif -%}
+              {%- if block.settings.description != blank -%}
+                <p class="q-ss__card-desc">{{ block.settings.description }}</p>
+              {%- endif -%}
+            </div>
+          </swiper-slide>
+        {%- endfor -%}
+      </swiper-container>
+    </div>
+
+    {%- comment -%} 桌面端：CSS Grid 3 列 {%- endcomment -%}
+    <div class="q-ss__grid">
+      {%- for block in section.blocks -%}
+        <div class="q-ss__card" {{ block.shopify_attributes }}>
+          <div class="q-ss__card-img">
+            {%- if block.settings.image != blank -%}
+              {{- block.settings.image | image_url: width: 800 | image_tag:
+                  loading: 'lazy',
+                  widths: '400, 800',
+                  sizes: '(min-width: 750px) 33vw, 80vw',
+                  alt: block.settings.title
+              -}}
+            {%- else -%}
+              {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            {%- endif -%}
+          </div>
+          {%- if block.settings.title != blank -%}
+            <p class="q-ss__card-title">{{ block.settings.title }}</p>
+          {%- endif -%}
+          {%- if block.settings.description != blank -%}
+            <p class="q-ss__card-desc">{{ block.settings.description }}</p>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Q-Setup Steps",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "header", "content": "板块标题" },
+    { "type": "inline_richtext", "id": "header_title", "label": "标题", "default": "Set Up in Minutes. <em>Wire-Free Installation.</em>" },
+    { "type": "richtext", "id": "header_description", "label": "描述" },
+    { "type": "checkbox", "id": "header_center", "label": "居中对齐", "default": false },
+    { "type": "color_background", "id": "header_em_color", "label": "em 高亮色", "default": "linear-gradient(90deg, #6CBCE7 0%, #367CF6 100%)" },
+    { "type": "range", "id": "header_title_size_desktop", "label": "标题字号（桌面端）", "min": 20, "max": 80, "step": 2, "unit": "px", "default": 42 },
+    { "type": "range", "id": "header_title_size_mobile", "label": "标题字号（移动端）", "min": 16, "max": 50, "step": 2, "unit": "px", "default": 26 },
+    { "type": "range", "id": "header_desc_size_desktop", "label": "描述字号（桌面端）", "min": 10, "max": 30, "step": 1, "unit": "px", "default": 16 },
+    { "type": "range", "id": "header_desc_size_mobile", "label": "描述字号（移动端）", "min": 10, "max": 24, "step": 1, "unit": "px", "default": 12 },
+    { "type": "range", "id": "header_margin_bottom_desktop", "label": "标题下边距（桌面端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "header_margin_bottom_mobile", "label": "标题下边距（移动端）", "min": 0, "max": 80, "step": 4, "unit": "px", "default": 24 },
+    { "type": "header", "content": "板块背景" },
+    { "type": "color_background", "id": "bg_color", "label": "背景色", "default": "#FFFFFF" },
+    { "type": "header", "content": "上下边距" },
+    { "type": "range", "id": "padding_top_mobile", "label": "上边距（移动端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_bottom_mobile", "label": "下边距（移动端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_top_desktop", "label": "上边距（桌面端）", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 60 },
+    { "type": "range", "id": "padding_bottom_desktop", "label": "下边距（桌面端）", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 60 }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "步骤卡片",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "图片" },
+        { "type": "text", "id": "title", "label": "标题", "default": "Step Title" },
+        { "type": "textarea", "id": "description", "label": "描述", "default": "Short description of this installation step." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Q-Setup Steps",
+      "blocks": [
+        {
+          "type": "step",
+          "settings": {
+            "title": "Wireless, Battery-Powered Installation",
+            "description": "Skip the hassle of wiring. The battery-powered design makes installation quick, clean, and stress-free—no outlets needed."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Bluetooth Setup",
+            "description": "Connect in seconds with Bluetooth-assisted setup. Just enable Bluetooth, select your Wi-Fi, and you're ready to go—simple and foolproof."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Wall or Ceiling Mount",
+            "description": "Mount it on a wall or ceiling to fit your space. Flexible installation options make it easy to place the camera exactly where you need it."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
