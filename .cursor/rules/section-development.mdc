@@ -501,6 +501,56 @@ Liquid syntax error (line XX): Expected end_of_string but found comparison in "{
 
 ---
 
+### 5. `range` 字段的 `default` 必须是 `step` 的整数倍
+
+**报错信息**：
+```
+Invalid schema: setting with id="xxx" default 必须是范围内的一个步骤
+```
+
+**原因**：`range` 类型的 `default` 值必须能被 `step` 整除，且落在 `min`～`max` 范围内。若 `default` 不是 `step` 的整数倍，Shopify 上传时会直接报错拒绝。
+
+**示例**：
+
+```json
+❌ 错误 - 739 不是 step:10 的整数倍（739 / 10 = 73.9）
+{
+  "type": "range",
+  "id": "image_height_desktop",
+  "min": 200,
+  "max": 900,
+  "step": 10,
+  "unit": "px",
+  "default": 739
+}
+
+✅ 正确 - 740 是 step:10 的整数倍
+{
+  "type": "range",
+  "id": "image_height_desktop",
+  "min": 200,
+  "max": 900,
+  "step": 10,
+  "unit": "px",
+  "default": 740
+}
+```
+
+**规则**：`(default - min) % step === 0`
+
+常见 step 对应可用 default 示例：
+
+| step | 合法 default 示例 | 非法 default 示例 |
+|------|-----------------|-----------------|
+| 1 | 任意整数 | - |
+| 2 | 20, 22, 24... | 21, 23... |
+| 4 | 40, 44, 48... | 41, 42, 43... |
+| 10 | 200, 210, 740... | 739, 741... |
+
+**从 Figma 设计稿取值时尤其注意**：设计稿的精确像素值（如 739px）往往不是 step 的整数倍，需手动取近似值（739 → 740）。
+
+---
+
 ## 十、按钮交互状态规范
 
 所有按钮必须添加 `hover` / `active` 交互颜色，提升操作反馈。统一规则如下：
