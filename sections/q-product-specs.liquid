@@ -1,0 +1,320 @@
+{%- comment -%}
+  Section: q-product-specs
+  功能说明：
+  - 产品参数规格展示板块
+  - 规格条目以圆角标签形式展示，背景 #f7f7f7
+  - 移动端每行1条，桌面端每行 3~4 条（flex-wrap 自适应）
+  - 支持「Show more / Show less」折叠交互
+  - 默认展示条目数可配置（移动端独立控制）
+  技术栈：
+  - Islands: frontend/islands/product-specs.js
+  - Snippet: snippets/q-section-header.liquid
+  版本：1.0.0
+{%- endcomment -%}
+
+{%- liquid
+  assign spec_blocks = section.blocks | where: 'type', 'spec_item'
+-%}
+
+<style>
+  .section-{{ section.id }} {
+    --specs-bg: {{ section.settings.bg_color }};
+    --specs-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --specs-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --specs-padding-top-desktop: {{ section.settings.padding_top_desktop }}px;
+    --specs-padding-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --specs-tag-bg: {{ section.settings.tag_bg_color }};
+    --specs-tag-text-color: {{ section.settings.tag_text_color }};
+    --specs-btn-border-color: {{ section.settings.btn_border_color }};
+    --specs-btn-text-color: {{ section.settings.btn_text_color }};
+  }
+
+  .section-{{ section.id }}.q-product-specs {
+    background: var(--specs-bg, #ffffff);
+    padding-top: var(--specs-padding-top-mobile, 40px);
+    padding-bottom: var(--specs-padding-bottom-mobile, 40px);
+    font-family: var(--font-body-family);
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}.q-product-specs {
+      padding-top: var(--specs-padding-top-desktop, 60px);
+      padding-bottom: var(--specs-padding-bottom-desktop, 60px);
+    }
+  }
+
+  /* ===== 规格列表容器 ===== */
+  .section-{{ section.id }} .q-specs__list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-specs__list {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+  }
+
+  /* ===== 规格标签 ===== */
+  .section-{{ section.id }} .q-specs__tag {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 33px;
+    padding: 0 16px;
+    border-radius: 10px;
+    background: var(--specs-tag-bg, #f7f7f7);
+    border: 1px solid var(--specs-tag-bg, #f7f7f7);
+    color: var(--specs-tag-text-color, #1e1e1e);
+    font-size: 12px;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-specs__tag {
+      height: 53px;
+      font-size: 16px;
+      padding: 0 24px;
+      border-radius: 10px;
+    }
+  }
+
+  .section-{{ section.id }} .q-specs__tag-label {
+    font-weight: 600;
+  }
+
+  .section-{{ section.id }} .q-specs__tag-value {
+    font-weight: 400;
+  }
+
+  /* ===== 折叠隐藏逻辑（由 data-hidden 控制） ===== */
+  .section-{{ section.id }} .q-specs__tag[data-hidden] {
+    display: none;
+  }
+
+  /* ===== Show more 按钮区域 ===== */
+  .section-{{ section.id }} .q-specs__footer {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-specs__footer {
+      margin-top: 28px;
+    }
+  }
+
+  .section-{{ section.id }} .q-specs__toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 35px;
+    padding: 0 28px;
+    border-radius: 100px;
+    border: 1px solid var(--specs-btn-border-color, #4e5357);
+    background: transparent;
+    color: var(--specs-btn-text-color, #404040);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-specs__toggle-btn {
+      height: 45px;
+      padding: 0 40px;
+      font-size: 16px;
+      font-weight: 700;
+    }
+  }
+
+  .section-{{ section.id }} .q-specs__toggle-btn:hover {
+    background: rgba(78, 83, 87, 0.08);
+    border-color: #1e1e1e;
+    color: #1e1e1e;
+  }
+
+  .section-{{ section.id }} .q-specs__toggle-btn:active {
+    background: rgba(78, 83, 87, 0.18);
+  }
+
+  /* 全部展示时隐藏按钮 */
+  .section-{{ section.id }} .q-specs__footer[data-all-visible] {
+    display: none;
+  }
+</style>
+
+<div class="q-product-specs section-{{ section.id }}">
+  <div class="page-width">
+    {%- render 'q-section-header', section: section -%}
+
+    <product-specs-element
+      client:visible
+      data-show-mobile="{{ section.settings.show_count_mobile }}"
+      data-show-desktop="{{ section.settings.show_count_desktop }}"
+      data-show-more-text="{{ section.settings.btn_show_more_text | escape }}"
+      data-show-less-text="{{ section.settings.btn_show_less_text | escape }}"
+    >
+      <div class="q-specs__list">
+        {%- for block in spec_blocks -%}
+          {%- if block.settings.label != blank -%}
+            {%- if forloop.index > section.settings.show_count_mobile -%}
+              <div class="q-specs__tag" data-index="{{ forloop.index }}" data-hidden {{ block.shopify_attributes }}>
+            {%- else -%}
+              <div class="q-specs__tag" data-index="{{ forloop.index }}" {{ block.shopify_attributes }}>
+            {%- endif -%}
+              <span class="q-specs__tag-label">{{ block.settings.label }}:&nbsp;</span>
+              <span class="q-specs__tag-value">{{ block.settings.value }}</span>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+
+      <div class="q-specs__footer">
+        <button class="q-specs__toggle-btn" type="button">
+          {{ section.settings.btn_show_more_text | default: 'Show more' }}
+        </button>
+      </div>
+    </product-specs-element>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Q-产品参数",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "header", "content": "板块标题" },
+    { "type": "inline_richtext", "id": "header_title", "label": "标题", "default": "Product Specifications" },
+    { "type": "richtext", "id": "header_description", "label": "描述" },
+    { "type": "checkbox", "id": "header_center", "label": "居中对齐", "default": true },
+    { "type": "color_background", "id": "header_em_color", "label": "em 高亮色", "default": "#FF6B35" },
+    { "type": "range", "id": "header_title_size_desktop", "label": "标题字号（桌面端）", "min": 20, "max": 80, "step": 2, "unit": "px", "default": 42 },
+    { "type": "range", "id": "header_title_size_mobile", "label": "标题字号（移动端）", "min": 16, "max": 50, "step": 2, "unit": "px", "default": 24 },
+    { "type": "range", "id": "header_desc_size_desktop", "label": "描述字号（桌面端）", "min": 10, "max": 30, "step": 1, "unit": "px", "default": 16 },
+    { "type": "range", "id": "header_desc_size_mobile", "label": "描述字号（移动端）", "min": 10, "max": 24, "step": 1, "unit": "px", "default": 12 },
+    { "type": "range", "id": "header_margin_bottom_desktop", "label": "标题下边距（桌面端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "header_margin_bottom_mobile", "label": "标题下边距（移动端）", "min": 0, "max": 80, "step": 4, "unit": "px", "default": 24 },
+
+    { "type": "header", "content": "折叠配置" },
+    {
+      "type": "range",
+      "id": "show_count_mobile",
+      "label": "移动端默认展示条数",
+      "min": 2,
+      "max": 20,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "show_count_desktop",
+      "label": "桌面端默认展示条数",
+      "min": 2,
+      "max": 30,
+      "step": 1,
+      "default": 8
+    },
+    {
+      "type": "text",
+      "id": "btn_show_more_text",
+      "label": "展开按钮文字",
+      "default": "Show more"
+    },
+    {
+      "type": "text",
+      "id": "btn_show_less_text",
+      "label": "收起按钮文字",
+      "default": "Show less"
+    },
+
+    { "type": "header", "content": "样式配置" },
+    {
+      "type": "color_background",
+      "id": "bg_color",
+      "label": "板块背景色",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color_background",
+      "id": "tag_bg_color",
+      "label": "标签背景色",
+      "default": "#F7F7F7"
+    },
+    {
+      "type": "color_background",
+      "id": "tag_text_color",
+      "label": "标签文字颜色",
+      "default": "#1E1E1E"
+    },
+    {
+      "type": "color_background",
+      "id": "btn_border_color",
+      "label": "按钮边框颜色",
+      "default": "#4E5357"
+    },
+    {
+      "type": "color_background",
+      "id": "btn_text_color",
+      "label": "按钮文字颜色",
+      "default": "#404040"
+    },
+
+    { "type": "header", "content": "上下边距" },
+    { "type": "range", "id": "padding_top_mobile", "label": "上边距（移动端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_bottom_mobile", "label": "下边距（移动端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_top_desktop", "label": "上边距（桌面端）", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 60 },
+    { "type": "range", "id": "padding_bottom_desktop", "label": "下边距（桌面端）", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 60 }
+  ],
+  "blocks": [
+    {
+      "type": "spec_item",
+      "name": "规格条目",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "参数名称",
+          "default": "Video Capture Resolution"
+        },
+        {
+          "type": "text",
+          "id": "value",
+          "label": "参数值",
+          "default": "2K / 3MP"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Q-产品参数",
+      "settings": {
+        "header_title": "Product Specifications",
+        "header_center": true
+      },
+      "blocks": [
+        { "type": "spec_item", "settings": { "label": "Video Capture Resolution", "value": "2K / 3MP" } },
+        { "type": "spec_item", "settings": { "label": "Viewing Angle", "value": "360 Degrees" } },
+        { "type": "spec_item", "settings": { "label": "Night Vision Range", "value": "50 Feet" } },
+        { "type": "spec_item", "settings": { "label": "Connectivity Protocol", "value": "Wi-Fi" } },
+        { "type": "spec_item", "settings": { "label": "Controller Type", "value": "Amazon Alexa, Google Assistant" } },
+        { "type": "spec_item", "settings": { "label": "Power Source", "value": "Solar & Battery Powered" } },
+        { "type": "spec_item", "settings": { "label": "Battery Power", "value": "5000 mAh, 5W, 5V" } },
+        { "type": "spec_item", "settings": { "label": "Max Supported", "value": "SD Card, up to 128GB" } },
+        { "type": "spec_item", "settings": { "label": "Low Light Technology", "value": "Night Color" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

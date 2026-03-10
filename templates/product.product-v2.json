@@ -394,9 +394,51 @@
         "padding_top": 36,
         "padding_bottom": 12
       }
+    },
+    "q-product-specs": {
+      "type": "q-product-specs",
+      "blocks": {
+        "spec-1":  { "type": "spec_item", "settings": { "label": "Video Capture Resolution", "value": "2K / 3MP" } },
+        "spec-2":  { "type": "spec_item", "settings": { "label": "Viewing Angle", "value": "360 Degrees" } },
+        "spec-3":  { "type": "spec_item", "settings": { "label": "Night Vision Range", "value": "50 Feet" } },
+        "spec-4":  { "type": "spec_item", "settings": { "label": "Connectivity Protocol", "value": "Wi-Fi" } },
+        "spec-5":  { "type": "spec_item", "settings": { "label": "Controller Type", "value": "Amazon Alexa, Google Assistant" } },
+        "spec-6":  { "type": "spec_item", "settings": { "label": "Power Source", "value": "Solar & Battery Powered" } },
+        "spec-7":  { "type": "spec_item", "settings": { "label": "Low Light Technology", "value": "Night Color" } },
+        "spec-8":  { "type": "spec_item", "settings": { "label": "Battery Power", "value": "5000 mAh, 5W, 5V" } },
+        "spec-9":  { "type": "spec_item", "settings": { "label": "Max Supported", "value": "SD Card, up to 128GB" } },
+        "spec-10": { "type": "spec_item", "settings": { "label": "Water Resistance Level / IP Rating", "value": "IP66 Waterproof" } },
+        "spec-11": { "type": "spec_item", "settings": { "label": "Form Factor / Shape", "value": "Dome" } },
+        "spec-12": { "type": "spec_item", "settings": { "label": "Video Encoding / Capture Format", "value": "MPEG-4" } },
+        "spec-13": { "type": "spec_item", "settings": { "label": "Optical & Digital Zoom", "value": "4x / 4:1" } },
+        "spec-14": { "type": "spec_item", "settings": { "label": "Focus Type", "value": "Auto / Manual" } },
+        "spec-15": { "type": "spec_item", "settings": { "label": "Number of IR LEDs", "value": "4" } },
+        "spec-16": { "type": "spec_item", "settings": { "label": "Installation Type / Mounting Type", "value": "Screw In / Wall Mount" } },
+        "spec-17": { "type": "spec_item", "settings": { "label": "Item Dimensions & Weight", "value": "9 x 7 x 6 in, 1.83 lbs" } }
+      },
+      "block_order": [
+        "spec-1", "spec-2", "spec-3", "spec-4", "spec-5",
+        "spec-6", "spec-7", "spec-8", "spec-9",
+        "spec-10", "spec-11", "spec-12", "spec-13", "spec-14",
+        "spec-15", "spec-16", "spec-17"
+      ],
+      "settings": {
+        "header_center": true,
+        "show_count_mobile": 9,
+        "show_count_desktop": 9,
+        "btn_show_more_text": "Show more",
+        "btn_show_less_text": "Show less",
+        "bg_color": "#FFFFFF",
+        "tag_bg_color": "#F7F7F7",
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60
+      }
     }
   },
   "order": [
+    "q-product-specs",
     "q-service-features",
     "q-product-recommend",
     "q-faq",
