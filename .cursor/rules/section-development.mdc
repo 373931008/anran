@@ -1,0 +1,598 @@
+---
+description: Siipet 主题新增板块（Section）完整开发规范，包含文件结构、CSS 隔离、Islands 架构、Schema 配置、通用 snippet 使用方法
+alwaysApply: false
+globs: sections/q-*.liquid,snippets/*.liquid,frontend/islands/*.js
+---
+
+# Siipet 新增板块开发规范
+
+## 文件清单
+
+新增一个交互板块需要创建/修改以下文件：
+
+| 文件 | 说明 |
+|------|------|
+| `sections/q-{name}.liquid` | 板块主文件（HTML + CSS + Schema） |
+| `frontend/islands/{name}.js` | JavaScript 交互逻辑（Islands 架构） |
+| `templates/*.json` | 将板块加入页面模板的 `sections` 和 `order` |
+
+纯展示类板块（无 JS 交互）无需创建 islands 文件。
+
+---
+
+## 一、Section 文件结构
+
+```liquid
+{%- comment -%}
+  Section: q-{name}
+  功能说明：...
+  技术栈：
+  - Islands: frontend/islands/{name}.js
+  - Snippet: snippets/q-section-header.liquid（如使用）
+  版本：1.0.0
+{%- endcomment -%}
+
+{%- liquid
+  assign bg_color = section.settings.bg_color
+-%}
+
+<style>
+  /* 1. CSS 变量注入（来自 schema settings） */
+  .section-{{ section.id }} {
+    --prefix-bg: {{ bg_color }};
+    --prefix-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --prefix-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --prefix-padding-top-desktop: {{ section.settings.padding_top_desktop }}px;
+    --prefix-padding-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+  }
+
+  /* 2. 所有选择器必须加 .section-{{ section.id }} 前缀，防止多实例污染 */
+  .section-{{ section.id }}.q-{name} {
+    background: var(--prefix-bg);
+    padding-top: var(--prefix-padding-top-mobile, 40px);
+    padding-bottom: var(--prefix-padding-bottom-mobile, 40px);
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}.q-{name} {
+      padding-top: var(--prefix-padding-top-desktop, 60px);
+      padding-bottom: var(--prefix-padding-bottom-desktop, 60px);
+    }
+  }
+</style>
+
+<div class="q-{name} section-{{ section.id }}">
+  <div class="page-width">
+    {%- render 'q-section-header', section: section -%}
+    <{name}-element client:visible>
+      <!-- 内容 -->
+    </{name}-element>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Q-{Name}",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [ ... ],
+  "blocks": [ ... ],
+  "presets": [{ "name": "Q-{Name}" }]
+}
+{% endschema %}
+```
+
+---
+
+## 二、CSS 隔离规则（必须遵守）
+
+**所有样式必须加 `.section-{{ section.id }}` 前缀：**
+
+```css
+/* ❌ 错误 - 会污染其他同类板块 */
+.q-faq__tab-btn { ... }
+
+/* ✅ 正确 - 板块间完全隔离 */
+.section-{{ section.id }} .q-faq__tab-btn { ... }
+
+/* ✅ 根元素（自身同时拥有两个类，无空格） */
+.section-{{ section.id }}.q-faq { ... }
+```
+
+**可配置的值通过 CSS 变量传递：**
+
+```liquid
+<style>
+  .section-{{ section.id }} {
+    --prefix-bg: {{ section.settings.bg_color }};
+    --prefix-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --prefix-padding-top-desktop: {{ section.settings.padding_top_desktop }}px;
+  }
+</style>
+```
+
+---
+
+## 三、Islands 架构（JS 交互）
+
+所有 JS 交互必须使用自定义元素，文件放 `frontend/islands/`，**不要在 Liquid 中写 `<script>` 或用 `asset_url` 引入**，revive.js 会自动加载。
+
+支持的 client 指令：
+
+| 指令 | 触发时机 | 适用场景 |
+|------|---------|---------|
+| `client:visible` | 元素进入视口时 | **默认选择**，所有板块使用此指令 |
+
+### Islands 文件模板
+
+```javascript
+// frontend/islands/{name}.js
+export default class MyElement extends HTMLElement {
+  constructor() {
+    super()
+    // 绑定方法，保证 removeEventListener 能正确移除
+    this.handleClick = this.handleClick.bind(this)
+  }
+
+  connectedCallback() {
+    this.init()
+  }
+
+  disconnectedCallback() {
+    this.cleanup()
+  }
+
+  init() {
+    // 事件委托（优先）而非对每个子元素单独绑定
+    this.addEventListener('click', this.handleClick)
+  }
+
+  cleanup() {
+    this.removeEventListener('click', this.handleClick)
+  }
+
+  handleClick(event) {
+    const target = event.target.closest('.selector')
+    if (!target) return
+    // 业务逻辑
+  }
+}
+
+// 防重复注册
+if (!window.customElements.get('{name}-element')) {
+  window.customElements.define('{name}-element', MyElement)
+}
+```
+
+### Liquid 中使用自定义元素
+
+```liquid
+<{name}-element client:visible>
+  <!-- 内容由 Liquid 渲染，JS 负责交互 -->
+</{name}-element>
+```
+
+### slide down/up 动画标准实现
+
+展开（slide down）：
+```javascript
+openItem(item, animate) {
+  const wrap = item.querySelector('.answer-wrap')
+  item.setAttribute('data-open', '')
+  if (animate) {
+    wrap.style.transition = 'max-height 0.3s ease'
+    wrap.style.maxHeight = wrap.scrollHeight + 'px'
+    wrap.addEventListener('transitionend', () => {
+      wrap.style.maxHeight = '2000px' // 防止内容变化截断
+      wrap.style.transition = ''
+    }, { once: true })
+  } else {
+    wrap.style.transition = ''
+    wrap.style.maxHeight = '2000px'
+  }
+}
+```
+
+收起（slide up）— **必须先强制重绘再动画，否则从 2000px 收起时动画丢失**：
+```javascript
+closeItem(item, animate) {
+  const wrap = item.querySelector('.answer-wrap')
+  item.removeAttribute('data-open')
+  if (animate) {
+    wrap.style.transition = 'none'
+    wrap.style.maxHeight = wrap.scrollHeight + 'px'
+    wrap.offsetHeight // 强制重绘
+    wrap.style.transition = 'max-height 0.3s ease'
+    wrap.style.maxHeight = '0'
+  } else {
+    wrap.style.transition = 'none'
+    wrap.style.maxHeight = '0'
+  }
+}
+```
+
+---
+
+## 四、通用头部 Snippet
+
+调用方式（在 section 内直接渲染）：
+
+```liquid
+{%- render 'q-section-header', section: section -%}
+```
+
+**必须在 section schema 的 settings 中加入以下字段（复制粘贴）：**
+
+```json
+{ "type": "header", "content": "板块标题" },
+{ "type": "inline_richtext", "id": "header_title", "label": "标题", "default": "Title" },
+{ "type": "richtext", "id": "header_description", "label": "描述" },
+{ "type": "checkbox", "id": "header_center", "label": "居中对齐", "default": false },
+{ "type": "color_background", "id": "header_em_color", "label": "em 高亮色", "default": "#FF6B35" },
+{ "type": "range", "id": "header_title_size_desktop", "label": "标题字号（桌面端）", "min": 20, "max": 80, "step": 2, "unit": "px", "default": 42 },
+{ "type": "range", "id": "header_title_size_mobile", "label": "标题字号（移动端）", "min": 16, "max": 50, "step": 2, "unit": "px", "default": 26 },
+{ "type": "range", "id": "header_desc_size_desktop", "label": "描述字号（桌面端）", "min": 10, "max": 30, "step": 1, "unit": "px", "default": 16 },
+{ "type": "range", "id": "header_desc_size_mobile", "label": "描述字号（移动端）", "min": 10, "max": 24, "step": 1, "unit": "px", "default": 12 },
+{ "type": "range", "id": "header_margin_bottom_desktop", "label": "标题下边距（桌面端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+{ "type": "range", "id": "header_margin_bottom_mobile", "label": "标题下边距（移动端）", "min": 0, "max": 80, "step": 4, "unit": "px", "default": 24 }
+```
+
+> `em` 标签文字会自动应用 `header_em_color` 渐变/纯色，`color_background` 类型兼容单色和渐变。
+
+---
+
+## 五、Schema 标准配置项
+
+### 背景色（每个板块都应包含）
+
+使用 `color_background` 类型，兼容纯色和渐变，不使用 `color` 类型：
+
+```json
+{ "type": "header", "content": "板块背景" },
+{
+  "type": "color_background",
+  "id": "bg_color",
+  "label": "背景色",
+  "default": "#FFFFFF"
+}
+```
+
+> 每个板块的 `default` 值各自设定，无统一默认值。
+
+Liquid 输出：
+
+```liquid
+<style>
+  .section-{{ section.id }} {
+    --prefix-bg: {{ section.settings.bg_color }};
+  }
+</style>
+```
+
+```css
+.section-{{ section.id }}.q-{name} {
+  background: var(--prefix-bg, #ffffff);
+}
+```
+
+### 上下边距（每个板块都应包含）
+
+```json
+{ "type": "header", "content": "上下边距" },
+{ "type": "range", "id": "padding_top_mobile", "label": "上边距（移动端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+{ "type": "range", "id": "padding_bottom_mobile", "label": "下边距（移动端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+{ "type": "range", "id": "padding_top_desktop", "label": "上边距（桌面端）", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 60 },
+{ "type": "range", "id": "padding_bottom_desktop", "label": "下边距（桌面端）", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 60 }
+```
+
+Liquid 输出：
+
+```liquid
+<style>
+  .section-{{ section.id }} {
+    --padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --padding-top-desktop: {{ section.settings.padding_top_desktop }}px;
+    --padding-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+  }
+</style>
+```
+
+```css
+.section-{{ section.id }}.q-{name} {
+  padding-top: var(--padding-top-mobile, 40px);
+  padding-bottom: var(--padding-bottom-mobile, 40px);
+}
+@media screen and (min-width: 750px) {
+  .section-{{ section.id }}.q-{name} {
+    padding-top: var(--padding-top-desktop, 60px);
+    padding-bottom: var(--padding-bottom-desktop, 60px);
+  }
+}
+```
+
+### 字段类型注意事项
+
+| 类型 | 默认值要求 | 备注 |
+|------|-----------|------|
+| `color` | 必须 hex 值 | **不推荐**，改用 `color_background` |
+| `color_background` | hex 或 gradient 字符串 | **推荐**，兼容渐变，适用背景色、强调色 |
+| `range` | 必须在 min/max 内 | 必须提供 `unit` |
+| `url` | 必须 `"/"` | 不能为空 |
+| `image_picker` | 不需要 | Liquid 中用 `!= blank` 判断 |
+
+### 响应式断点
+
+项目只有一个断点：**750px**（移动端 / 桌面端）
+
+```css
+/* 移动端样式（默认） */
+.section-{{ section.id }}.q-{name} { ... }
+
+/* 桌面端样式 */
+@media screen and (min-width: 750px) {
+  .section-{{ section.id }}.q-{name} { ... }
+}
+```
+
+---
+
+## 六、Presets 预设数据规范
+
+运营拖拽板块时需要立即看到展示效果，因此 **presets 必须包含完整的默认 blocks 数据**：
+
+```json
+"presets": [
+  {
+    "name": "Q-{Name}",
+    "blocks": [
+      {
+        "type": "card",
+        "settings": {
+          "title": "默认标题",
+          "description": "默认描述文字，运营可替换",
+          "button_label": "Shop Now",
+          "button_link": "/"
+        }
+      }
+    ]
+  }
+]
+```
+
+**注意**：
+- 图片类字段（`image_picker`）无法在 presets 中预设，留空即可
+- 文字、链接、数字类字段必须填充有意义的占位内容
+
+---
+
+## 七、加入页面模板
+
+编辑 `templates/*.json`，在 `sections` 对象中添加板块，并在 `order` 数组中指定位置：
+
+**开发阶段**：新增板块放到 `order` 最前面，方便直接预览，`main`（产品主体）放最后：
+
+```json
+{
+  "sections": { ... },
+  "order": ["q-{name}", "...", "main"]
+}
+```
+
+**上线前**：根据实际页面顺序调整 `order`，再将 `main` 移回合适位置。
+
+---
+
+## 八、验证规范
+
+- **日常小修改**：运行 `pnpm dev` 在浏览器查看效果即可
+- **较大改动（新增 section / 修改 Schema 结构）**：使用 Shopify Dev MCP 验证
+
+```javascript
+// 仅在较大改动时调用
+CallMcpTool({ server: "user-shopify-dev-mcp", toolName: "learn_shopify_api", arguments: { api: "liquid" } })
+CallMcpTool({
+  server: "user-shopify-dev-mcp",
+  toolName: "validate_theme",
+  arguments: {
+    conversationId: "...",
+    absoluteThemePath: "/Users/zhushaoxian/Documents/项目/anran",
+    filesCreatedOrUpdated: [{ path: "sections/q-{name}.liquid" }]
+  }
+})
+```
+
+---
+
+## 九、常见报错与解决方案
+
+### 1. `{%- liquid %}` 块内不支持布尔表达式赋值
+
+**报错信息**：
+```
+Liquid syntax error (line XX): Expected end_of_string but found comparison in "{{tab_blocks.size > 0}}"
+```
+
+**原因**：`{%- liquid %}` 标签内的 `assign` 不支持直接赋值布尔比较表达式。
+
+```liquid
+❌ 错误写法
+{%- liquid
+  assign has_tabs = tab_blocks.size > 0
+-%}
+
+✅ 正确写法
+{%- liquid
+  assign has_tabs = false
+  if tab_blocks.size > 0
+    assign has_tabs = true
+  endif
+-%}
+```
+
+---
+
+### 2. 模板 JSON 报「分区类型不能引用现有分区文件」
+
+**报错信息**：
+```
+分区类型"q-xxx"不能引用现有分区文件
+```
+
+**原因**：`templates/*.json` 引用了该 section，但 section 文件本身存在语法错误，导致 Shopify 无法识别。
+
+**解决步骤**：先修复 section 文件的语法错误，section 上传成功后模板报错会自动消失。
+
+---
+
+### 3. Schema JSON 无效
+
+**报错信息**：
+```
+"schema"标记中的 JSON 无效
+```
+
+**原因**：`{% schema %}` 块内的 JSON 格式有误（多余逗号、引号错误、字段名拼写错等）。
+
+**排查方式**：将 schema 内容复制到 [jsonlint.com](https://jsonlint.com) 验证，定位具体行号。
+
+---
+
+## 十、按钮交互状态规范
+
+所有按钮必须添加 `hover` / `active` 交互颜色，提升操作反馈。统一规则如下：
+
+### 渐变背景按钮（Tab 激活态）
+
+渐变色无法直接过渡，用 `opacity` 模拟 hover 变暗效果：
+
+```css
+/* 激活态 hover：降低透明度 */
+.section-{{ section.id }} .q-pr__tab-btn--active:hover {
+  opacity: 0.85;
+}
+```
+
+### 纯色边框按钮（Tab 未激活态）
+
+```css
+.section-{{ section.id }} .q-pr__tab-btn {
+  transition: background 0.2s, color 0.2s, border-color 0.2s, opacity 0.2s;
+}
+
+/* hover：浅色填充 + 边框加深 */
+.section-{{ section.id }} .q-pr__tab-btn:hover:not(.q-pr__tab-btn--active) {
+  background: rgba(108, 188, 231, 0.12);
+  border-color: #367cf6;
+  color: #367cf6;
+}
+
+/* active：加深填充 */
+.section-{{ section.id }} .q-pr__tab-btn:active:not(.q-pr__tab-btn--active) {
+  background: rgba(108, 188, 231, 0.25);
+}
+```
+
+### 纯色填充按钮（Shop Now / CTA）
+
+```css
+.section-{{ section.id }} .q-pr__shop-btn {
+  transition: background 0.2s, opacity 0.2s;
+}
+
+/* hover：颜色加深约 10% */
+.section-{{ section.id }} .q-pr__shop-btn:hover {
+  background: #e8940f; /* #faa61a 加深 */
+}
+
+/* active：整体降低透明度 */
+.section-{{ section.id }} .q-pr__shop-btn:active {
+  opacity: 0.8;
+}
+```
+
+### 颜色加深参考值
+
+| 原色 | hover 加深色 | 说明 |
+|------|-------------|------|
+| `#faa61a`（橙色） | `#e8940f` | CTA 按钮 |
+| `#2d4e76`（深蓝） | `#1e3550` | 深色按钮 |
+| 渐变色 | `opacity: 0.85` | 无法直接过渡，用透明度替代 |
+
+---
+
+## 十一、Judge.me 评分接入规范
+
+项目已全局引入 Judge.me，产品卡片中的评分区统一使用以下方式：
+
+### 推荐写法（有关联产品时）
+
+```liquid
+<div class="jdgm-widget jdgm-preview-badge" data-id="{{ product.id }}">
+  {{- product.metafields.judgeme.badge -}}
+</div>
+```
+
+- `jdgm-preview-badge`：Judge.me 的星级 + 评论数徽章组件，自动渲染
+- `data-id`：必须传入 `product.id`，Judge.me 用此匹配评论数据
+
+### 降级写法（无关联产品 / 纯手动配置时）
+
+当卡片没有关联 Shopify 产品时，用 `block.settings.review_count` 手写文字降级：
+
+```liquid
+{%- if product != blank -%}
+  <div class="jdgm-widget jdgm-preview-badge" data-id="{{ product.id }}">
+    {{- product.metafields.judgeme.badge -}}
+  </div>
+{%- elsif block.settings.review_count != blank -%}
+  {{- block.settings.review_count -}}
+{%- endif -%}
+```
+
+### CSS 适配
+
+Judge.me badge 内部结构需适配卡片行高：
+
+```css
+.section-{{ section.id }} .jdgm-prev-badge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.section-{{ section.id }} .jdgm-prev-badge__stars {
+  font-size: 12px; /* 移动端 */
+}
+
+.section-{{ section.id }} .jdgm-prev-badge__text {
+  font-size: 10px;
+  color: #1e1e1e;
+}
+```
+
+### 注意事项
+
+- **不要**在产品卡片中手写 SVG 星级，关联产品时一律用 Judge.me badge
+- `product.metafields.judgeme.badge` 输出的是完整 HTML，直接 `{{ }}` 输出即可，无需过滤器
+- 完整评论列表组件用 `product.metafields.judgeme.widget`（用于评论专区板块，非产品卡片）
+
+---
+
+## 检查清单
+
+创建新 Section 时确保：
+- [ ] Schema 包含 `bg_color`（color_background 类型）
+- [ ] Schema 包含上下边距四个 range 字段
+- [ ] Schema 包含通用头部所有字段（header_title 等）
+- [ ] Presets 包含完整的默认 blocks 数据（拖入即可展示）
+- [ ] 所有 CSS 选择器加 `.section-{{ section.id }}` 前缀
+- [ ] 背景色/强调色用 `color_background` 类型，不用 `color`
+- [ ] `url` 类型字段必须提供 `"default": "/"`
+- [ ] Islands JS 文件放 `frontend/islands/`，自定义元素用 `client:visible`
+- [ ] 响应式只用 750px 一个断点
+- [ ] 轮播功能使用 `swiper-container` Web Component
+- [ ] 所有按钮添加 hover/active 交互颜色变化（纯色加深、渐变用 opacity）
+- [ ] 产品卡片评分使用 Judge.me badge（关联产品时），无产品时用手写文字降级
+- [ ] 图片设置正确的 `loading` 和 `sizes` 属性

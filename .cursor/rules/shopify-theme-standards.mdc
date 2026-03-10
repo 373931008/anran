@@ -10,95 +10,8 @@ alwaysApply: false
 
 ## 1. 样式实现
 
-### 优先使用 Tailwind CSS
-
-```liquid
-<!-- ✅ 推荐：使用 Tailwind 类（tw- 前缀） -->
-<div class="tw-flex tw-items-center tw-justify-between tw-p-4 tw-bg-white">
-  <h2 class="tw-text-2xl tw-font-bold">标题</h2>
-</div>
-
-<!-- ❌ 避免：内联样式或自定义 CSS（除非必要） -->
-<div style="display: flex; padding: 16px;">
-  <h2 style="font-size: 24px; font-weight: bold;">标题</h2>
-</div>
-```
-
-### Tailwind 配置说明
-
-- **前缀**：所有 Tailwind 类必须使用 `tw-` 前缀
-- **响应式**：只使用 `lg:` 断点（1024px）区分移动端和 PC 端
-- **容器**：使用 `container` 类控制内容宽度（见第2条）
-
-### 像素值标准化规则 ⭐
-
-**所有自定义像素值必须是整数且为偶数**
-
-```liquid
-<!-- ❌ 错误：小数值 -->
-<div class="tw-w-[163.5px] tw-h-[91.5px]">
-
-<!-- ❌ 错误：奇数值 -->
-<div class="tw-w-[163px] tw-h-[91px]">
-
-<!-- ✅ 正确：整数偶数值（四舍五入到最接近的偶数） -->
-<div class="tw-w-[164px] tw-h-[92px]">
-
-<!-- ✅ 正确：使用 Tailwind 标准类（更推荐） -->
-<div class="tw-w-40 tw-h-24">  <!-- 40 = 160px, 24 = 96px -->
-```
-
-**转换规则**：
-- `163.5px` → `164px`（向上取整到偶数）
-- `91.5px` → `92px`（向上取整到偶数）
-- `163px` → `164px`（奇数加1变偶数）
-- `91px` → `92px`（奇数加1变偶数）
-
-**原因**：
-- 确保布局在不同设备上的一致性
-- 避免亚像素渲染问题
-- 方便使用 `/2` 计算居中和间距
-- 提高代码可读性和可维护性
 
 ## 2. 布局容器
-
-### Section 内容宽度使用 Container
-
-```liquid
-<!-- ✅ 推荐：使用 container 控制宽度 -->
-<div class="{% unless section.settings.full_width %}container{% endunless %}">
-  <div class="tw-py-8">
-    <!-- 内容区域 -->
-  </div>
-</div>
-
-<!-- ✅ 配合 full_width 设置 -->
-<div class="about-banner {% unless section.settings.full_width %}container{% endunless %}">
-  <div class="content-over-media {% unless section.settings.full_width %}rounded{% endunless %}">
-    <!-- 全宽/容器宽度切换 -->
-  </div>
-</div>
-```
-
-### Container 配置（来自 tailwind.config.cjs）
-
-```javascript
-container: {
-  center: true,
-  screens: {
-    sm: '640px',
-    md: '768px',
-    lg: '1024px',
-    xl: '1280px'
-  },
-  padding: {
-    DEFAULT: '1rem',
-    sm: '1rem',
-    lg: '1.25rem',
-    xl: '2.5rem'
-  }
-}
-```
 
 ## 3. Schema 配置规范
 
@@ -170,11 +83,6 @@ container: {
     </swiper-slide>
   {%- endfor -%}
 </swiper-container>
-
-<script type="module">
-  import Swiper from 'swiper/element/bundle';
-  Swiper.register();
-</script>
 ```
 
 ### Swiper Thumbs（Tab 联动）
@@ -277,10 +185,10 @@ customElements.define('anchor-navigation', AnchorNavigation)
 
 <!-- HTML 结构 -->
 <anchor-navigation 
-  class="tw-sticky tw-top-0 tw-z-40 tw-bg-white"
+  class="anchor-nav sticky-nav"
   data-offset="0"
 >
-  <nav class="container tw-flex tw-justify-center tw-gap-8 tw-py-4">
+  <nav class="container nav-inner">
     <a href="#overall" class="nav-item" data-target="overall">Overall</a>
     <a href="#features" class="nav-item" data-target="features">Features</a>
   </nav>
@@ -327,8 +235,8 @@ customElements.define('anchor-navigation', AnchorNavigation)
 **方案 A：贴顶部**（推荐简单场景）
 
 ```liquid
-<!-- ✅ 直接使用 Tailwind sticky 类 -->
-<div class="tw-sticky tw-top-0 tw-z-40 tw-bg-white tw-border-b">
+<!-- ✅ 使用 sticky 定位类 -->
+<div class="sticky-top nav-bar">
   <nav>导航内容</nav>
 </div>
 ```
@@ -354,9 +262,9 @@ z-index: 40; /* 低于主导航(50)，高于内容(10) */
 ### 5.2 响应式设计
 
 ```liquid
-<!-- 移动端优先 -->
-<div class="tw-text-base tw-p-4 lg:tw-text-2xl lg:tw-p-8">
-  <h2 class="tw-text-[28px] lg:tw-text-[40px]">
+<!-- 移动端优先：使用媒体查询或响应式类 -->
+<div class="section-block responsive-padding">
+  <h2 class="section-title">
     响应式标题
   </h2>
 </div>
@@ -400,7 +308,6 @@ z-index: 40; /* 低于主导航(50)，高于内容(10) */
   
   技术栈：
   - Swiper.js (swiper/element/bundle)
-  - Tailwind CSS (tw- 前缀)
   
   版本：1.0.0
 {%- endcomment -%}
@@ -458,9 +365,6 @@ CallMcpTool({
 ## 检查清单
 
 创建新 Section 时确保：
-
-- [ ] 使用 Tailwind CSS（tw- 前缀）实现样式
-- [ ] 使用 `container` 类控制内容宽度
 - [ ] Schema 中的 url、video_url、color 提供有效默认值
 - [ ] 轮播功能使用 `swiper-container` 实现
 - [ ] 添加响应式断点（移动端优先）

@@ -1,0 +1,25 @@
+# Browsers that we support
+
+# Default browsers for Shopify themes
+# Based on Shopify's browser support policy and modern e-commerce requirements
+
+# Production browsers (for autoprefixer and other tools)
+> 0.5%
+last 2 major versions
+not dead
+not op_mini all
+
+# Specific browser versions for better compatibility
+Chrome >= 88
+Firefox >= 78
+Safari >= 14
+Edge >= 88
+
+# Mobile browsers
+iOS >= 14
+Android >= 81
+
+# Exclude outdated browsers
+not IE 11
+not IE_Mob 11
+not KaiOS 2.5

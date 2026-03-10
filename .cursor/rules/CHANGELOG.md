@@ -55,7 +55,7 @@ customElements.define('component-name', ComponentName)
 **方案 A：贴顶部**（推荐简单场景）
 
 ```liquid
-<div class="tw-sticky tw-top-0 tw-z-40 tw-bg-white">
+<div class="sticky-top nav-bar">
   导航内容
 </div>
 ```
@@ -124,7 +124,7 @@ customElements.define('component-name', ComponentName)
 
 1. **shopify-theme-standards.mdc**
    - ✅ 新增"像素值标准化规则"章节
-   - ✅ 更新 Tailwind 配置说明（只用 lg 断点）
+   - ✅ 更新响应式断点配置说明（只用 lg 断点）
    - 行数：308 行
 
 2. **responsive-design.mdc**
@@ -134,7 +134,7 @@ customElements.define('component-name', ComponentName)
    - 行数：271 行
 
 3. **README.md**
-   - ✅ 更新 Tailwind 配置说明
+   - ✅ 更新响应式与样式配置说明
    - ✅ 新增"响应式设计原则"章节
    - ✅ 添加"像素值转换规则"表格
    - 行数：209 行
@@ -166,27 +166,15 @@ customElements.define('component-name', ComponentName)
 
 #### 断点使用
 
-**之前**：
-```liquid
-<div class="tw-text-base md:tw-text-lg lg:tw-text-2xl xl:tw-text-3xl">
-```
+**之前**：使用多断点（md、lg、xl 等）
 
-**现在**：
-```liquid
-<div class="tw-text-base lg:tw-text-2xl">
-```
+**现在**：只使用一个断点（如 lg: 1024px），移动端与 PC 端界限清晰
 
 #### 像素值
 
-**之前**：
-```liquid
-<div class="tw-w-[163.5px] tw-h-[91px]">
-```
+**之前**：小数或奇数像素值（如 163.5px、91px）
 
-**现在**：
-```liquid
-<div class="tw-w-[164px] tw-h-[92px]">
-```
+**现在**：整数且为偶数（如 164px、92px），避免亚像素渲染
 
 ---
 
@@ -207,25 +195,17 @@ customElements.define('component-name', ComponentName)
 
 如果你有现有代码需要更新：
 
-#### 1. 移除多余断点
+#### 1. 简化断点
 
-```bash
-# 查找使用了 md: 的代码
-grep -r "md:tw-" sections/
-
-# 替换为 lg:
-# md:tw-text-lg → lg:tw-text-2xl
-```
+将多余断点（如 md、xl）统一为项目约定的单一断点（如 lg）。
 
 #### 2. 标准化像素值
 
 ```bash
 # 查找小数像素值
 grep -r "\[.*\.5px\]" sections/
-
-# 查找奇数像素值（需要手动检查）
-grep -r "tw-[wh]-\[[0-9]*[13579]px\]" sections/
 ```
+手动将小数、奇数像素值改为偶数整数。
 
 #### 3. 验证响应式
 
@@ -239,9 +219,9 @@ grep -r "tw-[wh]-\[[0-9]*[13579]px\]" sections/
 
 使用更新后的规范时，确保：
 
-- [ ] 只使用 `lg:` 断点（不用 sm/md/xl）
-- [ ] 所有自定义像素值是偶数
-- [ ] Tailwind 类使用 `tw-` 前缀
+- [ ] 只使用约定断点（如 lg）
+- [ ] 所有自定义像素值为偶数整数
+- [ ] 样式类名符合项目规范
 - [ ] Schema 提供有效默认值
 - [ ] 使用 `container` 控制宽度
 - [ ] 轮播使用 `swiper-container`
@@ -262,23 +242,16 @@ grep -r "tw-[wh]-\[[0-9]*[13579]px\]" sections/
 {%- endcomment -%}
 
 <div class="{% unless section.settings.full_width %}container{% endunless %}">
-  <div class="tw-flex tw-flex-col lg:tw-flex-row tw-gap-8 lg:tw-gap-10">
-    
+  <div class="section-layout">
     <!-- 图片区：336x336 → 560x560 -->
-    <div class="tw-w-[336px] lg:tw-w-[560px]">
-      <swiper-container
-        class="tw-h-[336px] lg:tw-h-[560px]"
-        pagination="true"
-      >
+    <div class="section-media">
+      <swiper-container class="section-swiper" pagination="true">
         <!-- slides -->
       </swiper-container>
     </div>
-    
-    <!-- 详情区：336px → 600px -->
-    <div class="tw-w-full lg:tw-w-[600px]">
-      <h1 class="tw-text-[28px] lg:tw-text-[40px] tw-font-semibold">
-        {{ section.settings.title }}
-      </h1>
+    <!-- 详情区 -->
+    <div class="section-content">
+      <h1 class="section-title">{{ section.settings.title }}</h1>
       <!-- 更多内容 -->
     </div>
   </div>

@@ -1,0 +1,52 @@
+# Shopify Theme Check configuration
+# https://shopify.dev/themes/tools/theme-check
+
+# Disable problematic checks for modern development
+MatchingTranslations:
+  enabled: false
+
+TemplateLength:
+  enabled: false
+
+# Template length check with reasonable limits
+UnusedAssign:
+  enabled: true
+
+# Performance checks
+LiquidHTMLInLiquidTag:
+  enabled: true
+
+NestedSnippet:
+  enabled: true
+  max_nesting_level: 3
+
+# Accessibility checks
+ImgLazyLoading:
+  enabled: true
+
+MissingRequiredTemplateFiles:
+  enabled: true
+
+# Content checks
+TranslationKeyExists:
+  enabled: false  # Disabled for development, enable for production
+
+# Performance and best practices
+RequiredLayoutThemeObject:
+  enabled: true
+
+ValidHTMLTranslation:
+  enabled: true
+
+# Custom rules for this project
+ParserBlockingJavaScript:
+  enabled: true
+
+RemoteAsset:
+  enabled: true
+
+# Ignore certain files during development
+ignore:
+  - assets/*.min.*
+  - node_modules/
+  - .git/
