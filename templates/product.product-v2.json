@@ -10,6 +10,31 @@
  {
   "layout": "theme",
   "sections": {
+    "q-hero-banner": {
+      "type": "q-hero-banner",
+      "settings": {
+        "title": "All-in-One Security. <em>Ready to Protect.</em>",
+        "title_size_desktop": 42,
+        "title_size_mobile": 24,
+        "title_color": "#1e1e1e",
+        "em_color_from": "#6cbce7",
+        "em_color_to": "#367cf6",
+        "description": "Enjoy reliable performance, easy setup, and full control—straight from the box.",
+        "desc_size_desktop": 16,
+        "desc_size_mobile": 12,
+        "desc_color": "#4e5357",
+        "image": "shopify://shop_images/image_294.jpg",
+        "btn_label": "Buy Now",
+        "btn_link": "/",
+        "btn_bg_color": "#1565d8",
+        "btn_text_color": "#ffffff",
+        "bg_color": "#ffffff",
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60
+      }
+    },
     "q-trial-guarantee": {
       "type": "q-trial-guarantee",
       "blocks": {
@@ -613,6 +638,7 @@
     }
   },
   "order": [
+    "q-hero-banner",
     "q-trial-guarantee",
     "q-product-specs",
     "q-service-features",
