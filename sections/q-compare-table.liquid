@@ -1,0 +1,501 @@
+{%- comment -%}
+  Section: q-compare-table
+  功能说明：
+  - 产品规格对比表格，左侧固定特征列，右侧产品列
+  - 桌面端（≥750px）：静态横排展示，左侧特征列 + 多列产品卡片
+  - 移动端（<750px）：左侧特征列固定，右侧 swiper-container 横向滑动
+  - 产品图片悬浮于卡片顶部，底部"Shop now"按钮
+  技术栈：
+  - 纯展示类板块，Swiper breakpoints 实现多端适配，无需 Islands JS
+  版本：1.0.0
+{%- endcomment -%}
+
+{%- liquid
+  assign feature_rows = section.settings.feature_rows | newline_to_br | split: '<br />'
+  assign product_blocks = section.blocks | where: 'type', 'product'
+-%}
+
+<style>
+  .section-{{ section.id }} {
+    --ct-bg: {{ section.settings.bg_color }};
+    --ct-card-bg: {{ section.settings.card_bg_color }};
+    --ct-btn-bg: {{ section.settings.btn_color }};
+    --ct-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --ct-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --ct-padding-top-desktop: {{ section.settings.padding_top_desktop }}px;
+    --ct-padding-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+  }
+
+  .section-{{ section.id }}.q-compare-table {
+    background: var(--ct-bg, #f3f7ff);
+    padding-top: var(--ct-padding-top-mobile, 40px);
+    padding-bottom: var(--ct-padding-bottom-mobile, 40px);
+    font-family: var(--font-body-family);
+  }
+
+  /* ===================== 外层布局 ===================== */
+  .section-{{ section.id }} .q-ct__layout {
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+  }
+
+  /* ===================== 左侧特征列 ===================== */
+  .section-{{ section.id }} .q-ct__feature-col {
+    flex-shrink: 0;
+    width: 173px;
+    /* 移动端：与右侧 swiper 保持对齐 */
+  }
+
+  .section-{{ section.id }} .q-ct__feature-card {
+    background: var(--ct-card-bg, #ffffff);
+    border-radius: 10px;
+    padding: 0 0 16px;
+    height: 100%;
+  }
+
+  /* 产品图片占位区域（对齐右侧卡片图片区高度） */
+  .section-{{ section.id }} .q-ct__feature-img-placeholder {
+    height: 132px;
+    display: flex;
+    align-items: flex-end;
+    padding: 0 10px 8px;
+  }
+
+  .section-{{ section.id }} .q-ct__feature-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #2d4e76;
+    margin: 0;
+    padding: 0 10px 0;
+    line-height: 36px;
+  }
+
+  .section-{{ section.id }} .q-ct__feature-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .section-{{ section.id }} .q-ct__feature-list li {
+    font-size: 11px;
+    font-weight: 700;
+    color: #2d4e76;
+    padding: 0 10px;
+    line-height: 1.2;
+    min-height: 56px;
+    display: flex;
+    align-items: center;
+    border-top: 1px solid #e8edf5;
+  }
+
+  /* ===================== 右侧 swiper ===================== */
+  .section-{{ section.id }} .q-ct__swiper-wrap {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .section-{{ section.id }} .q-ct__swiper {
+    width: 100%;
+  }
+
+  /* ===================== 产品卡 ===================== */
+  .section-{{ section.id }} .q-ct__product-card {
+    background: var(--ct-card-bg, #ffffff);
+    border-radius: 10px;
+    border: 1px solid #f3f7ff;
+    position: relative;
+    padding-bottom: 16px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* 图片区域：从卡片顶部向上溢出 */
+  .section-{{ section.id }} .q-ct__product-img-wrap {
+    position: relative;
+    height: 132px;
+    overflow: visible;
+    flex-shrink: 0;
+  }
+
+  .section-{{ section.id }} .q-ct__product-img {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 130px;
+    height: 132px;
+    object-fit: contain;
+    object-position: center bottom;
+  }
+
+  .section-{{ section.id }} .q-ct__product-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: #2d4e76;
+    margin: 0;
+    padding: 0 10px;
+    line-height: 36px;
+  }
+
+  /* 规格行列表 */
+  .section-{{ section.id }} .q-ct__spec-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex: 1;
+  }
+
+  .section-{{ section.id }} .q-ct__spec-list li {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: #1e1e1e;
+    padding: 0 10px;
+    min-height: 56px;
+    border-top: 1px solid #e8edf5;
+  }
+
+  .section-{{ section.id }} .q-ct__check-icon {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+  }
+
+  /* Shop now 按钮 */
+  .section-{{ section.id }} .q-ct__shop-btn {
+    display: block;
+    margin: 16px auto 0;
+    background: var(--ct-btn-bg, #faa61a);
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 30px;
+    padding: 9px 20px;
+    width: calc(100% - 20px);
+    transition: background 0.2s, opacity 0.2s;
+  }
+
+  .section-{{ section.id }} .q-ct__shop-btn:hover {
+    background: #e8940f;
+  }
+
+  .section-{{ section.id }} .q-ct__shop-btn:active {
+    opacity: 0.8;
+  }
+
+  /* ===================== 移动端 Swiper 分页点 ===================== */
+  .section-{{ section.id }} .q-ct__swiper::part(pagination) {
+    bottom: -24px;
+  }
+
+  .section-{{ section.id }} .q-ct__swiper::part(bullet) {
+    width: 32px;
+    height: 4px;
+    border-radius: 2px;
+    background: #c8d4e8;
+    opacity: 1;
+  }
+
+  .section-{{ section.id }} .q-ct__swiper::part(bullet-active) {
+    background: #2d4e76;
+  }
+
+  /* ===================== 桌面端（≥750px） ===================== */
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}.q-compare-table {
+      padding-top: var(--ct-padding-top-desktop, 60px);
+      padding-bottom: var(--ct-padding-bottom-desktop, 60px);
+    }
+
+    /* 桌面端外层：flex 布局，特征列 + 产品列 */
+    .section-{{ section.id }} .q-ct__layout {
+      gap: 0;
+      align-items: stretch;
+    }
+
+    .section-{{ section.id }} .q-ct__feature-col {
+      width: 340px;
+    }
+
+    .section-{{ section.id }} .q-ct__feature-img-placeholder {
+      height: 224px;
+    }
+
+    .section-{{ section.id }} .q-ct__feature-title {
+      font-size: 18px;
+      padding: 0 18px 0;
+    }
+
+    .section-{{ section.id }} .q-ct__feature-list li {
+      font-size: 14px;
+      padding: 0 18px;
+      min-height: 66px;
+    }
+
+    .section-{{ section.id }} .q-ct__product-img-wrap {
+      height: 224px;
+    }
+
+    .section-{{ section.id }} .q-ct__product-img {
+      width: 200px;
+      height: 200px;
+    }
+
+    .section-{{ section.id }} .q-ct__product-name {
+      font-size: 22px;
+      padding: 0 18px;
+    }
+
+    .section-{{ section.id }} .q-ct__spec-list li {
+      font-size: 16px;
+      padding: 0 18px;
+      min-height: 66px;
+      gap: 8px;
+    }
+
+    .section-{{ section.id }} .q-ct__check-icon {
+      width: 22px;
+      height: 22px;
+    }
+
+    .section-{{ section.id }} .q-ct__shop-btn {
+      font-size: 18px;
+      padding: 12px 28px;
+    }
+
+    /* 桌面端：swiper 不滑动，所有产品卡横排 */
+    .section-{{ section.id }} .q-ct__swiper-wrap {
+      overflow: visible;
+    }
+  }
+</style>
+
+<div class="q-compare-table section-{{ section.id }}">
+  <div class="page-width">
+    {%- render 'q-section-header', section: section -%}
+
+    <div class="q-ct__layout">
+
+      {%- comment -%} 左侧特征列 {%- endcomment -%}
+      <div class="q-ct__feature-col">
+        <div class="q-ct__feature-card">
+          <div class="q-ct__feature-img-placeholder"></div>
+          <p class="q-ct__feature-title">{{ section.settings.feature_col_title | default: 'Feature' }}</p>
+          <ul class="q-ct__feature-list">
+            {%- for row in feature_rows -%}
+              {%- assign row_text = row | strip -%}
+              {%- if row_text != blank -%}
+                <li>{{ row_text }}</li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        </div>
+      </div>
+
+      {%- comment -%} 右侧产品列（swiper） {%- endcomment -%}
+      <div class="q-ct__swiper-wrap">
+        <swiper-container
+          class="q-ct__swiper"
+          slides-per-view="1"
+          space-between="0"
+          pagination="true"
+          breakpoints='{"750": {"slidesPerView": {{ product_blocks.size }}, "pagination": {"enabled": false}}}'
+        >
+          {%- for block in product_blocks -%}
+            {%- assign spec_rows = block.settings.specs | newline_to_br | split: '<br />' -%}
+            <swiper-slide {{ block.shopify_attributes }}>
+              <div class="q-ct__product-card">
+
+                {%- comment -%} 产品图片区 {%- endcomment -%}
+                <div class="q-ct__product-img-wrap">
+                  {%- if block.settings.product_image != blank -%}
+                    {{- block.settings.product_image | image_url: width: 400 | image_tag:
+                      class: 'q-ct__product-img',
+                      loading: 'lazy',
+                      alt: block.settings.product_name,
+                      sizes: '(min-width: 750px) 200px, 130px',
+                      widths: '130, 200, 260, 400'
+                    -}}
+                  {%- endif -%}
+                </div>
+
+                <p class="q-ct__product-name">{{ block.settings.product_name }}</p>
+
+                {%- comment -%} 规格行 {%- endcomment -%}
+                <ul class="q-ct__spec-list">
+                  {%- for spec in spec_rows -%}
+                    {%- assign spec_text = spec | strip -%}
+                    {%- if spec_text != blank -%}
+                      <li>
+                        <svg class="q-ct__check-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                          <circle cx="12" cy="12" r="11" stroke="#6cbce7" stroke-width="1.5"/>
+                          <path d="M7.5 12.5L10.5 15.5L16.5 9.5" stroke="#6cbce7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>{{ spec_text }}</span>
+                      </li>
+                    {%- endif -%}
+                  {%- endfor -%}
+                </ul>
+
+                {%- comment -%} Shop now 按钮 {%- endcomment -%}
+                {%- if block.settings.button_label != blank -%}
+                  <a href="{{ block.settings.button_link | default: '/' }}" class="q-ct__shop-btn">
+                    {{ block.settings.button_label }}
+                  </a>
+                {%- endif -%}
+
+              </div>
+            </swiper-slide>
+          {%- endfor -%}
+        </swiper-container>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Q-Compare Table",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    { "type": "header", "content": "板块标题" },
+    { "type": "inline_richtext", "id": "header_title", "label": "标题", "default": "Discover What's Popular" },
+    { "type": "richtext", "id": "header_description", "label": "描述" },
+    { "type": "checkbox", "id": "header_center", "label": "居中对齐", "default": true },
+    { "type": "color_background", "id": "header_em_color", "label": "em 高亮色", "default": "linear-gradient(90deg, #6cbce7 0%, #367cf6 67%)" },
+    { "type": "range", "id": "header_title_size_desktop", "label": "标题字号（桌面端）", "min": 20, "max": 80, "step": 2, "unit": "px", "default": 42 },
+    { "type": "range", "id": "header_title_size_mobile", "label": "标题字号（移动端）", "min": 16, "max": 50, "step": 2, "unit": "px", "default": 26 },
+    { "type": "range", "id": "header_desc_size_desktop", "label": "描述字号（桌面端）", "min": 10, "max": 30, "step": 1, "unit": "px", "default": 16 },
+    { "type": "range", "id": "header_desc_size_mobile", "label": "描述字号（移动端）", "min": 10, "max": 24, "step": 1, "unit": "px", "default": 12 },
+    { "type": "range", "id": "header_margin_bottom_desktop", "label": "标题下边距（桌面端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "header_margin_bottom_mobile", "label": "标题下边距（移动端）", "min": 0, "max": 80, "step": 4, "unit": "px", "default": 24 },
+
+    { "type": "header", "content": "表格设置" },
+    {
+      "type": "text",
+      "id": "feature_col_title",
+      "label": "特征列标题",
+      "default": "Feature"
+    },
+    {
+      "type": "textarea",
+      "id": "feature_rows",
+      "label": "特征列（每行一项）",
+      "info": "每行输入一个特征名称，与产品列规格一一对应",
+      "default": "Video Capture Resolution\nViewing Angle\nNight Vision Range\nConnectivity Protocol\nController Type\nPower Source\nLow Light Technology\nBattery Power\nMax Supported"
+    },
+
+    { "type": "header", "content": "按钮颜色" },
+    {
+      "type": "color_background",
+      "id": "btn_color",
+      "label": "按钮背景色",
+      "default": "#faa61a"
+    },
+
+    { "type": "header", "content": "板块背景" },
+    {
+      "type": "color_background",
+      "id": "bg_color",
+      "label": "背景色",
+      "default": "#f3f7ff"
+    },
+    {
+      "type": "color_background",
+      "id": "card_bg_color",
+      "label": "卡片背景色",
+      "default": "#ffffff"
+    },
+
+    { "type": "header", "content": "上下边距" },
+    { "type": "range", "id": "padding_top_mobile", "label": "上边距（移动端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_bottom_mobile", "label": "下边距（移动端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_top_desktop", "label": "上边距（桌面端）", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 60 },
+    { "type": "range", "id": "padding_bottom_desktop", "label": "下边距（桌面端）", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 60 }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "产品列",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "product_image",
+          "label": "产品图片"
+        },
+        {
+          "type": "text",
+          "id": "product_name",
+          "label": "产品名称",
+          "default": "Q3M8"
+        },
+        {
+          "type": "textarea",
+          "id": "specs",
+          "label": "规格列表（每行一项）",
+          "info": "与左侧特征列一一对应，每行一个值",
+          "default": "2K / 3MP\n360 Degrees\n50 Feet\nWi-Fi\nAlexa, Assistant\nSolar & Battery Powered\nNight Color\n5000 mAh, 5W, 5V\nSD Card, up to 128GB"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "按钮链接",
+          "default": "/"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "按钮文字",
+          "default": "Shop now"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Q-Compare Table",
+      "blocks": [
+        {
+          "type": "product",
+          "settings": {
+            "product_name": "Q3M8",
+            "specs": "2K / 3MP\n360 Degrees\n50 Feet\nWi-Fi\nAlexa, Assistant\nSolar & Battery Powered\nNight Color\n5000 mAh, 5W, 5V\nSD Card, up to 128GB",
+            "button_link": "/",
+            "button_label": "Shop now"
+          }
+        },
+        {
+          "type": "product",
+          "settings": {
+            "product_name": "C3M5",
+            "specs": "3MP\n135 Degrees\n55 Feet\nWi-Fi\nAmazon Alexa\nSolar Powered\nNight Color\n5000 mAh, 5W, 5V\nSD Card, up to 128GB",
+            "button_link": "/",
+            "button_label": "Shop now"
+          }
+        },
+        {
+          "type": "product",
+          "settings": {
+            "product_name": "Q4M5",
+            "specs": "2K / 3MP\n360 Degrees\n50 Feet\nWi-Fi\nAlexa, Assistant\nSolar & Battery Powered\nNight Color\n5000 mAh, 5W, 5V\nSD Card, up to 128GB",
+            "button_link": "/",
+            "button_label": "Shop now"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

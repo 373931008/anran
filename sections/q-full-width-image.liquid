@@ -1,0 +1,450 @@
+{%- comment -%}
+  Section: q-full-width-image
+  功能说明：全宽图片展示板块，支持分别配置电脑端和移动端图片
+  特点：
+  - 图片顶部/底部黑色渐变遮罩
+  - 标题和描述叠加在图片上
+  - 电脑端/移动端图片分别配置
+  - 支持通用头部标题（叠加在图片上）
+  版本：1.0.0
+{%- endcomment -%}
+
+{%- liquid
+  assign image_desktop = section.settings.image_desktop
+  assign image_mobile = section.settings.image_mobile
+  assign overlay_position = section.settings.overlay_position
+  assign text_position = section.settings.text_position
+-%}
+
+<style>
+  .section-{{ section.id }} {
+    --full-img-height-mobile: {{ section.settings.image_height_mobile }}px;
+    --full-img-height-desktop: {{ section.settings.image_height_desktop }}px;
+    --full-img-overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    --full-img-title-color: {{ section.settings.title_color }};
+    --full-img-desc-color: {{ section.settings.desc_color }};
+    --full-img-title-size-mobile: {{ section.settings.title_size_mobile }}px;
+    --full-img-title-size-desktop: {{ section.settings.title_size_desktop }}px;
+    --full-img-desc-size-mobile: {{ section.settings.desc_size_mobile }}px;
+    --full-img-desc-size-desktop: {{ section.settings.desc_size_desktop }}px;
+    --full-img-text-padding-mobile: {{ section.settings.text_padding_mobile }}px;
+    --full-img-text-padding-desktop: {{ section.settings.text_padding_desktop }}px;
+  }
+
+  .section-{{ section.id }}.q-full-width-image {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: var(--full-img-height-mobile, 400px);
+  }
+
+  .section-{{ section.id }} .q-full-width-image__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .section-{{ section.id }} .q-full-width-image__img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  /* 移动端图片默认显示，桌面端图片默认隐藏 */
+  .section-{{ section.id }} .q-full-width-image__img--mobile {
+    display: block;
+  }
+
+  .section-{{ section.id }} .q-full-width-image__img--desktop {
+    display: none;
+  }
+
+  /* 渐变遮罩 */
+  .section-{{ section.id }} .q-full-width-image__overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  {%- if overlay_position == 'top' -%}
+    .section-{{ section.id }} .q-full-width-image__overlay {
+      background: linear-gradient(to bottom, rgba(0,0,0,var(--full-img-overlay-opacity)) 0%, rgba(0,0,0,0) 60%);
+    }
+  {%- elsif overlay_position == 'bottom' -%}
+    .section-{{ section.id }} .q-full-width-image__overlay {
+      background: linear-gradient(to top, rgba(0,0,0,var(--full-img-overlay-opacity)) 0%, rgba(0,0,0,0) 60%);
+    }
+  {%- else -%}
+    .section-{{ section.id }} .q-full-width-image__overlay {
+      background: linear-gradient(to bottom, rgba(0,0,0,var(--full-img-overlay-opacity)) 0%, rgba(0,0,0,0) 60%);
+    }
+  {%- endif -%}
+
+  /* 文字内容层 */
+  .section-{{ section.id }} .q-full-width-image__content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    padding: var(--full-img-text-padding-mobile, 24px);
+    z-index: 2;
+  }
+
+  {%- if text_position == 'top' -%}
+    .section-{{ section.id }} .q-full-width-image__content {
+      justify-content: flex-start;
+    }
+  {%- elsif text_position == 'bottom' -%}
+    .section-{{ section.id }} .q-full-width-image__content {
+      justify-content: flex-end;
+    }
+  {%- else -%}
+    .section-{{ section.id }} .q-full-width-image__content {
+      justify-content: flex-start;
+    }
+  {%- endif -%}
+
+  {%- if section.settings.text_align == 'center' -%}
+    .section-{{ section.id }} .q-full-width-image__content {
+      align-items: center;
+      text-align: center;
+    }
+  {%- elsif section.settings.text_align == 'right' -%}
+    .section-{{ section.id }} .q-full-width-image__content {
+      align-items: flex-end;
+      text-align: right;
+    }
+  {%- else -%}
+    .section-{{ section.id }} .q-full-width-image__content {
+      align-items: flex-start;
+      text-align: left;
+    }
+  {%- endif -%}
+
+  .section-{{ section.id }} .q-full-width-image__title {
+    color: var(--full-img-title-color, #ffffff);
+    font-size: var(--full-img-title-size-mobile, 24px);
+    font-weight: 600;
+    line-height: 1.3;
+    margin: 0;
+    max-width: 600px;
+  }
+
+  .section-{{ section.id }} .q-full-width-image__desc {
+    color: var(--full-img-desc-color, #ffffff);
+    font-size: var(--full-img-desc-size-mobile, 12px);
+    line-height: 1.6;
+    margin: 12px 0 0;
+    max-width: 560px;
+  }
+
+  .section-{{ section.id }} .q-full-width-image__desc p {
+    margin: 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}.q-full-width-image {
+      height: var(--full-img-height-desktop, 739px);
+    }
+
+    .section-{{ section.id }} .q-full-width-image__img--mobile {
+      display: none;
+    }
+
+    .section-{{ section.id }} .q-full-width-image__img--desktop {
+      display: block;
+    }
+
+    .section-{{ section.id }} .q-full-width-image__content {
+      padding: var(--full-img-text-padding-desktop, 48px);
+    }
+
+    .section-{{ section.id }} .q-full-width-image__title {
+      font-size: var(--full-img-title-size-desktop, 42px);
+    }
+
+    .section-{{ section.id }} .q-full-width-image__desc {
+      font-size: var(--full-img-desc-size-desktop, 16px);
+      margin-top: 20px;
+    }
+  }
+</style>
+
+<div class="q-full-width-image section-{{ section.id }}">
+  {%- comment -%}桌面端图片{%- endcomment -%}
+  {%- if image_desktop != blank -%}
+    <div class="q-full-width-image__img q-full-width-image__img--desktop">
+      {{
+        image_desktop
+        | image_url: width: 1920
+        | image_tag:
+          loading: 'lazy',
+          widths: '750, 1100, 1440, 1920',
+          sizes: '100vw',
+          alt: image_desktop.alt
+      }}
+    </div>
+  {%- elsif image_mobile != blank -%}
+    {%- comment -%}桌面端图片未设置时回退到移动端图片{%- endcomment -%}
+    <div class="q-full-width-image__img q-full-width-image__img--desktop">
+      {{
+        image_mobile
+        | image_url: width: 1920
+        | image_tag:
+          loading: 'lazy',
+          widths: '750, 1100, 1440, 1920',
+          sizes: '100vw',
+          alt: image_mobile.alt
+      }}
+    </div>
+  {%- endif -%}
+
+  {%- comment -%}移动端图片{%- endcomment -%}
+  {%- if image_mobile != blank -%}
+    <div class="q-full-width-image__img q-full-width-image__img--mobile">
+      {{
+        image_mobile
+        | image_url: width: 750
+        | image_tag:
+          loading: 'lazy',
+          widths: '375, 550, 750',
+          sizes: '100vw',
+          alt: image_mobile.alt
+      }}
+    </div>
+  {%- elsif image_desktop != blank -%}
+    {%- comment -%}移动端图片未设置时回退到桌面端图片{%- endcomment -%}
+    <div class="q-full-width-image__img q-full-width-image__img--mobile">
+      {{
+        image_desktop
+        | image_url: width: 750
+        | image_tag:
+          loading: 'lazy',
+          widths: '375, 550, 750',
+          sizes: '100vw',
+          alt: image_desktop.alt
+      }}
+    </div>
+  {%- endif -%}
+
+  {%- comment -%}渐变遮罩{%- endcomment -%}
+  {%- if section.settings.show_overlay -%}
+    <div class="q-full-width-image__overlay"></div>
+  {%- endif -%}
+
+  {%- comment -%}文字内容{%- endcomment -%}
+  {%- assign has_title = section.settings.title | strip | size -%}
+  {%- assign has_desc = section.settings.description | strip | size -%}
+  {%- if has_title > 0 or has_desc > 0 -%}
+    <div class="q-full-width-image__content">
+      {%- if has_title > 0 -%}
+        <h2 class="q-full-width-image__title">{{ section.settings.title }}</h2>
+      {%- endif -%}
+      {%- if has_desc > 0 -%}
+        <div class="q-full-width-image__desc">{{ section.settings.description }}</div>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "全宽图片",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "图片配置"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_desktop",
+      "label": "桌面端图片"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "移动端图片"
+    },
+    {
+      "type": "range",
+      "id": "image_height_desktop",
+      "label": "图片高度（桌面端）",
+      "min": 200,
+      "max": 900,
+      "step": 10,
+      "unit": "px",
+      "default": 740
+    },
+    {
+      "type": "range",
+      "id": "image_height_mobile",
+      "label": "图片高度（移动端）",
+      "min": 200,
+      "max": 700,
+      "step": 10,
+      "unit": "px",
+      "default": 500
+    },
+    {
+      "type": "header",
+      "content": "遮罩配置"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_overlay",
+      "label": "显示渐变遮罩",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "overlay_position",
+      "label": "遮罩方向",
+      "options": [
+        { "value": "top", "label": "从顶部向下渐变" },
+        { "value": "bottom", "label": "从底部向上渐变" }
+      ],
+      "default": "top"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "遮罩不透明度",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 80
+    },
+    {
+      "type": "header",
+      "content": "文字内容"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "label": "标题",
+      "default": "Weather-Resistant Design"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "描述",
+      "default": "<p>IP65 weatherproof design, built to withstand heat, cold, rain, or sun. in temperatures from -4°F to 140°F (-20°C to 60°C)</p>"
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "文字对齐",
+      "options": [
+        { "value": "left", "label": "左对齐" },
+        { "value": "center", "label": "居中" },
+        { "value": "right", "label": "右对齐" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "text_position",
+      "label": "文字位置",
+      "options": [
+        { "value": "top", "label": "顶部" },
+        { "value": "bottom", "label": "底部" }
+      ],
+      "default": "top"
+    },
+    {
+      "type": "color_background",
+      "id": "title_color",
+      "label": "标题颜色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color_background",
+      "id": "desc_color",
+      "label": "描述颜色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "title_size_desktop",
+      "label": "标题字号（桌面端）",
+      "min": 20,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 42
+    },
+    {
+      "type": "range",
+      "id": "title_size_mobile",
+      "label": "标题字号（移动端）",
+      "min": 14,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "desc_size_desktop",
+      "label": "描述字号（桌面端）",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "desc_size_mobile",
+      "label": "描述字号（移动端）",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "text_padding_desktop",
+      "label": "文字内边距（桌面端）",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "text_padding_mobile",
+      "label": "文字内边距（移动端）",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    }
+  ],
+  "presets": [
+    {
+      "name": "全宽图片",
+      "settings": {
+        "title": "Weather-Resistant Design",
+        "text_align": "left",
+        "overlay_position": "top",
+        "text_position": "top",
+        "show_overlay": true,
+        "overlay_opacity": 80
+      }
+    }
+  ]
+}
+{% endschema %}

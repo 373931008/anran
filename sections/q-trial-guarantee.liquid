@@ -1,0 +1,468 @@
+{%- comment -%}
+  Section: q-trial-guarantee
+  功能说明：
+  - 30天试用保障板块，展示购买流程三步骤
+  - 桌面端：深蓝色圆角容器内，3列横排，1/2用箭头右尖形，3用箭头左凹形
+  - 移动端：全宽深蓝色背景，3行垂直，1/2用右箭头形，3用左凹形
+  - SVG 内联作为卡片背景形状
+
+  技术栈：
+  - 纯展示类板块，无 JS 交互
+  版本：1.1.0
+{%- endcomment -%}
+
+<style>
+  .section-{{ section.id }} {
+    --tg-bg: {{ section.settings.bg_color }};
+    --tg-em-from: {{ section.settings.em_color_from }};
+    --tg-em-to: {{ section.settings.em_color_to }};
+    --tg-btn-border: {{ section.settings.btn_border_color }};
+    --tg-btn-text: {{ section.settings.btn_text_color }};
+    --tg-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --tg-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --tg-padding-top-desktop: {{ section.settings.padding_top_desktop }}px;
+    --tg-padding-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+  }
+
+  .section-{{ section.id }}.q-trial-guarantee {
+    background: var(--tg-bg, #2d3f60);
+    padding-top: var(--tg-padding-top-mobile, 32px);
+    padding-bottom: var(--tg-padding-bottom-mobile, 32px);
+    font-family: var(--font-body-family);
+  }
+
+  .section-{{ section.id }} .q-tg__inner {
+    width: 100%;
+  }
+
+  .section-{{ section.id }} .q-tg__title {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.6;
+    color: #ffffff;
+    text-align: center;
+    margin: 0 0 24px;
+    padding: 0 16px;
+  }
+
+  .section-{{ section.id }} .q-tg__title em {
+    font-style: normal;
+    background: linear-gradient(90deg, var(--tg-em-from, #6cbce7) 0%, var(--tg-em-to, #367cf6) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* 移动端：步骤列表垂直排列 */
+  .section-{{ section.id }} .q-tg__steps {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0 16px;
+  }
+
+  /* 步骤卡片：相对定位，SVG 绝对铺底 */
+  .section-{{ section.id }} .q-tg__step {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 20px 14px 20px;
+    min-height: 65px;
+    max-width: 296px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+  }
+
+  /* SVG 背景层：绝对定位填满整个卡片 */
+  .section-{{ section.id }} .q-tg__step-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .section-{{ section.id }} .q-tg__step-bg svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  /* 内容层：层叠在 SVG 上方 */
+  .section-{{ section.id }} .q-tg__step-body {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+  }
+
+  .section-{{ section.id }} .q-tg__step-icon {
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .section-{{ section.id }} .q-tg__step-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .section-{{ section.id }} .q-tg__step-content {
+    flex: 1;
+  }
+
+  .section-{{ section.id }} .q-tg__step-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1e1e1e;
+    margin: 0 0 2px;
+    line-height: 1.3;
+  }
+
+  .section-{{ section.id }} .q-tg__step-desc {
+    font-size: 12px;
+    font-weight: 400;
+    color: #1e1e1e;
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  /* 移动端底部按钮 */
+  .section-{{ section.id }} .q-tg__btn-wrap {
+    text-align: center;
+    margin-top: 28px;
+    padding: 0 16px;
+  }
+
+  .section-{{ section.id }} .q-tg__btn {
+    display: inline-block;
+    padding: 10px 40px;
+    border: 1px solid var(--tg-btn-border, #ffffff);
+    border-radius: 30px;
+    color: var(--tg-btn-text, #ffffff);
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    line-height: 1.5;
+    transition: background 0.2s, opacity 0.2s;
+    cursor: pointer;
+  }
+
+  .section-{{ section.id }} .q-tg__btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .section-{{ section.id }} .q-tg__btn:active {
+    opacity: 0.8;
+  }
+
+  /* 移动端：第3个步骤左侧凹入，需要左内边距补偿 */
+  .section-{{ section.id }} .q-tg__step--last .q-tg__step-body {
+    padding-left: 4px;
+  }
+
+  /* 桌面端隐藏移动端SVG，移动端隐藏桌面端SVG */
+  .section-{{ section.id }} .q-tg__step-bg--desktop {
+    display: none;
+  }
+
+  /* ===== 桌面端 ===== */
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}.q-trial-guarantee {
+      background: transparent;
+      padding-top: var(--tg-padding-top-desktop, 60px);
+      padding-bottom: var(--tg-padding-bottom-desktop, 60px);
+    }
+
+    .section-{{ section.id }} .q-tg__inner {
+      background: var(--tg-bg, #2d3f60);
+      border-radius: 30px;
+      padding: 56px 40px 48px;
+    }
+
+    .section-{{ section.id }} .q-tg__title {
+      font-size: 42px;
+      margin-bottom: 40px;
+      padding: 0;
+    }
+
+    .section-{{ section.id }} .q-tg__steps {
+      flex-direction: row;
+      gap: 12px;
+      padding: 0;
+      align-items: stretch;
+    }
+
+    .section-{{ section.id }} .q-tg__step {
+      flex: 1;
+      min-height: 110px;
+      padding: 0;
+      max-width: none;
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    .section-{{ section.id }} .q-tg__step-body {
+      gap: 18px;
+      padding: 20px 32px 20px 28px;
+    }
+
+    /* 桌面端第3个右内边距适配圆角 */
+    .section-{{ section.id }} .q-tg__step--last .q-tg__step-body {
+      padding-left: 36px;
+      padding-right: 28px;
+    }
+
+    .section-{{ section.id }} .q-tg__step-icon {
+      width: 43px;
+      height: 43px;
+    }
+
+    .section-{{ section.id }} .q-tg__step-title {
+      font-size: 22px;
+      margin-bottom: 4px;
+    }
+
+    .section-{{ section.id }} .q-tg__step-desc {
+      font-size: 16px;
+    }
+
+    .section-{{ section.id }} .q-tg__btn-wrap {
+      margin-top: 40px;
+      padding: 0;
+    }
+
+    .section-{{ section.id }} .q-tg__btn {
+      font-size: 16px;
+      padding: 13px 56px;
+    }
+
+    /* 桌面端切换SVG */
+    .section-{{ section.id }} .q-tg__step-bg--mobile {
+      display: none;
+    }
+
+    .section-{{ section.id }} .q-tg__step-bg--desktop {
+      display: block;
+    }
+  }
+</style>
+
+<div class="q-trial-guarantee section-{{ section.id }}">
+  <div class="page-width">
+    <div class="q-tg__inner">
+
+      {%- if section.settings.title != blank -%}
+        <h2 class="q-tg__title">{{ section.settings.title }}</h2>
+      {%- endif -%}
+
+      {%- if section.blocks.size > 0 -%}
+        <div class="q-tg__steps">
+          {%- for block in section.blocks -%}
+            {%- assign is_last = false -%}
+            {%- if forloop.last -%}
+              {%- assign is_last = true -%}
+            {%- endif -%}
+            <div class="q-tg__step{% if is_last %} q-tg__step--last{% endif %}" {{ block.shopify_attributes }}>
+
+              {%- comment -%} 移动端 SVG 背景 {%- endcomment -%}
+              <div class="q-tg__step-bg q-tg__step-bg--mobile" aria-hidden="true">
+                {%- if is_last -%}
+                  {%- comment -%} 移动端第3个：左凹右直 {%- endcomment -%}
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 302 66" preserveAspectRatio="none" fill="none">
+                    <path d="M300.688 0.5V64.7256H0.883789L20.0186 32.8701L20.1729 32.6133L20.0186 32.3555L0.883789 0.5H300.688Z" fill="white" stroke="#1565D8"/>
+                  </svg>
+                {%- else -%}
+                  {%- comment -%} 移动端第1、2个：左直右箭头 {%- endcomment -%}
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 297 65" preserveAspectRatio="none" fill="none">
+                    <path d="M276.229 0.5L295.512 32.2051L276.229 63.9102H0.5V0.5H276.229Z" fill="white" stroke="#1565D8"/>
+                  </svg>
+                {%- endif -%}
+              </div>
+
+              {%- comment -%} 桌面端 SVG 背景 {%- endcomment -%}
+              <div class="q-tg__step-bg q-tg__step-bg--desktop" aria-hidden="true">
+                {%- if is_last -%}
+                  {%- comment -%} 桌面端第3个：左箭头凹入 + 右圆角 {%- endcomment -%}
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 389 110" preserveAspectRatio="none" fill="none">
+                    <path d="M29.5302 0.5H358.196C374.488 0.500111 387.696 13.7077 387.696 30V80C387.696 96.2923 374.488 109.5 358.196 109.5H29.5302C8.18537 109.5 -5.84254 87.216 3.3866 67.9697C7.31852 59.7705 7.31852 50.2295 3.3866 42.0303C-5.84254 22.784 8.18537 0.5 29.5302 0.5Z" fill="white" stroke="#1565D8"/>
+                  </svg>
+                {%- else -%}
+                  {%- comment -%} 桌面端第1、2个：左圆角 + 右箭头尖 {%- endcomment -%}
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 430 110" preserveAspectRatio="none" fill="none">
+                    <path d="M30 0.5H387.459C398.808 0.500058 409.151 7.01077 414.059 17.2441L426.047 42.2441C429.914 50.3084 429.914 59.6916 426.047 67.7559L414.059 92.7559C409.151 102.989 398.808 109.5 387.459 109.5H30C13.7076 109.5 0.5 96.2924 0.5 80V30C0.5 13.9623 13.2979 0.913785 29.2383 0.509766L30 0.5Z" fill="white" stroke="#1565D8"/>
+                  </svg>
+                {%- endif -%}
+              </div>
+
+              {%- comment -%} 内容层 {%- endcomment -%}
+              <div class="q-tg__step-body">
+                {%- if block.settings.icon != blank -%}
+                  <div class="q-tg__step-icon">
+                    <img
+                      src="{{ block.settings.icon | image_url: width: 86 }}"
+                      alt="{{ block.settings.title | escape }}"
+                      width="43"
+                      height="43"
+                      loading="lazy"
+                    >
+                  </div>
+                {%- endif -%}
+                <div class="q-tg__step-content">
+                  {%- if block.settings.title != blank -%}
+                    <p class="q-tg__step-title">{{ block.settings.title }}</p>
+                  {%- endif -%}
+                  {%- if block.settings.description != blank -%}
+                    <p class="q-tg__step-desc">{{ block.settings.description }}</p>
+                  {%- endif -%}
+                </div>
+              </div>
+
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.btn_label != blank -%}
+        <div class="q-tg__btn-wrap">
+          <a
+            href="{{ section.settings.btn_link }}"
+            class="q-tg__btn"
+          >
+            {{ section.settings.btn_label }}
+          </a>
+        </div>
+      {%- endif -%}
+
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Q-30天试用保障",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "header", "content": "标题" },
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "label": "标题内容",
+      "info": "使用 <em> 标签包裹文字可显示渐变高亮颜色",
+      "default": "You have <em>30 days</em> to test Anran"
+    },
+    { "type": "header", "content": "按钮" },
+    {
+      "type": "text",
+      "id": "btn_label",
+      "label": "按钮文字",
+      "default": "Learn more"
+    },
+    {
+      "type": "url",
+      "id": "btn_link",
+      "label": "按钮链接",
+      "default": "/"
+    },
+    { "type": "header", "content": "颜色" },
+    {
+      "type": "color_background",
+      "id": "bg_color",
+      "label": "背景色（深蓝色区域）",
+      "default": "#2d3f60"
+    },
+    {
+      "type": "color_background",
+      "id": "em_color_from",
+      "label": "标题高亮渐变起始色",
+      "default": "#6cbce7"
+    },
+    {
+      "type": "color_background",
+      "id": "em_color_to",
+      "label": "标题高亮渐变结束色",
+      "default": "#367cf6"
+    },
+    {
+      "type": "color_background",
+      "id": "btn_border_color",
+      "label": "按钮边框色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color_background",
+      "id": "btn_text_color",
+      "label": "按钮文字色",
+      "default": "#ffffff"
+    },
+    { "type": "header", "content": "上下边距" },
+    { "type": "range", "id": "padding_top_mobile", "label": "上边距（移动端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 32 },
+    { "type": "range", "id": "padding_bottom_mobile", "label": "下边距（移动端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 32 },
+    { "type": "range", "id": "padding_top_desktop", "label": "上边距（桌面端）", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 60 },
+    { "type": "range", "id": "padding_bottom_desktop", "label": "下边距（桌面端）", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 60 }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "步骤",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "步骤图标",
+          "info": "推荐尺寸：43×43px，PNG 格式（透明背景）"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "步骤标题",
+          "default": "Buy Anran Camera"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "步骤描述",
+          "default": "Today"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Q-30天试用保障",
+      "blocks": [
+        {
+          "type": "step",
+          "settings": {
+            "title": "Buy Anran Camera",
+            "description": "Today"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Free shipping",
+            "description": "4-7 Business Days"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "You try it at home",
+            "description": "Start your 30-Day Risk-Free Trial"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

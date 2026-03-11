@@ -1,0 +1,360 @@
+{%- comment -%}
+  Section: q-hero-banner
+  功能说明：
+  - Hero Banner 展示板块，展示产品主视觉
+  - 大标题（支持 em 渐变高亮）+ 副标题 + 产品图片 + CTA 按钮
+  - 桌面端：标题居中，产品图片居中大图展示
+  - 移动端：标题居中，图片缩小自适应
+
+  技术栈：
+  - 纯展示类板块，无 JS 交互
+  版本：1.0.0
+{%- endcomment -%}
+
+<style>
+  .section-{{ section.id }} {
+    --hb-bg: {{ section.settings.bg_color }};
+    --hb-title-color: {{ section.settings.title_color }};
+    --hb-em-from: {{ section.settings.em_color_from }};
+    --hb-em-to: {{ section.settings.em_color_to }};
+    --hb-desc-color: {{ section.settings.desc_color }};
+    --hb-btn-bg: {{ section.settings.btn_bg_color }};
+    --hb-btn-text: {{ section.settings.btn_text_color }};
+    --hb-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --hb-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --hb-padding-top-desktop: {{ section.settings.padding_top_desktop }}px;
+    --hb-padding-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+  }
+
+  .section-{{ section.id }}.q-hero-banner {
+    background: var(--hb-bg, #ffffff);
+    padding-top: var(--hb-padding-top-mobile, 40px);
+    padding-bottom: var(--hb-padding-bottom-mobile, 40px);
+    font-family: var(--font-body-family);
+    text-align: center;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}.q-hero-banner {
+      padding-top: var(--hb-padding-top-desktop, 60px);
+      padding-bottom: var(--hb-padding-bottom-desktop, 60px);
+    }
+  }
+
+  /* 标题 */
+  .section-{{ section.id }} .q-hb__title {
+    font-size: {{ section.settings.title_size_mobile }}px;
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--hb-title-color, #1e1e1e);
+    margin: 0 0 12px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-hb__title {
+      font-size: {{ section.settings.title_size_desktop }}px;
+      margin: 0 0 16px;
+    }
+  }
+
+  /* em 渐变高亮 */
+  .section-{{ section.id }} .q-hb__title em {
+    font-style: normal;
+    background: linear-gradient(90deg, var(--hb-em-from, #6cbce7) 0%, var(--hb-em-to, #367cf6) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* 描述文字 */
+  .section-{{ section.id }} .q-hb__desc {
+    font-size: {{ section.settings.desc_size_mobile }}px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--hb-desc-color, #4e5357);
+    margin: 0 auto 0;
+    max-width: 560px;
+    padding: 0 16px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-hb__desc {
+      font-size: {{ section.settings.desc_size_desktop }}px;
+      padding: 0;
+    }
+  }
+
+  /* 产品图片区 */
+  .section-{{ section.id }} .q-hb__image-wrap {
+    margin: 24px auto;
+    max-width: 280px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-hb__image-wrap {
+      max-width: 613px;
+      margin: 32px auto;
+    }
+  }
+
+  .section-{{ section.id }} .q-hb__image {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* CTA 按钮 */
+  .section-{{ section.id }} .q-hb__btn-wrap {
+    margin-top: 0;
+  }
+
+  .section-{{ section.id }} .q-hb__btn {
+    display: inline-block;
+    background: var(--hb-btn-bg, #1565d8);
+    color: var(--hb-btn-text, #ffffff);
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1;
+    padding: 10px 36px;
+    border-radius: 30px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, opacity 0.2s;
+    min-width: 142px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-hb__btn {
+      padding: 14px 60px;
+      border-radius: 10px;
+      font-size: 16px;
+      min-width: 220px;
+    }
+  }
+
+  .section-{{ section.id }} .q-hb__btn:hover {
+    background: #0e52b8;
+  }
+
+  .section-{{ section.id }} .q-hb__btn:active {
+    opacity: 0.8;
+  }
+</style>
+
+<div class="q-hero-banner section-{{ section.id }}">
+  <div class="page-width">
+
+    {%- if section.settings.title != blank -%}
+      <h2 class="q-hb__title">{{ section.settings.title }}</h2>
+    {%- endif -%}
+
+    {%- if section.settings.description != blank -%}
+      <p class="q-hb__desc">{{ section.settings.description }}</p>
+    {%- endif -%}
+
+    {%- if section.settings.image != blank -%}
+      <div class="q-hb__image-wrap">
+        {{-
+          section.settings.image
+          | image_url: width: 613
+          | image_tag:
+            class: 'q-hb__image',
+            loading: 'eager',
+            fetchpriority: 'high',
+            sizes: '(min-width: 750px) 613px, 280px',
+            widths: '280, 400, 560, 613'
+        -}}
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.btn_label != blank -%}
+      <div class="q-hb__btn-wrap">
+        <a class="q-hb__btn" href="{{ section.settings.btn_link }}">
+          {{- section.settings.btn_label -}}
+        </a>
+      </div>
+    {%- endif -%}
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Q-Hero Banner",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "header", "content": "标题" },
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "label": "标题（支持 em 高亮）",
+      "default": "All-in-One Security. <em>Ready to Protect.</em>"
+    },
+    {
+      "type": "range",
+      "id": "title_size_desktop",
+      "label": "标题字号（桌面端）",
+      "min": 24,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 42
+    },
+    {
+      "type": "range",
+      "id": "title_size_mobile",
+      "label": "标题字号（移动端）",
+      "min": 16,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "color_background",
+      "id": "title_color",
+      "label": "标题颜色",
+      "default": "#1e1e1e"
+    },
+    {
+      "type": "color_background",
+      "id": "em_color_from",
+      "label": "em 高亮渐变起始色",
+      "default": "#6cbce7"
+    },
+    {
+      "type": "color_background",
+      "id": "em_color_to",
+      "label": "em 高亮渐变结束色",
+      "default": "#367cf6"
+    },
+    { "type": "header", "content": "描述文字" },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "副标题描述",
+      "default": "Enjoy reliable performance, easy setup, and full control—straight from the box."
+    },
+    {
+      "type": "range",
+      "id": "desc_size_desktop",
+      "label": "描述字号（桌面端）",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "desc_size_mobile",
+      "label": "描述字号（移动端）",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "color_background",
+      "id": "desc_color",
+      "label": "描述文字颜色",
+      "default": "#4e5357"
+    },
+    { "type": "header", "content": "产品图片" },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "产品图片",
+      "info": "建议尺寸：613×613px，PNG 透明底"
+    },
+    { "type": "header", "content": "CTA 按钮" },
+    {
+      "type": "text",
+      "id": "btn_label",
+      "label": "按钮文字",
+      "default": "Buy Now"
+    },
+    {
+      "type": "url",
+      "id": "btn_link",
+      "label": "按钮链接",
+      "default": "/"
+    },
+    {
+      "type": "color_background",
+      "id": "btn_bg_color",
+      "label": "按钮背景色",
+      "default": "#1565d8"
+    },
+    {
+      "type": "color_background",
+      "id": "btn_text_color",
+      "label": "按钮文字颜色",
+      "default": "#ffffff"
+    },
+    { "type": "header", "content": "板块背景" },
+    {
+      "type": "color_background",
+      "id": "bg_color",
+      "label": "背景色",
+      "default": "#ffffff"
+    },
+    { "type": "header", "content": "上下边距" },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "上边距（移动端）",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "下边距（移动端）",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "label": "上边距（桌面端）",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "label": "下边距（桌面端）",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "Q-Hero Banner",
+      "settings": {
+        "title": "All-in-One Security. <em>Ready to Protect.</em>",
+        "description": "Enjoy reliable performance, easy setup, and full control—straight from the box.",
+        "btn_label": "Buy Now",
+        "btn_link": "/"
+      }
+    }
+  ]
+}
+{% endschema %}

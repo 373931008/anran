@@ -7,338 +7,782 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
- {
-    "layout": "theme",
-    "sections": {
-      "q-product-recommend": {
-        "type": "q-product-recommend",
-        "blocks": {
-          "tab-1": {
-            "type": "tab",
-            "settings": {
-              "tab_label": "You May Also Like"
-            }
-          },
-          "tab-2": {
-            "type": "tab",
-            "settings": {
-              "tab_label": "Recently Viewed"
-            }
-          },
-          "card-1": {
-            "type": "product_card",
-            "settings": {
-              "product": "anran-2k-4g-solar-outdoor-camera-with-sim-card-two-way-audio",
-              "tab_id": "1",
-              "custom_title": "ANRAN C3 5MP Integrated Solar Battery Camera",
-              "custom_price": "$79.99",
-              "custom_compare_price": "$149.99",
-              "review_count": "236 reviews",
-              "feature_1": "360° Coverage and Tracking",
-              "feature_2": "Full Protection for the whole Home",
-              "save_badge": "Save 50%",
-              "button_label": "Shop Now",
-              "button_link": "/"
-            }
-          },
-          "card-2": {
-            "type": "product_card",
-            "settings": {
-              "product": "",
-              "tab_id": "1",
-              "custom_title": "ANRAN C3 5MP Integrated Solar Battery Camera",
-              "custom_price": "$79.99",
-              "custom_compare_price": "$149.99",
-              "review_count": "236 reviews",
-              "feature_1": "360° Coverage and Tracking",
-              "feature_2": "Full Protection for the whole Home",
-              "save_badge": "Save 50%",
-              "button_label": "Shop Now",
-              "button_link": "/"
-            }
-          },
-          "card-3": {
-            "type": "product_card",
-            "settings": {
-              "product": "",
-              "tab_id": "1",
-              "custom_title": "ANRAN C3 5MP Integrated Solar Battery Camera",
-              "custom_price": "$79.99",
-              "custom_compare_price": "$149.99",
-              "review_count": "236 reviews",
-              "feature_1": "360° Coverage and Tracking",
-              "feature_2": "Full Protection for the whole Home",
-              "save_badge": "Save 50%",
-              "button_label": "Shop Now",
-              "button_link": "/"
-            }
-          },
-          "card-4": {
-            "type": "product_card",
-            "settings": {
-              "product": "",
-              "tab_id": "1",
-              "custom_title": "ANRAN C3 5MP Integrated Solar Battery Camera",
-              "custom_price": "$79.99",
-              "custom_compare_price": "$149.99",
-              "review_count": "236 reviews",
-              "feature_1": "360° Coverage and Tracking",
-              "feature_2": "Full Protection for the whole Home",
-              "save_badge": "Save 50%",
-              "button_label": "Shop Now",
-              "button_link": "/"
-            }
+{
+  "layout": "theme",
+  "sections": {
+    "q-setup-steps": {
+      "type": "q-setup-steps",
+      "blocks": {
+        "step-1": {
+          "type": "step",
+          "settings": {
+            "image": "shopify://shop_images/Rectangle_189.jpg",
+            "title": "Wireless, Battery-Powered Installation",
+            "description": "Skip the hassle of wiring. The battery-powered design makes installation quick, clean, and stress-free—no outlets needed."
           }
         },
-        "block_order": [
-          "tab-1",
-          "tab-2",
-          "card-1",
-          "card-2",
-          "card-3",
-          "card-4"
-        ],
-        "settings": {
-          "padding_top_mobile": 40,
-          "padding_bottom_mobile": 40,
-          "padding_top_desktop": 60,
-          "padding_bottom_desktop": 60,
-          "tab_active_bg": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 57.21%)",
-          "header_title": "Pair Up Our Products to Unlock Features and Save",
-          "header_description": "",
-          "header_center": true,
-          "header_em_color": "#FF6B35",
-          "header_title_size_desktop": 42,
-          "header_title_size_mobile": 22,
-          "header_desc_size_desktop": 16,
-          "header_desc_size_mobile": 12,
-          "header_margin_bottom_desktop": 40,
-          "header_margin_bottom_mobile": 20
+        "step-2": {
+          "type": "step",
+          "settings": {
+            "image": "shopify://shop_images/Rectangle_189_1.jpg",
+            "title": "Bluetooth Setup",
+            "description": "Connect in seconds with Bluetooth-assisted setup. Just enable Bluetooth, select your Wi-Fi, and you're ready to go—simple and foolproof."
+          }
+        },
+        "step-3": {
+          "type": "step",
+          "settings": {
+            "image": "shopify://shop_images/Rectangle_189_2.jpg",
+            "title": "Wall or Ceiling Mount",
+            "description": "Mount it on a wall or ceiling to fit your space. Flexible installation options make it easy to place the camera exactly where you need it."
+          }
         }
       },
-      "q-faq": {
-        "type": "q-faq",
-        "blocks": {
-          "tab-security": {
-            "type": "tab",
-            "settings": {
-              "tab_label": "Security Camera"
-            }
-          },
-          "tab-shipping": {
-            "type": "tab",
-            "settings": {
-              "tab_label": "Shipping & Returns"
-            }
-          },
-          "item-1": {
-            "type": "item",
-            "settings": {
-              "question": "Does the camera come with an SD card?",
-              "answer": "<p>Only the G1 model includes a built-in SD card in the package. Other camera models do NOT come with an SD card. You will need to purchase one separately.</p>",
-              "tab_index": "1"
-            }
-          },
-          "item-2": {
-            "type": "item",
-            "settings": {
-              "question": "What format of SD card does the camera support?",
-              "answer": "<p>The camera supports microSD cards up to 128GB in FAT32 or exFAT format.</p>",
-              "tab_index": "1"
-            }
-          },
-          "item-3": {
-            "type": "item",
-            "settings": {
-              "question": "Do you have to have Alexa for this?",
-              "answer": "<p>No, Alexa is not required. The camera works independently via the mobile app. Alexa integration is optional for voice control.</p>",
-              "tab_index": "1"
-            }
-          },
-          "item-4": {
-            "type": "item",
-            "settings": {
-              "question": "What is the viewing angle and What range of coverage is it?",
-              "answer": "<p>The camera has a 130° wide-angle lens with up to 30 feet of night vision range.</p>",
-              "tab_index": "1"
-            }
-          },
-          "item-5": {
-            "type": "item",
-            "settings": {
-              "question": "How long does it take to fully charge a low-power battery camera?",
-              "answer": "<p>It takes approximately 4-6 hours to fully charge the battery using the included USB-C cable.</p>",
-              "tab_index": "1"
-            }
-          },
-          "item-6": {
-            "type": "item",
-            "settings": {
-              "question": "Will this camera record continuously if I insert an SD card?",
-              "answer": "<p>Yes, with a microSD card inserted, the camera supports continuous local recording.</p>",
-              "tab_index": "1"
-            }
-          },
-          "item-7": {
-            "type": "item",
-            "settings": {
-              "question": "Why the Solar Panel Might Not Be Charging?",
-              "answer": "<p>Ensure the solar panel is placed in direct sunlight for at least 6 hours per day. Clean the panel surface if dirty and check the cable connection.</p>",
-              "tab_index": "1"
-            }
-          },
-          "item-8": {
-            "type": "item",
-            "settings": {
-              "question": "How long does shipping take?",
-              "answer": "<p>Standard shipping takes 5-7 business days. Expedited shipping (2-3 business days) is available at checkout.</p>",
-              "tab_index": "2"
-            }
-          },
-          "item-9": {
-            "type": "item",
-            "settings": {
-              "question": "What is your return policy?",
-              "answer": "<p>We offer a 30-day hassle-free return policy. Items must be in their original packaging and unused condition. Contact our support team to initiate a return.</p>",
-              "tab_index": "2"
-            }
-          },
-          "item-10": {
-            "type": "item",
-            "settings": {
-              "question": "Do you offer free shipping?",
-              "answer": "<p>Yes! Free standard shipping is available on all orders over $50. Orders below $50 have a flat shipping fee of $4.99.</p>",
-              "tab_index": "2"
-            }
-          },
-          "item-11": {
-            "type": "item",
-            "settings": {
-              "question": "Can I track my order?",
-              "answer": "<p>Absolutely. Once your order ships, you will receive a tracking number via email. You can also track your order through your account dashboard.</p>",
-              "tab_index": "2"
-            }
-          }
-        },
-        "block_order": [
-          "tab-security",
-          "tab-shipping",
-          "item-1",
-          "item-2",
-          "item-3",
-          "item-4",
-          "item-5",
-          "item-6",
-          "item-7",
-          "item-8",
-          "item-9",
-          "item-10",
-          "item-11"
-        ],
-        "settings": {
-          "padding_top_mobile": 40,
-          "padding_bottom_mobile": 40,
-          "padding_top_desktop": 60,
-          "padding_bottom_desktop": 60,
-          "tab_text_color": "#2d4e76",
-          "tab_border_color": "#d9e2f2",
-          "tab_active_bg": "#2d4e76",
-          "tab_active_text_color": "#ffffff",
-          "header_title": "Questions? We've Got Answers",
-          "header_description": "",
-          "header_center": true,
-          "header_em_color": "#2d4e76",
-          "header_title_size_desktop": 46,
-          "header_title_size_mobile": 26,
-          "header_desc_size_desktop": 16,
-          "header_desc_size_mobile": 12,
-          "header_margin_bottom_desktop": 40,
-          "header_margin_bottom_mobile": 24
-        }
-      },
-      "main": {
-        "type": "main-product",
-        "blocks": {
-          "judge_me_reviews_preview_badge_zMwFUy": {
-            "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-            "settings": {}
-          },
-          "vendor": {
-            "type": "text",
-            "settings": {
-              "text": "{{ product.vendor }}",
-              "text_style": "uppercase"
-            }
-          },
-          "title": {
-            "type": "title",
-            "settings": {}
-          },
-          "price": {
-            "type": "price",
-            "settings": {}
-          },
-          "variant_picker": {
-            "type": "variant_picker",
-            "settings": {
-              "picker_type": "button",
-              "swatch_shape": "circle"
-            }
-          },
-          "quantity_selector": {
-            "type": "quantity_selector",
-            "settings": {}
-          },
-          "buy_buttons": {
-            "type": "buy_buttons",
-            "settings": {
-              "show_dynamic_checkout": true,
-              "show_gift_card_recipient": true
-            }
-          },
-          "description": {
-            "type": "description",
-            "settings": {}
-          },
-          "share": {
-            "type": "share",
-            "settings": {
-              "share_label": "Share"
-            }
-          }
-        },
-        "block_order": [
-          "judge_me_reviews_preview_badge_zMwFUy",
-          "vendor",
-          "title",
-          "price",
-          "variant_picker",
-          "quantity_selector",
-          "buy_buttons",
-          "description",
-          "share"
-        ],
-        "settings": {
-          "enable_sticky_info": true,
-          "color_scheme": "scheme-1",
-          "media_size": "large",
-          "constrain_to_viewport": true,
-          "media_fit": "contain",
-          "gallery_layout": "stacked",
-          "mobile_thumbnails": "hide",
-          "media_position": "left",
-          "image_zoom": "lightbox",
-          "hide_variants": true,
-          "enable_video_looping": false,
-          "padding_top": 36,
-          "padding_bottom": 12
-        }
+      "block_order": [
+        "step-1",
+        "step-2",
+        "step-3"
+      ],
+      "settings": {
+        "header_title": "Set Up in Minutes. <em>Wire-Free Installation.</em>",
+        "header_description": "",
+        "header_center": false,
+        "header_em_color": "linear-gradient(90deg, #6CBCE7 0%, #367CF6 100%)",
+        "header_title_size_desktop": 42,
+        "header_title_size_mobile": 26,
+        "header_desc_size_desktop": 16,
+        "header_desc_size_mobile": 12,
+        "header_margin_bottom_desktop": 40,
+        "header_margin_bottom_mobile": 24,
+        "bg_color": "#FFFFFF",
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60
       }
     },
-    "order": [
-      "q-product-recommend",
-      "q-faq",
-      "main"
-    ]
-  }
-  
+    "q-compare-table": {
+      "type": "q-compare-table",
+      "blocks": {
+        "product-1": {
+          "type": "product",
+          "settings": {
+            "product_image": "shopify://shop_images/image_290.jpg",
+            "product_name": "Q3M8",
+            "specs": "2K / 3MP\n360 Degrees\n50 Feet\nWi-Fi\nAlexa, Assistant\nSolar & Battery Powered\nNight Color\n5000 mAh, 5W, 5V\nSD Card, up to 128GB",
+            "button_link": "/",
+            "button_label": "Shop now"
+          }
+        },
+        "product-2": {
+          "type": "product",
+          "settings": {
+            "product_image": "shopify://shop_images/image_290.jpg",
+            "product_name": "C3M5",
+            "specs": "3MP\n135 Degrees\n55 Feet\nWi-Fi\nAmazon Alexa\nSolar Powered\nNight Color\n5000 mAh, 5W, 5V\nSD Card, up to 128GB",
+            "button_link": "/",
+            "button_label": "Shop now"
+          }
+        },
+        "product-3": {
+          "type": "product",
+          "settings": {
+            "product_image": "shopify://shop_images/image_290.jpg",
+            "product_name": "Q4M5",
+            "specs": "2K / 3MP\n360 Degrees\n50 Feet\nWi-Fi\nAlexa, Assistant\nSolar & Battery Powered\nNight Color\n5000 mAh, 5W, 5V\nSD Card, up to 128GB",
+            "button_link": "/",
+            "button_label": "Shop now"
+          }
+        }
+      },
+      "block_order": [
+        "product-1",
+        "product-2",
+        "product-3"
+      ],
+      "settings": {
+        "header_title": "Discover What's <em>Popular</em>",
+        "header_description": "",
+        "header_center": true,
+        "header_em_color": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 67%)",
+        "header_title_size_desktop": 42,
+        "header_title_size_mobile": 26,
+        "header_desc_size_desktop": 16,
+        "header_desc_size_mobile": 12,
+        "header_margin_bottom_desktop": 40,
+        "header_margin_bottom_mobile": 24,
+        "feature_col_title": "Feature",
+        "feature_rows": "Video Capture Resolution\nViewing Angle\nNight Vision Range\nConnectivity Protocol\nController Type\nPower Source\nLow Light Technology\nBattery Power\nMax Supported",
+        "btn_color": "#faa61a",
+        "bg_color": "#f3f7ff",
+        "card_bg_color": "#ffffff",
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60
+      }
+    },
+    "q-full-width-image": {
+      "type": "q-full-width-image",
+      "settings": {
+        "image_desktop": "shopify://shop_images/image_287.jpg",
+        "image_mobile": "shopify://shop_images/image_287.jpg",
+        "image_height_desktop": 740,
+        "image_height_mobile": 500,
+        "show_overlay": true,
+        "overlay_position": "top",
+        "overlay_opacity": 80,
+        "title": "Weather-Resistant Design",
+        "description": "<p>IP65 weatherproof design, built to withstand heat, cold, rain, or sun. in temperatures from -4°F to 140°F (-20°C to 60°C)</p>",
+        "text_align": "center",
+        "text_position": "top",
+        "title_color": "#ffffff",
+        "desc_color": "#ffffff",
+        "title_size_desktop": 42,
+        "title_size_mobile": 24,
+        "desc_size_desktop": 16,
+        "desc_size_mobile": 12,
+        "text_padding_desktop": 48,
+        "text_padding_mobile": 24
+      }
+    },
+    "q-hero-banner": {
+      "type": "q-hero-banner",
+      "settings": {
+        "title": "All-in-One Security. <em>Ready to Protect.</em>",
+        "title_size_desktop": 42,
+        "title_size_mobile": 24,
+        "title_color": "#1e1e1e",
+        "em_color_from": "#6cbce7",
+        "em_color_to": "#367cf6",
+        "description": "Enjoy reliable performance, easy setup, and full control—straight from the box.",
+        "desc_size_desktop": 16,
+        "desc_size_mobile": 12,
+        "desc_color": "#4e5357",
+        "image": "shopify://shop_images/image_294.jpg",
+        "btn_label": "Buy Now",
+        "btn_link": "/",
+        "btn_bg_color": "#1565d8",
+        "btn_text_color": "#ffffff",
+        "bg_color": "#ffffff",
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60
+      }
+    },
+    "q-trial-guarantee": {
+      "type": "q-trial-guarantee",
+      "blocks": {
+        "step-1": {
+          "type": "step",
+          "settings": {
+            "icon": "shopify://shop_images/fi_1828640.jpg",
+            "title": "Buy Anran Camera",
+            "description": "Today"
+          }
+        },
+        "step-2": {
+          "type": "step",
+          "settings": {
+            "icon": "shopify://shop_images/fi_3180087.jpg",
+            "title": "Free shipping",
+            "description": "4-7 Business Days"
+          }
+        },
+        "step-3": {
+          "type": "step",
+          "settings": {
+            "icon": "shopify://shop_images/fi_4379000.jpg",
+            "title": "You try it at home",
+            "description": "Start your 30-Day Risk-Free Trial"
+          }
+        }
+      },
+      "block_order": [
+        "step-1",
+        "step-2",
+        "step-3"
+      ],
+      "settings": {
+        "title": "You have <em>30 days</em> to test Anran",
+        "btn_label": "Learn more",
+        "btn_link": "/",
+        "bg_color": "#2d3f60",
+        "em_color_from": "#6cbce7",
+        "em_color_to": "#367cf6",
+        "btn_border_color": "#ffffff",
+        "btn_text_color": "#ffffff",
+        "padding_top_mobile": 32,
+        "padding_bottom_mobile": 32,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60
+      }
+    },
+    "q-product-specs": {
+      "type": "q-product-specs",
+      "blocks": {
+        "spec-1": {
+          "type": "spec_item",
+          "settings": {
+            "label": "Video Capture Resolution",
+            "value": "2K / 3MP"
+          }
+        },
+        "spec-2": {
+          "type": "spec_item",
+          "settings": {
+            "label": "Viewing Angle",
+            "value": "360 Degrees"
+          }
+        },
+        "spec-3": {
+          "type": "spec_item",
+          "settings": {
+            "label": "Night Vision Range",
+            "value": "50 Feet"
+          }
+        },
+        "spec-4": {
+          "type": "spec_item",
+          "settings": {
+            "label": "Connectivity Protocol",
+            "value": "Wi-Fi"
+          }
+        },
+        "spec-5": {
+          "type": "spec_item",
+          "settings": {
+            "label": "Controller Type",
+            "value": "Amazon Alexa, Google Assistant"
+          }
+        },
+        "spec-6": {
+          "type": "spec_item",
+          "settings": {
+            "label": "Power Source",
+            "value": "Solar & Battery Powered"
+          }
+        },
+        "spec-7": {
+          "type": "spec_item",
+          "settings": {
+            "label": "Low Light Technology",
+            "value": "Night Color"
+          }
+        },
+        "spec-8": {
+          "type": "spec_item",
+          "settings": {
+            "label": "Battery Power",
+            "value": "5000 mAh, 5W, 5V"
+          }
+        },
+        "spec-9": {
+          "type": "spec_item",
+          "settings": {
+            "label": "Max Supported",
+            "value": "SD Card, up to 128GB"
+          }
+        },
+        "spec-10": {
+          "type": "spec_item",
+          "settings": {
+            "label": "Water Resistance Level / IP Rating",
+            "value": "IP66 Waterproof"
+          }
+        },
+        "spec-11": {
+          "type": "spec_item",
+          "settings": {
+            "label": "Form Factor / Shape",
+            "value": "Dome"
+          }
+        },
+        "spec-12": {
+          "type": "spec_item",
+          "settings": {
+            "label": "Video Encoding / Capture Format",
+            "value": "MPEG-4"
+          }
+        },
+        "spec-13": {
+          "type": "spec_item",
+          "settings": {
+            "label": "Optical & Digital Zoom",
+            "value": "4x / 4:1"
+          }
+        },
+        "spec-14": {
+          "type": "spec_item",
+          "settings": {
+            "label": "Focus Type",
+            "value": "Auto / Manual"
+          }
+        },
+        "spec-15": {
+          "type": "spec_item",
+          "settings": {
+            "label": "Number of IR LEDs",
+            "value": "4"
+          }
+        },
+        "spec-16": {
+          "type": "spec_item",
+          "settings": {
+            "label": "Installation Type / Mounting Type",
+            "value": "Screw In / Wall Mount"
+          }
+        },
+        "spec-17": {
+          "type": "spec_item",
+          "settings": {
+            "label": "Item Dimensions & Weight",
+            "value": "9 x 7 x 6 in, 1.83 lbs"
+          }
+        }
+      },
+      "block_order": [
+        "spec-1",
+        "spec-2",
+        "spec-3",
+        "spec-4",
+        "spec-5",
+        "spec-6",
+        "spec-7",
+        "spec-8",
+        "spec-9",
+        "spec-10",
+        "spec-11",
+        "spec-12",
+        "spec-13",
+        "spec-14",
+        "spec-15",
+        "spec-16",
+        "spec-17"
+      ],
+      "settings": {
+        "header_title": "Product Specifications",
+        "header_description": "",
+        "header_center": true,
+        "header_em_color": "#FF6B35",
+        "header_title_size_desktop": 42,
+        "header_title_size_mobile": 24,
+        "header_desc_size_desktop": 16,
+        "header_desc_size_mobile": 12,
+        "header_margin_bottom_desktop": 40,
+        "header_margin_bottom_mobile": 24,
+        "show_count_mobile": 9,
+        "show_count_desktop": 9,
+        "btn_show_more_text": "Show more",
+        "btn_show_less_text": "Show less",
+        "bg_color": "#FFFFFF",
+        "tag_bg_color": "#F7F7F7",
+        "tag_text_color": "#1E1E1E",
+        "btn_border_color": "#4E5357",
+        "btn_text_color": "#404040",
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60
+      }
+    },
+    "q-service-features": {
+      "type": "q-service-features",
+      "blocks": {
+        "card-shipping": {
+          "type": "card",
+          "settings": {
+            "icon": "shopify://shop_images/fi_1670915.svg",
+            "title": "Free Shipping",
+            "description": "Enjoy fast, free delivery on all orders, returns within 30 days."
+          }
+        },
+        "card-warranty": {
+          "type": "card",
+          "settings": {
+            "icon": "shopify://shop_images/fi_5782872.svg",
+            "title": "Official Warranty",
+            "description": "All Anran cameras are backed by our quality guarantee."
+          }
+        },
+        "card-payment": {
+          "type": "card",
+          "settings": {
+            "icon": "shopify://shop_images/fi_2169854.svg",
+            "title": "Flexible Payment",
+            "description": "Pay in installments for your camera."
+          }
+        },
+        "card-support": {
+          "type": "card",
+          "settings": {
+            "icon": "shopify://shop_images/fi_508190.svg",
+            "title": "Expert Support",
+            "description": "Our team is here to help you every step of the way."
+          }
+        }
+      },
+      "block_order": [
+        "card-shipping",
+        "card-warranty",
+        "card-payment",
+        "card-support"
+      ],
+      "settings": {
+        "header_title": "Why Choose Anran?",
+        "header_description": "",
+        "header_center": true,
+        "header_em_color": "#FF6B35",
+        "header_title_size_desktop": 42,
+        "header_title_size_mobile": 26,
+        "header_desc_size_desktop": 16,
+        "header_desc_size_mobile": 12,
+        "header_margin_bottom_desktop": 40,
+        "header_margin_bottom_mobile": 24,
+        "bg_color": "#ffffff",
+        "card_bg_color": "#f9f9f9",
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60
+      }
+    },
+    "q-product-recommend": {
+      "type": "q-product-recommend",
+      "blocks": {
+        "tab-1": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "You May Also Like"
+          }
+        },
+        "tab-2": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "Recently Viewed"
+          }
+        },
+        "card-1": {
+          "type": "product_card",
+          "settings": {
+            "product": "anran-2k-4g-solar-outdoor-camera-with-sim-card-two-way-audio",
+            "tab_id": "1",
+            "custom_title": "ANRAN C3 5MP Integrated Solar Battery Camera",
+            "custom_price": "$79.99",
+            "custom_compare_price": "$149.99",
+            "review_count": "236 reviews",
+            "feature_1": "360° Coverage and Tracking",
+            "feature_2": "Full Protection for the whole Home",
+            "save_badge": "Save 50%",
+            "button_label": "Shop Now",
+            "button_link": "/"
+          }
+        },
+        "card-2": {
+          "type": "product_card",
+          "settings": {
+            "product": "",
+            "tab_id": "1",
+            "custom_title": "ANRAN C3 5MP Integrated Solar Battery Camera",
+            "custom_price": "$79.99",
+            "custom_compare_price": "$149.99",
+            "review_count": "236 reviews",
+            "feature_1": "360° Coverage and Tracking",
+            "feature_2": "Full Protection for the whole Home",
+            "save_badge": "Save 50%",
+            "button_label": "Shop Now",
+            "button_link": "/"
+          }
+        },
+        "card-3": {
+          "type": "product_card",
+          "settings": {
+            "product": "",
+            "tab_id": "1",
+            "custom_title": "ANRAN C3 5MP Integrated Solar Battery Camera",
+            "custom_price": "$79.99",
+            "custom_compare_price": "$149.99",
+            "review_count": "236 reviews",
+            "feature_1": "360° Coverage and Tracking",
+            "feature_2": "Full Protection for the whole Home",
+            "save_badge": "Save 50%",
+            "button_label": "Shop Now",
+            "button_link": "/"
+          }
+        },
+        "card-4": {
+          "type": "product_card",
+          "settings": {
+            "product": "",
+            "tab_id": "1",
+            "custom_title": "ANRAN C3 5MP Integrated Solar Battery Camera",
+            "custom_price": "$79.99",
+            "custom_compare_price": "$149.99",
+            "review_count": "236 reviews",
+            "feature_1": "360° Coverage and Tracking",
+            "feature_2": "Full Protection for the whole Home",
+            "save_badge": "Save 50%",
+            "button_label": "Shop Now",
+            "button_link": "/"
+          }
+        }
+      },
+      "block_order": [
+        "tab-1",
+        "tab-2",
+        "card-1",
+        "card-2",
+        "card-3",
+        "card-4"
+      ],
+      "settings": {
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60,
+        "tab_active_bg": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 57.21%)",
+        "header_title": "<p>Pair Up Our Products to Unlock Features and Save</p>",
+        "header_description": "",
+        "header_center": true,
+        "header_em_color": "#FF6B35",
+        "header_title_size_desktop": 42,
+        "header_title_size_mobile": 22,
+        "header_desc_size_desktop": 16,
+        "header_desc_size_mobile": 12,
+        "header_margin_bottom_desktop": 40,
+        "header_margin_bottom_mobile": 20
+      }
+    },
+    "q-faq": {
+      "type": "q-faq",
+      "blocks": {
+        "tab-security": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "Security Camera"
+          }
+        },
+        "tab-shipping": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "Shipping & Returns"
+          }
+        },
+        "item-1": {
+          "type": "item",
+          "settings": {
+            "question": "Does the camera come with an SD card?",
+            "answer": "<p>Only the G1 model includes a built-in SD card in the package. Other camera models do NOT come with an SD card. You will need to purchase one separately.</p>",
+            "tab_index": "1"
+          }
+        },
+        "item-2": {
+          "type": "item",
+          "settings": {
+            "question": "What format of SD card does the camera support?",
+            "answer": "<p>The camera supports microSD cards up to 128GB in FAT32 or exFAT format.</p>",
+            "tab_index": "1"
+          }
+        },
+        "item-3": {
+          "type": "item",
+          "settings": {
+            "question": "Do you have to have Alexa for this?",
+            "answer": "<p>No, Alexa is not required. The camera works independently via the mobile app. Alexa integration is optional for voice control.</p>",
+            "tab_index": "1"
+          }
+        },
+        "item-4": {
+          "type": "item",
+          "settings": {
+            "question": "What is the viewing angle and What range of coverage is it?",
+            "answer": "<p>The camera has a 130° wide-angle lens with up to 30 feet of night vision range.</p>",
+            "tab_index": "1"
+          }
+        },
+        "item-5": {
+          "type": "item",
+          "settings": {
+            "question": "How long does it take to fully charge a low-power battery camera?",
+            "answer": "<p>It takes approximately 4-6 hours to fully charge the battery using the included USB-C cable.</p>",
+            "tab_index": "1"
+          }
+        },
+        "item-6": {
+          "type": "item",
+          "settings": {
+            "question": "Will this camera record continuously if I insert an SD card?",
+            "answer": "<p>Yes, with a microSD card inserted, the camera supports continuous local recording.</p>",
+            "tab_index": "1"
+          }
+        },
+        "item-7": {
+          "type": "item",
+          "settings": {
+            "question": "Why the Solar Panel Might Not Be Charging?",
+            "answer": "<p>Ensure the solar panel is placed in direct sunlight for at least 6 hours per day. Clean the panel surface if dirty and check the cable connection.</p>",
+            "tab_index": "1"
+          }
+        },
+        "item-8": {
+          "type": "item",
+          "settings": {
+            "question": "How long does shipping take?",
+            "answer": "<p>Standard shipping takes 5-7 business days. Expedited shipping (2-3 business days) is available at checkout.</p>",
+            "tab_index": "2"
+          }
+        },
+        "item-9": {
+          "type": "item",
+          "settings": {
+            "question": "What is your return policy?",
+            "answer": "<p>We offer a 30-day hassle-free return policy. Items must be in their original packaging and unused condition. Contact our support team to initiate a return.</p>",
+            "tab_index": "2"
+          }
+        },
+        "item-10": {
+          "type": "item",
+          "settings": {
+            "question": "Do you offer free shipping?",
+            "answer": "<p>Yes! Free standard shipping is available on all orders over $50. Orders below $50 have a flat shipping fee of $4.99.</p>",
+            "tab_index": "2"
+          }
+        },
+        "item-11": {
+          "type": "item",
+          "settings": {
+            "question": "Can I track my order?",
+            "answer": "<p>Absolutely. Once your order ships, you will receive a tracking number via email. You can also track your order through your account dashboard.</p>",
+            "tab_index": "2"
+          }
+        }
+      },
+      "block_order": [
+        "tab-security",
+        "tab-shipping",
+        "item-1",
+        "item-2",
+        "item-3",
+        "item-4",
+        "item-5",
+        "item-6",
+        "item-7",
+        "item-8",
+        "item-9",
+        "item-10",
+        "item-11"
+      ],
+      "settings": {
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60,
+        "tab_text_color": "#2d4e76",
+        "tab_border_color": "#d9e2f2",
+        "tab_active_bg": "#2d4e76",
+        "tab_active_text_color": "#ffffff",
+        "header_title": "Questions? We've Got Answers",
+        "header_description": "",
+        "header_center": true,
+        "header_em_color": "#2d4e76",
+        "header_title_size_desktop": 46,
+        "header_title_size_mobile": 26,
+        "header_desc_size_desktop": 16,
+        "header_desc_size_mobile": 12,
+        "header_margin_bottom_desktop": 40,
+        "header_margin_bottom_mobile": 24
+      }
+    },
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "judge_me_reviews_preview_badge_zMwFUy": {
+          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
+        },
+        "vendor": {
+          "type": "text",
+          "settings": {
+            "text": "{{ product.vendor }}",
+            "text_style": "uppercase"
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatch_shape": "circle"
+          }
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
+        },
+        "share": {
+          "type": "share",
+          "settings": {
+            "share_label": "Share"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_preview_badge_zMwFUy",
+        "vendor",
+        "title",
+        "price",
+        "variant_picker",
+        "quantity_selector",
+        "buy_buttons",
+        "description",
+        "share"
+      ],
+      "settings": {
+        "enable_sticky_info": true,
+        "color_scheme": "scheme-1",
+        "media_size": "large",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "gallery_layout": "stacked",
+        "mobile_thumbnails": "hide",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": true,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 12
+      }
+    }
+  },
+  "order": [
+    "q-setup-steps",
+    "q-compare-table",
+    "q-full-width-image",
+    "q-hero-banner",
+    "q-trial-guarantee",
+    "q-product-specs",
+    "q-service-features",
+    "q-product-recommend",
+    "q-faq",
+    "main"
+  ]
+}
