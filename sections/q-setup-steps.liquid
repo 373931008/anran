@@ -2,8 +2,8 @@
   Section: q-setup-steps
   功能说明：
   - "安装步骤" 特色展示板块
-  - 桌面端：3 列等宽卡片横排（图片 + 标题 + 描述）
-  - 移动端：Swiper 横向滑动（约显示 1.3 张，右侧卡片露出提示可滑动）
+  - 移动端：每次显示 1 张，Swiper 滑动
+  - 桌面端：Swiper breakpoints 切换为 3 列同时展示
   技术栈：
   - Swiper Element (Web Component)，纯展示，无 Islands JS
   - Snippet: snippets/q-section-header.liquid
@@ -27,29 +27,26 @@
     overflow: hidden;
   }
 
-  /* ─── 移动端 Swiper ─── */
-  .section-{{ section.id }} .q-ss__swiper-wrap {
-    overflow: visible;
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}.q-setup-steps {
+      padding-top: var(--ss-padding-top-desktop, 60px);
+      padding-bottom: var(--ss-padding-bottom-desktop, 60px);
+    }
   }
 
   .section-{{ section.id }} swiper-container {
-    overflow: visible;
+    display: flex;
+    gap: 14px;
   }
 
-  .section-{{ section.id }} swiper-container::part(container) {
-    overflow: visible;
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} swiper-container {
+      gap: 24px;
+    }
   }
 
-  /* slides-per-view="auto"，宽度由 CSS 控制 */
   .section-{{ section.id }} swiper-slide {
-    width: 260px;
-    height: auto;
     flex-shrink: 0;
-  }
-
-  /* 桌面端隐藏 swiper，改为 3 列 Grid */
-  .section-{{ section.id }} .q-ss__grid {
-    display: none;
   }
 
   /* ─── 卡片公共样式 ─── */
@@ -57,6 +54,7 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
+    height: 100%;
   }
 
   /* 图片容器 */
@@ -98,28 +96,7 @@
     font-family: var(--font-body-family);
   }
 
-  /* ─── 桌面端 ─── */
   @media screen and (min-width: 750px) {
-    .section-{{ section.id }}.q-setup-steps {
-      padding-top: var(--ss-padding-top-desktop, 60px);
-      padding-bottom: var(--ss-padding-bottom-desktop, 60px);
-    }
-
-    /* 隐藏 swiper，展示 grid */
-    .section-{{ section.id }} .q-ss__swiper-wrap {
-      display: none;
-    }
-
-    .section-{{ section.id }} .q-ss__grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-    }
-
-    .section-{{ section.id }} .q-ss__card-img {
-      border-radius: 10px;
-    }
-
     .section-{{ section.id }} .q-ss__card-title {
       font-size: 18px;
     }
@@ -134,65 +111,37 @@
   <div class="page-width">
     {%- render 'q-section-header', section: section -%}
 
-    {%- comment -%} 移动端：Swiper 横向滑动 {%- endcomment -%}
-    <div class="q-ss__swiper-wrap">
-      <swiper-container
-        slides-per-view="auto"
-        space-between="14"
-        grab-cursor="true"
-      >
-        {%- for block in section.blocks -%}
-          <swiper-slide {{ block.shopify_attributes }}>
-            <div class="q-ss__card">
-              <div class="q-ss__card-img">
-                {%- if block.settings.image != blank -%}
-                  {{- block.settings.image | image_url: width: 600 | image_tag:
-                      loading: 'lazy',
-                      widths: '300, 600',
-                      sizes: '(min-width: 750px) 33vw, 80vw',
-                      alt: block.settings.title
-                  -}}
-                {%- else -%}
-                  {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
-                {%- endif -%}
-              </div>
-              {%- if block.settings.title != blank -%}
-                <p class="q-ss__card-title">{{ block.settings.title }}</p>
-              {%- endif -%}
-              {%- if block.settings.description != blank -%}
-                <p class="q-ss__card-desc">{{ block.settings.description }}</p>
+    <swiper-container
+      slides-per-view="1"
+      space-between="14"
+      grab-cursor="true"
+      breakpoints='{"750":{"slidesPerView":3,"spaceBetween":24}}'
+    >
+      {%- for block in section.blocks -%}
+        <swiper-slide {{ block.shopify_attributes }}>
+          <div class="q-ss__card">
+            <div class="q-ss__card-img">
+              {%- if block.settings.image != blank -%}
+                {{- block.settings.image | image_url: width: 800 | image_tag:
+                    loading: 'lazy',
+                    widths: '300, 600, 800',
+                    sizes: '(min-width: 750px) 33vw, 80vw',
+                    alt: block.settings.title
+                -}}
+              {%- else -%}
+                {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
               {%- endif -%}
             </div>
-          </swiper-slide>
-        {%- endfor -%}
-      </swiper-container>
-    </div>
-
-    {%- comment -%} 桌面端：CSS Grid 3 列 {%- endcomment -%}
-    <div class="q-ss__grid">
-      {%- for block in section.blocks -%}
-        <div class="q-ss__card" {{ block.shopify_attributes }}>
-          <div class="q-ss__card-img">
-            {%- if block.settings.image != blank -%}
-              {{- block.settings.image | image_url: width: 800 | image_tag:
-                  loading: 'lazy',
-                  widths: '400, 800',
-                  sizes: '(min-width: 750px) 33vw, 80vw',
-                  alt: block.settings.title
-              -}}
-            {%- else -%}
-              {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            {%- if block.settings.title != blank -%}
+              <p class="q-ss__card-title">{{ block.settings.title }}</p>
+            {%- endif -%}
+            {%- if block.settings.description != blank -%}
+              <p class="q-ss__card-desc">{{ block.settings.description }}</p>
             {%- endif -%}
           </div>
-          {%- if block.settings.title != blank -%}
-            <p class="q-ss__card-title">{{ block.settings.title }}</p>
-          {%- endif -%}
-          {%- if block.settings.description != blank -%}
-            <p class="q-ss__card-desc">{{ block.settings.description }}</p>
-          {%- endif -%}
-        </div>
+        </swiper-slide>
       {%- endfor -%}
-    </div>
+    </swiper-container>
   </div>
 </div>
 

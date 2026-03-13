@@ -689,7 +689,148 @@ Judge.me badge 内部结构需适配卡片行高：
 
 ---
 
-## 十二、Figma 设计稿读取规范
+## 十二、卡片列表布局选择规范
+
+在开发卡片列表类布局时，**必须先判断使用场景**，再决定用 Swiper 还是普通 Grid/Flex。
+
+### 选择决策树
+
+```
+卡片数量是否固定（由设计稿决定，不依赖运营配置块数）？
+├── 是 → 用 Grid
+└── 否 → 移动端是否需要横向滑动？
+          ├── 是 → 用 Swiper
+          └── 否 → 用 Grid
+```
+
+### 使用 Swiper 的条件（必须同时满足）
+
+1. **移动端需要横向滑动**：卡片超出屏幕宽度，需要左右滑动浏览
+2. **卡片数量不固定**：blocks 数量由运营在后台任意增减，PC 端也无法保证整行排满
+
+典型场景：
+- 产品横向滚动展示（移动端一屏显示 1.x 张，提示可滑动）
+- 评论/评测卡片数量不定，移动端逐张滑动
+
+### 使用 Grid 的条件（满足任一即可）
+
+1. **移动端垂直堆叠**：卡片在移动端上下排列（每行 1 列），不需要滑动
+2. **PC 端固定列数**：设计稿明确规定 PC 端几列（如 3 列、4 列），移动端也是对应的整数列
+3. **全部卡片同时可见**：无论移动端还是 PC 端，所有卡片都展示在视口内，不存在隐藏内容
+
+### 禁止行为
+
+- **禁止**在移动端垂直堆叠场景使用 Swiper（用 Grid 代替）
+- **禁止**在卡片数量固定且设计稿明确列数时使用 Swiper
+- **禁止**用 Swiper 仅仅是因为"可能有多张卡片"——先看移动端是否真的需要滑动
+
+---
+
+## 十三、swiper-container 使用规范
+
+所有轮播功能**必须**使用 `swiper-container` Web Component，禁止手写原生 JS 初始化 Swiper。仅在满足上方「十二、卡片列表布局选择规范」中 Swiper 使用条件时采用。
+
+### 基础结构
+
+```liquid
+<swiper-container
+  slides-per-view="1"
+  space-between="16"
+  grab-cursor="true"
+  loop="false"
+  navigation="true"
+  navigation-prev-el="[data-carousel-prev='{{ section.id }}']"
+  navigation-next-el="[data-carousel-next='{{ section.id }}']"
+  pagination="true"
+  pagination-el="[data-carousel-pagination='{{ section.id }}']"
+  pagination-clickable="true"
+  breakpoints='{"750":{"slidesPerView":3,"spaceBetween":24}}'
+>
+  {%- for block in section.blocks -%}
+    <swiper-slide {{ block.shopify_attributes }}>
+      <!-- 卡片内容 -->
+    </swiper-slide>
+  {%- endfor -%}
+</swiper-container>
+
+{%- if section.blocks.size > 1 -%}
+  <div class="q-xxx__nav">
+    <button
+      class="q-xxx__nav-btn q-xxx__nav-btn--prev"
+      data-carousel-prev="{{ section.id }}"
+      aria-label="Previous"
+      tabindex="0"
+    ><!-- 左箭头 SVG --></button>
+    <button
+      class="q-xxx__nav-btn q-xxx__nav-btn--next"
+      data-carousel-next="{{ section.id }}"
+      aria-label="Next"
+      tabindex="0"
+    ><!-- 右箭头 SVG --></button>
+  </div>
+  <div data-carousel-pagination="{{ section.id }}"></div>
+{%- endif -%}
+```
+
+### 必须配套的 CSS
+
+`swiper-container` 设置 `display: flex` + `gap`，`swiper-slide` 设置 `flex-shrink: 0`，Swiper 才能正确计算布局：
+
+```css
+.section-{{ section.id }} swiper-container {
+  display: flex;
+  gap: 14px; /* 移动端间距，与 space-between 保持一致 */
+}
+
+@media screen and (min-width: 750px) {
+  .section-{{ section.id }} swiper-container {
+    gap: 24px; /* 桌面端间距，与 breakpoints spaceBetween 保持一致 */
+  }
+}
+
+.section-{{ section.id }} swiper-slide {
+  flex-shrink: 0;
+}
+```
+
+> `gap` 值必须与 `swiper-container` 属性中的 `space-between` / `breakpoints spaceBetween` 保持一致。
+
+### 关键规则
+
+| 规则 | 说明 |
+|------|------|
+| **swiper-container 设置 flex + gap** | 必须添加 `display: flex` 和 `gap`，值与 `space-between` 保持一致 |
+| **swiper-slide 设置 flex-shrink: 0** | 防止 slide 被压缩，Swiper 才能正确计算布局 |
+| **不设置 slide 宽度** | `slides-per-view` 为数字时 Swiper 自动计算，不要给 `swiper-slide` 设置 `width` |
+| **导航按钮选择器带 section.id** | `[data-carousel-prev='{{ section.id }}']`，防止多个同类板块互相干扰 |
+| **分页器同理** | `[data-carousel-pagination='{{ section.id }}']` |
+| **导航/分页按需使用** | 只有一张 slide 时不渲染导航和分页（用 `blocks.size > 1` 判断） |
+| **breakpoints 用 JSON 字符串** | `breakpoints='{"750":{"slidesPerView":3,"spaceBetween":24}}'` |
+| **禁止手动调用 swiper.slidePrev/Next** | 导航由 Swiper 原生接管，Islands JS 无需处理导航点击 |
+
+### 常用属性速查
+
+| 属性 | 说明 | 示例值 |
+|------|------|--------|
+| `slides-per-view` | 每屏显示张数 | `"1"` / `"auto"` |
+| `space-between` | slide 间距（px） | `"16"` |
+| `loop` | 循环播放 | `"true"` / `"false"` |
+| `grab-cursor` | 鼠标抓手样式 | `"true"` |
+| `autoplay-delay` | 自动播放间隔（ms） | `"3000"` |
+| `navigation` | 开启导航 | `"true"` |
+| `navigation-prev-el` | 上一张按钮选择器 | `"[data-carousel-prev='{{ section.id }}']"` |
+| `navigation-next-el` | 下一张按钮选择器 | `"[data-carousel-next='{{ section.id }}']"` |
+| `pagination` | 开启分页器 | `"true"` |
+| `pagination-el` | 分页器容器选择器 | `"[data-carousel-pagination='{{ section.id }}']"` |
+| `pagination-clickable` | 分页点可点击 | `"true"` |
+| `pagination-type` | 分页器类型 | `"bullets"` / `"fraction"` |
+| `breakpoints` | 响应式断点配置 | `'{"750":{"slidesPerView":3}}'` |
+
+---
+
+## 十四、Figma 设计稿读取规范
+
+当任务同时提供了电脑端和移动端设计稿时，**必须分别读取两份设计稿**，提取各自的尺寸、间距、字号、布局数据，**不得只参考其中一份**。
 
 每次开发新板块，用户会同时提供**电脑端**和**移动端**两份设计稿链接。**必须分别读取两份设计稿**，不能只读其中一份。
 
@@ -796,7 +937,7 @@ Judge.me badge 内部结构需适配卡片行高：
 - [ ] `url` 类型字段必须提供 `"default": "/"`
 - [ ] Islands JS 文件放 `frontend/islands/`，自定义元素用 `client:visible`
 - [ ] 响应式只用 750px 一个断点
-- [ ] 轮播功能使用 `swiper-container` Web Component
+- [ ] 轮播功能使用 `swiper-container` Web Component，导航用 `data-carousel-prev/next='{{ section.id }}'`，分页用 `data-carousel-pagination='{{ section.id }}'`
 - [ ] 所有按钮添加 hover/active 交互颜色变化（纯色加深、渐变用 opacity）
 - [ ] 产品卡片评分使用 Judge.me badge（关联产品时），无产品时用手写文字降级
 - [ ] 图片设置正确的 `loading` 和 `sizes` 属性
