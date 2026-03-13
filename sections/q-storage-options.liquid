@@ -1,0 +1,462 @@
+{%- comment -%}
+  Section: q-storage-options
+  功能说明：本地存储 & 云存储对比展示板块
+  - 桌面端：每张卡片左右两栏布局（图片占一半 + 内容占一半），两张卡片上下排列
+  - 移动端：每张卡片图片在上、内容在下，单栏堆叠
+  - 纯展示类板块，无 JS 交互
+  版本：1.0.0
+{%- endcomment -%}
+
+<style>
+  .section-{{ section.id }} {
+    --so-bg: {{ section.settings.bg_color }};
+    --so-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --so-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --so-padding-top-desktop: {{ section.settings.padding_top_desktop }}px;
+    --so-padding-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+
+    /* 移动端默认变量 */
+    --so-card-title-size: 20px;
+    --so-card-title-line-height: 2;
+    --so-desc-size: 12px;
+    --so-desc-line-height: 1.5;
+    --so-list-size: 12px;
+    --so-list-line-height: 3;
+    --so-badge-height: 25px;
+    --so-badge-font-size: 12px;
+    --so-badge-padding: 0 10px 0 28px;
+    --so-badge-icon-size: 14px;
+    --so-card-radius: 10px;
+    --so-card-gap: 16px;
+    --so-img-height: 248px;
+    --so-content-padding: 20px 22px;
+    --so-btn-height: 31px;
+    --so-btn-padding: 0 20px;
+    --so-btn-font-size: 12px;
+    --so-btn-radius: 30px;
+    --so-icon-size: 24px;
+    --so-icon-gap: 8px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} {
+      /* 桌面端覆盖变量 */
+      --so-card-title-size: 32px;
+      --so-card-title-line-height: 1.25;
+      --so-desc-size: 16px;
+      --so-desc-line-height: 1.5;
+      --so-list-size: 16px;
+      --so-list-line-height: 2.625;
+      --so-badge-height: 33px;
+      --so-badge-font-size: 14px;
+      --so-badge-padding: 0 14px 0 36px;
+      --so-badge-icon-size: 18px;
+      --so-card-radius: 10px;
+      --so-card-gap: 27px;
+      --so-img-height: auto;
+      --so-content-padding: 39px 48px;
+      --so-btn-height: 60px;
+      --so-btn-padding: 0 36px;
+      --so-btn-font-size: 18px;
+      --so-btn-radius: 30px;
+      --so-icon-size: 24px;
+      --so-icon-gap: 12px;
+    }
+  }
+
+  .section-{{ section.id }}.q-storage-options {
+    background: var(--so-bg, #f7f7f7);
+    padding-top: var(--so-padding-top-mobile, 40px);
+    padding-bottom: var(--so-padding-bottom-mobile, 40px);
+    font-family: var(--font-body-family);
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}.q-storage-options {
+      padding-top: var(--so-padding-top-desktop, 60px);
+      padding-bottom: var(--so-padding-bottom-desktop, 60px);
+    }
+  }
+
+  /* 卡片列表 */
+  .section-{{ section.id }} .q-so__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--so-card-gap);
+  }
+
+  /* 单张卡片 */
+  .section-{{ section.id }} .q-so__card {
+    background: #ffffff;
+    border-radius: var(--so-card-radius);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-so__card {
+      flex-direction: row;
+      min-height: 513px;
+    }
+
+    /* 第二张卡片：内容在左、图片在右 */
+    .section-{{ section.id }} .q-so__card--reverse {
+      flex-direction: row-reverse;
+    }
+  }
+
+  /* 卡片图片区 */
+  .section-{{ section.id }} .q-so__card-img {
+    width: 100%;
+    height: var(--so-img-height);
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+
+  .section-{{ section.id }} .q-so__card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-so__card-img {
+      width: 50%;
+      height: auto;
+    }
+  }
+
+  /* 卡片内容区 */
+  .section-{{ section.id }} .q-so__card-content {
+    flex: 1;
+    padding: var(--so-content-padding);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  /* badge 标签 */
+  .section-{{ section.id }} .q-so__badge {
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    height: var(--so-badge-height);
+    padding: var(--so-badge-padding);
+    background: #eef4ff;
+    border-radius: 30px;
+    font-size: var(--so-badge-font-size);
+    font-weight: 500;
+    color: #1565d8;
+    align-self: flex-start;
+    margin-bottom: 12px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-so__badge {
+      margin-bottom: 14px;
+    }
+  }
+
+  .section-{{ section.id }} .q-so__badge-icon {
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: var(--so-badge-icon-size);
+    height: var(--so-badge-icon-size);
+    flex-shrink: 0;
+  }
+
+  /* 卡片标题 */
+  .section-{{ section.id }} .q-so__card-title {
+    font-size: var(--so-card-title-size);
+    font-weight: 600;
+    line-height: var(--so-card-title-line-height);
+    color: #1e1e1e;
+    margin: 0 0 6px;
+  }
+
+  /* 卡片描述 */
+  .section-{{ section.id }} .q-so__card-desc {
+    font-size: var(--so-desc-size);
+    font-weight: 400;
+    line-height: var(--so-desc-line-height);
+    color: #1e1e1e;
+    margin: 0 0 16px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-so__card-desc {
+      margin-bottom: 20px;
+    }
+  }
+
+  /* 特性列表 */
+  .section-{{ section.id }} .q-so__feature-list {
+    list-style: none;
+    margin: 0 0 20px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-so__feature-list {
+      margin-bottom: 32px;
+    }
+  }
+
+  .section-{{ section.id }} .q-so__feature-item {
+    display: flex;
+    align-items: center;
+    gap: var(--so-icon-gap);
+    font-size: var(--so-list-size);
+    font-weight: 500;
+    line-height: var(--so-list-line-height);
+    color: #2d4e76;
+  }
+
+  .section-{{ section.id }} .q-so__feature-icon {
+    width: var(--so-icon-size);
+    height: var(--so-icon-size);
+    flex-shrink: 0;
+    color: #26c060;
+  }
+
+  /* 按钮 */
+  .section-{{ section.id }} .q-so__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--so-btn-height);
+    padding: var(--so-btn-padding);
+    background: #2d3f60;
+    border-radius: var(--so-btn-radius);
+    font-size: var(--so-btn-font-size);
+    font-weight: 700;
+    color: #ffffff;
+    text-decoration: none;
+    align-self: flex-start;
+    transition: background 0.2s, opacity 0.2s;
+  }
+
+  .section-{{ section.id }} .q-so__btn:hover {
+    background: #1e3550;
+  }
+
+  .section-{{ section.id }} .q-so__btn:active {
+    opacity: 0.8;
+  }
+</style>
+
+<div class="q-storage-options section-{{ section.id }}">
+  <div class="page-width">
+
+    {%- render 'q-section-header', section: section -%}
+
+    <div class="q-so__list">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign is_reverse = false
+          if forloop.index0 == 1
+            assign is_reverse = true
+          endif
+        -%}
+        <div class="q-so__card{% if is_reverse %} q-so__card--reverse{% endif %}" {{ block.shopify_attributes }}>
+
+          {%- if block.settings.image != blank -%}
+            <div class="q-so__card-img">
+              {{- block.settings.image | image_url: width: 720 | image_tag:
+                loading: 'lazy',
+                sizes: '(min-width: 750px) 50vw, 100vw',
+                widths: '400, 600, 720, 900',
+                alt: block.settings.card_title
+              -}}
+            </div>
+          {%- endif -%}
+
+          <div class="q-so__card-content">
+
+            {%- if block.settings.badge_label != blank -%}
+              <div class="q-so__badge">
+                <svg class="q-so__badge-icon" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M9 0C4.03 0 0 4.03 0 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm4.207 6.79-5.04 5.04a.674.674 0 0 1-.955 0L4.793 9.41a.675.675 0 1 1 .955-.955l1.942 1.942 4.563-4.563a.675.675 0 1 1 .954.955z" fill="#1565d8"/>
+                </svg>
+                {{- block.settings.badge_label -}}
+              </div>
+            {%- endif -%}
+
+            {%- if block.settings.card_title != blank -%}
+              <h3 class="q-so__card-title">{{ block.settings.card_title }}</h3>
+            {%- endif -%}
+
+            {%- if block.settings.card_description != blank -%}
+              <p class="q-so__card-desc">{{ block.settings.card_description }}</p>
+            {%- endif -%}
+
+            {%- if block.settings.feature_1 != blank -%}
+              <ul class="q-so__feature-list">
+                {%- if block.settings.feature_1 != blank -%}
+                  <li class="q-so__feature-item">
+                    <svg class="q-so__feature-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.609 9.054-6.72 6.72a.9.9 0 0 1-1.273 0L6.39 12.546a.9.9 0 1 1 1.273-1.273l2.59 2.59 6.084-6.083a.9.9 0 0 1 1.272 1.274z" fill="currentColor"/></svg>
+                    {{ block.settings.feature_1 }}
+                  </li>
+                {%- endif -%}
+                {%- if block.settings.feature_2 != blank -%}
+                  <li class="q-so__feature-item">
+                    <svg class="q-so__feature-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.609 9.054-6.72 6.72a.9.9 0 0 1-1.273 0L6.39 12.546a.9.9 0 1 1 1.273-1.273l2.59 2.59 6.084-6.083a.9.9 0 0 1 1.272 1.274z" fill="currentColor"/></svg>
+                    {{ block.settings.feature_2 }}
+                  </li>
+                {%- endif -%}
+                {%- if block.settings.feature_3 != blank -%}
+                  <li class="q-so__feature-item">
+                    <svg class="q-so__feature-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.609 9.054-6.72 6.72a.9.9 0 0 1-1.273 0L6.39 12.546a.9.9 0 1 1 1.273-1.273l2.59 2.59 6.084-6.083a.9.9 0 0 1 1.272 1.274z" fill="currentColor"/></svg>
+                    {{ block.settings.feature_3 }}
+                  </li>
+                {%- endif -%}
+                {%- if block.settings.feature_4 != blank -%}
+                  <li class="q-so__feature-item">
+                    <svg class="q-so__feature-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.609 9.054-6.72 6.72a.9.9 0 0 1-1.273 0L6.39 12.546a.9.9 0 1 1 1.273-1.273l2.59 2.59 6.084-6.083a.9.9 0 0 1 1.272 1.274z" fill="currentColor"/></svg>
+                    {{ block.settings.feature_4 }}
+                  </li>
+                {%- endif -%}
+              </ul>
+            {%- endif -%}
+
+            {%- if block.settings.button_label != blank -%}
+              <a
+                href="{{ block.settings.button_link | default: '/' }}"
+                class="q-so__btn"
+              >
+                {{- block.settings.button_label -}}
+              </a>
+            {%- endif -%}
+
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Q-存储选项",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "header", "content": "板块标题" },
+    { "type": "inline_richtext", "id": "header_title", "label": "标题", "default": "Local & Cloud Storage — <em>No Subscription</em>" },
+    { "type": "richtext", "id": "header_description", "label": "描述" },
+    { "type": "checkbox", "id": "header_center", "label": "居中对齐", "default": true },
+    { "type": "color_background", "id": "header_em_color", "label": "em 高亮色", "default": "#1565d8" },
+    { "type": "range", "id": "header_title_size_desktop", "label": "标题字号（桌面端）", "min": 20, "max": 80, "step": 2, "unit": "px", "default": 42 },
+    { "type": "range", "id": "header_title_size_mobile", "label": "标题字号（移动端）", "min": 16, "max": 50, "step": 2, "unit": "px", "default": 24 },
+    { "type": "range", "id": "header_desc_size_desktop", "label": "描述字号（桌面端）", "min": 10, "max": 30, "step": 1, "unit": "px", "default": 16 },
+    { "type": "range", "id": "header_desc_size_mobile", "label": "描述字号（移动端）", "min": 10, "max": 24, "step": 1, "unit": "px", "default": 12 },
+    { "type": "range", "id": "header_margin_bottom_desktop", "label": "标题下边距（桌面端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 44 },
+    { "type": "range", "id": "header_margin_bottom_mobile", "label": "标题下边距（移动端）", "min": 0, "max": 80, "step": 4, "unit": "px", "default": 24 },
+    { "type": "header", "content": "板块背景" },
+    {
+      "type": "color_background",
+      "id": "bg_color",
+      "label": "背景色",
+      "default": "#F7F7F7"
+    },
+    { "type": "header", "content": "上下边距" },
+    { "type": "range", "id": "padding_top_mobile", "label": "上边距（移动端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_bottom_mobile", "label": "下边距（移动端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_top_desktop", "label": "上边距（桌面端）", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 60 },
+    { "type": "range", "id": "padding_bottom_desktop", "label": "下边距（桌面端）", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 60 }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "存储卡片",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "卡片图片"
+        },
+        {
+          "type": "text",
+          "id": "badge_label",
+          "label": "角标文字",
+          "default": "No Monthly Fees"
+        },
+        {
+          "type": "text",
+          "id": "card_title",
+          "label": "卡片标题",
+          "default": "Local Storage (Free)"
+        },
+        {
+          "type": "text",
+          "id": "card_description",
+          "label": "卡片描述",
+          "default": "Essential recording and playback — no subscription required."
+        },
+        { "type": "header", "content": "特性列表" },
+        { "type": "text", "id": "feature_1", "label": "特性 1", "default": "Continuous or event-based local recording" },
+        { "type": "text", "id": "feature_2", "label": "特性 2", "default": "Instant playback from device storage" },
+        { "type": "text", "id": "feature_3", "label": "特性 3", "default": "Full access to live view & motion alerts" },
+        { "type": "text", "id": "feature_4", "label": "特性 4" },
+        { "type": "header", "content": "按钮" },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "按钮文字",
+          "default": "Buy now"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "按钮链接",
+          "default": "/"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Q-存储选项",
+      "blocks": [
+        {
+          "type": "card",
+          "settings": {
+            "badge_label": "No Monthly Fees",
+            "card_title": "Local Storage (Free)",
+            "card_description": "Essential recording and playback — no subscription required.",
+            "feature_1": "Continuous or event-based local recording",
+            "feature_2": "Instant playback from device storage",
+            "feature_3": "Full access to live view & motion alerts",
+            "feature_4": "Footage stays private and under your control",
+            "button_label": "Buy now",
+            "button_link": "/"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "badge_label": "Optional Backup",
+            "card_title": "Cloud Storage",
+            "card_description": "Extra protection and convenience — only if you choose.",
+            "feature_1": "Encrypted cloud backup",
+            "feature_2": "Extended video history",
+            "feature_3": "Easy sharing & remote access",
+            "feature_4": "Subscription required (optional, not mandatory)",
+            "button_label": "Buy now",
+            "button_link": "/"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,341 @@
+{%- comment -%}
+  Section: q-app-features
+  功能说明：App 功能展示板块
+  - 展示手机 App 的核心功能，每个功能配有手机截图、标题和描述
+  - 移动端：每屏 2 列，带分页点
+  - 桌面端：每屏 4 列（breakpoints 切换），带左右导航箭头
+
+  技术栈：
+  - Swiper Web Component（breakpoints 统一响应式）
+  - Snippet: snippets/q-section-header.liquid
+  版本：1.1.0
+{%- endcomment -%}
+
+<style>
+  .section-{{ section.id }} {
+    --af-bg: {{ section.settings.bg_color }};
+    --af-card-bg: {{ section.settings.card_bg_color }};
+    --af-img-bg: {{ section.settings.img_bg_color }};
+    --af-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --af-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --af-padding-top-desktop: {{ section.settings.padding_top_desktop }}px;
+    --af-padding-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+
+    --af-card-radius: 10px;
+    --af-card-title-size: 14px;
+    --af-card-title-lh: 1.3;
+    --af-card-desc-size: 12px;
+    --af-card-desc-lh: 1.5;
+    --af-card-text-padding: 12px 16px 16px;
+    --af-img-ratio: 258 / 285;
+  }
+
+  .section-{{ section.id }}.q-app-features {
+    background: var(--af-bg, #ffffff);
+    padding-top: var(--af-padding-top-mobile, 40px);
+    padding-bottom: var(--af-padding-bottom-mobile, 40px);
+    font-family: var(--font-body-family);
+  }
+
+  /* ========== Swiper slide 宽度（auto 模式） ========== */
+  .section-{{ section.id }} .q-af__swiper {
+    width: 100%;
+  }
+
+  .section-{{ section.id }} .q-af__swiper swiper-slide {
+    width: 46vw;
+    max-width: 220px;
+    height: auto;
+    display: flex;
+  }
+
+  /* ========== 卡片 ========== */
+  .section-{{ section.id }} .q-af__card {
+    background: var(--af-card-bg, #ffffff);
+    border: 1px solid #e6eff6;
+    border-radius: var(--af-card-radius);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .section-{{ section.id }} .q-af__img-area {
+    background: var(--af-img-bg, #f3f7ff);
+    overflow: hidden;
+    aspect-ratio: var(--af-img-ratio);
+  }
+
+  .section-{{ section.id }} .q-af__img-area img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .section-{{ section.id }} .q-af__img-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #bcd0e5;
+  }
+
+  .section-{{ section.id }} .q-af__text {
+    padding: var(--af-card-text-padding);
+    flex: 1;
+  }
+
+  .section-{{ section.id }} .q-af__card-title {
+    font-size: var(--af-card-title-size);
+    font-weight: 500;
+    line-height: var(--af-card-title-lh);
+    color: #1e1e1e;
+    margin: 0 0 6px;
+  }
+
+  .section-{{ section.id }} .q-af__card-desc {
+    font-size: var(--af-card-desc-size);
+    font-weight: 400;
+    line-height: var(--af-card-desc-lh);
+    color: #4e5357;
+    margin: 0;
+  }
+
+  /* ========== 分页点 ========== */
+  .section-{{ section.id }} .q-af__swiper::part(bullet) {
+    width: 6px;
+    height: 6px;
+    background: #c8d8e8;
+    border-radius: 50%;
+    opacity: 1;
+    transition: background 0.2s, width 0.2s;
+  }
+
+  .section-{{ section.id }} .q-af__swiper::part(bullet-active) {
+    background: #367cf6;
+    width: 18px;
+    border-radius: 3px;
+  }
+
+  /* ========== 导航箭头（默认隐藏，桌面端显示） ========== */
+  .section-{{ section.id }} .q-af__nav {
+    display: none;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} {
+      --af-card-title-size: 22px;
+      --af-card-title-lh: 1.36;
+      --af-card-desc-size: 16px;
+      --af-card-desc-lh: 1.5;
+      --af-card-text-padding: 18px 24px 24px;
+      --af-img-ratio: 489 / 538;
+    }
+
+    .section-{{ section.id }}.q-app-features {
+      padding-top: var(--af-padding-top-desktop, 60px);
+      padding-bottom: var(--af-padding-bottom-desktop, 60px);
+    }
+
+    .section-{{ section.id }} .q-af__swiper swiper-slide {
+      width: 288px;
+      max-width: none;
+    }
+
+    .section-{{ section.id }} .q-af__nav {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 8px;
+      margin-top: 24px;
+    }
+
+    .section-{{ section.id }} .q-af__nav-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid #d0dde8;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #4e5357;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+      flex-shrink: 0;
+    }
+
+    .section-{{ section.id }} .q-af__nav-btn:hover {
+      background: #edf4fc;
+      border-color: #367cf6;
+      color: #367cf6;
+    }
+
+    .section-{{ section.id }} .q-af__nav-btn:active {
+      background: #d6e9f8;
+    }
+
+    .section-{{ section.id }} .q-af__nav-btn svg {
+      width: 16px;
+      height: 16px;
+      display: block;
+    }
+  }
+</style>
+
+<div class="q-app-features section-{{ section.id }}">
+  <div class="page-width">
+    {%- render 'q-section-header', section: section -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <swiper-container
+        class="q-af__swiper"
+        slides-per-view="auto"
+        space-between="12"
+        pagination="true"
+        grab-cursor="true"
+        breakpoints='{"750": {"spaceBetween": 16}}'
+      >
+        {%- for block in section.blocks -%}
+          <swiper-slide>
+            <div class="q-af__card" {{ block.shopify_attributes }}>
+              <div class="q-af__img-area">
+                {%- if block.settings.image != blank -%}
+                  <img
+                    src="{{ block.settings.image | image_url: width: 600 }}"
+                    alt="{{ block.settings.title | escape }}"
+                    width="{{ block.settings.image.width }}"
+                    height="{{ block.settings.image.height }}"
+                    loading="lazy"
+                    sizes="(min-width: 750px) 25vw, 44vw"
+                  >
+                {%- else -%}
+                  <div class="q-af__img-placeholder">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <rect x="2" y="2" width="20" height="20" rx="4"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/>
+                    </svg>
+                  </div>
+                {%- endif -%}
+              </div>
+              <div class="q-af__text">
+                {%- if block.settings.title != blank -%}
+                  <p class="q-af__card-title">{{ block.settings.title }}</p>
+                {%- endif -%}
+                {%- if block.settings.description != blank -%}
+                  <p class="q-af__card-desc">{{ block.settings.description }}</p>
+                {%- endif -%}
+              </div>
+            </div>
+          </swiper-slide>
+        {%- endfor -%}
+      </swiper-container>
+
+      <div class="q-af__nav">
+        <button class="q-af__nav-btn" aria-label="Previous" type="button">
+          <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <button class="q-af__nav-btn" aria-label="Next" type="button">
+          <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Q-App功能展示",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "header", "content": "板块标题" },
+    { "type": "inline_richtext", "id": "header_title", "label": "标题", "default": "App Control, Right from Your <em>Phone</em>" },
+    { "type": "richtext", "id": "header_description", "label": "描述" },
+    { "type": "checkbox", "id": "header_center", "label": "居中对齐", "default": false },
+    { "type": "color_background", "id": "header_em_color", "label": "em 高亮色", "default": "linear-gradient(90deg, rgba(108,188,231,0.81) 0%, #367CF6 100%)" },
+    { "type": "range", "id": "header_title_size_desktop", "label": "标题字号（桌面端）", "min": 20, "max": 80, "step": 2, "unit": "px", "default": 42 },
+    { "type": "range", "id": "header_title_size_mobile", "label": "标题字号（移动端）", "min": 16, "max": 50, "step": 2, "unit": "px", "default": 24 },
+    { "type": "range", "id": "header_desc_size_desktop", "label": "描述字号（桌面端）", "min": 10, "max": 30, "step": 1, "unit": "px", "default": 16 },
+    { "type": "range", "id": "header_desc_size_mobile", "label": "描述字号（移动端）", "min": 10, "max": 24, "step": 1, "unit": "px", "default": 12 },
+    { "type": "range", "id": "header_margin_bottom_desktop", "label": "标题下边距（桌面端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "header_margin_bottom_mobile", "label": "标题下边距（移动端）", "min": 0, "max": 80, "step": 4, "unit": "px", "default": 24 },
+    { "type": "header", "content": "颜色配置" },
+    { "type": "color_background", "id": "bg_color", "label": "板块背景色", "default": "#FFFFFF" },
+    { "type": "color_background", "id": "card_bg_color", "label": "卡片背景色", "default": "#FFFFFF" },
+    { "type": "color_background", "id": "img_bg_color", "label": "图片区背景色", "default": "#F3F7FF" },
+    { "type": "header", "content": "上下边距" },
+    { "type": "range", "id": "padding_top_mobile", "label": "上边距（移动端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_bottom_mobile", "label": "下边距（移动端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_top_desktop", "label": "上边距（桌面端）", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 60 },
+    { "type": "range", "id": "padding_bottom_desktop", "label": "下边距（桌面端）", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 60 }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "功能卡片",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "手机截图",
+          "info": "推荐尺寸：489×538px（桌面端图片区比例）"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "功能标题",
+          "default": "Live View & Event Playback"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "功能描述",
+          "default": "Watch live video and replay key moments anytime, from anywhere."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Q-App功能展示",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Live View & Event Playback",
+            "description": "Watch live video and replay key moments anytime, from anywhere."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Smart Alerts That Matter",
+            "description": "Get real-time notifications with visual previews, so you never miss what matters."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Connected Devices",
+            "description": "View, manage, and securely share devices with family from one app."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Security & Privacy Controls",
+            "description": "Manage permissions, access, and key security settings to keep your data protected."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

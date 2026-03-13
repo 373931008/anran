@@ -1,0 +1,428 @@
+{%- comment -%}
+  Section: q-camera-showcase
+  功能说明：摄像头功能展示板块，支持 Tab 切换，每个 Tab 可配置图片或视频素材（桌面端/移动端分别配置）
+  技术栈：
+  - Islands: frontend/islands/camera-showcase-element.js
+  - Snippet: snippets/q-section-header.liquid
+  版本：1.0.0
+{%- endcomment -%}
+
+{%- liquid
+  assign tab_blocks = section.blocks | where: 'type', 'tab'
+-%}
+
+<style>
+  .section-{{ section.id }} {
+    --cs-bg: {{ section.settings.bg_color }};
+    --cs-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --cs-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --cs-padding-top-desktop: {{ section.settings.padding_top_desktop }}px;
+    --cs-padding-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --cs-tab-height: 39px;
+    --cs-tab-radius: 80px;
+    --cs-media-height: 370px;
+    --cs-media-radius: 10px;
+    --cs-tab-font-size: 12px;
+    --cs-tab-gap: 8px;
+    --cs-tabs-margin-bottom: 16px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} {
+      --cs-tab-height: 44px;
+      --cs-media-height: 530px;
+      --cs-tab-font-size: 14px;
+      --cs-tab-gap: 0px;
+      --cs-tabs-margin-bottom: 24px;
+    }
+  }
+
+  .section-{{ section.id }}.q-camera-showcase {
+    background: var(--cs-bg);
+    padding-top: var(--cs-padding-top-mobile);
+    padding-bottom: var(--cs-padding-bottom-mobile);
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}.q-camera-showcase {
+      padding-top: var(--cs-padding-top-desktop);
+      padding-bottom: var(--cs-padding-bottom-desktop);
+    }
+  }
+
+  .section-{{ section.id }} .q-cs__tabs-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: var(--cs-tabs-margin-bottom);
+  }
+
+  .section-{{ section.id }} .q-cs__tabs {
+    position: relative;
+    display: flex;
+    align-items: center;
+    border: 1px solid #cacbcc;
+    border-radius: var(--cs-tab-radius);
+    height: var(--cs-tab-height);
+    background: #fff;
+    padding: 0 2px;
+    gap: var(--cs-tab-gap);
+  }
+
+  .section-{{ section.id }} .q-cs__tab-btn {
+    position: relative;
+    z-index: 1;
+    height: calc(var(--cs-tab-height) - 6px);
+    padding: 0 20px;
+    border: none;
+    border-radius: var(--cs-tab-radius);
+    background: transparent;
+    font-size: var(--cs-tab-font-size);
+    font-weight: 700;
+    color: #1e1e1e;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color 0.2s, background 0.2s, opacity 0.2s;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-cs__tab-btn {
+      padding: 0 28px;
+    }
+  }
+
+  .section-{{ section.id }} .q-cs__tab-btn--active {
+    background: #1e1e1e;
+    color: #fff;
+  }
+
+  .section-{{ section.id }} .q-cs__tab-btn:hover:not(.q-cs__tab-btn--active) {
+    background: rgba(0, 0, 0, 0.06);
+  }
+
+  .section-{{ section.id }} .q-cs__tab-btn:active:not(.q-cs__tab-btn--active) {
+    background: rgba(0, 0, 0, 0.12);
+  }
+
+  .section-{{ section.id }} .q-cs__tab-btn--active:hover {
+    opacity: 0.85;
+  }
+
+  .section-{{ section.id }} .q-cs__media-wrap {
+    position: relative;
+    width: 100%;
+    height: var(--cs-media-height);
+    border-radius: var(--cs-media-radius);
+    overflow: hidden;
+    background: #000;
+  }
+
+  .section-{{ section.id }} .q-cs__media-item {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+  }
+
+  .section-{{ section.id }} .q-cs__media-item--active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .section-{{ section.id }} .q-cs__media-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .section-{{ section.id }} .q-cs__media-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .section-{{ section.id }} .q-cs__media-label {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 40px;
+    pointer-events: none;
+  }
+
+  .section-{{ section.id }} .q-cs__media-label--right {
+    left: auto;
+    right: 16px;
+    text-align: right;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-cs__media-label {
+      font-size: 26px;
+      top: 20px;
+      left: 24px;
+    }
+
+    .section-{{ section.id }} .q-cs__media-label--right {
+      left: auto;
+      right: 24px;
+    }
+  }
+
+/* 桌面端/移动端素材显示控制 */
+.section-{{ section.id }} .q-cs__media-img--mobile,
+.section-{{ section.id }} .q-cs__media-img--mobile-fallback,
+.section-{{ section.id }} .q-cs__video-placeholder--mobile {
+  display: block;
+}
+
+.section-{{ section.id }} .q-cs__media-img--desktop,
+.section-{{ section.id }} .q-cs__video-placeholder--desktop {
+  display: none;
+}
+
+@media screen and (min-width: 750px) {
+  .section-{{ section.id }} .q-cs__media-img--mobile,
+  .section-{{ section.id }} .q-cs__media-img--mobile-fallback,
+  .section-{{ section.id }} .q-cs__video-placeholder--mobile {
+    display: none;
+  }
+
+  .section-{{ section.id }} .q-cs__media-img--desktop,
+  .section-{{ section.id }} .q-cs__video-placeholder--desktop {
+    display: block;
+  }
+}
+
+.section-{{ section.id }} .q-cs__video-placeholder {
+  position: absolute;
+  inset: 0;
+}
+
+.section-{{ section.id }} .q-cs__video-placeholder video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+</style>
+
+<div class="q-camera-showcase section-{{ section.id }}">
+  <div class="page-width">
+    {%- render 'q-section-header', section: section -%}
+
+    <camera-showcase-element client:visible>
+      {%- if tab_blocks.size > 0 -%}
+        <div class="q-cs__tabs-wrap">
+          <div class="q-cs__tabs" role="tablist">
+            {%- for block in tab_blocks -%}
+              <button
+                class="q-cs__tab-btn{% if forloop.first %} q-cs__tab-btn--active{% endif %}"
+                role="tab"
+                aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+                aria-controls="q-cs-panel-{{ block.id }}"
+                data-tab-index="{{ forloop.index0 }}"
+                {{ block.shopify_attributes }}
+              >
+                {{- block.settings.tab_label -}}
+              </button>
+            {%- endfor -%}
+          </div>
+        </div>
+
+        <div class="q-cs__media-wrap">
+          {%- for block in tab_blocks -%}
+            {%- liquid
+              assign media_type = block.settings.media_type
+              assign image_desktop = block.settings.image_desktop
+              assign image_mobile = block.settings.image_mobile
+              assign video_desktop = block.settings.video_desktop
+              assign video_mobile = block.settings.video_mobile
+              assign label_left = block.settings.label_left
+              assign label_right = block.settings.label_right
+            -%}
+            <div
+              class="q-cs__media-item{% if forloop.first %} q-cs__media-item--active{% endif %}"
+              id="q-cs-panel-{{ block.id }}"
+              role="tabpanel"
+              data-panel-index="{{ forloop.index0 }}"
+              data-media-type="{{ media_type }}"
+            >
+              {%- if media_type == 'video' -%}
+                {%- comment -%}桌面端视频（Shopify video_picker，使用 video_tag 渲染）{%- endcomment -%}
+                <div class="q-cs__video-placeholder q-cs__video-placeholder--desktop">
+                  {%- if video_desktop != blank -%}
+                    {{- video_desktop | video_tag:
+                      class: 'q-cs__media-video',
+                      loop: true,
+                      muted: true,
+                      playsinline: true,
+                      preload: 'none',
+                      autoplay: false
+                    -}}
+                  {%- endif -%}
+                </div>
+                {%- comment -%}移动端视频（无则回退到桌面端）{%- endcomment -%}
+                <div class="q-cs__video-placeholder q-cs__video-placeholder--mobile">
+                  {%- if video_mobile != blank -%}
+                    {{- video_mobile | video_tag:
+                      class: 'q-cs__media-video',
+                      loop: true,
+                      muted: true,
+                      playsinline: true,
+                      preload: 'none',
+                      autoplay: false
+                    -}}
+                  {%- elsif video_desktop != blank -%}
+                    {{- video_desktop | video_tag:
+                      class: 'q-cs__media-video',
+                      loop: true,
+                      muted: true,
+                      playsinline: true,
+                      preload: 'none',
+                      autoplay: false
+                    -}}
+                  {%- endif -%}
+                </div>
+              {%- else -%}
+                {%- comment -%}图片：优先用对应端的图，无则互相降级{%- endcomment -%}
+                {%- if image_desktop != blank -%}
+                  {{- image_desktop
+                    | image_url: width: 1440
+                    | image_tag:
+                      class: 'q-cs__media-img q-cs__media-img--desktop',
+                      alt: block.settings.tab_label,
+                      loading: forloop.first | default: 'lazy',
+                      sizes: '100vw',
+                      widths: '750,1000,1200,1440'
+                  -}}
+                {%- endif -%}
+                {%- if image_mobile != blank -%}
+                  {{- image_mobile
+                    | image_url: width: 750
+                    | image_tag:
+                      class: 'q-cs__media-img q-cs__media-img--mobile',
+                      alt: block.settings.tab_label,
+                      loading: 'lazy',
+                      sizes: '100vw',
+                      widths: '375,500,750'
+                  -}}
+                {%- elsif image_desktop != blank -%}
+                  {{- image_desktop
+                    | image_url: width: 750
+                    | image_tag:
+                      class: 'q-cs__media-img q-cs__media-img--mobile-fallback',
+                      alt: block.settings.tab_label,
+                      loading: 'lazy',
+                      sizes: '100vw',
+                      widths: '375,500,750'
+                  -}}
+                {%- endif -%}
+              {%- endif -%}
+
+              {%- if label_left != blank -%}
+                <span class="q-cs__media-label">{{ label_left }}</span>
+              {%- endif -%}
+              {%- if label_right != blank -%}
+                <span class="q-cs__media-label q-cs__media-label--right">{{ label_right }}</span>
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </camera-showcase-element>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Q-Camera Showcase",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "header", "content": "板块标题" },
+    { "type": "inline_richtext", "id": "header_title", "label": "标题", "default": "<em>See Details</em> in the Dark" },
+    { "type": "richtext", "id": "header_description", "label": "描述", "default": "<p>Featuring an f/1.6 large aperture and spotlights, the camera captures 20% more light, showing more details in dark.</p>" },
+    { "type": "checkbox", "id": "header_center", "label": "居中对齐", "default": true },
+    { "type": "color_background", "id": "header_em_color", "label": "em 高亮色", "default": "linear-gradient(90deg, #6CBCE7 0%, #367CF6 100%)" },
+    { "type": "range", "id": "header_title_size_desktop", "label": "标题字号（桌面端）", "min": 20, "max": 80, "step": 2, "unit": "px", "default": 50 },
+    { "type": "range", "id": "header_title_size_mobile", "label": "标题字号（移动端）", "min": 16, "max": 50, "step": 2, "unit": "px", "default": 26 },
+    { "type": "range", "id": "header_desc_size_desktop", "label": "描述字号（桌面端）", "min": 10, "max": 30, "step": 1, "unit": "px", "default": 16 },
+    { "type": "range", "id": "header_desc_size_mobile", "label": "描述字号（移动端）", "min": 10, "max": 24, "step": 1, "unit": "px", "default": 12 },
+    { "type": "range", "id": "header_margin_bottom_desktop", "label": "标题下边距（桌面端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "header_margin_bottom_mobile", "label": "标题下边距（移动端）", "min": 0, "max": 80, "step": 4, "unit": "px", "default": 24 },
+    { "type": "header", "content": "板块背景" },
+    { "type": "color_background", "id": "bg_color", "label": "背景色", "default": "#FFFFFF" },
+    { "type": "header", "content": "上下边距" },
+    { "type": "range", "id": "padding_top_mobile", "label": "上边距（移动端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_bottom_mobile", "label": "下边距（移动端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_top_desktop", "label": "上边距（桌面端）", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 60 },
+    { "type": "range", "id": "padding_bottom_desktop", "label": "下边距（桌面端）", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 60 }
+  ],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "Tab",
+      "settings": [
+        { "type": "text", "id": "tab_label", "label": "Tab 标签", "default": "Feature" },
+        {
+          "type": "select",
+          "id": "media_type",
+          "label": "素材类型",
+          "options": [
+            { "value": "image", "label": "图片" },
+            { "value": "video", "label": "视频" }
+          ],
+          "default": "image"
+        },
+        { "type": "header", "content": "图片素材" },
+        { "type": "image_picker", "id": "image_desktop", "label": "图片（桌面端）" },
+        { "type": "image_picker", "id": "image_mobile", "label": "图片（移动端）" },
+        { "type": "header", "content": "视频素材（选择视频类型时生效）" },
+        { "type": "video", "id": "video_desktop", "label": "视频（桌面端）" },
+        { "type": "video", "id": "video_mobile", "label": "视频（移动端）" },
+        { "type": "header", "content": "素材角标文字" },
+        { "type": "text", "id": "label_left", "label": "左侧标签" },
+        { "type": "text", "id": "label_right", "label": "右侧标签" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Q-Camera Showcase",
+      "blocks": [
+        {
+          "type": "tab",
+          "settings": {
+            "tab_label": "4K HDR",
+            "media_type": "image",
+            "label_left": "DAY",
+            "label_right": "NIGHT"
+          }
+        },
+        {
+          "type": "tab",
+          "settings": {
+            "tab_label": "Color Night",
+            "media_type": "image",
+            "label_left": "DAY",
+            "label_right": "NIGHT"
+          }
+        },
+        {
+          "type": "tab",
+          "settings": {
+            "tab_label": "360° Coverage",
+            "media_type": "image"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
