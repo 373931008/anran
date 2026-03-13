@@ -1,0 +1,504 @@
+{%- comment -%}
+  Section: q-smart-detection
+  功能说明：智能检测追踪板块，左侧展示标题+检测类型图标+描述，右侧为手机模型（内嵌自动播放视频）+ 两侧竖向图片
+  技术栈：
+  - Islands: frontend/islands/smart-detection-element.js（视口内自动播放视频）
+  - Snippet: snippets/q-section-header.liquid
+  版本：1.0.0
+{%- endcomment -%}
+
+<style>
+  .section-{{ section.id }} {
+    --sd-bg: {{ section.settings.bg_color }};
+    --sd-pt-mobile: {{ section.settings.padding_top_mobile }}px;
+    --sd-pb-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --sd-pt-desktop: {{ section.settings.padding_top_desktop }}px;
+    --sd-pb-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --sd-icon-size: 55px;
+    --sd-icon-radius: 10px;
+    --sd-icon-gap: 16px;
+    --sd-phone-width: 170px;
+    --sd-side-img-width: 84px;
+    --sd-side-img-height: 243px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} {
+      --sd-icon-size: 70px;
+      --sd-icon-gap: 24px;
+      --sd-phone-width: 338px;
+      --sd-side-img-width: 167px;
+      --sd-side-img-height: 482px;
+    }
+  }
+
+  .section-{{ section.id }}.q-smart-detection {
+    background: var(--sd-bg, #f3f7ff);
+    padding-top: var(--sd-pt-mobile, 40px);
+    padding-bottom: var(--sd-pb-mobile, 40px);
+    overflow: hidden;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}.q-smart-detection {
+      padding-top: var(--sd-pt-desktop, 60px);
+      padding-bottom: var(--sd-pb-desktop, 60px);
+    }
+  }
+
+  /* 内容布局 */
+  .section-{{ section.id }} .q-smart-detection__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-smart-detection__inner {
+      flex-direction: row;
+      gap: 0;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  /* 左侧文字区 */
+  .section-{{ section.id }} .q-smart-detection__content {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-smart-detection__content {
+      width: 380px;
+    }
+  }
+
+  /* 图标列表 */
+  .section-{{ section.id }} .q-smart-detection__icons {
+    display: flex;
+    gap: var(--sd-icon-gap);
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-smart-detection__icons {
+      margin-bottom: 24px;
+    }
+  }
+
+  .section-{{ section.id }} .q-smart-detection__icon-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .section-{{ section.id }} .q-smart-detection__icon-btn {
+    width: var(--sd-icon-size);
+    height: var(--sd-icon-size);
+    border-radius: var(--sd-icon-radius);
+    background: linear-gradient(180deg, #6cbce7 0%, #367cf6 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .section-{{ section.id }} .q-smart-detection__icon-btn svg {
+    width: 22px;
+    height: 22px;
+    fill: #fff;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-smart-detection__icon-btn svg {
+      width: 28px;
+      height: 28px;
+    }
+  }
+
+  .section-{{ section.id }} .q-smart-detection__icon-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: #2d4e76;
+    text-align: center;
+    line-height: 1.5;
+    white-space: nowrap;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-smart-detection__icon-label {
+      font-size: 16px;
+    }
+  }
+
+  /* 描述文字 */
+  .section-{{ section.id }} .q-smart-detection__desc {
+    font-size: 12px;
+    line-height: 1.5;
+    color: #4e5357;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-smart-detection__desc {
+      font-size: 16px;
+      line-height: 1.5;
+      max-width: 429px;
+    }
+  }
+
+  /* 右侧手机模型区 */
+  .section-{{ section.id }} .q-smart-detection__visual {
+    flex: 0 0 auto;
+    position: relative;
+    width: 100%;
+    height: 360px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-smart-detection__visual {
+      width: 640px;
+      height: 686px;
+    }
+  }
+
+  /* 手机模型容器 */
+  .section-{{ section.id }} .q-smart-detection__phone {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: var(--sd-phone-width);
+    z-index: 2;
+  }
+
+  .section-{{ section.id }} .q-smart-detection__phone-frame {
+    position: relative;
+    width: 100%;
+  }
+
+  .section-{{ section.id }} .q-smart-detection__phone-img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* 视频区（嵌入手机屏幕内） */
+  .section-{{ section.id }} .q-smart-detection__phone-screen {
+    position: absolute;
+    top: 9%;
+    left: 4.8%;
+    right: 4.8%;
+    bottom: 4%;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #f3f7ff;
+  }
+
+  .section-{{ section.id }} .q-smart-detection__video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* 侧边竖向图片 */
+  .section-{{ section.id }} .q-smart-detection__side-imgs {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+  }
+
+  .section-{{ section.id }} .q-smart-detection__side-img {
+    position: absolute;
+    width: var(--sd-side-img-width);
+    height: var(--sd-side-img-height);
+    border-radius: 10px;
+    overflow: hidden;
+    object-fit: cover;
+  }
+
+  .section-{{ section.id }} .q-smart-detection__side-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    display: block;
+  }
+
+  /* 桌面端四张侧图定位 */
+  .section-{{ section.id }} .q-smart-detection__side-img--left-top {
+    left: 0;
+    top: 5%;
+  }
+
+  .section-{{ section.id }} .q-smart-detection__side-img--left-mid {
+    left: 17%;
+    top: 22%;
+  }
+
+  .section-{{ section.id }} .q-smart-detection__side-img--right-top {
+    right: 0;
+    top: 5%;
+  }
+
+  /* 移动端侧图尺寸和定位 */
+  @media screen and (max-width: 749px) {
+    .section-{{ section.id }} .q-smart-detection__side-img--left-top {
+      left: -16px;
+      top: 8%;
+    }
+
+    .section-{{ section.id }} .q-smart-detection__side-img--left-mid {
+      left: 10%;
+      top: 30%;
+    }
+
+    .section-{{ section.id }} .q-smart-detection__side-img--right-top {
+      right: -16px;
+      top: 8%;
+    }
+  }
+</style>
+
+<div class="q-smart-detection section-{{ section.id }}">
+  <div class="page-width">
+    <div class="q-smart-detection__inner">
+
+      {%- comment -%} 左侧文字区 {%- endcomment -%}
+      <div class="q-smart-detection__content">
+        {%- render 'q-section-header', section: section -%}
+
+        <div class="q-smart-detection__icons">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'detection_type' -%}
+              <div class="q-smart-detection__icon-item" {{ block.shopify_attributes }}>
+                <div class="q-smart-detection__icon-btn" aria-hidden="true">
+                  {{ block.settings.icon_svg }}
+                </div>
+                {%- if block.settings.label != blank -%}
+                  <span class="q-smart-detection__icon-label">{{ block.settings.label }}</span>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+
+        {%- if section.settings.description != blank -%}
+          <p class="q-smart-detection__desc">{{ section.settings.description }}</p>
+        {%- endif -%}
+      </div>
+
+      {%- comment -%} 右侧手机视觉区 {%- endcomment -%}
+      <smart-detection-element client:visible>
+        <div class="q-smart-detection__visual">
+          <div class="q-smart-detection__phone">
+            <div class="q-smart-detection__phone-frame">
+              {%- if section.settings.phone_frame_image != blank -%}
+                <img
+                  class="q-smart-detection__phone-img"
+                  src="{{ section.settings.phone_frame_image | image_url: width: 680 }}"
+                  alt="Phone frame"
+                  width="338"
+                  height="686"
+                  loading="lazy"
+                >
+              {%- else -%}
+                {%- comment -%} 默认手机边框占位 {%- endcomment -%}
+                <div class="q-smart-detection__phone-img" style="width:100%;padding-top:203%;background:#1a1a1a;border-radius:12%;"></div>
+              {%- endif -%}
+
+              <div class="q-smart-detection__phone-screen">
+                {%- if section.settings.phone_video != blank -%}
+                  <video
+                    class="q-smart-detection__video"
+                    src="{{ section.settings.phone_video | file_url }}"
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    preload="none"
+                    data-autoplay-on-visible
+                  ></video>
+                {%- elsif section.settings.phone_screen_image != blank -%}
+                  <img
+                    class="q-smart-detection__video"
+                    src="{{ section.settings.phone_screen_image | image_url: width: 680 }}"
+                    alt="Phone screen"
+                    width="680"
+                    height="1100"
+                    loading="lazy"
+                  >
+                {%- endif -%}
+              </div>
+            </div>
+          </div>
+
+          {%- comment -%} 侧边装饰图片 {%- endcomment -%}
+          <div class="q-smart-detection__side-imgs" aria-hidden="true">
+            {%- if section.settings.side_image_1 != blank -%}
+              <div class="q-smart-detection__side-img q-smart-detection__side-img--left-top">
+                <img
+                  src="{{ section.settings.side_image_1 | image_url: width: 340 }}"
+                  alt=""
+                  loading="lazy"
+                  width="167"
+                  height="482"
+                >
+              </div>
+            {%- endif -%}
+
+            {%- if section.settings.side_image_2 != blank -%}
+              <div class="q-smart-detection__side-img q-smart-detection__side-img--left-mid">
+                <img
+                  src="{{ section.settings.side_image_2 | image_url: width: 340 }}"
+                  alt=""
+                  loading="lazy"
+                  width="167"
+                  height="482"
+                >
+              </div>
+            {%- endif -%}
+
+            {%- if section.settings.side_image_3 != blank -%}
+              <div class="q-smart-detection__side-img q-smart-detection__side-img--right-top">
+                <img
+                  src="{{ section.settings.side_image_3 | image_url: width: 340 }}"
+                  alt=""
+                  loading="lazy"
+                  width="167"
+                  height="482"
+                >
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+      </smart-detection-element>
+
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Q-智能检测追踪",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "header", "content": "板块标题" },
+    { "type": "inline_richtext", "id": "header_title", "label": "标题", "default": "Smarter Detection Camera Tracking" },
+    { "type": "richtext", "id": "header_description", "label": "描述" },
+    { "type": "checkbox", "id": "header_center", "label": "居中对齐", "default": false },
+    { "type": "color_background", "id": "header_em_color", "label": "em 高亮色", "default": "#FF6B35" },
+    { "type": "range", "id": "header_title_size_desktop", "label": "标题字号（桌面端）", "min": 20, "max": 80, "step": 2, "unit": "px", "default": 46 },
+    { "type": "range", "id": "header_title_size_mobile", "label": "标题字号（移动端）", "min": 16, "max": 50, "step": 2, "unit": "px", "default": 26 },
+    { "type": "range", "id": "header_desc_size_desktop", "label": "描述字号（桌面端）", "min": 10, "max": 30, "step": 1, "unit": "px", "default": 16 },
+    { "type": "range", "id": "header_desc_size_mobile", "label": "描述字号（移动端）", "min": 10, "max": 24, "step": 1, "unit": "px", "default": 12 },
+    { "type": "range", "id": "header_margin_bottom_desktop", "label": "标题下边距（桌面端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "header_margin_bottom_mobile", "label": "标题下边距（移动端）", "min": 0, "max": 80, "step": 4, "unit": "px", "default": 24 },
+    { "type": "header", "content": "描述文字" },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "描述文字",
+      "default": "AI-powered detection recognizes, and filters out false alerts—so you stay informed without constant interruptions."
+    },
+    { "type": "header", "content": "手机模型" },
+    {
+      "type": "image_picker",
+      "id": "phone_frame_image",
+      "label": "手机外框图片"
+    },
+    {
+      "type": "image_picker",
+      "id": "phone_screen_image",
+      "label": "手机屏幕图片（无视频时显示）"
+    },
+    {
+      "type": "text",
+      "id": "phone_video",
+      "label": "手机屏幕视频文件名（如 demo.mp4）"
+    },
+    { "type": "header", "content": "侧边装饰图片" },
+    { "type": "image_picker", "id": "side_image_1", "label": "左侧图片 1（靠左）" },
+    { "type": "image_picker", "id": "side_image_2", "label": "左侧图片 2（居中左）" },
+    { "type": "image_picker", "id": "side_image_3", "label": "右侧图片" },
+    { "type": "header", "content": "板块背景" },
+    { "type": "color_background", "id": "bg_color", "label": "背景色", "default": "#f3f7ff" },
+    { "type": "header", "content": "上下边距" },
+    { "type": "range", "id": "padding_top_mobile", "label": "上边距（移动端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_bottom_mobile", "label": "下边距（移动端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_top_desktop", "label": "上边距（桌面端）", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 60 },
+    { "type": "range", "id": "padding_bottom_desktop", "label": "下边距（桌面端）", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 60 }
+  ],
+  "blocks": [
+    {
+      "type": "detection_type",
+      "name": "检测类型",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "标签",
+          "default": "People"
+        },
+        {
+          "type": "html",
+          "id": "icon_svg",
+          "label": "图标 SVG",
+          "default": "<svg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'><path d='M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z'/></svg>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Q-智能检测追踪",
+      "settings": {
+        "header_title": "Smarter Detection Camera Tracking",
+        "description": "AI-powered detection recognizes, and filters out false alerts—so you stay informed without constant interruptions."
+      },
+      "blocks": [
+        {
+          "type": "detection_type",
+          "settings": {
+            "label": "People",
+            "icon_svg": "<svg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' fill='white'><path d='M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z'/></svg>"
+          }
+        },
+        {
+          "type": "detection_type",
+          "settings": {
+            "label": "Pets",
+            "icon_svg": "<svg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' fill='white'><path d='M4.5 9.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm15 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm-7.5-7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM9 9.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm10 4c0-3.3-3.1-6-7-6s-7 2.7-7 6c0 1.5.7 2.8 1.7 3.8L5 21h14l-1.7-3.7c1-.9 1.7-2.3 1.7-3.8z'/></svg>"
+          }
+        },
+        {
+          "type": "detection_type",
+          "settings": {
+            "label": "Vehicles",
+            "icon_svg": "<svg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' fill='white'><path d='M18.9 6.6C18.6 5.7 17.8 5 17 5H7c-.8 0-1.6.7-1.9 1.6L3 13v8c0 .6.4 1 1 1h1c.6 0 1-.4 1-1v-1h12v1c0 .6.4 1 1 1h1c.6 0 1-.4 1-1v-8l-2.1-6.4zM7 16c-.8 0-1.5-.7-1.5-1.5S6.2 13 7 13s1.5.7 1.5 1.5S7.8 16 7 16zm10 0c-.8 0-1.5-.7-1.5-1.5S16.2 13 17 13s1.5.7 1.5 1.5S17.8 16 17 16zm-11.5-5L7 7h10l1.5 4h-13z'/></svg>"
+          }
+        },
+        {
+          "type": "detection_type",
+          "settings": {
+            "label": "Motion",
+            "icon_svg": "<svg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' fill='white'><path d='M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6l1.8-.7z'/></svg>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -13,8 +13,10 @@ globs: sections/q-*.liquid,snippets/*.liquid,frontend/islands/*.js
 | 文件 | 说明 |
 |------|------|
 | `sections/q-{name}.liquid` | 板块主文件（HTML + CSS + Schema） |
-| `frontend/islands/{name}.js` | JavaScript 交互逻辑（Islands 架构） |
+| `frontend/islands/{name}-element.js` | JavaScript 交互逻辑（Islands 架构） |
 | `templates/*.json` | 将板块加入页面模板的 `sections` 和 `order` |
+
+> **文件命名规则**：islands 文件名必须与自定义元素标签名保持一致。自定义元素统一使用 `{name}-element` 格式（如 `<smart-detection-element>`），对应文件名为 `smart-detection-element.js`。
 
 纯展示类板块（无 JS 交互）无需创建 islands 文件。
 
@@ -29,7 +31,7 @@ globs: sections/q-*.liquid,snippets/*.liquid,frontend/islands/*.js
   Section: q-{name}
   功能说明：...
   技术栈：
-  - Islands: frontend/islands/{name}.js
+  - Islands: frontend/islands/{name}-element.js
   - Snippet: snippets/q-section-header.liquid
   版本：1.0.0
 {%- endcomment -%}
@@ -142,7 +144,7 @@ globs: sections/q-*.liquid,snippets/*.liquid,frontend/islands/*.js
 ### Islands 文件模板
 
 ```javascript
-// frontend/islands/{name}.js
+// frontend/islands/{name}-element.js
 export default class MyElement extends HTMLElement {
   constructor() {
     super()
