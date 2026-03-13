@@ -983,6 +983,49 @@
         "padding_bottom_desktop": 60
       }
     },
+    "q-alert-cards": {
+      "type": "q-alert-cards",
+      "blocks": {
+        "card-1": {
+          "type": "card",
+          "settings": {
+            "title": "Instant App Alerts",
+            "description": "<p>Receive instant notifications on your phone when important motion is detected, so you can respond quickly.</p>"
+          }
+        },
+        "card-2": {
+          "type": "card",
+          "settings": {
+            "title": "Threat prevention",
+            "description": "<p>Activate built-in spotlight or siren to deter intruders and add an extra layer of active protection.</p>"
+          }
+        },
+        "card-3": {
+          "type": "card",
+          "settings": {
+            "title": "Custom Alert Zones & All-Round Patrol",
+            "description": "<p>Set custom detection zones and sensitivity to focus on important areas and reduce false alerts.</p>"
+          }
+        }
+      },
+      "block_order": ["card-1", "card-2", "card-3"],
+      "settings": {
+        "header_title": "<em>Real-Time Alerts</em> and Instant Siren",
+        "header_center": false,
+        "header_em_color": "linear-gradient(90deg, #6CBCE7 0%, #367CF6 100%)",
+        "header_title_size_desktop": 50,
+        "header_title_size_mobile": 26,
+        "header_desc_size_desktop": 16,
+        "header_desc_size_mobile": 12,
+        "header_margin_bottom_desktop": 40,
+        "header_margin_bottom_mobile": 24,
+        "bg_color": "#FFFFFF",
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60
+      }
+    },
     "q-wifi-connected": {
       "type": "q-wifi-connected",
       "settings": {
@@ -1005,6 +1048,7 @@
     }
   },
   "order": [
+    "q-alert-cards",
     "q-audio-live-view",
     "q-expert-testimonials",
     "q-camera-showcase",
