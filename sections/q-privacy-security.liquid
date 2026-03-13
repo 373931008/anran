@@ -1,0 +1,236 @@
+{%- comment -%}
+  Section: q-privacy-security
+  功能说明：隐私与安全展示板块
+  - 桌面端：左侧图标 + 标题 + 描述，右侧大图，两栏 Flex 布局
+  - 移动端：文字在上，图片在下，单栏堆叠布局
+  - 纯展示类板块，无 JS 交互
+  - Snippet: snippets/q-section-header.liquid
+  版本：1.1.0
+{%- endcomment -%}
+
+<style>
+  .section-{{ section.id }} {
+    --ps-bg: {{ section.settings.bg_color }};
+    --ps-icon-color: {{ section.settings.icon_color }};
+    --ps-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --ps-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --ps-padding-top-desktop: {{ section.settings.padding_top_desktop }}px;
+    --ps-padding-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+  }
+
+  .section-{{ section.id }}.q-privacy-security {
+    background: var(--ps-bg, #f3f7ff);
+    padding-top: var(--ps-padding-top-mobile, 40px);
+    padding-bottom: var(--ps-padding-bottom-mobile, 40px);
+    font-family: var(--font-body-family);
+  }
+
+  .section-{{ section.id }} .q-ps__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .section-{{ section.id }} .q-ps__content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .section-{{ section.id }} .q-ps__icon {
+    width: 39px;
+    height: 39px;
+    flex-shrink: 0;
+    margin-bottom: 14px;
+    color: var(--ps-icon-color, #3b7dd8);
+  }
+
+  .section-{{ section.id }} .q-section-header {
+    margin-bottom: 0;
+  }
+
+  .section-{{ section.id }} .q-ps__image-wrap {
+    border-radius: 10px;
+    overflow: hidden;
+    aspect-ratio: 5 / 3;
+  }
+
+  .section-{{ section.id }} .q-ps__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .section-{{ section.id }} .q-ps__image-placeholder {
+    width: 100%;
+    height: 100%;
+    background: #d9e4f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}.q-privacy-security {
+      padding-top: var(--ps-padding-top-desktop, 60px);
+      padding-bottom: var(--ps-padding-bottom-desktop, 60px);
+    }
+
+    .section-{{ section.id }} .q-ps__inner {
+      flex-direction: row;
+      align-items: center;
+      gap: 60px;
+    }
+
+    .section-{{ section.id }} .q-ps__content {
+      flex: 0 0 auto;
+      width: 42%;
+    }
+
+    .section-{{ section.id }} .q-ps__icon {
+      margin-bottom: 20px;
+    }
+
+    .section-{{ section.id }} .q-ps__image-wrap {
+      flex: 1 1 0;
+      aspect-ratio: 5 / 3;
+    }
+  }
+</style>
+
+<div class="q-privacy-security section-{{ section.id }}">
+  <div class="page-width">
+    <div class="q-ps__inner">
+      <div class="q-ps__content">
+        <div class="q-ps__icon" aria-hidden="true">
+          <svg width="39" height="39" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19.5 3.25L6.5 8.125V18.2083C6.5 25.7604 12.122 32.8125 19.5 34.75C26.878 32.8125 32.5 25.7604 32.5 18.2083V8.125L19.5 3.25Z" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+            <path d="M14.625 19.5L17.875 22.75L24.375 16.25" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+
+        {%- render 'q-section-header', section: section -%}
+      </div>
+
+      <div class="q-ps__image-wrap">
+        {%- if section.settings.image != blank -%}
+          {{
+            section.settings.image
+            | image_url: width: 750
+            | image_tag:
+              loading: 'lazy',
+              class: 'q-ps__image',
+              sizes: '(min-width: 750px) 55vw, 100vw',
+              widths: '400,600,750,1000,1200'
+          }}
+        {%- else -%}
+          <div class="q-ps__image-placeholder">
+            {{ 'image' | placeholder_svg_tag }}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Q-Privacy Security",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    { "type": "header", "content": "板块标题" },
+    { "type": "inline_richtext", "id": "header_title", "label": "标题", "default": "Protecting Your Privacy and Security" },
+    { "type": "richtext", "id": "header_description", "label": "描述", "default": "<p>We prioritize your privacy at every step. Our devices use end-to-end encryption and secure data practices to ensure your information is protected.</p><p>Only the data you choose is collected, and you can review, manage, or delete it at any time, giving you full control over your information.</p><p>Features like Home/Away modes and status indicators are designed to keep your home and family's information safe while letting you enjoy smart technology with peace of mind.</p>" },
+    { "type": "checkbox", "id": "header_center", "label": "居中对齐", "default": false },
+    { "type": "color_background", "id": "header_em_color", "label": "em 高亮色", "default": "#3b7dd8" },
+    { "type": "range", "id": "header_title_size_desktop", "label": "标题字号（桌面端）", "min": 20, "max": 80, "step": 2, "unit": "px", "default": 42 },
+    { "type": "range", "id": "header_title_size_mobile", "label": "标题字号（移动端）", "min": 16, "max": 50, "step": 2, "unit": "px", "default": 24 },
+    { "type": "range", "id": "header_desc_size_desktop", "label": "描述字号（桌面端）", "min": 10, "max": 30, "step": 1, "unit": "px", "default": 16 },
+    { "type": "range", "id": "header_desc_size_mobile", "label": "描述字号（移动端）", "min": 10, "max": 24, "step": 1, "unit": "px", "default": 12 },
+    { "type": "range", "id": "header_margin_bottom_desktop", "label": "标题下边距（桌面端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 0 },
+    { "type": "range", "id": "header_margin_bottom_mobile", "label": "标题下边距（移动端）", "min": 0, "max": 80, "step": 4, "unit": "px", "default": 0 },
+    {
+      "type": "header",
+      "content": "图片"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "图片"
+    },
+    {
+      "type": "header",
+      "content": "图标颜色"
+    },
+    {
+      "type": "color_background",
+      "id": "icon_color",
+      "label": "图标颜色",
+      "default": "#3b7dd8"
+    },
+    {
+      "type": "header",
+      "content": "板块背景"
+    },
+    {
+      "type": "color_background",
+      "id": "bg_color",
+      "label": "背景色",
+      "default": "#f3f7ff"
+    },
+    {
+      "type": "header",
+      "content": "上下边距"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "上边距（移动端）",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "下边距（移动端）",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "label": "上边距（桌面端）",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "label": "下边距（桌面端）",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "Q-Privacy Security"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,646 @@
+{%- comment -%}
+  Section: q-expert-testimonials
+  功能说明：专家评价/证言轮播板块
+  - 每张卡片包含：视频/图片、特性标签、引用语、专家信息（头像、姓名、职称、认证图标）
+  - 支持背景图配置，背景图 100% 居中裁剪覆盖
+  - 使用 swiper-container 实现轮播
+  技术栈：
+  - Snippet: snippets/q-section-header.liquid
+  版本：1.0.0
+{%- endcomment -%}
+
+{%- liquid
+  assign bg_image = section.settings.bg_image
+  assign bg_color = section.settings.bg_color
+  assign cards = section.blocks | where: 'type', 'card'
+-%}
+
+<style>
+  .section-{{ section.id }} {
+    --et-bg: {{ bg_color }};
+    --et-pt-mobile: {{ section.settings.padding_top_mobile }}px;
+    --et-pb-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --et-pt-desktop: {{ section.settings.padding_top_desktop }}px;
+    --et-pb-desktop: {{ section.settings.padding_bottom_desktop }}px;
+
+    /* 移动端变量 */
+    --et-card-radius: 8px;
+    --et-media-ratio: 375 / 236;
+    --et-pill-height: 30px;
+    --et-pill-font: 10px;
+    --et-pill-radius: 100px;
+    --et-quote-font: 14px;
+    --et-quote-line-height: 1.57;
+    --et-expert-name-font: 14px;
+    --et-expert-title-font: 12px;
+    --et-avatar-size: 44px;
+    --et-content-gap: 16px;
+    --et-pill-gap: 8px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} {
+      /* 桌面端覆盖 */
+      --et-card-radius: 10px;
+      --et-media-ratio: 730 / 455;
+      --et-pill-height: 47px;
+      --et-pill-font: 14px;
+      --et-quote-font: 22px;
+      --et-quote-line-height: 1.45;
+      --et-expert-name-font: 20px;
+      --et-expert-title-font: 16px;
+      --et-avatar-size: 67px;
+      --et-content-gap: 24px;
+      --et-pill-gap: 12px;
+    }
+  }
+
+  .section-{{ section.id }}.q-expert-testimonials {
+    position: relative;
+    background: var(--et-bg, #ffffff);
+    padding-top: var(--et-pt-mobile, 40px);
+    padding-bottom: var(--et-pb-mobile, 40px);
+    overflow: hidden;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}.q-expert-testimonials {
+      padding-top: var(--et-pt-desktop, 60px);
+      padding-bottom: var(--et-pb-desktop, 60px);
+    }
+  }
+
+  /* 背景图 */
+  .section-{{ section.id }} .q-et__bg-image {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .section-{{ section.id }} .q-et__bg-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  .section-{{ section.id }} .page-width {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Swiper 容器 */
+  .section-{{ section.id }} .q-et__swiper {
+    overflow: hidden;
+  }
+
+  .section-{{ section.id }} .q-et__swiper swiper-container {
+    width: 100%;
+  }
+
+  /* 移动端：卡片垂直布局，单列 */
+  .section-{{ section.id }} .q-et__card {
+    border-radius: var(--et-card-radius);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: var(--et-content-gap);
+    height: auto;
+  }
+
+  /* 桌面端：卡片水平两列布局 */
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-et__card {
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 40px;
+    }
+  }
+
+  /* 左列：媒体区 */
+  .section-{{ section.id }} .q-et__media-col {
+    flex-shrink: 0;
+    width: 100%;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-et__media-col {
+      width: 490px;
+    }
+  }
+
+  .section-{{ section.id }} .q-et__media-wrap {
+    position: relative;
+    border-radius: var(--et-card-radius);
+    overflow: hidden;
+    aspect-ratio: var(--et-media-ratio);
+    background: #000;
+  }
+
+  .section-{{ section.id }} .q-et__media-wrap img,
+  .section-{{ section.id }} .q-et__media-wrap video,
+  .section-{{ section.id }} .q-et__media-wrap iframe {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* 视频封面遮罩 + 播放按钮 */
+  .section-{{ section.id }} .q-et__play-btn {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    padding: 0;
+    transition: opacity 0.2s;
+  }
+
+  .section-{{ section.id }} .q-et__play-btn:hover {
+    opacity: 0.85;
+  }
+
+  .section-{{ section.id }} .q-et__play-btn:active {
+    opacity: 0.7;
+  }
+
+  .section-{{ section.id }} .q-et__play-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #ff0000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-et__play-icon {
+      width: 80px;
+      height: 80px;
+    }
+  }
+
+  .section-{{ section.id }} .q-et__play-icon svg {
+    width: 28px;
+    height: 28px;
+    fill: #fff;
+    margin-left: 4px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-et__play-icon svg {
+      width: 36px;
+      height: 36px;
+    }
+  }
+
+  /* 右列：文字内容 */
+  .section-{{ section.id }} .q-et__content-col {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--et-content-gap);
+    padding: 0 16px 16px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-et__content-col {
+      padding: 16px 0 0;
+      justify-content: center;
+    }
+  }
+
+  /* Pill 标签列表 */
+  .section-{{ section.id }} .q-et__pills {
+    display: flex;
+    flex-direction: column;
+    gap: var(--et-pill-gap);
+  }
+
+  .section-{{ section.id }} .q-et__pill {
+    display: inline-flex;
+    align-items: center;
+    height: var(--et-pill-height);
+    padding: 0 16px;
+    border-radius: var(--et-pill-radius);
+    background: linear-gradient(180deg, #93b8ed 0%, #ffffff 100%);
+    border: 1px solid #f3f7ff;
+    font-size: var(--et-pill-font);
+    color: #1565d8;
+    font-weight: 400;
+    white-space: nowrap;
+    width: fit-content;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-et__pill {
+      padding: 0 20px;
+    }
+  }
+
+  /* 引用区 */
+  .section-{{ section.id }} .q-et__quote-wrap {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  .section-{{ section.id }} .q-et__quote-icon {
+    flex-shrink: 0;
+    width: 19px;
+    height: 14px;
+    margin-top: 4px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-et__quote-icon {
+      width: 26px;
+      height: 20px;
+    }
+  }
+
+  .section-{{ section.id }} .q-et__quote-text {
+    font-size: var(--et-quote-font);
+    line-height: var(--et-quote-line-height);
+    color: #4e5357;
+    margin: 0;
+  }
+
+  .section-{{ section.id }} .q-et__quote-text strong {
+    color: #4e5357;
+  }
+
+  /* 专家信息 */
+  .section-{{ section.id }} .q-et__expert {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-{{ section.id }} .q-et__avatar {
+    width: var(--et-avatar-size);
+    height: var(--et-avatar-size);
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  .section-{{ section.id }} .q-et__expert-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .section-{{ section.id }} .q-et__expert-name-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .section-{{ section.id }} .q-et__expert-name {
+    font-size: var(--et-expert-name-font);
+    font-weight: 600;
+    color: #1e1e1e;
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .section-{{ section.id }} .q-et__expert-badge {
+    width: 17px;
+    height: 17px;
+    flex-shrink: 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-et__expert-badge {
+      width: 26px;
+      height: 26px;
+    }
+  }
+
+  .section-{{ section.id }} .q-et__expert-title {
+    font-size: var(--et-expert-title-font);
+    color: #1e1e1e;
+    margin: 0;
+    line-height: 1.5;
+    font-weight: 400;
+  }
+
+  /* Swiper 分页 / 导航 */
+  .section-{{ section.id }} .q-et__nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-et__nav {
+      margin-top: 32px;
+    }
+  }
+
+  .section-{{ section.id }} .q-et__nav-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1.5px solid #d1d5db;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    padding: 0;
+    flex-shrink: 0;
+  }
+
+  .section-{{ section.id }} .q-et__nav-btn:hover {
+    border-color: #367cf6;
+    background: #f0f6ff;
+  }
+
+  .section-{{ section.id }} .q-et__nav-btn:active {
+    background: rgba(54, 124, 246, 0.15);
+  }
+
+  .section-{{ section.id }} .q-et__nav-btn svg {
+    width: 16px;
+    height: 16px;
+    stroke: #6b7280;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: stroke 0.2s;
+  }
+
+  .section-{{ section.id }} .q-et__nav-btn:hover svg {
+    stroke: #367cf6;
+  }
+
+  /* swiper-container 内嵌样式重置 */
+  .section-{{ section.id }} swiper-container::part(container) {
+    overflow: visible;
+  }
+</style>
+
+<div class="q-expert-testimonials section-{{ section.id }}">
+
+  {%- if bg_image != blank -%}
+    <div class="q-et__bg-image">
+      {{- bg_image | image_url: width: 1440 | image_tag:
+        loading: 'lazy',
+        sizes: '100vw',
+        widths: '375, 750, 1080, 1440',
+        alt: bg_image.alt
+      -}}
+    </div>
+  {%- endif -%}
+
+  <div class="page-width">
+    {%- render 'q-section-header', section: section -%}
+
+    {%- if cards.size > 0 -%}
+      <expert-testimonials-element client:visible>
+      <div class="q-et__swiper">
+        <swiper-container
+          id="q-et-swiper-{{ section.id }}"
+          slides-per-view="1"
+          space-between="0"
+          loop="false"
+          navigation="true"
+          navigation-prev-el="[data-carousel-prev='{{ section.id }}']"
+          navigation-next-el="[data-carousel-next='{{ section.id }}']"
+          pagination="false"
+        >
+          {%- for block in cards -%}
+            {%- liquid
+              assign media_image = block.settings.media_image
+              assign video_url = block.settings.video
+              assign show_play_btn = false
+              if video_url != blank
+                assign show_play_btn = true
+              endif
+              assign pills = ''
+              if block.settings.pill_1 != blank
+                assign pills = pills | append: block.settings.pill_1 | append: '||'
+              endif
+              if block.settings.pill_2 != blank
+                assign pills = pills | append: block.settings.pill_2 | append: '||'
+              endif
+              if block.settings.pill_3 != blank
+                assign pills = pills | append: block.settings.pill_3 | append: '||'
+              endif
+              assign pill_items = pills | split: '||'
+            -%}
+            <swiper-slide {{ block.shopify_attributes }}>
+              <div class="q-et__card">
+
+                <div class="q-et__media-col">
+                  <div class="q-et__media-wrap">
+                    {%- if media_image != blank -%}
+                      {{- media_image | image_url: width: 1000 | image_tag:
+                        loading: 'lazy',
+                        sizes: '(min-width: 750px) 490px, 100vw',
+                        widths: '375, 490, 750, 980',
+                        alt: media_image.alt | default: block.settings.expert_name
+                      -}}
+                    {%- else -%}
+                      <div style="width:100%;height:100%;background:#e5e7eb;"></div>
+                    {%- endif -%}
+
+                    {%- if show_play_btn -%}
+                      <button
+                        class="q-et__play-btn"
+                        data-video-url="{{ video_url.url | escape }}"
+                        aria-label="{{ 'sections.expert_testimonials.play_video' | t | default: 'Play video' }}"
+                        tabindex="0"
+                      >
+                        <span class="q-et__play-icon" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 5v14l11-7z"/>
+                          </svg>
+                        </span>
+                      </button>
+                    {%- endif -%}
+                  </div>
+                </div>
+
+                <div class="q-et__content-col">
+
+                  {%- if pill_items.size > 0 -%}
+                    <ul class="q-et__pills" role="list">
+                      {%- for pill in pill_items -%}
+                        {%- if pill != blank -%}
+                          <li class="q-et__pill">{{ pill }}</li>
+                        {%- endif -%}
+                      {%- endfor -%}
+                    </ul>
+                  {%- endif -%}
+
+                  {%- if block.settings.quote != blank -%}
+                    <div class="q-et__quote-wrap">
+                      <svg class="q-et__quote-icon" viewBox="0 0 26 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M0 20V12.364C0 10.606 0.296 8.939 0.889 7.364C1.519 5.788 2.371 4.394 3.444 3.182C4.519 1.97 5.741 1.03 7.111 0.363636L8.667 2.72727C7.667 3.27273 6.741 3.96970 5.889 4.81818C5.074 5.66667 4.444 6.6364 4 7.72727C3.556 8.81818 3.334 9.96970 3.334 11.1818H7.111V20H0ZM14.889 20V12.364C14.889 10.606 15.185 8.939 15.778 7.364C16.407 5.788 17.259 4.394 18.334 3.182C19.407 1.97 20.63 1.03 22 0.363636L23.556 2.72727C22.556 3.27273 21.63 3.96970 20.778 4.81818C19.963 5.66667 19.334 6.6364 18.889 7.72727C18.445 8.81818 18.222 9.96970 18.222 11.1818H22V20H14.889Z" fill="#BFCFE8"/>
+                      </svg>
+                      <p class="q-et__quote-text">{{ block.settings.quote }}</p>
+                    </div>
+                  {%- endif -%}
+
+                  {%- if block.settings.expert_name != blank or block.settings.expert_avatar != blank -%}
+                    <div class="q-et__expert">
+                      {%- if block.settings.expert_avatar != blank -%}
+                        {{- block.settings.expert_avatar | image_url: width: 134 | image_tag:
+                          class: 'q-et__avatar',
+                          loading: 'lazy',
+                          sizes: '67px',
+                          widths: '44, 67, 88, 134',
+                          alt: block.settings.expert_name
+                        -}}
+                      {%- endif -%}
+                      <div class="q-et__expert-info">
+                        {%- if block.settings.expert_name != blank -%}
+                          <div class="q-et__expert-name-row">
+                            <p class="q-et__expert-name">{{ block.settings.expert_name }}</p>
+                            {%- if block.settings.show_verified_badge -%}
+                              <svg class="q-et__expert-badge" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="{{ 'sections.expert_testimonials.verified' | t | default: 'Verified' }}">
+                                <circle cx="13" cy="13" r="13" fill="#1877F2"/>
+                                <path d="M7 13L11 17L19 9" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                              </svg>
+                            {%- endif -%}
+                          </div>
+                        {%- endif -%}
+                        {%- if block.settings.expert_title != blank -%}
+                          <p class="q-et__expert-title">{{ block.settings.expert_title }}</p>
+                        {%- endif -%}
+                      </div>
+                    </div>
+                  {%- endif -%}
+
+                </div>
+              </div>
+            </swiper-slide>
+          {%- endfor -%}
+        </swiper-container>
+      </div>
+
+        {%- if cards.size > 1 -%}
+        <div class="q-et__nav" aria-label="{{ 'sections.expert_testimonials.nav_label' | t | default: 'Testimonials navigation' }}">
+          <button
+            class="q-et__nav-btn q-et__nav-btn--prev"
+            data-carousel-prev="{{ section.id }}"
+            aria-label="{{ 'sections.expert_testimonials.prev' | t | default: 'Previous' }}"
+            tabindex="0"
+          >
+            <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <polyline points="10,2 4,8 10,14"/>
+            </svg>
+          </button>
+          <button
+            class="q-et__nav-btn q-et__nav-btn--next"
+            data-carousel-next="{{ section.id }}"
+            aria-label="{{ 'sections.expert_testimonials.next' | t | default: 'Next' }}"
+            tabindex="0"
+          >
+            <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <polyline points="6,2 12,8 6,14"/>
+            </svg>
+          </button>
+        </div>
+        {%- endif -%}
+      </expert-testimonials-element>
+    {%- endif -%}
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "专家评价轮播",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "header", "content": "板块标题" },
+    { "type": "inline_richtext", "id": "header_title", "label": "标题", "default": "Tested and trusted by <em>home security experts</em>" },
+    { "type": "richtext", "id": "header_description", "label": "描述" },
+    { "type": "checkbox", "id": "header_center", "label": "居中对齐", "default": true },
+    { "type": "color_background", "id": "header_em_color", "label": "em 高亮色", "default": "linear-gradient(90deg, #6CBCE7 0%, #367CF6 100%)" },
+    { "type": "range", "id": "header_title_size_desktop", "label": "标题字号（桌面端）", "min": 20, "max": 80, "step": 2, "unit": "px", "default": 46 },
+    { "type": "range", "id": "header_title_size_mobile", "label": "标题字号（移动端）", "min": 16, "max": 50, "step": 2, "unit": "px", "default": 22 },
+    { "type": "range", "id": "header_desc_size_desktop", "label": "描述字号（桌面端）", "min": 10, "max": 30, "step": 1, "unit": "px", "default": 16 },
+    { "type": "range", "id": "header_desc_size_mobile", "label": "描述字号（移动端）", "min": 10, "max": 24, "step": 1, "unit": "px", "default": 12 },
+    { "type": "range", "id": "header_margin_bottom_desktop", "label": "标题下边距（桌面端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "header_margin_bottom_mobile", "label": "标题下边距（移动端）", "min": 0, "max": 80, "step": 4, "unit": "px", "default": 24 },
+    { "type": "header", "content": "板块背景" },
+    { "type": "color_background", "id": "bg_color", "label": "背景色", "default": "#FFFFFF" },
+    { "type": "image_picker", "id": "bg_image", "label": "背景图", "info": "图片将 100% 居中裁剪覆盖板块背景，设置后会覆盖背景色" },
+    { "type": "header", "content": "上下边距" },
+    { "type": "range", "id": "padding_top_mobile", "label": "上边距（移动端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_bottom_mobile", "label": "下边距（移动端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_top_desktop", "label": "上边距（桌面端）", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 60 },
+    { "type": "range", "id": "padding_bottom_desktop", "label": "下边距（桌面端）", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 60 }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "评价卡片",
+      "settings": [
+        { "type": "header", "content": "媒体" },
+        { "type": "image_picker", "id": "media_image", "label": "图片/视频封面" },
+        { "type": "video_url", "id": "video", "label": "视频", "accept": ["youtube", "vimeo"], "info": "填写后图片上显示播放按钮" },
+        { "type": "header", "content": "特性标签" },
+        { "type": "text", "id": "pill_1", "label": "标签 1", "default": "Cutting-edge Security Technology" },
+        { "type": "text", "id": "pill_2", "label": "标签 2", "default": "Ideal for Homes, Apartments, and Small Businesses" },
+        { "type": "text", "id": "pill_3", "label": "标签 3", "default": "Easy to Install and Simple to Use" },
+        { "type": "header", "content": "引用语" },
+        { "type": "richtext", "id": "quote", "label": "引用内容", "default": "<p>See for yourself how this versatile camera <strong>protects what matters most.</strong></p>" },
+        { "type": "header", "content": "专家信息" },
+        { "type": "image_picker", "id": "expert_avatar", "label": "头像" },
+        { "type": "text", "id": "expert_name", "label": "姓名", "default": "Ava Martinez" },
+        { "type": "text", "id": "expert_title", "label": "职称", "default": "Home Security Specialist" },
+        { "type": "checkbox", "id": "show_verified_badge", "label": "认证徽章", "default": true }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "专家评价轮播",
+      "blocks": [
+        {
+          "type": "card",
+          "settings": {
+            "pill_1": "Cutting-edge Security Technology",
+            "pill_2": "Ideal for Homes, Apartments, and Small Businesses",
+            "pill_3": "Easy to Install and Simple to Use",
+            "expert_name": "Ava Martinez",
+            "expert_title": "Home Security Specialist",
+            "show_verified_badge": true
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "pill_1": "Advanced Motion Detection",
+            "pill_2": "Night Vision Technology",
+            "pill_3": "Cloud & Local Storage Support",
+            "expert_name": "James Chen",
+            "expert_title": "Smart Home Consultant",
+            "show_verified_badge": true
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

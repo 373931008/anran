@@ -10,7 +10,7 @@
 {
   "layout": "theme",
   "sections": {
-    "q-setup-steps": {
+    "q-setup-steps": { 
       "type": "q-setup-steps",
       "blocks": {
         "step-1": {
@@ -126,7 +126,7 @@
       "type": "q-full-width-image",
       "settings": {
         "image_desktop": "shopify://shop_images/image_287.jpg",
-        "image_mobile": "shopify://shop_images/image_287.jpg",
+        "image_mobile": "shopify://shop_images/image_287.jpg", 
         "image_height_desktop": 740,
         "image_height_mobile": 500,
         "show_overlay": true,
@@ -771,9 +771,210 @@
         "padding_top": 36,
         "padding_bottom": 12
       }
+    },
+    "q-storage-options": {
+      "type": "q-storage-options",
+      "blocks": {
+        "card-local": {
+          "type": "card",
+          "settings": {
+            "badge_label": "No Monthly Fees",
+            "card_title": "Local Storage (Free)",
+            "card_description": "Essential recording and playback — no subscription required.",
+            "feature_1": "Continuous or event-based local recording",
+            "feature_2": "Instant playback from device storage",
+            "feature_3": "Full access to live view & motion alerts",
+            "feature_4": "Footage stays private and under your control",
+            "button_label": "Buy now",
+            "button_link": "/"
+          }
+        },
+        "card-cloud": {
+          "type": "card",
+          "settings": {
+            "badge_label": "Optional Backup",
+            "card_title": "Cloud Storage",
+            "card_description": "Extra protection and convenience — only if you choose.",
+            "feature_1": "Encrypted cloud backup",
+            "feature_2": "Extended video history",
+            "feature_3": "Easy sharing & remote access",
+            "feature_4": "Subscription required (optional, not mandatory)",
+            "button_label": "Buy now",
+            "button_link": "/"
+          }
+        }
+      },
+      "block_order": ["card-local", "card-cloud"],
+      "settings": {
+        "header_title": "Local & Cloud Storage — <span>No Subscription</span>",
+        "bg_color": "#F7F7F7",
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60
+      }
+    },
+    "q-app-features": {
+      "type": "q-app-features",
+      "blocks": {
+        "feature-1": {
+          "type": "feature",
+          "settings": {
+            "title": "Live View & Event Playback",
+            "description": "Watch live video and replay key moments anytime, from anywhere."
+          }
+        },
+        "feature-2": {
+          "type": "feature",
+          "settings": {
+            "title": "Smart Alerts That Matter",
+            "description": "Get real-time notifications with visual previews, so you never miss what matters."
+          }
+        },
+        "feature-3": {
+          "type": "feature",
+          "settings": {
+            "title": "Connected Devices",
+            "description": "View, manage, and securely share devices with family from one app."
+          }
+        },
+        "feature-4": {
+          "type": "feature",
+          "settings": {
+            "title": "Security & Privacy Controls",
+            "description": "Manage permissions, access, and key security settings to keep your data protected."
+          }
+        }
+      },
+      "block_order": ["feature-1", "feature-2", "feature-3", "feature-4"],
+      "settings": {
+        "header_title": "App Control, Right from Your <em>Phone</em>",
+        "header_center": false,
+        "header_em_color": "linear-gradient(90deg, rgba(108,188,231,0.81) 0%, #367CF6 100%)",
+        "header_margin_bottom_desktop": 40,
+        "header_margin_bottom_mobile": 24,
+        "bg_color": "#FFFFFF",
+        "card_bg_color": "#FFFFFF",
+        "img_bg_color": "#F3F7FF",
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60
+      }
+    },
+    "q-privacy-security": {
+      "type": "q-privacy-security",
+      "settings": {
+        "title": "Protecting Your Privacy and Security",
+        "description": "<p>We prioritize your privacy at every step. Our devices use end-to-end encryption and secure data practices to ensure your information is protected.</p><p>Only the data you choose is collected, and you can review, manage, or delete it at any time, giving you full control over your information.</p><p>Features like Home/Away modes and status indicators are designed to keep your home and family's information safe while letting you enjoy smart technology with peace of mind.</p>",
+        "bg_color": "#f3f7ff",
+        "icon_color": "#3b7dd8",
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60
+      }
+    },
+    "q-camera-showcase": {
+      "type": "q-camera-showcase",
+      "blocks": {
+        "tab-1": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "4K HDR",
+            "media_type": "image",
+            "label_left": "DAY",
+            "label_right": "NIGHT"
+          }
+        },
+        "tab-2": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "Color Night",
+            "media_type": "image",
+            "label_left": "DAY",
+            "label_right": "NIGHT"
+          }
+        },
+        "tab-3": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "360° Coverage",
+            "media_type": "image"
+          }
+        }
+      },
+      "block_order": ["tab-1", "tab-2", "tab-3"],
+      "settings": {
+        "header_title": "<em>See Details</em> in the Dark",
+        "header_center": true,
+        "header_em_color": "linear-gradient(90deg, #6CBCE7 0%, #367CF6 100%)",
+        "header_margin_bottom_desktop": 40,
+        "header_margin_bottom_mobile": 24,
+        "bg_color": "#FFFFFF",
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60
+      }
+    },
+    "q-expert-testimonials": {
+      "type": "q-expert-testimonials",
+      "blocks": {
+        "card-1": {
+          "type": "card",
+          "settings": {
+            "pill_1": "Cutting-edge Security Technology",
+            "pill_2": "Ideal for Homes, Apartments, and Small Businesses",
+            "pill_3": "Easy to Install and Simple to Use",
+            "expert_name": "Ava Martinez",
+            "expert_title": "Home Security Specialist",
+            "show_verified_badge": true
+          }
+        }
+      },
+      "block_order": ["card-1"],
+      "settings": {
+        "header_title": "Tested and trusted by <em>home security experts</em>",
+        "header_center": true,
+        "header_em_color": "linear-gradient(90deg, #6CBCE7 0%, #367CF6 100%)",
+        "header_margin_bottom_desktop": 40,
+        "header_margin_bottom_mobile": 24,
+        "bg_color": "#FFFFFF",
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60
+      }
+    },
+    "q-wifi-connected": {
+      "type": "q-wifi-connected",
+      "settings": {
+        "header_title": "Always <em>Connected</em>",
+        "header_center": true,
+        "header_em_color": "linear-gradient(90deg, #6CBCE7 0%, #367CF6 100%)",
+        "header_margin_bottom_desktop": 40,
+        "header_margin_bottom_mobile": 24,
+        "wifi_title": "Wi-Fi 6",
+        "freq_1_num": "2.4",
+        "freq_1_unit": "GHz",
+        "freq_2_num": "5",
+        "freq_2_unit": "GHz",
+        "bg_color": "#FFFFFF",
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60
+      }
     }
   },
   "order": [
+    "q-expert-testimonials",
+    "q-camera-showcase",
+    "q-wifi-connected",
+    "q-storage-options",
+    "q-app-features",
+    "q-privacy-security",
     "q-setup-steps",
     "q-compare-table",
     "q-full-width-image",

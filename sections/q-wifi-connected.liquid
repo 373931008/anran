@@ -1,0 +1,266 @@
+{%- comment -%}
+  Section: q-wifi-connected
+  功能说明：Wi-Fi 6 "Always Connected" 展示板块
+  特点：
+  - 全宽图片（可配置）叠加文字和频段徽章
+  - 图片上方叠加 Wi-Fi 6 大字 + 2.4GHz / 5GHz 两个频段气泡
+  - 支持通用头部标题（标准 q-section-header）
+  - 纯展示类板块，无 JS 交互
+  技术栈：
+  - Snippet: snippets/q-section-header.liquid
+  版本：1.0.0
+{%- endcomment -%}
+
+<style>
+  .section-{{ section.id }} {
+    --wifi-bg: {{ section.settings.bg_color }};
+    --wifi-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --wifi-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --wifi-padding-top-desktop: {{ section.settings.padding_top_desktop }}px;
+    --wifi-padding-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --wifi-img-height-mobile: {{ section.settings.image_height_mobile }}px;
+    --wifi-img-height-desktop: {{ section.settings.image_height_desktop }}px;
+    --wifi-img-radius-mobile: 10px;
+    --wifi-img-radius-desktop: 15px;
+    --wifi-title-size-mobile: 32px;
+    --wifi-title-size-desktop: 80px;
+    --wifi-badge-size-mobile: 37px;
+    --wifi-badge-size-desktop: 69px;
+    --wifi-freq-num-size-mobile: 14px;
+    --wifi-freq-num-size-desktop: 20px;
+    --wifi-freq-unit-size-mobile: 10px;
+    --wifi-freq-unit-size-desktop: 15px;
+  }
+
+  .section-{{ section.id }}.q-wifi-connected {
+    background: var(--wifi-bg, #ffffff);
+    padding-top: var(--wifi-padding-top-mobile, 40px);
+    padding-bottom: var(--wifi-padding-bottom-mobile, 40px);
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}.q-wifi-connected {
+      padding-top: var(--wifi-padding-top-desktop, 60px);
+      padding-bottom: var(--wifi-padding-bottom-desktop, 60px);
+    }
+  }
+
+  /* 图片容器 */
+  .section-{{ section.id }} .q-wifi-connected__image-wrap {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--wifi-img-radius-mobile, 10px);
+    height: var(--wifi-img-height-mobile, 289px);
+    width: 100%;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-wifi-connected__image-wrap {
+      border-radius: var(--wifi-img-radius-desktop, 15px);
+      height: var(--wifi-img-height-desktop, 475px);
+    }
+  }
+
+  .section-{{ section.id }} .q-wifi-connected__image-wrap img,
+  .section-{{ section.id }} .q-wifi-connected__image-wrap .placeholder-svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  /* 图片上叠加层 */
+  .section-{{ section.id }} .q-wifi-connected__overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  /* Wi-Fi 6 大标题 */
+  .section-{{ section.id }} .q-wifi-connected__wifi-title {
+    position: absolute;
+    top: 50%;
+    left: 24px;
+    transform: translateY(-50%);
+    font-size: var(--wifi-title-size-mobile, 32px);
+    font-weight: 600;
+    color: #ffffff;
+    line-height: 1.25;
+    white-space: nowrap;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-wifi-connected__wifi-title {
+      top: 50%;
+      left: 60px;
+      font-size: var(--wifi-title-size-desktop, 80px);
+      transform: translateY(-70%);
+    }
+  }
+
+  /* 频段徽章组 */
+  .section-{{ section.id }} .q-wifi-connected__badges {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    bottom: 28px;
+    left: 24px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-wifi-connected__badges {
+      bottom: auto;
+      top: 60%;
+      left: 60px;
+      gap: 12px;
+    }
+  }
+
+  /* 单个频段徽章 */
+  .section-{{ section.id }} .q-wifi-connected__badge {
+    position: relative;
+    width: var(--wifi-badge-size-mobile, 37px);
+    height: var(--wifi-badge-size-mobile, 37px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(4px);
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-wifi-connected__badge {
+      width: var(--wifi-badge-size-desktop, 69px);
+      height: var(--wifi-badge-size-desktop, 69px);
+      border-width: 2px;
+    }
+  }
+
+  .section-{{ section.id }} .q-wifi-connected__freq-num {
+    font-size: var(--wifi-freq-num-size-mobile, 14px);
+    font-weight: 600;
+    color: #ffffff;
+    line-height: 1.1;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-wifi-connected__freq-num {
+      font-size: var(--wifi-freq-num-size-desktop, 20px);
+    }
+  }
+
+  .section-{{ section.id }} .q-wifi-connected__freq-unit {
+    font-size: var(--wifi-freq-unit-size-mobile, 10px);
+    font-weight: 400;
+    color: #ffffff;
+    line-height: 1.1;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-wifi-connected__freq-unit {
+      font-size: var(--wifi-freq-unit-size-desktop, 15px);
+    }
+  }
+</style>
+
+<div class="q-wifi-connected section-{{ section.id }}">
+  <div class="page-width">
+    {%- render 'q-section-header', section: section -%}
+
+    <div class="q-wifi-connected__image-wrap">
+      {%- if section.settings.image != blank -%}
+        {{-
+          section.settings.image
+          | image_url: width: 1500
+          | image_tag:
+            loading: 'lazy',
+            sizes: '(min-width: 750px) min(1500px, 100vw), 100vw',
+            widths: '400,600,800,1000,1200,1500',
+            alt: section.settings.image.alt
+        -}}
+      {%- else -%}
+        {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+      {%- endif -%}
+
+      <div class="q-wifi-connected__overlay">
+        {%- if section.settings.wifi_title != blank -%}
+          <span class="q-wifi-connected__wifi-title">{{ section.settings.wifi_title }}</span>
+        {%- endif -%}
+
+        <div class="q-wifi-connected__badges">
+          {%- if section.settings.freq_1_num != blank -%}
+            <div class="q-wifi-connected__badge">
+              <span class="q-wifi-connected__freq-num">{{ section.settings.freq_1_num }}</span>
+              <span class="q-wifi-connected__freq-unit">{{ section.settings.freq_1_unit }}</span>
+            </div>
+          {%- endif -%}
+
+          {%- if section.settings.freq_2_num != blank -%}
+            <div class="q-wifi-connected__badge">
+              <span class="q-wifi-connected__freq-num">{{ section.settings.freq_2_num }}</span>
+              <span class="q-wifi-connected__freq-unit">{{ section.settings.freq_2_unit }}</span>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Q-WiFi Connected",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "header", "content": "板块标题" },
+    { "type": "inline_richtext", "id": "header_title", "label": "标题", "default": "Always <em>Connected</em>" },
+    { "type": "richtext", "id": "header_description", "label": "描述", "default": "<p>Built with <strong>Wi-Fi 6</strong> for faster, more stable wireless performance—so live view stays smooth and alerts arrive right when they matter. Bluetooth is used for quick setup.</p>" },
+    { "type": "checkbox", "id": "header_center", "label": "居中对齐", "default": true },
+    { "type": "color_background", "id": "header_em_color", "label": "em 高亮色", "default": "linear-gradient(90deg, #6CBCE7 0%, #367CF6 100%)" },
+    { "type": "range", "id": "header_title_size_desktop", "label": "标题字号（桌面端）", "min": 20, "max": 80, "step": 2, "unit": "px", "default": 42 },
+    { "type": "range", "id": "header_title_size_mobile", "label": "标题字号（移动端）", "min": 16, "max": 50, "step": 2, "unit": "px", "default": 26 },
+    { "type": "range", "id": "header_desc_size_desktop", "label": "描述字号（桌面端）", "min": 10, "max": 30, "step": 1, "unit": "px", "default": 16 },
+    { "type": "range", "id": "header_desc_size_mobile", "label": "描述字号（移动端）", "min": 10, "max": 24, "step": 1, "unit": "px", "default": 12 },
+    { "type": "range", "id": "header_margin_bottom_desktop", "label": "标题下边距（桌面端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "header_margin_bottom_mobile", "label": "标题下边距（移动端）", "min": 0, "max": 80, "step": 4, "unit": "px", "default": 24 },
+    { "type": "header", "content": "图片" },
+    { "type": "image_picker", "id": "image", "label": "图片" },
+    { "type": "range", "id": "image_height_mobile", "label": "图片高度（移动端）", "min": 160, "max": 500, "step": 10, "unit": "px", "default": 290 },
+    { "type": "range", "id": "image_height_desktop", "label": "图片高度（桌面端）", "min": 200, "max": 800, "step": 10, "unit": "px", "default": 480 },
+    { "type": "header", "content": "图片叠加文字" },
+    { "type": "text", "id": "wifi_title", "label": "Wi-Fi 标题", "default": "Wi-Fi 6" },
+    { "type": "text", "id": "freq_1_num", "label": "频段 1 数值", "default": "2.4" },
+    { "type": "text", "id": "freq_1_unit", "label": "频段 1 单位", "default": "GHz" },
+    { "type": "text", "id": "freq_2_num", "label": "频段 2 数值", "default": "5" },
+    { "type": "text", "id": "freq_2_unit", "label": "频段 2 单位", "default": "GHz" },
+    { "type": "header", "content": "板块背景" },
+    { "type": "color_background", "id": "bg_color", "label": "背景色", "default": "#FFFFFF" },
+    { "type": "header", "content": "上下边距" },
+    { "type": "range", "id": "padding_top_mobile", "label": "上边距（移动端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_bottom_mobile", "label": "下边距（移动端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_top_desktop", "label": "上边距（桌面端）", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 60 },
+    { "type": "range", "id": "padding_bottom_desktop", "label": "下边距（桌面端）", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 60 }
+  ],
+  "presets": [
+    {
+      "name": "Q-WiFi Connected",
+      "settings": {
+        "header_title": "Always <em>Connected</em>",
+        "header_center": true,
+        "wifi_title": "Wi-Fi 6",
+        "freq_1_num": "2.4",
+        "freq_1_unit": "GHz",
+        "freq_2_num": "5",
+        "freq_2_unit": "GHz"
+      }
+    }
+  ]
+}
+{% endschema %}
