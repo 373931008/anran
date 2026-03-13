@@ -947,6 +947,42 @@
         "padding_bottom_desktop": 60
       }
     },
+    "q-audio-live-view": {
+      "type": "q-audio-live-view",
+      "blocks": {
+        "card-1": {
+          "type": "card",
+          "settings": {
+            "title": "Clear Audio and One-Tap Talk",
+            "description": "<p>Enjoy clear, real-time two-way audio and start talking instantly with a single tap on your phone.</p>"
+          }
+        },
+        "card-2": {
+          "type": "card",
+          "settings": {
+            "title": "Manage Deliveries and Deter Strangers",
+            "description": "<p>Speak through the camera to deter unwanted visitors or guide deliveries—without opening the door.</p>"
+          }
+        }
+      },
+      "block_order": ["card-1", "card-2"],
+      "settings": {
+        "header_title": "Two-Way Audio & <em>Live View</em>",
+        "header_center": false,
+        "header_em_color": "linear-gradient(90deg, #6CBCE7 0%, #367CF6 100%)",
+        "header_title_size_desktop": 50,
+        "header_title_size_mobile": 26,
+        "header_desc_size_desktop": 16,
+        "header_desc_size_mobile": 12,
+        "header_margin_bottom_desktop": 40,
+        "header_margin_bottom_mobile": 24,
+        "bg_color": "#FFFFFF",
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60
+      }
+    },
     "q-wifi-connected": {
       "type": "q-wifi-connected",
       "settings": {
@@ -969,6 +1005,7 @@
     }
   },
   "order": [
+    "q-audio-live-view",
     "q-expert-testimonials",
     "q-camera-showcase",
     "q-wifi-connected",

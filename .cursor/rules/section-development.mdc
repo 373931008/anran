@@ -568,6 +568,52 @@ Invalid schema: setting with id="xxx" default 必须是范围内的一个步骤
 
 ---
 
+### 6. `richtext` / `inline_richtext` 的 presets 预设值不允许内联 `style` 属性
+
+**报错信息**：
+```
+Invalid preset "xxx": invalid block type "yyy":
+设置的"description"无效。属性"style="color: #xxxxxx""包含标签"<span>"上不允许使用的样式。
+```
+
+**原因**：Shopify 对 `presets`（以及 `templates/*.json`）中 `richtext` / `inline_richtext` 字段的 HTML 值做安全校验，**不允许出现内联 `style` 属性**（如 `style="color: #1565d8"`）。上传时直接报错拒绝。
+
+**解决方案**：presets 预设值中去掉所有内联 `style`，改用语义标签（`<strong>`、`<em>`）；颜色效果通过 CSS class 或 CSS 变量在 section 样式中实现。
+
+```json
+❌ 错误 - presets 中含内联 style，上传报错
+{
+  "type": "card",
+  "settings": {
+    "description": "<p><span style=\"color: #1565d8\">No door opening required.</span></p>"
+  }
+}
+
+✅ 正确 - 去掉内联 style，改用语义标签
+{
+  "type": "card",
+  "settings": {
+    "description": "<p><strong>No door opening required.</strong></p>"
+  }
+}
+```
+
+**颜色效果的替代方案**：
+
+```css
+/* 在 section CSS 中针对特定语义标签定义颜色 */
+.section-{{ section.id }} .q-xxx__card-desc strong {
+  color: #1565d8;
+}
+```
+
+**注意**：
+- 此限制仅针对 `presets` 和 `templates/*.json` 中的**实际赋值**，schema `default` 值也同样受此限制
+- 商户在 Shopify 后台主题编辑器中**手动输入**的富文本可以正常保存内联样式，限制仅在代码预设值中生效
+- `text`、`textarea` 类型无此限制，只有 `richtext` 和 `inline_richtext` 受影响
+
+---
+
 ## 十、按钮交互状态规范
 
 所有按钮必须添加 `hover` / `active` 交互颜色，提升操作反馈。统一规则如下：
@@ -932,6 +978,7 @@ Judge.me badge 内部结构需适配卡片行高：
 - [ ] Schema 包含 `bg_color`（color_background 类型）
 - [ ] Schema 包含上下边距四个 range 字段
 - [ ] Presets 包含完整的默认 blocks 数据（拖入即可展示）
+- [ ] **Presets / templates JSON 中 richtext/inline_richtext 字段值不含内联 `style` 属性**
 - [ ] 所有 CSS 选择器加 `.section-{{ section.id }}` 前缀
 - [ ] 背景色/强调色用 `color_background` 类型，不用 `color`
 - [ ] `url` 类型字段必须提供 `"default": "/"`

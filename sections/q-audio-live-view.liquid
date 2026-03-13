@@ -1,0 +1,215 @@
+{%- comment -%}
+  Section: q-audio-live-view
+  功能说明：双向音频与实时视图特性展示板块
+  - 桌面端：2列 Grid，每列图片 + 标题 + 描述
+  - 移动端：单列垂直堆叠
+  技术栈：
+  - 纯展示，无 Islands JS
+  - Snippet: snippets/q-section-header.liquid
+  版本：1.0.0
+{%- endcomment -%}
+
+<style>
+  .section-{{ section.id }} {
+    --alv-bg: {{ section.settings.bg_color }};
+    --alv-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --alv-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --alv-padding-top-desktop: {{ section.settings.padding_top_desktop }}px;
+    --alv-padding-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+
+    /* 移动端变量 */
+    --alv-gap: 40px;
+    --alv-img-radius: 15px;
+    --alv-card-title-size: 16px;
+    --alv-card-title-lh: 40px;
+    --alv-card-title-weight: 500;
+    --alv-card-desc-size: 12px;
+    --alv-card-desc-lh: 18px;
+    --alv-card-title-color: #151515;
+    --alv-card-desc-color: #4e5357;
+    --alv-card-accent-color: #1565d8;
+    --alv-cols: 1;
+    --alv-img-ratio: 344 / 244;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} {
+      /* 桌面端覆盖 */
+      --alv-gap: 24px;
+      --alv-card-title-size: 24px;
+      --alv-card-title-lh: 40px;
+      --alv-card-desc-size: 16px;
+      --alv-card-desc-lh: 24px;
+      --alv-cols: 2;
+      --alv-img-ratio: 686 / 487;
+    }
+  }
+
+  .section-{{ section.id }}.q-audio-live-view {
+    background: var(--alv-bg, #ffffff);
+    padding-top: var(--alv-padding-top-mobile, 40px);
+    padding-bottom: var(--alv-padding-bottom-mobile, 40px);
+    font-family: var(--font-body-family);
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}.q-audio-live-view {
+      padding-top: var(--alv-padding-top-desktop, 60px);
+      padding-bottom: var(--alv-padding-bottom-desktop, 60px);
+    }
+  }
+
+  .section-{{ section.id }} .q-alv__grid {
+    display: grid;
+    grid-template-columns: repeat(var(--alv-cols), 1fr);
+    gap: var(--alv-gap);
+  }
+
+  .section-{{ section.id }} .q-alv__card-image {
+    width: 100%;
+    aspect-ratio: var(--alv-img-ratio);
+    border-radius: var(--alv-img-radius);
+    overflow: hidden;
+    display: block;
+  }
+
+  .section-{{ section.id }} .q-alv__card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .section-{{ section.id }} .q-alv__card-body {
+    margin-top: 12px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-alv__card-body {
+      margin-top: 16px;
+    }
+  }
+
+  .section-{{ section.id }} .q-alv__card-title {
+    font-size: var(--alv-card-title-size);
+    line-height: var(--alv-card-title-lh);
+    font-weight: var(--alv-card-title-weight);
+    color: var(--alv-card-title-color);
+    margin: 0 0 8px;
+  }
+
+  .section-{{ section.id }} .q-alv__card-desc {
+    font-size: var(--alv-card-desc-size);
+    line-height: var(--alv-card-desc-lh);
+    color: var(--alv-card-desc-color);
+    margin: 0;
+  }
+
+  .section-{{ section.id }} .q-alv__card-desc p {
+    margin: 0;
+  }
+
+  .section-{{ section.id }} .q-alv__card-accent {
+    color: var(--alv-card-accent-color);
+    font-weight: 700;
+  }
+</style>
+
+<div class="q-audio-live-view section-{{ section.id }}">
+  <div class="page-width">
+    {%- render 'q-section-header', section: section -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="q-alv__grid">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'card' -%}
+            <div class="q-alv__card" {{ block.shopify_attributes }}>
+              {%- if block.settings.image != blank -%}
+                <div class="q-alv__card-image">
+                  {{- block.settings.image
+                    | image_url: width: 800
+                    | image_tag:
+                      loading: 'lazy',
+                      sizes: '(min-width: 750px) calc((100vw - 80px) / 2), calc(100vw - 40px)',
+                      widths: '375, 550, 750, 800'
+                  -}}
+                </div>
+              {%- endif -%}
+
+              <div class="q-alv__card-body">
+                {%- if block.settings.title != blank -%}
+                  <h3 class="q-alv__card-title">{{ block.settings.title }}</h3>
+                {%- endif -%}
+
+                {%- if block.settings.description != blank -%}
+                  <div class="q-alv__card-desc">{{ block.settings.description }}</div>
+                {%- endif -%}
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Q-Audio Live View",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "header", "content": "板块标题" },
+    { "type": "inline_richtext", "id": "header_title", "label": "标题", "default": "Two-Way Audio & <em>Live View</em>" },
+    { "type": "richtext", "id": "header_description", "label": "描述" },
+    { "type": "checkbox", "id": "header_center", "label": "居中对齐", "default": false },
+    { "type": "color_background", "id": "header_em_color", "label": "em 高亮色", "default": "linear-gradient(90deg, #6CBCE7 0%, #367CF6 100%)" },
+    { "type": "range", "id": "header_title_size_desktop", "label": "标题字号（桌面端）", "min": 20, "max": 80, "step": 2, "unit": "px", "default": 50 },
+    { "type": "range", "id": "header_title_size_mobile", "label": "标题字号（移动端）", "min": 16, "max": 50, "step": 2, "unit": "px", "default": 26 },
+    { "type": "range", "id": "header_desc_size_desktop", "label": "描述字号（桌面端）", "min": 10, "max": 30, "step": 1, "unit": "px", "default": 16 },
+    { "type": "range", "id": "header_desc_size_mobile", "label": "描述字号（移动端）", "min": 10, "max": 24, "step": 1, "unit": "px", "default": 12 },
+    { "type": "range", "id": "header_margin_bottom_desktop", "label": "标题下边距（桌面端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "header_margin_bottom_mobile", "label": "标题下边距（移动端）", "min": 0, "max": 80, "step": 4, "unit": "px", "default": 24 },
+    { "type": "header", "content": "板块背景" },
+    { "type": "color_background", "id": "bg_color", "label": "背景色", "default": "#FFFFFF" },
+    { "type": "header", "content": "上下边距" },
+    { "type": "range", "id": "padding_top_mobile", "label": "上边距（移动端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_bottom_mobile", "label": "下边距（移动端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_top_desktop", "label": "上边距（桌面端）", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 60 },
+    { "type": "range", "id": "padding_bottom_desktop", "label": "下边距（桌面端）", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 60 }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "特性卡片",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "图片" },
+        { "type": "text", "id": "title", "label": "标题", "default": "Feature Title" },
+        { "type": "richtext", "id": "description", "label": "描述", "default": "<p>Feature description text goes here.</p>" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Q-Audio Live View",
+      "blocks": [
+        {
+          "type": "card",
+          "settings": {
+            "title": "Clear Audio and One-Tap Talk",
+            "description": "<p>Enjoy clear, real-time two-way audio and start talking instantly with a single tap on your phone.</p>"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "Manage Deliveries and Deter Strangers",
+            "description": "<p>Speak through the camera to deter unwanted visitors or guide deliveries—without opening the door.</p><p><strong>No door opening required.</strong></p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
