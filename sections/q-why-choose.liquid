@@ -1,0 +1,842 @@
+{%- comment -%}
+  Section: q-why-choose
+  功能说明：为什么选择我们的相机 — 特性网格展示板块
+  技术栈：
+  - 纯展示，无 Islands JS
+  - Snippet: snippets/q-section-header.liquid
+  - 5 种 block type：card_image_text / card_text_icon / card_dual_title / card_app_screenshot / banner_feature
+  版本：1.0.0
+{%- endcomment -%}
+
+<style>
+  .section-{{ section.id }} {
+    --wc-bg: {{ section.settings.bg_color }};
+    --wc-inner-bg: {{ section.settings.inner_bg_color }};
+    --wc-card-bg: {{ section.settings.card_bg_color }};
+    --wc-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --wc-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --wc-padding-top-desktop: {{ section.settings.padding_top_desktop }}px;
+    --wc-padding-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+
+    /* 移动端变量 */
+    --wc-inner-radius: 13px;
+    --wc-inner-padding: 58px 16px;
+    --wc-grid-cols: 2;
+    --wc-grid-gap: 8px;
+    --wc-card-height: 184px;
+    --wc-card-radius: 10px;
+    --wc-card-title-size: 18px;
+    --wc-card-title-lh: 26px;
+    --wc-card-subtitle-size: 12px;
+    --wc-card-subtitle-lh: 18px;
+    --wc-card-desc-size: 12px;
+    --wc-card-desc-lh: 20px;
+    --wc-banner-gap: 8px;
+    --wc-banner-margin-top: 40px;
+    --wc-banner-icon-size: 27px;
+    --wc-banner-title-size: 12px;
+    --wc-banner-desc-size: 12px;
+    --wc-cta-size: 14px;
+    --wc-cta-margin-top: 16px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} {
+      --wc-inner-radius: 25px;
+      --wc-inner-padding: 97px 60px;
+      --wc-grid-cols: 3;
+      --wc-grid-gap: 16px;
+      --wc-card-height: 275px;
+      --wc-card-title-size: 32px;
+      --wc-card-title-lh: 42px;
+      --wc-card-subtitle-size: 18px;
+      --wc-card-subtitle-lh: 28px;
+      --wc-card-desc-size: 18px;
+      --wc-card-desc-lh: 28px;
+      --wc-banner-gap: 12px;
+      --wc-banner-margin-top: 60px;
+      --wc-banner-icon-size: 36px;
+      --wc-banner-title-size: 18px;
+      --wc-banner-desc-size: 14px;
+      --wc-cta-size: 18px;
+    }
+  }
+
+  .section-{{ section.id }}.q-why-choose {
+    background: var(--wc-bg, #000000);
+    padding-top: var(--wc-padding-top-mobile, 40px);
+    padding-bottom: var(--wc-padding-bottom-mobile, 40px);
+    font-family: var(--font-body-family);
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}.q-why-choose {
+      padding-top: var(--wc-padding-top-desktop, 60px);
+      padding-bottom: var(--wc-padding-bottom-desktop, 60px);
+    }
+  }
+
+  /* 内层圆角容器 */
+  .section-{{ section.id }} .q-wc__inner {
+    background: var(--wc-inner-bg, #121214);
+    border-radius: var(--wc-inner-radius);
+    padding: var(--wc-inner-padding);
+  }
+
+  /* 头部标题颜色覆盖（深色背景下标题白色） */
+  .section-{{ section.id }} .q-section-header__title,
+  .section-{{ section.id }} .q-section-header__desc p {
+    color: #ffffff;
+  }
+
+  /* 副描述文字 */
+  .section-{{ section.id }} .q-wc__subtitle {
+    font-size: var(--wc-card-desc-size);
+    line-height: var(--wc-card-desc-lh);
+    color: #ffffff;
+    margin: 0 0 24px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-wc__subtitle {
+      margin-bottom: 40px;
+    }
+  }
+
+  /* 卡片网格 */
+  .section-{{ section.id }} .q-wc__grid {
+    display: grid;
+    grid-template-columns: repeat(var(--wc-grid-cols), 1fr);
+    gap: var(--wc-grid-gap);
+  }
+
+  /* 通用卡片容器 */
+  .section-{{ section.id }} .q-wc__card {
+    background: var(--wc-card-bg, #000000);
+    border-radius: var(--wc-card-radius);
+    height: var(--wc-card-height);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* ─── card_image_text：图片 + 左下角标题 ─── */
+  .section-{{ section.id }} .q-wc__card--image-text .q-wc__card-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .section-{{ section.id }} .q-wc__card--image-text .q-wc__card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .section-{{ section.id }} .q-wc__card--image-text .q-wc__card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0) 60%);
+    border-radius: var(--wc-card-radius);
+  }
+
+  .section-{{ section.id }} .q-wc__card--image-text .q-wc__card-body {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 12px 14px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-wc__card--image-text .q-wc__card-body {
+      padding: 20px 24px;
+    }
+  }
+
+  .section-{{ section.id }} .q-wc__card--image-text .q-wc__card-title {
+    font-size: var(--card-title-size-m, var(--wc-card-title-size));
+    line-height: var(--wc-card-title-lh);
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+  }
+
+  .section-{{ section.id }} .q-wc__card--image-text .q-wc__card-title em {
+    font-style: normal;
+    background: linear-gradient(90deg, #6cbce7 0%, #367cf6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* ─── card_text_icon：右上角小图，主标题+副标题居中 ─── */
+  .section-{{ section.id }} .q-wc__card--text-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 12px 14px 16px;
+    text-align: center;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-wc__card--text-icon {
+      padding: 20px 24px 24px;
+    }
+  }
+
+  .section-{{ section.id }} .q-wc__card--text-icon .q-wc__card-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-wc__card--text-icon .q-wc__card-icon {
+      top: 20px;
+      right: 20px;
+      width: 68px;
+      height: 68px;
+    }
+  }
+
+  .section-{{ section.id }} .q-wc__card--text-icon .q-wc__card-title {
+    font-size: var(--card-title-size-m, var(--wc-card-title-size));
+    line-height: var(--wc-card-title-lh);
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 4px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-wc__card--text-icon .q-wc__card-title {
+      margin-bottom: 10px;
+    }
+  }
+
+  .section-{{ section.id }} .q-wc__card--text-icon .q-wc__card-title em {
+    font-style: normal;
+    background: var(--card-title-gradient, linear-gradient(90deg, #6cbce7 0%, #367cf6 100%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .section-{{ section.id }} .q-wc__card--text-icon .q-wc__card-subtitle {
+    font-size: var(--card-subtitle-size-m, var(--wc-card-subtitle-size));
+    line-height: var(--wc-card-subtitle-lh);
+    font-weight: 500;
+    color: #cacbcc;
+    margin: 0;
+  }
+
+  /* ─── card_dual_title：双行标题 + 小图标 + 描述文字 ─── */
+  .section-{{ section.id }} .q-wc__card--dual-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 14px;
+    text-align: center;
+    gap: 6px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-wc__card--dual-title {
+      padding: 20px 24px;
+      gap: 10px;
+    }
+  }
+
+  .section-{{ section.id }} .q-wc__card--dual-title .q-wc__dual-line1 {
+    font-size: var(--card-title-size-m, var(--wc-card-title-size));
+    line-height: var(--wc-card-title-lh);
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0;
+  }
+
+  .section-{{ section.id }} .q-wc__card--dual-title .q-wc__dual-line2-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+  }
+
+  .section-{{ section.id }} .q-wc__card--dual-title .q-wc__dual-line2 {
+    font-size: var(--card-title-size-m, var(--wc-card-title-size));
+    line-height: var(--wc-card-title-lh);
+    font-weight: 700;
+    margin: 0;
+  }
+
+  .section-{{ section.id }} .q-wc__card--dual-title .q-wc__dual-line2 em {
+    font-style: normal;
+    background: linear-gradient(90deg, #6cbce7 0%, #367cf6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .section-{{ section.id }} .q-wc__card--dual-title .q-wc__dual-icon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-wc__card--dual-title .q-wc__dual-icon {
+      width: 39px;
+      height: 39px;
+    }
+  }
+
+  .section-{{ section.id }} .q-wc__card--dual-title .q-wc__dual-desc {
+    font-size: var(--card-desc-size-m, var(--wc-card-desc-size));
+    line-height: var(--wc-card-desc-lh);
+    color: #cacbcc;
+    margin: 0;
+  }
+
+  /* ─── card_app_screenshot：文字在上，截图在下 ─── */
+  .section-{{ section.id }} .q-wc__card--app-screenshot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    padding-top: 12px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-wc__card--app-screenshot {
+      padding-top: 20px;
+    }
+  }
+
+  .section-{{ section.id }} .q-wc__card--app-screenshot .q-wc__app-title {
+    font-size: var(--card-title-size-m, var(--wc-card-subtitle-size));
+    line-height: var(--wc-card-subtitle-lh);
+    font-weight: 500;
+    color: #cacbcc;
+    text-align: center;
+    margin: 0 0 8px;
+    padding: 0 12px;
+  }
+
+  .section-{{ section.id }} .q-wc__card--app-screenshot .q-wc__app-image {
+    width: 80px;
+    object-fit: contain;
+    object-position: top;
+    flex-shrink: 0;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-wc__card--app-screenshot .q-wc__app-image {
+      width: 116px;
+    }
+  }
+
+  .section-{{ section.id }} .q-wc__card--app-screenshot .q-wc__app-image img {
+    width: 100%;
+    display: block;
+  }
+
+  /* ─── banner_feature：底部横幅，图标+标题+描述水平排列 ─── */
+  .section-{{ section.id }} .q-wc__banner {
+    margin-top: var(--wc-banner-margin-top);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    text-align: center;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-wc__banner {
+      gap: 12px;
+    }
+  }
+
+  .section-{{ section.id }} .q-wc__banner-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section-{{ section.id }} .q-wc__banner-top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .section-{{ section.id }} .q-wc__banner-icon {
+    width: var(--wc-banner-icon-size);
+    height: var(--wc-banner-icon-size);
+    object-fit: contain;
+    flex-shrink: 0;
+    display: block;
+  }
+
+  .section-{{ section.id }} .q-wc__banner-title {
+    font-size: var(--banner-title-size-m, var(--wc-banner-title-size));
+    line-height: 1.5;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0;
+  }
+
+  .section-{{ section.id }} .q-wc__banner-desc {
+    font-size: var(--banner-desc-size-m, var(--wc-banner-desc-size));
+    line-height: 1.6;
+    color: #cacbcc;
+    margin: 0;
+    max-width: 480px;
+  }
+
+  /* ─── 桌面端：各卡片类型字号切换至桌面端变量 ─── */
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-wc__card--image-text .q-wc__card-title {
+      font-size: var(--card-title-size-d, var(--wc-card-title-size));
+    }
+
+    .section-{{ section.id }} .q-wc__card--text-icon .q-wc__card-title {
+      font-size: var(--card-title-size-d, var(--wc-card-title-size));
+      margin-bottom: 10px;
+    }
+
+    .section-{{ section.id }} .q-wc__card--text-icon .q-wc__card-subtitle {
+      font-size: var(--card-subtitle-size-d, var(--wc-card-subtitle-size));
+    }
+
+    .section-{{ section.id }} .q-wc__card--dual-title .q-wc__dual-line1 {
+      font-size: var(--card-title-size-d, var(--wc-card-title-size));
+    }
+
+    .section-{{ section.id }} .q-wc__card--dual-title .q-wc__dual-line2 {
+      font-size: var(--card-title-size-d, var(--wc-card-title-size));
+    }
+
+    .section-{{ section.id }} .q-wc__card--dual-title .q-wc__dual-desc {
+      font-size: var(--card-desc-size-d, var(--wc-card-desc-size));
+    }
+
+    .section-{{ section.id }} .q-wc__card--app-screenshot .q-wc__app-title {
+      font-size: var(--card-title-size-d, var(--wc-card-subtitle-size));
+      margin-bottom: 16px;
+      padding: 0 20px;
+    }
+
+    .section-{{ section.id }} .q-wc__banner-title {
+      font-size: var(--banner-title-size-d, var(--wc-banner-title-size));
+    }
+
+    .section-{{ section.id }} .q-wc__banner-desc {
+      font-size: var(--banner-desc-size-d, var(--wc-banner-desc-size));
+    }
+  }
+
+  /* ─── CTA 链接 ─── */
+  .section-{{ section.id }} .q-wc__cta-wrap {
+    text-align: center;
+    margin-top: var(--wc-cta-margin-top);
+  }
+
+  .section-{{ section.id }} .q-wc__cta {
+    font-size: var(--wc-cta-size);
+    font-weight: 600;
+    color: {{ section.settings.cta_color | default: '#329bff' }};
+    text-decoration: none;
+    transition: opacity 0.2s;
+    display: inline-block;
+  }
+
+  .section-{{ section.id }} .q-wc__cta:hover {
+    opacity: 0.8;
+  }
+
+  .section-{{ section.id }} .q-wc__cta:active {
+    opacity: 0.6;
+  }
+</style>
+
+<div class="q-why-choose section-{{ section.id }}">
+  <div class="q-wc__inner">
+    <div class="page-width">
+      {%- render 'q-section-header', section: section -%}
+
+      {%- if section.settings.subtitle != blank -%}
+        <p class="q-wc__subtitle">{{ section.settings.subtitle }}</p>
+      {%- endif -%}
+
+      {%- comment -%} 卡片网格：只渲染非 banner_feature 类型 {%- endcomment -%}
+      {%- liquid
+        assign grid_blocks_count = 0
+        for block in section.blocks
+          if block.type != 'banner_feature'
+            assign grid_blocks_count = grid_blocks_count | plus: 1
+          endif
+        endfor
+      -%}
+
+      {%- if grid_blocks_count > 0 -%}
+        <div class="q-wc__grid">
+          {%- for block in section.blocks -%}
+
+            {%- if block.type == 'card_image_text' -%}
+              {%- liquid
+                assign it_ts_m = block.settings.title_size_mobile | default: 18
+                assign it_ts_d = block.settings.title_size_desktop | default: 32
+              -%}
+              <div
+                class="q-wc__card q-wc__card--image-text"
+                style="--card-title-size-m: {{ it_ts_m }}px; --card-title-size-d: {{ it_ts_d }}px;"
+                {{ block.shopify_attributes }}
+              >
+                {%- if block.settings.image != blank -%}
+                  <div class="q-wc__card-image">
+                    {{- block.settings.image
+                      | image_url: width: 800
+                      | image_tag:
+                        loading: 'lazy',
+                        sizes: '(min-width: 750px) calc((100vw - 200px) / 3), 50vw',
+                        widths: '200, 400, 600, 800'
+                    -}}
+                  </div>
+                {%- endif -%}
+                <div class="q-wc__card-overlay"></div>
+                <div class="q-wc__card-body">
+                  {%- if block.settings.title != blank -%}
+                    <h3 class="q-wc__card-title">{{ block.settings.title }}</h3>
+                  {%- endif -%}
+                </div>
+              </div>
+
+            {%- elsif block.type == 'card_text_icon' -%}
+              {%- liquid
+                assign ti_ts_m = block.settings.title_size_mobile | default: 18
+                assign ti_ts_d = block.settings.title_size_desktop | default: 32
+                assign ti_ss_m = block.settings.subtitle_size_mobile | default: 12
+                assign ti_ss_d = block.settings.subtitle_size_desktop | default: 18
+                assign ti_gradient = block.settings.title_gradient | default: 'linear-gradient(90deg, #6cbce7 0%, #367cf6 100%)'
+              -%}
+              <div
+                class="q-wc__card q-wc__card--text-icon"
+                style="--card-title-size-m: {{ ti_ts_m }}px; --card-title-size-d: {{ ti_ts_d }}px; --card-subtitle-size-m: {{ ti_ss_m }}px; --card-subtitle-size-d: {{ ti_ss_d }}px; --card-title-gradient: {{ ti_gradient }};"
+                {{ block.shopify_attributes }}
+              >
+                {%- if block.settings.image != blank -%}
+                  {{- block.settings.image
+                    | image_url: width: 200
+                    | image_tag:
+                      class: 'q-wc__card-icon',
+                      loading: 'lazy',
+                      sizes: '68px',
+                      widths: '68, 136'
+                  -}}
+                {%- endif -%}
+                {%- if block.settings.title != blank -%}
+                  <h3 class="q-wc__card-title">{{ block.settings.title }}</h3>
+                {%- endif -%}
+                {%- if block.settings.subtitle != blank -%}
+                  <p class="q-wc__card-subtitle">{{ block.settings.subtitle }}</p>
+                {%- endif -%}
+              </div>
+
+            {%- elsif block.type == 'card_dual_title' -%}
+              {%- liquid
+                assign dt_ts_m = block.settings.title_size_mobile | default: 18
+                assign dt_ts_d = block.settings.title_size_desktop | default: 32
+                assign dt_ds_m = block.settings.desc_size_mobile | default: 12
+                assign dt_ds_d = block.settings.desc_size_desktop | default: 18
+              -%}
+              <div
+                class="q-wc__card q-wc__card--dual-title"
+                style="--card-title-size-m: {{ dt_ts_m }}px; --card-title-size-d: {{ dt_ts_d }}px; --card-desc-size-m: {{ dt_ds_m }}px; --card-desc-size-d: {{ dt_ds_d }}px;"
+                {{ block.shopify_attributes }}
+              >
+                {%- if block.settings.title_line1 != blank -%}
+                  <p class="q-wc__dual-line1">{{ block.settings.title_line1 }}</p>
+                {%- endif -%}
+                {%- if block.settings.title_line2 != blank -%}
+                  <div class="q-wc__dual-line2-wrap">
+                    <p class="q-wc__dual-line2"><em>{{ block.settings.title_line2 }}</em></p>
+                    {%- if block.settings.icon_image != blank -%}
+                      {{- block.settings.icon_image
+                        | image_url: width: 80
+                        | image_tag:
+                          class: 'q-wc__dual-icon',
+                          loading: 'lazy',
+                          sizes: '39px',
+                          widths: '39, 78'
+                      -}}
+                    {%- endif -%}
+                  </div>
+                {%- endif -%}
+                {%- if block.settings.description != blank -%}
+                  <p class="q-wc__dual-desc">{{ block.settings.description }}</p>
+                {%- endif -%}
+              </div>
+
+            {%- elsif block.type == 'card_app_screenshot' -%}
+              {%- liquid
+                assign as_ts_m = block.settings.title_size_mobile | default: 12
+                assign as_ts_d = block.settings.title_size_desktop | default: 20
+              -%}
+              <div
+                class="q-wc__card q-wc__card--app-screenshot"
+                style="--card-title-size-m: {{ as_ts_m }}px; --card-title-size-d: {{ as_ts_d }}px;"
+                {{ block.shopify_attributes }}
+              >
+                {%- if block.settings.title != blank -%}
+                  <p class="q-wc__app-title">{{ block.settings.title }}</p>
+                {%- endif -%}
+                {%- if block.settings.image != blank -%}
+                  <div class="q-wc__app-image">
+                    {{- block.settings.image
+                      | image_url: width: 240
+                      | image_tag:
+                        loading: 'lazy',
+                        sizes: '(min-width: 750px) 116px, 80px',
+                        widths: '80, 116, 160, 240'
+                    -}}
+                  </div>
+                {%- endif -%}
+              </div>
+
+            {%- endif -%}
+
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      {%- comment -%} 底部横幅：仅渲染 banner_feature 类型 {%- endcomment -%}
+      {%- liquid
+        assign has_banner = false
+        for block in section.blocks
+          if block.type == 'banner_feature'
+            assign has_banner = true
+            break
+          endif
+        endfor
+      -%}
+
+      {%- if has_banner -%}
+        <div class="q-wc__banner">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'banner_feature' -%}
+              {%- liquid
+                assign bf_ts_m = block.settings.title_size_mobile | default: 12
+                assign bf_ts_d = block.settings.title_size_desktop | default: 18
+                assign bf_ds_m = block.settings.desc_size_mobile | default: 12
+                assign bf_ds_d = block.settings.desc_size_desktop | default: 14
+              -%}
+              <div
+                class="q-wc__banner-item"
+                style="--banner-title-size-m: {{ bf_ts_m }}px; --banner-title-size-d: {{ bf_ts_d }}px; --banner-desc-size-m: {{ bf_ds_m }}px; --banner-desc-size-d: {{ bf_ds_d }}px;"
+                {{ block.shopify_attributes }}
+              >
+                <div class="q-wc__banner-top">
+                  {%- if block.settings.icon_image != blank -%}
+                    {{- block.settings.icon_image
+                      | image_url: width: 72
+                      | image_tag:
+                        class: 'q-wc__banner-icon',
+                        loading: 'lazy',
+                        sizes: '(min-width: 750px) 36px, 27px',
+                        widths: '27, 36, 54, 72'
+                    -}}
+                  {%- endif -%}
+                  {%- if block.settings.title != blank -%}
+                    <p class="q-wc__banner-title">{{ block.settings.title }}</p>
+                  {%- endif -%}
+                </div>
+                {%- if block.settings.description != blank -%}
+                  <p class="q-wc__banner-desc">{{ block.settings.description }}</p>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      {%- comment -%} CTA 链接 {%- endcomment -%}
+      {%- if section.settings.cta_label != blank and section.settings.cta_link != blank -%}
+        <div class="q-wc__cta-wrap">
+          <a href="{{ section.settings.cta_link }}" class="q-wc__cta">
+            {{- section.settings.cta_label -}}
+          </a>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Q-Why Choose",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "header", "content": "板块标题" },
+    { "type": "inline_richtext", "id": "header_title", "label": "标题", "default": "Why Choose Our Camera?" },
+    { "type": "richtext", "id": "header_description", "label": "描述" },
+    { "type": "checkbox", "id": "header_center", "label": "居中对齐", "default": false },
+    { "type": "color_background", "id": "header_em_color", "label": "em 高亮色", "default": "linear-gradient(90deg, #6CBCE7 0%, #367CF6 100%)" },
+    { "type": "range", "id": "header_title_size_desktop", "label": "标题字号（桌面端）", "min": 20, "max": 80, "step": 2, "unit": "px", "default": 46 },
+    { "type": "range", "id": "header_title_size_mobile", "label": "标题字号（移动端）", "min": 16, "max": 50, "step": 2, "unit": "px", "default": 26 },
+    { "type": "range", "id": "header_desc_size_desktop", "label": "描述字号（桌面端）", "min": 10, "max": 30, "step": 1, "unit": "px", "default": 16 },
+    { "type": "range", "id": "header_desc_size_mobile", "label": "描述字号（移动端）", "min": 10, "max": 24, "step": 1, "unit": "px", "default": 12 },
+    { "type": "range", "id": "header_margin_bottom_desktop", "label": "标题下边距（桌面端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 16 },
+    { "type": "range", "id": "header_margin_bottom_mobile", "label": "标题下边距（移动端）", "min": 0, "max": 80, "step": 4, "unit": "px", "default": 8 },
+    { "type": "header", "content": "副描述文字" },
+    { "type": "text", "id": "subtitle", "label": "副描述", "default": "A few ways Guardian Cam Q3M8 gives you more." },
+    { "type": "header", "content": "CTA 链接" },
+    { "type": "text", "id": "cta_label", "label": "链接文字", "default": "100% Worth Buying >" },
+    { "type": "url", "id": "cta_link", "label": "链接地址", "default": "/" },
+    { "type": "color_background", "id": "cta_color", "label": "链接颜色", "default": "#329bff" },
+    { "type": "header", "content": "颜色配置" },
+    { "type": "color_background", "id": "bg_color", "label": "外层背景色", "default": "#000000" },
+    { "type": "color_background", "id": "inner_bg_color", "label": "内容区背景色", "default": "#121214" },
+    { "type": "color_background", "id": "card_bg_color", "label": "卡片背景色", "default": "#000000" },
+    { "type": "header", "content": "上下边距" },
+    { "type": "range", "id": "padding_top_mobile", "label": "上边距（移动端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 0 },
+    { "type": "range", "id": "padding_bottom_mobile", "label": "下边距（移动端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 0 },
+    { "type": "range", "id": "padding_top_desktop", "label": "上边距（桌面端）", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 0 },
+    { "type": "range", "id": "padding_bottom_desktop", "label": "下边距（桌面端）", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 0 }
+  ],
+  "blocks": [
+    {
+      "type": "card_image_text",
+      "name": "卡片 — 图片+标题",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "卡片图片" },
+        { "type": "inline_richtext", "id": "title", "label": "标题（支持 em 渐变）", "default": "4K HDR Video" },
+        { "type": "range", "id": "title_size_desktop", "label": "标题字号（桌面端）", "min": 16, "max": 60, "step": 2, "unit": "px", "default": 32 },
+        { "type": "range", "id": "title_size_mobile", "label": "标题字号（移动端）", "min": 12, "max": 40, "step": 2, "unit": "px", "default": 18 }
+      ]
+    },
+    {
+      "type": "card_text_icon",
+      "name": "卡片 — 文字+角落图标",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "角落装饰图" },
+        { "type": "inline_richtext", "id": "title", "label": "主标题（em 为渐变色）", "default": "<em>Auto Tracking</em>" },
+        { "type": "text", "id": "subtitle", "label": "副标题（灰色小字）", "default": "Locks on and follows moving people" },
+        { "type": "color_background", "id": "title_gradient", "label": "标题渐变色", "default": "linear-gradient(90deg, #6CBCE7 0%, #367CF6 100%)" },
+        { "type": "range", "id": "title_size_desktop", "label": "主标题字号（桌面端）", "min": 16, "max": 60, "step": 2, "unit": "px", "default": 32 },
+        { "type": "range", "id": "title_size_mobile", "label": "主标题字号（移动端）", "min": 12, "max": 40, "step": 2, "unit": "px", "default": 18 },
+        { "type": "range", "id": "subtitle_size_desktop", "label": "副标题字号（桌面端）", "min": 10, "max": 30, "step": 1, "unit": "px", "default": 18 },
+        { "type": "range", "id": "subtitle_size_mobile", "label": "副标题字号（移动端）", "min": 10, "max": 24, "step": 1, "unit": "px", "default": 12 }
+      ]
+    },
+    {
+      "type": "card_dual_title",
+      "name": "卡片 — 双行标题",
+      "settings": [
+        { "type": "text", "id": "title_line1", "label": "第一行标题（白色）", "default": "Smart Alarm" },
+        { "type": "text", "id": "title_line2", "label": "第二行标题（渐变色）", "default": "Quick Alert" },
+        { "type": "image_picker", "id": "icon_image", "label": "行内小图标（跟在第二行后）" },
+        { "type": "text", "id": "description", "label": "描述文字（灰色）", "default": "If alarm is triggered, get notified instantly" },
+        { "type": "range", "id": "title_size_desktop", "label": "标题字号（桌面端）", "min": 16, "max": 60, "step": 2, "unit": "px", "default": 32 },
+        { "type": "range", "id": "title_size_mobile", "label": "标题字号（移动端）", "min": 12, "max": 40, "step": 2, "unit": "px", "default": 18 },
+        { "type": "range", "id": "desc_size_desktop", "label": "描述字号（桌面端）", "min": 10, "max": 30, "step": 1, "unit": "px", "default": 18 },
+        { "type": "range", "id": "desc_size_mobile", "label": "描述字号（移动端）", "min": 10, "max": 24, "step": 1, "unit": "px", "default": 12 }
+      ]
+    },
+    {
+      "type": "card_app_screenshot",
+      "name": "卡片 — 文字+App截图",
+      "settings": [
+        { "type": "inline_richtext", "id": "title", "label": "说明文字", "default": "Smart App Control\nNo Monthly Fees" },
+        { "type": "image_picker", "id": "image", "label": "App 截图图片" },
+        { "type": "range", "id": "title_size_desktop", "label": "文字字号（桌面端）", "min": 10, "max": 30, "step": 1, "unit": "px", "default": 20 },
+        { "type": "range", "id": "title_size_mobile", "label": "文字字号（移动端）", "min": 10, "max": 24, "step": 1, "unit": "px", "default": 12 }
+      ]
+    },
+    {
+      "type": "banner_feature",
+      "name": "底部横幅",
+      "settings": [
+        { "type": "image_picker", "id": "icon_image", "label": "图标" },
+        { "type": "text", "id": "title", "label": "标题", "default": "Two-Way Audio" },
+        { "type": "text", "id": "description", "label": "描述", "default": "Talk and listen in real time through the camera—anytime, anywhere." },
+        { "type": "range", "id": "title_size_desktop", "label": "标题字号（桌面端）", "min": 12, "max": 36, "step": 1, "unit": "px", "default": 18 },
+        { "type": "range", "id": "title_size_mobile", "label": "标题字号（移动端）", "min": 10, "max": 24, "step": 1, "unit": "px", "default": 12 },
+        { "type": "range", "id": "desc_size_desktop", "label": "描述字号（桌面端）", "min": 10, "max": 24, "step": 1, "unit": "px", "default": 14 },
+        { "type": "range", "id": "desc_size_mobile", "label": "描述字号（移动端）", "min": 10, "max": 20, "step": 1, "unit": "px", "default": 12 }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Q-Why Choose",
+      "blocks": [
+        {
+          "type": "card_image_text",
+          "settings": {
+            "title": "4K HDR Video",
+            "title_size_desktop": 32,
+            "title_size_mobile": 18
+          }
+        },
+        {
+          "type": "card_text_icon",
+          "settings": {
+            "title": "<em>Auto Tracking</em>",
+            "subtitle": "Locks on and follows moving people",
+            "title_gradient": "linear-gradient(90deg, #6CBCE7 0%, #367CF6 100%)"
+          }
+        },
+        {
+          "type": "card_text_icon",
+          "settings": {
+            "title": "360°",
+            "subtitle": "AI Eliminate Blindspots",
+            "title_gradient": "#ffffff"
+          }
+        },
+        {
+          "type": "card_dual_title",
+          "settings": {
+            "title_line1": "Smart Alarm",
+            "title_line2": "Quick Alert",
+            "description": "If alarm is triggered, get notified instantly"
+          }
+        },
+        {
+          "type": "card_app_screenshot",
+          "settings": {
+            "title": "Smart App Control\nNo Monthly Fees"
+          }
+        },
+        {
+          "type": "card_dual_title",
+          "settings": {
+            "title_line1": "Solar Powered",
+            "title_line2": "Always On",
+            "description": ""
+          }
+        },
+        {
+          "type": "banner_feature",
+          "settings": {
+            "title": "Two-Way Audio",
+            "description": "Talk and listen in real time through the camera—anytime, anywhere."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

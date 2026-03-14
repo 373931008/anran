@@ -10,6 +10,94 @@
 {
   "layout": "theme",
   "sections": {
+    "q-why-choose": {
+      "type": "q-why-choose",
+      "blocks": {
+        "card-4k-hdr": {
+          "type": "card_image_text",
+          "settings": {
+            "title": "4K HDR Video",
+            "title_size_desktop": 32,
+            "title_size_mobile": 18
+          }
+        },
+        "card-auto-tracking": {
+          "type": "card_text_icon",
+          "settings": {
+            "title": "<em>Auto Tracking</em>",
+            "subtitle": "Locks on and follows moving people",
+            "title_gradient": "linear-gradient(90deg, #6CBCE7 0%, #367CF6 100%)"
+          }
+        },
+        "card-360": {
+          "type": "card_text_icon",
+          "settings": {
+            "title": "360°",
+            "subtitle": "AI Eliminate Blindspots",
+            "title_gradient": "#ffffff"
+          }
+        },
+        "card-smart-alarm": {
+          "type": "card_dual_title",
+          "settings": {
+            "title_line1": "Smart Alarm",
+            "title_line2": "Quick Alert",
+            "description": "If alarm is triggered, get notified instantly"
+          }
+        },
+        "card-app-screenshot": {
+          "type": "card_app_screenshot",
+          "settings": {
+            "title": "Smart App Control\nNo Monthly Fees"
+          }
+        },
+        "card-solar-powered": {
+          "type": "card_dual_title",
+          "settings": {
+            "title_line1": "Solar Powered",
+            "title_line2": "Always On"
+          }
+        },
+        "banner-two-way-audio": {
+          "type": "banner_feature",
+          "settings": {
+            "title": "Two-Way Audio",
+            "description": "Talk and listen in real time through the camera—anytime, anywhere."
+          }
+        }
+      },
+      "block_order": [
+        "card-4k-hdr",
+        "card-auto-tracking",
+        "card-360",
+        "card-smart-alarm",
+        "card-app-screenshot",
+        "card-solar-powered",
+        "banner-two-way-audio"
+      ],
+      "settings": {
+        "header_title": "Why Choose Our Camera?",
+        "header_center": false,
+        "header_em_color": "linear-gradient(90deg, #6CBCE7 0%, #367CF6 100%)",
+        "header_title_size_desktop": 46,
+        "header_title_size_mobile": 26,
+        "header_desc_size_desktop": 16,
+        "header_desc_size_mobile": 12,
+        "header_margin_bottom_desktop": 16,
+        "header_margin_bottom_mobile": 8,
+        "subtitle": "A few ways Guardian Cam Q3M8 gives you more.",
+        "cta_label": "100% Worth Buying >",
+        "cta_link": "/",
+        "cta_color": "#329bff",
+        "bg_color": "#000000",
+        "inner_bg_color": "#121214",
+        "card_bg_color": "#000000",
+        "padding_top_mobile": 0,
+        "padding_bottom_mobile": 0,
+        "padding_top_desktop": 0,
+        "padding_bottom_desktop": 0
+      }
+    },
     "q-smart-detection": {
       "type": "q-smart-detection",
       "blocks": {
@@ -1104,6 +1192,7 @@
     }
   },
   "order": [
+    "q-why-choose",
     "q-smart-detection",
     "q-alert-cards",
     "q-audio-live-view",
