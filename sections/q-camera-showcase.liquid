@@ -143,34 +143,33 @@
     display: block;
   }
 
-  .section-{{ section.id }} .q-cs__media-label {
-    position: absolute;
-    top: 16px;
-    left: 16px;
-    font-size: 12px;
-    font-weight: 700;
-    color: #fff;
-    line-height: 40px;
-    pointer-events: none;
+  /* 高度自适应：容器随内容高度，素材不裁剪 */
+  .section-{{ section.id }}.q-cs--media-auto .q-cs__media-wrap {
+    height: auto;
   }
 
-  .section-{{ section.id }} .q-cs__media-label--right {
-    left: auto;
-    right: 16px;
-    text-align: right;
+  .section-{{ section.id }}.q-cs--media-auto .q-cs__media-item--active {
+    position: relative;
+    z-index: 1;
   }
 
-  @media screen and (min-width: 750px) {
-    .section-{{ section.id }} .q-cs__media-label {
-      font-size: 26px;
-      top: 20px;
-      left: 24px;
-    }
+  .section-{{ section.id }}.q-cs--media-auto .q-cs__media-img {
+    height: auto;
+    object-fit: unset;
+  }
 
-    .section-{{ section.id }} .q-cs__media-label--right {
-      left: auto;
-      right: 24px;
-    }
+  .section-{{ section.id }}.q-cs--media-auto .q-cs__media-video {
+    height: auto;
+    object-fit: unset;
+  }
+
+  .section-{{ section.id }}.q-cs--media-auto .q-cs__video-placeholder {
+    position: relative;
+  }
+
+  .section-{{ section.id }}.q-cs--media-auto .q-cs__video-placeholder video {
+    height: auto;
+    object-fit: unset;
   }
 
 /* 桌面端/移动端素材显示控制 */
@@ -211,7 +210,7 @@
 }
 </style>
 
-<div class="q-camera-showcase section-{{ section.id }}">
+<div class="q-camera-showcase section-{{ section.id }} q-cs--media-{{ section.settings.media_height_mode | default: 'fixed' }}">
   <div class="page-width">
     {%- render 'q-section-header', section: section -%}
 
@@ -242,8 +241,6 @@
               assign image_mobile = block.settings.image_mobile
               assign video_desktop = block.settings.video_desktop
               assign video_mobile = block.settings.video_mobile
-              assign label_left = block.settings.label_left
-              assign label_right = block.settings.label_right
             -%}
             <div
               class="q-cs__media-item{% if forloop.first %} q-cs__media-item--active{% endif %}"
@@ -262,7 +259,8 @@
                       muted: true,
                       playsinline: true,
                       preload: 'none',
-                      autoplay: false
+                      autoplay: false,
+                      image_size: '1440x'
                     -}}
                   {%- endif -%}
                 </div>
@@ -275,7 +273,8 @@
                       muted: true,
                       playsinline: true,
                       preload: 'none',
-                      autoplay: false
+                      autoplay: false,
+                      image_size: '750x'
                     -}}
                   {%- elsif video_desktop != blank -%}
                     {{- video_desktop | video_tag:
@@ -284,7 +283,8 @@
                       muted: true,
                       playsinline: true,
                       preload: 'none',
-                      autoplay: false
+                      autoplay: false,
+                      image_size: '750x'
                     -}}
                   {%- endif -%}
                 </div>
@@ -323,13 +323,6 @@
                   -}}
                 {%- endif -%}
               {%- endif -%}
-
-              {%- if label_left != blank -%}
-                <span class="q-cs__media-label">{{ label_left }}</span>
-              {%- endif -%}
-              {%- if label_right != blank -%}
-                <span class="q-cs__media-label q-cs__media-label--right">{{ label_right }}</span>
-              {%- endif -%}
             </div>
           {%- endfor -%}
         </div>
@@ -356,6 +349,18 @@
     { "type": "range", "id": "header_desc_size_mobile", "label": "描述字号（移动端）", "min": 10, "max": 24, "step": 1, "unit": "px", "default": 12 },
     { "type": "range", "id": "header_margin_bottom_desktop", "label": "标题下边距（桌面端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
     { "type": "range", "id": "header_margin_bottom_mobile", "label": "标题下边距（移动端）", "min": 0, "max": 80, "step": 4, "unit": "px", "default": 24 },
+    { "type": "header", "content": "素材展示" },
+    {
+      "type": "select",
+      "id": "media_height_mode",
+      "label": "素材高度",
+      "info": "固定高度：多 Tab 高度统一、裁切一致。高度自适应：每个 Tab 按素材比例完整展示、不裁切。",
+      "options": [
+        { "value": "fixed", "label": "固定高度" },
+        { "value": "auto", "label": "高度自适应" }
+      ],
+      "default": "fixed"
+    },
     { "type": "header", "content": "板块背景" },
     { "type": "color_background", "id": "bg_color", "label": "背景色", "default": "#FFFFFF" },
     { "type": "header", "content": "上下边距" },
@@ -381,14 +386,11 @@
           "default": "image"
         },
         { "type": "header", "content": "图片素材" },
-        { "type": "image_picker", "id": "image_desktop", "label": "图片（桌面端）" },
-        { "type": "image_picker", "id": "image_mobile", "label": "图片（移动端）" },
+        { "type": "image_picker", "id": "image_desktop", "label": "图片（桌面端）" , "visible_if": "{{ block.settings.media_type == 'image' }}"},
+        { "type": "image_picker", "id": "image_mobile", "label": "图片（移动端）" , "visible_if": "{{ block.settings.media_type == 'image' }}"},
         { "type": "header", "content": "视频素材（选择视频类型时生效）" },
-        { "type": "video", "id": "video_desktop", "label": "视频（桌面端）" },
-        { "type": "video", "id": "video_mobile", "label": "视频（移动端）" },
-        { "type": "header", "content": "素材角标文字" },
-        { "type": "text", "id": "label_left", "label": "左侧标签" },
-        { "type": "text", "id": "label_right", "label": "右侧标签" }
+        { "type": "video", "id": "video_desktop", "label": "视频（桌面端）" , "visible_if": "{{ block.settings.media_type == 'video' }}"},
+        { "type": "video", "id": "video_mobile", "label": "视频（移动端）" , "visible_if": "{{ block.settings.media_type == 'video' }}"}
       ]
     }
   ],
@@ -400,18 +402,14 @@
           "type": "tab",
           "settings": {
             "tab_label": "4K HDR",
-            "media_type": "image",
-            "label_left": "DAY",
-            "label_right": "NIGHT"
+            "media_type": "image"
           }
         },
         {
           "type": "tab",
           "settings": {
             "tab_label": "Color Night",
-            "media_type": "image",
-            "label_left": "DAY",
-            "label_right": "NIGHT"
+            "media_type": "image"
           }
         },
         {

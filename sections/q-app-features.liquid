@@ -1,14 +1,15 @@
 {%- comment -%}
   Section: q-app-features
   功能说明：App 功能展示板块
-  - 展示手机 App 的核心功能，每个功能配有手机截图、标题和描述
-  - 移动端：每屏 2 列，带分页点
-  - 桌面端：每屏 4 列（breakpoints 切换），带左右导航箭头
+  - 卡片可配置为图片或视频（Shopify video）；视频进入视口/当前页自动播放，播完自动下一个
+  - 移动端：固定宽度 slide 横向滑动，当前页自动播放，滑动后播放当前页视频
+  - 桌面端：固定宽度 slide + 仅箭头导航；进入视口播放第一个视频，移入卡片播放该视频，播完继续下一个
 
   技术栈：
   - Swiper Web Component（breakpoints 统一响应式）
+  - Islands: frontend/islands/app-features-element.js（视频自动播放与联动）
   - Snippet: snippets/q-section-header.liquid
-  版本：1.1.0
+  版本：1.2.0
 {%- endcomment -%}
 
 <style>
@@ -35,16 +36,19 @@
     padding-top: var(--af-padding-top-mobile, 40px);
     padding-bottom: var(--af-padding-bottom-mobile, 40px);
     font-family: var(--font-body-family);
+    overflow: hidden;
   }
 
-  /* ========== Swiper slide 宽度（auto 模式） ========== */
+  /* ========== Swiper：flex + gap，slide 固定宽度 ========== */
   .section-{{ section.id }} .q-af__swiper {
     width: 100%;
+    display: flex;
+    gap: 14px;
   }
 
   .section-{{ section.id }} .q-af__swiper swiper-slide {
-    width: 46vw;
-    max-width: 220px;
+    width: 258px;
+    flex-shrink: 0;
     height: auto;
     display: flex;
   }
@@ -66,7 +70,8 @@
     aspect-ratio: var(--af-img-ratio);
   }
 
-  .section-{{ section.id }} .q-af__img-area img {
+  .section-{{ section.id }} .q-af__img-area img,
+  .section-{{ section.id }} .q-af__img-area video {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -103,23 +108,11 @@
     margin: 0;
   }
 
-  /* ========== 分页点 ========== */
-  .section-{{ section.id }} .q-af__swiper::part(bullet) {
-    width: 6px;
-    height: 6px;
-    background: #c8d8e8;
-    border-radius: 50%;
-    opacity: 1;
-    transition: background 0.2s, width 0.2s;
+  .section-{{ section.id }} .q-af__swiper::part(container) {
+    overflow: visible;
   }
 
-  .section-{{ section.id }} .q-af__swiper::part(bullet-active) {
-    background: #367cf6;
-    width: 18px;
-    border-radius: 3px;
-  }
-
-  /* ========== 导航箭头（默认隐藏，桌面端显示） ========== */
+  /* ========== 导航箭头（默认隐藏，桌面端显示；仅多页时显示） ========== */
   .section-{{ section.id }} .q-af__nav {
     display: none;
   }
@@ -139,9 +132,12 @@
       padding-bottom: var(--af-padding-bottom-desktop, 60px);
     }
 
+    .section-{{ section.id }} .q-af__swiper {
+      gap: 24px;
+    }
+
     .section-{{ section.id }} .q-af__swiper swiper-slide {
-      width: 288px;
-      max-width: none;
+      width: 488px;
     }
 
     .section-{{ section.id }} .q-af__nav {
@@ -156,25 +152,31 @@
       width: 36px;
       height: 36px;
       border-radius: 50%;
-      border: 1px solid #d0dde8;
-      background: #ffffff;
+      border: 1px solid rgba(105, 115, 134, 0.5);
+      background: rgba(105, 115, 134, 0.5);
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      color: #4e5357;
-      transition: background 0.2s, border-color 0.2s, color 0.2s;
+      color: #ffffff;
+      transition: background 0.2s, border-color 0.2s, opacity 0.2s;
       flex-shrink: 0;
     }
 
-    .section-{{ section.id }} .q-af__nav-btn:hover {
-      background: #edf4fc;
-      border-color: #367cf6;
-      color: #367cf6;
+    .section-{{ section.id }} .q-af__nav-btn:hover:not(:disabled):not(.swiper-button-disabled) {
+      background: rgba(105, 115, 134, 0.7);
+      border-color: rgba(105, 115, 134, 0.7);
     }
 
-    .section-{{ section.id }} .q-af__nav-btn:active {
-      background: #d6e9f8;
+    .section-{{ section.id }} .q-af__nav-btn:active:not(:disabled):not(.swiper-button-disabled) {
+      background: rgba(105, 115, 134, 0.85);
+    }
+
+    .section-{{ section.id }} .q-af__nav-btn:disabled,
+    .section-{{ section.id }} .q-af__nav-btn.swiper-button-disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      pointer-events: none;
     }
 
     .section-{{ section.id }} .q-af__nav-btn svg {
@@ -190,60 +192,86 @@
     {%- render 'q-section-header', section: section -%}
 
     {%- if section.blocks.size > 0 -%}
-      <swiper-container
-        class="q-af__swiper"
-        slides-per-view="auto"
-        space-between="12"
-        pagination="true"
-        grab-cursor="true"
-        breakpoints='{"750": {"spaceBetween": 16}}'
-      >
-        {%- for block in section.blocks -%}
-          <swiper-slide>
-            <div class="q-af__card" {{ block.shopify_attributes }}>
-              <div class="q-af__img-area">
-                {%- if block.settings.image != blank -%}
-                  <img
-                    src="{{ block.settings.image | image_url: width: 600 }}"
-                    alt="{{ block.settings.title | escape }}"
-                    width="{{ block.settings.image.width }}"
-                    height="{{ block.settings.image.height }}"
-                    loading="lazy"
-                    sizes="(min-width: 750px) 25vw, 44vw"
-                  >
-                {%- else -%}
-                  <div class="q-af__img-placeholder">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                      <rect x="2" y="2" width="20" height="20" rx="4"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/>
-                    </svg>
-                  </div>
-                {%- endif -%}
+      <app-features-element client:visible>
+        <swiper-container
+          class="q-af__swiper"
+          slides-per-view="auto"
+          space-between="14"
+          grab-cursor="true"
+          navigation="true"
+          navigation-prev-el="[data-carousel-prev='{{ section.id }}']"
+          navigation-next-el="[data-carousel-next='{{ section.id }}']"
+          breakpoints='{"750": {"spaceBetween": 24}}'
+        >
+          {%- for block in section.blocks -%}
+            <swiper-slide>
+              <div class="q-af__card" {{ block.shopify_attributes }} data-card-index="{{ forloop.index0 }}">
+                <div class="q-af__img-area">
+                  {%- if block.settings.media_type == 'video' and block.settings.video != blank -%}
+                    {{- block.settings.video | video_tag:
+                      class: 'q-af__media-video',
+                      muted: true,
+                      playsinline: true,
+                      loop: false,
+                      autoplay: false,
+                      preload: 'metadata',
+                      image_size: '600x'
+                    -}}
+                  {%- elsif block.settings.image != blank -%}
+                    <img
+                      src="{{ block.settings.image | image_url: width: 600 }}"
+                      alt="{{ block.settings.title | escape }}"
+                      width="{{ block.settings.image.width }}"
+                      height="{{ block.settings.image.height }}"
+                      loading="lazy"
+                      sizes="(min-width: 750px) 25vw, 44vw"
+                    >
+                  {%- else -%}
+                    <div class="q-af__img-placeholder">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <rect x="2" y="2" width="20" height="20" rx="4"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/>
+                      </svg>
+                    </div>
+                  {%- endif -%}
+                </div>
+                <div class="q-af__text">
+                  {%- if block.settings.title != blank -%}
+                    <p class="q-af__card-title">{{ block.settings.title }}</p>
+                  {%- endif -%}
+                  {%- if block.settings.description != blank -%}
+                    <p class="q-af__card-desc">{{ block.settings.description }}</p>
+                  {%- endif -%}
+                </div>
               </div>
-              <div class="q-af__text">
-                {%- if block.settings.title != blank -%}
-                  <p class="q-af__card-title">{{ block.settings.title }}</p>
-                {%- endif -%}
-                {%- if block.settings.description != blank -%}
-                  <p class="q-af__card-desc">{{ block.settings.description }}</p>
-                {%- endif -%}
-              </div>
-            </div>
-          </swiper-slide>
-        {%- endfor -%}
-      </swiper-container>
+            </swiper-slide>
+          {%- endfor -%}
+        </swiper-container>
 
-      <div class="q-af__nav">
-        <button class="q-af__nav-btn" aria-label="Previous" type="button">
-          <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-        <button class="q-af__nav-btn" aria-label="Next" type="button">
-          <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-      </div>
+        {%- if section.blocks.size > 1 -%}
+        <div class="q-af__nav">
+          <button
+            class="q-af__nav-btn"
+            type="button"
+            aria-label="Previous"
+            data-carousel-prev="{{ section.id }}"
+          >
+            <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <button
+            class="q-af__nav-btn"
+            type="button"
+            aria-label="Next"
+            data-carousel-next="{{ section.id }}"
+          >
+            <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+        {%- endif -%}
+      </app-features-element>
     {%- endif -%}
   </div>
 </div>
@@ -282,10 +310,28 @@
       "name": "功能卡片",
       "settings": [
         {
+          "type": "select",
+          "id": "media_type",
+          "label": "媒体类型",
+          "options": [
+            { "value": "image", "label": "图片" },
+            { "value": "video", "label": "视频" }
+          ],
+          "default": "image"
+        },
+        {
           "type": "image_picker",
           "id": "image",
-          "label": "手机截图",
-          "info": "推荐尺寸：489×538px（桌面端图片区比例）"
+          "label": "图片",
+          "info": "推荐尺寸：489×538px（桌面端）",
+          "visible_if": "{{ block.settings.media_type == 'image' }}"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "视频",
+          "info": "进入视口或当前页自动播放，播完自动播放下一个",
+          "visible_if": "{{ block.settings.media_type == 'video' }}"
         },
         {
           "type": "text",

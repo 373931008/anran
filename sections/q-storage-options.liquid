@@ -21,7 +21,7 @@
     --so-desc-size: 12px;
     --so-desc-line-height: 1.5;
     --so-list-size: 12px;
-    --so-list-line-height: 3;
+    --so-list-line-height: 1.5;
     --so-badge-height: 25px;
     --so-badge-font-size: 12px;
     --so-badge-padding: 0 10px 0 28px;
@@ -32,6 +32,7 @@
     --so-content-padding: 20px 22px;
     --so-btn-height: 31px;
     --so-btn-padding: 0 20px;
+    --so-btn-min-width: 146px;
     --so-btn-font-size: 12px;
     --so-btn-radius: 30px;
     --so-icon-size: 24px;
@@ -57,6 +58,7 @@
       --so-content-padding: 39px 48px;
       --so-btn-height: 60px;
       --so-btn-padding: 0 36px;
+      --so-btn-min-width: 200px;
       --so-btn-font-size: 18px;
       --so-btn-radius: 30px;
       --so-icon-size: 24px;
@@ -200,7 +202,7 @@
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 0;
+    gap: 18px;
   }
 
   @media screen and (min-width: 750px) {
@@ -231,6 +233,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    min-width: var(--so-btn-min-width);
     height: var(--so-btn-height);
     padding: var(--so-btn-padding);
     background: #2d3f60;
@@ -301,25 +304,25 @@
               <ul class="q-so__feature-list">
                 {%- if block.settings.feature_1 != blank -%}
                   <li class="q-so__feature-item">
-                    <svg class="q-so__feature-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.609 9.054-6.72 6.72a.9.9 0 0 1-1.273 0L6.39 12.546a.9.9 0 1 1 1.273-1.273l2.59 2.59 6.084-6.083a.9.9 0 0 1 1.272 1.274z" fill="currentColor"/></svg>
+                    <svg class="q-so__feature-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M19.801 10.222C19.931 10.794 20 11.389 20 12C20 16.415 16.415 20 12 20C7.585 20 4 16.415 4 12C4 7.585 7.585 4 12 4C12.923 4 13.809 4.156 14.634 4.444C15.155 4.626 15.725 4.351 15.907 3.83C16.089 3.308 15.814 2.738 15.293 2.556C14.261 2.196 13.153 2 12 2C6.481 2 2 6.481 2 12C2 17.519 6.481 22 12 22C17.519 22 22 17.519 22 12C22 11.237 21.914 10.493 21.752 9.778C21.629 9.24 21.093 8.903 20.555 9.025C20.017 9.147 19.679 9.683 19.801 10.222ZM11 12.586L19.293 4.293C19.683 3.903 20.317 3.903 20.707 4.293C21.097 4.683 21.097 5.317 20.707 5.707L11.707 14.707C11.317 15.098 10.683 15.098 10.293 14.707L7.293 11.707C6.903 11.317 6.903 10.683 7.293 10.293C7.683 9.903 8.317 9.903 8.707 10.293L11 12.586Z" fill="#1BBD88"/></svg>
                     {{ block.settings.feature_1 }}
                   </li>
                 {%- endif -%}
                 {%- if block.settings.feature_2 != blank -%}
                   <li class="q-so__feature-item">
-                    <svg class="q-so__feature-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.609 9.054-6.72 6.72a.9.9 0 0 1-1.273 0L6.39 12.546a.9.9 0 1 1 1.273-1.273l2.59 2.59 6.084-6.083a.9.9 0 0 1 1.272 1.274z" fill="currentColor"/></svg>
+                    <svg class="q-so__feature-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M19.801 10.222C19.931 10.794 20 11.389 20 12C20 16.415 16.415 20 12 20C7.585 20 4 16.415 4 12C4 7.585 7.585 4 12 4C12.923 4 13.809 4.156 14.634 4.444C15.155 4.626 15.725 4.351 15.907 3.83C16.089 3.308 15.814 2.738 15.293 2.556C14.261 2.196 13.153 2 12 2C6.481 2 2 6.481 2 12C2 17.519 6.481 22 12 22C17.519 22 22 17.519 22 12C22 11.237 21.914 10.493 21.752 9.778C21.629 9.24 21.093 8.903 20.555 9.025C20.017 9.147 19.679 9.683 19.801 10.222ZM11 12.586L19.293 4.293C19.683 3.903 20.317 3.903 20.707 4.293C21.097 4.683 21.097 5.317 20.707 5.707L11.707 14.707C11.317 15.098 10.683 15.098 10.293 14.707L7.293 11.707C6.903 11.317 6.903 10.683 7.293 10.293C7.683 9.903 8.317 9.903 8.707 10.293L11 12.586Z" fill="#1BBD88"/></svg>
                     {{ block.settings.feature_2 }}
                   </li>
                 {%- endif -%}
                 {%- if block.settings.feature_3 != blank -%}
                   <li class="q-so__feature-item">
-                    <svg class="q-so__feature-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.609 9.054-6.72 6.72a.9.9 0 0 1-1.273 0L6.39 12.546a.9.9 0 1 1 1.273-1.273l2.59 2.59 6.084-6.083a.9.9 0 0 1 1.272 1.274z" fill="currentColor"/></svg>
+                    <svg class="q-so__feature-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M19.801 10.222C19.931 10.794 20 11.389 20 12C20 16.415 16.415 20 12 20C7.585 20 4 16.415 4 12C4 7.585 7.585 4 12 4C12.923 4 13.809 4.156 14.634 4.444C15.155 4.626 15.725 4.351 15.907 3.83C16.089 3.308 15.814 2.738 15.293 2.556C14.261 2.196 13.153 2 12 2C6.481 2 2 6.481 2 12C2 17.519 6.481 22 12 22C17.519 22 22 17.519 22 12C22 11.237 21.914 10.493 21.752 9.778C21.629 9.24 21.093 8.903 20.555 9.025C20.017 9.147 19.679 9.683 19.801 10.222ZM11 12.586L19.293 4.293C19.683 3.903 20.317 3.903 20.707 4.293C21.097 4.683 21.097 5.317 20.707 5.707L11.707 14.707C11.317 15.098 10.683 15.098 10.293 14.707L7.293 11.707C6.903 11.317 6.903 10.683 7.293 10.293C7.683 9.903 8.317 9.903 8.707 10.293L11 12.586Z" fill="#1BBD88"/></svg>
                     {{ block.settings.feature_3 }}
                   </li>
                 {%- endif -%}
                 {%- if block.settings.feature_4 != blank -%}
                   <li class="q-so__feature-item">
-                    <svg class="q-so__feature-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.609 9.054-6.72 6.72a.9.9 0 0 1-1.273 0L6.39 12.546a.9.9 0 1 1 1.273-1.273l2.59 2.59 6.084-6.083a.9.9 0 0 1 1.272 1.274z" fill="currentColor"/></svg>
+                    <svg class="q-so__feature-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M19.801 10.222C19.931 10.794 20 11.389 20 12C20 16.415 16.415 20 12 20C7.585 20 4 16.415 4 12C4 7.585 7.585 4 12 4C12.923 4 13.809 4.156 14.634 4.444C15.155 4.626 15.725 4.351 15.907 3.83C16.089 3.308 15.814 2.738 15.293 2.556C14.261 2.196 13.153 2 12 2C6.481 2 2 6.481 2 12C2 17.519 6.481 22 12 22C17.519 22 22 17.519 22 12C22 11.237 21.914 10.493 21.752 9.778C21.629 9.24 21.093 8.903 20.555 9.025C20.017 9.147 19.679 9.683 19.801 10.222ZM11 12.586L19.293 4.293C19.683 3.903 20.317 3.903 20.707 4.293C21.097 4.683 21.097 5.317 20.707 5.707L11.707 14.707C11.317 15.098 10.683 15.098 10.293 14.707L7.293 11.707C6.903 11.317 6.903 10.683 7.293 10.293C7.683 9.903 8.317 9.903 8.707 10.293L11 12.586Z" fill="#1BBD88"/></svg>
                     {{ block.settings.feature_4 }}
                   </li>
                 {%- endif -%}

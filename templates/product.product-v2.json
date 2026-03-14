@@ -7,7 +7,7 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
-{
+ {
   "layout": "theme",
   "sections": {
     "q-why-choose": {
@@ -26,7 +26,11 @@
           "settings": {
             "title": "<em>Auto Tracking</em>",
             "subtitle": "Locks on and follows moving people",
-            "title_gradient": "linear-gradient(90deg, #6CBCE7 0%, #367CF6 100%)"
+            "title_gradient": "linear-gradient(90deg, #6CBCE7 0%, #367CF6 100%)",
+            "title_size_desktop": 32,
+            "title_size_mobile": 18,
+            "subtitle_size_desktop": 18,
+            "subtitle_size_mobile": 12
           }
         },
         "card-360": {
@@ -34,7 +38,11 @@
           "settings": {
             "title": "360°",
             "subtitle": "AI Eliminate Blindspots",
-            "title_gradient": "#ffffff"
+            "title_gradient": "#ffffff",
+            "title_size_desktop": 32,
+            "title_size_mobile": 18,
+            "subtitle_size_desktop": 18,
+            "subtitle_size_mobile": 12
           }
         },
         "card-smart-alarm": {
@@ -42,27 +50,42 @@
           "settings": {
             "title_line1": "Smart Alarm",
             "title_line2": "Quick Alert",
-            "description": "If alarm is triggered, get notified instantly"
+            "description": "If alarm is triggered, get notified instantly",
+            "title_size_desktop": 32,
+            "title_size_mobile": 18,
+            "desc_size_desktop": 18,
+            "desc_size_mobile": 12
           }
         },
         "card-app-screenshot": {
           "type": "card_app_screenshot",
           "settings": {
-            "title": "Smart App Control\nNo Monthly Fees"
+            "title": "Smart App Control\nNo Monthly Fees",
+            "title_size_desktop": 20,
+            "title_size_mobile": 12
           }
         },
         "card-solar-powered": {
           "type": "card_dual_title",
           "settings": {
             "title_line1": "Solar Powered",
-            "title_line2": "Always On"
+            "title_line2": "Always On",
+            "description": "If alarm is triggered, get notified instantly",
+            "title_size_desktop": 32,
+            "title_size_mobile": 18,
+            "desc_size_desktop": 18,
+            "desc_size_mobile": 12
           }
         },
         "banner-two-way-audio": {
           "type": "banner_feature",
           "settings": {
             "title": "Two-Way Audio",
-            "description": "Talk and listen in real time through the camera—anytime, anywhere."
+            "description": "Talk and listen in real time through the camera—anytime, anywhere.",
+            "title_size_desktop": 18,
+            "title_size_mobile": 12,
+            "desc_size_desktop": 14,
+            "desc_size_mobile": 12
           }
         }
       },
@@ -77,6 +100,7 @@
       ],
       "settings": {
         "header_title": "Why Choose Our Camera?",
+        "header_description": "",
         "header_center": false,
         "header_em_color": "linear-gradient(90deg, #6CBCE7 0%, #367CF6 100%)",
         "header_title_size_desktop": 46,
@@ -105,28 +129,28 @@
           "type": "detection_type",
           "settings": {
             "label": "People",
-            "icon_svg": "<svg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' fill='white'><path d='M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z'/></svg>"
+            "icon_svg": "<svg viewbox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"white\"><path d=\"M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z\"></path></svg>"
           }
         },
         "detection-pets": {
           "type": "detection_type",
           "settings": {
             "label": "Pets",
-            "icon_svg": "<svg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' fill='white'><path d='M4.5 9.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm15 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm-7.5-7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM9 9.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm10 4c0-3.3-3.1-6-7-6s-7 2.7-7 6c0 1.5.7 2.8 1.7 3.8L5 21h14l-1.7-3.7c1-.9 1.7-2.3 1.7-3.8z'/></svg>"
+            "icon_svg": "<svg viewbox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"white\"><path d=\"M4.5 9.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm15 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm-7.5-7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM9 9.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm10 4c0-3.3-3.1-6-7-6s-7 2.7-7 6c0 1.5.7 2.8 1.7 3.8L5 21h14l-1.7-3.7c1-.9 1.7-2.3 1.7-3.8z\"></path></svg>"
           }
         },
         "detection-vehicles": {
           "type": "detection_type",
           "settings": {
             "label": "Vehicles",
-            "icon_svg": "<svg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' fill='white'><path d='M18.9 6.6C18.6 5.7 17.8 5 17 5H7c-.8 0-1.6.7-1.9 1.6L3 13v8c0 .6.4 1 1 1h1c.6 0 1-.4 1-1v-1h12v1c0 .6.4 1 1 1h1c.6 0 1-.4 1-1v-8l-2.1-6.4zM7 16c-.8 0-1.5-.7-1.5-1.5S6.2 13 7 13s1.5.7 1.5 1.5S7.8 16 7 16zm10 0c-.8 0-1.5-.7-1.5-1.5S16.2 13 17 13s1.5.7 1.5 1.5S17.8 16 17 16zm-11.5-5L7 7h10l1.5 4h-13z'/></svg>"
+            "icon_svg": "<svg viewbox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"white\"><path d=\"M18.9 6.6C18.6 5.7 17.8 5 17 5H7c-.8 0-1.6.7-1.9 1.6L3 13v8c0 .6.4 1 1 1h1c.6 0 1-.4 1-1v-1h12v1c0 .6.4 1 1 1h1c.6 0 1-.4 1-1v-8l-2.1-6.4zM7 16c-.8 0-1.5-.7-1.5-1.5S6.2 13 7 13s1.5.7 1.5 1.5S7.8 16 7 16zm10 0c-.8 0-1.5-.7-1.5-1.5S16.2 13 17 13s1.5.7 1.5 1.5S17.8 16 17 16zm-11.5-5L7 7h10l1.5 4h-13z\"></path></svg>"
           }
         },
         "detection-motion": {
           "type": "detection_type",
           "settings": {
             "label": "Motion",
-            "icon_svg": "<svg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' fill='white'><path d='M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6l1.8-.7z'/></svg>"
+            "icon_svg": "<svg viewbox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"white\"><path d=\"M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6l1.8-.7z\"></path></svg>"
           }
         }
       },
@@ -138,6 +162,7 @@
       ],
       "settings": {
         "header_title": "Smarter Detection Camera Tracking",
+        "header_description": "",
         "header_center": false,
         "header_em_color": "linear-gradient(90deg, #6CBCE7 0%, #367CF6 100%)",
         "header_title_size_desktop": 46,
@@ -147,6 +172,7 @@
         "header_margin_bottom_desktop": 40,
         "header_margin_bottom_mobile": 24,
         "description": "AI-powered detection recognizes, and filters out false alerts—so you stay informed without constant interruptions.",
+        "phone_video": "",
         "bg_color": "#f3f7ff",
         "padding_top_mobile": 40,
         "padding_bottom_mobile": 40,
@@ -154,7 +180,379 @@
         "padding_bottom_desktop": 60
       }
     },
-    "q-setup-steps": { 
+    "q-alert-cards": {
+      "type": "q-alert-cards",
+      "blocks": {
+        "card-1": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/image_213.jpg",
+            "title": "Instant App Alerts",
+            "description": "<p>Receive instant notifications on your phone when important motion is detected, so you can respond quickly.</p>"
+          }
+        },
+        "card-2": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/Rectangle_203.jpg",
+            "title": "Threat prevention",
+            "description": "<p>Activate built-in spotlight or siren to deter intruders and add an extra layer of active protection.</p>"
+          }
+        },
+        "card-3": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/image_228.jpg",
+            "title": "Custom Alert Zones & All-Round Patrol",
+            "description": "<p>Set custom detection zones and sensitivity to focus on important areas and reduce false alerts.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "card-1",
+        "card-2",
+        "card-3"
+      ],
+      "settings": {
+        "header_title": "<em>Real-Time Alerts</em> and Instant Siren",
+        "header_description": "",
+        "header_center": false,
+        "header_em_color": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 100%)",
+        "header_title_size_desktop": 50,
+        "header_title_size_mobile": 26,
+        "header_desc_size_desktop": 16,
+        "header_desc_size_mobile": 12,
+        "header_margin_bottom_desktop": 40,
+        "header_margin_bottom_mobile": 24,
+        "bg_color": "#FFFFFF",
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60
+      }
+    },
+    "q-audio-live-view": {
+      "type": "q-audio-live-view",
+      "blocks": {
+        "card-1": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/Rectangle_201.jpg",
+            "title": "Clear Audio and One-Tap Talk",
+            "description": "<p>Enjoy clear, real-time two-way audio and start talking instantly with a single tap on your phone.</p>"
+          }
+        },
+        "card-2": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/image_214.jpg",
+            "title": "Manage Deliveries and Deter Strangers",
+            "description": "<p>Speak through the camera to deter unwanted visitors or guide deliveries—without opening the door.</p><p><em><strong>No door opening required.</strong></em></p>"
+          }
+        }
+      },
+      "block_order": [
+        "card-1",
+        "card-2"
+      ],
+      "settings": {
+        "header_title": "Two-Way Audio & <em>Live View</em>",
+        "header_description": "",
+        "header_center": false,
+        "header_em_color": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 100%)",
+        "header_title_size_desktop": 50,
+        "header_title_size_mobile": 26,
+        "header_desc_size_desktop": 16,
+        "header_desc_size_mobile": 12,
+        "header_margin_bottom_desktop": 40,
+        "header_margin_bottom_mobile": 24,
+        "bg_color": "#FFFFFF",
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60
+      }
+    },
+    "q-expert-testimonials": {
+      "type": "q-expert-testimonials",
+      "blocks": {
+        "card-1": {
+          "type": "card",
+          "settings": {
+            "local_video": "shopify://files/videos/Invisible_selfie_stick_vid_pc_xlarge.mp4",
+            "video": "https://www.youtube.com/watch?v=1sIDyzU7EfA",
+            "video_url_alt": "/",
+            "pill_1": "Cutting-edge Security Technology",
+            "pill_2": "Ideal for Homes, Apartments, and Small Businesses",
+            "pill_3": "Easy to Install and Simple to Use",
+            "quote": "<p>See for yourself how this versatile camera <strong>protects what matters most.</strong></p>",
+            "expert_avatar": "shopify://shop_images/Ellipse_3.jpg",
+            "expert_name": "Ava Martinez",
+            "expert_title": "Home Security Specialist",
+            "show_verified_badge": true
+          }
+        },
+        "card_rjVfVa": {
+          "type": "card",
+          "settings": {
+            "local_video": "shopify://files/videos/Portrait_Mode_PC_xlarge.mp4",
+            "video": "https://www.youtube.com/watch?v=1sIDyzU7EfA",
+            "video_url_alt": "/",
+            "pill_1": "Cutting-edge Security Technology",
+            "pill_2": "Ideal for Homes, Apartments, and Small Businesses",
+            "pill_3": "Easy to Install and Simple to Use",
+            "quote": "<p>See for yourself how this versatile camera <strong>protects what matters most.</strong></p>",
+            "expert_avatar": "shopify://shop_images/Ellipse_3.jpg",
+            "expert_name": "Ava Martinez",
+            "expert_title": "Home Security Specialist",
+            "show_verified_badge": true
+          }
+        }
+      },
+      "block_order": [
+        "card-1",
+        "card_rjVfVa"
+      ],
+      "settings": {
+        "header_title": "Tested and trusted by <em>home security experts</em>",
+        "header_description": "",
+        "header_center": true,
+        "header_em_color": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 100%)",
+        "header_title_size_desktop": 46,
+        "header_title_size_mobile": 22,
+        "header_desc_size_desktop": 16,
+        "header_desc_size_mobile": 12,
+        "header_margin_bottom_desktop": 40,
+        "header_margin_bottom_mobile": 24,
+        "bg_color": "#FFFFFF",
+        "bg_image": "shopify://shop_images/Group_402.jpg",
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60,
+        "autoplay_carousel": false,
+        "autoplay_delay": 5
+      }
+    },
+    "q-camera-showcase": {
+      "type": "q-camera-showcase",
+      "blocks": {
+        "tab-1": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "4K HDR",
+            "media_type": "video",
+            "video_desktop": "shopify://files/videos/Portrait_Mode_PC_xlarge.mp4"
+          }
+        },
+        "tab-2": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "Color Night",
+            "media_type": "video",
+            "video_desktop": "shopify://files/videos/Invisible_selfie_stick_vid_pc_xlarge.mp4"
+          }
+        },
+        "tab-3": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "360° Coverage",
+            "media_type": "image",
+            "image_desktop": "shopify://shop_images/Group_366.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "tab-1",
+        "tab-2",
+        "tab-3"
+      ],
+      "settings": {
+        "header_title": "<em>See Details</em> in the Dark",
+        "header_description": "<p>Featuring an f/1.6 large aperture and spotlights, the camera captures 20% more light, showing more details in dark.</p>",
+        "header_center": true,
+        "header_em_color": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 100%)",
+        "header_title_size_desktop": 50,
+        "header_title_size_mobile": 26,
+        "header_desc_size_desktop": 16,
+        "header_desc_size_mobile": 12,
+        "header_margin_bottom_desktop": 40,
+        "header_margin_bottom_mobile": 24,
+        "media_height_mode": "fixed",
+        "bg_color": "#FFFFFF",
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60
+      }
+    },
+    "q-wifi-connected": {
+      "type": "q-wifi-connected",
+      "settings": {
+        "header_title": "Always <em>Connected</em>",
+        "header_description": "<p>Built with <strong>Wi-Fi 6</strong> for faster, more stable wireless performance—so live view stays smooth and alerts arrive right when they matter. Bluetooth is used for quick setup.</p>",
+        "header_center": true,
+        "header_em_color": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 100%)",
+        "header_title_size_desktop": 42,
+        "header_title_size_mobile": 26,
+        "header_desc_size_desktop": 16,
+        "header_desc_size_mobile": 12,
+        "header_margin_bottom_desktop": 40,
+        "header_margin_bottom_mobile": 24,
+        "image_desktop": "shopify://shop_images/Group_371.jpg",
+        "image_mobile": "shopify://shop_images/image_303.jpg",
+        "bg_color": "#FFFFFF",
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60
+      }
+    },
+    "q-storage-options": {
+      "type": "q-storage-options",
+      "blocks": {
+        "card-local": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/Group_373.jpg",
+            "badge_label": "No Monthly Fees",
+            "card_title": "Local Storage (Free)",
+            "card_description": "Essential recording and playback — no subscription required.",
+            "feature_1": "Continuous or event-based local recording",
+            "feature_2": "Instant playback from device storage",
+            "feature_3": "Full access to live view & motion alerts",
+            "feature_4": "Footage stays private and under your control",
+            "button_label": "Buy now",
+            "button_link": "/"
+          }
+        },
+        "card-cloud": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/Group_372.jpg",
+            "badge_label": "Optional Backup",
+            "card_title": "Cloud Storage",
+            "card_description": "Extra protection and convenience — only if you choose.",
+            "feature_1": "Encrypted cloud backup",
+            "feature_2": "Extended video history",
+            "feature_3": "Easy sharing & remote access",
+            "feature_4": "Subscription required (optional, not mandatory)",
+            "button_label": "Buy now",
+            "button_link": "/"
+          }
+        }
+      },
+      "block_order": [
+        "card-local",
+        "card-cloud"
+      ],
+      "settings": {
+        "header_title": "Local & Cloud Storage — No Subscription",
+        "header_description": "",
+        "header_center": true,
+        "header_em_color": "#1565d8",
+        "header_title_size_desktop": 42,
+        "header_title_size_mobile": 24,
+        "header_desc_size_desktop": 16,
+        "header_desc_size_mobile": 12,
+        "header_margin_bottom_desktop": 44,
+        "header_margin_bottom_mobile": 24,
+        "bg_color": "#F7F7F7",
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60
+      }
+    },
+    "q-app-features": {
+      "type": "q-app-features",
+      "blocks": {
+        "feature-1": {
+          "type": "feature",
+          "settings": {
+            "media_type": "video",
+            "video": "shopify://files/videos/8k360_video_vid_pc_xlarge.mp4",
+            "title": "Live View & Event Playback",
+            "description": "Watch live video and replay key moments anytime, from anywhere."
+          }
+        },
+        "feature-2": {
+          "type": "feature",
+          "settings": {
+            "media_type": "video",
+            "video": "shopify://files/videos/PureVideo_Mode_vid_pc_new.mp4",
+            "title": "Smart Alerts That Matter",
+            "description": "Get real-time notifications with visual previews, so you never miss what matters."
+          }
+        },
+        "feature-3": {
+          "type": "feature",
+          "settings": {
+            "media_type": "image",
+            "image": "shopify://shop_images/Group_179.jpg",
+            "title": "Connected Devices",
+            "description": "View, manage, and securely share devices with family from one app."
+          }
+        },
+        "feature-4": {
+          "type": "feature",
+          "settings": {
+            "media_type": "image",
+            "image": "shopify://shop_images/Group_179.jpg",
+            "title": "Security & Privacy Controls",
+            "description": "Manage permissions, access, and key security settings to keep your data protected."
+          }
+        }
+      },
+      "block_order": [
+        "feature-1",
+        "feature-2",
+        "feature-3",
+        "feature-4"
+      ],
+      "settings": {
+        "header_title": "App Control, Right from Your <em>Phone</em>",
+        "header_description": "",
+        "header_center": false,
+        "header_em_color": "linear-gradient(90deg, rgba(108,188,231,0.81) 0%, #367CF6 100%)",
+        "header_title_size_desktop": 42,
+        "header_title_size_mobile": 24,
+        "header_desc_size_desktop": 16,
+        "header_desc_size_mobile": 12,
+        "header_margin_bottom_desktop": 40,
+        "header_margin_bottom_mobile": 24,
+        "bg_color": "#FFFFFF",
+        "card_bg_color": "#FFFFFF",
+        "img_bg_color": "#F3F7FF",
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60
+      }
+    },
+    "q-privacy-security": {
+      "type": "q-privacy-security",
+      "settings": {
+        "header_title": "Protecting Your Privacy and Security",
+        "header_description": "<p>We prioritize your privacy at every step. Our devices use end-to-end encryption and secure data practices to ensure your information is protected.</p><p>Only the data you choose is collected, and you can review, manage, or delete it at any time, giving you full control over your information.</p><p>Features like Home/Away modes and status indicators are designed to keep your home and family's information safe while letting you enjoy smart technology with peace of mind.</p>",
+        "header_center": false,
+        "header_em_color": "#3b7dd8",
+        "header_title_size_desktop": 42,
+        "header_title_size_mobile": 24,
+        "header_desc_size_desktop": 16,
+        "header_desc_size_mobile": 12,
+        "header_margin_bottom_desktop": 0,
+        "header_margin_bottom_mobile": 0,
+        "image": "shopify://shop_images/Rectangle_205.jpg",
+        "icon_image": "shopify://shop_images/fi_7532627.svg",
+        "bg_color": "#f3f7ff",
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60
+      }
+    },
+    "q-setup-steps": {
       "type": "q-setup-steps",
       "blocks": {
         "step-1": {
@@ -270,7 +668,7 @@
       "type": "q-full-width-image",
       "settings": {
         "image_desktop": "shopify://shop_images/image_287.jpg",
-        "image_mobile": "shopify://shop_images/image_287.jpg", 
+        "image_mobile": "shopify://shop_images/image_287.jpg",
         "image_height_desktop": 740,
         "image_height_mobile": 500,
         "show_overlay": true,
@@ -914,280 +1312,6 @@
         "enable_video_looping": false,
         "padding_top": 36,
         "padding_bottom": 12
-      }
-    },
-    "q-storage-options": {
-      "type": "q-storage-options",
-      "blocks": {
-        "card-local": {
-          "type": "card",
-          "settings": {
-            "badge_label": "No Monthly Fees",
-            "card_title": "Local Storage (Free)",
-            "card_description": "Essential recording and playback — no subscription required.",
-            "feature_1": "Continuous or event-based local recording",
-            "feature_2": "Instant playback from device storage",
-            "feature_3": "Full access to live view & motion alerts",
-            "feature_4": "Footage stays private and under your control",
-            "button_label": "Buy now",
-            "button_link": "/"
-          }
-        },
-        "card-cloud": {
-          "type": "card",
-          "settings": {
-            "badge_label": "Optional Backup",
-            "card_title": "Cloud Storage",
-            "card_description": "Extra protection and convenience — only if you choose.",
-            "feature_1": "Encrypted cloud backup",
-            "feature_2": "Extended video history",
-            "feature_3": "Easy sharing & remote access",
-            "feature_4": "Subscription required (optional, not mandatory)",
-            "button_label": "Buy now",
-            "button_link": "/"
-          }
-        }
-      },
-      "block_order": ["card-local", "card-cloud"],
-      "settings": {
-        "header_title": "Local & Cloud Storage — <span>No Subscription</span>",
-        "bg_color": "#F7F7F7",
-        "padding_top_mobile": 40,
-        "padding_bottom_mobile": 40,
-        "padding_top_desktop": 60,
-        "padding_bottom_desktop": 60
-      }
-    },
-    "q-app-features": {
-      "type": "q-app-features",
-      "blocks": {
-        "feature-1": {
-          "type": "feature",
-          "settings": {
-            "title": "Live View & Event Playback",
-            "description": "Watch live video and replay key moments anytime, from anywhere."
-          }
-        },
-        "feature-2": {
-          "type": "feature",
-          "settings": {
-            "title": "Smart Alerts That Matter",
-            "description": "Get real-time notifications with visual previews, so you never miss what matters."
-          }
-        },
-        "feature-3": {
-          "type": "feature",
-          "settings": {
-            "title": "Connected Devices",
-            "description": "View, manage, and securely share devices with family from one app."
-          }
-        },
-        "feature-4": {
-          "type": "feature",
-          "settings": {
-            "title": "Security & Privacy Controls",
-            "description": "Manage permissions, access, and key security settings to keep your data protected."
-          }
-        }
-      },
-      "block_order": ["feature-1", "feature-2", "feature-3", "feature-4"],
-      "settings": {
-        "header_title": "App Control, Right from Your <em>Phone</em>",
-        "header_center": false,
-        "header_em_color": "linear-gradient(90deg, rgba(108,188,231,0.81) 0%, #367CF6 100%)",
-        "header_margin_bottom_desktop": 40,
-        "header_margin_bottom_mobile": 24,
-        "bg_color": "#FFFFFF",
-        "card_bg_color": "#FFFFFF",
-        "img_bg_color": "#F3F7FF",
-        "padding_top_mobile": 40,
-        "padding_bottom_mobile": 40,
-        "padding_top_desktop": 60,
-        "padding_bottom_desktop": 60
-      }
-    },
-    "q-privacy-security": {
-      "type": "q-privacy-security",
-      "settings": {
-        "title": "Protecting Your Privacy and Security",
-        "description": "<p>We prioritize your privacy at every step. Our devices use end-to-end encryption and secure data practices to ensure your information is protected.</p><p>Only the data you choose is collected, and you can review, manage, or delete it at any time, giving you full control over your information.</p><p>Features like Home/Away modes and status indicators are designed to keep your home and family's information safe while letting you enjoy smart technology with peace of mind.</p>",
-        "bg_color": "#f3f7ff",
-        "icon_color": "#3b7dd8",
-        "padding_top_mobile": 40,
-        "padding_bottom_mobile": 40,
-        "padding_top_desktop": 60,
-        "padding_bottom_desktop": 60
-      }
-    },
-    "q-camera-showcase": {
-      "type": "q-camera-showcase",
-      "blocks": {
-        "tab-1": {
-          "type": "tab",
-          "settings": {
-            "tab_label": "4K HDR",
-            "media_type": "image",
-            "label_left": "DAY",
-            "label_right": "NIGHT"
-          }
-        },
-        "tab-2": {
-          "type": "tab",
-          "settings": {
-            "tab_label": "Color Night",
-            "media_type": "image",
-            "label_left": "DAY",
-            "label_right": "NIGHT"
-          }
-        },
-        "tab-3": {
-          "type": "tab",
-          "settings": {
-            "tab_label": "360° Coverage",
-            "media_type": "image"
-          }
-        }
-      },
-      "block_order": ["tab-1", "tab-2", "tab-3"],
-      "settings": {
-        "header_title": "<em>See Details</em> in the Dark",
-        "header_center": true,
-        "header_em_color": "linear-gradient(90deg, #6CBCE7 0%, #367CF6 100%)",
-        "header_margin_bottom_desktop": 40,
-        "header_margin_bottom_mobile": 24,
-        "bg_color": "#FFFFFF",
-        "padding_top_mobile": 40,
-        "padding_bottom_mobile": 40,
-        "padding_top_desktop": 60,
-        "padding_bottom_desktop": 60
-      }
-    },
-    "q-expert-testimonials": {
-      "type": "q-expert-testimonials",
-      "blocks": {
-        "card-1": {
-          "type": "card",
-          "settings": {
-            "pill_1": "Cutting-edge Security Technology",
-            "pill_2": "Ideal for Homes, Apartments, and Small Businesses",
-            "pill_3": "Easy to Install and Simple to Use",
-            "expert_name": "Ava Martinez",
-            "expert_title": "Home Security Specialist",
-            "show_verified_badge": true
-          }
-        }
-      },
-      "block_order": ["card-1"],
-      "settings": {
-        "header_title": "Tested and trusted by <em>home security experts</em>",
-        "header_center": true,
-        "header_em_color": "linear-gradient(90deg, #6CBCE7 0%, #367CF6 100%)",
-        "header_margin_bottom_desktop": 40,
-        "header_margin_bottom_mobile": 24,
-        "bg_color": "#FFFFFF",
-        "padding_top_mobile": 40,
-        "padding_bottom_mobile": 40,
-        "padding_top_desktop": 60,
-        "padding_bottom_desktop": 60
-      }
-    },
-    "q-audio-live-view": {
-      "type": "q-audio-live-view",
-      "blocks": {
-        "card-1": {
-          "type": "card",
-          "settings": {
-            "title": "Clear Audio and One-Tap Talk",
-            "description": "<p>Enjoy clear, real-time two-way audio and start talking instantly with a single tap on your phone.</p>"
-          }
-        },
-        "card-2": {
-          "type": "card",
-          "settings": {
-            "title": "Manage Deliveries and Deter Strangers",
-            "description": "<p>Speak through the camera to deter unwanted visitors or guide deliveries—without opening the door.</p>"
-          }
-        }
-      },
-      "block_order": ["card-1", "card-2"],
-      "settings": {
-        "header_title": "Two-Way Audio & <em>Live View</em>",
-        "header_center": false,
-        "header_em_color": "linear-gradient(90deg, #6CBCE7 0%, #367CF6 100%)",
-        "header_title_size_desktop": 50,
-        "header_title_size_mobile": 26,
-        "header_desc_size_desktop": 16,
-        "header_desc_size_mobile": 12,
-        "header_margin_bottom_desktop": 40,
-        "header_margin_bottom_mobile": 24,
-        "bg_color": "#FFFFFF",
-        "padding_top_mobile": 40,
-        "padding_bottom_mobile": 40,
-        "padding_top_desktop": 60,
-        "padding_bottom_desktop": 60
-      }
-    },
-    "q-alert-cards": {
-      "type": "q-alert-cards",
-      "blocks": {
-        "card-1": {
-          "type": "card",
-          "settings": {
-            "title": "Instant App Alerts",
-            "description": "<p>Receive instant notifications on your phone when important motion is detected, so you can respond quickly.</p>"
-          }
-        },
-        "card-2": {
-          "type": "card",
-          "settings": {
-            "title": "Threat prevention",
-            "description": "<p>Activate built-in spotlight or siren to deter intruders and add an extra layer of active protection.</p>"
-          }
-        },
-        "card-3": {
-          "type": "card",
-          "settings": {
-            "title": "Custom Alert Zones & All-Round Patrol",
-            "description": "<p>Set custom detection zones and sensitivity to focus on important areas and reduce false alerts.</p>"
-          }
-        }
-      },
-      "block_order": ["card-1", "card-2", "card-3"],
-      "settings": {
-        "header_title": "<em>Real-Time Alerts</em> and Instant Siren",
-        "header_center": false,
-        "header_em_color": "linear-gradient(90deg, #6CBCE7 0%, #367CF6 100%)",
-        "header_title_size_desktop": 50,
-        "header_title_size_mobile": 26,
-        "header_desc_size_desktop": 16,
-        "header_desc_size_mobile": 12,
-        "header_margin_bottom_desktop": 40,
-        "header_margin_bottom_mobile": 24,
-        "bg_color": "#FFFFFF",
-        "padding_top_mobile": 40,
-        "padding_bottom_mobile": 40,
-        "padding_top_desktop": 60,
-        "padding_bottom_desktop": 60
-      }
-    },
-    "q-wifi-connected": {
-      "type": "q-wifi-connected",
-      "settings": {
-        "header_title": "Always <em>Connected</em>",
-        "header_center": true,
-        "header_em_color": "linear-gradient(90deg, #6CBCE7 0%, #367CF6 100%)",
-        "header_margin_bottom_desktop": 40,
-        "header_margin_bottom_mobile": 24,
-        "wifi_title": "Wi-Fi 6",
-        "freq_1_num": "2.4",
-        "freq_1_unit": "GHz",
-        "freq_2_num": "5",
-        "freq_2_unit": "GHz",
-        "bg_color": "#FFFFFF",
-        "padding_top_mobile": 40,
-        "padding_bottom_mobile": 40,
-        "padding_top_desktop": 60,
-        "padding_bottom_desktop": 60
       }
     }
   },

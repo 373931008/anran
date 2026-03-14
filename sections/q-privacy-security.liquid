@@ -44,6 +44,13 @@
     color: var(--ps-icon-color, #3b7dd8);
   }
 
+  .section-{{ section.id }} .q-ps__icon-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
   .section-{{ section.id }} .q-section-header {
     margin-bottom: 0;
   }
@@ -103,10 +110,18 @@
     <div class="q-ps__inner">
       <div class="q-ps__content">
         <div class="q-ps__icon" aria-hidden="true">
-          <svg width="39" height="39" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M19.5 3.25L6.5 8.125V18.2083C6.5 25.7604 12.122 32.8125 19.5 34.75C26.878 32.8125 32.5 25.7604 32.5 18.2083V8.125L19.5 3.25Z" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
-            <path d="M14.625 19.5L17.875 22.75L24.375 16.25" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+          {%- if section.settings.icon_image != blank -%}
+            {{
+              section.settings.icon_image
+              | image_url: width: 78
+              | image_tag:
+                loading: 'lazy',
+                class: 'q-ps__icon-img',
+                width: 39,
+                height: 39,
+                alt: ''
+            }}
+          {%- endif -%}
         </div>
 
         {%- render 'q-section-header', section: section -%}
@@ -164,13 +179,12 @@
     },
     {
       "type": "header",
-      "content": "图标颜色"
+      "content": "图标"
     },
     {
-      "type": "color_background",
-      "id": "icon_color",
-      "label": "图标颜色",
-      "default": "#3b7dd8"
+      "type": "image_picker",
+      "id": "icon_image",
+      "label": "图标图片"
     },
     {
       "type": "header",

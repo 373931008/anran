@@ -32,6 +32,8 @@
     --ac-desc-weight: 500;
     --ac-title-color: #ffffff;
     --ac-desc-color: #cacbcc;
+
+    overflow: hidden;
   }
 
   @media screen and (min-width: 750px) {
@@ -64,13 +66,17 @@
   }
 
   /* swiper-container 布局：移动端需要 overflow 可见以露出右侧卡片 */
-  .section-{{ section.id }} .q-ac__swiper-wrap {
+  {% comment %} .section-{{ section.id }} .q-ac__swiper-wrap {
     overflow: hidden;
-  }
+  } {% endcomment %}
 
   .section-{{ section.id }} swiper-container {
     display: flex;
     gap: var(--ac-gap);
+  }
+
+  .section-{{ section.id }} swiper-container::part(container) {
+    overflow: visible;
   }
 
   .section-{{ section.id }} swiper-slide {
@@ -110,21 +116,16 @@
     display: block;
   }
 
-  /* 顶部渐变遮罩：从 rgba(0,0,0,0.7) 到透明 */
-  .section-{{ section.id }} .q-ac__card-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.70) 0%, rgba(0, 0, 0, 0) 65%);
-    border-radius: var(--ac-card-radius);
-  }
-
-  /* 文字层：绝对定位在卡片顶部 */
+  /* 文字层：全宽高 + 渐变背景，内容靠下 */
   .section-{{ section.id }} .q-ac__card-body {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
+    inset: 0;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.70) 0%, rgba(0, 0, 0, 0.00) 100%);
+    border-radius: var(--ac-card-radius);
     padding: var(--ac-text-padding);
+    display: flex;
+    flex-direction: column;
   }
 
   .section-{{ section.id }} .q-ac__card-title {
@@ -182,8 +183,6 @@
                       -}}
                     </div>
                   {%- endif -%}
-
-                  <div class="q-ac__card-overlay"></div>
 
                   <div class="q-ac__card-body">
                     {%- if block.settings.title != blank -%}

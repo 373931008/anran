@@ -2,44 +2,52 @@
  * Expert Testimonials 专家评价轮播组件
  *
  * @description
- * - 处理卡片内视频播放按钮：点击后在模态窗口中嵌入播放
- * - 导航切换由 Swiper 原生 navigation-prev-el / navigation-next-el 接管
+ * - 整块视频区域可点击，弹窗播放完整视频（支持本地视频与 YouTube/Vimeo）
+ * - 进入视口时自动播放当前页本地视频，播完自动下一张并播放下一个视频
+ * - 滑动后播放当前张视频，播完继续下一张
+ * - 可配置自动轮播（定时切换）
  *
  * @author Siipet Theme
- * @version 1.0.0
+ * @version 1.1.0
  */
 export default class ExpertTestimonialsElement extends HTMLElement {
   constructor() {
     super()
     this.handleClick = this.handleClick.bind(this)
     this.handleModalClose = this.handleModalClose.bind(this)
+    this.handleKeydown = this.handleKeydown.bind(this)
+    this.onSlideChange = this.onSlideChange.bind(this)
+    this.onVideoEnded = this.onVideoEnded.bind(this)
     this.modalEl = null
+    this.swiperContainer = null
+    this.intersectionObserver = null
+    this.isInView = false
   }
 
   connectedCallback() {
+    this.swiperContainer = this.querySelector('swiper-container')
     this.addEventListener('click', this.handleClick)
+    this.#setupViewportObserver()
+    this.#setupSwiperAndVideos()
   }
 
   disconnectedCallback() {
     this.removeEventListener('click', this.handleClick)
     this.#removeModal()
+    this.#teardownViewportObserver()
+    this.#teardownSwiperAndVideos()
   }
 
   handleClick(event) {
-    const playBtn = event.target.closest('.q-et__play-btn')
+    const wrap = event.target.closest('.q-et__media-wrap--has-video')
+    if (!wrap) return
 
-    if (playBtn) {
-      const videoUrl = playBtn.dataset.videoUrl
-      if (videoUrl) {
-        this.#openVideoModal(videoUrl)
-      }
-    }
+    const url = wrap.dataset.etVideoUrl
+    if (url) this.#openVideoModal({ url })
   }
 
-  #openVideoModal(url) {
+  #openVideoModal({ url }) {
     this.#removeModal()
-
-    const embedUrl = buildEmbedUrl(url)
 
     const overlay = document.createElement('div')
     overlay.className = 'q-et-modal-overlay'
@@ -59,15 +67,18 @@ export default class ExpertTestimonialsElement extends HTMLElement {
     const inner = document.createElement('div')
     inner.style.cssText = 'position:relative;width:100%;max-width:900px;aspect-ratio:16/9'
 
+    const embedUrl = buildEmbedUrl(url || '')
     const iframe = document.createElement('iframe')
     iframe.src = embedUrl
     iframe.allow = 'autoplay; encrypted-media; fullscreen'
     iframe.allowFullscreen = true
     iframe.style.cssText = 'width:100%;height:100%;border:none;border-radius:8px'
     iframe.title = 'Expert testimonial video'
+    inner.appendChild(iframe)
 
     const closeBtn = document.createElement('button')
     closeBtn.setAttribute('aria-label', 'Close video')
+    closeBtn.type = 'button'
     closeBtn.style.cssText = [
       'position:absolute',
       'top:-40px',
@@ -92,21 +103,23 @@ export default class ExpertTestimonialsElement extends HTMLElement {
       if (e.target === overlay) this.#removeModal()
     })
 
-    document.addEventListener('keydown', this.handleModalClose)
+    document.addEventListener('keydown', this.handleKeydown)
 
     inner.appendChild(closeBtn)
-    inner.appendChild(iframe)
     overlay.appendChild(inner)
     document.body.appendChild(overlay)
     document.body.style.overflow = 'hidden'
     this.modalEl = overlay
-
     closeBtn.focus()
   }
 
   handleModalClose(e) {
-    if (e.type === 'keydown' && e.key !== 'Escape') return
+    if (e && e.type === 'keydown' && e.key !== 'Escape') return
     this.#removeModal()
+  }
+
+  handleKeydown(e) {
+    if (e.key === 'Escape') this.#removeModal()
   }
 
   #removeModal() {
@@ -114,32 +127,149 @@ export default class ExpertTestimonialsElement extends HTMLElement {
       this.modalEl.remove()
       this.modalEl = null
       document.body.style.overflow = ''
-      document.removeEventListener('keydown', this.handleModalClose)
+      document.removeEventListener('keydown', this.handleKeydown)
     }
+  }
+
+  #setupViewportObserver() {
+    const inlineVideos = this.querySelectorAll('video[data-et-inline-video]')
+    if (inlineVideos.length === 0) return
+
+    this.intersectionObserver = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0]
+        if (!entry) return
+        this.isInView = entry.isIntersecting
+        if (this.isInView) {
+          this.#playActiveSlideVideo()
+        } else {
+          this.#pauseAllInlineVideos()
+        }
+      },
+      { root: null, rootMargin: '0px', threshold: 0.25 }
+    )
+    this.intersectionObserver.observe(this)
+  }
+
+  #teardownViewportObserver() {
+    if (this.intersectionObserver) {
+      this.intersectionObserver.disconnect()
+      this.intersectionObserver = null
+    }
+  }
+
+  #setupSwiperAndVideos() {
+    const container = this.swiperContainer
+    if (!container) return
+
+    const inlineVideos = this.querySelectorAll('video[data-et-inline-video]')
+    inlineVideos.forEach((video) => {
+      video.addEventListener('ended', this.onVideoEnded)
+    })
+
+    if (container.swiper) {
+      container.swiper.on('slideChangeTransitionEnd', this.onSlideChange)
+      if (this.isInView) this.#playActiveSlideVideo()
+    } else {
+      container.addEventListener('swiperinit', () => {
+        container.swiper.on('slideChangeTransitionEnd', this.onSlideChange)
+        if (this.isInView) this.#playActiveSlideVideo()
+      }, { once: true })
+    }
+  }
+
+  #teardownSwiperAndVideos() {
+    const container = this.swiperContainer
+    if (container && container.swiper) {
+      container.swiper.off('slideChangeTransitionEnd', this.onSlideChange)
+    }
+    this.querySelectorAll('video[data-et-inline-video]').forEach((video) => {
+      video.removeEventListener('ended', this.onVideoEnded)
+    })
+  }
+
+  onSlideChange() {
+    if (this.isInView) this.#playActiveSlideVideo()
+    else this.#pauseAllInlineVideos()
+  }
+
+  onVideoEnded(e) {
+    const video = e.target
+    const slide = video.closest('swiper-slide')
+    const container = this.swiperContainer
+    if (!slide || !container || !container.swiper) return
+
+    const swiper = container.swiper
+    const activeSlide = swiper.slides[swiper.activeIndex]
+    if (slide !== activeSlide) return
+
+    swiper.slideNext()
+  }
+
+  #playActiveSlideVideo() {
+    const container = this.swiperContainer
+    if (!container || !container.swiper) return
+
+    const swiper = container.swiper
+    const activeSlide = swiper.slides[swiper.activeIndex]
+    const activeVideo = activeSlide ? activeSlide.querySelector('video[data-et-inline-video]') : null
+
+    this.querySelectorAll('video[data-et-inline-video]').forEach((video) => {
+      if (video === activeVideo) {
+        video.currentTime = 0
+        const playPromise = video.play()
+        if (playPromise && typeof playPromise.catch === 'function') {
+          playPromise.catch(() => {})
+        }
+      } else {
+        video.pause()
+        video.currentTime = 0
+      }
+    })
+  }
+
+  #pauseAllInlineVideos() {
+    this.querySelectorAll('video[data-et-inline-video]').forEach((video) => {
+      video.pause()
+      video.currentTime = 0
+    })
   }
 }
 
-const buildEmbedUrl = (url) => {
+/**
+ * 支持 YouTube 标准链接、YouTube Shorts、youtu.be、Vimeo
+ * 例如：youtube.com/watch?v=xxx, youtube.com/shorts/xxx, youtu.be/xxx
+ */
+function buildEmbedUrl(url) {
   try {
     const u = new URL(url)
 
     if (u.hostname.includes('youtube.com') || u.hostname.includes('youtu.be')) {
       let videoId = u.searchParams.get('v')
       if (!videoId) {
-        videoId = u.pathname.split('/').filter(Boolean).pop()
+        const segments = u.pathname.split('/').filter(Boolean)
+        if (segments[0] === 'shorts' && segments[1]) {
+          videoId = segments[1]
+        } else {
+          videoId = segments.pop()
+        }
       }
-      return `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`
+      if (videoId) {
+        return `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`
+      }
     }
 
     if (u.hostname.includes('vimeo.com')) {
       const videoId = u.pathname.split('/').filter(Boolean).pop()
-      return `https://player.vimeo.com/video/${videoId}?autoplay=1`
+      if (videoId) {
+        return `https://player.vimeo.com/video/${videoId}?autoplay=1`
+      }
     }
   } catch {
     // 直接返回原始 URL（已是嵌入链接场景）
   }
 
-  return url
+  return url || ''
 }
 
 if (!window.customElements.get('expert-testimonials-element')) {

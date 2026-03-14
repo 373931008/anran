@@ -39,14 +39,19 @@
     gap: 14px;
   }
 
+  .section-{{ section.id }} swiper-slide {
+    flex-shrink: 0;
+    width: 260px;
+  }
+
   @media screen and (min-width: 750px) {
     .section-{{ section.id }} swiper-container {
       gap: 24px;
     }
-  }
 
-  .section-{{ section.id }} swiper-slide {
-    flex-shrink: 0;
+    .section-{{ section.id }} swiper-slide {
+      width: calc((100% - 48px) / 3);
+    }
   }
 
   /* ─── 卡片公共样式 ─── */
@@ -112,10 +117,10 @@
     {%- render 'q-section-header', section: section -%}
 
     <swiper-container
-      slides-per-view="1"
+      slides-per-view="auto"
       space-between="14"
       grab-cursor="true"
-      breakpoints='{"750":{"slidesPerView":3,"spaceBetween":24}}'
+      breakpoints='{"750":{"slidesPerView":"auto","spaceBetween":24}}'
     >
       {%- for block in section.blocks -%}
         <swiper-slide {{ block.shopify_attributes }}>

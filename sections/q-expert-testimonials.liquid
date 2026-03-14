@@ -24,7 +24,7 @@
     --et-pb-desktop: {{ section.settings.padding_bottom_desktop }}px;
 
     /* 移动端变量 */
-    --et-card-radius: 8px;
+    --et-card-radius: 0px;
     --et-media-ratio: 375 / 236;
     --et-pill-height: 30px;
     --et-pill-font: 10px;
@@ -34,8 +34,10 @@
     --et-expert-name-font: 14px;
     --et-expert-title-font: 12px;
     --et-avatar-size: 44px;
-    --et-content-gap: 16px;
+    --et-content-gap: 12px;
     --et-pill-gap: 8px;
+
+    overflow: hidden;
   }
 
   @media screen and (min-width: 750px) {
@@ -90,6 +92,17 @@
     position: relative;
     z-index: 1;
   }
+  @media screen and (max-width: 750px) {
+    .section-{{ section.id }} .page-width {
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .section-{{ section.id }} .q-section-header {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
 
   /* Swiper 容器 */
   .section-{{ section.id }} .q-et__swiper {
@@ -98,6 +111,11 @@
 
   .section-{{ section.id }} .q-et__swiper swiper-container {
     width: 100%;
+    display: flex;
+  }
+
+  .section-{{ section.id }} .q-et__swiper swiper-slide {
+    flex-shrink: 0;
   }
 
   /* 移动端：卡片垂直布局，单列 */
@@ -127,7 +145,7 @@
 
   @media screen and (min-width: 750px) {
     .section-{{ section.id }} .q-et__media-col {
-      width: 490px;
+      width: 51%;
     }
   }
 
@@ -140,7 +158,7 @@
   }
 
   .section-{{ section.id }} .q-et__media-wrap img,
-  .section-{{ section.id }} .q-et__media-wrap video,
+  .section-{{ section.id }} .q-et__media-wrap .q-et__inline-video,
   .section-{{ section.id }} .q-et__media-wrap iframe {
     width: 100%;
     height: 100%;
@@ -148,37 +166,50 @@
     display: block;
   }
 
-  /* 视频封面遮罩 + 播放按钮 */
+  .section-{{ section.id }} .q-et__media-wrap--has-video {
+    cursor: pointer;
+  }
+
+  .section-{{ section.id }} .q-et__inline-video {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  .section-{{ section.id }} .q-et__media-poster,
+  .section-{{ section.id }} .q-et__media-placeholder {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .section-{{ section.id }} .q-et__media-placeholder {
+    display: block;
+  }
+
+  /* 播放按钮（整区可点，按钮仅视觉） */
   .section-{{ section.id }} .q-et__play-btn {
     position: absolute;
     inset: 0;
+    z-index: 2;
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
-    background: transparent;
-    border: none;
-    padding: 0;
+    pointer-events: none;
     transition: opacity 0.2s;
   }
 
-  .section-{{ section.id }} .q-et__play-btn:hover {
-    opacity: 0.85;
-  }
-
-  .section-{{ section.id }} .q-et__play-btn:active {
-    opacity: 0.7;
+  .section-{{ section.id }} .q-et__media-wrap--has-video:hover .q-et__play-btn {
+    opacity: 0.9;
   }
 
   .section-{{ section.id }} .q-et__play-icon {
     width: 60px;
     height: 60px;
-    border-radius: 50%;
-    background: #ff0000;
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
   }
 
   @media screen and (min-width: 750px) {
@@ -189,17 +220,9 @@
   }
 
   .section-{{ section.id }} .q-et__play-icon svg {
-    width: 28px;
-    height: 28px;
-    fill: #fff;
-    margin-left: 4px;
-  }
-
-  @media screen and (min-width: 750px) {
-    .section-{{ section.id }} .q-et__play-icon svg {
-      width: 36px;
-      height: 36px;
-    }
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
   }
 
   /* 右列：文字内容 */
@@ -226,6 +249,14 @@
     gap: var(--et-pill-gap);
   }
 
+  @media screen and (max-width: 750px) {
+    .section-{{ section.id }} .q-et__pills {
+      padding-left: 10px;
+      margin-bottom: 0px;
+      margin-top: 0px;
+    }
+  }
+
   .section-{{ section.id }} .q-et__pill {
     display: inline-flex;
     align-items: center;
@@ -237,7 +268,6 @@
     font-size: var(--et-pill-font);
     color: #1565d8;
     font-weight: 400;
-    white-space: nowrap;
     width: fit-content;
   }
 
@@ -257,14 +287,14 @@
   .section-{{ section.id }} .q-et__quote-icon {
     flex-shrink: 0;
     width: 19px;
-    height: 14px;
+    height: 19px;
     margin-top: 4px;
   }
 
   @media screen and (min-width: 750px) {
     .section-{{ section.id }} .q-et__quote-icon {
-      width: 26px;
-      height: 20px;
+      width: 50px;
+      height: 50px;
     }
   }
 
@@ -277,6 +307,18 @@
 
   .section-{{ section.id }} .q-et__quote-text strong {
     color: #4e5357;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-et__expert {
+      padding-left: 40px;
+    }
+  }
+
+  @media screen and (max-width: 750px) {
+    .section-{{ section.id }} .q-et__expert {
+      padding-left: 10px;
+    }
   }
 
   /* 专家信息 */
@@ -349,48 +391,49 @@
     }
   }
 
+  @media screen and (max-width: 750px) {
+    .section-{{ section.id }} .q-et__nav {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
   .section-{{ section.id }} .q-et__nav-btn {
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    border: 1.5px solid #d1d5db;
-    background: #fff;
+    border: 1px solid rgba(105, 115, 134, 0.5);
+    background: rgba(105, 115, 134, 0.5);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: border-color 0.2s, background 0.2s;
+    color: #ffffff;
+    transition: background 0.2s, border-color 0.2s, opacity 0.2s;
     padding: 0;
     flex-shrink: 0;
   }
 
-  .section-{{ section.id }} .q-et__nav-btn:hover {
-    border-color: #367cf6;
-    background: #f0f6ff;
+  .section-{{ section.id }} .q-et__nav-btn:hover:not(:disabled):not(.swiper-button-disabled) {
+    background: rgba(105, 115, 134, 0.7);
+    border-color: rgba(105, 115, 134, 0.7);
   }
 
-  .section-{{ section.id }} .q-et__nav-btn:active {
-    background: rgba(54, 124, 246, 0.15);
+  .section-{{ section.id }} .q-et__nav-btn:active:not(:disabled):not(.swiper-button-disabled) {
+    background: rgba(105, 115, 134, 0.85);
+  }
+
+  .section-{{ section.id }} .q-et__nav-btn:disabled,
+  .section-{{ section.id }} .q-et__nav-btn.swiper-button-disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
   }
 
   .section-{{ section.id }} .q-et__nav-btn svg {
     width: 16px;
     height: 16px;
-    stroke: #6b7280;
-    fill: none;
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    transition: stroke 0.2s;
-  }
-
-  .section-{{ section.id }} .q-et__nav-btn:hover svg {
-    stroke: #367cf6;
-  }
-
-  /* swiper-container 内嵌样式重置 */
-  .section-{{ section.id }} swiper-container::part(container) {
-    overflow: visible;
+    display: block;
   }
 </style>
 
@@ -411,25 +454,49 @@
     {%- render 'q-section-header', section: section -%}
 
     {%- if cards.size > 0 -%}
-      <expert-testimonials-element client:visible>
+      <expert-testimonials-element
+        client:visible
+        data-section-id="{{ section.id }}"
+        data-autoplay-carousel="{{ section.settings.autoplay_carousel }}"
+        data-autoplay-delay="{{ section.settings.autoplay_delay | times: 1000 }}"
+      >
       <div class="q-et__swiper">
         <swiper-container
           id="q-et-swiper-{{ section.id }}"
           slides-per-view="1"
           space-between="0"
-          loop="false"
+          loop
           navigation="true"
           navigation-prev-el="[data-carousel-prev='{{ section.id }}']"
           navigation-next-el="[data-carousel-next='{{ section.id }}']"
           pagination="false"
+          {% if section.settings.autoplay_carousel %}autoplay="true" autoplay-delay="{{ section.settings.autoplay_delay | times: 1000 }}"{% endif %}
         >
           {%- for block in cards -%}
             {%- liquid
-              assign media_image = block.settings.media_image
+              assign local_video = block.settings.local_video
               assign video_url = block.settings.video
-              assign show_play_btn = false
-              if video_url != blank
-                assign show_play_btn = true
+              assign has_local = false
+              if local_video != blank
+                assign has_local = true
+              endif
+              assign has_external = false
+              assign external_url = ''
+              if video_url != blank and video_url.url != blank
+                assign has_external = true
+                assign external_url = video_url.url
+              elsif block.settings.video_url_alt != blank and block.settings.video_url_alt != '/'
+                assign has_external = true
+                assign external_url = block.settings.video_url_alt
+              endif
+              assign has_video = false
+              if has_local or has_external
+                assign has_video = true
+              endif
+              if local_video != blank and local_video.preview_image != blank
+                assign poster_image = local_video.preview_image
+              else
+                assign poster_image = ''
               endif
               assign pills = ''
               if block.settings.pill_1 != blank
@@ -447,31 +514,53 @@
               <div class="q-et__card">
 
                 <div class="q-et__media-col">
-                  <div class="q-et__media-wrap">
-                    {%- if media_image != blank -%}
-                      {{- media_image | image_url: width: 1000 | image_tag:
+                  <div
+                    class="q-et__media-wrap{% if has_external %} q-et__media-wrap--has-video{% endif %}"
+                    {% if has_external %}
+                      role="button"
+                      tabindex="0"
+                      data-et-video-url="{{ external_url | escape }}"
+                      aria-label="{{ 'sections.expert_testimonials.play_video' | t | default: 'Play video' }}"
+                    {% endif %}
+                  >
+                    {%- comment -%} 封面：仅用视频预览图，尺寸统一 image_size 980 {%- endcomment -%}
+                    {%- if poster_image != blank -%}
+                      {{- poster_image | image_url: width: 980 | image_tag:
                         loading: 'lazy',
                         sizes: '(min-width: 750px) 490px, 100vw',
                         widths: '375, 490, 750, 980',
-                        alt: media_image.alt | default: block.settings.expert_name
+                        alt: poster_image.alt | default: block.settings.expert_name,
+                        class: 'q-et__media-poster'
                       -}}
                     {%- else -%}
-                      <div style="width:100%;height:100%;background:#e5e7eb;"></div>
+                      <div class="q-et__media-placeholder" style="width:100%;height:100%;background:#e5e7eb;"></div>
                     {%- endif -%}
 
-                    {%- if show_play_btn -%}
-                      <button
-                        class="q-et__play-btn"
-                        data-video-url="{{ video_url.url | escape }}"
-                        aria-label="{{ 'sections.expert_testimonials.play_video' | t | default: 'Play video' }}"
-                        tabindex="0"
+                    {%- if has_local and local_video.sources.size > 0 -%}
+                      <video
+                        class="q-et__inline-video"
+                        muted
+                        playsinline
+                        data-et-inline-video
+                        preload="metadata"
+                        poster="{{ poster_image | image_url: width: 980 }}"
+                        aria-hidden="true"
                       >
-                        <span class="q-et__play-icon" aria-hidden="true">
-                          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M8 5v14l11-7z"/>
+                        {%- for source in local_video.sources -%}
+                          <source src="{{ source.url }}" type="{{ source.mime_type }}">
+                        {%- endfor -%}
+                      </video>
+                    {%- endif -%}
+
+                    {%- if has_external -%}
+                      <span class="q-et__play-btn" aria-hidden="true">
+                        <span class="q-et__play-icon">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="103" height="103" viewBox="0 0 103 103" fill="none">
+                            <path d="M100.878 26.7747C99.6905 22.3623 96.2116 18.8842 91.8 17.696C83.7398 15.4902 51.499 15.4902 51.499 15.4902C51.499 15.4902 19.259 15.4902 11.1988 17.612C6.87203 18.7993 3.30832 22.3631 2.12094 26.7747C0 34.8341 0 51.5486 0 51.5486C0 51.5486 0 68.3471 2.12094 76.3225C3.30911 80.7341 6.78717 84.2129 11.1996 85.4011C19.3439 87.6069 51.4998 87.6069 51.4998 87.6069C51.4998 87.6069 83.7398 87.6069 91.8 85.4852C96.2124 84.2978 99.6905 80.819 100.879 76.4073C103 68.3471 103 51.6334 103 51.6334C103 51.6334 103 34.8341 100.878 26.7747Z" fill="#FF0000"/>
+                            <path d="M41.2338 66.9903L68.0437 51.5489L41.2338 36.1074V66.9903Z" fill="white"/>
                           </svg>
                         </span>
-                      </button>
+                      </span>
                     {%- endif -%}
                   </div>
                 </div>
@@ -490,10 +579,11 @@
 
                   {%- if block.settings.quote != blank -%}
                     <div class="q-et__quote-wrap">
-                      <svg class="q-et__quote-icon" viewBox="0 0 26 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path d="M0 20V12.364C0 10.606 0.296 8.939 0.889 7.364C1.519 5.788 2.371 4.394 3.444 3.182C4.519 1.97 5.741 1.03 7.111 0.363636L8.667 2.72727C7.667 3.27273 6.741 3.96970 5.889 4.81818C5.074 5.66667 4.444 6.6364 4 7.72727C3.556 8.81818 3.334 9.96970 3.334 11.1818H7.111V20H0ZM14.889 20V12.364C14.889 10.606 15.185 8.939 15.778 7.364C16.407 5.788 17.259 4.394 18.334 3.182C19.407 1.97 20.63 1.03 22 0.363636L23.556 2.72727C22.556 3.27273 21.63 3.96970 20.778 4.81818C19.963 5.66667 19.334 6.6364 18.889 7.72727C18.445 8.81818 18.222 9.96970 18.222 11.1818H22V20H14.889Z" fill="#BFCFE8"/>
+                      <svg class="q-et__quote-icon" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" fill="none">
+                        <path d="M37.258 25.9732H42.5915V39.5117H26.25V30.2402C26.25 20.8282 32.817 12.6742 42.023 10.7152C42.8475 10.5397 43.343 10.4887 43.343 10.4887L45 14.5257C37.6795 18.1757 37.258 25.9732 37.258 25.9732Z" fill="#ADC9E3"/>
+                        <path d="M16.01 25.9732H21.3435V39.5117H5V30.2402C5 20.8282 11.5675 12.6742 20.7735 10.7152C21.598 10.5397 22.093 10.4887 22.093 10.4887L23.75 14.5257C16.432 18.1757 16.01 25.9732 16.01 25.9732Z" fill="#ADC9E3"/>
                       </svg>
-                      <p class="q-et__quote-text">{{ block.settings.quote }}</p>
+                      <div class="q-et__quote-text">{{ block.settings.quote }}</div>
                     </div>
                   {%- endif -%}
 
@@ -513,9 +603,9 @@
                           <div class="q-et__expert-name-row">
                             <p class="q-et__expert-name">{{ block.settings.expert_name }}</p>
                             {%- if block.settings.show_verified_badge -%}
-                              <svg class="q-et__expert-badge" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="{{ 'sections.expert_testimonials.verified' | t | default: 'Verified' }}">
-                                <circle cx="13" cy="13" r="13" fill="#1877F2"/>
-                                <path d="M7 13L11 17L19 9" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                              <svg class="q-et__expert-badge" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none" aria-label="{{ 'sections.expert_testimonials.verified' | t | default: 'Verified' }}">
+                                <path d="M22.9526 10.8411C22.6008 10.6366 22.2846 10.3761 22.0166 10.0698C22.0437 9.64342 22.1453 9.22507 22.3167 8.83372C22.632 7.94431 22.9884 6.93681 22.4164 6.15356C21.8444 5.37031 20.7643 5.39522 19.8164 5.41689C19.3975 5.45999 18.9744 5.43141 18.5651 5.33239C18.3471 4.97761 18.1914 4.58812 18.1047 4.18081C17.836 3.26539 17.5295 2.23081 16.588 1.92097C15.6802 1.62847 14.8395 2.27197 14.0964 2.83747C13.7757 3.13032 13.4041 3.362 13 3.52106C12.5917 3.36329 12.216 3.13155 11.8918 2.83747C11.1508 2.27522 10.3134 1.62522 9.4012 1.92206C8.46195 2.22756 8.15537 3.26539 7.88454 4.18081C7.79801 4.5868 7.64383 4.97536 7.42845 5.33022C7.01843 5.42898 6.59475 5.45827 6.17504 5.41689C5.22387 5.39089 4.15245 5.36272 3.57504 6.15356C2.99762 6.94439 3.35837 7.94431 3.6747 8.83264C3.84851 9.22341 3.95159 9.64193 3.97912 10.0687C3.71162 10.3754 3.39582 10.6363 3.0442 10.8411C2.2512 11.3828 1.35095 11.9992 1.35095 13.0002C1.35095 14.0012 2.2512 14.6155 3.0442 15.1593C3.39574 15.3638 3.71154 15.6244 3.97912 15.9306C3.95448 16.3573 3.85434 16.7762 3.68337 17.1678C3.3692 18.0561 3.01387 19.0636 3.58479 19.8469C4.1557 20.6301 5.23254 20.6052 6.18479 20.5836C6.604 20.5404 7.0275 20.569 7.43712 20.6681C7.6542 21.0232 7.80951 21.4126 7.89645 21.8196C8.16512 22.7351 8.4717 23.7696 9.41312 24.0795C9.56405 24.1279 9.72154 24.1527 9.88004 24.1531C10.6418 24.0438 11.3499 23.6974 11.9037 23.163C12.2244 22.8701 12.5959 22.6385 13 22.4794C13.4083 22.6372 13.7841 22.8689 14.1083 23.163C14.8504 23.7296 15.691 24.3763 16.6 24.0784C17.5392 23.7729 17.8458 22.7351 18.1166 21.8207C18.2034 21.414 18.3588 21.0249 18.576 20.6702C18.9844 20.5708 19.4068 20.5415 19.825 20.5836C20.7762 20.6063 21.8476 20.6377 22.425 19.8469C23.0025 19.0561 22.6417 18.0561 22.3254 17.1667C22.1527 16.7763 22.0497 16.3587 22.021 15.9328C22.2886 15.6259 22.6048 15.3649 22.957 15.1604C23.75 14.6187 24.6502 14.0012 24.6502 13.0002C24.6502 11.9992 23.7467 11.3839 22.9526 10.8411Z" fill="#49ADF4"/>
+                                <path d="M11.9167 15.9795C11.81 15.9797 11.7043 15.9587 11.6057 15.9178C11.5072 15.8769 11.4177 15.8169 11.3425 15.7412L9.17583 13.5745C9.03231 13.4205 8.95418 13.2168 8.95789 13.0063C8.9616 12.7958 9.04688 12.5949 9.19574 12.4461C9.3446 12.2972 9.54544 12.2119 9.75593 12.2082C9.96642 12.2045 10.1701 12.2826 10.3242 12.4262L11.9925 14.0945L15.7625 11.267C15.9349 11.1377 16.1516 11.0822 16.3649 11.1127C16.5782 11.1431 16.7707 11.2571 16.9 11.4295C17.0293 11.6019 17.0848 11.8186 17.0543 12.0319C17.0239 12.2452 16.9099 12.4377 16.7375 12.567L12.4042 15.817C12.2635 15.9224 12.0925 15.9794 11.9167 15.9795Z" fill="white"/>
                               </svg>
                             {%- endif -%}
                           </div>
@@ -537,23 +627,23 @@
         {%- if cards.size > 1 -%}
         <div class="q-et__nav" aria-label="{{ 'sections.expert_testimonials.nav_label' | t | default: 'Testimonials navigation' }}">
           <button
-            class="q-et__nav-btn q-et__nav-btn--prev"
+            class="q-et__nav-btn"
+            type="button"
+            aria-label="Previous"
             data-carousel-prev="{{ section.id }}"
-            aria-label="{{ 'sections.expert_testimonials.prev' | t | default: 'Previous' }}"
-            tabindex="0"
           >
-            <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <polyline points="10,2 4,8 10,14"/>
+            <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </button>
           <button
-            class="q-et__nav-btn q-et__nav-btn--next"
+            class="q-et__nav-btn"
+            type="button"
+            aria-label="Next"
             data-carousel-next="{{ section.id }}"
-            aria-label="{{ 'sections.expert_testimonials.next' | t | default: 'Next' }}"
-            tabindex="0"
           >
-            <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <polyline points="6,2 12,8 6,14"/>
+            <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </button>
         </div>
@@ -589,7 +679,10 @@
     { "type": "range", "id": "padding_top_mobile", "label": "上边距（移动端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
     { "type": "range", "id": "padding_bottom_mobile", "label": "下边距（移动端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
     { "type": "range", "id": "padding_top_desktop", "label": "上边距（桌面端）", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 60 },
-    { "type": "range", "id": "padding_bottom_desktop", "label": "下边距（桌面端）", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 60 }
+    { "type": "range", "id": "padding_bottom_desktop", "label": "下边距（桌面端）", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 60 },
+    { "type": "header", "content": "轮播" },
+    { "type": "checkbox", "id": "autoplay_carousel", "label": "自动轮播", "default": false },
+    { "type": "range", "id": "autoplay_delay", "label": "轮播间隔（秒）", "min": 2, "max": 15, "step": 1, "unit": "s", "default": 5 }
   ],
   "blocks": [
     {
@@ -597,8 +690,9 @@
       "name": "评价卡片",
       "settings": [
         { "type": "header", "content": "媒体" },
-        { "type": "image_picker", "id": "media_image", "label": "图片/视频封面" },
-        { "type": "video_url", "id": "video", "label": "视频", "accept": ["youtube", "vimeo"], "info": "填写后图片上显示播放按钮" },
+        { "type": "video", "id": "local_video", "label": "本地视频", "info": "未填视频链接时使用：上传后可在卡片内自动播放，点击弹窗播放；封面使用视频预览图" },
+        { "type": "video_url", "id": "video", "label": "视频链接（YouTube/Vimeo）", "accept": ["youtube", "vimeo"], "info": "优先使用。填写后固定显示播放按钮，点击弹窗播放" },
+        { "type": "url", "id": "video_url_alt", "label": "视频链接（备用）", "default": "/", "info": "当上方链接无法保存时使用，支持 YouTube Shorts（如 youtube.com/shorts/xxx）等" },
         { "type": "header", "content": "特性标签" },
         { "type": "text", "id": "pill_1", "label": "标签 1", "default": "Cutting-edge Security Technology" },
         { "type": "text", "id": "pill_2", "label": "标签 2", "default": "Ideal for Homes, Apartments, and Small Businesses" },
