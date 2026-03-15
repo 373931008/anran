@@ -1,6 +1,6 @@
 {%- comment -%}
   Section: q-smart-detection
-  功能说明：智能检测追踪板块，左侧展示标题+检测类型图标+描述，右侧为手机模型（内嵌自动播放视频）+ 两侧竖向图片
+  功能说明：智能检测追踪板块，左侧展示标题+检测类型图标+描述，右侧为上传视频（视口内自动循环播放）+ 两侧竖向图片
   技术栈：
   - Islands: frontend/islands/smart-detection-element.js（视口内自动播放视频）
   - Snippet: snippets/q-section-header.liquid
@@ -17,18 +17,24 @@
     --sd-icon-size: 55px;
     --sd-icon-radius: 10px;
     --sd-icon-gap: 16px;
+    /* 移动端：设计稿 58:1757 — 中心 170.24×346，侧图 84.23×243.11 */
     --sd-phone-width: 170px;
+    --sd-phone-aspect: 170 / 346;
     --sd-side-img-width: 84px;
     --sd-side-img-height: 243px;
+    --sd-visual-height: 360px;
   }
 
   @media screen and (min-width: 750px) {
     .section-{{ section.id }} {
       --sd-icon-size: 70px;
       --sd-icon-gap: 24px;
+      /* 桌面端：设计稿 1:305 — 中心 337.52×686，侧图 167×482 */
       --sd-phone-width: 338px;
+      --sd-phone-aspect: 338 / 686;
       --sd-side-img-width: 167px;
       --sd-side-img-height: 482px;
+      --sd-visual-height: 686px;
     }
   }
 
@@ -150,12 +156,12 @@
     }
   }
 
-  /* 右侧手机模型区 */
+  /* 右侧视觉区：设计稿 1:305(桌面) / 58:1757(移动) */
   .section-{{ section.id }} .q-smart-detection__visual {
     flex: 0 0 auto;
     position: relative;
     width: 100%;
-    height: 360px;
+    height: var(--sd-visual-height);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -164,11 +170,10 @@
   @media screen and (min-width: 750px) {
     .section-{{ section.id }} .q-smart-detection__visual {
       width: 640px;
-      height: 686px;
     }
   }
 
-  /* 手机模型容器 */
+  /* 中心视频容器（设计稿无外框，仅视频区域） */
   .section-{{ section.id }} .q-smart-detection__phone {
     position: absolute;
     left: 50%;
@@ -181,24 +186,17 @@
   .section-{{ section.id }} .q-smart-detection__phone-frame {
     position: relative;
     width: 100%;
-  }
-
-  .section-{{ section.id }} .q-smart-detection__phone-img {
-    display: block;
-    width: 100%;
-    height: auto;
-  }
-
-  /* 视频区（嵌入手机屏幕内） */
-  .section-{{ section.id }} .q-smart-detection__phone-screen {
-    position: absolute;
-    top: 9%;
-    left: 4.8%;
-    right: 4.8%;
-    bottom: 4%;
-    border-radius: 4px;
+    aspect-ratio: var(--sd-phone-aspect);
     overflow: hidden;
     background: #f3f7ff;
+    border-radius: 10px;
+  }
+
+  .section-{{ section.id }} .q-smart-detection__phone-screen {
+    position: absolute;
+    inset: 0;
+    border-radius: 10px;
+    overflow: hidden;
   }
 
   .section-{{ section.id }} .q-smart-detection__video {
@@ -208,7 +206,7 @@
     display: block;
   }
 
-  /* 侧边竖向图片 */
+  /* 侧边竖向图片：设计稿 167×482(桌面) / 84×243(移动)，圆角 10px */
   .section-{{ section.id }} .q-smart-detection__side-imgs {
     position: absolute;
     top: 0;
@@ -224,7 +222,6 @@
     height: var(--sd-side-img-height);
     border-radius: 10px;
     overflow: hidden;
-    object-fit: cover;
   }
 
   .section-{{ section.id }} .q-smart-detection__side-img img {
@@ -235,7 +232,7 @@
     display: block;
   }
 
-  /* 桌面端四张侧图定位 */
+  /* 桌面端侧图定位（设计稿 1:305 百分比与间距） */
   .section-{{ section.id }} .q-smart-detection__side-img--left-top {
     left: 0;
     top: 5%;
@@ -251,7 +248,7 @@
     top: 5%;
   }
 
-  /* 移动端侧图尺寸和定位 */
+  /* 移动端侧图定位（设计稿 58:1757，左侧可略微溢出） */
   @media screen and (max-width: 749px) {
     .section-{{ section.id }} .q-smart-detection__side-img--left-top {
       left: -16px;
@@ -298,46 +295,25 @@
         {%- endif -%}
       </div>
 
-      {%- comment -%} 右侧手机视觉区 {%- endcomment -%}
+      {%- comment -%} 右侧上传视频区（视口内自动循环播放）{%- endcomment -%}
       <smart-detection-element client:visible>
         <div class="q-smart-detection__visual">
           <div class="q-smart-detection__phone">
             <div class="q-smart-detection__phone-frame">
-              {%- if section.settings.phone_frame_image != blank -%}
-                <img
-                  class="q-smart-detection__phone-img"
-                  src="{{ section.settings.phone_frame_image | image_url: width: 680 }}"
-                  alt="Phone frame"
-                  width="338"
-                  height="686"
-                  loading="lazy"
-                >
-              {%- else -%}
-                {%- comment -%} 默认手机边框占位 {%- endcomment -%}
-                <div class="q-smart-detection__phone-img" style="width:100%;padding-top:203%;background:#1a1a1a;border-radius:12%;"></div>
-              {%- endif -%}
-
               <div class="q-smart-detection__phone-screen">
-                {%- if section.settings.phone_video != blank -%}
+                {%- if section.settings.video != blank and section.settings.video.sources.size > 0 -%}
                   <video
                     class="q-smart-detection__video"
-                    src="{{ section.settings.phone_video | file_url }}"
-                    autoplay
-                    muted
                     loop
+                    muted
                     playsinline
                     preload="none"
                     data-autoplay-on-visible
-                  ></video>
-                {%- elsif section.settings.phone_screen_image != blank -%}
-                  <img
-                    class="q-smart-detection__video"
-                    src="{{ section.settings.phone_screen_image | image_url: width: 680 }}"
-                    alt="Phone screen"
-                    width="680"
-                    height="1100"
-                    loading="lazy"
                   >
+                    {%- for source in section.settings.video.sources -%}
+                      <source src="{{ source.url }}" type="{{ source.mime_type }}">
+                    {%- endfor -%}
+                  </video>
                 {%- endif -%}
               </div>
             </div>
@@ -413,21 +389,11 @@
       "label": "描述文字",
       "default": "AI-powered detection recognizes, and filters out false alerts—so you stay informed without constant interruptions."
     },
-    { "type": "header", "content": "手机模型" },
+    { "type": "header", "content": "上传视频" },
     {
-      "type": "image_picker",
-      "id": "phone_frame_image",
-      "label": "手机外框图片"
-    },
-    {
-      "type": "image_picker",
-      "id": "phone_screen_image",
-      "label": "手机屏幕图片（无视频时显示）"
-    },
-    {
-      "type": "text",
-      "id": "phone_video",
-      "label": "手机屏幕视频文件名（如 demo.mp4）"
+      "type": "video",
+      "id": "video",
+      "label": "视频"
     },
     { "type": "header", "content": "侧边装饰图片" },
     { "type": "image_picker", "id": "side_image_1", "label": "左侧图片 1（靠左）" },
