@@ -162,7 +162,7 @@
   .section-{{ section.id }} .q-wc__card--image-text .q-wc__card-title {
     font-size: var(--card-title-size-m, var(--wc-card-title-size));
     line-height: var(--wc-card-title-lh);
-    font-weight: 700;
+    font-weight: 600;
     color: #ffffff;
     margin: 0;
   }
@@ -176,7 +176,7 @@
   }
 
   .section-{{ section.id }} .q-wc__card--image-text .q-wc__card-desc {
-    font-size: var(--wc-card-desc-size);
+    font-size: var(--card-desc-size-m, var(--wc-card-desc-size));
     line-height: var(--wc-card-desc-lh);
     color: #cacbcc;
     margin: 8px 0 0;
@@ -227,7 +227,7 @@
   .section-{{ section.id }} .q-wc__card--text-icon .q-wc__card-title {
     font-size: var(--card-title-size-m, var(--wc-card-title-size));
     line-height: var(--wc-card-title-lh);
-    font-weight: 700;
+    font-weight: 600;
     color: #ffffff;
     margin: 0 0 4px;
   }
@@ -275,7 +275,7 @@
   .section-{{ section.id }} .q-wc__card--dual-title .q-wc__dual-line1 {
     font-size: var(--card-title-size-m, var(--wc-card-title-size));
     line-height: var(--wc-card-title-lh);
-    font-weight: 600;
+    font-weight: 500;
     color: #ffffff;
     margin: 0;
   }
@@ -290,7 +290,7 @@
   .section-{{ section.id }} .q-wc__card--dual-title .q-wc__dual-line2 {
     font-size: var(--card-title-size-m, var(--wc-card-title-size));
     line-height: var(--wc-card-title-lh);
-    font-weight: 700;
+    font-weight: 600;
     margin: 0;
   }
 
@@ -409,7 +409,7 @@
   .section-{{ section.id }} .q-wc__banner-title {
     font-size: var(--banner-title-size-m, var(--wc-banner-title-size));
     line-height: 1.5;
-    font-weight: 600;
+    font-weight: 500;
     color: #ffffff;
     margin: 0;
   }
@@ -449,6 +449,10 @@
       font-size: var(--card-desc-size-d, var(--wc-card-desc-size));
     }
 
+    .section-{{ section.id }} .q-wc__card--image-text .q-wc__card-desc {
+      font-size: var(--card-desc-size-d, var(--wc-card-desc-size));
+    }
+
     .section-{{ section.id }} .q-wc__card--app-screenshot .q-wc__app-title {
       font-size: var(--card-title-size-d, var(--wc-card-subtitle-size));
       margin-bottom: 16px;
@@ -472,7 +476,7 @@
 
   .section-{{ section.id }} .q-wc__cta {
     font-size: var(--wc-cta-size);
-    font-weight: 600;
+    font-weight: 500;
     color: {{ section.settings.cta_color | default: '#329bff' }};
     text-decoration: none;
     transition: opacity 0.2s;
@@ -486,8 +490,9 @@
   .section-{{ section.id }} .q-wc__cta:active {
     opacity: 0.6;
   }
-</style>
 
+  
+</style>
 <div class="q-why-choose section-{{ section.id }}">
   <div class="q-wc__inner">
     <div class="page-width">
@@ -515,11 +520,13 @@
               {%- liquid
                 assign it_ts_m = block.settings.title_size_mobile | default: 18
                 assign it_ts_d = block.settings.title_size_desktop | default: 32
+                assign it_ds_m = block.settings.desc_size_mobile | default: 12
+                assign it_ds_d = block.settings.desc_size_desktop | default: 18
                 assign it_pos = block.settings.content_position | default: 'middle'
               -%}
               <div
                 class="q-wc__card q-wc__card--image-text q-wc__card--pos-{{ it_pos }}"
-                style="--card-title-size-m: {{ it_ts_m }}px; --card-title-size-d: {{ it_ts_d }}px;"
+                style="--card-title-size-m: {{ it_ts_m }}px; --card-title-size-d: {{ it_ts_d }}px; --card-desc-size-m: {{ it_ds_m }}px; --card-desc-size-d: {{ it_ds_d }}px;"
                 {{ block.shopify_attributes }}
               >
                 {%- if block.settings.image != blank -%}
@@ -758,7 +765,9 @@
           ]
         },
         { "type": "range", "id": "title_size_desktop", "label": "标题字号（桌面端）", "min": 16, "max": 60, "step": 2, "unit": "px", "default": 32 },
-        { "type": "range", "id": "title_size_mobile", "label": "标题字号（移动端）", "min": 12, "max": 40, "step": 2, "unit": "px", "default": 18 }
+        { "type": "range", "id": "title_size_mobile", "label": "标题字号（移动端）", "min": 12, "max": 40, "step": 2, "unit": "px", "default": 18 },
+        { "type": "range", "id": "desc_size_desktop", "label": "描述字号（桌面端）", "min": 10, "max": 30, "step": 1, "unit": "px", "default": 18 },
+        { "type": "range", "id": "desc_size_mobile", "label": "描述字号（移动端）", "min": 10, "max": 24, "step": 1, "unit": "px", "default": 12 }
       ]
     },
     {
