@@ -298,12 +298,10 @@
       }
     </script>
 
-    
-
     {% liquid
       if template.name == 'product'
-        render 'vite-tag' with 'product.css'
-        render 'vite-tag' with 'product.js'
+        render 'vite-tag' with 'theme.css'
+        render 'vite-tag' with 'theme.js'
       endif
     %}
 
