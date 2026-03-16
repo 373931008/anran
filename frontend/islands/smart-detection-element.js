@@ -4,6 +4,7 @@
 export default class SmartDetectionElement extends HTMLElement {
   constructor() {
     super()
+    console.log('SmartDetectionElement constructor #####')
     this.observer = null
     this.video = null
   }
@@ -44,12 +45,12 @@ export default class SmartDetectionElement extends HTMLElement {
     }
   }
 
-  #pauseVideo() {
+  #pauseVideo() { 
     if (!this.video || this.video.paused) return
     this.video.pause()
   }
-
-  #cleanup() {
+ 
+  #cleanup() { 
     if (this.observer) {
       this.observer.disconnect()
       this.observer = null

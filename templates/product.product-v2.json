@@ -16,7 +16,10 @@
         "card-4k-hdr": {
           "type": "card_image_text",
           "settings": {
+            "image": "shopify://shop_images/Group_347.jpg",
             "title": "4K HDR Video",
+            "description": "",
+            "content_position": "bottom",
             "title_size_desktop": 32,
             "title_size_mobile": 18
           }
@@ -24,9 +27,10 @@
         "card-auto-tracking": {
           "type": "card_text_icon",
           "settings": {
+            "image": "shopify://shop_images/image_306.png",
             "title": "<em>Auto Tracking</em>",
             "subtitle": "Locks on and follows moving people",
-            "title_gradient": "linear-gradient(90deg, #6CBCE7 0%, #367CF6 100%)",
+            "title_gradient": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 100%)",
             "title_size_desktop": 32,
             "title_size_mobile": 18,
             "subtitle_size_desktop": 18,
@@ -34,15 +38,14 @@
           }
         },
         "card-360": {
-          "type": "card_text_icon",
+          "type": "card_image_text",
           "settings": {
+            "image": "shopify://shop_images/Group_349.jpg",
             "title": "360°",
-            "subtitle": "AI Eliminate Blindspots",
-            "title_gradient": "#ffffff",
+            "description": "AI Eliminate Blindspots",
+            "content_position": "bottom",
             "title_size_desktop": 32,
-            "title_size_mobile": 18,
-            "subtitle_size_desktop": 18,
-            "subtitle_size_mobile": 12
+            "title_size_mobile": 18
           }
         },
         "card-smart-alarm": {
@@ -50,6 +53,7 @@
           "settings": {
             "title_line1": "Smart Alarm",
             "title_line2": "Quick Alert",
+            "icon_image": "shopify://shop_images/image_307.png",
             "description": "If alarm is triggered, get notified instantly",
             "title_size_desktop": 32,
             "title_size_mobile": 18,
@@ -58,9 +62,12 @@
           }
         },
         "card-app-screenshot": {
-          "type": "card_app_screenshot",
+          "type": "card_image_text",
           "settings": {
-            "title": "Smart App Control\nNo Monthly Fees",
+            "image": "shopify://shop_images/Group_351.jpg",
+            "title": "",
+            "description": "Smart App ControlNo Monthly Fees",
+            "content_position": "top",
             "title_size_desktop": 20,
             "title_size_mobile": 12
           }
@@ -70,6 +77,7 @@
           "settings": {
             "title_line1": "Solar Powered",
             "title_line2": "Always On",
+            "icon_image": "shopify://shop_images/fi_664886.png",
             "description": "If alarm is triggered, get notified instantly",
             "title_size_desktop": 32,
             "title_size_mobile": 18,
@@ -80,6 +88,7 @@
         "banner-two-way-audio": {
           "type": "banner_feature",
           "settings": {
+            "icon_image": "shopify://shop_images/fi_10268950.png",
             "title": "Two-Way Audio",
             "description": "Talk and listen in real time through the camera—anytime, anywhere.",
             "title_size_desktop": 18,
@@ -102,7 +111,7 @@
         "header_title": "Why Choose Our Camera?",
         "header_description": "",
         "header_center": false,
-        "header_em_color": "linear-gradient(90deg, #6CBCE7 0%, #367CF6 100%)",
+        "header_em_color": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 100%)",
         "header_title_size_desktop": 46,
         "header_title_size_mobile": 26,
         "header_desc_size_desktop": 16,
@@ -129,28 +138,28 @@
           "type": "detection_type",
           "settings": {
             "label": "People",
-            "icon_svg": "<svg viewbox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"white\"><path d=\"M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z\"></path></svg>"
+            "icon_image": "shopify://shop_images/Group_230.jpg"
           }
         },
         "detection-pets": {
           "type": "detection_type",
           "settings": {
             "label": "Pets",
-            "icon_svg": "<svg viewbox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"white\"><path d=\"M4.5 9.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm15 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm-7.5-7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM9 9.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm10 4c0-3.3-3.1-6-7-6s-7 2.7-7 6c0 1.5.7 2.8 1.7 3.8L5 21h14l-1.7-3.7c1-.9 1.7-2.3 1.7-3.8z\"></path></svg>"
+            "icon_image": "shopify://shop_images/Group_231.jpg"
           }
         },
         "detection-vehicles": {
           "type": "detection_type",
           "settings": {
             "label": "Vehicles",
-            "icon_svg": "<svg viewbox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"white\"><path d=\"M18.9 6.6C18.6 5.7 17.8 5 17 5H7c-.8 0-1.6.7-1.9 1.6L3 13v8c0 .6.4 1 1 1h1c.6 0 1-.4 1-1v-1h12v1c0 .6.4 1 1 1h1c.6 0 1-.4 1-1v-8l-2.1-6.4zM7 16c-.8 0-1.5-.7-1.5-1.5S6.2 13 7 13s1.5.7 1.5 1.5S7.8 16 7 16zm10 0c-.8 0-1.5-.7-1.5-1.5S16.2 13 17 13s1.5.7 1.5 1.5S17.8 16 17 16zm-11.5-5L7 7h10l1.5 4h-13z\"></path></svg>"
+            "icon_image": "shopify://shop_images/Group_232.jpg"
           }
         },
         "detection-motion": {
           "type": "detection_type",
           "settings": {
             "label": "Motion",
-            "icon_svg": "<svg viewbox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"white\"><path d=\"M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6l1.8-.7z\"></path></svg>"
+            "icon_image": "shopify://shop_images/Group_233.jpg"
           }
         }
       },
@@ -164,7 +173,7 @@
         "header_title": "Smarter Detection Camera Tracking",
         "header_description": "",
         "header_center": false,
-        "header_em_color": "linear-gradient(90deg, #6CBCE7 0%, #367CF6 100%)",
+        "header_em_color": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 100%)",
         "header_title_size_desktop": 46,
         "header_title_size_mobile": 26,
         "header_desc_size_desktop": 16,
@@ -172,7 +181,10 @@
         "header_margin_bottom_desktop": 40,
         "header_margin_bottom_mobile": 24,
         "description": "AI-powered detection recognizes, and filters out false alerts—so you stay informed without constant interruptions.",
-        "phone_video": "",
+        "video": "shopify://files/videos/Portrait_Mode_PC_xlarge.mp4",
+        "side_image_1": "shopify://shop_images/Rectangle_193.jpg",
+        "side_image_2": "shopify://shop_images/Rectangle_197.jpg",
+        "side_image_3": "shopify://shop_images/Rectangle_194.jpg",
         "bg_color": "#f3f7ff",
         "padding_top_mobile": 40,
         "padding_bottom_mobile": 40,
