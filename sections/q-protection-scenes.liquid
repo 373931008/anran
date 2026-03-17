@@ -16,7 +16,7 @@
     --ps-pb-desktop: {{ section.settings.padding_bottom_desktop }}px;
     --ps-gap: 12px;
     --ps-card-radius: 12px;
-    --ps-card-aspect: 3 / 5;
+    --ps-card-aspect: 325 / 425;
     --ps-card-width: 236px;
   }
 
@@ -60,6 +60,10 @@
     overflow: visible;
   }
 
+  .section-{{ section.id }} swiper-container::part(container) {
+    overflow: visible;
+  }
+
   .section-{{ section.id }} swiper-slide {
     flex-shrink: 0;
     width: var(--ps-card-width);
@@ -80,66 +84,50 @@
     display: block;
   }
 
-  /* 分页器 */
-  .section-{{ section.id }} .q-protection-scenes__pagination {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
+  /* 分页器（进度条） */
+  .section-{{ section.id }} .q-protection-scenes__swiper::part(pagination) {
+    position: relative;
+    width: 100%;
+    max-width: 1010px;
+    height: 4px;
+    margin: 40px auto 0;
+    background: #ffffff;
+    border-radius: 4px;
+    overflow: hidden;
+    --swiper-pagination-color: #1565d8;
   }
 
-  @media screen and (min-width: 750px) {
-    .section-{{ section.id }} .q-protection-scenes__pagination {
-      margin-top: 28px;
-    }
-  }
-
-  /* Swiper 分页 bullet 样式 */
-  .section-{{ section.id }} .swiper-pagination-bullet {
-    background: rgba(255, 255, 255, 0.3);
-    opacity: 1;
-    width: 8px;
-    height: 8px;
-    transition: background 0.2s, width 0.2s;
-  }
-
-  .section-{{ section.id }} .swiper-pagination-bullet-active {
-    background: linear-gradient(90deg, #6cbce7, #367cf6);
-    width: 24px;
+  .section-{{ section.id }} .swiper-pagination-progressbar .swiper-pagination-progressbar-fill {
     border-radius: 4px;
   }
 
-  /* 分页器容器内联排列 */
-  .section-{{ section.id }} [data-carousel-pagination] {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    justify-content: center;
-    margin-top: 20px;
-  }
-
   @media screen and (min-width: 750px) {
-    .section-{{ section.id }} [data-carousel-pagination] {
-      margin-top: 28px;
+    .section-{{ section.id }} .q-protection-scenes__swiper::part(pagination) {
+      margin-top: 60px;
     }
   }
 </style>
 
 <div class="q-protection-scenes section-{{ section.id }}">
   <div class="page-width">
-    {%- render 'q-section-header', section: section -%}
+    {%- render 'q-section-header',
+      section: section,
+      title_color: section.settings.header_title_color,
+      desc_color: section.settings.header_desc_color
+    -%}
   </div>
 
   {%- comment -%} 轮播区使用 page-width 作为左边界对齐，溢出右侧 {%- endcomment -%}
   <div class="q-protection-scenes__swiper-wrap">
     <div class="page-width">
       <swiper-container
+        class="q-protection-scenes__swiper"
         slides-per-view="auto"
         space-between="12"
         grab-cursor="true"
         loop="false"
         pagination="true"
-        pagination-el="[data-carousel-pagination='{{ section.id }}']"
-        pagination-clickable="true"
+        pagination-type="progressbar"
         breakpoints='{"750":{"spaceBetween":20}}'
       >
         {%- for block in section.blocks -%}
@@ -165,12 +153,6 @@
         {%- endfor -%}
       </swiper-container>
     </div>
-
-    {%- if section.blocks.size > 1 -%}
-      <div class="page-width">
-        <div data-carousel-pagination="{{ section.id }}"></div>
-      </div>
-    {%- endif -%}
   </div>
 </div>
 
@@ -186,6 +168,8 @@
     { "type": "richtext", "id": "header_description", "label": "描述", "default": "<p>Keep an eye on your front door, driveway, backyard, or indoors—whether you're home or away.</p>" },
     { "type": "checkbox", "id": "header_center", "label": "居中对齐", "default": true },
     { "type": "color_background", "id": "header_em_color", "label": "em 高亮色", "default": "linear-gradient(90deg, #6cbce7, #367cf6)" },
+    { "type": "color", "id": "header_title_color", "label": "标题颜色", "default": "#ffffff" },
+    { "type": "color", "id": "header_desc_color", "label": "描述颜色", "default": "#e0e0e0" },
     { "type": "range", "id": "header_title_size_desktop", "label": "标题字号（桌面端）", "min": 20, "max": 80, "step": 2, "unit": "px", "default": 42 },
     { "type": "range", "id": "header_title_size_mobile", "label": "标题字号（移动端）", "min": 16, "max": 50, "step": 2, "unit": "px", "default": 28 },
     { "type": "range", "id": "header_desc_size_desktop", "label": "描述字号（桌面端）", "min": 10, "max": 30, "step": 1, "unit": "px", "default": 14 },
