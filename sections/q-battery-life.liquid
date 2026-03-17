@@ -1,0 +1,354 @@
+{%- comment -%}
+  Section: q-battery-life
+  功能说明：电池续航特性介绍板块
+  - 桌面端：左侧产品图 + 右侧特性列表（图标 + 标题 + 描述）+ 右下 CTA 按钮
+  - 移动端：上图下文，特性垂直堆叠
+  技术栈：
+  - Snippet: snippets/q-section-header.liquid
+  版本：1.0.0
+{%- endcomment -%}
+
+<style>
+  .section-{{ section.id }} {
+    --bl-bg: {{ section.settings.bg_color }};
+    --bl-pt-mobile: {{ section.settings.padding_top_mobile }}px;
+    --bl-pb-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --bl-pt-desktop: {{ section.settings.padding_top_desktop }}px;
+    --bl-pb-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --bl-gap: 20px;
+    --bl-item-gap: 20px;
+    --bl-icon-size: 40px;
+    --bl-img-radius: 12px;
+    --bl-feature-title-size: 15px;
+    --bl-feature-desc-size: 13px;
+    --bl-btn-radius: 24px;
+    --bl-btn-padding: 10px 28px;
+    --bl-btn-font-size: 14px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} {
+      --bl-gap: 48px;
+      --bl-item-gap: 28px;
+      --bl-icon-size: 52px;
+      --bl-img-radius: 16px;
+      --bl-feature-title-size: 18px;
+      --bl-feature-desc-size: 14px;
+      --bl-btn-padding: 12px 36px;
+      --bl-btn-font-size: 16px;
+    }
+  }
+
+  .section-{{ section.id }}.q-battery-life {
+    background: var(--bl-bg, #ffffff);
+    padding-top: var(--bl-pt-mobile, 40px);
+    padding-bottom: var(--bl-pb-mobile, 40px);
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}.q-battery-life {
+      padding-top: var(--bl-pt-desktop, 60px);
+      padding-bottom: var(--bl-pb-desktop, 60px);
+    }
+  }
+
+  /* 主体：移动端单列，桌面端左图右文两列 */
+  .section-{{ section.id }} .q-battery-life__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--bl-gap);
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-battery-life__body {
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+
+  /* 左侧图片 */
+  .section-{{ section.id }} .q-battery-life__image-wrap {
+    flex-shrink: 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-battery-life__image-wrap {
+      width: 48%;
+    }
+  }
+
+  .section-{{ section.id }} .q-battery-life__image {
+    display: block;
+    width: 100%;
+    border-radius: var(--bl-img-radius);
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    background: #f0f0f0;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-battery-life__image {
+      aspect-ratio: 1 / 1;
+    }
+  }
+
+  .section-{{ section.id }} .q-battery-life__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* 右侧特性区 */
+  .section-{{ section.id }} .q-battery-life__features-wrap {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* 特性列表 */
+  .section-{{ section.id }} .q-battery-life__features {
+    display: flex;
+    flex-direction: column;
+    gap: var(--bl-item-gap);
+  }
+
+  /* 单条特性 */
+  .section-{{ section.id }} .q-battery-life__feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-battery-life__feature {
+      gap: 18px;
+    }
+  }
+
+  /* 图标 */
+  .section-{{ section.id }} .q-battery-life__feature-icon {
+    width: var(--bl-icon-size);
+    height: var(--bl-icon-size);
+    flex-shrink: 0;
+    object-fit: contain;
+    display: block;
+  }
+
+  /* 文字区 */
+  .section-{{ section.id }} .q-battery-life__feature-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .section-{{ section.id }} .q-battery-life__feature-title {
+    font-size: var(--bl-feature-title-size);
+    font-weight: 700;
+    color: #1565d8;
+    margin: 0 0 4px;
+    line-height: 1.3;
+  }
+
+  .section-{{ section.id }} .q-battery-life__feature-desc {
+    font-size: var(--bl-feature-desc-size);
+    color: #555;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .section-{{ section.id }} .q-battery-life__feature-desc p {
+    margin: 0;
+  }
+
+  /* CTA 按钮容器 */
+  .section-{{ section.id }} .q-battery-life__cta {
+    margin-top: 28px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-battery-life__cta {
+      margin-top: 36px;
+    }
+  }
+
+  /* 移动端隐藏按钮（当 show_button_mobile 为 false 时） */
+  .section-{{ section.id }} .q-battery-life__cta--hide-mobile {
+    display: none;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-battery-life__cta--hide-mobile {
+      display: block;
+    }
+  }
+
+  /* CTA 按钮 */
+  .section-{{ section.id }} .q-battery-life__btn {
+    display: inline-block;
+    padding: var(--bl-btn-padding);
+    background: #faa61a;
+    color: #fff;
+    font-size: var(--bl-btn-font-size);
+    font-weight: 600;
+    border-radius: var(--bl-btn-radius);
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, opacity 0.2s;
+    line-height: 1.4;
+  }
+
+  .section-{{ section.id }} .q-battery-life__btn:hover {
+    background: #e8940f;
+  }
+
+  .section-{{ section.id }} .q-battery-life__btn:active {
+    opacity: 0.8;
+  }
+</style>
+
+<div class="q-battery-life section-{{ section.id }}">
+  <div class="page-width">
+    {%- render 'q-section-header', section: section -%}
+
+    <div class="q-battery-life__body">
+      {%- comment -%} 左侧产品图 {%- endcomment -%}
+      <div class="q-battery-life__image-wrap">
+        <div class="q-battery-life__image">
+          {%- if section.settings.image != blank -%}
+            {{-
+              section.settings.image
+              | image_url: width: 900
+              | image_tag:
+                loading: 'lazy',
+                widths: '400,600,800,900',
+                alt: section.settings.image.alt
+            -}}
+          {%- else -%}
+            {{ 'lifestyle-1' | placeholder_svg_tag: 'q-battery-life__image-placeholder' }}
+          {%- endif -%}
+        </div>
+      </div>
+
+      {%- comment -%} 右侧特性区 {%- endcomment -%}
+      <div class="q-battery-life__features-wrap">
+        <div class="q-battery-life__features">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'feature_item' -%}
+              <div class="q-battery-life__feature" {{ block.shopify_attributes }}>
+                {%- if block.settings.icon != blank -%}
+                  {{-
+                    block.settings.icon
+                    | image_url: width: 104
+                    | image_tag:
+                      class: 'q-battery-life__feature-icon',
+                      loading: 'lazy',
+                      widths: '52,104',
+                      alt: block.settings.title
+                  -}}
+                {%- endif -%}
+                <div class="q-battery-life__feature-content">
+                  {%- if block.settings.title != blank -%}
+                    <p class="q-battery-life__feature-title">{{ block.settings.title }}</p>
+                  {%- endif -%}
+                  {%- if block.settings.description != blank -%}
+                    <div class="q-battery-life__feature-desc">{{ block.settings.description }}</div>
+                  {%- endif -%}
+                </div>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+
+        {%- if section.settings.button_label != blank -%}
+          <div class="q-battery-life__cta{% unless section.settings.show_button_mobile %} q-battery-life__cta--hide-mobile{% endunless %}">
+            <a
+              href="{{ section.settings.button_link | default: '/' }}"
+              class="q-battery-life__btn"
+            >
+              {{ section.settings.button_label }}
+            </a>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Q-电池续航",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "header", "content": "板块标题" },
+    { "type": "inline_richtext", "id": "header_title", "label": "标题", "default": "Looking for <em>Longer Battery</em> Life?" },
+    { "type": "richtext", "id": "header_description", "label": "描述" },
+    { "type": "checkbox", "id": "header_center", "label": "居中对齐", "default": false },
+    { "type": "color_background", "id": "header_em_color", "label": "em 高亮色", "default": "linear-gradient(90deg, #6cbce7, #367cf6)" },
+    { "type": "range", "id": "header_title_size_desktop", "label": "标题字号（桌面端）", "min": 20, "max": 80, "step": 2, "unit": "px", "default": 42 },
+    { "type": "range", "id": "header_title_size_mobile", "label": "标题字号（移动端）", "min": 16, "max": 50, "step": 2, "unit": "px", "default": 26 },
+    { "type": "range", "id": "header_desc_size_desktop", "label": "描述字号（桌面端）", "min": 10, "max": 30, "step": 1, "unit": "px", "default": 16 },
+    { "type": "range", "id": "header_desc_size_mobile", "label": "描述字号（移动端）", "min": 10, "max": 24, "step": 1, "unit": "px", "default": 12 },
+    { "type": "range", "id": "header_margin_bottom_desktop", "label": "标题下边距（桌面端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "header_margin_bottom_mobile", "label": "标题下边距（移动端）", "min": 0, "max": 80, "step": 4, "unit": "px", "default": 24 },
+    { "type": "header", "content": "产品图片" },
+    { "type": "image_picker", "id": "image", "label": "左侧产品图" },
+    { "type": "header", "content": "CTA 按钮" },
+    { "type": "text", "id": "button_label", "label": "按钮文字", "default": "Buy now" },
+    { "type": "url", "id": "button_link", "label": "按钮链接", "default": "/" },
+    { "type": "checkbox", "id": "show_button_mobile", "label": "移动端显示按钮", "default": false },
+    { "type": "header", "content": "板块背景" },
+    { "type": "color_background", "id": "bg_color", "label": "背景色", "default": "#ffffff" },
+    { "type": "header", "content": "上下边距" },
+    { "type": "range", "id": "padding_top_mobile", "label": "上边距（移动端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_bottom_mobile", "label": "下边距（移动端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_top_desktop", "label": "上边距（桌面端）", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 60 },
+    { "type": "range", "id": "padding_bottom_desktop", "label": "下边距（桌面端）", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 60 }
+  ],
+  "blocks": [
+    {
+      "type": "feature_item",
+      "name": "特性条目",
+      "settings": [
+        { "type": "image_picker", "id": "icon", "label": "图标" },
+        { "type": "text", "id": "title", "label": "特性标题", "default": "Battery" },
+        { "type": "richtext", "id": "description", "label": "特性描述", "default": "<p>Long-lasting rechargeable battery provides reliable protection for months with fewer recharges required.</p>" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Q-电池续航",
+      "settings": {
+        "header_center": false
+      },
+      "blocks": [
+        {
+          "type": "feature_item",
+          "settings": {
+            "title": "Battery",
+            "description": "<p>Long-lasting rechargeable battery provides reliable protection for months with fewer recharges required.</p>"
+          }
+        },
+        {
+          "type": "feature_item",
+          "settings": {
+            "title": "Solar Panel",
+            "description": "<p>Optional solar panel uses daily sunlight to keep your camera powered with minimal maintenance.</p>"
+          }
+        },
+        {
+          "type": "feature_item",
+          "settings": {
+            "title": "All-Weather / Low Maintenance",
+            "description": "<p>Designed to withstand rain, snow, heat, and cold for worry-free outdoor performance.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -10,6 +10,40 @@
  {
   "layout": "theme",
   "sections": {
+    "q-battery-life": {
+      "type": "q-battery-life",
+      "block_order": [
+        "feature-1",
+        "feature-2",
+        "feature-3"
+      ],
+      "blocks": {
+        "feature-1": {
+          "type": "feature_item",
+          "settings": {
+            "title": "Battery",
+            "description": "<p>Long-lasting rechargeable battery provides reliable protection for months with fewer recharges required.</p>"
+          }
+        },
+        "feature-2": {
+          "type": "feature_item",
+          "settings": {
+            "title": "Solar Panel",
+            "description": "<p>Optional solar panel uses daily sunlight to keep your camera powered with minimal maintenance.</p>"
+          }
+        },
+        "feature-3": {
+          "type": "feature_item",
+          "settings": {
+            "title": "All-Weather / Low Maintenance",
+            "description": "<p>Designed to withstand rain, snow, heat, and cold for worry-free outdoor performance.</p>"
+          }
+        }
+      },
+      "settings": {
+        "header_center": false
+      }
+    },
     "q-protection-scenes": {
       "type": "q-protection-scenes",
       "block_order": [
@@ -1348,6 +1382,7 @@
     }
   },
   "order": [
+    "q-battery-life",
     "q-protection-scenes",
     "q-why-choose",
     "q-smart-detection",
