@@ -359,7 +359,24 @@
           </swiper-slide>
           {%- comment -%} 右侧产品列（swiper） {%- endcomment -%}
           {%- for block in product_blocks -%}
-            {%- assign spec_rows = block.settings.specs | newline_to_br | split: '<br />' -%}
+            {%- comment -%}
+              规格字段使用 richtext（支持动态源），这里兼容两种格式：
+              - 旧数据：纯文本 + 换行（不含 <p>），按换行拆分
+              - 新数据：richtext HTML（<p>...</p>），按段落拆分
+            {%- endcomment -%}
+            {%- assign raw_specs = block.settings.specs | default: '' -%}
+            {%- if raw_specs contains '</p>' -%}
+              {%- comment -%}richtext：将 </p><p> 替换为换行，再去掉首尾 <p>{%- endcomment -%}
+              {%- assign specs_normalized = raw_specs
+                | replace: '</p><p>', '\n'
+                | replace: '<p>', ''
+                | replace: '</p>', ''
+              -%}
+              {%- assign spec_rows = specs_normalized | split: '\n' -%}
+            {%- else -%}
+              {%- comment -%}纯文本：按换行符拆分{%- endcomment -%}
+              {%- assign spec_rows = raw_specs | newline_to_br | split: '<br />' -%}
+            {%- endif -%}
             <swiper-slide {{ block.shopify_attributes }}>
               <div class="q-ct__product-card">
 
@@ -486,11 +503,11 @@
           "default": "Q3M8"
         },
         {
-          "type": "textarea",
+          "type": "richtext",
           "id": "specs",
           "label": "规格列表（每行一项）",
-          "info": "与左侧特征列一一对应，每行一个值",
-          "default": "2K / 3MP\n360 Degrees\n50 Feet\nWi-Fi\nAlexa, Assistant\nSolar & Battery Powered\nNight Color\n5000 mAh, 5W, 5V\nSD Card, up to 128GB"
+          "info": "建议每条一个段落（一个回车），支持绑定 rich_text metafield",
+          "default": "<p>2K / 3MP</p><p>360 Degrees</p><p>50 Feet</p><p>Wi-Fi</p><p>Alexa, Assistant</p><p>Solar &amp; Battery Powered</p><p>Night Color</p><p>5000 mAh, 5W, 5V</p><p>SD Card, up to 128GB</p>"
         },
         {
           "type": "url",
@@ -515,7 +532,7 @@
           "type": "product",
           "settings": {
             "product_name": "Q3M8",
-            "specs": "2K / 3MP\n360 Degrees\n50 Feet\nWi-Fi\nAlexa, Assistant\nSolar & Battery Powered\nNight Color\n5000 mAh, 5W, 5V\nSD Card, up to 128GB",
+            "specs": "<p>2K / 3MP</p><p>360 Degrees</p><p>50 Feet</p><p>Wi-Fi</p><p>Alexa, Assistant</p><p>Solar &amp; Battery Powered</p><p>Night Color</p><p>5000 mAh, 5W, 5V</p><p>SD Card, up to 128GB</p>",
             "button_link": "/",
             "button_label": "Shop now"
           }
@@ -524,7 +541,7 @@
           "type": "product",
           "settings": {
             "product_name": "C3M5",
-            "specs": "3MP\n135 Degrees\n55 Feet\nWi-Fi\nAmazon Alexa\nSolar Powered\nNight Color\n5000 mAh, 5W, 5V\nSD Card, up to 128GB",
+            "specs": "<p>3MP</p><p>135 Degrees</p><p>55 Feet</p><p>Wi-Fi</p><p>Amazon Alexa</p><p>Solar Powered</p><p>Night Color</p><p>5000 mAh, 5W, 5V</p><p>SD Card, up to 128GB</p>",
             "button_link": "/",
             "button_label": "Shop now"
           }
@@ -533,7 +550,7 @@
           "type": "product",
           "settings": {
             "product_name": "Q4M5",
-            "specs": "2K / 3MP\n360 Degrees\n50 Feet\nWi-Fi\nAlexa, Assistant\nSolar & Battery Powered\nNight Color\n5000 mAh, 5W, 5V\nSD Card, up to 128GB",
+            "specs": "<p>2K / 3MP</p><p>360 Degrees</p><p>50 Feet</p><p>Wi-Fi</p><p>Alexa, Assistant</p><p>Solar &amp; Battery Powered</p><p>Night Color</p><p>5000 mAh, 5W, 5V</p><p>SD Card, up to 128GB</p>",
             "button_link": "/",
             "button_label": "Shop now"
           }

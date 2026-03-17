@@ -842,7 +842,7 @@
           "settings": {
             "product_image": "shopify://shop_images/Group_562.png",
             "product_name": "Q3M8",
-            "specs": "2K / 3MP\n360 Degrees\n50 Feet\nWi-Fi\nAlexa, Assistant\nSolar & Battery Powered\nNight Color\n5000 mAh, 5W, 5V\nSD Card, up to 128GB",
+            "specs": "<p>2K / 3MP</p><p>360 Degrees</p><p>50 Feet</p><p>Wi-Fi</p><p>Alexa, Assistant</p><p>Solar &amp; Battery Powered</p><p>Night Color</p><p>5000 mAh, 5W, 5V</p><p>SD Card, up to 128GB</p>",
             "button_link": "/",
             "button_label": "Shop now"
           }
@@ -852,7 +852,7 @@
           "settings": {
             "product_image": "shopify://shop_images/Group_561.png",
             "product_name": "C3M5",
-            "specs": "3MP\n135 Degrees\n55 Feet\nWi-Fi\nAmazon Alexa\nSolar Powered\nNight Color\n5000 mAh, 5W, 5V\nSD Card, up to 128GB",
+            "specs": "<p>3MP</p><p>135 Degrees</p><p>55 Feet</p><p>Wi-Fi</p><p>Amazon Alexa</p><p>Solar Powered</p><p>Night Color</p><p>5000 mAh, 5W, 5V</p><p>SD Card, up to 128GB</p>",
             "button_link": "/",
             "button_label": "Shop now"
           }
@@ -862,7 +862,7 @@
           "settings": {
             "product_image": "shopify://shop_images/Group_560.png",
             "product_name": "Q4M5",
-            "specs": "2K / 3MP\n360 Degrees\n50 Feet\nWi-Fi\nAlexa, Assistant\nSolar & Battery Powered\nNight Color\n5000 mAh, 5W, 5V\nSD Card, up to 128GB",
+            "specs": "<p>2K / 3MP</p><p>360 Degrees</p><p>50 Feet</p><p>Wi-Fi</p><p>Alexa, Assistant</p><p>Solar &amp; Battery Powered</p><p>Night Color</p><p>5000 mAh, 5W, 5V</p><p>SD Card, up to 128GB</p>",
             "button_link": "/",
             "button_label": "Shop now"
           }
@@ -1467,7 +1467,7 @@
         "header_margin_bottom_mobile": 24
       }
     },
-    "main": {
+    "main": { 
       "type": "main-product",
       "blocks": {
         "judge_me_reviews_preview_badge_zMwFUy": {
