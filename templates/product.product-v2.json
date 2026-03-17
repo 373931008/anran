@@ -10,6 +10,30 @@
  {
   "layout": "theme",
   "sections": {
+    "q-logo-marquee": {
+      "type": "q-logo-marquee",
+      "block_order": [
+        "logo-1",
+        "logo-2",
+        "logo-3",
+        "logo-4",
+        "logo-5",
+        "logo-6",
+        "logo-7",
+        "logo-8"
+      ],
+      "blocks": {
+        "logo-1": { "type": "logo", "settings": { "logo_name": "bob vila" } },
+        "logo-2": { "type": "logo", "settings": { "logo_name": "SLASH GEAR" } },
+        "logo-3": { "type": "logo", "settings": { "logo_name": "PC MAG" } },
+        "logo-4": { "type": "logo", "settings": { "logo_name": "WIRED" } },
+        "logo-5": { "type": "logo", "settings": { "logo_name": "bob vila" } },
+        "logo-6": { "type": "logo", "settings": { "logo_name": "works with alexa" } },
+        "logo-7": { "type": "logo", "settings": { "logo_name": "CES" } },
+        "logo-8": { "type": "logo", "settings": { "logo_name": "SLASH GEAR" } }
+      },
+      "settings": {}
+    },
     "q-battery-life": {
       "type": "q-battery-life",
       "block_order": [
@@ -1382,6 +1406,7 @@
     }
   },
   "order": [
+    "q-logo-marquee",
     "q-battery-life",
     "q-protection-scenes",
     "q-why-choose",

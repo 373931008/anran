@@ -1,0 +1,297 @@
+{%- comment -%}
+  Section: q-logo-marquee
+  功能说明：Logo 跑马灯 —— 品牌/媒体 logo 无缝横向循环滚动
+  技术栈：
+  - Islands: frontend/islands/logo-marquee-element.js（设置 linear 缓动）
+  - swiper-container Web Component（slidesPerView: auto, delay: 0, loop）
+  版本：1.0.0
+{%- endcomment -%}
+
+<style>
+  .section-{{ section.id }} {
+    --lm-bg: {{ section.settings.bg_color }};
+    --lm-pt-mobile: {{ section.settings.padding_top_mobile }}px;
+    --lm-pb-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --lm-pt-desktop: {{ section.settings.padding_top_desktop }}px;
+    --lm-pb-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --lm-speed: {{ section.settings.scroll_speed }};
+    --lm-logo-height-mobile: {{ section.settings.logo_height_mobile }}px;
+    --lm-logo-height-desktop: {{ section.settings.logo_height_desktop }}px;
+    --lm-gap: {{ section.settings.gap }}px;
+    --lm-opacity: {{ section.settings.logo_opacity | divided_by: 100.0 }};
+    --lm-opacity-hover: {{ section.settings.logo_opacity_hover | divided_by: 100.0 }};
+  }
+
+  .section-{{ section.id }}.q-logo-marquee {
+    background: var(--lm-bg, #ffffff);
+    padding-top: var(--lm-pt-mobile, 24px);
+    padding-bottom: var(--lm-pb-mobile, 24px);
+    overflow: hidden;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}.q-logo-marquee {
+      padding-top: var(--lm-pt-desktop, 32px);
+      padding-bottom: var(--lm-pb-desktop, 32px);
+    }
+  }
+
+  /* swiper 布局 */
+  .section-{{ section.id }} .q-lm__swiper {
+    overflow: hidden;
+  }
+
+  .section-{{ section.id }} .q-lm__swiper swiper-container {
+    display: flex;
+  }
+
+  .section-{{ section.id }} .q-lm__swiper swiper-slide {
+    flex-shrink: 0;
+    width: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 calc(var(--lm-gap) / 2);
+  }
+
+  /* 跑马灯关键：线性缓动，由 Islands JS 注入到 swiper-wrapper */
+  .section-{{ section.id }} .swiper-wrapper {
+    transition-timing-function: linear !important;
+  }
+
+  /* Logo 图片 */
+  .section-{{ section.id }} .q-lm__logo-img {
+    height: var(--lm-logo-height-mobile, 32px);
+    width: auto;
+    object-fit: contain;
+    display: block;
+    opacity: var(--lm-opacity, 0.6);
+    transition: opacity 0.2s;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-lm__logo-img {
+      height: var(--lm-logo-height-desktop, 40px);
+    }
+  }
+
+  .section-{{ section.id }} .q-lm__logo-img:hover {
+    opacity: var(--lm-opacity-hover, 1);
+  }
+
+  /* Logo 占位（无图时显示文字） */
+  .section-{{ section.id }} .q-lm__logo-text {
+    height: var(--lm-logo-height-mobile, 32px);
+    line-height: var(--lm-logo-height-mobile, 32px);
+    font-size: 14px;
+    font-weight: 600;
+    color: #888;
+    white-space: nowrap;
+    opacity: var(--lm-opacity, 0.6);
+    transition: opacity 0.2s;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-lm__logo-text {
+      height: var(--lm-logo-height-desktop, 40px);
+      line-height: var(--lm-logo-height-desktop, 40px);
+      font-size: 16px;
+    }
+  }
+
+  .section-{{ section.id }} .q-lm__logo-text:hover {
+    opacity: var(--lm-opacity-hover, 1);
+  }
+
+  /* 带分割线样式 */
+  .section-{{ section.id }}.q-logo-marquee--divider {
+    border-top: 1px solid {{ section.settings.divider_color }};
+    border-bottom: 1px solid {{ section.settings.divider_color }};
+  }
+</style>
+
+<div class="q-logo-marquee section-{{ section.id }}{% if section.settings.show_divider %} q-logo-marquee--divider{% endif %}">
+  <logo-marquee-element
+    client:visible
+    data-section-id="{{ section.id }}"
+    data-speed="{{ section.settings.scroll_speed }}"
+  >
+    <div class="q-lm__swiper">
+      <swiper-container
+        id="q-lm-swiper-{{ section.id }}"
+        slides-per-view="auto"
+        space-between="{{ section.settings.gap }}"
+        loop="true"
+        autoplay="true"
+        autoplay-delay="0"
+        autoplay-disable-on-interaction="false"
+        grab-cursor="true"
+        free-mode="true"
+        free-mode-momentum="false"
+        speed="{{ section.settings.scroll_speed | times: 1000 }}"
+      >
+        {%- for block in section.blocks -%}
+          <swiper-slide {{ block.shopify_attributes }}>
+            {%- if block.settings.logo_image != blank -%}
+              {%- if block.settings.logo_link != blank and block.settings.logo_link != '/' -%}
+                <a href="{{ block.settings.logo_link }}" target="_blank" rel="noopener" aria-label="{{ block.settings.logo_alt | default: block.settings.logo_name }}">
+                  {{-
+                    block.settings.logo_image
+                    | image_url: height: 120
+                    | image_tag:
+                      class: 'q-lm__logo-img',
+                      loading: 'lazy',
+                      widths: '80, 120, 160, 200',
+                      alt: block.settings.logo_alt | default: block.settings.logo_name
+                  -}}
+                </a>
+              {%- else -%}
+                {{-
+                  block.settings.logo_image
+                  | image_url: height: 120
+                  | image_tag:
+                    class: 'q-lm__logo-img',
+                    loading: 'lazy',
+                    widths: '80, 120, 160, 200',
+                    alt: block.settings.logo_alt | default: block.settings.logo_name
+                -}}
+              {%- endif -%}
+            {%- elsif block.settings.logo_name != blank -%}
+              {%- if block.settings.logo_link != blank and block.settings.logo_link != '/' -%}
+                <a href="{{ block.settings.logo_link }}" target="_blank" rel="noopener" class="q-lm__logo-text">
+                  {{- block.settings.logo_name -}}
+                </a>
+              {%- else -%}
+                <span class="q-lm__logo-text">{{- block.settings.logo_name -}}</span>
+              {%- endif -%}
+            {%- endif -%}
+          </swiper-slide>
+        {%- endfor -%}
+      </swiper-container>
+    </div>
+  </logo-marquee-element>
+</div>
+
+{% schema %}
+{
+  "name": "Logo 跑马灯",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "header", "content": "滚动设置" },
+    {
+      "type": "range",
+      "id": "scroll_speed",
+      "label": "滚动速度（秒/圈）",
+      "min": 3,
+      "max": 30,
+      "step": 1,
+      "unit": "s",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "Logo 间距",
+      "min": 20,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    { "type": "header", "content": "Logo 尺寸" },
+    {
+      "type": "range",
+      "id": "logo_height_mobile",
+      "label": "高度（移动端）",
+      "min": 20,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "logo_height_desktop",
+      "label": "高度（桌面端）",
+      "min": 20,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "logo_opacity",
+      "label": "默认透明度",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "logo_opacity_hover",
+      "label": "悬停透明度",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    { "type": "header", "content": "板块背景" },
+    {
+      "type": "color_background",
+      "id": "bg_color",
+      "label": "背景色",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_divider",
+      "label": "显示上下分割线",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "分割线颜色",
+      "default": "#e5e7eb"
+    },
+    { "type": "header", "content": "上下边距" },
+    { "type": "range", "id": "padding_top_mobile", "label": "上边距（移动端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 24 },
+    { "type": "range", "id": "padding_bottom_mobile", "label": "下边距（移动端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 24 },
+    { "type": "range", "id": "padding_top_desktop", "label": "上边距（桌面端）", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 32 },
+    { "type": "range", "id": "padding_bottom_desktop", "label": "下边距（桌面端）", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 32 }
+  ],
+  "blocks": [
+    {
+      "type": "logo",
+      "name": "Logo",
+      "settings": [
+        { "type": "image_picker", "id": "logo_image", "label": "Logo 图片" },
+        { "type": "text", "id": "logo_alt", "label": "图片 Alt 文字" },
+        { "type": "text", "id": "logo_name", "label": "品牌名称", "info": "无图片时显示文字", "default": "Brand Name" },
+        { "type": "url", "id": "logo_link", "label": "跳转链接", "default": "/" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Logo 跑马灯",
+      "blocks": [
+        { "type": "logo", "settings": { "logo_name": "bob vila" } },
+        { "type": "logo", "settings": { "logo_name": "SLASH GEAR" } },
+        { "type": "logo", "settings": { "logo_name": "PC MAG" } },
+        { "type": "logo", "settings": { "logo_name": "WIRED" } },
+        { "type": "logo", "settings": { "logo_name": "bob vila" } },
+        { "type": "logo", "settings": { "logo_name": "works with alexa" } },
+        { "type": "logo", "settings": { "logo_name": "CES" } },
+        { "type": "logo", "settings": { "logo_name": "SLASH GEAR" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
