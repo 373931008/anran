@@ -7,11 +7,77 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
- {
+{
   "layout": "theme",
   "sections": {
     "q-logo-marquee": {
       "type": "q-logo-marquee",
+      "blocks": {
+        "logo-1": {
+          "type": "logo",
+          "settings": {
+            "logo_alt": "",
+            "logo_name": "bob vila",
+            "logo_link": "/"
+          }
+        },
+        "logo-2": {
+          "type": "logo",
+          "settings": {
+            "logo_alt": "",
+            "logo_name": "SLASH GEAR",
+            "logo_link": "/"
+          }
+        },
+        "logo-3": {
+          "type": "logo",
+          "settings": {
+            "logo_alt": "",
+            "logo_name": "PC MAG",
+            "logo_link": "/"
+          }
+        },
+        "logo-4": {
+          "type": "logo",
+          "settings": {
+            "logo_alt": "",
+            "logo_name": "WIRED",
+            "logo_link": "/"
+          }
+        },
+        "logo-5": {
+          "type": "logo",
+          "settings": {
+            "logo_alt": "",
+            "logo_name": "bob vila",
+            "logo_link": "/"
+          }
+        },
+        "logo-6": {
+          "type": "logo",
+          "settings": {
+            "logo_alt": "",
+            "logo_name": "works with alexa",
+            "logo_link": "/"
+          }
+        },
+        "logo-7": {
+          "type": "logo",
+          "settings": {
+            "logo_alt": "",
+            "logo_name": "CES",
+            "logo_link": "/"
+          }
+        },
+        "logo-8": {
+          "type": "logo",
+          "settings": {
+            "logo_alt": "",
+            "logo_name": "SLASH GEAR",
+            "logo_link": "/"
+          }
+        }
+      },
       "block_order": [
         "logo-1",
         "logo-2",
@@ -22,25 +88,24 @@
         "logo-7",
         "logo-8"
       ],
-      "blocks": {
-        "logo-1": { "type": "logo", "settings": { "logo_name": "bob vila" } },
-        "logo-2": { "type": "logo", "settings": { "logo_name": "SLASH GEAR" } },
-        "logo-3": { "type": "logo", "settings": { "logo_name": "PC MAG" } },
-        "logo-4": { "type": "logo", "settings": { "logo_name": "WIRED" } },
-        "logo-5": { "type": "logo", "settings": { "logo_name": "bob vila" } },
-        "logo-6": { "type": "logo", "settings": { "logo_name": "works with alexa" } },
-        "logo-7": { "type": "logo", "settings": { "logo_name": "CES" } },
-        "logo-8": { "type": "logo", "settings": { "logo_name": "SLASH GEAR" } }
-      },
-      "settings": {}
+      "settings": {
+        "scroll_speed": 8,
+        "gap": 60,
+        "logo_height_mobile": 32,
+        "logo_height_desktop": 44,
+        "logo_opacity": 60,
+        "logo_opacity_hover": 100,
+        "bg_color": "#FFFFFF",
+        "show_divider": false,
+        "divider_color": "#e5e7eb",
+        "padding_top_mobile": 24,
+        "padding_bottom_mobile": 24,
+        "padding_top_desktop": 32,
+        "padding_bottom_desktop": 32
+      }
     },
     "q-battery-life": {
       "type": "q-battery-life",
-      "block_order": [
-        "feature-1",
-        "feature-2",
-        "feature-3"
-      ],
       "blocks": {
         "feature-1": {
           "type": "feature_item",
@@ -64,28 +129,30 @@
           }
         }
       },
-      "settings": {
-        "header_center": false
-      }
-    },
-    "q-protection-scenes": {
-      "type": "q-protection-scenes",
       "block_order": [
-        "scene-1",
-        "scene-2",
-        "scene-3",
-        "scene-4",
-        "scene-5"
+        "feature-1",
+        "feature-2",
+        "feature-3"
       ],
-      "blocks": {
-        "scene-1": { "type": "scene_card", "settings": {} },
-        "scene-2": { "type": "scene_card", "settings": {} },
-        "scene-3": { "type": "scene_card", "settings": {} },
-        "scene-4": { "type": "scene_card", "settings": {} },
-        "scene-5": { "type": "scene_card", "settings": {} }
-      },
       "settings": {
-        "header_center": true
+        "header_title": "Looking for <em>Longer Battery</em> Life?",
+        "header_description": "",
+        "header_center": true,
+        "header_em_color": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 100%)",
+        "header_title_size_desktop": 42,
+        "header_title_size_mobile": 26,
+        "header_desc_size_desktop": 16,
+        "header_desc_size_mobile": 12,
+        "header_margin_bottom_desktop": 40,
+        "header_margin_bottom_mobile": 24,
+        "button_label": "Buy now",
+        "button_link": "/",
+        "show_button_mobile": false,
+        "bg_color": "#ffffff",
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60
       }
     },
     "q-why-choose": {
@@ -99,7 +166,9 @@
             "description": "",
             "content_position": "bottom",
             "title_size_desktop": 32,
-            "title_size_mobile": 18
+            "title_size_mobile": 18,
+            "desc_size_desktop": 18,
+            "desc_size_mobile": 12
           }
         },
         "card-auto-tracking": {
@@ -123,7 +192,9 @@
             "description": "AI Eliminate Blindspots",
             "content_position": "bottom",
             "title_size_desktop": 32,
-            "title_size_mobile": 18
+            "title_size_mobile": 18,
+            "desc_size_desktop": 18,
+            "desc_size_mobile": 12
           }
         },
         "card-smart-alarm": {
@@ -147,7 +218,9 @@
             "description": "Smart App ControlNo Monthly Fees",
             "content_position": "top",
             "title_size_desktop": 20,
-            "title_size_mobile": 12
+            "title_size_mobile": 12,
+            "desc_size_desktop": 18,
+            "desc_size_mobile": 12
           }
         },
         "card-solar-powered": {
@@ -476,6 +549,74 @@
         "padding_bottom_desktop": 60
       }
     },
+    "q-protection-scenes": {
+      "type": "q-protection-scenes",
+      "blocks": {
+        "scene-1": {
+          "type": "scene_card",
+          "settings": {
+            "image": "shopify://shop_images/image_213_1.jpg"
+          }
+        },
+        "scene-2": {
+          "type": "scene_card",
+          "settings": {
+            "image": "shopify://shop_images/image_214_1.jpg"
+          }
+        },
+        "scene-3": {
+          "type": "scene_card",
+          "settings": {
+            "image": "shopify://shop_images/image_215.jpg"
+          }
+        },
+        "scene-4": {
+          "type": "scene_card",
+          "settings": {
+            "image": "shopify://shop_images/image_217.jpg"
+          }
+        },
+        "scene_card_YMaexJ": {
+          "type": "scene_card",
+          "settings": {
+            "image": "shopify://shop_images/image_217.jpg"
+          }
+        },
+        "scene_card_My469f": {
+          "type": "scene_card",
+          "settings": {
+            "image": "shopify://shop_images/image_217.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "scene-1",
+        "scene-2",
+        "scene-3",
+        "scene-4",
+        "scene_card_YMaexJ",
+        "scene_card_My469f"
+      ],
+      "settings": {
+        "header_title": "<em>Protection</em> Where It Matters Most",
+        "header_description": "<p>Keep an eye on your front door, driveway, backyard, or indoors—whether you're home or away.</p>",
+        "header_center": true,
+        "header_em_color": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 100%)",
+        "header_title_color": "#ffffff",
+        "header_desc_color": "#e0e0e0",
+        "header_title_size_desktop": 42,
+        "header_title_size_mobile": 28,
+        "header_desc_size_desktop": 14,
+        "header_desc_size_mobile": 14,
+        "header_margin_bottom_desktop": 0,
+        "header_margin_bottom_mobile": 0,
+        "bg_color": "#0d0d0d",
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60
+      }
+    },
     "q-wifi-connected": {
       "type": "q-wifi-connected",
       "settings": {
@@ -679,7 +820,7 @@
         "header_title": "Set Up in Minutes. <em>Wire-Free Installation.</em>",
         "header_description": "",
         "header_center": false,
-        "header_em_color": "linear-gradient(90deg, #6CBCE7 0%, #367CF6 100%)",
+        "header_em_color": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 100%)",
         "header_title_size_desktop": 42,
         "header_title_size_mobile": 26,
         "header_desc_size_desktop": 16,
@@ -699,7 +840,7 @@
         "product-1": {
           "type": "product",
           "settings": {
-            "product_image": "shopify://shop_images/image_290.jpg",
+            "product_image": "shopify://shop_images/Group_562.png",
             "product_name": "Q3M8",
             "specs": "2K / 3MP\n360 Degrees\n50 Feet\nWi-Fi\nAlexa, Assistant\nSolar & Battery Powered\nNight Color\n5000 mAh, 5W, 5V\nSD Card, up to 128GB",
             "button_link": "/",
@@ -709,7 +850,7 @@
         "product-2": {
           "type": "product",
           "settings": {
-            "product_image": "shopify://shop_images/image_290.jpg",
+            "product_image": "shopify://shop_images/Group_561.png",
             "product_name": "C3M5",
             "specs": "3MP\n135 Degrees\n55 Feet\nWi-Fi\nAmazon Alexa\nSolar Powered\nNight Color\n5000 mAh, 5W, 5V\nSD Card, up to 128GB",
             "button_link": "/",
@@ -719,7 +860,7 @@
         "product-3": {
           "type": "product",
           "settings": {
-            "product_image": "shopify://shop_images/image_290.jpg",
+            "product_image": "shopify://shop_images/Group_560.png",
             "product_name": "Q4M5",
             "specs": "2K / 3MP\n360 Degrees\n50 Feet\nWi-Fi\nAlexa, Assistant\nSolar & Battery Powered\nNight Color\n5000 mAh, 5W, 5V\nSD Card, up to 128GB",
             "button_link": "/",
@@ -1408,13 +1549,13 @@
   "order": [
     "q-logo-marquee",
     "q-battery-life",
-    "q-protection-scenes",
     "q-why-choose",
     "q-smart-detection",
     "q-alert-cards",
     "q-audio-live-view",
     "q-expert-testimonials",
     "q-camera-showcase",
+    "q-protection-scenes",
     "q-wifi-connected",
     "q-storage-options",
     "q-app-features",
