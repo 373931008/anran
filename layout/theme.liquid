@@ -299,8 +299,10 @@
     </script>
 
     {% liquid
-      render 'vite-tag' with 'theme.css'
-      render 'vite-tag' with 'theme.js'
+      if template.name == 'product'
+        render 'vite-tag' with 'theme.css'
+        render 'vite-tag' with 'theme.js'
+      endif
     %}
 
   {% include 'pagefly-app-header' %}</head>

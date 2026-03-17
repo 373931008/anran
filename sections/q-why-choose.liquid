@@ -117,6 +117,7 @@
     height: var(--wc-card-height);
     position: relative;
     overflow: hidden;
+    text-align: center;
   }
 
   /* ─── card_image_text：图片 + 左下角标题 ─── */
@@ -143,10 +144,13 @@
 
   .section-{{ section.id }} .q-wc__card--image-text .q-wc__card-body {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    inset: 0;
     padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
   }
 
   @media screen and (min-width: 750px) {
@@ -158,7 +162,7 @@
   .section-{{ section.id }} .q-wc__card--image-text .q-wc__card-title {
     font-size: var(--card-title-size-m, var(--wc-card-title-size));
     line-height: var(--wc-card-title-lh);
-    font-weight: 700;
+    font-weight: 600;
     color: #ffffff;
     margin: 0;
   }
@@ -169,6 +173,21 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+  }
+
+  .section-{{ section.id }} .q-wc__card--image-text .q-wc__card-desc {
+    font-size: var(--card-desc-size-m, var(--wc-card-desc-size));
+    line-height: var(--wc-card-desc-lh);
+    color: #cacbcc;
+    margin: 8px 0 0;
+  }
+
+  .section-{{ section.id }} .q-wc__card--image-text.q-wc__card--pos-top .q-wc__card-body {
+    justify-content: flex-start;
+  }
+
+  .section-{{ section.id }} .q-wc__card--image-text.q-wc__card--pos-bottom .q-wc__card-body {
+    justify-content: flex-end;
   }
 
   /* ─── card_text_icon：右上角小图，主标题+副标题居中 ─── */
@@ -208,7 +227,7 @@
   .section-{{ section.id }} .q-wc__card--text-icon .q-wc__card-title {
     font-size: var(--card-title-size-m, var(--wc-card-title-size));
     line-height: var(--wc-card-title-lh);
-    font-weight: 700;
+    font-weight: 600;
     color: #ffffff;
     margin: 0 0 4px;
   }
@@ -256,7 +275,7 @@
   .section-{{ section.id }} .q-wc__card--dual-title .q-wc__dual-line1 {
     font-size: var(--card-title-size-m, var(--wc-card-title-size));
     line-height: var(--wc-card-title-lh);
-    font-weight: 600;
+    font-weight: 500;
     color: #ffffff;
     margin: 0;
   }
@@ -271,7 +290,7 @@
   .section-{{ section.id }} .q-wc__card--dual-title .q-wc__dual-line2 {
     font-size: var(--card-title-size-m, var(--wc-card-title-size));
     line-height: var(--wc-card-title-lh);
-    font-weight: 700;
+    font-weight: 600;
     margin: 0;
   }
 
@@ -390,7 +409,7 @@
   .section-{{ section.id }} .q-wc__banner-title {
     font-size: var(--banner-title-size-m, var(--wc-banner-title-size));
     line-height: 1.5;
-    font-weight: 600;
+    font-weight: 500;
     color: #ffffff;
     margin: 0;
   }
@@ -430,6 +449,10 @@
       font-size: var(--card-desc-size-d, var(--wc-card-desc-size));
     }
 
+    .section-{{ section.id }} .q-wc__card--image-text .q-wc__card-desc {
+      font-size: var(--card-desc-size-d, var(--wc-card-desc-size));
+    }
+
     .section-{{ section.id }} .q-wc__card--app-screenshot .q-wc__app-title {
       font-size: var(--card-title-size-d, var(--wc-card-subtitle-size));
       margin-bottom: 16px;
@@ -453,7 +476,7 @@
 
   .section-{{ section.id }} .q-wc__cta {
     font-size: var(--wc-cta-size);
-    font-weight: 600;
+    font-weight: 500;
     color: {{ section.settings.cta_color | default: '#329bff' }};
     text-decoration: none;
     transition: opacity 0.2s;
@@ -467,8 +490,9 @@
   .section-{{ section.id }} .q-wc__cta:active {
     opacity: 0.6;
   }
-</style>
 
+  
+</style>
 <div class="q-why-choose section-{{ section.id }}">
   <div class="q-wc__inner">
     <div class="page-width">
@@ -496,10 +520,13 @@
               {%- liquid
                 assign it_ts_m = block.settings.title_size_mobile | default: 18
                 assign it_ts_d = block.settings.title_size_desktop | default: 32
+                assign it_ds_m = block.settings.desc_size_mobile | default: 12
+                assign it_ds_d = block.settings.desc_size_desktop | default: 18
+                assign it_pos = block.settings.content_position | default: 'middle'
               -%}
               <div
-                class="q-wc__card q-wc__card--image-text"
-                style="--card-title-size-m: {{ it_ts_m }}px; --card-title-size-d: {{ it_ts_d }}px;"
+                class="q-wc__card q-wc__card--image-text q-wc__card--pos-{{ it_pos }}"
+                style="--card-title-size-m: {{ it_ts_m }}px; --card-title-size-d: {{ it_ts_d }}px; --card-desc-size-m: {{ it_ds_m }}px; --card-desc-size-d: {{ it_ds_d }}px;"
                 {{ block.shopify_attributes }}
               >
                 {%- if block.settings.image != blank -%}
@@ -516,7 +543,10 @@
                 <div class="q-wc__card-overlay"></div>
                 <div class="q-wc__card-body">
                   {%- if block.settings.title != blank -%}
-                    <h3 class="q-wc__card-title">{{ block.settings.title }}</h3>
+                    <h3 class="q-wc__card-title">{{ block.settings.title | newline_to_br }}</h3>
+                  {%- endif -%}
+                  {%- if block.settings.description != blank -%}
+                    <p class="q-wc__card-desc">{{ block.settings.description | newline_to_br }}</p>
                   {%- endif -%}
                 </div>
               </div>
@@ -545,10 +575,10 @@
                   -}}
                 {%- endif -%}
                 {%- if block.settings.title != blank -%}
-                  <h3 class="q-wc__card-title">{{ block.settings.title }}</h3>
+                  <h3 class="q-wc__card-title">{{ block.settings.title | newline_to_br }}</h3>
                 {%- endif -%}
                 {%- if block.settings.subtitle != blank -%}
-                  <p class="q-wc__card-subtitle">{{ block.settings.subtitle }}</p>
+                  <p class="q-wc__card-subtitle">{{ block.settings.subtitle | newline_to_br }}</p>
                 {%- endif -%}
               </div>
 
@@ -583,7 +613,7 @@
                   </div>
                 {%- endif -%}
                 {%- if block.settings.description != blank -%}
-                  <p class="q-wc__dual-desc">{{ block.settings.description }}</p>
+                  <p class="q-wc__dual-desc">{{ block.settings.description | newline_to_br }}</p>
                 {%- endif -%}
               </div>
 
@@ -598,7 +628,7 @@
                 {{ block.shopify_attributes }}
               >
                 {%- if block.settings.title != blank -%}
-                  <p class="q-wc__app-title">{{ block.settings.title }}</p>
+                  <p class="q-wc__app-title">{{ block.settings.title | newline_to_br }}</p>
                 {%- endif -%}
                 {%- if block.settings.image != blank -%}
                   <div class="q-wc__app-image">
@@ -722,8 +752,22 @@
       "settings": [
         { "type": "image_picker", "id": "image", "label": "卡片图片" },
         { "type": "inline_richtext", "id": "title", "label": "标题（支持 em 渐变）", "default": "4K HDR Video" },
+        { "type": "inline_richtext", "id": "description", "label": "描述文字" },
+        {
+          "type": "select",
+          "id": "content_position",
+          "label": "内容位置",
+          "default": "middle",
+          "options": [
+            { "value": "top", "label": "上" },
+            { "value": "middle", "label": "中" },
+            { "value": "bottom", "label": "下" }
+          ]
+        },
         { "type": "range", "id": "title_size_desktop", "label": "标题字号（桌面端）", "min": 16, "max": 60, "step": 2, "unit": "px", "default": 32 },
-        { "type": "range", "id": "title_size_mobile", "label": "标题字号（移动端）", "min": 12, "max": 40, "step": 2, "unit": "px", "default": 18 }
+        { "type": "range", "id": "title_size_mobile", "label": "标题字号（移动端）", "min": 12, "max": 40, "step": 2, "unit": "px", "default": 18 },
+        { "type": "range", "id": "desc_size_desktop", "label": "描述字号（桌面端）", "min": 10, "max": 30, "step": 1, "unit": "px", "default": 18 },
+        { "type": "range", "id": "desc_size_mobile", "label": "描述字号（移动端）", "min": 10, "max": 24, "step": 1, "unit": "px", "default": 12 }
       ]
     },
     {
@@ -747,7 +791,7 @@
         { "type": "text", "id": "title_line1", "label": "第一行标题（白色）", "default": "Smart Alarm" },
         { "type": "text", "id": "title_line2", "label": "第二行标题（渐变色）", "default": "Quick Alert" },
         { "type": "image_picker", "id": "icon_image", "label": "行内小图标（跟在第二行后）" },
-        { "type": "text", "id": "description", "label": "描述文字（灰色）", "default": "If alarm is triggered, get notified instantly" },
+        { "type": "inline_richtext", "id": "description", "label": "描述文字（灰色）", "default": "If alarm is triggered, get notified instantly" },
         { "type": "range", "id": "title_size_desktop", "label": "标题字号（桌面端）", "min": 16, "max": 60, "step": 2, "unit": "px", "default": 32 },
         { "type": "range", "id": "title_size_mobile", "label": "标题字号（移动端）", "min": 12, "max": 40, "step": 2, "unit": "px", "default": 18 },
         { "type": "range", "id": "desc_size_desktop", "label": "描述字号（桌面端）", "min": 10, "max": 30, "step": 1, "unit": "px", "default": 18 },
@@ -769,8 +813,8 @@
       "name": "底部横幅",
       "settings": [
         { "type": "image_picker", "id": "icon_image", "label": "图标" },
-        { "type": "text", "id": "title", "label": "标题", "default": "Two-Way Audio" },
-        { "type": "text", "id": "description", "label": "描述", "default": "Talk and listen in real time through the camera—anytime, anywhere." },
+        { "type": "inline_richtext", "id": "title", "label": "标题", "default": "Two-Way Audio" },
+        { "type": "inline_richtext", "id": "description", "label": "描述", "default": "Talk and listen in real time through the camera—anytime, anywhere." },
         { "type": "range", "id": "title_size_desktop", "label": "标题字号（桌面端）", "min": 12, "max": 36, "step": 1, "unit": "px", "default": 18 },
         { "type": "range", "id": "title_size_mobile", "label": "标题字号（移动端）", "min": 10, "max": 24, "step": 1, "unit": "px", "default": 12 },
         { "type": "range", "id": "desc_size_desktop", "label": "描述字号（桌面端）", "min": 10, "max": 24, "step": 1, "unit": "px", "default": 14 },
