@@ -1,0 +1,232 @@
+{%- comment -%}
+  Section: q-protection-scenes
+  功能说明：保护场景展示板块，横向 Swiper 轮播竖版场景图片
+  技术栈：
+  - Swiper Web Component（swiper-container）
+  - Snippet: snippets/q-section-header.liquid
+  版本：1.0.0
+{%- endcomment -%}
+
+<style>
+  .section-{{ section.id }} {
+    --ps-bg: {{ section.settings.bg_color }};
+    --ps-pt-mobile: {{ section.settings.padding_top_mobile }}px;
+    --ps-pb-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --ps-pt-desktop: {{ section.settings.padding_top_desktop }}px;
+    --ps-pb-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --ps-gap: 12px;
+    --ps-card-radius: 12px;
+    --ps-card-aspect: 3 / 5;
+    --ps-card-width: 236px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} {
+      --ps-gap: 20px;
+      --ps-card-radius: 16px;
+      --ps-card-width: 325px;
+    }
+  }
+
+  .section-{{ section.id }}.q-protection-scenes {
+    background: var(--ps-bg, #0d0d0d);
+    padding-top: var(--ps-pt-mobile, 40px);
+    padding-bottom: var(--ps-pb-mobile, 40px);
+    overflow: hidden;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}.q-protection-scenes {
+      padding-top: var(--ps-pt-desktop, 60px);
+      padding-bottom: var(--ps-pb-desktop, 60px);
+    }
+  }
+
+  /* 轮播容器：允许图片溢出 page-width 两侧 */
+  .section-{{ section.id }} .q-protection-scenes__swiper-wrap {
+    margin-top: 32px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-protection-scenes__swiper-wrap {
+      margin-top: 48px;
+    }
+  }
+
+  .section-{{ section.id }} swiper-container {
+    display: flex;
+    gap: var(--ps-gap);
+    /* 向左偏移，让两侧图片可以露出 */
+    overflow: visible;
+  }
+
+  .section-{{ section.id }} swiper-slide {
+    flex-shrink: 0;
+    width: var(--ps-card-width);
+  }
+
+  /* 图片卡片 */
+  .section-{{ section.id }} .q-protection-scenes__card {
+    border-radius: var(--ps-card-radius);
+    overflow: hidden;
+    aspect-ratio: var(--ps-card-aspect);
+    background: #1a1a1a;
+  }
+
+  .section-{{ section.id }} .q-protection-scenes__card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* 分页器 */
+  .section-{{ section.id }} .q-protection-scenes__pagination {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-protection-scenes__pagination {
+      margin-top: 28px;
+    }
+  }
+
+  /* Swiper 分页 bullet 样式 */
+  .section-{{ section.id }} .swiper-pagination-bullet {
+    background: rgba(255, 255, 255, 0.3);
+    opacity: 1;
+    width: 8px;
+    height: 8px;
+    transition: background 0.2s, width 0.2s;
+  }
+
+  .section-{{ section.id }} .swiper-pagination-bullet-active {
+    background: linear-gradient(90deg, #6cbce7, #367cf6);
+    width: 24px;
+    border-radius: 4px;
+  }
+
+  /* 分页器容器内联排列 */
+  .section-{{ section.id }} [data-carousel-pagination] {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} [data-carousel-pagination] {
+      margin-top: 28px;
+    }
+  }
+</style>
+
+<div class="q-protection-scenes section-{{ section.id }}">
+  <div class="page-width">
+    {%- render 'q-section-header', section: section -%}
+  </div>
+
+  {%- comment -%} 轮播区使用 page-width 作为左边界对齐，溢出右侧 {%- endcomment -%}
+  <div class="q-protection-scenes__swiper-wrap">
+    <div class="page-width">
+      <swiper-container
+        slides-per-view="auto"
+        space-between="12"
+        grab-cursor="true"
+        loop="false"
+        pagination="true"
+        pagination-el="[data-carousel-pagination='{{ section.id }}']"
+        pagination-clickable="true"
+        breakpoints='{"750":{"spaceBetween":20}}'
+      >
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'scene_card' -%}
+            <swiper-slide {{ block.shopify_attributes }}>
+              <div class="q-protection-scenes__card">
+                {%- if block.settings.image != blank -%}
+                  {{-
+                    block.settings.image
+                    | image_url: width: 600
+                    | image_tag:
+                      class: 'q-protection-scenes__card-img',
+                      loading: 'lazy',
+                      widths: '300,400,500,600',
+                      alt: block.settings.image.alt
+                  -}}
+                {%- else -%}
+                  {{ 'lifestyle-1' | placeholder_svg_tag: 'q-protection-scenes__card-img' }}
+                {%- endif -%}
+              </div>
+            </swiper-slide>
+          {%- endif -%}
+        {%- endfor -%}
+      </swiper-container>
+    </div>
+
+    {%- if section.blocks.size > 1 -%}
+      <div class="page-width">
+        <div data-carousel-pagination="{{ section.id }}"></div>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Q-保护场景",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "header", "content": "板块标题" },
+    { "type": "inline_richtext", "id": "header_title", "label": "标题", "default": "Protection Where It Matters Most" },
+    { "type": "richtext", "id": "header_description", "label": "描述", "default": "<p>Keep an eye on your front door, driveway, backyard, or indoors—whether you're home or away.</p>" },
+    { "type": "checkbox", "id": "header_center", "label": "居中对齐", "default": true },
+    { "type": "color_background", "id": "header_em_color", "label": "em 高亮色", "default": "linear-gradient(90deg, #6cbce7, #367cf6)" },
+    { "type": "range", "id": "header_title_size_desktop", "label": "标题字号（桌面端）", "min": 20, "max": 80, "step": 2, "unit": "px", "default": 42 },
+    { "type": "range", "id": "header_title_size_mobile", "label": "标题字号（移动端）", "min": 16, "max": 50, "step": 2, "unit": "px", "default": 28 },
+    { "type": "range", "id": "header_desc_size_desktop", "label": "描述字号（桌面端）", "min": 10, "max": 30, "step": 1, "unit": "px", "default": 14 },
+    { "type": "range", "id": "header_desc_size_mobile", "label": "描述字号（移动端）", "min": 10, "max": 24, "step": 1, "unit": "px", "default": 14 },
+    { "type": "range", "id": "header_margin_bottom_desktop", "label": "标题下边距（桌面端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 0 },
+    { "type": "range", "id": "header_margin_bottom_mobile", "label": "标题下边距（移动端）", "min": 0, "max": 80, "step": 4, "unit": "px", "default": 0 },
+    { "type": "header", "content": "板块背景" },
+    { "type": "color_background", "id": "bg_color", "label": "背景色", "default": "#0d0d0d" },
+    { "type": "header", "content": "上下边距" },
+    { "type": "range", "id": "padding_top_mobile", "label": "上边距（移动端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_bottom_mobile", "label": "下边距（移动端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_top_desktop", "label": "上边距（桌面端）", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 60 },
+    { "type": "range", "id": "padding_bottom_desktop", "label": "下边距（桌面端）", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 60 }
+  ],
+  "blocks": [
+    {
+      "type": "scene_card",
+      "name": "场景图片",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "场景图片"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Q-保护场景",
+      "settings": {
+        "header_center": true
+      },
+      "blocks": [
+        { "type": "scene_card", "settings": {} },
+        { "type": "scene_card", "settings": {} },
+        { "type": "scene_card", "settings": {} },
+        { "type": "scene_card", "settings": {} },
+        { "type": "scene_card", "settings": {} }
+      ]
+    }
+  ]
+}
+{% endschema %}
