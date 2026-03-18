@@ -75,15 +75,19 @@
     }
   }
 
-  .section-{{ section.id }} .q-rq__badge-img {
+  .section-{{ section.id }} .q-rq__badge {
     height: 24px;
+  }
+
+  .section-{{ section.id }} .q-rq__badge-img {
+    height: 100%;
     width: auto;
     object-fit: contain;
     display: block;
   }
 
   @media screen and (min-width: 750px) {
-    .section-{{ section.id }} .q-rq__badge-img {
+    .section-{{ section.id }} .q-rq__badge {
       height: 30px;
     }
   }
