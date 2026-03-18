@@ -43,15 +43,19 @@
 
   .section-{{ section.id }} .q-lm__swiper swiper-container {
     display: flex;
+    gap: 16px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-lm__swiper swiper-container {
+      gap: 24px;
+    }
   }
 
   .section-{{ section.id }} .q-lm__swiper swiper-slide {
     flex-shrink: 0;
     width: auto;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 calc(var(--lm-gap) / 2);
   }
 
   /* 跑马灯关键：线性缓动，由 Islands JS 注入到 swiper-wrapper */
@@ -67,6 +71,7 @@
     display: block;
     opacity: var(--lm-opacity, 0.6);
     transition: opacity 0.2s;
+    border-radius: 15px;
   }
 
   @media screen and (min-width: 750px) {
@@ -75,20 +80,11 @@
     }
   }
 
-  .section-{{ section.id }} .q-lm__logo-img:hover {
-    opacity: var(--lm-opacity-hover, 1);
-  }
-
   /* Logo 占位（无图时显示文字） */
   .section-{{ section.id }} .q-lm__logo-text {
     height: var(--lm-logo-height-mobile, 32px);
     line-height: var(--lm-logo-height-mobile, 32px);
-    font-size: 14px;
-    font-weight: 600;
-    color: #888;
     white-space: nowrap;
-    opacity: var(--lm-opacity, 0.6);
-    transition: opacity 0.2s;
   }
 
   @media screen and (min-width: 750px) {
@@ -120,14 +116,13 @@
       <swiper-container
         id="q-lm-swiper-{{ section.id }}"
         slides-per-view="auto"
-        space-between="{{ section.settings.gap }}"
+        space-between="16"
+        breakpoints='{"750": {"spaceBetween": 24}}'
         loop="true"
         autoplay="true"
-        autoplay-delay="0"
+        autoplay-delay="1"
         autoplay-disable-on-interaction="false"
         grab-cursor="true"
-        free-mode="true"
-        free-mode-momentum="false"
         speed="{{ section.settings.scroll_speed | times: 1000 }}"
       >
         {%- for block in section.blocks -%}
@@ -167,6 +162,46 @@
             {%- endif -%}
           </swiper-slide>
         {%- endfor -%}
+
+        {% if section.blocks.size < 10 %}
+          {%- for block in section.blocks -%}
+            <swiper-slide {{ block.shopify_attributes }}>
+              {%- if block.settings.logo_image != blank -%}
+                {%- if block.settings.logo_link != blank and block.settings.logo_link != '/' -%}
+                  <a href="{{ block.settings.logo_link }}" target="_blank" rel="noopener" aria-label="{{ block.settings.logo_alt | default: block.settings.logo_name }}">
+                    {{-
+                      block.settings.logo_image
+                      | image_url: height: 120
+                      | image_tag:
+                        class: 'q-lm__logo-img',
+                        loading: 'lazy',
+                        widths: '80, 120, 160, 200',
+                        alt: block.settings.logo_alt | default: block.settings.logo_name
+                    -}}
+                  </a>
+                {%- else -%}
+                  {{-
+                    block.settings.logo_image
+                    | image_url: height: 120
+                    | image_tag:
+                      class: 'q-lm__logo-img',
+                      loading: 'lazy',
+                      widths: '80, 120, 160, 200',
+                      alt: block.settings.logo_alt | default: block.settings.logo_name
+                  -}}
+                {%- endif -%}
+              {%- elsif block.settings.logo_name != blank -%}
+                {%- if block.settings.logo_link != blank and block.settings.logo_link != '/' -%}
+                  <a href="{{ block.settings.logo_link }}" target="_blank" rel="noopener" class="q-lm__logo-text">
+                    {{- block.settings.logo_name -}}
+                  </a>
+                {%- else -%}
+                  <span class="q-lm__logo-text">{{- block.settings.logo_name -}}</span>
+                {%- endif -%}
+              {%- endif -%}
+            </swiper-slide>
+          {%- endfor -%}
+        {% endif %}
       </swiper-container>
     </div>
   </logo-marquee-element>
