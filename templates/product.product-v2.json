@@ -10,6 +10,68 @@
 {
   "layout": "theme",
   "sections": {
+    "q-reviews-quote": {
+      "type": "q-reviews-quote",
+      "blocks": {
+        "quote-1": {
+          "type": "quote",
+          "settings": {
+            "quote_text": "<p>One of the best security tools I've ever owned. Being able to monitor my home 24/7 is truly incredible.</p>"
+          }
+        },
+        "quote-2": {
+          "type": "quote",
+          "settings": {
+            "quote_text": "<p>Easy to install and the picture quality is excellent. Highly recommend.</p>"
+          }
+        }
+      },
+      "block_order": ["quote-1", "quote-2"],
+      "settings": {
+        "header_center": true,
+        "bg_color": "#f0f5fa"
+      }
+    },
+    "q-reviews-slider": {
+      "type": "q-reviews-slider",
+      "blocks": {
+        "review-1": {
+          "type": "review",
+          "settings": {
+            "author_name": "Lynda C.",
+            "date_place": "02-05-26-CA, US",
+            "body": "<p>Great product, easy to set up and use daily.</p>"
+          }
+        },
+        "review-2": {
+          "type": "review",
+          "settings": {
+            "author_name": "Christopher H.",
+            "date_place": "01-28-26-US",
+            "body": "<p>Very satisfied with the quality and customer service.</p>"
+          }
+        },
+        "review-3": {
+          "type": "review",
+          "settings": {
+            "author_name": "Maria S.",
+            "date_place": "01-15-26-UK",
+            "body": "<p>Exactly what I was looking for. Highly recommend.</p>"
+          }
+        }
+      },
+      "block_order": ["review-1", "review-2", "review-3"],
+      "settings": {
+        "header_title": "Customer Reviews",
+        "header_center": true,
+        "rating_score": "4.7",
+        "rating_max": "5",
+        "review_count": "82 Verified Reviews",
+        "footer_phrase": "See more reviews on",
+        "footer_url": "/",
+        "bg_color": "#f4f7ff"
+      }
+    },
     "q-logo-marquee": {
       "type": "q-logo-marquee",
       "blocks": {
@@ -495,46 +557,6 @@
         "padding_bottom_desktop": 60,
         "autoplay_carousel": false,
         "autoplay_delay": 5
-      }
-    },
-    "q-reviews-slider": {
-      "type": "q-reviews-slider",
-      "blocks": {
-        "review-1": {
-          "type": "review",
-          "settings": {
-            "author_name": "Lynda C.",
-            "date_place": "02-05-26-CA, US",
-            "body": "<p>Great product, easy to set up and use daily.</p>"
-          }
-        },
-        "review-2": {
-          "type": "review",
-          "settings": {
-            "author_name": "Christopher H.",
-            "date_place": "01-28-26-US",
-            "body": "<p>Very satisfied with the quality and customer service.</p>"
-          }
-        },
-        "review-3": {
-          "type": "review",
-          "settings": {
-            "author_name": "Maria S.",
-            "date_place": "01-15-26-UK",
-            "body": "<p>Exactly what I was looking for. Highly recommend.</p>"
-          }
-        }
-      },
-      "block_order": ["review-1", "review-2", "review-3"],
-      "settings": {
-        "header_title": "Customer Reviews",
-        "header_center": true,
-        "rating_score": "4.7",
-        "rating_max": "5",
-        "review_count": "82 Verified Reviews",
-        "footer_phrase": "See more reviews on",
-        "footer_url": "/",
-        "bg_color": "#f4f7ff"
       }
     },
     "q-camera-showcase": {
@@ -1587,6 +1609,8 @@
     }
   },
   "order": [
+    "q-reviews-quote",
+    "q-reviews-slider",
     "q-logo-marquee",
     "q-battery-life",
     "q-why-choose",
@@ -1594,7 +1618,6 @@
     "q-alert-cards",
     "q-audio-live-view",
     "q-expert-testimonials",
-    "q-reviews-slider",
     "q-camera-showcase",
     "q-protection-scenes",
     "q-wifi-connected",
