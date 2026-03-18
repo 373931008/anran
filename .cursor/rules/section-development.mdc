@@ -1128,7 +1128,7 @@ Snippet 命名建议：`product-block-{block_type}.liquid`，与 schema 中的 `
 
 - [ ] 在 `{% schema %}` 的 `blocks` 数组中新增完整 block 对象（`type`、`name`、可选 `limit`、`settings`）。
 - [ ] `type` 与 Liquid 中 `when '...'` 字符串完全一致。
-- [ ] **main-product-v2**：在 `snippets` 中新增 snippet 文件（如 `product-block-{type}.liquid`），section 内**仅**写 `{% when 'xxx' %}` + `{% render 'product-block-xxx', block: block %}`，不在 section 内写该 block 的 HTML。
+- [ ] **main-product-v2**：在 `snippets` 中新增 snippet 文件（如 `q-block-{type}.liquid`），section 内**仅**写 `{% when 'xxx' %}` + `{% render 'q-block-xxx', block: block %}`，不在 section 内写该 block 的 HTML。
 - [ ] 该 block 在页面上输出的**最外层包裹元素**带有 `{{ block.shopify_attributes }}`（在 snippet 根元素上）。
 - [ ] 若需两处渲染（如主栏 + 弹窗），两处都按需输出且不遗漏 `block.shopify_attributes`。
 - [ ] block 的 `settings` 遵守 range default、richtext/inline_richtext、无内联 style 等规范。
