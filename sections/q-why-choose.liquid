@@ -162,7 +162,7 @@
   .section-{{ section.id }} .q-wc__card--image-text .q-wc__card-title {
     font-size: var(--card-title-size-m, var(--wc-card-title-size));
     line-height: var(--wc-card-title-lh);
-    font-weight: 600;
+    font-weight: 700;
     color: #ffffff;
     margin: 0;
   }
@@ -227,7 +227,7 @@
   .section-{{ section.id }} .q-wc__card--text-icon .q-wc__card-title {
     font-size: var(--card-title-size-m, var(--wc-card-title-size));
     line-height: var(--wc-card-title-lh);
-    font-weight: 600;
+    font-weight: 700;
     color: #ffffff;
     margin: 0 0 4px;
   }
@@ -275,7 +275,7 @@
   .section-{{ section.id }} .q-wc__card--dual-title .q-wc__dual-line1 {
     font-size: var(--card-title-size-m, var(--wc-card-title-size));
     line-height: var(--wc-card-title-lh);
-    font-weight: 500;
+    font-weight: 600;
     color: #ffffff;
     margin: 0;
   }
@@ -290,7 +290,7 @@
   .section-{{ section.id }} .q-wc__card--dual-title .q-wc__dual-line2 {
     font-size: var(--card-title-size-m, var(--wc-card-title-size));
     line-height: var(--wc-card-title-lh);
-    font-weight: 600;
+    font-weight: 700;
     margin: 0;
   }
 
@@ -409,7 +409,7 @@
   .section-{{ section.id }} .q-wc__banner-title {
     font-size: var(--banner-title-size-m, var(--wc-banner-title-size));
     line-height: 1.5;
-    font-weight: 500;
+    font-weight: 600;
     color: #ffffff;
     margin: 0;
   }
@@ -476,7 +476,7 @@
 
   .section-{{ section.id }} .q-wc__cta {
     font-size: var(--wc-cta-size);
-    font-weight: 500;
+    font-weight: 600;
     color: {{ section.settings.cta_color | default: '#329bff' }};
     text-decoration: none;
     transition: opacity 0.2s;
@@ -713,7 +713,7 @@
 
 {% schema %}
 {
-  "name": "Q-Why Choose",
+  "name": "q-why-choose",
   "tag": "section",
   "class": "section",
   "disabled_on": { "groups": ["header", "footer"] },
@@ -824,7 +824,7 @@
   ],
   "presets": [
     {
-      "name": "Q-Why Choose",
+      "name": "q-why-choose",
       "blocks": [
         {
           "type": "card_image_text",

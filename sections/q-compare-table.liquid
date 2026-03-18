@@ -24,6 +24,8 @@
     --ct-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
     --ct-padding-top-desktop: {{ section.settings.padding_top_desktop }}px;
     --ct-padding-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+
+    overflow: hidden;
   }
 
   .section-{{ section.id }}.q-compare-table {
@@ -37,7 +39,8 @@
   .section-{{ section.id }} .q-ct__layout {
     display: flex;
     align-items: flex-start;
-    gap: 0;
+    gap: 10px;
+    padding-top: 132px;
   }
 
   /* ===================== 左侧特征列 ===================== */
@@ -50,25 +53,25 @@
   .section-{{ section.id }} .q-ct__feature-card {
     background: var(--ct-card-bg, #ffffff);
     border-radius: 10px;
-    padding: 0 0 16px;
-    height: 100%;
+    padding: 0 0 0px;
   }
 
   /* 产品图片占位区域（对齐右侧卡片图片区高度） */
   .section-{{ section.id }} .q-ct__feature-img-placeholder {
-    height: 132px;
+    height: 25px;
     display: flex;
     align-items: flex-end;
-    padding: 0 10px 8px;
+    {% comment %} padding: 0 10px 8px; {% endcomment %}
   }
 
   .section-{{ section.id }} .q-ct__feature-title {
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 700;
     color: #2d4e76;
     margin: 0;
     padding: 0 10px 0;
     line-height: 36px;
+    margin-bottom: 8px;
   }
 
   .section-{{ section.id }} .q-ct__feature-list {
@@ -79,26 +82,41 @@
 
   .section-{{ section.id }} .q-ct__feature-list li {
     font-size: 11px;
-    font-weight: 600;
+    font-weight: 700;
     color: #2d4e76;
     padding: 0 10px;
     line-height: 1.2;
-    min-height: 56px;
+    height: 56px;
     display: flex;
     align-items: center;
     border-top: 1px solid #e8edf5;
+    box-sizing: border-box;
+  }
+
+  .section-{{ section.id }} .q-ct__feature-list li:first-child {
+    border-top: none;
   }
 
   /* ===================== 右侧 swiper ===================== */
   .section-{{ section.id }} .q-ct__swiper-wrap {
     flex: 1;
     min-width: 0;
-    overflow: hidden;
   }
 
   .section-{{ section.id }} .q-ct__swiper {
     width: 100%;
   }
+  .section-{{ section.id }} .q-ct__swiper {
+    display: flex;
+    gap: 10px;
+  }
+
+  .section-{{ section.id }} .q-ct__swiper swiper-slide {
+    width: 173px;
+    flex-shrink: 0;
+    overflow: visible;
+  }
+
 
   /* ===================== 产品卡 ===================== */
   .section-{{ section.id }} .q-ct__product-card {
@@ -106,18 +124,21 @@
     border-radius: 10px;
     border: 1px solid #f3f7ff;
     position: relative;
-    padding-bottom: 16px;
-    height: 100%;
+    {% comment %} height: 100%; {% endcomment %}
     display: flex;
     flex-direction: column;
+    margin: 0 auto;
+    overflow: visible;
   }
+
 
   /* 图片区域：从卡片顶部向上溢出 */
   .section-{{ section.id }} .q-ct__product-img-wrap {
     position: relative;
-    height: 132px;
+    height: 157px;
     overflow: visible;
     flex-shrink: 0;
+    margin-top: -132px;
   }
 
   .section-{{ section.id }} .q-ct__product-img {
@@ -125,19 +146,20 @@
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 130px;
-    height: 132px;
+    width: 100%;
+    height: 100%;
     object-fit: contain;
     object-position: center bottom;
   }
 
   .section-{{ section.id }} .q-ct__product-name {
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 700;
     color: #2d4e76;
     margin: 0;
     padding: 0 10px;
     line-height: 36px;
+    margin-bottom: 8px;
   }
 
   /* 规格行列表 */
@@ -155,19 +177,24 @@
     font-size: 11px;
     color: #1e1e1e;
     padding: 0 10px;
-    min-height: 56px;
+    height: 56px;
     border-top: 1px solid #e8edf5;
+    line-height: 1.2;
+    box-sizing: border-box;
+  }
+
+  .section-{{ section.id }} .q-ct__spec-list li:first-child {
+    border-top: none;
   }
 
   .section-{{ section.id }} .q-ct__check-icon {
     flex-shrink: 0;
-    width: 18px;
-    height: 18px;
+    width: 22px;
+    height: 24px;
   }
 
   /* Shop now 按钮 */
   .section-{{ section.id }} .q-ct__shop-btn {
-    display: block;
     margin: 16px auto 0;
     background: var(--ct-btn-bg, #faa61a);
     color: #ffffff;
@@ -177,9 +204,12 @@
     text-align: center;
     text-decoration: none;
     border-radius: 30px;
-    padding: 9px 20px;
-    width: calc(100% - 20px);
+    height: 32px;
+    width: 146px;
     transition: background 0.2s, opacity 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .section-{{ section.id }} .q-ct__shop-btn:hover {
@@ -190,21 +220,26 @@
     opacity: 0.8;
   }
 
-  /* ===================== 移动端 Swiper 分页点 ===================== */
+  /* ===================== Swiper 进度条分页 ===================== */
   .section-{{ section.id }} .q-ct__swiper::part(pagination) {
-    bottom: -24px;
-  }
-
-  .section-{{ section.id }} .q-ct__swiper::part(bullet) {
-    width: 32px;
+    position: relative;
+    width: 142px;
     height: 4px;
-    border-radius: 2px;
+    margin: 32px auto 0;
     background: #c8d4e8;
-    opacity: 1;
+    border-radius: 2px;
+    overflow: hidden;
+    --swiper-pagination-color: #1e1e1e;
   }
 
-  .section-{{ section.id }} .q-ct__swiper::part(bullet-active) {
-    background: #2d4e76;
+  .section-{{ section.id }} .q-ct__swiper::part(pagination-progressbar-fill) {
+    background: #1e1e1e;
+    border-radius: 2px;
+    height: 100%;
+  }
+
+  .section-{{ section.id }} .q-ct__swiper::part(container) {
+    overflow: visible;
   }
 
   /* ===================== 桌面端（≥750px） ===================== */
@@ -216,7 +251,7 @@
 
     /* 桌面端外层：flex 布局，特征列 + 产品列 */
     .section-{{ section.id }} .q-ct__layout {
-      gap: 0;
+      gap: 19px;
       align-items: stretch;
     }
 
@@ -225,32 +260,45 @@
     }
 
     .section-{{ section.id }} .q-ct__feature-img-placeholder {
-      height: 224px;
+      height: 93px;
+      margin-bottom: 42px;
     }
 
     .section-{{ section.id }} .q-ct__feature-title {
       font-size: 18px;
       padding: 0 18px 0;
+      margin-bottom: 18px;
     }
 
     .section-{{ section.id }} .q-ct__feature-list li {
       font-size: 14px;
       padding: 0 18px;
-      min-height: 66px;
+      height: 66px;
     }
 
     .section-{{ section.id }} .q-ct__product-img-wrap {
       height: 224px;
+      margin-top: -132px;
+      margin-bottom: 42px;
     }
 
     .section-{{ section.id }} .q-ct__product-img {
-      width: 200px;
-      height: 200px;
+      width: 100%;
+      height: 100%;
     }
 
     .section-{{ section.id }} .q-ct__product-name {
       font-size: 22px;
       padding: 0 18px;
+      margin-bottom: 18px;
+    }
+
+    .section-{{ section.id }} .q-ct__swiper swiper-slide {
+      width: 340px;
+    }
+
+    .section-{{ section.id }} .q-ct__swiper {
+      gap: 12px;
     }
 
     .section-{{ section.id }} .q-ct__spec-list li {
@@ -262,12 +310,13 @@
 
     .section-{{ section.id }} .q-ct__check-icon {
       width: 22px;
-      height: 22px;
+      height: 24px;
     }
 
     .section-{{ section.id }} .q-ct__shop-btn {
       font-size: 18px;
-      padding: 12px 28px;
+      width: 188px;
+      height: 46px;
     }
 
     /* 桌面端：swiper 不滑动，所有产品卡横排 */
@@ -282,46 +331,61 @@
     {%- render 'q-section-header', section: section -%}
 
     <div class="q-ct__layout">
-
-      {%- comment -%} 左侧特征列 {%- endcomment -%}
-      <div class="q-ct__feature-col">
-        <div class="q-ct__feature-card">
-          <div class="q-ct__feature-img-placeholder"></div>
-          <p class="q-ct__feature-title">{{ section.settings.feature_col_title | default: 'Feature' }}</p>
-          <ul class="q-ct__feature-list">
-            {%- for row in feature_rows -%}
-              {%- assign row_text = row | strip -%}
-              {%- if row_text != blank -%}
-                <li>{{ row_text }}</li>
-              {%- endif -%}
-            {%- endfor -%}
-          </ul>
-        </div>
-      </div>
-
-      {%- comment -%} 右侧产品列（swiper） {%- endcomment -%}
       <div class="q-ct__swiper-wrap">
         <swiper-container
           class="q-ct__swiper"
-          slides-per-view="1"
-          space-between="0"
+          slides-per-view="auto"
+          space-between="10"
           pagination="true"
-          breakpoints='{"750": {"slidesPerView": {{ product_blocks.size }}, "pagination": {"enabled": false}}}'
+          pagination-type="progressbar"
+          breakpoints='{"750":{"spaceBetween":12}}'
         >
+          {%- comment -%} 左侧特征列 {%- endcomment -%}
+          <swiper-slide>
+            <div class="q-ct__feature-col">
+              <div class="q-ct__feature-card">
+                <div class="q-ct__feature-img-placeholder"></div>
+                <p class="q-ct__feature-title">{{ section.settings.feature_col_title | default: 'Feature' }}</p>
+                <ul class="q-ct__feature-list">
+                  {%- for row in feature_rows -%}
+                    {%- assign row_text = row | strip -%}
+                    {%- if row_text != blank -%}
+                      <li>{{ row_text }}</li>
+                    {%- endif -%}
+                  {%- endfor -%}
+                </ul>
+              </div>
+            </div>
+          </swiper-slide>
+          {%- comment -%} 右侧产品列（swiper） {%- endcomment -%}
           {%- for block in product_blocks -%}
-            {%- assign spec_rows = block.settings.specs | newline_to_br | split: '<br />' -%}
+            {%- comment -%}
+              规格字段使用 richtext（支持动态源），这里兼容两种格式：
+              - 旧数据：纯文本 + 换行（不含 <p>），按换行拆分
+              - 新数据：richtext HTML（<p>...</p>），按段落拆分
+            {%- endcomment -%}
+            {%- assign raw_specs = block.settings.specs | default: '' -%}
+            {%- if raw_specs contains '</p>' -%}
+              {%- comment -%}richtext：将 </p><p> 替换为换行，再去掉首尾 <p>{%- endcomment -%}
+              {%- assign specs_normalized = raw_specs
+                | replace: '</p><p>', '\n'
+                | replace: '<p>', ''
+                | replace: '</p>', ''
+              -%}
+              {%- assign spec_rows = specs_normalized | split: '\n' -%}
+            {%- else -%}
+              {%- comment -%}纯文本：按换行符拆分{%- endcomment -%}
+              {%- assign spec_rows = raw_specs | newline_to_br | split: '<br />' -%}
+            {%- endif -%}
             <swiper-slide {{ block.shopify_attributes }}>
               <div class="q-ct__product-card">
 
                 {%- comment -%} 产品图片区 {%- endcomment -%}
                 <div class="q-ct__product-img-wrap">
                   {%- if block.settings.product_image != blank -%}
-                    {{- block.settings.product_image | image_url: width: 400 | image_tag:
+                    {{- block.settings.product_image | image_url: width: 800 | image_tag:
                       class: 'q-ct__product-img',
-                      loading: 'lazy',
-                      alt: block.settings.product_name,
-                      sizes: '(min-width: 750px) 200px, 130px',
-                      widths: '130, 200, 260, 400'
+                      loading: 'lazy'
                     -}}
                   {%- endif -%}
                 </div>
@@ -334,24 +398,21 @@
                     {%- assign spec_text = spec | strip -%}
                     {%- if spec_text != blank -%}
                       <li>
-                        <svg class="q-ct__check-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                          <circle cx="12" cy="12" r="11" stroke="#6cbce7" stroke-width="1.5"/>
-                          <path d="M7.5 12.5L10.5 15.5L16.5 9.5" stroke="#6cbce7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <svg class="q-ct__check-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="24" viewBox="0 0 22 24" fill="none" aria-hidden="true">
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M18.1509 10.222C18.2701 10.794 18.3333 11.389 18.3333 12C18.3333 16.415 15.0471 20 11 20C6.9529 20 3.66665 16.415 3.66665 12C3.66665 7.585 6.9529 4 11 4C11.8461 4 12.6582 4.156 13.4145 4.444C13.8921 4.626 14.4146 4.351 14.5814 3.83C14.7482 3.308 14.4961 2.738 14.0186 2.556C13.0726 2.196 12.0569 2 11 2C5.9409 2 1.83331 6.481 1.83331 12C1.83331 17.519 5.9409 22 11 22C16.0591 22 20.1666 17.519 20.1666 12C20.1666 11.237 20.0878 10.493 19.9393 9.778C19.8266 9.24 19.3352 8.903 18.8421 9.025C18.3489 9.147 18.0391 9.683 18.1509 10.222ZM10.0833 12.586L17.6852 4.293C18.0427 3.903 18.6239 3.903 18.9814 4.293C19.3389 4.683 19.3389 5.317 18.9814 5.707L10.7314 14.707C10.3739 15.098 9.79273 15.098 9.43523 14.707L6.68523 11.707C6.32773 11.317 6.32773 10.683 6.68523 10.293C7.04273 9.903 7.6239 9.903 7.9814 10.293L10.0833 12.586Z" fill="#1565D8"/>
                         </svg>
                         <span>{{ spec_text }}</span>
                       </li>
                     {%- endif -%}
                   {%- endfor -%}
                 </ul>
-
-                {%- comment -%} Shop now 按钮 {%- endcomment -%}
-                {%- if block.settings.button_label != blank -%}
-                  <a href="{{ block.settings.button_link | default: '/' }}" class="q-ct__shop-btn">
-                    {{ block.settings.button_label }}
-                  </a>
-                {%- endif -%}
-
               </div>
+              {%- comment -%} Shop now 按钮 {%- endcomment -%}
+              {%- if block.settings.button_label != blank -%}
+                <a href="{{ block.settings.button_link | default: '/' }}" class="q-ct__shop-btn">
+                  {{ block.settings.button_label }}
+                </a>
+              {%- endif -%}
             </swiper-slide>
           {%- endfor -%}
         </swiper-container>
@@ -363,7 +424,7 @@
 
 {% schema %}
 {
-  "name": "Q-Compare Table",
+  "name": "q-compare-table",
   "tag": "section",
   "class": "section",
   "disabled_on": {
@@ -442,11 +503,11 @@
           "default": "Q3M8"
         },
         {
-          "type": "textarea",
+          "type": "richtext",
           "id": "specs",
           "label": "规格列表（每行一项）",
-          "info": "与左侧特征列一一对应，每行一个值",
-          "default": "2K / 3MP\n360 Degrees\n50 Feet\nWi-Fi\nAlexa, Assistant\nSolar & Battery Powered\nNight Color\n5000 mAh, 5W, 5V\nSD Card, up to 128GB"
+          "info": "建议每条一个段落（一个回车），支持绑定 rich_text metafield",
+          "default": "<p>2K / 3MP</p><p>360 Degrees</p><p>50 Feet</p><p>Wi-Fi</p><p>Alexa, Assistant</p><p>Solar &amp; Battery Powered</p><p>Night Color</p><p>5000 mAh, 5W, 5V</p><p>SD Card, up to 128GB</p>"
         },
         {
           "type": "url",
@@ -465,13 +526,13 @@
   ],
   "presets": [
     {
-      "name": "Q-Compare Table",
+      "name": "q-compare-table",
       "blocks": [
         {
           "type": "product",
           "settings": {
             "product_name": "Q3M8",
-            "specs": "2K / 3MP\n360 Degrees\n50 Feet\nWi-Fi\nAlexa, Assistant\nSolar & Battery Powered\nNight Color\n5000 mAh, 5W, 5V\nSD Card, up to 128GB",
+            "specs": "<p>2K / 3MP</p><p>360 Degrees</p><p>50 Feet</p><p>Wi-Fi</p><p>Alexa, Assistant</p><p>Solar &amp; Battery Powered</p><p>Night Color</p><p>5000 mAh, 5W, 5V</p><p>SD Card, up to 128GB</p>",
             "button_link": "/",
             "button_label": "Shop now"
           }
@@ -480,7 +541,7 @@
           "type": "product",
           "settings": {
             "product_name": "C3M5",
-            "specs": "3MP\n135 Degrees\n55 Feet\nWi-Fi\nAmazon Alexa\nSolar Powered\nNight Color\n5000 mAh, 5W, 5V\nSD Card, up to 128GB",
+            "specs": "<p>3MP</p><p>135 Degrees</p><p>55 Feet</p><p>Wi-Fi</p><p>Amazon Alexa</p><p>Solar Powered</p><p>Night Color</p><p>5000 mAh, 5W, 5V</p><p>SD Card, up to 128GB</p>",
             "button_link": "/",
             "button_label": "Shop now"
           }
@@ -489,7 +550,7 @@
           "type": "product",
           "settings": {
             "product_name": "Q4M5",
-            "specs": "2K / 3MP\n360 Degrees\n50 Feet\nWi-Fi\nAlexa, Assistant\nSolar & Battery Powered\nNight Color\n5000 mAh, 5W, 5V\nSD Card, up to 128GB",
+            "specs": "<p>2K / 3MP</p><p>360 Degrees</p><p>50 Feet</p><p>Wi-Fi</p><p>Alexa, Assistant</p><p>Solar &amp; Battery Powered</p><p>Night Color</p><p>5000 mAh, 5W, 5V</p><p>SD Card, up to 128GB</p>",
             "button_link": "/",
             "button_label": "Shop now"
           }

@@ -7,9 +7,154 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
- {
+{
   "layout": "theme",
   "sections": {
+    "q-logo-marquee": {
+      "type": "q-logo-marquee",
+      "blocks": {
+        "logo-1": {
+          "type": "logo",
+          "settings": {
+            "logo_alt": "",
+            "logo_name": "bob vila",
+            "logo_link": "/"
+          }
+        },
+        "logo-2": {
+          "type": "logo",
+          "settings": {
+            "logo_alt": "",
+            "logo_name": "SLASH GEAR",
+            "logo_link": "/"
+          }
+        },
+        "logo-3": {
+          "type": "logo",
+          "settings": {
+            "logo_alt": "",
+            "logo_name": "PC MAG",
+            "logo_link": "/"
+          }
+        },
+        "logo-4": {
+          "type": "logo",
+          "settings": {
+            "logo_alt": "",
+            "logo_name": "WIRED",
+            "logo_link": "/"
+          }
+        },
+        "logo-5": {
+          "type": "logo",
+          "settings": {
+            "logo_alt": "",
+            "logo_name": "bob vila",
+            "logo_link": "/"
+          }
+        },
+        "logo-6": {
+          "type": "logo",
+          "settings": {
+            "logo_alt": "",
+            "logo_name": "works with alexa",
+            "logo_link": "/"
+          }
+        },
+        "logo-7": {
+          "type": "logo",
+          "settings": {
+            "logo_alt": "",
+            "logo_name": "CES",
+            "logo_link": "/"
+          }
+        },
+        "logo-8": {
+          "type": "logo",
+          "settings": {
+            "logo_alt": "",
+            "logo_name": "SLASH GEAR",
+            "logo_link": "/"
+          }
+        }
+      },
+      "block_order": [
+        "logo-1",
+        "logo-2",
+        "logo-3",
+        "logo-4",
+        "logo-5",
+        "logo-6",
+        "logo-7",
+        "logo-8"
+      ],
+      "settings": {
+        "scroll_speed": 8,
+        "gap": 60,
+        "logo_height_mobile": 32,
+        "logo_height_desktop": 44,
+        "logo_opacity": 60,
+        "logo_opacity_hover": 100,
+        "bg_color": "#FFFFFF",
+        "show_divider": false,
+        "divider_color": "#e5e7eb",
+        "padding_top_mobile": 24,
+        "padding_bottom_mobile": 24,
+        "padding_top_desktop": 32,
+        "padding_bottom_desktop": 32
+      }
+    },
+    "q-battery-life": {
+      "type": "q-battery-life",
+      "blocks": {
+        "feature-1": {
+          "type": "feature_item",
+          "settings": {
+            "title": "Battery",
+            "description": "<p>Long-lasting rechargeable battery provides reliable protection for months with fewer recharges required.</p>"
+          }
+        },
+        "feature-2": {
+          "type": "feature_item",
+          "settings": {
+            "title": "Solar Panel",
+            "description": "<p>Optional solar panel uses daily sunlight to keep your camera powered with minimal maintenance.</p>"
+          }
+        },
+        "feature-3": {
+          "type": "feature_item",
+          "settings": {
+            "title": "All-Weather / Low Maintenance",
+            "description": "<p>Designed to withstand rain, snow, heat, and cold for worry-free outdoor performance.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "feature-1",
+        "feature-2",
+        "feature-3"
+      ],
+      "settings": {
+        "header_title": "Looking for <em>Longer Battery</em> Life?",
+        "header_description": "",
+        "header_center": true,
+        "header_em_color": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 100%)",
+        "header_title_size_desktop": 42,
+        "header_title_size_mobile": 26,
+        "header_desc_size_desktop": 16,
+        "header_desc_size_mobile": 12,
+        "header_margin_bottom_desktop": 40,
+        "header_margin_bottom_mobile": 24,
+        "button_label": "Buy now",
+        "button_link": "/",
+        "show_button_mobile": false,
+        "bg_color": "#ffffff",
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60
+      }
+    },
     "q-why-choose": {
       "type": "q-why-choose",
       "blocks": {
@@ -21,7 +166,9 @@
             "description": "",
             "content_position": "bottom",
             "title_size_desktop": 32,
-            "title_size_mobile": 18
+            "title_size_mobile": 18,
+            "desc_size_desktop": 18,
+            "desc_size_mobile": 12
           }
         },
         "card-auto-tracking": {
@@ -45,7 +192,9 @@
             "description": "AI Eliminate Blindspots",
             "content_position": "bottom",
             "title_size_desktop": 32,
-            "title_size_mobile": 18
+            "title_size_mobile": 18,
+            "desc_size_desktop": 18,
+            "desc_size_mobile": 12
           }
         },
         "card-smart-alarm": {
@@ -69,7 +218,9 @@
             "description": "Smart App ControlNo Monthly Fees",
             "content_position": "top",
             "title_size_desktop": 20,
-            "title_size_mobile": 12
+            "title_size_mobile": 12,
+            "desc_size_desktop": 18,
+            "desc_size_mobile": 12
           }
         },
         "card-solar-powered": {
@@ -398,6 +549,74 @@
         "padding_bottom_desktop": 60
       }
     },
+    "q-protection-scenes": {
+      "type": "q-protection-scenes",
+      "blocks": {
+        "scene-1": {
+          "type": "scene_card",
+          "settings": {
+            "image": "shopify://shop_images/image_213_1.jpg"
+          }
+        },
+        "scene-2": {
+          "type": "scene_card",
+          "settings": {
+            "image": "shopify://shop_images/image_214_1.jpg"
+          }
+        },
+        "scene-3": {
+          "type": "scene_card",
+          "settings": {
+            "image": "shopify://shop_images/image_215.jpg"
+          }
+        },
+        "scene-4": {
+          "type": "scene_card",
+          "settings": {
+            "image": "shopify://shop_images/image_217.jpg"
+          }
+        },
+        "scene_card_YMaexJ": {
+          "type": "scene_card",
+          "settings": {
+            "image": "shopify://shop_images/image_217.jpg"
+          }
+        },
+        "scene_card_My469f": {
+          "type": "scene_card",
+          "settings": {
+            "image": "shopify://shop_images/image_217.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "scene-1",
+        "scene-2",
+        "scene-3",
+        "scene-4",
+        "scene_card_YMaexJ",
+        "scene_card_My469f"
+      ],
+      "settings": {
+        "header_title": "<em>Protection</em> Where It Matters Most",
+        "header_description": "<p>Keep an eye on your front door, driveway, backyard, or indoors—whether you're home or away.</p>",
+        "header_center": true,
+        "header_em_color": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 100%)",
+        "header_title_color": "#ffffff",
+        "header_desc_color": "#e0e0e0",
+        "header_title_size_desktop": 42,
+        "header_title_size_mobile": 28,
+        "header_desc_size_desktop": 14,
+        "header_desc_size_mobile": 14,
+        "header_margin_bottom_desktop": 0,
+        "header_margin_bottom_mobile": 0,
+        "bg_color": "#0d0d0d",
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60
+      }
+    },
     "q-wifi-connected": {
       "type": "q-wifi-connected",
       "settings": {
@@ -601,7 +820,7 @@
         "header_title": "Set Up in Minutes. <em>Wire-Free Installation.</em>",
         "header_description": "",
         "header_center": false,
-        "header_em_color": "linear-gradient(90deg, #6CBCE7 0%, #367CF6 100%)",
+        "header_em_color": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 100%)",
         "header_title_size_desktop": 42,
         "header_title_size_mobile": 26,
         "header_desc_size_desktop": 16,
@@ -621,9 +840,9 @@
         "product-1": {
           "type": "product",
           "settings": {
-            "product_image": "shopify://shop_images/image_290.jpg",
+            "product_image": "shopify://shop_images/Group_562.png",
             "product_name": "Q3M8",
-            "specs": "2K / 3MP\n360 Degrees\n50 Feet\nWi-Fi\nAlexa, Assistant\nSolar & Battery Powered\nNight Color\n5000 mAh, 5W, 5V\nSD Card, up to 128GB",
+            "specs": "<p>2K / 3MP</p><p>360 Degrees</p><p>50 Feet</p><p>Wi-Fi</p><p>Alexa, Assistant</p><p>Solar &amp; Battery Powered</p><p>Night Color</p><p>5000 mAh, 5W, 5V</p><p>SD Card, up to 128GB</p>",
             "button_link": "/",
             "button_label": "Shop now"
           }
@@ -631,9 +850,9 @@
         "product-2": {
           "type": "product",
           "settings": {
-            "product_image": "shopify://shop_images/image_290.jpg",
+            "product_image": "shopify://shop_images/Group_561.png",
             "product_name": "C3M5",
-            "specs": "3MP\n135 Degrees\n55 Feet\nWi-Fi\nAmazon Alexa\nSolar Powered\nNight Color\n5000 mAh, 5W, 5V\nSD Card, up to 128GB",
+            "specs": "<p>3MP</p><p>135 Degrees</p><p>55 Feet</p><p>Wi-Fi</p><p>Amazon Alexa</p><p>Solar Powered</p><p>Night Color</p><p>5000 mAh, 5W, 5V</p><p>SD Card, up to 128GB</p>",
             "button_link": "/",
             "button_label": "Shop now"
           }
@@ -641,9 +860,9 @@
         "product-3": {
           "type": "product",
           "settings": {
-            "product_image": "shopify://shop_images/image_290.jpg",
+            "product_image": "shopify://shop_images/Group_560.png",
             "product_name": "Q4M5",
-            "specs": "2K / 3MP\n360 Degrees\n50 Feet\nWi-Fi\nAlexa, Assistant\nSolar & Battery Powered\nNight Color\n5000 mAh, 5W, 5V\nSD Card, up to 128GB",
+            "specs": "<p>2K / 3MP</p><p>360 Degrees</p><p>50 Feet</p><p>Wi-Fi</p><p>Alexa, Assistant</p><p>Solar &amp; Battery Powered</p><p>Night Color</p><p>5000 mAh, 5W, 5V</p><p>SD Card, up to 128GB</p>",
             "button_link": "/",
             "button_label": "Shop now"
           }
@@ -1248,7 +1467,7 @@
         "header_margin_bottom_mobile": 24
       }
     },
-    "main": {
+    "main": { 
       "type": "main-product",
       "blocks": {
         "judge_me_reviews_preview_badge_zMwFUy": {
@@ -1328,12 +1547,15 @@
     }
   },
   "order": [
+    "q-logo-marquee",
+    "q-battery-life",
     "q-why-choose",
     "q-smart-detection",
     "q-alert-cards",
     "q-audio-live-view",
     "q-expert-testimonials",
     "q-camera-showcase",
+    "q-protection-scenes",
     "q-wifi-connected",
     "q-storage-options",
     "q-app-features",
