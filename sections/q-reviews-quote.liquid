@@ -35,8 +35,12 @@
     --rq-nav-size-mobile: 18px;
     --rq-nav-size-desktop: 50px;
     --rq-gap: 16px;
-    --rq-quote-svg-size-mobile: 32px;
+    --rq-quote-svg-size-mobile: 18px;
     --rq-quote-svg-size-desktop: 50px;
+  }
+
+  .section-{{ section.id }} .page-width {
+    overflow: hidden;
   }
 
   @media screen and (min-width: 750px) {
@@ -65,12 +69,12 @@
     justify-content: center;
     gap: 16px;
     flex-wrap: wrap;
-    margin-bottom: 24px;
-  }
+    margin-bottom: 30px;
+  } 
 
   @media screen and (min-width: 750px) {
     .section-{{ section.id }} .q-rq__badges {
-      margin-bottom: 32px;
+      margin-bottom: 26px;
       gap: 24px;
     }
   }
@@ -99,12 +103,12 @@
 
   .section-{{ section.id }} .q-rq__swiper swiper-slide {
     flex-shrink: 0;
+    width: 100%;
   }
 
   .section-{{ section.id }} .q-rq__slide-inner {
     position: relative;
     text-align: center;
-    padding: 16px 0;
   }
 
   @media screen and (min-width: 750px) {
@@ -133,14 +137,12 @@
 
   .section-{{ section.id }} .q-rq__quote-mark--open {
     top: 0;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    left: 0;
   }
 
   .section-{{ section.id }} .q-rq__quote-mark--close {
     bottom: 0;
-    right: 50%;
-    transform: translate(50%, 50%);
+    right: 0;
   }
 
   @media screen and (min-width: 750px) {
@@ -156,16 +158,22 @@
     color: var(--rq-text-color);
     font-weight: 500;
     margin: 0;
-    max-width: 100%;
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: left;
+    padding: 9px 26px;
   }
 
   @media screen and (min-width: 750px) {
     .section-{{ section.id }} .q-rq__text {
       font-size: var(--rq-quote-size-desktop);
       line-height: var(--rq-quote-line-height-desktop);
+      text-align: center;
       margin-left: auto;
       margin-right: auto;
-      max-width: 963px;
+      max-width: 1106px;
+      padding: 25px 72px;
     }
   }
 
@@ -244,13 +252,9 @@
           <div class="q-rq__badge">
             {{-
               section.settings.image_above_1
-              | image_url: width: 300
+              | image_url: width: 600
               | image_tag:
-                loading: 'lazy',
-                widths: '120,180,240,300',
-                sizes: '150px',
-                class: 'q-rq__badge-img',
-                alt: section.settings.image_above_1_alt | default: 'Trust badge'
+                class: 'q-rq__badge-img'
             -}}
           </div>
         {%- endif -%}
@@ -258,13 +262,9 @@
           <div class="q-rq__badge">
             {{-
               section.settings.image_above_2
-              | image_url: width: 300
+              | image_url: width: 600
               | image_tag:
-                loading: 'lazy',
-                widths: '120,180,240,300',
-                sizes: '150px',
-                class: 'q-rq__badge-img',
-                alt: section.settings.image_above_2_alt | default: 'Verified reviews'
+                class: 'q-rq__badge-img'
             -}}
           </div>
         {%- endif -%}
@@ -278,7 +278,7 @@
           slides-per-view="1"
           space-between="{{ section.settings.space_between | default: 16 }}"
           grab-cursor="true"
-          loop="false"
+          loop="true"
           navigation="true"
           navigation-prev-el="[data-carousel-prev='{{ section.id }}']"
           navigation-next-el="[data-carousel-next='{{ section.id }}']"
@@ -286,30 +286,33 @@
           {%- for block in quote_blocks -%}
             <swiper-slide {{ block.shopify_attributes }}>
               <div class="q-rq__slide-inner">
-                <span class="q-rq__quote-mark q-rq__quote-mark--open" aria-hidden="true">
-                  <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path d="M37.258 25.973H42.5915V39.5115H26.25V30.24C26.25 20.828 32.817 12.674 42.023 10.715C42.8475 10.5395 43.343 10.4885 43.343 10.4885L45 14.5255C37.6795 18.1755 37.258 25.973 37.258 25.973Z" fill="currentColor"/>
-                    <path d="M16.01 25.973H21.3435V39.5115H5V30.24C5 20.828 11.5675 12.674 20.7735 10.715C21.598 10.5395 22.093 10.4885 22.093 10.4885L23.75 14.5255C16.432 18.1755 16.01 25.973 16.01 25.973Z" fill="currentColor"/>
-                  </svg>
-                </span>
+                
                 {%- if block.settings.quote_text != blank -%}
                   <div class="q-rq__text">
-                    {{ block.settings.quote_text }}
+                    <span class="q-rq__quote-mark q-rq__quote-mark--open" aria-hidden="true">
+                      <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M37.258 25.973H42.5915V39.5115H26.25V30.24C26.25 20.828 32.817 12.674 42.023 10.715C42.8475 10.5395 43.343 10.4885 43.343 10.4885L45 14.5255C37.6795 18.1755 37.258 25.973 37.258 25.973Z" fill="currentColor"/>
+                        <path d="M16.01 25.973H21.3435V39.5115H5V30.24C5 20.828 11.5675 12.674 20.7735 10.715C21.598 10.5395 22.093 10.4885 22.093 10.4885L23.75 14.5255C16.432 18.1755 16.01 25.973 16.01 25.973Z" fill="currentColor"/>
+                      </svg>
+                    </span>
+                    <span class="q-rq__quote-text">
+                      {{ block.settings.quote_text }}
+                    </span>
+                    <span class="q-rq__quote-mark q-rq__quote-mark--close" aria-hidden="true">
+                      <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M12.742 24.027H7.4085V10.4885H23.75V19.76C23.75 29.172 17.183 37.326 7.977 39.285C7.1525 39.4605 6.657 39.5115 6.657 39.5115L5 35.4745C12.3205 31.8245 12.742 24.027 12.742 24.027Z" fill="currentColor"/>
+                        <path d="M33.99 24.027H28.6565V10.4885H45V19.76C45 29.172 38.4325 37.326 29.2265 39.285C28.402 39.4605 27.907 39.5115 27.907 39.5115L26.25 35.4745C33.568 31.8245 33.99 24.027 33.99 24.027Z" fill="currentColor"/>
+                      </svg>
+                    </span>
                   </div>
                 {%- endif -%}
-                <span class="q-rq__quote-mark q-rq__quote-mark--close" aria-hidden="true">
-                  <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path d="M12.742 24.027H7.4085V10.4885H23.75V19.76C23.75 29.172 17.183 37.326 7.977 39.285C7.1525 39.4605 6.657 39.5115 6.657 39.5115L5 35.4745C12.3205 31.8245 12.742 24.027 12.742 24.027Z" fill="currentColor"/>
-                    <path d="M33.99 24.027H28.6565V10.4885H45V19.76C45 29.172 38.4325 37.326 29.2265 39.285C28.402 39.4605 27.907 39.5115 27.907 39.5115L26.25 35.4745C33.568 31.8245 33.99 24.027 33.99 24.027Z" fill="currentColor"/>
-                  </svg>
-                </span>
               </div>
             </swiper-slide>
           {%- endfor -%}
         </swiper-container>
       </div>
 
-      {%- if show_nav -%}
+      {% comment %} {%- if show_nav -%}
         <div class="q-rq__nav">
           <button
             type="button"
@@ -330,7 +333,7 @@
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
         </div>
-      {%- endif -%}
+      {%- endif -%} {% endcomment %}
     </div>
   </div>
 </div>
