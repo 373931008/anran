@@ -9,10 +9,6 @@
 
 {%- liquid
   assign quote_blocks = section.blocks | where: 'type', 'quote'
-  assign show_nav = false
-  if quote_blocks.size > 1
-    assign show_nav = true
-  endif
   assign has_badges = false
   if section.settings.image_above_1 != blank or section.settings.image_above_2 != blank
     assign has_badges = true
@@ -272,17 +268,22 @@
     {%- endif -%}
 
     <div class="q-rq__wrap">
-      <div class="q-rq__swiper">
-        <swiper-container
-          id="q-rq-swiper-{{ section.id }}"
-          slides-per-view="1"
-          space-between="{{ section.settings.space_between | default: 16 }}"
-          grab-cursor="true"
-          loop="true"
-          navigation="true"
-          navigation-prev-el="[data-carousel-prev='{{ section.id }}']"
-          navigation-next-el="[data-carousel-next='{{ section.id }}']"
-        >
+      <reviews-quote-element
+        client:visible
+        data-autoplay-enabled="{% if section.settings.autoplay_carousel %}true{% else %}false{% endif %}"
+      >
+        <div class="q-rq__swiper">
+          <swiper-container
+            id="q-rq-swiper-{{ section.id }}"
+            slides-per-view="1"
+            space-between="{{ section.settings.space_between | default: 16 }}"
+            grab-cursor="true"
+            loop="true"
+            navigation="true"
+            navigation-prev-el="[data-carousel-prev='{{ section.id }}']"
+            navigation-next-el="[data-carousel-next='{{ section.id }}']"
+            {% if section.settings.autoplay_carousel %}autoplay="true" autoplay-delay="{{ section.settings.autoplay_delay | times: 1000 }}" autoplay-disable-on-interaction="false"{% endif %}
+          >
           {%- for block in quote_blocks -%}
             <swiper-slide {{ block.shopify_attributes }}>
               <div class="q-rq__slide-inner">
@@ -309,8 +310,9 @@
               </div>
             </swiper-slide>
           {%- endfor -%}
-        </swiper-container>
-      </div>
+          </swiper-container>
+        </div>
+      </reviews-quote-element>
 
       {% comment %} {%- if show_nav -%}
         <div class="q-rq__nav">
@@ -357,13 +359,13 @@
     { "type": "range", "id": "header_margin_bottom_desktop", "label": "标题下边距（桌面端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
     { "type": "range", "id": "header_margin_bottom_mobile", "label": "标题下边距（移动端）", "min": 0, "max": 80, "step": 4, "unit": "px", "default": 24 },
     { "type": "header", "content": "轮播上方图片" },
-    { "type": "image_picker", "id": "image_above_1", "label": "左侧图片（如 Shopper Approved）" },
-    { "type": "text", "id": "image_above_1_alt", "label": "左侧图片替代文字" },
-    { "type": "image_picker", "id": "image_above_2", "label": "右侧图片（如 Verified Reviews）" },
-    { "type": "text", "id": "image_above_2_alt", "label": "右侧图片替代文字" },
+    { "type": "image_picker", "id": "image_above_1", "label": "图片" },
     { "type": "header", "content": "样式" },
     { "type": "color", "id": "quote_accent_color", "label": "引号与导航强调色", "default": "#1565D8" },
     { "type": "range", "id": "space_between", "label": "幻灯片间距", "min": 0, "max": 48, "step": 4, "unit": "px", "default": 16 },
+    { "type": "header", "content": "轮播" },
+    { "type": "checkbox", "id": "autoplay_carousel", "label": "自动播放", "default": false },
+    { "type": "range", "id": "autoplay_delay", "label": "播放间隔（秒）", "min": 2, "max": 15, "step": 1, "unit": "s", "default": 5 },
     { "type": "header", "content": "板块背景" },
     { "type": "color_background", "id": "bg_color", "label": "背景色", "default": "#f0f5fa" },
     { "type": "header", "content": "上下边距" },
