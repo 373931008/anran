@@ -26,10 +26,30 @@
           }
         }
       },
-      "block_order": ["quote-1", "quote-2"],
+      "block_order": [
+        "quote-1",
+        "quote-2"
+      ],
       "settings": {
+        "header_title": "What Customers Say",
+        "header_description": "",
         "header_center": true,
-        "bg_color": "#f0f5fa"
+        "header_em_color": "#FF6B35",
+        "header_title_size_desktop": 42,
+        "header_title_size_mobile": 26,
+        "header_desc_size_desktop": 16,
+        "header_desc_size_mobile": 12,
+        "header_margin_bottom_desktop": 40,
+        "header_margin_bottom_mobile": 24,
+        "image_above_1_alt": "",
+        "image_above_2_alt": "",
+        "quote_accent_color": "#1565d8",
+        "space_between": 16,
+        "bg_color": "#f0f5fa",
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60
       }
     },
     "q-reviews-slider": {
@@ -60,16 +80,34 @@
           }
         }
       },
-      "block_order": ["review-1", "review-2", "review-3"],
+      "block_order": [
+        "review-1",
+        "review-2",
+        "review-3"
+      ],
       "settings": {
         "header_title": "Customer Reviews",
+        "header_description": "",
         "header_center": true,
+        "header_em_color": "#FF6B35",
+        "header_title_size_desktop": 42,
+        "header_title_size_mobile": 26,
+        "header_desc_size_desktop": 16,
+        "header_desc_size_mobile": 12,
+        "header_margin_bottom_desktop": 40,
+        "header_margin_bottom_mobile": 24,
         "rating_score": "4.7",
         "rating_max": "5",
         "review_count": "82 Verified Reviews",
+        "autoplay_carousel": false,
+        "autoplay_delay": 5,
         "footer_phrase": "See more reviews on",
         "footer_url": "/",
-        "bg_color": "#f4f7ff"
+        "bg_color": "#f4f7ff",
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60
       }
     },
     "q-logo-marquee": {
@@ -164,57 +202,6 @@
         "padding_bottom_mobile": 24,
         "padding_top_desktop": 32,
         "padding_bottom_desktop": 32
-      }
-    },
-    "q-battery-life": {
-      "type": "q-battery-life",
-      "blocks": {
-        "feature-1": {
-          "type": "feature_item",
-          "settings": {
-            "title": "Battery",
-            "description": "<p>Long-lasting rechargeable battery provides reliable protection for months with fewer recharges required.</p>"
-          }
-        },
-        "feature-2": {
-          "type": "feature_item",
-          "settings": {
-            "title": "Solar Panel",
-            "description": "<p>Optional solar panel uses daily sunlight to keep your camera powered with minimal maintenance.</p>"
-          }
-        },
-        "feature-3": {
-          "type": "feature_item",
-          "settings": {
-            "title": "All-Weather / Low Maintenance",
-            "description": "<p>Designed to withstand rain, snow, heat, and cold for worry-free outdoor performance.</p>"
-          }
-        }
-      },
-      "block_order": [
-        "feature-1",
-        "feature-2",
-        "feature-3"
-      ],
-      "settings": {
-        "header_title": "Looking for <em>Longer Battery</em> Life?",
-        "header_description": "",
-        "header_center": true,
-        "header_em_color": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 100%)",
-        "header_title_size_desktop": 42,
-        "header_title_size_mobile": 26,
-        "header_desc_size_desktop": 16,
-        "header_desc_size_mobile": 12,
-        "header_margin_bottom_desktop": 40,
-        "header_margin_bottom_mobile": 24,
-        "button_label": "Buy now",
-        "button_link": "/",
-        "show_button_mobile": false,
-        "bg_color": "#ffffff",
-        "padding_top_mobile": 40,
-        "padding_bottom_mobile": 40,
-        "padding_top_desktop": 60,
-        "padding_bottom_desktop": 60
       }
     },
     "q-why-choose": {
@@ -611,6 +598,61 @@
         "padding_bottom_desktop": 60
       }
     },
+    "q-battery-life": {
+      "type": "q-battery-life",
+      "blocks": {
+        "feature-1": {
+          "type": "feature_item",
+          "settings": {
+            "icon": "shopify://shop_images/fi_664886.jpg",
+            "title": "Battery",
+            "description": "<p>Long-lasting rechargeable battery provides reliable protection for months with fewer recharges required.</p>"
+          }
+        },
+        "feature-2": {
+          "type": "feature_item",
+          "settings": {
+            "icon": "shopify://shop_images/fi_10854086.jpg",
+            "title": "Solar Panel",
+            "description": "<p>Optional solar panel uses daily sunlight to keep your camera powered with minimal maintenance.</p>"
+          }
+        },
+        "feature-3": {
+          "type": "feature_item",
+          "settings": {
+            "icon": "shopify://shop_images/fi_3093298.jpg",
+            "title": "All-Weather / Low Maintenance",
+            "description": "<p>Designed to withstand rain, snow, heat, and cold for worry-free outdoor performance.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "feature-1",
+        "feature-2",
+        "feature-3"
+      ],
+      "settings": {
+        "header_title": "Looking for <em>Longer Battery</em> Life?",
+        "header_description": "",
+        "header_center": true,
+        "header_em_color": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 100%)",
+        "header_title_size_desktop": 42,
+        "header_title_size_mobile": 26,
+        "header_desc_size_desktop": 16,
+        "header_desc_size_mobile": 12,
+        "header_margin_bottom_desktop": 40,
+        "header_margin_bottom_mobile": 24,
+        "image": "shopify://shop_images/image_286.jpg",
+        "button_label": "Buy now",
+        "button_link": "/",
+        "show_button_mobile": false,
+        "bg_color": "#ffffff",
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60
+      }
+    },
     "q-protection-scenes": {
       "type": "q-protection-scenes",
       "blocks": {
@@ -904,7 +946,7 @@
           "settings": {
             "product_image": "shopify://shop_images/Group_562.png",
             "product_name": "Q3M8",
-            "specs": "<p>2K / 3MP</p><p>360 Degrees</p><p>50 Feet</p><p>Wi-Fi</p><p>Alexa, Assistant</p><p>Solar &amp; Battery Powered</p><p>Night Color</p><p>5000 mAh, 5W, 5V</p><p>SD Card, up to 128GB</p>",
+            "specs": "<p>2K / 3MP</p><p>360 Degrees</p><p>50 Feet</p><p>Wi-Fi</p><p>Alexa, Assistant</p><p>Solar & Battery Powered</p><p>Night Color</p><p>5000 mAh, 5W, 5V</p><p>SD Card, up to 128GB</p>",
             "button_link": "/",
             "button_label": "Shop now"
           }
@@ -1529,7 +1571,7 @@
         "header_margin_bottom_mobile": 24
       }
     },
-    "main": { 
+    "main": {
       "type": "main-product-v2",
       "blocks": {
         "judge_me_reviews_preview_badge_zMwFUy": {
@@ -1612,13 +1654,13 @@
     "q-reviews-quote",
     "q-reviews-slider",
     "q-logo-marquee",
-    "q-battery-life",
     "q-why-choose",
     "q-smart-detection",
     "q-alert-cards",
     "q-audio-live-view",
     "q-expert-testimonials",
     "q-camera-showcase",
+    "q-battery-life",
     "q-protection-scenes",
     "q-wifi-connected",
     "q-storage-options",
