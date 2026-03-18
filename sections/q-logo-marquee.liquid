@@ -128,37 +128,15 @@
         {%- for block in section.blocks -%}
           <swiper-slide {{ block.shopify_attributes }}>
             {%- if block.settings.logo_image != blank -%}
-              {%- if block.settings.logo_link != blank and block.settings.logo_link != '/' -%}
-                <a href="{{ block.settings.logo_link }}" target="_blank" rel="noopener" aria-label="{{ block.settings.logo_alt | default: block.settings.logo_name }}">
-                  {{-
-                    block.settings.logo_image
-                    | image_url: height: 120
-                    | image_tag:
-                      class: 'q-lm__logo-img',
-                      loading: 'lazy',
-                      widths: '80, 120, 160, 200',
-                      alt: block.settings.logo_alt | default: block.settings.logo_name
-                  -}}
-                </a>
-              {%- else -%}
-                {{-
-                  block.settings.logo_image
-                  | image_url: height: 120
-                  | image_tag:
-                    class: 'q-lm__logo-img',
-                    loading: 'lazy',
-                    widths: '80, 120, 160, 200',
-                    alt: block.settings.logo_alt | default: block.settings.logo_name
-                -}}
-              {%- endif -%}
-            {%- elsif block.settings.logo_name != blank -%}
-              {%- if block.settings.logo_link != blank and block.settings.logo_link != '/' -%}
-                <a href="{{ block.settings.logo_link }}" target="_blank" rel="noopener" class="q-lm__logo-text">
-                  {{- block.settings.logo_name -}}
-                </a>
-              {%- else -%}
-                <span class="q-lm__logo-text">{{- block.settings.logo_name -}}</span>
-              {%- endif -%}
+              {{-
+                block.settings.logo_image
+                | image_url: height: 120
+                | image_tag:
+                  class: 'q-lm__logo-img',
+                  loading: 'lazy',
+                  widths: '80, 120, 160, 200',
+                  alt: ''
+              -}}
             {%- endif -%}
           </swiper-slide>
         {%- endfor -%}
@@ -167,37 +145,15 @@
           {%- for block in section.blocks -%}
             <swiper-slide {{ block.shopify_attributes }}>
               {%- if block.settings.logo_image != blank -%}
-                {%- if block.settings.logo_link != blank and block.settings.logo_link != '/' -%}
-                  <a href="{{ block.settings.logo_link }}" target="_blank" rel="noopener" aria-label="{{ block.settings.logo_alt | default: block.settings.logo_name }}">
-                    {{-
-                      block.settings.logo_image
-                      | image_url: height: 120
-                      | image_tag:
-                        class: 'q-lm__logo-img',
-                        loading: 'lazy',
-                        widths: '80, 120, 160, 200',
-                        alt: block.settings.logo_alt | default: block.settings.logo_name
-                    -}}
-                  </a>
-                {%- else -%}
-                  {{-
-                    block.settings.logo_image
-                    | image_url: height: 120
-                    | image_tag:
-                      class: 'q-lm__logo-img',
-                      loading: 'lazy',
-                      widths: '80, 120, 160, 200',
-                      alt: block.settings.logo_alt | default: block.settings.logo_name
-                  -}}
-                {%- endif -%}
-              {%- elsif block.settings.logo_name != blank -%}
-                {%- if block.settings.logo_link != blank and block.settings.logo_link != '/' -%}
-                  <a href="{{ block.settings.logo_link }}" target="_blank" rel="noopener" class="q-lm__logo-text">
-                    {{- block.settings.logo_name -}}
-                  </a>
-                {%- else -%}
-                  <span class="q-lm__logo-text">{{- block.settings.logo_name -}}</span>
-                {%- endif -%}
+                {{-
+                  block.settings.logo_image
+                  | image_url: height: 120
+                  | image_tag:
+                    class: 'q-lm__logo-img',
+                    loading: 'lazy',
+                    widths: '80, 120, 160, 200',
+                    alt: ''
+                -}}
               {%- endif -%}
             </swiper-slide>
           {%- endfor -%}
@@ -306,10 +262,7 @@
       "type": "logo",
       "name": "Logo",
       "settings": [
-        { "type": "image_picker", "id": "logo_image", "label": "Logo 图片" },
-        { "type": "text", "id": "logo_alt", "label": "图片 Alt 文字" },
-        { "type": "text", "id": "logo_name", "label": "品牌名称", "info": "无图片时显示文字", "default": "Brand Name" },
-        { "type": "url", "id": "logo_link", "label": "跳转链接", "default": "/" }
+        { "type": "image_picker", "id": "logo_image", "label": "Logo 图片" }
       ]
     }
   ],
@@ -317,14 +270,14 @@
     {
       "name": "q-logo-marquee",
       "blocks": [
-        { "type": "logo", "settings": { "logo_name": "bob vila" } },
-        { "type": "logo", "settings": { "logo_name": "SLASH GEAR" } },
-        { "type": "logo", "settings": { "logo_name": "PC MAG" } },
-        { "type": "logo", "settings": { "logo_name": "WIRED" } },
-        { "type": "logo", "settings": { "logo_name": "bob vila" } },
-        { "type": "logo", "settings": { "logo_name": "works with alexa" } },
-        { "type": "logo", "settings": { "logo_name": "CES" } },
-        { "type": "logo", "settings": { "logo_name": "SLASH GEAR" } }
+        { "type": "logo", "settings": {} },
+        { "type": "logo", "settings": {} },
+        { "type": "logo", "settings": {} },
+        { "type": "logo", "settings": {} },
+        { "type": "logo", "settings": {} },
+        { "type": "logo", "settings": {} },
+        { "type": "logo", "settings": {} },
+        { "type": "logo", "settings": {} }
       ]
     }
   ]
