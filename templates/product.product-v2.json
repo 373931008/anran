@@ -31,7 +31,7 @@
         "quote-2"
       ],
       "settings": {
-        "header_title": "What Customers Say",
+        "header_title": "",
         "header_description": "",
         "header_center": true,
         "header_em_color": "#FF6B35",
@@ -41,10 +41,11 @@
         "header_desc_size_mobile": 12,
         "header_margin_bottom_desktop": 40,
         "header_margin_bottom_mobile": 24,
-        "image_above_1_alt": "",
-        "image_above_2_alt": "",
+        "image_above_1": "shopify://shop_images/Group_158.png",
         "quote_accent_color": "#1565d8",
         "space_between": 16,
+        "autoplay_carousel": true,
+        "autoplay_delay": 5,
         "bg_color": "#f0f5fa",
         "padding_top_mobile": 40,
         "padding_bottom_mobile": 40,
@@ -60,7 +61,7 @@
           "settings": {
             "author_name": "Lynda C.",
             "date_place": "02-05-26-CA, US",
-            "body": "<p>Great product, easy to set up and use daily.</p>"
+            "body": "<p>Outstanding customer service. Fast response and very helpful. Highly recommended.</p>"
           }
         },
         "review-2": {
@@ -68,7 +69,7 @@
           "settings": {
             "author_name": "Christopher H.",
             "date_place": "01-28-26-US",
-            "body": "<p>Very satisfied with the quality and customer service.</p>"
+            "body": "<p>Bought it as a gift. Setup was easy and everything looks well made so far.</p>"
           }
         },
         "review-3": {
@@ -76,17 +77,35 @@
           "settings": {
             "author_name": "Maria S.",
             "date_place": "01-15-26-UK",
-            "body": "<p>Exactly what I was looking for. Highly recommend.</p>"
+            "body": "<p>Great communication and prompt support. The camera works exactly as described.</p>"
+          }
+        },
+        "review_TGw7M4": {
+          "type": "review",
+          "settings": {
+            "author_name": "Maria S.",
+            "date_place": "01-15-26-UK",
+            "body": "<p>Great communication and prompt support. The camera works exactly as described.</p>"
+          }
+        },
+        "review_NAVQwt": {
+          "type": "review",
+          "settings": {
+            "author_name": "Maria S.",
+            "date_place": "01-15-26-UK",
+            "body": "<p>Great communication and prompt support. The camera works exactly as described.</p>"
           }
         }
       },
       "block_order": [
         "review-1",
         "review-2",
-        "review-3"
+        "review-3",
+        "review_TGw7M4",
+        "review_NAVQwt"
       ],
       "settings": {
-        "header_title": "Customer Reviews",
+        "header_title": "",
         "header_description": "",
         "header_center": true,
         "header_em_color": "#FF6B35",
@@ -99,10 +118,10 @@
         "rating_score": "4.7",
         "rating_max": "5",
         "review_count": "82 Verified Reviews",
+        "seamless_loop": false,
         "autoplay_carousel": false,
         "autoplay_delay": 5,
-        "footer_phrase": "See more reviews on",
-        "footer_url": "/",
+        "footer_logo": "shopify://shop_images/Group_167.png",
         "bg_color": "#f4f7ff",
         "padding_top_mobile": 40,
         "padding_bottom_mobile": 40,
@@ -115,67 +134,35 @@
       "blocks": {
         "logo-1": {
           "type": "logo",
-          "settings": {
-            "logo_alt": "",
-            "logo_name": "bob vila",
-            "logo_link": "/"
-          }
+          "settings": {}
         },
         "logo-2": {
           "type": "logo",
-          "settings": {
-            "logo_alt": "",
-            "logo_name": "SLASH GEAR",
-            "logo_link": "/"
-          }
+          "settings": {}
         },
         "logo-3": {
           "type": "logo",
-          "settings": {
-            "logo_alt": "",
-            "logo_name": "PC MAG",
-            "logo_link": "/"
-          }
+          "settings": {}
         },
         "logo-4": {
           "type": "logo",
-          "settings": {
-            "logo_alt": "",
-            "logo_name": "WIRED",
-            "logo_link": "/"
-          }
+          "settings": {}
         },
         "logo-5": {
           "type": "logo",
-          "settings": {
-            "logo_alt": "",
-            "logo_name": "bob vila",
-            "logo_link": "/"
-          }
+          "settings": {}
         },
         "logo-6": {
           "type": "logo",
-          "settings": {
-            "logo_alt": "",
-            "logo_name": "works with alexa",
-            "logo_link": "/"
-          }
+          "settings": {}
         },
         "logo-7": {
           "type": "logo",
-          "settings": {
-            "logo_alt": "",
-            "logo_name": "CES",
-            "logo_link": "/"
-          }
+          "settings": {}
         },
         "logo-8": {
           "type": "logo",
-          "settings": {
-            "logo_alt": "",
-            "logo_name": "SLASH GEAR",
-            "logo_link": "/"
-          }
+          "settings": {}
         }
       },
       "block_order": [
