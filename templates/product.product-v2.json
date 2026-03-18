@@ -497,6 +497,46 @@
         "autoplay_delay": 5
       }
     },
+    "q-reviews-slider": {
+      "type": "q-reviews-slider",
+      "blocks": {
+        "review-1": {
+          "type": "review",
+          "settings": {
+            "author_name": "Lynda C.",
+            "date_place": "02-05-26-CA, US",
+            "body": "<p>Great product, easy to set up and use daily.</p>"
+          }
+        },
+        "review-2": {
+          "type": "review",
+          "settings": {
+            "author_name": "Christopher H.",
+            "date_place": "01-28-26-US",
+            "body": "<p>Very satisfied with the quality and customer service.</p>"
+          }
+        },
+        "review-3": {
+          "type": "review",
+          "settings": {
+            "author_name": "Maria S.",
+            "date_place": "01-15-26-UK",
+            "body": "<p>Exactly what I was looking for. Highly recommend.</p>"
+          }
+        }
+      },
+      "block_order": ["review-1", "review-2", "review-3"],
+      "settings": {
+        "header_title": "Customer Reviews",
+        "header_center": true,
+        "rating_score": "4.7",
+        "rating_max": "5",
+        "review_count": "82 Verified Reviews",
+        "footer_phrase": "See more reviews on",
+        "footer_url": "/",
+        "bg_color": "#f4f7ff"
+      }
+    },
     "q-camera-showcase": {
       "type": "q-camera-showcase",
       "blocks": {
@@ -1554,6 +1594,7 @@
     "q-alert-cards",
     "q-audio-live-view",
     "q-expert-testimonials",
+    "q-reviews-slider",
     "q-camera-showcase",
     "q-protection-scenes",
     "q-wifi-connected",
