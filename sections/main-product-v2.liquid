@@ -674,6 +674,8 @@
                 </product-recommendations>
               {%- when 'icon-with-text' -%}
                 {% render 'icon-with-text', block: block %}
+              {%- when 'trust_cards' -%}
+                {% render 'q-block-trust_cards', block: block, section: section %}
             {%- endcase -%}
           {%- endfor -%}
           <a href="{{ product.url }}" class="link product__view-details animate-arrow">
@@ -710,6 +712,54 @@
           </div>
         </div>
       </modal-dialog>
+    {%- endfor -%}
+
+    {% assign trust_cards_blocks = section.blocks | where: 'type', 'trust_cards' %}
+    {%- for block in trust_cards_blocks -%}
+      {%- if block.settings.card_1_content != blank -%}
+        <modal-dialog id="TrustCardModal-{{ section.id }}-{{ block.id }}-1" class="product-popup-modal">
+          <div role="dialog" aria-label="{{ block.settings.card_1_label }}" aria-modal="true" class="product-popup-modal__content" tabindex="-1">
+            <button id="ModalClose-TrustCard-{{ section.id }}-{{ block.id }}-1" type="button" class="product-popup-modal__toggle" aria-label="{{ 'accessibility.close' | t }}">{{- 'icon-close.svg' | inline_asset_content -}}</button>
+            <div class="product-popup-modal__content-info">
+              <h2 class="h2">{{ block.settings.card_1_label | escape }}</h2>
+              <div class="rte">{{ block.settings.card_1_content }}</div>
+            </div>
+          </div>
+        </modal-dialog>
+      {%- endif -%}
+      {%- if block.settings.card_2_content != blank -%}
+        <modal-dialog id="TrustCardModal-{{ section.id }}-{{ block.id }}-2" class="product-popup-modal">
+          <div role="dialog" aria-label="{{ block.settings.card_2_label }}" aria-modal="true" class="product-popup-modal__content" tabindex="-1">
+            <button id="ModalClose-TrustCard-{{ section.id }}-{{ block.id }}-2" type="button" class="product-popup-modal__toggle" aria-label="{{ 'accessibility.close' | t }}">{{- 'icon-close.svg' | inline_asset_content -}}</button>
+            <div class="product-popup-modal__content-info">
+              <h2 class="h2">{{ block.settings.card_2_label | escape }}</h2>
+              <div class="rte">{{ block.settings.card_2_content }}</div>
+            </div>
+          </div>
+        </modal-dialog>
+      {%- endif -%}
+      {%- if block.settings.card_3_content != blank -%}
+        <modal-dialog id="TrustCardModal-{{ section.id }}-{{ block.id }}-3" class="product-popup-modal">
+          <div role="dialog" aria-label="{{ block.settings.card_3_label }}" aria-modal="true" class="product-popup-modal__content" tabindex="-1">
+            <button id="ModalClose-TrustCard-{{ section.id }}-{{ block.id }}-3" type="button" class="product-popup-modal__toggle" aria-label="{{ 'accessibility.close' | t }}">{{- 'icon-close.svg' | inline_asset_content -}}</button>
+            <div class="product-popup-modal__content-info">
+              <h2 class="h2">{{ block.settings.card_3_label | escape }}</h2>
+              <div class="rte">{{ block.settings.card_3_content }}</div>
+            </div>
+          </div>
+        </modal-dialog>
+      {%- endif -%}
+      {%- if block.settings.card_4_content != blank -%}
+        <modal-dialog id="TrustCardModal-{{ section.id }}-{{ block.id }}-4" class="product-popup-modal">
+          <div role="dialog" aria-label="{{ block.settings.card_4_label }}" aria-modal="true" class="product-popup-modal__content" tabindex="-1">
+            <button id="ModalClose-TrustCard-{{ section.id }}-{{ block.id }}-4" type="button" class="product-popup-modal__toggle" aria-label="{{ 'accessibility.close' | t }}">{{- 'icon-close.svg' | inline_asset_content -}}</button>
+            <div class="product-popup-modal__content-info">
+              <h2 class="h2">{{ block.settings.card_4_label | escape }}</h2>
+              <div class="rte">{{ block.settings.card_4_content }}</div>
+            </div>
+          </div>
+        </modal-dialog>
+      {%- endif -%}
     {%- endfor -%}
 
     {%- if product.media.size > 0 -%}
@@ -2085,6 +2135,46 @@
           "label": "t:sections.main-product.blocks.icon_with_text.settings.heading_3.label",
           "info": "t:sections.main-product.blocks.icon_with_text.settings.heading.info"
         }
+      ]
+    },
+    {
+      "type": "trust_cards",
+      "name": "信任/保障卡片（可点击弹窗）",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "卡片 1"
+        },
+        { "type": "image_picker", "id": "card_1_icon", "label": "图标" },
+        { "type": "text", "id": "card_1_label", "label": "标题", "default": "30-Day Risk-Free Trial" },
+        { "type": "richtext", "id": "card_1_content", "label": "弹窗内容（留空则不弹窗）" },
+        {
+          "type": "header",
+          "content": "卡片 2"
+        },
+        { "type": "image_picker", "id": "card_2_icon", "label": "图标" },
+        { "type": "text", "id": "card_2_label", "label": "标题", "default": "24-Month Warranty" },
+        { "type": "richtext", "id": "card_2_content", "label": "弹窗内容（留空则不弹窗）" },
+        {
+          "type": "header",
+          "content": "卡片 3"
+        },
+        { "type": "image_picker", "id": "card_3_icon", "label": "图标" },
+        { "type": "text", "id": "card_3_label", "label": "标题", "default": "Free App Access" },
+        { "type": "richtext", "id": "card_3_content", "label": "弹窗内容（留空则不弹窗）" },
+        {
+          "type": "header",
+          "content": "卡片 4"
+        },
+        { "type": "image_picker", "id": "card_4_icon", "label": "图标" },
+        { "type": "text", "id": "card_4_label", "label": "标题" },
+        { "type": "richtext", "id": "card_4_content", "label": "弹窗内容（留空则不弹窗）" },
+        {
+          "type": "header",
+          "content": "卡片列表下方 Logo"
+        },
+        { "type": "image_picker", "id": "logo_image", "label": "Logo 图片" }
       ]
     }
   ],
