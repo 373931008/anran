@@ -1,0 +1,286 @@
+{%- comment -%}
+  Block: See in Action 视频卡片轮播（main-product-v2）
+  功能：swiper-container slides-per-view=auto，固定宽度卡片（桌面 178px / 移动 240px），
+  支持本地视频、YouTube/Vimeo 链接、备用 URL；整块可点弹窗播放；进入视口/滑动后自动播当前页本地视频，播完自动下一张；可配置定时轮播。
+  需传入: section, header_block（可为 nil）, item_blocks（q_see_in_action_card 数组）
+  设计稿：桌面 178×291 圆角 10px，移动 240px 宽；播放按钮 42×42。
+{%- endcomment -%}
+{%- assign section_id = section.id -%}
+{%- assign header_block = header_block | default: nil -%}
+{%- assign item_blocks = item_blocks | default: section.blocks | where: 'type', 'q_see_in_action_card' -%}
+{%- assign heading = '' -%}
+{%- if header_block != blank and header_block.settings.heading != blank -%}
+  {%- assign heading = header_block.settings.heading | escape -%}
+{%- endif -%}
+{%- assign autoplay_timer = false -%}
+{%- assign autoplay_delay = 5000 -%}
+{%- if header_block != blank -%}
+  {%- if header_block.settings.autoplay_timer -%}
+    {%- assign autoplay_timer = true -%}
+    {%- assign autoplay_delay = header_block.settings.autoplay_delay | default: 5000 -%}
+  {%- endif -%}
+{%- endif -%}
+
+<style>
+  .section-{{ section_id }} .product__see-in-action {
+    margin-top: 1.2rem;
+    margin-bottom: 0;
+  }
+  .section-{{ section_id }} .product__see-in-action__title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    line-height: 36px;
+    color: #0f263d;
+    margin: 0 0 12px;
+    font-size: 14px;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section_id }} .product__see-in-action__title {
+      font-size: 20px;
+      margin-bottom: 16px;
+    }
+  }
+  .section-{{ section_id }} .product__see-in-action swiper-container {
+    display: flex;
+    gap: 12px;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section_id }} .product__see-in-action swiper-container {
+      gap: 24px;
+    }
+  }
+  .section-{{ section_id }} .product__see-in-action swiper-slide {
+    flex-shrink: 0;
+    width: 240px;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section_id }} .product__see-in-action swiper-slide {
+      width: 178px;
+    }
+  }
+  .section-{{ section_id }} .product__see-in-action .product__sia-card {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #cacbcc;
+    aspect-ratio: 178 / 291;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+  }
+  .section-{{ section_id }} .product__see-in-action .product__sia-card__media {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .section-{{ section_id }} .product__see-in-action .product__sia-card__media img,
+  .section-{{ section_id }} .product__see-in-action .product__sia-card__media video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .section-{{ section_id }} .product__see-in-action .product__sia-card__play {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 42px;
+    height: 42px;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .section-{{ section_id }} .product__see-in-action .product__sia-card__play svg {
+    width: 42px;
+    height: 42px;
+    display: block;
+  }
+  .section-{{ section_id }} .product__see-in-action .product__sia-nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .section-{{ section_id }} .product__see-in-action .product__sia-nav-btn {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, opacity 0.2s;
+  }
+  .section-{{ section_id }} .product__see-in-action .product__sia-nav-btn:hover {
+    background: rgba(0, 0, 0, 0.15);
+  }
+  .section-{{ section_id }} .product__see-in-action .product__sia-nav-btn:active {
+    opacity: 0.8;
+  }
+  .section-{{ section_id }} .product__see-in-action .product__sia-nav-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+</style>
+
+<div class="section-{{ section_id }} product__see-in-action">
+  {%- if heading != '' -%}
+    <p class="product__see-in-action__title">{{ heading }}</p>
+  {%- endif -%}
+
+  <see-in-action-element
+    client:visible
+    data-section-id="{{ section_id }}"
+    data-autoplay-timer="{{ autoplay_timer }}"
+    data-autoplay-delay="{{ autoplay_delay }}"
+  >
+    <swiper-container
+      slides-per-view="auto"
+      space-between="12"
+      grab-cursor="true"
+      loop="false"
+      breakpoints='{"750":{"spaceBetween":24}}'
+      navigation="true"
+      navigation-prev-el="[data-carousel-prev='{{ section_id }}']"
+      navigation-next-el="[data-carousel-next='{{ section_id }}']"
+    >
+      {%- for card in item_blocks -%}
+        {%- liquid
+          assign local_video = card.settings.video
+          assign video_link = card.settings.video_link
+          assign video_fallback = card.settings.video_url_fallback
+          assign poster_image = card.settings.poster
+          if local_video != blank and local_video.preview_image != blank and poster_image == blank
+            assign poster_image = local_video.preview_image
+          endif
+          assign has_local = false
+          if local_video != blank and local_video.sources.size > 0
+            assign has_local = true
+          endif
+          assign has_external = false
+          assign external_url = ''
+          if video_link != blank and video_link != ''
+            assign has_external = true
+            assign external_url = video_link
+          endif
+          assign has_fallback = false
+          if video_fallback != blank and video_fallback != '' and video_fallback != '/'
+            assign has_fallback = true
+          endif
+          assign video_type = 'none'
+          assign modal_url = ''
+          if has_local
+            assign video_type = 'local'
+            assign first_source = local_video.sources[0]
+            if first_source != blank
+              assign modal_url = first_source.url
+            endif
+          elsif has_external
+            assign video_type = 'external'
+            assign modal_url = external_url
+          elsif has_fallback
+            assign video_type = 'fallback'
+            assign modal_url = video_fallback
+          endif
+        -%}
+        <swiper-slide {{ card.shopify_attributes }}>
+          <div
+            class="product__sia-card product__sia-card--has-video"
+            role="button"
+            tabindex="0"
+            data-sia-video-type="{{ video_type }}"
+            data-sia-video-url="{{ modal_url | escape }}"
+            data-sia-block-id="{{ card.id }}"
+            aria-label="{{ 'sections.see_in_action.play_video' | t | default: 'Play video' }}"
+          >
+            <div class="product__sia-card__media">
+              {%- if poster_image != blank -%}
+                {{-
+                  poster_image
+                  | image_url: width: 600
+                  | image_tag:
+                    loading: 'lazy',
+                    sizes: '240px',
+                    widths: '178, 240, 360, 600',
+                    alt: poster_image.alt | default: heading
+                -}}
+              {%- elsif local_video != blank and local_video.preview_image != blank -%}
+                {{-
+                  local_video.preview_image
+                  | image_url: width: 600
+                  | image_tag:
+                    loading: 'lazy',
+                    sizes: '240px',
+                    widths: '178, 240, 360, 600',
+                    alt: ''
+                -}}
+              {%- else -%}
+                <div style="width:100%;height:100%;background:#e5e7eb;"></div>
+              {%- endif -%}
+
+              {%- if has_local and local_video.sources.size > 0 -%}
+                <video
+                  class="product__sia-card__inline-video"
+                  muted
+                  playsinline
+                  data-sia-inline-video
+                  preload="metadata"
+                  {% if poster_image != blank %}
+                    poster="{{ poster_image | image_url: width: 600 }}"
+                  {% elsif local_video.preview_image != blank %}
+                    poster="{{ local_video.preview_image | image_url: width: 600 }}"
+                  {% endif %}
+                  aria-hidden="true"
+                >
+                  {%- for source in local_video.sources -%}
+                    <source src="{{ source.url }}" type="{{ source.mime_type }}">
+                  {%- endfor -%}
+                </video>
+              {%- endif -%}
+            </div>
+
+            <span class="product__sia-card__play" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none">
+                <circle cx="21" cy="21" r="21" fill="#1E1E1E" fill-opacity="0.3"/>
+                <path d="M31.5 20.134C32.1667 20.5189 32.1667 21.4811 31.5 21.866L16.5 30.5263C15.8333 30.9112 15 30.4301 15 29.6603L15 12.3397C15 11.5699 15.8333 11.0888 16.5 11.4737L31.5 20.134Z" fill="white"/>
+              </svg>
+            </span>
+          </div>
+        </swiper-slide>
+      {%- endfor -%}
+    </swiper-container>
+
+    {%- if item_blocks.size > 1 -%}
+      <div class="product__sia-nav" aria-label="{{ 'sections.see_in_action.nav_label' | t | default: 'See in Action navigation' }}">
+        <button
+          type="button"
+          class="product__sia-nav-btn"
+          aria-label="Previous"
+          data-carousel-prev="{{ section_id }}"
+        >
+          <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <button
+          type="button"
+          class="product__sia-nav-btn"
+          aria-label="Next"
+          data-carousel-next="{{ section_id }}"
+        >
+          <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    {%- endif -%}
+  </see-in-action-element>
+</div>

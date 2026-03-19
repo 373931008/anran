@@ -1,0 +1,121 @@
+{%- comment -%}
+  Block: testimonial (main-product-v2)
+  产品页单条用户评价卡片：头像 + 星级 + 引用语 + 署名。
+  设计稿：电脑端 642×112，移动端 343×96；背景 #f3f7ff，圆角 10px。
+  需传入: block, section
+{%- endcomment -%}
+<style>
+  .section-{{ section.id }} .product__testimonial {
+    --testimonial-bg: #f3f7ff;
+    --testimonial-radius: 10px;
+    --testimonial-gap: 10px;
+    --testimonial-padding: 12px 16px;
+    --testimonial-quote-size: 12px;
+    --testimonial-quote-line: 1.5;
+    --testimonial-stars-size: 16px;
+    margin-top: 1.2rem;
+    margin-bottom: 0;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .product__testimonial {
+      --testimonial-gap: 20px;
+      --testimonial-padding: 20px 24px;
+      --testimonial-quote-size: 16px;
+      --testimonial-quote-line: 1.5;
+      --testimonial-stars-size: 22px;
+    }
+  }
+  .section-{{ section.id }} .product__testimonial-card {
+    display: flex;
+    align-items: center;
+    gap: var(--testimonial-gap);
+    background: var(--testimonial-bg);
+    border-radius: var(--testimonial-radius);
+    padding: var(--testimonial-padding);
+  }
+  .section-{{ section.id }} .product__testimonial-avatar {
+    flex-shrink: 0;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+  .section-{{ section.id }} .product__testimonial-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .section-{{ section.id }} .product__testimonial-body {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .section-{{ section.id }} .product__testimonial-stars {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    height: var(--testimonial-stars-size);
+  }
+  .section-{{ section.id }} .product__testimonial-stars svg {
+    width: auto;
+    height: 100%;
+    flex-shrink: 0;
+  }
+  .section-{{ section.id }} .product__testimonial-quote {
+    font-size: var(--testimonial-quote-size);
+    line-height: var(--testimonial-quote-line);
+    color: #1e1e1e;
+    margin: 0;
+  }
+  .section-{{ section.id }} .product__testimonial-quote strong {
+    font-weight: 700;
+  }
+</style>
+<div class="product__testimonial" {{ block.shopify_attributes }}>
+  <div class="product__testimonial-card">
+    {%- if block.settings.avatar != blank -%}
+      <div class="product__testimonial-avatar">
+        {{
+          block.settings.avatar
+          | image_url: width: 144
+          | image_tag:
+            loading: 'lazy',
+            widths: '72, 144',
+            sizes: '72px',
+            alt: block.settings.author_name | default: 'Reviewer'
+        }}
+      </div>
+    {%- endif -%}
+    <div class="product__testimonial-body">
+      {%- assign stars = block.settings.stars | default: 5 -%}
+      {%- if stars > 0 -%}
+        <div class="product__testimonial-stars" aria-hidden="true">
+          {%- comment -%} 单星 path 与设计稿一致，viewBox 0 0 28 22 适配 136/5 比例 {%- endcomment -%}
+          {%- for i in (1..5) -%}
+            {%- if i <= stars -%}
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 22" fill="none" aria-hidden="true">
+                <path d="M10.8182 0L13.8831 6.59967L21.1069 7.47518L15.7773 12.4295L17.177 19.5703L10.8182 16.0325L4.45941 19.5703L5.85903 12.4295L0.52948 7.47518L7.75326 6.59967L10.8182 0Z" fill="#EB7100"/>
+              </svg>
+            {%- else -%}
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 22" fill="none" aria-hidden="true">
+                <path d="M10.8182 0L13.8831 6.59967L21.1069 7.47518L15.7773 12.4295L17.177 19.5703L10.8182 16.0325L4.45941 19.5703L5.85903 12.4295L0.52948 7.47518L7.75326 6.59967L10.8182 0Z" fill="#E0E0E0"/>
+              </svg>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+      {%- if block.settings.quote != blank or block.settings.author_name != blank -%}
+        <p class="product__testimonial-quote">
+          {%- if block.settings.quote != blank -%}
+            "{{ block.settings.quote | escape }}"
+          {%- endif -%}
+          {%- if block.settings.author_name != blank -%}
+            <strong>– {{ block.settings.author_name | escape }}</strong>
+          {%- endif -%}
+        </p>
+      {%- endif -%}
+    </div>
+  </div>
+</div>

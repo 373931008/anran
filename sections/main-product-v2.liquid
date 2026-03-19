@@ -84,6 +84,7 @@
           class="product__info-container{% if section.settings.enable_sticky_info %} product__column-sticky{% endif %}"
         >
           {%- assign product_form_id = 'product-form-' | append: section.id -%}
+          {%- assign accordion_blocks = section.blocks | where: 'type', 'q_accordion_item' -%}
 
           {%- for block in section.blocks -%}
             {%- case block.type -%}
@@ -676,6 +677,41 @@
                 {% render 'icon-with-text', block: block %}
               {%- when 'trust_cards' -%}
                 {% render 'q-block-trust_cards', block: block, section: section %}
+              {%- when 'q_trust_badges' -%}
+                {% render 'q-block-trust_badges', block: block, section: section %}
+              {%- when 'testimonial' -%}
+                {% render 'q-block-testimonial', block: block, section: section %}
+              {%- when 'q_see_in_action' -%}
+                {%- comment -%} 标题与自动轮播配置由 q_see_in_action_card 首次渲染时读取 header_block {%- endcomment -%}
+              {%- when 'q_see_in_action_card' -%}
+                {%- liquid
+                  assign prev_index = forloop.index0 | minus: 1
+                  assign is_first_sia_card = false
+                  if forloop.index0 == 0
+                    assign is_first_sia_card = true
+                  elsif section.blocks[prev_index].type != 'q_see_in_action_card'
+                    assign is_first_sia_card = true
+                  endif
+                -%}
+                {%- if is_first_sia_card -%}
+                  {%- assign sia_header_block = section.blocks | where: 'type', 'q_see_in_action' | first -%}
+                  {%- assign sia_item_blocks = section.blocks | where: 'type', 'q_see_in_action_card' -%}
+                  {%- render 'q-block-see-in-action', section: section, header_block: sia_header_block, item_blocks: sia_item_blocks -%}
+                {%- endif -%}
+              {%- when 'q_worry_free_returns' -%}
+                {%- render 'q-block-worry_free_returns', block: block, section: section -%}
+              {%- when 'q_warranty' -%}
+                {%- render 'q-block-warranty', block: block, section: section -%}
+              {%- when 'q_accordion_item' -%}
+                {%- if accordion_blocks.size > 0 -%}
+                  {%- if block.id == accordion_blocks.first.id -%}
+                    <div class="product__accordion-list section-{{ section.id }}">
+                  {%- endif -%}
+                  {%- render 'q-block-accordion_item', block: block, section: section -%}
+                  {%- if block.id == accordion_blocks.last.id -%}
+                    </div>
+                  {%- endif -%}
+                {%- endif -%}
             {%- endcase -%}
           {%- endfor -%}
           <a href="{{ product.url }}" class="link product__view-details animate-arrow">
@@ -712,6 +748,36 @@
           </div>
         </div>
       </modal-dialog>
+    {%- endfor -%}
+
+    {% assign warranty_blocks = section.blocks | where: 'type', 'q_warranty' %}
+    {%- for block in warranty_blocks -%}
+      {%- if block.settings.modal_content != blank -%}
+        <modal-dialog id="WarrantyModal-{{ block.id }}" class="product-popup-modal" {{ block.shopify_attributes }}>
+          <div
+            role="dialog"
+            aria-label="{{ block.settings.title | default: 'Warranty' | escape }}"
+            aria-modal="true"
+            class="product-popup-modal__content"
+            tabindex="-1"
+          >
+            <button
+              id="ModalClose-Warranty-{{ block.id }}"
+              type="button"
+              class="product-popup-modal__toggle"
+              aria-label="{{ 'accessibility.close' | t }}"
+            >
+              {{- 'icon-close.svg' | inline_asset_content -}}
+            </button>
+            <div class="product-popup-modal__content-info">
+              {%- if block.settings.modal_heading != blank -%}
+                <h2 class="h2">{{ block.settings.modal_heading | escape }}</h2>
+              {%- endif -%}
+              <div class="rte">{{ block.settings.modal_content }}</div>
+            </div>
+          </div>
+        </modal-dialog>
+      {%- endif -%}
     {%- endfor -%}
 
     {% assign trust_cards_blocks = section.blocks | where: 'type', 'trust_cards' %}
@@ -756,6 +822,43 @@
             <div class="product-popup-modal__content-info">
               <h2 class="h2">{{ block.settings.card_4_label | escape }}</h2>
               <div class="rte">{{ block.settings.card_4_content }}</div>
+            </div>
+          </div>
+        </modal-dialog>
+      {%- endif -%}
+    {%- endfor -%}
+
+    {% assign q_trust_badges_blocks = section.blocks | where: 'type', 'q_trust_badges' %}
+    {%- for block in q_trust_badges_blocks -%}
+      {%- if block.settings.card_1_content != blank -%}
+        <modal-dialog id="TrustBadgeModal-{{ section.id }}-{{ block.id }}-1" class="product-popup-modal">
+          <div role="dialog" aria-label="{{ block.settings.card_1_label }}" aria-modal="true" class="product-popup-modal__content" tabindex="-1">
+            <button id="ModalClose-TrustBadge-{{ section.id }}-{{ block.id }}-1" type="button" class="product-popup-modal__toggle" aria-label="{{ 'accessibility.close' | t }}">{{- 'icon-close.svg' | inline_asset_content -}}</button>
+            <div class="product-popup-modal__content-info">
+              <h2 class="h2">{{ block.settings.card_1_label | escape }}</h2>
+              <div class="rte">{{ block.settings.card_1_content }}</div>
+            </div>
+          </div>
+        </modal-dialog>
+      {%- endif -%}
+      {%- if block.settings.card_2_content != blank -%}
+        <modal-dialog id="TrustBadgeModal-{{ section.id }}-{{ block.id }}-2" class="product-popup-modal">
+          <div role="dialog" aria-label="{{ block.settings.card_2_label }}" aria-modal="true" class="product-popup-modal__content" tabindex="-1">
+            <button id="ModalClose-TrustBadge-{{ section.id }}-{{ block.id }}-2" type="button" class="product-popup-modal__toggle" aria-label="{{ 'accessibility.close' | t }}">{{- 'icon-close.svg' | inline_asset_content -}}</button>
+            <div class="product-popup-modal__content-info">
+              <h2 class="h2">{{ block.settings.card_2_label | escape }}</h2>
+              <div class="rte">{{ block.settings.card_2_content }}</div>
+            </div>
+          </div>
+        </modal-dialog>
+      {%- endif -%}
+      {%- if block.settings.card_3_content != blank -%}
+        <modal-dialog id="TrustBadgeModal-{{ section.id }}-{{ block.id }}-3" class="product-popup-modal">
+          <div role="dialog" aria-label="{{ block.settings.card_3_label }}" aria-modal="true" class="product-popup-modal__content" tabindex="-1">
+            <button id="ModalClose-TrustBadge-{{ section.id }}-{{ block.id }}-3" type="button" class="product-popup-modal__toggle" aria-label="{{ 'accessibility.close' | t }}">{{- 'icon-close.svg' | inline_asset_content -}}</button>
+            <div class="product-popup-modal__content-info">
+              <h2 class="h2">{{ block.settings.card_3_label | escape }}</h2>
+              <div class="rte">{{ block.settings.card_3_content }}</div>
             </div>
           </div>
         </modal-dialog>
@@ -2175,6 +2278,108 @@
           "content": "卡片列表下方 Logo"
         },
         { "type": "image_picker", "id": "logo_image", "label": "Logo 图片" }
+      ]
+    },
+    {
+      "type": "q_trust_badges",
+      "name": "Q-信任徽章",
+      "limit": 1,
+      "settings": [
+        { "type": "header", "content": "卡片 1" },
+        { "type": "image_picker", "id": "card_1_icon", "label": "图标" },
+        { "type": "text", "id": "card_1_label", "label": "标题", "default": "30-Day Risk-Free Trial" },
+        { "type": "richtext", "id": "card_1_content", "label": "弹窗内容（留空则不弹窗）" },
+        { "type": "header", "content": "卡片 2" },
+        { "type": "image_picker", "id": "card_2_icon", "label": "图标" },
+        { "type": "text", "id": "card_2_label", "label": "标题", "default": "24-Month Warranty" },
+        { "type": "richtext", "id": "card_2_content", "label": "弹窗内容（留空则不弹窗）" },
+        { "type": "header", "content": "卡片 3" },
+        { "type": "image_picker", "id": "card_3_icon", "label": "图标" },
+        { "type": "text", "id": "card_3_label", "label": "标题", "default": "Free App Access" },
+        { "type": "richtext", "id": "card_3_content", "label": "弹窗内容（留空则不弹窗）" },
+        { "type": "header", "content": "Trust Guard 徽章" },
+        { "type": "image_picker", "id": "badge_image", "label": "徽章图片" }
+      ]
+    },
+    {
+      "type": "testimonial",
+      "name": "Q-用户评价卡片",
+      "limit": 1,
+      "settings": [
+        { "type": "image_picker", "id": "avatar", "label": "用户头像" },
+        { "type": "range", "id": "stars", "label": "星级", "min": 0, "max": 5, "step": 1, "default": 5 },
+        { "type": "textarea", "id": "quote", "label": "评价内容", "default": "Great traction for outdoor adventures." },
+        { "type": "text", "id": "author_name", "label": "署名", "default": "Karen B." }
+      ]
+    },
+    {
+      "type": "q_see_in_action",
+      "name": "Q-See in Action 标题",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "heading", "label": "标题", "default": "See in Action" },
+        { "type": "checkbox", "id": "autoplay_timer", "label": "自动轮播（定时切换）", "default": false },
+        { "type": "range", "id": "autoplay_delay", "label": "自动轮播间隔（毫秒）", "min": 3000, "max": 10000, "step": 1000, "unit": "ms", "default": 5000 }
+      ]
+    },
+    {
+      "type": "q_see_in_action_card",
+      "name": "Q-See in Action 视频卡片",
+      "settings": [
+        { "type": "header", "content": "视频来源（优先使用本地，其次链接，最后备用 URL）" },
+        { "type": "video", "id": "video", "label": "本地短视频" },
+        { "type": "url", "id": "video_link", "label": "视频链接（YouTube / Vimeo）", "default": "/" },
+        { "type": "url", "id": "video_url_fallback", "label": "备用视频 URL（直链）", "default": "/" },
+        { "type": "image_picker", "id": "poster", "label": "封面图（可选，无则用视频首帧）" }
+      ]
+    },
+    {
+      "type": "q_warranty",
+      "name": "Q-保修/延保",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "title", "label": "标题", "default": "2-Year Extended Protection Plan" },
+        { "type": "text", "id": "label", "label": "右侧标签（如 Free）", "default": "Free" },
+        { "type": "text", "id": "link_prefix", "label": "链接前缀", "default": "View all " },
+        { "type": "text", "id": "link_suffix", "label": "链接后缀（下划线显示）", "default": "warranty" },
+        { "type": "header", "content": "弹窗内容" },
+        { "type": "text", "id": "modal_heading", "label": "弹窗标题" },
+        { "type": "richtext", "id": "modal_content", "label": "弹窗详细内容（留空则不显示 View all warranty 按钮）" },
+        { "type": "header", "content": "样式" },
+        { "type": "color_background", "id": "bg_color", "label": "背景色", "default": "#dbecff" }
+      ]
+    },
+    {
+      "type": "q_worry_free_returns",
+      "name": "Q-无忧退换",
+      "limit": 1,
+      "settings": [
+        { "type": "image_picker", "id": "icon", "label": "图标（不选则使用默认退货图标）" },
+        { "type": "text", "id": "title", "label": "标题", "default": "Worry-Free Returns" },
+        { "type": "richtext", "id": "description", "label": "描述", "default": "<p>Buy online with confidence with our 30-day risk-free return policy.</p>" },
+        { "type": "header", "content": "样式" },
+        { "type": "color_background", "id": "bg_color", "label": "背景色", "default": "#f3f7ff" },
+        { "type": "color_background", "id": "title_color", "label": "标题与图标色", "default": "#1565d8" }
+      ]
+    },
+    {
+      "type": "q_accordion_item",
+      "name": "Q-可展开项",
+      "settings": [
+        { "type": "inline_richtext", "id": "heading", "label": "标题", "default": "What you'll love" },
+        { "type": "richtext", "id": "content", "label": "展开内容（支持富文本、列表、图片）" },
+        { "type": "header", "content": "可选图片" },
+        { "type": "image_picker", "id": "image", "label": "图片" },
+        {
+          "type": "select",
+          "id": "layout",
+          "label": "图片与内容布局",
+          "options": [
+            { "value": "image_top_content_bottom", "label": "图片在上，内容在下" },
+            { "value": "image_left_content_right", "label": "图片在左，内容在右" }
+          ],
+          "default": "image_top_content_bottom"
+        }
       ]
     }
   ],
