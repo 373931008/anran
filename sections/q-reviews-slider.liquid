@@ -23,12 +23,14 @@
     --rs-pt-desktop: {{ section.settings.padding_top_desktop }}px;
     --rs-pb-desktop: {{ section.settings.padding_bottom_desktop }}px;
     --rs-slide-width-mobile: 208px;
-    --rs-slide-width-desktop: 257px;
+    --rs-slide-width-desktop: 258px;
     --rs-gap-mobile: 16px;
-    --rs-gap-desktop: 20px;
+    --rs-gap-desktop: 21px;
     --rs-card-radius: 50px;
     --rs-card-height-mobile: 217px;
     --rs-card-height-desktop: 250px;
+
+    overflow: hidden;
   }
 
   .section-{{ section.id }}.q-reviews-slider {
@@ -58,6 +60,11 @@
     .section-{{ section.id }} .q-rs__swiper swiper-container {
       gap: var(--rs-gap-desktop);
     }
+
+    .section-{{ section.id }} .q-rs__wrap {
+      padding: 0 10px;
+      overflow: hidden;
+    }
   }
 
   .section-{{ section.id }} .q-rs__swiper swiper-slide {
@@ -75,7 +82,7 @@
   .section-{{ section.id }} .q-rs__card {
     background: #ffffff;
     border-radius: var(--rs-card-radius);
-    padding: 20px;
+    padding: 28px 24px;
     min-height: var(--rs-card-height-mobile);
     height: 100%;
     display: flex;
@@ -85,6 +92,7 @@
 
   @media screen and (min-width: 750px) {
     .section-{{ section.id }} .q-rs__card {
+      padding: 34px 30px;
       min-height: var(--rs-card-height-desktop);
     }
   }
@@ -92,6 +100,7 @@
   .section-{{ section.id }} .q-rs__card--summary {
     align-items: center;
     text-align: center;
+    justify-content: center;
   }
 
   .section-{{ section.id }} .q-rs__card--review {
@@ -162,6 +171,7 @@
     .section-{{ section.id }} .q-rs__stars-small {
       width: 99px;
       height: 16px;
+      margin-bottom: 16px;
     }
   }
 
@@ -176,8 +186,14 @@
   .section-{{ section.id }} .q-rs__meta {
     font-size: 12px;
     color: #4e5357;
-    margin: 0 0 12px;
+    margin: 0 0 2px;
     line-height: 1.4;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-rs__meta {
+      margin: 0 0 12px;
+    }
   }
 
   .section-{{ section.id }} .q-rs__body {
@@ -203,8 +219,8 @@
 
   .section-{{ section.id }} .q-rs__nav-btn {
     pointer-events: auto;
-    width: 36px;
-    height: 36px;
+    width: 28px;
+    height: 28px;
     border: none;
     background: transparent;
     cursor: pointer;
@@ -214,6 +230,13 @@
     color: #367cf6;
     transition: opacity 0.2s, color 0.2s;
     padding: 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-rs__nav-btn {
+      width: 36px;
+      height: 36px;
+    }
   }
 
   .section-{{ section.id }} .q-rs__nav-btn:hover:not(:disabled):not(.swiper-button-disabled) {
@@ -232,29 +255,16 @@
   }
 
   .section-{{ section.id }} .q-rs__nav-btn svg {
-    width: 20px;
-    height: 20px;
+    width: 100%;
+    height: 100%;
     display: block;
   }
 
   .section-{{ section.id }} .q-rs__footer {
-    text-align: center;
+    text-align: end;
     margin-top: 24px;
     font-size: 14px;
     color: #4e5357;
-  }
-
-  .section-{{ section.id }} .q-rs__footer a {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    color: inherit;
-    text-decoration: none;
-    transition: opacity 0.2s;
-  }
-
-  .section-{{ section.id }} .q-rs__footer a:hover {
-    opacity: 0.85;
   }
 
   .section-{{ section.id }} .q-rs__footer-logo {
@@ -263,6 +273,16 @@
     vertical-align: middle;
     display: inline-block;
   }
+
+  .section-{{ section.id }} swiper-container::part(container) {
+    overflow: visible;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} swiper-container::part(container) {
+      overflow: hidden;
+    }
+  }
 </style>
 
 <div class="q-reviews-slider section-{{ section.id }}">
@@ -270,19 +290,23 @@
     {%- render 'q-section-header', section: section -%}
 
     <div class="q-rs__wrap">
-      <div class="q-rs__swiper">
-        <swiper-container
-          id="q-rs-swiper-{{ section.id }}"
-          slides-per-view="auto"
-          space-between="16"
-          grab-cursor="true"
-          loop="false"
-          navigation="true"
-          navigation-prev-el="[data-carousel-prev='{{ section.id }}']"
-          navigation-next-el="[data-carousel-next='{{ section.id }}']"
-          breakpoints='{"750":{"spaceBetween":20}}'
-          {% if section.settings.autoplay_carousel %}autoplay="true" autoplay-delay="{{ section.settings.autoplay_delay | times: 1000 }}"{% endif %}
-        >
+      <reviews-slider-element
+        client:visible
+        data-autoplay-enabled="{% if section.settings.autoplay_carousel %}true{% else %}false{% endif %}"
+      >
+        <div class="q-rs__swiper">
+          <swiper-container
+            id="q-rs-swiper-{{ section.id }}"
+            slides-per-view="auto"
+            space-between="16"
+            grab-cursor="true"
+            loop="{% if section.settings.seamless_loop %}true{% else %}false{% endif %}"
+            navigation="true"
+            navigation-prev-el="[data-carousel-prev='{{ section.id }}']"
+            navigation-next-el="[data-carousel-next='{{ section.id }}']"
+            breakpoints='{"750":{"spaceBetween":22}}'
+            {% if section.settings.autoplay_carousel %}autoplay="true" autoplay-delay="{{ section.settings.autoplay_delay | times: 1000 }}" autoplay-disable-on-interaction="false"{% endif %}
+          >
           {%- comment -%} 第一张：评分汇总卡 {%- endcomment -%}
           <swiper-slide>
             <div class="q-rs__card q-rs__card--summary">
@@ -318,8 +342,9 @@
               </div>
             </swiper-slide>
           {%- endfor -%}
-        </swiper-container>
-      </div>
+          </swiper-container>
+        </div>
+      </reviews-slider-element>
 
       {%- if show_nav -%}
         <div class="q-rs__nav">
@@ -345,25 +370,9 @@
       {%- endif -%}
     </div>
 
-    {%- if section.settings.footer_phrase != blank or section.settings.footer_logo != blank -%}
+    {%- if section.settings.footer_logo != blank -%}
       <div class="q-rs__footer">
-        {%- if section.settings.footer_url != blank and section.settings.footer_url != '/' -%}
-          <a href="{{ section.settings.footer_url }}" target="_blank" rel="noopener">
-            {{ section.settings.footer_phrase | default: 'See more reviews on' }}
-            {%- if section.settings.footer_logo != blank -%}
-              {{- section.settings.footer_logo | image_url: height: 40 | image_tag: class: 'q-rs__footer-logo', loading: 'lazy', alt: section.settings.footer_phrase -}}
-            {%- else -%}
-              Shopper Approved
-            {%- endif -%}
-          </a>
-        {%- else -%}
-          <span>{{ section.settings.footer_phrase | default: 'See more reviews on' }}</span>
-          {%- if section.settings.footer_logo != blank -%}
-            {{- section.settings.footer_logo | image_url: height: 40 | image_tag: class: 'q-rs__footer-logo', loading: 'lazy', alt: section.settings.footer_phrase -}}
-          {%- else -%}
-            Shopper Approved
-          {%- endif -%}
-        {%- endif -%}
+        {{- section.settings.footer_logo | image_url: height: 40 | image_tag: class: 'q-rs__footer-logo', loading: 'lazy', alt: '' -}}
       </div>
     {%- endif -%}
   </div>
@@ -371,7 +380,7 @@
 
 {% schema %}
 {
-  "name": "Q-Reviews Slider",
+  "name": "q-reviews-slider",
   "tag": "section",
   "class": "section",
   "disabled_on": { "groups": ["header", "footer"] },
@@ -392,12 +401,11 @@
     { "type": "text", "id": "rating_max", "label": "满分", "default": "5" },
     { "type": "text", "id": "review_count", "label": "评论数文案", "default": "82 Verified Reviews" },
     { "type": "header", "content": "轮播" },
+    { "type": "checkbox", "id": "seamless_loop", "label": "无缝轮播（循环）", "default": false },
     { "type": "checkbox", "id": "autoplay_carousel", "label": "自动播放", "default": false },
     { "type": "range", "id": "autoplay_delay", "label": "播放间隔（秒）", "min": 2, "max": 15, "step": 1, "unit": "s", "default": 5 },
     { "type": "header", "content": "页脚" },
-    { "type": "text", "id": "footer_phrase", "label": "页脚文案", "default": "See more reviews on" },
     { "type": "image_picker", "id": "footer_logo", "label": "品牌 Logo（如 Shopper Approved）" },
-    { "type": "url", "id": "footer_url", "label": "页脚链接", "default": "/" },
     { "type": "header", "content": "板块背景" },
     { "type": "color_background", "id": "bg_color", "label": "板块背景颜色", "default": "#f4f7ff" },
     { "type": "header", "content": "上下边距" },
@@ -419,7 +427,7 @@
   ],
   "presets": [
     {
-      "name": "Q-Reviews Slider",
+      "name": "q-reviews-slider",
       "blocks": [
         {
           "type": "review",
