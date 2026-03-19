@@ -1,0 +1,460 @@
+{%- comment -%}
+  Section: q-reviews-slider
+  功能说明：客户评价轮播 —— 第一张为评分汇总卡，其余为个人评论卡，swiper-container + 左右导航
+  技术栈：
+  - swiper-container Web Component（slides-per-view: auto，固定宽度 slide）
+  - Snippet: snippets/q-section-header.liquid
+  版本：1.0.0
+{%- endcomment -%}
+
+{%- liquid
+  assign review_blocks = section.blocks | where: 'type', 'review'
+  assign show_nav = false
+  if review_blocks.size > 0
+    assign show_nav = true
+  endif
+-%}
+
+<style>
+  .section-{{ section.id }} {
+    --rs-bg: {{ section.settings.bg_color }};
+    --rs-pt-mobile: {{ section.settings.padding_top_mobile }}px;
+    --rs-pb-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --rs-pt-desktop: {{ section.settings.padding_top_desktop }}px;
+    --rs-pb-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --rs-slide-width-mobile: 208px;
+    --rs-slide-width-desktop: 258px;
+    --rs-gap-mobile: 16px;
+    --rs-gap-desktop: 21px;
+    --rs-card-radius: 50px;
+    --rs-card-height-mobile: 217px;
+    --rs-card-height-desktop: 250px;
+
+    overflow: hidden;
+  }
+
+  .section-{{ section.id }}.q-reviews-slider {
+    background: var(--rs-bg, #f4f7ff);
+    padding-top: var(--rs-pt-mobile, 40px);
+    padding-bottom: var(--rs-pb-mobile, 40px);
+    font-family: var(--font-body-family);
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}.q-reviews-slider {
+      padding-top: var(--rs-pt-desktop, 60px);
+      padding-bottom: var(--rs-pb-desktop, 60px);
+    }
+  }
+
+  .section-{{ section.id }} .q-rs__wrap {
+    position: relative;
+  }
+
+  .section-{{ section.id }} .q-rs__swiper swiper-container {
+    display: flex;
+    gap: var(--rs-gap-mobile);
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-rs__swiper swiper-container {
+      gap: var(--rs-gap-desktop);
+    }
+
+    .section-{{ section.id }} .q-rs__wrap {
+      padding: 0 10px;
+      overflow: hidden;
+    }
+  }
+
+  .section-{{ section.id }} .q-rs__swiper swiper-slide {
+    flex-shrink: 0;
+    width: var(--rs-slide-width-mobile);
+    height: auto;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-rs__swiper swiper-slide {
+      width: var(--rs-slide-width-desktop);
+    }
+  }
+
+  .section-{{ section.id }} .q-rs__card {
+    background: #ffffff;
+    border-radius: var(--rs-card-radius);
+    padding: 28px 24px;
+    min-height: var(--rs-card-height-mobile);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-rs__card {
+      padding: 34px 30px;
+      min-height: var(--rs-card-height-desktop);
+    }
+  }
+
+  .section-{{ section.id }} .q-rs__card--summary {
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .section-{{ section.id }} .q-rs__card--review {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .section-{{ section.id }} .q-rs__score {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1e1e1e;
+    margin: 0 0 8px;
+    line-height: 1.25;
+  }
+
+  .section-{{ section.id }} .q-rs__score .q-rs__score-max {
+    font-size: 20px;
+    font-weight: 400;
+  }
+
+  .section-{{ section.id }} .q-rs__stars-big {
+    width: 110px;
+    height: 19px;
+    flex-shrink: 0;
+    margin-bottom: 8px;
+  }
+
+  .section-{{ section.id }} .q-rs__stars-big svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-rs__stars-big {
+      width: 136px;
+      height: 22px;
+    }
+  }
+
+  .section-{{ section.id }} .q-rs__review-count {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1e1e1e;
+    margin: 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-rs__review-count {
+      font-size: 14px;
+    }
+  }
+
+  .section-{{ section.id }} .q-rs__stars-small {
+    width: 80px;
+    height: 14px;
+    flex-shrink: 0;
+    margin-bottom: 8px;
+  }
+
+  .section-{{ section.id }} .q-rs__stars-small svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-rs__stars-small {
+      width: 99px;
+      height: 16px;
+      margin-bottom: 16px;
+    }
+  }
+
+  .section-{{ section.id }} .q-rs__author {
+    font-size: 14px;
+    font-weight: 500;
+    color: #1e1e1e;
+    margin: 0 0 4px;
+    line-height: 1.3;
+  }
+
+  .section-{{ section.id }} .q-rs__meta {
+    font-size: 12px;
+    color: #4e5357;
+    margin: 0 0 2px;
+    line-height: 1.4;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-rs__meta {
+      margin: 0 0 12px;
+    }
+  }
+
+  .section-{{ section.id }} .q-rs__body {
+    font-size: 12px;
+    color: #1e1e1e;
+    line-height: 1.5;
+    margin: 0;
+    flex: 1;
+  }
+
+  .section-{{ section.id }} .q-rs__nav {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    pointer-events: none;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+  }
+
+  .section-{{ section.id }} .q-rs__nav-btn {
+    pointer-events: auto;
+    width: 28px;
+    height: 28px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #367cf6;
+    transition: opacity 0.2s, color 0.2s;
+    padding: 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-rs__nav-btn {
+      width: 36px;
+      height: 36px;
+    }
+  }
+
+  .section-{{ section.id }} .q-rs__nav-btn:hover:not(:disabled):not(.swiper-button-disabled) {
+    opacity: 0.8;
+  }
+
+  .section-{{ section.id }} .q-rs__nav-btn:active:not(:disabled):not(.swiper-button-disabled) {
+    opacity: 0.6;
+  }
+
+  .section-{{ section.id }} .q-rs__nav-btn:disabled,
+  .section-{{ section.id }} .q-rs__nav-btn.swiper-button-disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  .section-{{ section.id }} .q-rs__nav-btn svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .section-{{ section.id }} .q-rs__footer {
+    text-align: end;
+    margin-top: 24px;
+    font-size: 14px;
+    color: #4e5357;
+  }
+
+  .section-{{ section.id }} .q-rs__footer-logo {
+    height: 20px;
+    width: auto;
+    vertical-align: middle;
+    display: inline-block;
+  }
+
+  .section-{{ section.id }} swiper-container::part(container) {
+    overflow: visible;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} swiper-container::part(container) {
+      overflow: hidden;
+    }
+  }
+</style>
+
+<div class="q-reviews-slider section-{{ section.id }}">
+  <div class="page-width">
+    {%- render 'q-section-header', section: section -%}
+
+    <div class="q-rs__wrap">
+      <reviews-slider-element
+        client:visible
+        data-autoplay-enabled="{% if section.settings.autoplay_carousel %}true{% else %}false{% endif %}"
+      >
+        <div class="q-rs__swiper">
+          <swiper-container
+            id="q-rs-swiper-{{ section.id }}"
+            slides-per-view="auto"
+            space-between="16"
+            grab-cursor="true"
+            loop="{% if section.settings.seamless_loop %}true{% else %}false{% endif %}"
+            navigation="true"
+            navigation-prev-el="[data-carousel-prev='{{ section.id }}']"
+            navigation-next-el="[data-carousel-next='{{ section.id }}']"
+            breakpoints='{"750":{"spaceBetween":22}}'
+            {% if section.settings.autoplay_carousel %}autoplay="true" autoplay-delay="{{ section.settings.autoplay_delay | times: 1000 }}" autoplay-disable-on-interaction="false"{% endif %}
+          >
+          {%- comment -%} 第一张：评分汇总卡 {%- endcomment -%}
+          <swiper-slide>
+            <div class="q-rs__card q-rs__card--summary">
+              <p class="q-rs__score">{{ section.settings.rating_score | default: '4.7' }}<span class="q-rs__score-max"> / {{ section.settings.rating_max | default: '5' }}</span></p>
+              <div class="q-rs__stars-big" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="136" height="22" viewBox="0 0 136 22" fill="none">
+                  <path d="M10.8182 0L13.8831 6.59967L21.1069 7.47518L15.7773 12.4295L17.177 19.5703L10.8182 16.0325L4.45941 19.5703L5.85903 12.4295L0.52948 7.47518L7.75326 6.59967L10.8182 0Z" fill="#EB7100"/>
+                  <path d="M39.3733 0L42.4382 6.59967L49.662 7.47518L44.3325 12.4295L45.7321 19.5703L39.3733 16.0325L33.0145 19.5703L34.4141 12.4295L29.0846 7.47518L36.3084 6.59967L39.3733 0Z" fill="#EB7100"/>
+                  <path d="M67.9284 0L70.9933 6.59967L78.2171 7.47518L72.8876 12.4295L74.2872 19.5703L67.9284 16.0325L61.5696 19.5703L62.9693 12.4295L57.6397 7.47518L64.8635 6.59967L67.9284 0Z" fill="#EB7100"/>
+                  <path d="M96.4836 0L99.5485 6.59967L106.772 7.47518L101.443 12.4295L102.842 19.5703L96.4836 16.0325L90.1248 19.5703L91.5244 12.4295L86.1949 7.47518L93.4186 6.59967L96.4836 0Z" fill="#EB7100"/>
+                  <path d="M125.039 0L128.104 6.59967L135.327 7.47518L129.998 12.4295L131.397 19.5703L125.039 16.0325L118.68 19.5703L120.08 12.4295L114.75 7.47518L121.974 6.59967L125.039 0Z" fill="#EB7100"/>
+                </svg>
+              </div>
+              <p class="q-rs__review-count">{{ section.settings.review_count | default: '82 Verified Reviews' }}</p>
+            </div>
+          </swiper-slide>
+
+          {%- for block in review_blocks -%}
+            <swiper-slide {{ block.shopify_attributes }}>
+              <div class="q-rs__card q-rs__card--review">
+                <div class="q-rs__stars-small" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="99" height="16" viewBox="0 0 99 16" fill="none">
+                    <path d="M6.05798 3.79022C6.75354 2.29248 8.88282 2.29248 9.57838 3.79022C9.86116 4.39913 10.4386 4.81865 11.1051 4.89942C12.7444 5.09811 13.4024 7.12318 12.1929 8.24752C11.7012 8.70463 11.4807 9.38342 11.6098 10.0423C11.9274 11.6628 10.2048 12.9144 8.76173 12.1115C8.17504 11.7851 7.46132 11.7851 6.87463 12.1115C5.43157 12.9144 3.70894 11.6628 4.02657 10.0423C4.15571 9.38342 3.93516 8.70463 3.44343 8.24752C2.23393 7.12318 2.89192 5.09811 4.53129 4.89942C5.19779 4.81865 5.7752 4.39913 6.05798 3.79022Z" fill="#EB7100"/>
+                    <path d="M26.6945 3.79022C27.39 2.29248 29.5193 2.29248 30.2149 3.79022C30.4976 4.39913 31.0751 4.81865 31.7415 4.89942C33.3809 5.09811 34.0389 7.12318 32.8294 8.24752C32.3377 8.70463 32.1171 9.38342 32.2463 10.0423C32.5639 11.6628 30.8413 12.9144 29.3982 12.1115C28.8115 11.7851 28.0978 11.7851 27.5111 12.1115C26.068 12.9144 24.3454 11.6628 24.663 10.0423C24.7922 9.38342 24.5716 8.70463 24.0799 8.24752C22.8704 7.12318 23.5284 5.09811 25.1678 4.89942C25.8343 4.81865 26.4117 4.39913 26.6945 3.79022Z" fill="#EB7100"/>
+                    <path d="M47.3309 3.79022C48.0265 2.29248 50.1558 2.29248 50.8513 3.79022C51.1341 4.39913 51.7115 4.81865 52.378 4.89942C54.0174 5.09811 54.6754 7.12318 53.4659 8.24752C52.9742 8.70463 52.7536 9.38342 52.8827 10.0423C53.2004 11.6628 51.4777 12.9144 50.0347 12.1115C49.448 11.7851 48.7343 11.7851 48.1476 12.1115C46.7045 12.9144 44.9819 11.6628 45.2995 10.0423C45.4287 9.38342 45.2081 8.70463 44.7164 8.24752C43.5069 7.12318 44.1649 5.09811 45.8042 4.89942C46.4707 4.81865 47.0481 4.39913 47.3309 3.79022Z" fill="#EB7100"/>
+                    <path d="M67.9674 3.79022C68.663 2.29248 70.7922 2.29248 71.4878 3.79022C71.7706 4.39913 72.348 4.81865 73.0145 4.89942C74.6539 5.09811 75.3119 7.12318 74.1024 8.24752C73.6106 8.70463 73.3901 9.38342 73.5192 10.0423C73.8368 11.6628 72.1142 12.9144 70.6712 12.1115C70.0845 11.7851 69.3707 11.7851 68.7841 12.1115C67.341 12.9144 65.6184 11.6628 65.936 10.0423C66.0651 9.38342 65.8446 8.70463 65.3529 8.24752C64.1434 7.12318 64.8013 5.09811 66.4407 4.89942C67.1072 4.81865 67.6846 4.39913 67.9674 3.79022Z" fill="#EB7100"/>
+                    <path d="M88.6039 3.79022C89.2994 2.29248 91.4287 2.29248 92.1243 3.79022C92.4071 4.39913 92.9845 4.81865 93.651 4.89942C95.2903 5.09811 95.9483 7.12318 94.7388 8.24752C94.2471 8.70463 94.0266 9.38342 94.1557 10.0423C94.4733 11.6628 92.7507 12.9144 91.3076 12.1115C90.7209 11.7851 90.0072 11.7851 89.4205 12.1115C87.9775 12.9144 86.2548 11.6628 86.5725 10.0423C86.7016 9.38342 86.4811 8.70463 85.9893 8.24752C84.7798 7.12318 85.4378 5.09811 87.0772 4.89942C87.7437 4.81865 88.3211 4.39913 88.6039 3.79022Z" fill="#EB7100"/>
+                  </svg>
+                </div>
+                {%- if block.settings.author_name != blank -%}<p class="q-rs__author">{{ block.settings.author_name }}</p>{%- endif -%}
+                {%- if block.settings.date_place != blank -%}<p class="q-rs__meta">{{ block.settings.date_place }}</p>{%- endif -%}
+                {%- if block.settings.body != blank -%}<div class="q-rs__body">{{ block.settings.body }}</div>{%- endif -%}
+              </div>
+            </swiper-slide>
+          {%- endfor -%}
+          </swiper-container>
+        </div>
+      </reviews-slider-element>
+
+      {%- if show_nav -%}
+        <div class="q-rs__nav">
+          <button
+            type="button"
+            class="q-rs__nav-btn q-rs__nav-btn--prev"
+            data-carousel-prev="{{ section.id }}"
+            aria-label="{{ 'general.previous' | t | default: 'Previous' }}"
+            tabindex="0"
+          >
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button
+            type="button"
+            class="q-rs__nav-btn q-rs__nav-btn--next"
+            data-carousel-next="{{ section.id }}"
+            aria-label="{{ 'general.next' | t | default: 'Next' }}"
+            tabindex="0"
+          >
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.footer_logo != blank -%}
+      <div class="q-rs__footer">
+        {{- section.settings.footer_logo | image_url: height: 40 | image_tag: class: 'q-rs__footer-logo', loading: 'lazy', alt: '' -}}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "q-reviews-slider",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "header", "content": "板块标题" },
+    { "type": "inline_richtext", "id": "header_title", "label": "标题", "default": "Customer Reviews" },
+    { "type": "richtext", "id": "header_description", "label": "描述" },
+    { "type": "checkbox", "id": "header_center", "label": "居中对齐", "default": false },
+    { "type": "color_background", "id": "header_em_color", "label": "em 高亮色", "default": "#FF6B35" },
+    { "type": "range", "id": "header_title_size_desktop", "label": "标题字号（桌面端）", "min": 20, "max": 80, "step": 2, "unit": "px", "default": 42 },
+    { "type": "range", "id": "header_title_size_mobile", "label": "标题字号（移动端）", "min": 16, "max": 50, "step": 2, "unit": "px", "default": 26 },
+    { "type": "range", "id": "header_desc_size_desktop", "label": "描述字号（桌面端）", "min": 10, "max": 30, "step": 1, "unit": "px", "default": 16 },
+    { "type": "range", "id": "header_desc_size_mobile", "label": "描述字号（移动端）", "min": 10, "max": 24, "step": 1, "unit": "px", "default": 12 },
+    { "type": "range", "id": "header_margin_bottom_desktop", "label": "标题下边距（桌面端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "header_margin_bottom_mobile", "label": "标题下边距（移动端）", "min": 0, "max": 80, "step": 4, "unit": "px", "default": 24 },
+    { "type": "header", "content": "评分汇总卡" },
+    { "type": "text", "id": "rating_score", "label": "评分", "default": "4.7" },
+    { "type": "text", "id": "rating_max", "label": "满分", "default": "5" },
+    { "type": "text", "id": "review_count", "label": "评论数文案", "default": "82 Verified Reviews" },
+    { "type": "header", "content": "轮播" },
+    { "type": "checkbox", "id": "seamless_loop", "label": "无缝轮播（循环）", "default": false },
+    { "type": "checkbox", "id": "autoplay_carousel", "label": "自动播放", "default": false },
+    { "type": "range", "id": "autoplay_delay", "label": "播放间隔（秒）", "min": 2, "max": 15, "step": 1, "unit": "s", "default": 5 },
+    { "type": "header", "content": "页脚" },
+    { "type": "image_picker", "id": "footer_logo", "label": "品牌 Logo（如 Shopper Approved）" },
+    { "type": "header", "content": "板块背景" },
+    { "type": "color_background", "id": "bg_color", "label": "板块背景颜色", "default": "#f4f7ff" },
+    { "type": "header", "content": "上下边距" },
+    { "type": "range", "id": "padding_top_mobile", "label": "上边距（移动端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_bottom_mobile", "label": "下边距（移动端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_top_desktop", "label": "上边距（桌面端）", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 60 },
+    { "type": "range", "id": "padding_bottom_desktop", "label": "下边距（桌面端）", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 60 }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "单条评论",
+      "settings": [
+        { "type": "text", "id": "author_name", "label": "用户姓名", "default": "Lynda C." },
+        { "type": "text", "id": "date_place", "label": "日期与地区", "default": "02-05-26-CA, US" },
+        { "type": "richtext", "id": "body", "label": "评论内容", "default": "<p>Great product, easy to set up.</p>" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "q-reviews-slider",
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "author_name": "Lynda C.",
+            "date_place": "02-05-26-CA, US",
+            "body": "<p>Great product, easy to set up and use daily.</p>"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "author_name": "Christopher H.",
+            "date_place": "01-28-26-US",
+            "body": "<p>Very satisfied with the quality and customer service.</p>"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "author_name": "Maria S.",
+            "date_place": "01-15-26-UK",
+            "body": "<p>Exactly what I was looking for. Highly recommend.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

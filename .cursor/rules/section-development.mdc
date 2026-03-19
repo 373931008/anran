@@ -1,7 +1,7 @@
 ---
 description: Siipet 主题新增板块（Section）完整开发规范，包含文件结构、CSS 隔离、Islands 架构、Schema 配置、通用 snippet 使用方法
 alwaysApply: false
-globs: sections/q-*.liquid,snippets/*.liquid,frontend/islands/*.js
+globs: sections/q-*.liquid,sections/main-product*.liquid,snippets/*.liquid,frontend/islands/*.js
 ---
 
 # Siipet 新增板块开发规范
@@ -1003,6 +1003,137 @@ Judge.me badge 内部结构需适配卡片行高：
 - **布局结构差异**：移动端可能是单列 + 轮播，桌面端是多列网格，结构不同时需要单独的 HTML 或通过 CSS 切换显示
 - **图片宽高比**：从设计稿中提取实际宽高比（如 `4/3`、`1/1`），两端可能不同
 - **轮播仅移动端**：若移动端用轮播、桌面端用网格，在 Liquid 中条件渲染或用 CSS `display:none` 切换
+
+---
+
+## 十五、在现有 Section 中新增 Block 块
+
+适用于**已有 `blocks` 的 Section**（如 `main-product.liquid`、`main-product-v2.liquid`），在不动整体结构的前提下新增一种可拖拽的 block 类型。新建独立板块（q-* section）不适用本节，按「一、Section 文件结构」从零定义 blocks 即可。
+
+> ⚠️ **main-product-v2 强制规范**：在 `main-product-v2.liquid`（及同类型产品主 section）中**新增**的 block，**必须**先在 `snippets` 中新增 snippet 文件，再在 section 中通过 `{% render 'snippet名', block: block %}` 引用；**禁止**在 section 内直接书写该 block 的 HTML。既便于维护，也保持 section 主文件简洁。
+
+**main-product-v2 新增 block 涉及文件：**
+
+| 文件 | 说明 |
+|------|------|
+| `snippets/product-block-{block_type}.liquid` | 新建：该 block 的 HTML 与逻辑，根元素带 `{{ block.shopify_attributes }}` |
+| `sections/main-product-v2.liquid` | 修改：schema 的 `blocks` 中新增一条定义；`case block.type` 中新增 `when` + `render` 引用上述 snippet |
+
+### 操作步骤概览（main-product-v2 新增 block）
+
+1. 在 `{% schema %}` 的 `blocks` 数组中新增一条 block 定义。
+2. **在 `snippets` 中新增 snippet 文件**（如 `snippets/product-block-{block_type}.liquid`），在该文件中书写该 block 的完整 HTML 与逻辑，根元素上输出 `{{ block.shopify_attributes }}`。
+3. 在 Section 的 `{% for block in section.blocks %}` / `{% case block.type %}` 中**仅**新增一行 `{% when '块类型' %}` + `{% render 'product-block-xxx', block: block %}`，不写块内容 HTML。
+4. 若该 block 需在页面两处渲染（如主栏 + 弹窗），弹窗部分可在 section 中单独循环渲染，或由同一 snippet 通过参数控制输出不同片段。
+
+### 1. 在 Schema 中定义 Block
+
+在 `{% schema %}` 的 `"blocks": [ ... ]` 数组中追加一个对象，**保持与现有 block 相同的缩进与逗号**：
+
+```json
+{
+  "type": "my_block",
+  "name": "我的块（或 t: 翻译 key）",
+  "limit": 1,
+  "settings": [
+    { "type": "text", "id": "heading", "label": "标题", "default": "标题" },
+    { "type": "richtext", "id": "content", "label": "内容" }
+  ]
+}
+```
+
+| 字段 | 说明 |
+|------|------|
+| `type` | 块类型唯一标识，**必须**与 Liquid 中 `when 'my_block'` 的字符串一致，建议小写+下划线 |
+| `name` | 主题编辑器中显示的名称，可用 `t:sections.xxx.blocks.my_block.name` |
+| `limit` | 可选；该类型最多可添加个数，如 `1` 表示仅允许添加一个 |
+| `settings` | 该 block 的配置项数组，与 section `settings` 写法一致 |
+
+**注意**：`settings` 内字段仍须遵守本规范中的「五、Schema 标准配置项」「九、常见报错」等（如 `range` 的 default 为 step 整数倍、`richtext`/`inline_richtext` 在 presets/模板 JSON 中不用空字符串、不含内联 `style`）。
+
+### 2. main-product-v2：Section 内仅引用 Snippet
+
+在 `main-product-v2.liquid` 中，**只**在 `{% case block.type %}` 里增加一个分支并调用 snippet，不写块内容：
+
+```liquid
+{%- for block in section.blocks -%}
+  {%- case block.type -%}
+    {%- when 'my_block' -%}
+      {% render 'product-block-my-block', block: block %}
+    {%- when 'text' -%}
+      <!-- 其他已有 block ... -->
+  {%- endcase -%}
+{%- endfor -%}
+```
+
+Snippet 命名建议：`product-block-{block_type}.liquid`，与 schema 中的 `type` 对应（如 `type: "my_block"` → `product-block-my-block.liquid`）。若已有惯例（如 `icon-with-text`）可沿用。
+
+### 3. Snippet 内书写 Block 结构与 shopify_attributes
+
+在 `snippets/product-block-my-block.liquid`（或你命名的 snippet）中写该 block 的完整 HTML，**最外层元素必须带** `{{ block.shopify_attributes }}`：
+
+```liquid
+{%- comment -%} 供 main-product-v2 使用，传入 block -%}
+<div class="product__my-block" {{ block.shopify_attributes }}>
+  {%- if block.settings.heading != blank -%}
+    <h3 class="product__my-block-heading">{{ block.settings.heading | escape }}</h3>
+  {%- endif -%}
+  {%- if block.settings.content != blank -%}
+    <div class="product__my-block-content rte">{{ block.settings.content }}</div>
+  {%- endif -%}
+</div>
+```
+
+**必须遵守**：
+
+- Snippet 的**根元素**上必须写 `{{ block.shopify_attributes }}`，否则主题编辑器中无法选中、拖拽该块。
+- 使用 `block.settings.xxx` 读取配置；snippet 通过 `render 'name', block: block` 接收，变量名为 `block`。
+- 若该 section 使用 `.section-{{ section.id }}` 做样式隔离，block 的样式选择器需加 `.section-{{ section.id }}` 前缀（样式可写在 section 的 `<style>` 或共用 CSS 文件中）。
+
+### Snippet 内使用轮播、视频、图片时与 Section 同规
+
+在 product block 的 snippet 中若使用 **swiper-container**、**视频**、**图片**，须与 Section 开发遵守相同规则，不单独放宽或手写实现。
+
+- **图片**：一律使用 `image_url` + `image_tag`，设置正确的 `loading`、`widths`/`sizes`、`alt`。禁止手写 `<img>`。详见「五、Schema 标准配置项 → 图片与视频输出规范」。
+- **视频**：一律使用 `video_tag`，通过 `image_size` 控制尺寸。禁止手写 `<video>`；仅当 `video_tag` 无法满足需求时方可手写，并加中文注释说明原因。同上规范。
+- **轮播**：一律使用 `swiper-container` Web Component，禁止手写原生 Swiper 初始化。导航按钮用 `data-carousel-prev` / `data-carousel-next`，分页用 `data-carousel-pagination`；选择器须带 section 维度（如 `[data-carousel-prev='{{ section_id }}']`）以免同页多块冲突。配套 CSS：`swiper-container` 设 `display: flex` + `gap`，`swiper-slide` 设 `flex-shrink: 0`。详见「十三、swiper-container 使用规范」。  
+  Snippet 内无 `section` 对象时，由 section 在 `render` 时传入 `section_id`，例如：`{% render 'product-block-xxx', block: block, section_id: section.id %}`，snippet 内用传入的 `section_id` 写导航/分页选择器及 CSS 中的 `.section-{{ section_id }}` 前缀。
+
+### 4. Block 需在页面两处渲染时（如弹窗）
+
+若 block 既在信息栏显示触发器，又在页面别处渲染内容（如 `popup` 的 modal），做法：
+
+1. **主循环**：在 `case block.type` 中只渲染触发器（如链接/按钮），并带上 `{{ block.shopify_attributes }}`。
+2. **二次渲染**：用 `assign` 按类型过滤后单独循环，在合适 DOM 位置输出内容（如 modal 容器内）：
+
+```liquid
+{% assign popups = section.blocks | where: 'type', 'popup' %}
+{%- for block in popups -%}
+  <modal-dialog id="PopupModal-{{ block.id }}" ... {{ block.shopify_attributes }}>
+    <!-- 弹窗内容，使用 block.settings -->
+  </modal-dialog>
+{%- endfor -%}
+```
+
+同一 block 在两次循环中都可使用 `{{ block.shopify_attributes }}`，主题编辑器会正确关联。
+
+其他 Section（非 main-product-v2）若某 block 的 HTML 或逻辑较多，也可抽成 snippet，主 section 只保留 `when` + `render 'snippet名', block: block`；snippet 根元素上须输出 `{{ block.shopify_attributes }}`。
+
+### 5. 与 App block（@app）的区别
+
+- `type: "@app"` 的 block 由 App 提供，用 `{% render block %}` 即可，无需在 schema 里写 `settings`。
+- 自定义 block 的 `type` 不要以 `@` 开头，在 schema 中显式定义 `type`、`name`、`settings`（及可选 `limit`），并在 case 中写 `when 'your_type'` 对应渲染。
+
+### 检查清单（新增 Block 时）
+
+- [ ] 在 `{% schema %}` 的 `blocks` 数组中新增完整 block 对象（`type`、`name`、可选 `limit`、`settings`）。
+- [ ] `type` 与 Liquid 中 `when '...'` 字符串完全一致。
+- [ ] **main-product-v2**：在 `snippets` 中新增 snippet 文件（如 `q-block-{type}.liquid`），section 内**仅**写 `{% when 'xxx' %}` + `{% render 'q-block-xxx', block: block %}`，不在 section 内写该 block 的 HTML。 样式写在新增 snippet 文件中
+- [ ] 该 block 在页面上输出的**最外层包裹元素**带有 `{{ block.shopify_attributes }}`（在 snippet 根元素上）。
+- [ ] 若需两处渲染（如主栏 + 弹窗），两处都按需输出且不遗漏 `block.shopify_attributes`。
+- [ ] block 的 `settings` 遵守 range default、richtext/inline_richtext、无内联 style 等规范。
+- [ ] 样式选择器加 `.section-{{ block.id }}` 前缀，不污染其他 section。
+- [ ] Snippet 内若使用图片、视频、轮播：图片用 `image_url` + `image_tag`，视频用 `video_tag`，轮播用 `swiper-container`，且轮播导航/分页选择器带 block 维度（必要时通过 `block_id` 传入）；与 Section 规范一致。
 
 ---
 

@@ -15,27 +15,33 @@
     --bl-pb-mobile: {{ section.settings.padding_bottom_mobile }}px;
     --bl-pt-desktop: {{ section.settings.padding_top_desktop }}px;
     --bl-pb-desktop: {{ section.settings.padding_bottom_desktop }}px;
-    --bl-gap: 20px;
-    --bl-item-gap: 20px;
+    --bl-gap: 18px;
+    --bl-item-gap: 16px;
     --bl-icon-size: 40px;
-    --bl-img-radius: 12px;
+    --bl-img-radius: 10px;
     --bl-feature-title-size: 15px;
-    --bl-feature-desc-size: 13px;
-    --bl-btn-radius: 24px;
-    --bl-btn-padding: 10px 28px;
-    --bl-btn-font-size: 14px;
+    --bl-feature-title-line-height: 36px;
+    --bl-feature-desc-size: 12px;
+    --bl-feature-desc-line-height: 18px;
+    --bl-btn-radius: 30px;
+    --bl-btn-min-width: 199px;
+    --bl-btn-height: 48px;
+    --bl-btn-padding: 6px 32px;
+    --bl-btn-font-size: 18px;
   }
 
   @media screen and (min-width: 750px) {
     .section-{{ section.id }} {
       --bl-gap: 48px;
-      --bl-item-gap: 28px;
-      --bl-icon-size: 52px;
-      --bl-img-radius: 16px;
-      --bl-feature-title-size: 18px;
-      --bl-feature-desc-size: 14px;
-      --bl-btn-padding: 12px 36px;
-      --bl-btn-font-size: 16px;
+      --bl-item-gap: 32px;
+      --bl-icon-size: 58px;
+      --bl-img-radius: 10px;
+      --bl-feature-title-size: 24px;
+      --bl-feature-title-line-height: 36px;
+      --bl-feature-desc-size: 16px;
+      --bl-feature-desc-line-height: 24px;
+      --bl-btn-padding: 6px 32px;
+      --bl-btn-font-size: 18px;
     }
   }
 
@@ -73,7 +79,7 @@
 
   @media screen and (min-width: 750px) {
     .section-{{ section.id }} .q-battery-life__image-wrap {
-      width: 48%;
+      flex: 1;
     }
   }
 
@@ -82,13 +88,13 @@
     width: 100%;
     border-radius: var(--bl-img-radius);
     overflow: hidden;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 349 / 231;
     background: #f0f0f0;
   }
 
   @media screen and (min-width: 750px) {
     .section-{{ section.id }} .q-battery-life__image {
-      aspect-ratio: 1 / 1;
+      aspect-ratio: 756 / 494;
     }
   }
 
@@ -105,6 +111,13 @@
     min-width: 0;
     display: flex;
     flex-direction: column;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-battery-life__features-wrap {
+      padding-top: 4px;
+      width: 54%;
+    }
   }
 
   /* 特性列表 */
@@ -144,16 +157,16 @@
 
   .section-{{ section.id }} .q-battery-life__feature-title {
     font-size: var(--bl-feature-title-size);
-    font-weight: 700;
-    color: #1565d8;
+    font-weight: 500;
+    color: #2d4e76;
     margin: 0 0 4px;
-    line-height: 1.3;
+    line-height: var(--bl-feature-title-line-height);
   }
 
   .section-{{ section.id }} .q-battery-life__feature-desc {
     font-size: var(--bl-feature-desc-size);
-    color: #555;
-    line-height: 1.6;
+    color: #1e1e1e;
+    line-height: var(--bl-feature-desc-line-height);
     margin: 0;
   }
 
@@ -168,7 +181,8 @@
 
   @media screen and (min-width: 750px) {
     .section-{{ section.id }} .q-battery-life__cta {
-      margin-top: 36px;
+      margin-top: 56px;
+      align-self: flex-end;
     }
   }
 
@@ -186,17 +200,20 @@
   /* CTA 按钮 */
   .section-{{ section.id }} .q-battery-life__btn {
     display: inline-block;
+    min-width: var(--bl-btn-min-width);
+    height: var(--bl-btn-height);
     padding: var(--bl-btn-padding);
     background: #faa61a;
     color: #fff;
     font-size: var(--bl-btn-font-size);
-    font-weight: 600;
+    font-weight: 700;
     border-radius: var(--bl-btn-radius);
     text-decoration: none;
     border: none;
     cursor: pointer;
     transition: background 0.2s, opacity 0.2s;
-    line-height: 1.4;
+    line-height: 36px;
+    text-align: center;
   }
 
   .section-{{ section.id }} .q-battery-life__btn:hover {

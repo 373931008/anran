@@ -1,0 +1,410 @@
+{%- comment -%}
+  Section: q-reviews-quote
+  功能说明：客户评价引言轮播 —— 每屏一条引言，轮播上方可配置信任徽章图片，swiper-container slides-per-view=1
+  技术栈：
+  - swiper-container Web Component（slides-per-view: 1）
+  - Snippet: snippets/q-section-header.liquid
+  版本：1.0.0
+{%- endcomment -%}
+
+{%- liquid
+  assign quote_blocks = section.blocks | where: 'type', 'quote'
+  assign has_badges = false
+  if section.settings.image_above_1 != blank or section.settings.image_above_2 != blank
+    assign has_badges = true
+  endif
+-%}
+
+<style>
+  .section-{{ section.id }} {
+    --rq-bg: {{ section.settings.bg_color }};
+    --rq-pt-mobile: {{ section.settings.padding_top_mobile }}px;
+    --rq-pb-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --rq-pt-desktop: {{ section.settings.padding_top_desktop }}px;
+    --rq-pb-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --rq-quote-color: {{ section.settings.quote_accent_color }};
+    --rq-text-color: #1e1e1e;
+    --rq-quote-size-mobile: 14px;
+    --rq-quote-line-height-mobile: 24px;
+    --rq-quote-size-desktop: 32px;
+    --rq-quote-line-height-desktop: 40px;
+    --rq-nav-size-mobile: 18px;
+    --rq-nav-size-desktop: 50px;
+    --rq-gap: 16px;
+    --rq-quote-svg-size-mobile: 18px;
+    --rq-quote-svg-size-desktop: 50px;
+  }
+
+  .section-{{ section.id }} .page-width {
+    overflow: hidden;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} {
+      --rq-gap: 24px;
+    }
+  }
+
+  .section-{{ section.id }}.q-reviews-quote {
+    background: var(--rq-bg, #f0f5fa);
+    padding-top: var(--rq-pt-mobile, 40px);
+    padding-bottom: var(--rq-pb-mobile, 40px);
+    font-family: var(--font-body-family);
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}.q-reviews-quote {
+      padding-top: var(--rq-pt-desktop, 60px);
+      padding-bottom: var(--rq-pb-desktop, 60px);
+    }
+  }
+
+  .section-{{ section.id }} .q-rq__badges {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+  } 
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-rq__badges {
+      margin-bottom: 26px;
+      gap: 24px;
+    }
+  }
+
+  .section-{{ section.id }} .q-rq__badge {
+    height: 24px;
+  }
+
+  .section-{{ section.id }} .q-rq__badge-img {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+    display: block;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-rq__badge {
+      height: 30px;
+    }
+  }
+
+  .section-{{ section.id }} .q-rq__wrap {
+    position: relative;
+  }
+
+  .section-{{ section.id }} .q-rq__swiper swiper-container {
+    display: flex;
+    gap: var(--rq-gap);
+  }
+
+  .section-{{ section.id }} .q-rq__swiper swiper-slide {
+    flex-shrink: 0;
+    width: 100%;
+  }
+
+  .section-{{ section.id }} .q-rq__slide-inner {
+    position: relative;
+    text-align: center;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-rq__slide-inner {
+      padding: 24px 0;
+    }
+  }
+
+  .section-{{ section.id }} .q-rq__quote-mark {
+    position: absolute;
+    pointer-events: none;
+    width: var(--rq-quote-svg-size-mobile);
+    height: var(--rq-quote-svg-size-mobile);
+    color: var(--rq-quote-color, #1565d8);
+  }
+
+  .section-{{ section.id }} .q-rq__quote-mark svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .section-{{ section.id }} .q-rq__quote-mark path {
+    fill: currentColor;
+  }
+
+  .section-{{ section.id }} .q-rq__quote-mark--open {
+    top: 0;
+    left: 0;
+  }
+
+  .section-{{ section.id }} .q-rq__quote-mark--close {
+    bottom: 0;
+    right: 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-rq__quote-mark {
+      width: var(--rq-quote-svg-size-desktop);
+      height: var(--rq-quote-svg-size-desktop);
+    }
+  }
+
+  .section-{{ section.id }} .q-rq__text {
+    font-size: var(--rq-quote-size-mobile);
+    line-height: var(--rq-quote-line-height-mobile);
+    color: var(--rq-text-color);
+    font-weight: 500;
+    margin: 0;
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: left;
+    padding: 9px 26px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-rq__text {
+      font-size: var(--rq-quote-size-desktop);
+      line-height: var(--rq-quote-line-height-desktop);
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 1106px;
+      padding: 25px 72px;
+    }
+  }
+
+  .section-{{ section.id }} .q-rq__text p {
+    margin: 0 0 0.5em;
+  }
+
+  .section-{{ section.id }} .q-rq__text p:last-child {
+    margin-bottom: 0;
+  }
+
+  .section-{{ section.id }} .q-rq__nav {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    pointer-events: none;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+  }
+
+  .section-{{ section.id }} .q-rq__nav-btn {
+    pointer-events: auto;
+    width: var(--rq-nav-size-mobile);
+    height: var(--rq-nav-size-mobile);
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--rq-quote-color, #0066ff);
+    transition: opacity 0.2s, color 0.2s;
+    padding: 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-rq__nav-btn {
+      width: var(--rq-nav-size-desktop);
+      height: var(--rq-nav-size-desktop);
+    }
+  }
+
+  .section-{{ section.id }} .q-rq__nav-btn:hover:not(:disabled):not(.swiper-button-disabled) {
+    opacity: 0.8;
+  }
+
+  .section-{{ section.id }} .q-rq__nav-btn:active:not(:disabled):not(.swiper-button-disabled) {
+    opacity: 0.6;
+  }
+
+  .section-{{ section.id }} .q-rq__nav-btn:disabled,
+  .section-{{ section.id }} .q-rq__nav-btn.swiper-button-disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  .section-{{ section.id }} .q-rq__nav-btn svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+</style>
+
+<div class="q-reviews-quote section-{{ section.id }}">
+  <div class="page-width">
+    {%- render 'q-section-header', section: section -%}
+
+    {%- if has_badges -%}
+      <div class="q-rq__badges">
+        {%- if section.settings.image_above_1 != blank -%}
+          <div class="q-rq__badge">
+            {{-
+              section.settings.image_above_1
+              | image_url: width: 600
+              | image_tag:
+                class: 'q-rq__badge-img'
+            -}}
+          </div>
+        {%- endif -%}
+        {%- if section.settings.image_above_2 != blank -%}
+          <div class="q-rq__badge">
+            {{-
+              section.settings.image_above_2
+              | image_url: width: 600
+              | image_tag:
+                class: 'q-rq__badge-img'
+            -}}
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="q-rq__wrap">
+      <reviews-quote-element
+        client:visible
+        data-autoplay-enabled="{% if section.settings.autoplay_carousel %}true{% else %}false{% endif %}"
+      >
+        <div class="q-rq__swiper">
+          <swiper-container
+            id="q-rq-swiper-{{ section.id }}"
+            slides-per-view="1"
+            space-between="{{ section.settings.space_between | default: 16 }}"
+            grab-cursor="true"
+            loop="true"
+            navigation="true"
+            navigation-prev-el="[data-carousel-prev='{{ section.id }}']"
+            navigation-next-el="[data-carousel-next='{{ section.id }}']"
+            {% if section.settings.autoplay_carousel %}autoplay="true" autoplay-delay="{{ section.settings.autoplay_delay | times: 1000 }}" autoplay-disable-on-interaction="false"{% endif %}
+          >
+          {%- for block in quote_blocks -%}
+            <swiper-slide {{ block.shopify_attributes }}>
+              <div class="q-rq__slide-inner">
+                
+                {%- if block.settings.quote_text != blank -%}
+                  <div class="q-rq__text">
+                    <span class="q-rq__quote-mark q-rq__quote-mark--open" aria-hidden="true">
+                      <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M37.258 25.973H42.5915V39.5115H26.25V30.24C26.25 20.828 32.817 12.674 42.023 10.715C42.8475 10.5395 43.343 10.4885 43.343 10.4885L45 14.5255C37.6795 18.1755 37.258 25.973 37.258 25.973Z" fill="currentColor"/>
+                        <path d="M16.01 25.973H21.3435V39.5115H5V30.24C5 20.828 11.5675 12.674 20.7735 10.715C21.598 10.5395 22.093 10.4885 22.093 10.4885L23.75 14.5255C16.432 18.1755 16.01 25.973 16.01 25.973Z" fill="currentColor"/>
+                      </svg>
+                    </span>
+                    <span class="q-rq__quote-text">
+                      {{ block.settings.quote_text }}
+                    </span>
+                    <span class="q-rq__quote-mark q-rq__quote-mark--close" aria-hidden="true">
+                      <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M12.742 24.027H7.4085V10.4885H23.75V19.76C23.75 29.172 17.183 37.326 7.977 39.285C7.1525 39.4605 6.657 39.5115 6.657 39.5115L5 35.4745C12.3205 31.8245 12.742 24.027 12.742 24.027Z" fill="currentColor"/>
+                        <path d="M33.99 24.027H28.6565V10.4885H45V19.76C45 29.172 38.4325 37.326 29.2265 39.285C28.402 39.4605 27.907 39.5115 27.907 39.5115L26.25 35.4745C33.568 31.8245 33.99 24.027 33.99 24.027Z" fill="currentColor"/>
+                      </svg>
+                    </span>
+                  </div>
+                {%- endif -%}
+              </div>
+            </swiper-slide>
+          {%- endfor -%}
+          </swiper-container>
+        </div>
+      </reviews-quote-element>
+
+      {% comment %} {%- if show_nav -%}
+        <div class="q-rq__nav">
+          <button
+            type="button"
+            class="q-rq__nav-btn q-rq__nav-btn--prev"
+            data-carousel-prev="{{ section.id }}"
+            aria-label="{{ 'general.previous' | t | default: 'Previous' }}"
+            tabindex="0"
+          >
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button
+            type="button"
+            class="q-rq__nav-btn q-rq__nav-btn--next"
+            data-carousel-next="{{ section.id }}"
+            aria-label="{{ 'general.next' | t | default: 'Next' }}"
+            tabindex="0"
+          >
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      {%- endif -%} {% endcomment %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "q-reviews-quote",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "header", "content": "板块标题" },
+    { "type": "inline_richtext", "id": "header_title", "label": "标题", "default": "What Customers Say" },
+    { "type": "richtext", "id": "header_description", "label": "描述" },
+    { "type": "checkbox", "id": "header_center", "label": "居中对齐", "default": false },
+    { "type": "color_background", "id": "header_em_color", "label": "em 高亮色", "default": "#FF6B35" },
+    { "type": "range", "id": "header_title_size_desktop", "label": "标题字号（桌面端）", "min": 20, "max": 80, "step": 2, "unit": "px", "default": 42 },
+    { "type": "range", "id": "header_title_size_mobile", "label": "标题字号（移动端）", "min": 16, "max": 50, "step": 2, "unit": "px", "default": 26 },
+    { "type": "range", "id": "header_desc_size_desktop", "label": "描述字号（桌面端）", "min": 10, "max": 30, "step": 1, "unit": "px", "default": 16 },
+    { "type": "range", "id": "header_desc_size_mobile", "label": "描述字号（移动端）", "min": 10, "max": 24, "step": 1, "unit": "px", "default": 12 },
+    { "type": "range", "id": "header_margin_bottom_desktop", "label": "标题下边距（桌面端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "header_margin_bottom_mobile", "label": "标题下边距（移动端）", "min": 0, "max": 80, "step": 4, "unit": "px", "default": 24 },
+    { "type": "header", "content": "轮播上方图片" },
+    { "type": "image_picker", "id": "image_above_1", "label": "图片" },
+    { "type": "header", "content": "样式" },
+    { "type": "color", "id": "quote_accent_color", "label": "引号与导航强调色", "default": "#1565D8" },
+    { "type": "range", "id": "space_between", "label": "幻灯片间距", "min": 0, "max": 48, "step": 4, "unit": "px", "default": 16 },
+    { "type": "header", "content": "轮播" },
+    { "type": "checkbox", "id": "autoplay_carousel", "label": "自动播放", "default": false },
+    { "type": "range", "id": "autoplay_delay", "label": "播放间隔（秒）", "min": 2, "max": 15, "step": 1, "unit": "s", "default": 5 },
+    { "type": "header", "content": "板块背景" },
+    { "type": "color_background", "id": "bg_color", "label": "背景色", "default": "#f0f5fa" },
+    { "type": "header", "content": "上下边距" },
+    { "type": "range", "id": "padding_top_mobile", "label": "上边距（移动端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_bottom_mobile", "label": "下边距（移动端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_top_desktop", "label": "上边距（桌面端）", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 60 },
+    { "type": "range", "id": "padding_bottom_desktop", "label": "下边距（桌面端）", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 60 }
+  ],
+  "blocks": [
+    {
+      "type": "quote",
+      "name": "一条引言",
+      "settings": [
+        { "type": "richtext", "id": "quote_text", "label": "引言内容", "default": "<p>One of the best security tools I've ever owned. Being able to monitor my home 24/7 is truly incredible.</p>" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "q-reviews-quote",
+      "blocks": [
+        {
+          "type": "quote",
+          "settings": {
+            "quote_text": "<p>One of the best security tools I've ever owned. Being able to monitor my home 24/7 is truly incredible.</p>"
+          }
+        },
+        {
+          "type": "quote",
+          "settings": {
+            "quote_text": "<p>Easy to install and the picture quality is excellent. Highly recommend.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
