@@ -1,0 +1,164 @@
+{%- comment -%}
+  Block: q_accordion_item (main-product-v2)
+  可展开收起项：标题 + 箭头，展开后显示富文本与可选图片；支持图片在左/上两种布局。
+  富文本列表黑点色 #ADC5FA，正文 #2D3F60；箭头见规范。
+  需传入: block, section
+  Islands: frontend/islands/q-accordion-item-element.js
+{%- endcomment -%}
+<style>
+  .section-{{ section.id }} .product__accordion-item {
+    border-bottom: 1px solid rgba(30, 30, 30, 0.08);
+  }
+  .section-{{ section.id }} .product__accordion-list {
+    border-top: 1px solid rgba(30, 30, 30, 0.08);
+    margin-top: 1.6rem;
+    margin-bottom: 0;
+  }
+  .section-{{ section.id }} .product__accordion-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 14px 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    text-align: left;
+    font-family: inherit;
+    font-size: 12px;
+    line-height: 1.2;
+    color: #1e1e1e;
+    font-weight: 500;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .product__accordion-trigger {
+      font-size: 18px;
+      padding: 20px 0;
+    }
+  }
+  .section-{{ section.id }} .product__accordion-trigger:hover {
+    color: #2D3F60;
+  }
+  .section-{{ section.id }} .product__accordion-arrow {
+    flex-shrink: 0;
+    width: 33px;
+    height: 33px;
+    margin-left: 12px;
+    transition: transform 0.3s ease;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .product__accordion-arrow {
+      width: 36px;
+      height: 36px;
+      margin-left: 16px;
+    }
+  }
+  .section-{{ section.id }} q-accordion-item-element[data-open] .product__accordion-arrow {
+    transform: rotate(180deg);
+  }
+  .section-{{ section.id }} .product__accordion-item .answer-wrap {
+    max-height: 0;
+    overflow: hidden;
+  }
+  .section-{{ section.id }} .product__accordion-content-wrap {
+    padding-bottom: 16px;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .product__accordion-content-wrap {
+      padding-bottom: 24px;
+    }
+  }
+  .section-{{ section.id }} .product__accordion-content {
+    color: #2D3F60;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .section-{{ section.id }} .product__accordion-content ul,
+  .section-{{ section.id }} .product__accordion-content ol {
+    padding-left: 1.2em;
+    margin: 0.5em 0 1em;
+  }
+  .section-{{ section.id }} .product__accordion-content ul li::marker {
+    color: #ADC5FA;
+  }
+  .section-{{ section.id }} .product__accordion-content p {
+    margin: 0 0 0.5em;
+  }
+  .section-{{ section.id }} .product__accordion-content p:last-child {
+    margin-bottom: 0;
+  }
+  .section-{{ section.id }} .product__accordion-content img {
+    max-width: 100%;
+    height: auto;
+  }
+  .section-{{ section.id }} .product__accordion-body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .section-{{ section.id }} .product__accordion-body--image-top {
+    flex-direction: column;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .product__accordion-body--image-left {
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 24px;
+    }
+    .section-{{ section.id }} .product__accordion-body--image-left .product__accordion-image-wrap {
+      flex-shrink: 0;
+      width: 40%;
+      max-width: 280px;
+    }
+    .section-{{ section.id }} .product__accordion-body--image-top .product__accordion-image-wrap {
+      max-width: 100%;
+    }
+  }
+  .section-{{ section.id }} .product__accordion-image-wrap {
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .section-{{ section.id }} .product__accordion-image-wrap img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+</style>
+<div class="product__accordion-item" {{ block.shopify_attributes }}>
+  <q-accordion-item-element>
+    <button type="button" class="product__accordion-trigger" aria-expanded="false" data-accordion-trigger>
+      <span class="product__accordion-title">{{ block.settings.heading | default: 'Section' }}</span>
+      <span class="product__accordion-arrow" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
+          <path d="M25.35 13.8C24.75 13.2 23.85 13.2 23.25 13.8L18 19.05L12.75 13.8C12.15 13.2 11.25 13.2 10.65 13.8C10.05 14.4 10.05 15.3 10.65 15.9L16.95 22.2C17.25 22.5 17.55 22.65 18 22.65C18.45 22.65 18.75 22.5 19.05 22.2L25.35 15.9C25.95 15.3 25.95 14.4 25.35 13.8Z" fill="#697386"/>
+        </svg>
+      </span>
+    </button>
+    <div class="answer-wrap">
+      <div class="product__accordion-content-wrap">
+        {%- assign layout_class = 'product__accordion-body--image-top' -%}
+        {%- if block.settings.layout == 'image_left_content_right' -%}
+          {%- assign layout_class = 'product__accordion-body--image-left' -%}
+        {%- endif -%}
+        <div class="product__accordion-body {{ layout_class }}">
+          {%- if block.settings.image != blank -%}
+            <div class="product__accordion-image-wrap">
+              {{
+                block.settings.image
+                | image_url: width: 560
+                | image_tag:
+                  loading: 'lazy'
+              }}
+            </div>
+          {%- endif -%}
+          {%- if block.settings.content != blank -%}
+            <div class="product__accordion-content rte">
+              {{ block.settings.content }}
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </q-accordion-item-element>
+</div>

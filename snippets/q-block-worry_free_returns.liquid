@@ -1,0 +1,99 @@
+{%- comment -%}
+  Block: q_worry_free_returns (main-product-v2)
+  无忧退换：浅色背景条，左侧图标 + 标题 + 描述。
+  Figma: 桌面 1:86 / 移动 58:1412
+  需传入: block, section
+{%- endcomment -%}
+<style>
+  .section-{{ section.id }} .product__worry-free-returns {
+    --wfr-bg: {{ block.settings.bg_color }};
+    --wfr-title-color: {{ block.settings.title_color }};
+    --wfr-padding: 12px 16px;
+    --wfr-gap: 11px;
+    --wfr-radius: 10px;
+    --wfr-icon-size: 29px;
+    --wfr-title-size: 12px;
+    --wfr-title-line-height: 1.5;
+    --wfr-desc-size: 11px;
+    --wfr-desc-line-height: 1.09;
+    --wfr-desc-color: #1e1e1e;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .product__worry-free-returns {
+      --wfr-padding: 24px 28px;
+      --wfr-gap: 16px;
+      --wfr-icon-size: 36px;
+      --wfr-title-size: 20px;
+      --wfr-title-line-height: 1.8;
+      --wfr-desc-size: 16px;
+      --wfr-desc-line-height: 1.5;
+    }
+  }
+  .section-{{ section.id }} .product__worry-free-returns {
+    background: var(--wfr-bg);
+    border-radius: var(--wfr-radius);
+    padding: var(--wfr-padding);
+    display: flex;
+    align-items: flex-start;
+    gap: var(--wfr-gap);
+  }
+  .section-{{ section.id }} .product__worry-free-returns-icon {
+    flex-shrink: 0;
+    width: var(--wfr-icon-size);
+    height: var(--wfr-icon-size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--wfr-title-color);
+  }
+  .section-{{ section.id }} .product__worry-free-returns-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .section-{{ section.id }} .product__worry-free-returns-icon svg {
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
+  }
+  .section-{{ section.id }} .product__worry-free-returns-text {
+    flex: 1;
+    min-width: 0;
+  }
+  .section-{{ section.id }} .product__worry-free-returns-title {
+    font-size: var(--wfr-title-size);
+    font-weight: 700;
+    line-height: var(--wfr-title-line-height);
+    color: var(--wfr-title-color);
+    margin: 0 0 2px;
+  }
+  .section-{{ section.id }} .product__worry-free-returns-desc {
+    font-size: var(--wfr-desc-size);
+    line-height: var(--wfr-desc-line-height);
+    color: var(--wfr-desc-color);
+    margin: 0;
+  }
+  .section-{{ section.id }} .product__worry-free-returns-desc.rte p:first-child {
+    margin-top: 0;
+  }
+  .section-{{ section.id }} .product__worry-free-returns-desc.rte p:last-child {
+    margin-bottom: 0;
+  }
+</style>
+<div class="product__worry-free-returns" {{ block.shopify_attributes }}>
+  <div class="product__worry-free-returns-icon" aria-hidden="true">
+    {%- if block.settings.icon != blank -%}
+      {{- block.settings.icon | image_url: width: 72 | image_tag: loading: 'lazy' -}}
+    {%- else -%}
+      {{- 'icon-return.svg' | inline_asset_content -}}
+    {%- endif -%}
+  </div>
+  <div class="product__worry-free-returns-text">
+    {%- if block.settings.title != blank -%}
+      <p class="product__worry-free-returns-title">{{ block.settings.title | escape }}</p>
+    {%- endif -%}
+    {%- if block.settings.description != blank -%}
+      <div class="product__worry-free-returns-desc rte">{{ block.settings.description }}</div>
+    {%- endif -%}
+  </div>
+</div>
