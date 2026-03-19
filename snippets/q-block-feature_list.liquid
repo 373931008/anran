@@ -1,0 +1,154 @@
+{%- comment -%}
+  Block: q_feature_list (main-product-v2)
+  产品特性列表：顶部一段描述 + 6 项带勾选图标的特性；桌面端两列，移动端单列。
+  Figma: 桌面 195:6 / 移动 196:118
+  需传入: block, section
+{%- endcomment -%}
+<style>
+  .section-{{ section.id }} .product__feature-list {
+    --feature-heading-size: 12px;
+    --feature-heading-line-height: 1.5;
+    --feature-item-size: 12px;
+    --feature-item-line-height: 32px;
+    --feature-icon-size: 20px;
+    --feature-gap: 8px;
+    --feature-cols: 1;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .product__feature-list {
+      --feature-heading-size: 16px;
+      --feature-heading-line-height: 1.5;
+      --feature-item-size: 16px;
+      --feature-item-line-height: 32px;
+      --feature-gap: 10px;
+      --feature-cols: 2;
+    }
+  }
+  .section-{{ section.id }} .product__feature-list {
+    margin: 0;
+  }
+  .section-{{ section.id }} .product__feature-list-heading {
+    font-size: var(--feature-heading-size);
+    line-height: var(--feature-heading-line-height);
+    color: #384968;
+    font-weight: 500;
+    margin: 0 0 16px;
+  }
+  .section-{{ section.id }} .product__feature-list-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--feature-cols), 1fr);
+    gap: 0 var(--feature-gap);
+    row-gap: 0;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .section-{{ section.id }} .product__feature-list-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: var(--feature-item-size);
+    line-height: var(--feature-item-line-height);
+    color: #384968;
+    font-weight: 700;
+    min-height: var(--feature-item-line-height);
+  }
+  .section-{{ section.id }} .product__feature-list-icon {
+    width: var(--feature-icon-size);
+    height: var(--feature-icon-size);
+    flex-shrink: 0;
+  }
+  .section-{{ section.id }} .product__feature-list-icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+</style>
+{%- assign f1 = block.settings.feature_1 | strip -%}
+{%- assign f2 = block.settings.feature_2 | strip -%}
+{%- assign f3 = block.settings.feature_3 | strip -%}
+{%- assign f4 = block.settings.feature_4 | strip -%}
+{%- assign f5 = block.settings.feature_5 | strip -%}
+{%- assign f6 = block.settings.feature_6 | strip -%}
+{%- assign has_heading = block.settings.heading != blank -%}
+{%- assign has_items = f1 != blank or f2 != blank or f3 != blank or f4 != blank or f5 != blank or f6 != blank -%}
+{%- assign has_any = has_heading or has_items -%}
+{%- if has_any -%}
+<div class="product__feature-list" {{ block.shopify_attributes }}>
+  <svg width="0" height="0" class="visually-hidden" aria-hidden="true" focusable="false">
+    <defs>
+      <pattern id="pattern0_feature_{{ block.id }}" patternContentUnits="objectBoundingBox" width="1" height="1">
+        <use xlink:href="#image0_feature_{{ block.id }}" transform="scale(0.05)"/>
+      </pattern>
+      <image id="image0_feature_{{ block.id }}" width="20" height="20" preserveAspectRatio="none" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAACJ0lEQVR4AayTsW4TQRCG/1kb5EgIHDqgIFBFOJGMoIc8AaGgTkJB6zQ4gQZHorDdYFoKZGgpCC8AeYNY2EGicqq0sUQRhHI7zL/OmbuzE4PEyuPd2fnnu9nZO4f/PKYCS1VdWdyIDs36pWe6Mu35Y8ByTYuLVV1e2NT7CxtaEfFtBYpmc+J9u1SN1hmjprypc9kHpIAUREe+r+I/Qv0XwLeyCSJ4xRg1x+p3bz3/VU5qUkATrKtVkxRMWRddlFtNalJAgV5PBv9mrYJLSd0IWH7K0iVVflJ42loUy2xVHA9A3uSxy+3acceaHAvj+dos8PaJA+eTvaK1qs/Loh+ATnyNzjQjJIbZw1Nyu6wX3AhACxbpxHaxALx8JOAc781fBT5UghxrbzwODuPIcBZgABtB4TTasvXod/cm8OCO2NEkHI0wVvbjCBNhTPQaveYcgF+b5/m+dbhB+/wNqLz3uHKZUGdgh7NgCv20N2QgAAmxklPHJvSxHe3CDM6EDXPlHmdaAPLarY9jN/z9ACB0Us+YnLDi/MlnGID4CTaUhuwgNHsBWY2dblAoIOQHYKclA1FdA6SDfx6WY7mdmvwBktFt5rd7DXc7L+6GAPuYMqjJz7hZ5jA3locKY4dzpy77XhFeAfqnmuhWXFVSMwZkcK+Za4noO64hsgPxS+aPWiKQ7W493w7xzN9EIDWWsNpr5KRXd0u9+rkd89s9a0nP9roN95CaSfYbAAD///HGJucAAAAGSURBVAMAT2vSKcArODUAAAAASUVORK5CYII="/>
+    </defs>
+  </svg>
+  {%- if has_heading -%}
+    <p class="product__feature-list-heading rte">{{ block.settings.heading }}</p>
+  {%- endif -%}
+  {%- if has_items -%}
+  <ul class="product__feature-list-grid">
+    {%- if f1 != blank -%}
+      <li class="product__feature-list-item">
+        <span class="product__feature-list-icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <rect width="20" height="20" fill="url(#pattern0_feature_{{ block.id }})"/>
+          </svg>
+        </span>
+        <span>{{ f1 | escape }}</span>
+      </li>
+    {%- endif -%}
+    {%- if f2 != blank -%}
+      <li class="product__feature-list-item">
+        <span class="product__feature-list-icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <rect width="20" height="20" fill="url(#pattern0_feature_{{ block.id }})"/>
+          </svg>
+        </span>
+        <span>{{ f2 | escape }}</span>
+      </li>
+    {%- endif -%}
+    {%- if f3 != blank -%}
+      <li class="product__feature-list-item">
+        <span class="product__feature-list-icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <rect width="20" height="20" fill="url(#pattern0_feature_{{ block.id }})"/>
+          </svg>
+        </span>
+        <span>{{ f3 | escape }}</span>
+      </li>
+    {%- endif -%}
+    {%- if f4 != blank -%}
+      <li class="product__feature-list-item">
+        <span class="product__feature-list-icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <rect width="20" height="20" fill="url(#pattern0_feature_{{ block.id }})"/>
+          </svg>
+        </span>
+        <span>{{ f4 | escape }}</span>
+      </li>
+    {%- endif -%}
+    {%- if f5 != blank -%}
+      <li class="product__feature-list-item">
+        <span class="product__feature-list-icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <rect width="20" height="20" fill="url(#pattern0_feature_{{ block.id }})"/>
+          </svg>
+        </span>
+        <span>{{ f5 | escape }}</span>
+      </li>
+    {%- endif -%}
+    {%- if f6 != blank -%}
+      <li class="product__feature-list-item">
+        <span class="product__feature-list-icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <rect width="20" height="20" fill="url(#pattern0_feature_{{ block.id }})"/>
+          </svg>
+        </span>
+        <span>{{ f6 | escape }}</span>
+      </li>
+    {%- endif -%}
+  </ul>
+  {%- endif -%}
+</div>
+{%- endif -%}

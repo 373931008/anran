@@ -702,6 +702,8 @@
                 {%- render 'q-block-worry_free_returns', block: block, section: section -%}
               {%- when 'q_warranty' -%}
                 {%- render 'q-block-warranty', block: block, section: section -%}
+              {%- when 'q_feature_list' -%}
+                {%- render 'q-block-feature_list', block: block, section: section -%}
               {%- when 'q_accordion_item' -%}
                 {%- if accordion_blocks.size > 0 -%}
                   {%- if block.id == accordion_blocks.first.id -%}
@@ -2360,6 +2362,21 @@
         { "type": "header", "content": "样式" },
         { "type": "color_background", "id": "bg_color", "label": "背景色", "default": "#f3f7ff" },
         { "type": "color_background", "id": "title_color", "label": "标题与图标色", "default": "#1565d8" }
+      ]
+    },
+    {
+      "type": "q_feature_list",
+      "name": "Q-特性列表",
+      "limit": 1,
+      "settings": [
+        { "type": "richtext", "id": "heading", "label": "顶部描述", "default": "<p>Crystal-Clear 4K HDR Video with Wireless Solar Power, Smart Motion Alerts, and Effortless Outdoor Protection.</p>" },
+        { "type": "header", "content": "特性项（最多 6 条）" },
+        { "type": "text", "id": "feature_1", "label": "特性 1", "default": "4K HDR Video" },
+        { "type": "text", "id": "feature_2", "label": "特性 2", "default": "Smart Human Motion Alerts" },
+        { "type": "text", "id": "feature_3", "label": "特性 3", "default": "Wireless Solar Power" },
+        { "type": "text", "id": "feature_4", "label": "特性 4", "default": "Color Night Vision" },
+        { "type": "text", "id": "feature_5", "label": "特性 5", "default": "Two-Way Audio" },
+        { "type": "text", "id": "feature_6", "label": "特性 6", "default": "Works with Alexa" }
       ]
     },
     {
