@@ -12,51 +12,56 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: flex-start;
-    gap: 1.6rem 2rem;
+    align-items: stretch;
+    gap: 0.8rem;
     list-style: none;
     padding: 0;
     margin: 0;
   }
   .section-{{ section.id }}.product__trust-cards .product__trust-cards-item {
-    flex: 0 0 auto;
-    max-width: 15.2rem;
+    flex: 1 1 calc(33.333% - 0.6rem);
+    min-width: 9.5rem;
+    max-width: 20.6rem;
+    display: flex;
   }
   .section-{{ section.id }}.product__trust-cards .product__trust-cards-trigger {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
     gap: 0.6rem;
     width: 100%;
-    padding: 0;
-    border: none;
-    background: none;
-    color: rgb(var(--color-foreground));
+    min-height: 8.1rem;
+    padding: 1rem 0.6rem;
+    box-sizing: border-box;
+    border: 1px solid #1565d8;
+    border-radius: 10px;
+    background: #f3f7ff;
+    color: #1565d8;
     font-family: inherit;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     font-weight: 600;
-    line-height: 1.3;
+    line-height: 1.33;
     text-align: center;
     text-decoration: none;
     cursor: pointer;
   }
   .section-{{ section.id }}.product__trust-cards .product__trust-cards-trigger:hover {
-    text-decoration: underline;
-    text-underline-offset: 0.2rem;
+    opacity: 0.92;
+    text-decoration: none;
   }
   .section-{{ section.id }}.product__trust-cards .product__trust-cards-trigger--no-popup {
     cursor: default;
   }
   .section-{{ section.id }}.product__trust-cards .product__trust-cards-trigger--no-popup:hover {
-    text-decoration: none;
+    opacity: 1;
   }
   .section-{{ section.id }}.product__trust-cards .product__trust-cards-icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 2.7rem;
-    height: 2.7rem;
+    width: 2.6rem;
+    height: 2.6rem;
     flex-shrink: 0;
   }
   .section-{{ section.id }}.product__trust-cards .product__trust-cards-icon img {
@@ -65,7 +70,7 @@
     object-fit: contain;
   }
   .section-{{ section.id }}.product__trust-cards .product__trust-cards-label {
-    color: #404040;
+    color: #1565d8;
   }
   .section-{{ section.id }}.product__trust-cards .product__trust-cards-logo {
     display: flex;
@@ -80,18 +85,22 @@
   }
   @media screen and (min-width: 750px) {
     .section-{{ section.id }}.product__trust-cards .product__trust-cards-list {
-      gap: 2rem 3rem;
+      gap: 1.2rem;
       justify-content: center;
     }
     .section-{{ section.id }}.product__trust-cards .product__trust-cards-item {
-      max-width: 15.2rem;
+      flex: 1 1 18rem;
+      max-width: 20.6rem;
+      min-width: 12rem;
     }
     .section-{{ section.id }}.product__trust-cards .product__trust-cards-trigger {
-      font-size: 1.3rem;
+      min-height: 8.1rem;
+      padding: 1.2rem 1rem;
+      font-size: 1.2rem;
     }
     .section-{{ section.id }}.product__trust-cards .product__trust-cards-icon {
-      width: 3.6rem;
-      height: 3.6rem;
+      width: 2.6rem;
+      height: 2.6rem;
     }
     .section-{{ section.id }}.product__trust-cards .product__trust-cards-logo {
       margin-top: 1.6rem;
