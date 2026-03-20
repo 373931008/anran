@@ -7,20 +7,22 @@
 <style>
   .section-{{ section.id }} .product__feature-list {
     --feature-heading-size: 12px;
-    --feature-heading-line-height: 1.5;
+    --feature-heading-line-height: 18px; /* 移动端：12px * 150% */
     --feature-item-size: 12px;
     --feature-item-line-height: 32px;
     --feature-icon-size: 20px;
+    --feature-icon-text-gap: 13px;
     --feature-gap: 8px;
     --feature-cols: 1;
   }
   @media screen and (min-width: 750px) {
     .section-{{ section.id }} .product__feature-list {
       --feature-heading-size: 16px;
-      --feature-heading-line-height: 1.5;
+      --feature-heading-line-height: 24px; /* 电脑端：16px * 150% */
       --feature-item-size: 16px;
       --feature-item-line-height: 32px;
       --feature-gap: 10px;
+      --feature-icon-text-gap: 4px;
       --feature-cols: 2;
     }
   }
@@ -31,32 +33,53 @@
     font-size: var(--feature-heading-size);
     line-height: var(--feature-heading-line-height);
     color: #384968;
+    font-family: Poppins, sans-serif;
+    font-style: normal;
     font-weight: 500;
     margin: 0 0 16px;
   }
   .section-{{ section.id }} .product__feature-list-grid {
     display: grid;
-    grid-template-columns: repeat(var(--feature-cols), 1fr);
+    grid-template-columns: repeat(var(--feature-cols, 1), minmax(0, 1fr));
     gap: 0 var(--feature-gap);
     row-gap: 0;
     list-style: none;
     padding: 0;
+    padding-left: 0;
     margin: 0;
+    margin-left: 0;
   }
   .section-{{ section.id }} .product__feature-list-item {
     display: flex;
     align-items: center;
-    gap: 8px;
-    font-size: var(--feature-item-size);
+    gap: var(--feature-icon-text-gap);
     line-height: var(--feature-item-line-height);
     color: #384968;
     font-weight: 700;
     min-height: var(--feature-item-line-height);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .section-{{ section.id }} .product__feature-list-item::marker {
+    content: none;
   }
   .section-{{ section.id }} .product__feature-list-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: var(--feature-icon-size);
     height: var(--feature-icon-size);
     flex-shrink: 0;
+  }
+  .section-{{ section.id }} .product__feature-list-text {
+    display: block;
+    color: #384968;
+    font-family: Poppins, sans-serif;
+    font-style: normal;
+    font-size: var(--feature-item-size);
+    font-weight: 700;
+    line-height: var(--feature-item-line-height); /* 32px（移动端与电脑端一致） */
   }
   .section-{{ section.id }} .product__feature-list-icon svg {
     width: 100%;
@@ -70,10 +93,17 @@
 {%- assign f4 = block.settings.feature_4 | strip -%}
 {%- assign f5 = block.settings.feature_5 | strip -%}
 {%- assign f6 = block.settings.feature_6 | strip -%}
-{%- assign has_heading = block.settings.heading != blank -%}
-{%- assign has_items = f1 != blank or f2 != blank or f3 != blank or f4 != blank or f5 != blank or f6 != blank -%}
-{%- assign has_any = has_heading or has_items -%}
-{%- if has_any -%}
+{%- assign has_heading = false -%}
+{%- if block.settings.heading != blank -%}
+  {%- assign has_heading = true -%}
+{%- endif -%}
+
+{%- assign has_items = false -%}
+{%- if f1 != blank or f2 != blank or f3 != blank or f4 != blank or f5 != blank or f6 != blank -%}
+  {%- assign has_items = true -%}
+{%- endif -%}
+
+{%- if has_heading or has_items -%}
 <div class="product__feature-list" {{ block.shopify_attributes }}>
   <svg width="0" height="0" class="visually-hidden" aria-hidden="true" focusable="false">
     <defs>
@@ -84,7 +114,7 @@
     </defs>
   </svg>
   {%- if has_heading -%}
-    <p class="product__feature-list-heading rte">{{ block.settings.heading }}</p>
+    <div class="product__feature-list-heading rte">{{ block.settings.heading }}</div>
   {%- endif -%}
   {%- if has_items -%}
   <ul class="product__feature-list-grid">
@@ -95,7 +125,7 @@
             <rect width="20" height="20" fill="url(#pattern0_feature_{{ block.id }})"/>
           </svg>
         </span>
-        <span>{{ f1 | escape }}</span>
+        <span class="product__feature-list-text">{{ f1 | escape }}</span>
       </li>
     {%- endif -%}
     {%- if f2 != blank -%}
@@ -105,7 +135,7 @@
             <rect width="20" height="20" fill="url(#pattern0_feature_{{ block.id }})"/>
           </svg>
         </span>
-        <span>{{ f2 | escape }}</span>
+        <span class="product__feature-list-text">{{ f2 | escape }}</span>
       </li>
     {%- endif -%}
     {%- if f3 != blank -%}
@@ -115,7 +145,7 @@
             <rect width="20" height="20" fill="url(#pattern0_feature_{{ block.id }})"/>
           </svg>
         </span>
-        <span>{{ f3 | escape }}</span>
+        <span class="product__feature-list-text">{{ f3 | escape }}</span>
       </li>
     {%- endif -%}
     {%- if f4 != blank -%}
@@ -125,7 +155,7 @@
             <rect width="20" height="20" fill="url(#pattern0_feature_{{ block.id }})"/>
           </svg>
         </span>
-        <span>{{ f4 | escape }}</span>
+        <span class="product__feature-list-text">{{ f4 | escape }}</span>
       </li>
     {%- endif -%}
     {%- if f5 != blank -%}
@@ -135,7 +165,7 @@
             <rect width="20" height="20" fill="url(#pattern0_feature_{{ block.id }})"/>
           </svg>
         </span>
-        <span>{{ f5 | escape }}</span>
+        <span class="product__feature-list-text">{{ f5 | escape }}</span>
       </li>
     {%- endif -%}
     {%- if f6 != blank -%}
@@ -145,7 +175,7 @@
             <rect width="20" height="20" fill="url(#pattern0_feature_{{ block.id }})"/>
           </svg>
         </span>
-        <span>{{ f6 | escape }}</span>
+        <span class="product__feature-list-text">{{ f6 | escape }}</span>
       </li>
     {%- endif -%}
   </ul>

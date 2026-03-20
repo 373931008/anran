@@ -67,7 +67,7 @@ product-info {
   }
 
   .product--large:not(.product--no-media) .product__info-wrapper {
-    padding: 0 0 0 7rem;
+    padding: 0 0 0 58px;
     max-width: 50%;
     width: calc(50% - var(--grid-desktop-horizontal-spacing) / 2);
   }
@@ -1663,7 +1663,7 @@ a.product__text {
   min-width: 0;
   max-width: 100%;
   height: var(--product-price-promo-height);
-  padding: 0 0.8rem;
+  padding: 0 12px;
   box-sizing: border-box;
   color: rgb(255, 255, 255);
 }
