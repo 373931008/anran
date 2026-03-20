@@ -49,7 +49,11 @@
     assign atc_disabled = true
   endif
 -%}
-
+<style>
+  .section-{{ section.id }} .buy-buttons-v2__btn {
+    width: 100%;
+  }
+</style>
 <div class="buy-buttons-v2 section-{{ section.id }}" {{ block.shopify_attributes }}>
   {%- if product != blank -%}
     <product-form

@@ -804,7 +804,7 @@
     {% assign warranty_blocks = section.blocks | where: 'type', 'q_warranty' %}
     {%- for block in warranty_blocks -%}
       {%- if block.settings.modal_content != blank -%}
-        <modal-dialog id="WarrantyModal-{{ block.id }}" class="product-popup-modal" {{ block.shopify_attributes }}>
+        <modal-dialog id="WarrantyModal-{{ block.id }}" class="product-popup-modal product-popup-modal--warranty" {{ block.shopify_attributes }}>
           <div
             role="dialog"
             aria-label="{{ block.settings.title | default: '保修说明' | escape }}"
