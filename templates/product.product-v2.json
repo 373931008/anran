@@ -7,9 +7,115 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
-{
+ {
   "layout": "theme",
   "sections": {
+    "main": {
+      "type": "main-product-v2",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {
+            "subtitle": "Guardian Cam Q3M8."
+          }
+        },
+        "judge_me_reviews_preview_badge_zMwFUy": {
+          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "show_promo_strip": true,
+            "promo_primary_text": "$10 off",
+            "promo_subtitle": "(1 DEVICE)",
+            "discount_code": "anran10",
+            "copy_label": "copy:",
+            "promo_bg": "#b51010"
+          }
+        },
+        "q_feature_list_ibgtN8": {
+          "type": "q_feature_list",
+          "settings": {
+            "heading": "<p>Crystal-Clear 4K HDR Video with Wireless Solar Power, Smart Motion Alerts, and Effortless Outdoor Protection.</p>",
+            "feature_1": "4K HDR Video",
+            "feature_2": "Smart Human Motion Alerts",
+            "feature_3": "Wireless Solar Power",
+            "feature_4": "Color Night Vision",
+            "feature_5": "Two-Way Audio",
+            "feature_6": "Works with Alexa"
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "show_variant_images": true,
+            "swatch_shape": "circle"
+          }
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "q_warranty_GUqegQ": {
+          "type": "q_warranty",
+          "settings": {
+            "title": "2-Year Extended Protection Plan",
+            "label": "Free",
+            "link_prefix": "View all",
+            "link_suffix": "warranty",
+            "modal_heading": "Outstanding customer",
+            "modal_content": "<p>Outstanding customer service. Fast response and very helpful. Highly recommended.Outstanding customer service. Fast response and very helpful. Highly recommended.Outstanding customer service. Fast response and very helpful. Highly recommended.</p>",
+            "bg_color": "#dbecff"
+          }
+        },
+        "q_worry_free_returns_g3Jexz": {
+          "type": "q_worry_free_returns",
+          "settings": {
+            "icon": "shopify://shop_images/fi_4989753.png",
+            "title": "Worry-Free Returns",
+            "description": "<p>Buy online with confidence with our 30-day risk-free return policy.</p>",
+            "bg_color": "#f3f7ff",
+            "title_color": "#1565d8"
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons_v2",
+          "settings": {
+            "secondary_checkout": "direct",
+            "show_gift_card_recipient": false
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "judge_me_reviews_preview_badge_zMwFUy",
+        "price",
+        "q_feature_list_ibgtN8",
+        "variant_picker",
+        "quantity_selector",
+        "q_warranty_GUqegQ",
+        "q_worry_free_returns_g3Jexz",
+        "buy_buttons"
+      ],
+      "settings": {
+        "enable_sticky_info": true,
+        "enable_sticky_cart_bar": true,
+        "color_scheme": "scheme-1",
+        "media_size": "large",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "gallery_layout": "stacked",
+        "mobile_thumbnails": "hide",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": true,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 12
+      }
+    },
     "q-reviews-quote": {
       "type": "q-reviews-quote",
       "blocks": {
@@ -1557,88 +1663,10 @@
         "header_margin_bottom_desktop": 40,
         "header_margin_bottom_mobile": 24
       }
-    },
-    "main": {
-      "type": "main-product-v2",
-      "blocks": {
-        "judge_me_reviews_preview_badge_zMwFUy": {
-          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-          "settings": {}
-        },
-        "vendor": {
-          "type": "text",
-          "settings": {
-            "text": "{{ product.vendor }}",
-            "text_style": "uppercase"
-          }
-        },
-        "title": {
-          "type": "title",
-          "settings": {}
-        },
-        "price": {
-          "type": "price",
-          "settings": {}
-        },
-        "variant_picker": {
-          "type": "variant_picker",
-          "settings": {
-            "picker_type": "button",
-            "show_variant_images": true,
-            "swatch_shape": "circle"
-          }
-        },
-        "quantity_selector": {
-          "type": "quantity_selector",
-          "settings": {}
-        },
-        "buy_buttons": {
-          "type": "buy_buttons_v2",
-          "settings": {
-            "secondary_checkout": "direct",
-            "show_gift_card_recipient": true
-          }
-        },
-        "description": {
-          "type": "description",
-          "settings": {}
-        },
-        "share": {
-          "type": "share",
-          "settings": {
-            "share_label": "Share"
-          }
-        }
-      },
-      "block_order": [
-        "judge_me_reviews_preview_badge_zMwFUy",
-        "vendor",
-        "title",
-        "price",
-        "variant_picker",
-        "quantity_selector",
-        "buy_buttons",
-        "description",
-        "share"
-      ],
-      "settings": {
-        "enable_sticky_info": true,
-        "color_scheme": "scheme-1",
-        "media_size": "large",
-        "constrain_to_viewport": true,
-        "media_fit": "contain",
-        "gallery_layout": "stacked",
-        "mobile_thumbnails": "hide",
-        "media_position": "left",
-        "image_zoom": "lightbox",
-        "hide_variants": true,
-        "enable_video_looping": false,
-        "padding_top": 36,
-        "padding_bottom": 12
-      }
     }
   },
   "order": [
+    "main",
     "q-reviews-quote",
     "q-reviews-slider",
     "q-logo-marquee",
@@ -1662,7 +1690,6 @@
     "q-product-specs",
     "q-service-features",
     "q-product-recommend",
-    "q-faq",
-    "main"
+    "q-faq"
   ]
 }
