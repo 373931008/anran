@@ -11,13 +11,97 @@
     "src": "frontend/entrypoints/theme.js",
     "isEntry": true,
     "dynamicImports": [
-      "frontend/islands/global-modal.js"
+      "frontend/islands/app-features-element.js",
+      "frontend/islands/camera-showcase-element.js",
+      "frontend/islands/expert-testimonials-element.js",
+      "frontend/islands/faq-tabs.js",
+      "frontend/islands/global-modal.js",
+      "frontend/islands/logo-marquee-element.js",
+      "frontend/islands/product-recommend-tabs.js",
+      "frontend/islands/product-specs-element.js",
+      "frontend/islands/q-accordion-item-element.js",
+      "frontend/islands/reviews-quote-element.js",
+      "frontend/islands/reviews-slider-element.js",
+      "frontend/islands/see-in-action-element.js",
+      "frontend/islands/smart-detection-element.js"
     ]
+  },
+  "frontend/islands/app-features-element.js": {
+    "file": "newtralchair.app-features-element.min.js",
+    "name": "app-features-element",
+    "src": "frontend/islands/app-features-element.js",
+    "isDynamicEntry": true
+  },
+  "frontend/islands/camera-showcase-element.js": {
+    "file": "newtralchair.camera-showcase-element.min.js",
+    "name": "camera-showcase-element",
+    "src": "frontend/islands/camera-showcase-element.js",
+    "isDynamicEntry": true
+  },
+  "frontend/islands/expert-testimonials-element.js": {
+    "file": "newtralchair.expert-testimonials-element.min.js",
+    "name": "expert-testimonials-element",
+    "src": "frontend/islands/expert-testimonials-element.js",
+    "isDynamicEntry": true
+  },
+  "frontend/islands/faq-tabs.js": {
+    "file": "newtralchair.faq-tabs.min.js",
+    "name": "faq-tabs",
+    "src": "frontend/islands/faq-tabs.js",
+    "isDynamicEntry": true
   },
   "frontend/islands/global-modal.js": {
     "file": "newtralchair.global-modal.min.js",
     "name": "global-modal",
     "src": "frontend/islands/global-modal.js",
+    "isDynamicEntry": true
+  },
+  "frontend/islands/logo-marquee-element.js": {
+    "file": "newtralchair.logo-marquee-element.min.js",
+    "name": "logo-marquee-element",
+    "src": "frontend/islands/logo-marquee-element.js",
+    "isDynamicEntry": true
+  },
+  "frontend/islands/product-recommend-tabs.js": {
+    "file": "newtralchair.product-recommend-tabs.min.js",
+    "name": "product-recommend-tabs",
+    "src": "frontend/islands/product-recommend-tabs.js",
+    "isDynamicEntry": true
+  },
+  "frontend/islands/product-specs-element.js": {
+    "file": "newtralchair.product-specs-element.min.js",
+    "name": "product-specs-element",
+    "src": "frontend/islands/product-specs-element.js",
+    "isDynamicEntry": true
+  },
+  "frontend/islands/q-accordion-item-element.js": {
+    "file": "newtralchair.q-accordion-item-element.min.js",
+    "name": "q-accordion-item-element",
+    "src": "frontend/islands/q-accordion-item-element.js",
+    "isDynamicEntry": true
+  },
+  "frontend/islands/reviews-quote-element.js": {
+    "file": "newtralchair.reviews-quote-element.min.js",
+    "name": "reviews-quote-element",
+    "src": "frontend/islands/reviews-quote-element.js",
+    "isDynamicEntry": true
+  },
+  "frontend/islands/reviews-slider-element.js": {
+    "file": "newtralchair.reviews-slider-element.min.js",
+    "name": "reviews-slider-element",
+    "src": "frontend/islands/reviews-slider-element.js",
+    "isDynamicEntry": true
+  },
+  "frontend/islands/see-in-action-element.js": {
+    "file": "newtralchair.see-in-action-element.min.js",
+    "name": "see-in-action-element",
+    "src": "frontend/islands/see-in-action-element.js",
+    "isDynamicEntry": true
+  },
+  "frontend/islands/smart-detection-element.js": {
+    "file": "newtralchair.smart-detection-element.min.js",
+    "name": "smart-detection-element",
+    "src": "frontend/islands/smart-detection-element.js",
     "isDynamicEntry": true
   }
 }
