@@ -20,7 +20,7 @@
 >
   {{ 'section-main-product.css' | asset_url | stylesheet_tag }}
   {{ 'component-accordion.css' | asset_url | stylesheet_tag }}
-  {{ 'component-price.css' | asset_url | stylesheet_tag }}
+  {{ 'component-price-v2.css' | asset_url | stylesheet_tag }}
   {{ 'component-slider.css' | asset_url | stylesheet_tag }}
   {{ 'component-rating.css' | asset_url | stylesheet_tag }}
   {{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}
@@ -134,7 +134,7 @@
                 <div class="product__price-block" {{ block.shopify_attributes }}>
                   <div id="price-{{ section.id }}" role="status" class="product__price-row">
                     <div class="product__price-row-main">
-                      {%- render 'price',
+                      {%- render 'price-v2',
                         product: product,
                         use_variant: true,
                         show_badges: true,
@@ -143,7 +143,7 @@
                     </div>
                     {%- render 'product-price-discount-strip', block: block -%}
                   </div>
-                  {%- if product.quantity_price_breaks_configured? -%}
+                  {% comment %} {%- if product.quantity_price_breaks_configured? -%}
                     <div class="volume-pricing-note" id="Volume-Note-{{ section.id }}">
                       <span>{{ 'products.product.volume_pricing.note' | t }}</span>
                     </div>
@@ -161,7 +161,7 @@
                         {{ 'products.product.shipping_policy_html' | t: link: shop.shipping_policy.url }}
                       {%- endif -%}
                     </div>
-                  {%- endif -%}
+                  {%- endif -%} {% endcomment %}
                   <div>
                     {%- assign product_form_installment_id = 'product-form-installment-' | append: section.id -%}
                     {%- form 'product', product, id: product_form_installment_id, class: 'installment caption-large' -%}
