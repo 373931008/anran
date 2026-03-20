@@ -1,0 +1,324 @@
+{% comment %}
+  产品页购买按钮 v2（Figma：桌面 195:9 / 移动 196:121）
+  第二按钮：主题可选「快速结账」payment_button 或「去结账」购物车永久链接（product-info.js）
+  @param product, block, section, product_form_id, section_id, show_pickup_availability
+{% endcomment %}
+{%- liquid
+  assign v = product.selected_or_first_available_variant
+  assign btn_price = ''
+  if v != blank
+    if settings.currency_code_enabled
+      assign btn_price = v.price | money_with_currency
+    else
+      assign btn_price = v.price | money
+    endif
+  endif
+
+  assign gift_card_recipient_feature_active = false
+  if block.settings.show_gift_card_recipient and product.gift_card?
+    assign gift_card_recipient_feature_active = true
+  endif
+
+  assign secondary_checkout = block.settings.secondary_checkout | default: 'direct'
+  assign hide_secondary_checkout = false
+  if gift_card_recipient_feature_active
+    assign hide_secondary_checkout = true
+  endif
+
+  assign show_express_checkout = false
+  if hide_secondary_checkout == false and secondary_checkout == 'express'
+    assign show_express_checkout = true
+  endif
+
+  assign show_direct_checkout = false
+  if hide_secondary_checkout == false and secondary_checkout == 'direct'
+    assign show_direct_checkout = true
+  endif
+
+  assign check_against_inventory = true
+  if v.inventory_management != 'shopify' or v.inventory_policy == 'continue'
+    assign check_against_inventory = false
+  endif
+  assign quantity_rule_soldout = false
+  if v != blank and check_against_inventory and v.quantity_rule.min > v.inventory_quantity
+    assign quantity_rule_soldout = true
+  endif
+
+  assign atc_disabled = false
+  if v == blank or v.available == false or quantity_rule_soldout
+    assign atc_disabled = true
+  endif
+-%}
+
+<div class="buy-buttons-v2 section-{{ section.id }}" {{ block.shopify_attributes }}>
+  {%- if product != blank -%}
+    <product-form
+      class="product-form buy-buttons-v2__product-form"
+      data-hide-errors="{{ gift_card_recipient_feature_active }}"
+      data-section-id="{{ section.id }}"
+    >
+      <div class="product-form__error-message-wrapper" role="alert" hidden>
+        <span class="svg-wrapper">
+          {{- 'icon-error.svg' | inline_asset_content -}}
+        </span>
+        <span class="product-form__error-message"></span>
+      </div>
+
+      {%- form 'product',
+        product,
+        id: product_form_id,
+        class: 'form',
+        novalidate: 'novalidate',
+        data-type: 'add-to-cart-form'
+      -%}
+        <input
+          type="hidden"
+          name="id"
+          value="{{ v.id }}"
+          {% if atc_disabled %}
+            disabled
+          {% endif %}
+          class="product-variant-id"
+        >
+
+        {%- if gift_card_recipient_feature_active -%}
+          {%- render 'gift-card-recipient-form', product: product, form: form, section: section -%}
+        {%- endif -%}
+
+        <div class="buy-buttons-v2__row product-form__buttons">
+          <button
+            id="ProductSubmitButtonV2-{{ section_id }}"
+            type="submit"
+            name="add"
+            class="button buy-buttons-v2__btn buy-buttons-v2__btn--atc"
+            {% if atc_disabled %}
+              disabled
+            {% endif %}
+          >
+            <span class="buy-buttons-v2__btn-label" id="BuyButtonsV2AtcLine-{{ section.id }}">
+              {{- 'products.product.buy_buttons_v2.atc_with_price' | t: price: btn_price -}}
+            </span>
+            {%- render 'loading-spinner' -%}
+          </button>
+
+          {%- if show_direct_checkout -%}
+            <button
+              type="submit"
+              form="ProductBuyButtonsV2Checkout-{{ section.id }}"
+              class="button buy-buttons-v2__btn buy-buttons-v2__btn--checkout buy-buttons-v2__checkout"
+              {% if atc_disabled %}
+                disabled
+              {% endif %}
+            >
+              <span class="buy-buttons-v2__btn-label" id="BuyButtonsV2BuyLine-{{ section.id }}">
+                {{- 'products.product.buy_buttons_v2.buy_with_price' | t: price: btn_price -}}
+              </span>
+              {%- render 'loading-spinner' -%}
+            </button>
+          {%- elsif show_express_checkout -%}
+            <div
+              class="buy-buttons-v2__dynamic-slot"
+              id="BuyButtonsV2ExpressSlot-{{ section.id }}"
+            >
+              {{ form | payment_button }}
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endform -%}
+    </product-form>
+
+    {%- if show_direct_checkout -%}
+      <form
+        id="ProductBuyButtonsV2Checkout-{{ section.id }}"
+        class="buy-buttons-v2__checkout-form product-info__direct-checkout-form"
+        method="post"
+        action="{{ routes.cart_add_url }}"
+        hidden
+        aria-hidden="true"
+      >
+        <input type="hidden" name="id" value="{{ v.id }}">
+        <input type="hidden" name="quantity" value="{{ v.quantity_rule.min | default: 1 }}">
+      </form>
+    {%- endif -%}
+  {%- else -%}
+    <div class="product-form">
+      <div class="buy-buttons-v2__row product-form__buttons form">
+        <button type="submit" name="add" class="button buy-buttons-v2__btn buy-buttons-v2__btn--atc" disabled>
+          <span class="buy-buttons-v2__btn-label">{{ 'products.product.sold_out' | t }}</span>
+        </button>
+      </div>
+    </div>
+  {%- endif -%}
+
+  {%- if show_pickup_availability -%}
+    {{ 'component-pickup-availability.css' | asset_url | stylesheet_tag }}
+
+    {%- assign pick_up_availabilities = product.selected_or_first_available_variant.store_availabilities
+      | where: 'pick_up_enabled', true
+    -%}
+
+    <pickup-availability
+      class="product__pickup-availabilities quick-add-hidden"
+      {% if product.selected_or_first_available_variant.available and pick_up_availabilities.size > 0 %}
+        available
+      {% endif %}
+      data-root-url="{{ routes.root_url }}"
+      data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+      data-has-only-default-variant="{{ product.has_only_default_variant }}"
+      data-product-page-color-scheme="gradient color-{{ section.settings.color_scheme }}"
+    >
+      <template>
+        <pickup-availability-preview class="pickup-availability-preview">
+          <span class="svg-wrapper">
+            {{- 'icon-unavailable.svg' | inline_asset_content -}}
+          </span>
+          <div class="pickup-availability-info">
+            <p class="caption-large">{{ 'products.product.pickup_availability.unavailable' | t }}</p>
+            <button class="pickup-availability-button link link--text underlined-link">
+              {{ 'products.product.pickup_availability.refresh' | t }}
+            </button>
+          </div>
+        </pickup-availability-preview>
+      </template>
+    </pickup-availability>
+
+    <script src="{{ 'pickup-availability.js' | asset_url }}" defer="defer"></script>
+  {%- endif -%}
+</div>
+
+{% stylesheet %}
+  .section-{{ section.id }} .buy-buttons-v2__row {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 0.8rem;
+    width: 100%;
+  }
+
+  .section-{{ section.id }} .buy-buttons-v2__btn {
+    position: relative;
+    flex: 1 1 50%;
+    min-width: 0;
+    margin: 0;
+    min-height: 3.7rem;
+    padding: 0 0.8rem;
+    border-radius: 1rem;
+    font-family: var(--font-body-family, inherit);
+    font-weight: 600;
+    font-size: 1.2rem;
+    line-height: 1.2;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    border: none;
+    cursor: pointer;
+    transition:
+      background-color 0.2s ease,
+      opacity 0.2s ease,
+      transform 0.15s ease;
+  }
+
+  .section-{{ section.id }} .buy-buttons-v2__btn:focus-visible {
+    outline: 0.2rem solid rgba(44, 119, 253, 0.45);
+    outline-offset: 0.2rem;
+  }
+
+  .section-{{ section.id }} .buy-buttons-v2__btn--atc {
+    background: rgba(44, 119, 253, 1);
+    color: rgb(var(--color-button-text));
+  }
+
+  .section-{{ section.id }} .buy-buttons-v2__btn--atc .loading__spinner .path {
+    stroke: rgb(var(--color-button-text));
+  }
+
+  .section-{{ section.id }} .buy-buttons-v2__btn--atc:hover {
+    background: rgb(36, 100, 220);
+  }
+
+  .section-{{ section.id }} .buy-buttons-v2__btn--checkout {
+    background: rgba(250, 166, 26, 1);
+    color: rgb(var(--color-button-text));
+  }
+
+  .section-{{ section.id }} .buy-buttons-v2__btn--checkout .loading__spinner .path {
+    stroke: rgb(var(--color-button-text));
+  }
+
+  .section-{{ section.id }} .buy-buttons-v2__btn--checkout:hover {
+    background: #e8940f;
+  }
+
+  .section-{{ section.id }} .buy-buttons-v2__dynamic-slot {
+    flex: 1 1 50%;
+    min-width: 0;
+    display: flex;
+    align-items: stretch;
+    align-self: stretch;
+  }
+
+  .section-{{ section.id }} .buy-buttons-v2__dynamic-slot .shopify-payment-button {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    flex: 1;
+  }
+
+  .section-{{ section.id }} .buy-buttons-v2__dynamic-slot shopify-accelerated-checkout {
+    width: 100%;
+    flex: 1;
+    min-height: 3.7rem;
+  }
+
+  .section-{{ section.id }} .buy-buttons-v2__btn:active {
+    opacity: 0.88;
+    transform: scale(0.98);
+  }
+
+  .section-{{ section.id }} .buy-buttons-v2__btn[disabled] {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+  .section-{{ section.id }} .buy-buttons-v2__btn[disabled]:active {
+    transform: none;
+  }
+
+  .section-{{ section.id }} .buy-buttons-v2__btn-label {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .section-{{ section.id }} .buy-buttons-v2__btn.loading > .loading__spinner {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  .section-{{ section.id }} .buy-buttons-v2__btn.loading .buy-buttons-v2__btn-label {
+    opacity: 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .buy-buttons-v2__row {
+      gap: 1.2rem;
+    }
+
+    .section-{{ section.id }} .buy-buttons-v2__btn {
+      min-height: 6rem;
+      padding: 0 1.6rem;
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+
+    .section-{{ section.id }} .buy-buttons-v2__dynamic-slot shopify-accelerated-checkout {
+      min-height: 6rem;
+    }
+  }
+{% endstylesheet %}

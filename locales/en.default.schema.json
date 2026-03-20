@@ -2017,6 +2017,21 @@
             }
           }
         },
+        "buy_buttons_v2": {
+          "name": "Buy buttons v2",
+          "settings": {
+            "secondary_checkout": {
+              "label": "Second button",
+              "info": "Express checkout shows Shop Pay, PayPal, and other accelerated options from Shopify. Buy now opens checkout with this variant added to the cart (existing cart items are kept).",
+              "options__express": {
+                "label": "Express checkout"
+              },
+              "options__direct": {
+                "label": "Buy now (checkout link)"
+              }
+            }
+          }
+        },
         "pickup_availability": {
           "name": "Pickup availability"
         },
@@ -2328,6 +2343,9 @@
         },
         "enable_sticky_info": {
           "label": "Sticky content"
+        },
+        "enable_sticky_cart_bar": {
+          "label": "Sticky add to cart bar"
         },
         "gallery_layout": {
           "label": "Layout",

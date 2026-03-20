@@ -107,6 +107,14 @@
   "products": {
     "product": {
       "add_to_cart": "Add to cart",
+      "sticky_bar": {
+        "region_label": "Sticky purchase bar",
+        "buy_now": "Buy now"
+      },
+      "buy_buttons_v2": {
+        "atc_with_price": "ADD TO CART - {{ price }}",
+        "buy_with_price": "BUY NOW - {{ price }}"
+      },
       "choose_options": "Choose options",
       "choose_product_options": "Choose options for {{ product_name }}",
       "description": "Description",
