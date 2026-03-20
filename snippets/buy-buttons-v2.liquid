@@ -50,8 +50,9 @@
   endif
 -%}
 <style>
-  .section-{{ section.id }} .buy-buttons-v2__btn {
-    width: 100%;
+  .section-{{ section.id }} .product-form__buttons {
+    {% comment %} width: 100%; {% endcomment %}
+    max-width: 100%;
   }
 </style>
 <div class="buy-buttons-v2 section-{{ section.id }}" {{ block.shopify_attributes }}>
@@ -89,7 +90,9 @@
           {%- render 'gift-card-recipient-form', product: product, form: form, section: section -%}
         {%- endif -%}
 
-        <div class="buy-buttons-v2__row product-form__buttons">
+        <div
+          class="buy-buttons-v2__row product-form__buttons{% if show_direct_checkout %} buy-buttons-v2__row--two{% else %} buy-buttons-v2__row--stack{% endif %}"
+        >
           <button
             id="ProductSubmitButtonV2-{{ section_id }}"
             type="submit"
@@ -190,31 +193,54 @@
   {%- endif -%}
 </div>
 
-{% stylesheet %}
+<style>
   .section-{{ section.id }} .buy-buttons-v2__row {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: stretch;
-    gap: 0.8rem;
+    gap: 9px;
     width: 100%;
+  }
+
+  .section-{{ section.id }} .buy-buttons-v2__row--two {
+    flex-direction: row;
+    gap: 9px;
   }
 
   .section-{{ section.id }} .buy-buttons-v2__btn {
     position: relative;
-    flex: 1 1 50%;
+    flex: 1 1 auto;
     min-width: 0;
     margin: 0;
-    min-height: 3.7rem;
-    padding: 0 0.8rem;
-    border-radius: 1rem;
-    font-family: var(--font-body-family, inherit);
+    min-height: 37px;
+    height: 37px;
+    padding: 0 16px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: none;
+    font-family: 'Poppins', var(--font-body-family, inherit);
     font-weight: 600;
-    font-size: 1.2rem;
-    line-height: 1.2;
+    font-size: 12px;
+    line-height: 1;
     text-transform: uppercase;
-    letter-spacing: 0.02em;
+    letter-spacing: 0;
     border: none;
     cursor: pointer;
+
+    /* 覆盖全局 .button 的描边/阴影伪元素，确保和设计稿一致 */
+    --buttons-radius-outset: 10px;
+    --buttons-radius: 10px;
+    --buttons-border-width: 0px;
+    --border-offset: 0px;
+    --border-opacity: 0;
+    --buttons-shadow-horizontal-offset: 0px;
+    --buttons-shadow-vertical-offset: 0px;
+    --buttons-shadow-blur-radius: 0px;
+    --buttons-shadow-opacity: 0;
+    --buttons-shadow-visible: 0;
+
     transition:
       background-color 0.2s ease,
       opacity 0.2s ease,
@@ -224,11 +250,27 @@
   .section-{{ section.id }} .buy-buttons-v2__btn:focus-visible {
     outline: 0.2rem solid rgba(44, 119, 253, 0.45);
     outline-offset: 0.2rem;
+    box-shadow: none;
+  }
+
+  .section-{{ section.id }} .buy-buttons-v2__btn::before {
+    box-shadow: none;
+  }
+
+  .section-{{ section.id }} .buy-buttons-v2__btn::after {
+    box-shadow: none;
+  }
+
+  .section-{{ section.id }} .buy-buttons-v2__btn:not([disabled]):hover::after {
+    box-shadow: none;
   }
 
   .section-{{ section.id }} .buy-buttons-v2__btn--atc {
-    background: rgba(44, 119, 253, 1);
-    color: rgb(var(--color-button-text));
+    background-color: #2c77fd;
+    color: #ffffff;
+    --color-button: 44 119 253;
+    --alpha-button-background: 1;
+    --color-button-text: 255 255 255;
   }
 
   .section-{{ section.id }} .buy-buttons-v2__btn--atc .loading__spinner .path {
@@ -236,12 +278,15 @@
   }
 
   .section-{{ section.id }} .buy-buttons-v2__btn--atc:hover {
-    background: rgb(36, 100, 220);
+    background-color: #2464dc;
   }
 
   .section-{{ section.id }} .buy-buttons-v2__btn--checkout {
-    background: rgba(250, 166, 26, 1);
-    color: rgb(var(--color-button-text));
+    background-color: #faa61a;
+    color: #ffffff;
+    --color-button: 250 166 26;
+    --alpha-button-background: 1;
+    --color-button-text: 255 255 255;
   }
 
   .section-{{ section.id }} .buy-buttons-v2__btn--checkout .loading__spinner .path {
@@ -249,15 +294,23 @@
   }
 
   .section-{{ section.id }} .buy-buttons-v2__btn--checkout:hover {
-    background: #e8940f;
+    background-color: #e8940f;
   }
 
   .section-{{ section.id }} .buy-buttons-v2__dynamic-slot {
-    flex: 1 1 50%;
+    flex: 1 1 auto;
     min-width: 0;
     display: flex;
     align-items: stretch;
     align-self: stretch;
+  }
+
+  .section-{{ section.id }} .buy-buttons-v2__row--two .buy-buttons-v2__btn {
+    flex: 1 1 50%;
+  }
+
+  .section-{{ section.id }} .buy-buttons-v2__row--two .buy-buttons-v2__dynamic-slot {
+    flex: 1 1 50%;
   }
 
   .section-{{ section.id }} .buy-buttons-v2__dynamic-slot .shopify-payment-button {
@@ -266,12 +319,44 @@
     flex-direction: column;
     justify-content: stretch;
     flex: 1;
+    min-height: 37px;
   }
 
   .section-{{ section.id }} .buy-buttons-v2__dynamic-slot shopify-accelerated-checkout {
     width: 100%;
     flex: 1;
-    min-height: 3.7rem;
+    min-height: 37px;
+  }
+
+  /* 快速结账按钮：Shopify 注入的按钮同样需要覆盖边框/描边环 */
+  .section-{{ section.id }} .buy-buttons-v2__dynamic-slot button.shopify-payment-button__button--unbranded,
+  .section-{{ section.id }} .buy-buttons-v2__dynamic-slot button.shopify-payment-button__button {
+    box-shadow: none;
+    --buttons-radius-outset: 10px;
+    --buttons-radius: 10px;
+    --buttons-border-width: 0px;
+    --border-offset: 0px;
+    --border-opacity: 0;
+    --buttons-shadow-horizontal-offset: 0px;
+    --buttons-shadow-vertical-offset: 0px;
+    --buttons-shadow-blur-radius: 0px;
+    --buttons-shadow-opacity: 0;
+    --buttons-shadow-visible: 0;
+  }
+
+  .section-{{ section.id }} .buy-buttons-v2__dynamic-slot button.shopify-payment-button__button--unbranded::before,
+  .section-{{ section.id }} .buy-buttons-v2__dynamic-slot button.shopify-payment-button__button::before {
+    box-shadow: none;
+  }
+
+  .section-{{ section.id }} .buy-buttons-v2__dynamic-slot button.shopify-payment-button__button--unbranded::after,
+  .section-{{ section.id }} .buy-buttons-v2__dynamic-slot button.shopify-payment-button__button::after {
+    box-shadow: none;
+  }
+
+  .section-{{ section.id }} .buy-buttons-v2__dynamic-slot button.shopify-payment-button__button--unbranded:not([disabled]):hover::after,
+  .section-{{ section.id }} .buy-buttons-v2__dynamic-slot button.shopify-payment-button__button:not([disabled]):hover::after {
+    box-shadow: none;
   }
 
   .section-{{ section.id }} .buy-buttons-v2__btn:active {
@@ -310,19 +395,30 @@
   }
 
   @media screen and (min-width: 750px) {
-    .section-{{ section.id }} .buy-buttons-v2__row {
-      gap: 1.2rem;
+    .section-{{ section.id }} .buy-buttons-v2__row--two {
+      gap: 20px;
     }
 
     .section-{{ section.id }} .buy-buttons-v2__btn {
-      min-height: 6rem;
-      padding: 0 1.6rem;
-      font-size: 1.8rem;
+      min-height: 60px;
+      height: 60px;
+      padding: 0 24px;
+      font-size: 18px;
       font-weight: 700;
     }
 
     .section-{{ section.id }} .buy-buttons-v2__dynamic-slot shopify-accelerated-checkout {
-      min-height: 6rem;
+      min-height: 60px;
+    }
+
+    .section-{{ section.id }} .buy-buttons-v2__dynamic-slot .shopify-payment-button {
+      min-height: 60px;
+    }
+
+    .section-{{ section.id }} .buy-buttons-v2__dynamic-slot button.shopify-payment-button__button--unbranded,
+    .section-{{ section.id }} .buy-buttons-v2__dynamic-slot button.shopify-payment-button__button {
+      min-height: 60px;
+      height: 60px;
     }
   }
-{% endstylesheet %}
+</style>
