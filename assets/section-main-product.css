@@ -1494,6 +1494,139 @@ a.product__text {
 }
 
 
+/* 产品页：价格与右侧红条优惠（main-product-v2 price block） */
+.product__price-block {
+  width: 100%;
+}
+
+.product__price-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 0.8rem;
+  min-width: 0;
+  width: 100%;
+}
+
+.product__price-row-main {
+  flex: 0 1 auto;
+  min-width: 0;
+}
+
+.product__price-row-main .price {
+  flex-wrap: nowrap;
+}
+
+.product-price-promo {
+  --product-price-promo-height: 2.8rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: 100%;
+  height: var(--product-price-promo-height);
+  padding: 0 0.8rem;
+  box-sizing: border-box;
+  color: rgb(255, 255, 255);
+}
+
+.product-price-promo__left {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: baseline;
+  gap: 0.4rem;
+  min-width: 0;
+  white-space: nowrap;
+}
+
+.product-price-promo__primary {
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.product-price-promo__subtitle {
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.2;
+}
+
+.product-price-promo__divider {
+  align-self: stretch;
+  flex-shrink: 0;
+  width: 0;
+  margin: 0 0.6rem;
+  border-left: 0.1rem dotted rgba(255, 255, 255, 0.95);
+}
+
+.product-price-promo__copy {
+  flex-shrink: 0;
+  margin: 0;
+  padding: 0;
+  max-width: 100%;
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.2;
+  color: inherit;
+  text-align: right;
+  text-decoration: underline;
+  text-underline-offset: 0.2rem;
+  white-space: nowrap;
+  cursor: pointer;
+  background: none;
+  border: none;
+  appearance: none;
+}
+
+.product-price-promo__copy:hover {
+  opacity: 0.92;
+}
+
+.product-price-promo__copy:active {
+  opacity: 0.85;
+}
+
+.product-price-promo__copy:focus-visible {
+  outline: 0.2rem solid rgba(255, 255, 255, 0.9);
+  outline-offset: 0.2rem;
+}
+
+.product-price-promo__copy-inner {
+  display: inline;
+}
+
+.product-price-promo__copy-done {
+  display: none;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.product-price-promo__copy.is-copied .product-price-promo__copy-inner {
+  display: none;
+}
+
+.product-price-promo__copy.is-copied .product-price-promo__copy-done {
+  display: inline;
+}
+
+@media screen and (min-width: 750px) {
+  .product-price-promo__primary {
+    font-size: 1.3rem;
+  }
+
+  .product-price-promo__subtitle {
+    font-size: 1.2rem;
+  }
+
+  .product-price-promo__copy {
+    font-size: 1.2rem;
+  }
+}
+
 /* .grid__item.product__media-wrapper, .ytp-cued-thumbnail-overlay-image, .q-faq, .product__description, .header-wrapper {
   opacity: 0 !important;
 } */
