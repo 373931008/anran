@@ -989,20 +989,40 @@ a.product__text {
     width: 100%;
   }
 
+  /* 产品页缩略图条（Figma 58:1355）：主图下 15px、缩略 70×70、圆角 5px、间距 8px、移动端无箭头 */
   .thumbnail-slider {
     display: flex;
     align-items: center;
+    margin-top: 15px;
+  }
+
+  .thumbnail-slider .slider-button {
+    display: none;
   }
 
   .thumbnail-slider .thumbnail-list.slider {
     display: flex;
-    padding: 0.5rem;
     flex: 1;
-    scroll-padding-left: 0.5rem;
+    flex-wrap: nowrap;
+    gap: 8px;
+    padding: 0;
+    margin-bottom: 0;
+    scroll-padding-left: 0;
+    scroll-padding-right: 8px;
   }
 
-  .thumbnail-list__item.slider__slide {
-    width: calc(33% - 0.6rem);
+  .thumbnail-slider .slider.slider--mobile .slider__slide {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .thumbnail-slider .thumbnail-list__item.slider__slide {
+    width: 70px;
+    flex-shrink: 0;
+  }
+
+  .thumbnail-slider .thumbnail.global-media-settings {
+    border-radius: 5px;
   }
 }
 
