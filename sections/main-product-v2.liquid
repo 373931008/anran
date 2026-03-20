@@ -780,7 +780,7 @@
         <modal-dialog id="WarrantyModal-{{ block.id }}" class="product-popup-modal" {{ block.shopify_attributes }}>
           <div
             role="dialog"
-            aria-label="{{ block.settings.title | default: 'Warranty' | escape }}"
+            aria-label="{{ block.settings.title | default: '保修说明' | escape }}"
             aria-modal="true"
             class="product-popup-modal__content"
             tabindex="-1"
@@ -1064,6 +1064,14 @@
           ],
           "default": "button",
           "label": "t:sections.main-product.blocks.variant_picker.settings.picker_type.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_variant_images",
+          "label": "胶囊选项显示变体图片",
+          "info": "开启后使用各变体的特色图片作为选项缩略图，请在商品后台为每个变体设置特色图片",
+          "default": false,
+          "visible_if": "{{ block.settings.picker_type == 'button' }}"
         },
         {
           "id": "swatch_shape",
@@ -2280,42 +2288,114 @@
     },
     {
       "type": "trust_cards",
-      "name": "q-信任/保障卡片（可点击弹窗）",
+      "name": "信任/保障卡片（可点击弹窗）",
       "limit": 1,
       "settings": [
+        {
+          "type": "paragraph",
+          "content": "最多 4 张卡片，每张为「图标 + 标题」。填写某张的弹窗内容后，点击该区域会打开说明弹窗；不填则仅展示、不可点。卡片下方可另传一张 Logo/信任徽章图（居中显示）。"
+        },
         {
           "type": "header",
           "content": "卡片 1"
         },
-        { "type": "image_picker", "id": "card_1_icon", "label": "图标" },
-        { "type": "text", "id": "card_1_label", "label": "标题", "default": "30-Day Risk-Free Trial" },
-        { "type": "richtext", "id": "card_1_content", "label": "弹窗内容（留空则不弹窗）" },
+        {
+          "type": "image_picker",
+          "id": "card_1_icon",
+          "label": "图标",
+          "info": "建议与设计稿一致的小图标，约 72px 宽导出。"
+        },
+        {
+          "type": "text",
+          "id": "card_1_label",
+          "label": "标题",
+          "default": "30 天无风险试用",
+          "info": "显示在图标下方，可换行。"
+        },
+        {
+          "type": "richtext",
+          "id": "card_1_content",
+          "label": "弹窗内容",
+          "info": "留空则该卡片不可点击；填写后点击卡片打开弹窗。"
+        },
         {
           "type": "header",
           "content": "卡片 2"
         },
-        { "type": "image_picker", "id": "card_2_icon", "label": "图标" },
-        { "type": "text", "id": "card_2_label", "label": "标题", "default": "24-Month Warranty" },
-        { "type": "richtext", "id": "card_2_content", "label": "弹窗内容（留空则不弹窗）" },
+        {
+          "type": "image_picker",
+          "id": "card_2_icon",
+          "label": "图标",
+          "info": "建议与设计稿一致的小图标，约 72px 宽导出。"
+        },
+        {
+          "type": "text",
+          "id": "card_2_label",
+          "label": "标题",
+          "default": "24 个月保修",
+          "info": "显示在图标下方，可换行。"
+        },
+        {
+          "type": "richtext",
+          "id": "card_2_content",
+          "label": "弹窗内容",
+          "info": "留空则该卡片不可点击；填写后点击卡片打开弹窗。"
+        },
         {
           "type": "header",
           "content": "卡片 3"
         },
-        { "type": "image_picker", "id": "card_3_icon", "label": "图标" },
-        { "type": "text", "id": "card_3_label", "label": "标题", "default": "Free App Access" },
-        { "type": "richtext", "id": "card_3_content", "label": "弹窗内容（留空则不弹窗）" },
+        {
+          "type": "image_picker",
+          "id": "card_3_icon",
+          "label": "图标",
+          "info": "建议与设计稿一致的小图标，约 72px 宽导出。"
+        },
+        {
+          "type": "text",
+          "id": "card_3_label",
+          "label": "标题",
+          "default": "免费 App 使用",
+          "info": "显示在图标下方，可换行。"
+        },
+        {
+          "type": "richtext",
+          "id": "card_3_content",
+          "label": "弹窗内容",
+          "info": "留空则该卡片不可点击；填写后点击卡片打开弹窗。"
+        },
         {
           "type": "header",
           "content": "卡片 4"
         },
-        { "type": "image_picker", "id": "card_4_icon", "label": "图标" },
-        { "type": "text", "id": "card_4_label", "label": "标题" },
-        { "type": "richtext", "id": "card_4_content", "label": "弹窗内容（留空则不弹窗）" },
+        {
+          "type": "image_picker",
+          "id": "card_4_icon",
+          "label": "图标",
+          "info": "可选。不需要第 4 张时可留空且不填标题。"
+        },
+        {
+          "type": "text",
+          "id": "card_4_label",
+          "label": "标题",
+          "info": "显示在图标下方；图标与标题都留空则整卡不显示。"
+        },
+        {
+          "type": "richtext",
+          "id": "card_4_content",
+          "label": "弹窗内容",
+          "info": "留空则该卡片不可点击；填写后点击卡片打开弹窗。"
+        },
         {
           "type": "header",
           "content": "卡片列表下方 Logo"
         },
-        { "type": "image_picker", "id": "logo_image", "label": "Logo 图片" }
+        {
+          "type": "image_picker",
+          "id": "logo_image",
+          "label": "Logo 图片",
+          "info": "可选。显示在整排卡片下方居中，如 Trust Guard、安全认证等整图；建议透明底 PNG。"
+        }
       ]
     },
     {
@@ -2323,20 +2403,77 @@
       "name": "Q-信任徽章",
       "limit": 1,
       "settings": [
+        {
+          "type": "paragraph",
+          "content": "桌面端：三个图标+标题与右侧徽章图同一行；移动端：前三个一行，徽章图单独一行居中。填写弹窗内容后，对应项可点击打开说明。"
+        },
         { "type": "header", "content": "卡片 1" },
-        { "type": "image_picker", "id": "card_1_icon", "label": "图标" },
-        { "type": "text", "id": "card_1_label", "label": "标题", "default": "30-Day Risk-Free Trial" },
-        { "type": "richtext", "id": "card_1_content", "label": "弹窗内容（留空则不弹窗）" },
+        {
+          "type": "image_picker",
+          "id": "card_1_icon",
+          "label": "图标",
+          "info": "建议与设计稿尺寸一致的小图标（如 72px 宽导出）。"
+        },
+        {
+          "type": "text",
+          "id": "card_1_label",
+          "label": "标题",
+          "default": "30 天无风险试用",
+          "info": "显示在图标下方，可换行。"
+        },
+        {
+          "type": "richtext",
+          "id": "card_1_content",
+          "label": "弹窗内容",
+          "info": "留空则该项不可点击；填写后点击标题区域弹出说明。"
+        },
         { "type": "header", "content": "卡片 2" },
-        { "type": "image_picker", "id": "card_2_icon", "label": "图标" },
-        { "type": "text", "id": "card_2_label", "label": "标题", "default": "24-Month Warranty" },
-        { "type": "richtext", "id": "card_2_content", "label": "弹窗内容（留空则不弹窗）" },
+        {
+          "type": "image_picker",
+          "id": "card_2_icon",
+          "label": "图标",
+          "info": "建议与设计稿尺寸一致的小图标（如 72px 宽导出）。"
+        },
+        {
+          "type": "text",
+          "id": "card_2_label",
+          "label": "标题",
+          "default": "24 个月保修",
+          "info": "显示在图标下方，可换行。"
+        },
+        {
+          "type": "richtext",
+          "id": "card_2_content",
+          "label": "弹窗内容",
+          "info": "留空则该项不可点击；填写后点击标题区域弹出说明。"
+        },
         { "type": "header", "content": "卡片 3" },
-        { "type": "image_picker", "id": "card_3_icon", "label": "图标" },
-        { "type": "text", "id": "card_3_label", "label": "标题", "default": "Free App Access" },
-        { "type": "richtext", "id": "card_3_content", "label": "弹窗内容（留空则不弹窗）" },
-        { "type": "header", "content": "Trust Guard 徽章" },
-        { "type": "image_picker", "id": "badge_image", "label": "徽章图片" }
+        {
+          "type": "image_picker",
+          "id": "card_3_icon",
+          "label": "图标",
+          "info": "建议与设计稿尺寸一致的小图标（如 72px 宽导出）。"
+        },
+        {
+          "type": "text",
+          "id": "card_3_label",
+          "label": "标题",
+          "default": "免费 App 使用",
+          "info": "显示在图标下方，可换行。"
+        },
+        {
+          "type": "richtext",
+          "id": "card_3_content",
+          "label": "弹窗内容",
+          "info": "留空则该项不可点击；填写后点击标题区域弹出说明。"
+        },
+        { "type": "header", "content": "信任/安全徽章" },
+        {
+          "type": "image_picker",
+          "id": "badge_image",
+          "label": "徽章图片",
+          "info": "如 Trust Guard、安全认证等整图；建议透明底 PNG，与设计稿宽度接近即可。"
+        }
       ]
     },
     {
@@ -2344,31 +2481,116 @@
       "name": "Q-用户评价卡片",
       "limit": 1,
       "settings": [
-        { "type": "image_picker", "id": "avatar", "label": "用户头像" },
-        { "type": "range", "id": "stars", "label": "星级", "min": 0, "max": 5, "step": 1, "default": 5 },
-        { "type": "textarea", "id": "quote", "label": "评价内容", "default": "Great traction for outdoor adventures." },
-        { "type": "text", "id": "author_name", "label": "署名", "default": "Karen B." }
+        {
+          "type": "paragraph",
+          "content": "展示一条用户评价：左侧圆形头像，右侧星级与引用语、署名。背景为浅蓝灰卡片，与产品页设计稿一致。"
+        },
+        {
+          "type": "image_picker",
+          "id": "avatar",
+          "label": "用户头像",
+          "info": "建议使用正方形图片，前台会裁切为圆形显示。"
+        },
+        {
+          "type": "range",
+          "id": "stars",
+          "label": "星级",
+          "min": 0,
+          "max": 5,
+          "step": 1,
+          "default": 5,
+          "info": "0 表示不显示星级；1～5 为亮星数量，其余为灰色占位星。"
+        },
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "评价内容",
+          "default": "户外运动时抓地力很棒。",
+          "info": "前台会在前后自动加上英文双引号。"
+        },
+        {
+          "type": "text",
+          "id": "author_name",
+          "label": "署名",
+          "default": "某位顾客",
+          "info": "显示在评价文字之后，格式为「– 署名」，署名为加粗。"
+        }
       ]
     },
     {
       "type": "q_see_in_action",
-      "name": "Q-See in Action 标题",
+      "name": "Q-实拍视频轮播（标题与自动轮播）",
       "limit": 1,
       "settings": [
-        { "type": "text", "id": "heading", "label": "标题", "default": "See in Action" },
-        { "type": "checkbox", "id": "autoplay_timer", "label": "自动轮播（定时切换）", "default": false },
-        { "type": "range", "id": "autoplay_delay", "label": "自动轮播间隔（毫秒）", "min": 3000, "max": 10000, "step": 1000, "unit": "ms", "default": 5000 }
+        {
+          "type": "paragraph",
+          "content": "本区块仅配置轮播上方标题与「定时自动切下一张」。实际视频卡片请添加「Q-实拍视频卡片」区块，可添加多张。"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "区块标题",
+          "default": "See in Action",
+          "info": "显示在轮播上方，可改为中文或其它文案。"
+        },
+        {
+          "type": "checkbox",
+          "id": "autoplay_timer",
+          "label": "启用定时自动轮播",
+          "default": false,
+          "info": "开启后按下方间隔自动切换到下一张，与「本地视频播完自动下一张」可同时存在。"
+        },
+        {
+          "type": "range",
+          "id": "autoplay_delay",
+          "label": "自动切换间隔（毫秒）",
+          "min": 3000,
+          "max": 9000,
+          "step": 1000,
+          "unit": "ms",
+          "default": 5000,
+          "info": "仅在「启用定时自动轮播」打开时生效。"
+        }
       ]
     },
     {
       "type": "q_see_in_action_card",
-      "name": "Q-See in Action 视频卡片",
+      "name": "Q-实拍视频卡片",
       "settings": [
-        { "type": "header", "content": "视频来源（优先使用本地，其次链接，最后备用 URL）" },
-        { "type": "video", "id": "video", "label": "本地短视频" },
-        { "type": "url", "id": "video_link", "label": "视频链接（YouTube / Vimeo）", "default": "/" },
-        { "type": "url", "id": "video_url_fallback", "label": "备用视频 URL（直链）", "default": "/" },
-        { "type": "image_picker", "id": "poster", "label": "封面图（可选，无则用视频首帧）" }
+        {
+          "type": "paragraph",
+          "content": "每张卡片对应轮播中的一张。视频来源按优先级：① 本地短视频 ② YouTube/Vimeo 链接 ③ 备用直链。点击整张卡片可在弹窗中播放完整视频；有本地视频时，进入视口会在当前张自动静音播放预览，播完可自动滑到下一张。"
+        },
+        {
+          "type": "header",
+          "content": "视频来源"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "本地短视频",
+          "info": "上传后可在卡片内自动播放预览（静音），弹窗中也可播放。"
+        },
+        {
+          "type": "url",
+          "id": "video_link",
+          "label": "视频链接（YouTube / Vimeo）",
+          "default": "/",
+          "info": "未配置本地视频时使用。填写完整页面地址即可，例如 youtube.com/watch?v=… 或 vimeo.com/…。"
+        },
+        {
+          "type": "url",
+          "id": "video_url_fallback",
+          "label": "备用视频地址（直链）",
+          "default": "/",
+          "info": "当前两项都未使用时作为兜底，需为可直接播放的视频文件地址（如 .mp4）。"
+        },
+        {
+          "type": "image_picker",
+          "id": "poster",
+          "label": "封面图",
+          "info": "可选。不填时优先使用本地视频的预览图；无本地视频时显示占位。"
+        }
       ]
     },
     {
@@ -2376,15 +2598,59 @@
       "name": "Q-保修/延保",
       "limit": 1,
       "settings": [
-        { "type": "text", "id": "title", "label": "标题", "default": "2-Year Extended Protection Plan" },
-        { "type": "text", "id": "label", "label": "右侧标签（如 Free）", "default": "Free" },
-        { "type": "text", "id": "link_prefix", "label": "链接前缀", "default": "View all " },
-        { "type": "text", "id": "link_suffix", "label": "链接后缀（下划线显示）", "default": "warranty" },
-        { "type": "header", "content": "弹窗内容" },
-        { "type": "text", "id": "modal_heading", "label": "弹窗标题" },
-        { "type": "richtext", "id": "modal_content", "label": "弹窗详细内容（留空则不显示 View all warranty 按钮）" },
+        {
+          "type": "paragraph",
+          "content": "浅蓝色横条：左侧为主标题与「查看全部保修」链接，右侧为强调标签与复选图标；填写下方弹窗内容后，链接才会显示并可打开弹窗。"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "主标题",
+          "default": "2-Year Extended Protection Plan",
+          "info": "显示在左侧第一行，如延保计划名称。"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "右侧标签",
+          "default": "Free",
+          "info": "显示在复选框左侧的强调文字，例如「免费」或 Free。"
+        },
+        {
+          "type": "text",
+          "id": "link_prefix",
+          "label": "链接前半段",
+          "default": "View all ",
+          "info": "与后半段拼接成完整链接文案，前半段无下划线。"
+        },
+        {
+          "type": "text",
+          "id": "link_suffix",
+          "label": "链接后半段（加粗+下划线）",
+          "default": "warranty",
+          "info": "通常为「保修」或 warranty，会以加粗并带下划线显示。"
+        },
+        { "type": "header", "content": "弹窗" },
+        {
+          "type": "text",
+          "id": "modal_heading",
+          "label": "弹窗标题",
+          "info": "可选。显示在弹窗内容上方。"
+        },
+        {
+          "type": "richtext",
+          "id": "modal_content",
+          "label": "弹窗详细内容",
+          "info": "必填才会显示「查看全部保修」类链接并打开弹窗；留空则整条不显示该链接且无弹窗。"
+        },
         { "type": "header", "content": "样式" },
-        { "type": "color_background", "id": "bg_color", "label": "背景色", "default": "#dbecff" }
+        {
+          "type": "color_background",
+          "id": "bg_color",
+          "label": "背景色",
+          "default": "#dbecff",
+          "info": "整条横条的背景，支持纯色或渐变。"
+        }
       ]
     },
     {
@@ -2392,12 +2658,41 @@
       "name": "Q-无忧退换",
       "limit": 1,
       "settings": [
-        { "type": "image_picker", "id": "icon", "label": "图标（不选则使用默认退货图标）" },
-        { "type": "text", "id": "title", "label": "标题", "default": "Worry-Free Returns" },
-        { "type": "richtext", "id": "description", "label": "描述", "default": "<p>Buy online with confidence with our 30-day risk-free return policy.</p>" },
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "图标",
+          "info": "不上传时使用主题内置退货图标。"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "标题",
+          "default": "无忧退换",
+          "info": "主标题，显示在描述上方。"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "描述",
+          "default": "<p>安心网购，我们提供 30 天无理由退货保障。</p>",
+          "info": "支持富文本，用于说明退换政策。"
+        },
         { "type": "header", "content": "样式" },
-        { "type": "color_background", "id": "bg_color", "label": "背景色", "default": "#f3f7ff" },
-        { "type": "color_background", "id": "title_color", "label": "标题与图标色", "default": "#1565d8" }
+        {
+          "type": "color_background",
+          "id": "bg_color",
+          "label": "背景色",
+          "default": "#f3f7ff",
+          "info": "整条提示条的背景，支持纯色或渐变。"
+        },
+        {
+          "type": "color_background",
+          "id": "title_color",
+          "label": "标题与图标色",
+          "default": "#1565d8",
+          "info": "标题文字与未上传自定义图标时的内置图标颜色。"
+        }
       ]
     },
     {
@@ -2405,28 +2700,55 @@
       "name": "Q-特性列表",
       "limit": 1,
       "settings": [
-        { "type": "richtext", "id": "heading", "label": "顶部描述", "default": "<p>Crystal-Clear 4K HDR Video with Wireless Solar Power, Smart Motion Alerts, and Effortless Outdoor Protection.</p>" },
+        {
+          "type": "richtext",
+          "id": "heading",
+          "label": "顶部描述",
+          "info": "显示在特性列表上方，用于概括产品卖点；支持富文本。",
+          "default": "<p>Crystal-Clear 4K HDR Video with Wireless Solar Power, Smart Motion Alerts, and Effortless Outdoor Protection.</p>"
+        },
         { "type": "header", "content": "特性项（最多 6 条）" },
-        { "type": "text", "id": "feature_1", "label": "特性 1", "default": "4K HDR Video" },
-        { "type": "text", "id": "feature_2", "label": "特性 2", "default": "Smart Human Motion Alerts" },
-        { "type": "text", "id": "feature_3", "label": "特性 3", "default": "Wireless Solar Power" },
-        { "type": "text", "id": "feature_4", "label": "特性 4", "default": "Color Night Vision" },
-        { "type": "text", "id": "feature_5", "label": "特性 5", "default": "Two-Way Audio" },
-        { "type": "text", "id": "feature_6", "label": "特性 6", "default": "Works with Alexa" }
+        {
+          "type": "paragraph",
+          "content": "桌面端为两列（左 3 条、右 3 条），移动端单列自上而下；留空的条目不会显示。"
+        },
+        { "type": "text", "id": "feature_1", "label": "特性 1（桌面端左列第 1 条）", "default": "4K HDR Video" },
+        { "type": "text", "id": "feature_2", "label": "特性 2（桌面端左列第 2 条）", "default": "Smart Human Motion Alerts" },
+        { "type": "text", "id": "feature_3", "label": "特性 3（桌面端左列第 3 条）", "default": "Wireless Solar Power" },
+        { "type": "text", "id": "feature_4", "label": "特性 4（桌面端右列第 1 条）", "default": "Color Night Vision" },
+        { "type": "text", "id": "feature_5", "label": "特性 5（桌面端右列第 2 条）", "default": "Two-Way Audio" },
+        { "type": "text", "id": "feature_6", "label": "特性 6（桌面端右列第 3 条）", "default": "Works with Alexa" }
       ]
     },
     {
       "type": "q_accordion_item",
       "name": "Q-可展开项",
       "settings": [
-        { "type": "inline_richtext", "id": "heading", "label": "标题", "default": "What you'll love" },
-        { "type": "richtext", "id": "content", "label": "展开内容（支持富文本、列表、图片）" },
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "label": "标题",
+          "default": "你会喜欢的亮点",
+          "info": "点击后展开下方内容，可添加多个「可展开项」组成手风琴列表。"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "展开内容",
+          "info": "支持段落、列表、加粗等；列表圆点为浅蓝色。也可在富文本中插入图片或图标。"
+        },
         { "type": "header", "content": "可选图片" },
-        { "type": "image_picker", "id": "image", "label": "图片" },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "图片",
+          "info": "选填。与上方富文本同时存在时，按「图片与内容布局」排列；仅填富文本时不会显示此处图片。"
+        },
         {
           "type": "select",
           "id": "layout",
           "label": "图片与内容布局",
+          "info": "桌面端「图片在左」为左右分栏；移动端统一为上下堆叠。",
           "options": [
             { "value": "image_top_content_bottom", "label": "图片在上，内容在下" },
             { "value": "image_left_content_right", "label": "图片在左，内容在右" }
@@ -2447,7 +2769,8 @@
       "type": "checkbox",
       "id": "enable_sticky_cart_bar",
       "default": true,
-      "label": "t:sections.main-product.settings.enable_sticky_cart_bar.label"
+      "label": "t:sections.main-product.settings.enable_sticky_cart_bar.label",
+      "info": "t:sections.main-product.settings.enable_sticky_cart_bar.info"
     },
     {
       "type": "color_scheme",

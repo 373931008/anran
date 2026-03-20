@@ -132,6 +132,88 @@ variant-selects {
   box-shadow: 0 0 0 0.3rem rgb(var(--color-background)), 0 0 0 0.5rem rgba(var(--color-foreground), 0.55);
 }
 
+/* Pills with variant featured image (Anran product page) */
+.product-form__input--pill-images {
+  --variant-pill-image-size: 8.2rem;
+  --variant-pill-image-radius: 1rem;
+  --variant-pill-image-gap: 0.8rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--variant-pill-image-gap);
+  align-items: flex-start;
+}
+
+@media screen and (min-width: 750px) {
+  .product-form__input--pill-images {
+    --variant-pill-image-size: 15.2rem;
+    --variant-pill-image-gap: 1.6rem;
+  }
+}
+
+.product-form__input--pill-images input[type='radio'] + label {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--variant-pill-image-size);
+  min-width: var(--variant-pill-image-size);
+  height: var(--variant-pill-image-size);
+  margin: 0.7rem 0 0.2rem 0;
+  padding: 0.6rem;
+  border-radius: var(--variant-pill-image-radius);
+  border-width: 0.1rem;
+  border-style: solid;
+  border-color: rgba(var(--color-foreground), 0.18);
+  background-color: rgb(var(--color-background));
+  color: rgb(var(--color-foreground));
+  font-size: 1.2rem;
+  line-height: 1.2;
+  letter-spacing: 0;
+  text-align: center;
+  overflow: hidden;
+}
+
+.product-form__input--pill-images input[type='radio'] + label:hover {
+  border-color: rgba(var(--color-foreground), 0.35);
+}
+
+.product-form__input--pill-images input[type='radio']:checked + label {
+  background-color: rgb(var(--color-background));
+  color: rgb(var(--color-foreground));
+  border-width: 0.2rem;
+  border-color: rgba(var(--color-button), 0.65);
+}
+
+.product-form__input--pill-images input[type='radio']:disabled + label,
+.product-form__input--pill-images input[type='radio'].disabled + label {
+  border-color: rgba(var(--color-foreground), 0.12);
+  color: rgba(var(--color-foreground), 0.5);
+  text-decoration: none;
+  opacity: 0.65;
+}
+
+.product-form__input--pill-images input[type='radio']:checked + label::selection {
+  background-color: transparent;
+}
+
+.product-form__input--pill-images .product-form__option-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.product-form__input--pill-images .product-form__option-image__img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
 /* Custom styles for Swatch display type */
 .product-form__input--swatch {
   display: flex;

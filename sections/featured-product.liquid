@@ -639,6 +639,14 @@
           "label": "t:sections.featured-product.blocks.variant_picker.settings.picker_type.label"
         },
         {
+          "type": "checkbox",
+          "id": "show_variant_images",
+          "label": "胶囊选项显示变体图片",
+          "info": "开启后使用各变体的特色图片作为选项缩略图，请在商品后台为每个变体设置特色图片",
+          "default": false,
+          "visible_if": "{{ block.settings.picker_type == 'button' }}"
+        },
+        {
           "id": "swatch_shape",
           "label": "t:sections.featured-product.blocks.variant_picker.settings.swatch_shape.label",
           "type": "select",
