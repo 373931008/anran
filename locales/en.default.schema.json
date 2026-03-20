@@ -2018,16 +2018,16 @@
           }
         },
         "buy_buttons_v2": {
-          "name": "Buy buttons v2",
+          "name": "购买按钮 v2",
           "settings": {
             "secondary_checkout": {
-              "label": "Second button",
-              "info": "Express checkout shows Shop Pay, PayPal, and other accelerated options from Shopify. Buy now opens checkout with this variant added to the cart (existing cart items are kept).",
+              "label": "第二个按钮",
+              "info": "快速结账：显示 Shop Pay、PayPal 等 Shopify 提供的加速结账入口。去结账：通过购物车链接进入结账，会将当前规格加入购物车（不会清空原有购物车）。",
               "options__express": {
-                "label": "Express checkout"
+                "label": "快速结账"
               },
               "options__direct": {
-                "label": "Buy now (checkout link)"
+                "label": "去结账（购物车链接）"
               }
             }
           }
@@ -2345,7 +2345,8 @@
           "label": "Sticky content"
         },
         "enable_sticky_cart_bar": {
-          "label": "Sticky add to cart bar"
+          "label": "底部固定购物栏",
+          "info": "开启后，主购买区滚出屏幕时在页面底部显示加购/结账栏；需已添加「购买按钮 v2」区块。选择「快速结账」时，底栏仅保留加入购物车，请在主区域使用快捷支付。"
         },
         "gallery_layout": {
           "label": "Layout",

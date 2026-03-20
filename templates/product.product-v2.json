@@ -1223,6 +1223,7 @@
           "type": "variant_picker",
           "settings": {
             "picker_type": "button",
+            "show_variant_images": true,
             "swatch_shape": "circle"
           }
         },

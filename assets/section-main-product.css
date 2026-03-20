@@ -1492,3 +1492,8 @@ a.product__text {
     border: none;
   }
 }
+
+
+/* .grid__item.product__media-wrapper, .ytp-cued-thumbnail-overlay-image, .q-faq, .product__description, .header-wrapper {
+  opacity: 0 !important;
+} */

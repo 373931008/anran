@@ -26,6 +26,11 @@
             assign picker_type = 'swatch'
           endif
         endif
+
+        assign show_variant_images = false
+        if picker_type == 'button' and block.settings.show_variant_images
+          assign show_variant_images = true
+        endif
       -%}
       {%- if picker_type == 'swatch' -%}
         <fieldset class="js product-form__input product-form__input--swatch">
@@ -39,17 +44,24 @@
             product: product,
             option: option,
             block: block,
-            picker_type: picker_type
+            picker_type: picker_type,
+            show_variant_images: false
           %}
         </fieldset>
       {%- elsif picker_type == 'button' -%}
-        <fieldset class="js product-form__input product-form__input--pill">
-          <legend class="form__label">{{ option.name }}</legend>
+        <fieldset
+          class="js product-form__input product-form__input--pill{% if show_variant_images %} product-form__input--pill-images{% endif %}"
+        >
+          <legend class="form__label">
+            {{ option.name }}:
+            <span data-selected-value>{{- option.selected_value -}}</span>
+          </legend>
           {% render 'product-variant-options',
             product: product,
             option: option,
             block: block,
-            picker_type: picker_type
+            picker_type: picker_type,
+            show_variant_images: show_variant_images
           %}
         </fieldset>
       {%- else -%}
@@ -76,7 +88,8 @@
                 product: product,
                 option: option,
                 block: block,
-                picker_type: picker_type
+                picker_type: picker_type,
+                show_variant_images: false
               %}
             </select>
             <span class="svg-wrapper">

@@ -6,22 +6,46 @@
   - option: {Object} current product_option object.
   - block: {Object} block object.
   - picker_type: {String} type of picker to dispay
+  - show_variant_images: {Boolean} pill 模式下是否在标签内展示对应变体的特色图片
 
 
   Usage:
   {% render 'product-variant-options',
     product: product,
     option: option,
-    block: block
-    picker_type: picker_type
+    block: block,
+    picker_type: picker_type,
+    show_variant_images: show_variant_images
   %}
 {% endcomment %}
 {%- liquid
   assign product_form_id = 'product-form-' | append: section.id
 -%}
 
+{%- liquid
+  assign show_variant_images = show_variant_images | default: false
+  assign current_variant = product.selected_or_first_available_variant
+-%}
 {%- for value in option.values -%}
   {%- liquid
+    assign variant_for_option_value = nil
+    if show_variant_images
+      for variant in product.variants
+        if option.position == 1 and variant.option1 == value
+          assign variant_for_option_value = variant
+          break
+        endif
+        if option.position == 2 and variant.option1 == current_variant.option1 and variant.option2 == value
+          assign variant_for_option_value = variant
+          break
+        endif
+        if option.position == 3 and variant.option1 == current_variant.option1 and variant.option2 == current_variant.option2 and variant.option3 == value
+          assign variant_for_option_value = variant
+          break
+        endif
+      endfor
+    endif
+
     assign swatch_focal_point = null
     if value.swatch.image
       assign image_url = value.swatch.image | image_url: width: 50
@@ -95,7 +119,25 @@
       {{ input_dataset }}
     >
     <label for="{{ input_id }}">
-      {{ value -}}
+      {%- if show_variant_images and variant_for_option_value != blank and variant_for_option_value.featured_image -%}
+        {%- liquid
+          assign option_image_alt = variant_for_option_value.featured_image.alt | default: value
+        -%}
+        <span class="product-form__option-image">
+          {{-
+            variant_for_option_value.featured_image
+            | image_url: width: 304
+            | image_tag:
+              loading: 'lazy',
+              widths: '152, 304',
+              class: 'product-form__option-image__img',
+              alt: option_image_alt
+          -}}
+        </span>
+        <span class="visually-hidden">{{ escaped_value }}</span>
+      {%- else -%}
+        {{ value -}}
+      {%- endif -%}
       {{ label_unavailable }}
     </label>
   {%- elsif picker_type == 'dropdown' or picker_type == 'swatch_dropdown' -%}
