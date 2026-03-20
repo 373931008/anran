@@ -250,6 +250,27 @@ a.product__text {
   margin-bottom: 1.5rem;
 }
 
+.product__title-subtitle {
+  margin: 0 0 0.8rem;
+  color: #0f263d;
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.product__title h1,
+.product__title h2.h1 {
+  margin: 0;
+  color: #1e1e1e;
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 22px;
+}
+
 .product__title > * {
   margin: 0;
 }
@@ -292,13 +313,107 @@ a.product__text {
     max-width: 100%;
   }
 
-  .product__info-container .price--on-sale .price-item--regular {
-    font-size: 1.6rem;
+  .product__title-subtitle {
+    font-size: 16px;
+  }
+
+  .product__title h1,
+  .product__title h2.h1 {
+    color: #000;
+    font-size: 36px;
+    line-height: 42px;
   }
 
   .product__info-container > *:first-child {
     margin-top: 0;
   }
+}
+
+/* Figma 产品信息栏价格：移动现价 18px / 对比 12px；桌面现价 28px / 对比 16px（高于 component-price 特异性） */
+.product .product__info-container .price.price--large {
+  letter-spacing: normal;
+}
+
+.product .product__info-container .price.price--large .price__regular .price-item--regular {
+  color: #0f263d;
+  font-weight: 700;
+  font-size: 1.8rem;
+  line-height: 1.2;
+}
+
+.product .product__info-container .price.price--large.price--on-sale .price-item--sale.price-item--last {
+  color: #0f263d;
+  font-weight: 700;
+  font-size: 1.8rem;
+  line-height: 1.2;
+}
+
+.product .product__info-container .price.price--large.price--on-sale .price__sale s.price-item--regular {
+  font-size: 1.2rem;
+  font-weight: 400;
+  line-height: 1.2;
+  color: #565656;
+  text-decoration: line-through;
+}
+
+@media screen and (min-width: 750px) {
+  .product .product__info-container .price.price--large .price__regular .price-item--regular,
+  .product .product__info-container .price.price--large.price--on-sale .price-item--sale.price-item--last {
+    font-size: 2.8rem;
+  }
+
+  .product .product__info-container .price.price--large.price--on-sale .price__sale s.price-item--regular {
+    font-size: 1.6rem;
+  }
+}
+
+/* 产品信息区评分：蓝字 + 星色（对齐 Figma；高于 component-rating） */
+.product .product__info-container .rating-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: 0.8rem;
+  row-gap: 0.4rem;
+}
+
+.product .product__info-container .rating-star {
+  --color-rating-star: #f59e0b;
+}
+
+.product .product__info-container .rating-text {
+  display: inline-block;
+  margin: 0;
+  color: #1565d8;
+  font-size: 1.1rem;
+  line-height: normal;
+}
+
+.product .product__info-container .rating-count {
+  color: #1565d8;
+  font-size: 1.1rem;
+  line-height: normal;
+}
+
+.product .product__info-container .rating-count span {
+  color: inherit;
+}
+
+@media screen and (min-width: 750px) {
+  .product .product__info-container .rating-text,
+  .product .product__info-container .rating-count {
+    font-size: 1.4rem;
+  }
+}
+
+/* 产品页变体方图边框（对齐 Figma #cacbcc / 选中 rgba(21,101,216,0.6)） */
+.product .product-form__input--pill-images input[type='radio'] + label {
+  border-color: #cacbcc;
+}
+
+.product .product-form__input--pill-images input[type='radio']:checked + label {
+  border-width: 0.2rem;
+  border-color: rgba(21, 101, 216, 0.6);
 }
 
 .product__description-title {
@@ -957,20 +1072,40 @@ a.product__text {
     width: 100%;
   }
 
+  /* 产品页缩略图条（Figma 58:1355）：主图下 15px、缩略 70×70、圆角 5px、间距 8px、移动端无箭头 */
   .thumbnail-slider {
     display: flex;
     align-items: center;
+    margin-top: 15px;
+  }
+
+  .thumbnail-slider .slider-button {
+    display: none;
   }
 
   .thumbnail-slider .thumbnail-list.slider {
     display: flex;
-    padding: 0.5rem;
     flex: 1;
-    scroll-padding-left: 0.5rem;
+    flex-wrap: nowrap;
+    gap: 8px;
+    padding: 0;
+    margin-bottom: 0;
+    scroll-padding-left: 0;
+    scroll-padding-right: 8px;
   }
 
-  .thumbnail-list__item.slider__slide {
-    width: calc(33% - 0.6rem);
+  .thumbnail-slider .slider.slider--mobile .slider__slide {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .thumbnail-slider .thumbnail-list__item.slider__slide {
+    width: 70px;
+    flex-shrink: 0;
+  }
+
+  .thumbnail-slider .thumbnail.global-media-settings {
+    border-radius: 5px;
   }
 }
 
@@ -1493,6 +1628,139 @@ a.product__text {
   }
 }
 
+
+/* 产品页：价格与右侧红条优惠（main-product-v2 price block） */
+.product__price-block {
+  width: 100%;
+}
+
+.product__price-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 0.8rem;
+  min-width: 0;
+  width: 100%;
+}
+
+.product__price-row-main {
+  flex: 0 1 auto;
+  min-width: 0;
+}
+
+.product__price-row-main .price {
+  flex-wrap: nowrap;
+}
+
+.product-price-promo {
+  --product-price-promo-height: 2.8rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: 100%;
+  height: var(--product-price-promo-height);
+  padding: 0 0.8rem;
+  box-sizing: border-box;
+  color: rgb(255, 255, 255);
+}
+
+.product-price-promo__left {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: baseline;
+  gap: 0.4rem;
+  min-width: 0;
+  white-space: nowrap;
+}
+
+.product-price-promo__primary {
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.product-price-promo__subtitle {
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.2;
+}
+
+.product-price-promo__divider {
+  align-self: stretch;
+  flex-shrink: 0;
+  width: 0;
+  margin: 0 0.6rem;
+  border-left: 0.1rem dotted rgba(255, 255, 255, 0.95);
+}
+
+.product-price-promo__copy {
+  flex-shrink: 0;
+  margin: 0;
+  padding: 0;
+  max-width: 100%;
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.2;
+  color: inherit;
+  text-align: right;
+  text-decoration: underline;
+  text-underline-offset: 0.2rem;
+  white-space: nowrap;
+  cursor: pointer;
+  background: none;
+  border: none;
+  appearance: none;
+}
+
+.product-price-promo__copy:hover {
+  opacity: 0.92;
+}
+
+.product-price-promo__copy:active {
+  opacity: 0.85;
+}
+
+.product-price-promo__copy:focus-visible {
+  outline: 0.2rem solid rgba(255, 255, 255, 0.9);
+  outline-offset: 0.2rem;
+}
+
+.product-price-promo__copy-inner {
+  display: inline;
+}
+
+.product-price-promo__copy-done {
+  display: none;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.product-price-promo__copy.is-copied .product-price-promo__copy-inner {
+  display: none;
+}
+
+.product-price-promo__copy.is-copied .product-price-promo__copy-done {
+  display: inline;
+}
+
+@media screen and (min-width: 750px) {
+  .product-price-promo__primary {
+    font-size: 1.3rem;
+  }
+
+  .product-price-promo__subtitle {
+    font-size: 1.2rem;
+  }
+
+  .product-price-promo__copy {
+    font-size: 1.2rem;
+  }
+}
 
 /* .grid__item.product__media-wrapper, .ytp-cued-thumbnail-overlay-image, .q-faq, .product__description, .header-wrapper {
   opacity: 0 !important;

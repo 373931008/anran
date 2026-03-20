@@ -1,4 +1,24 @@
 if (!customElements.get('product-info')) {
+  const copyTextViaExecCommand = (text) => {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.setAttribute('readonly', '');
+    textarea.style.position = 'fixed';
+    textarea.style.left = '-9999px';
+    document.body.appendChild(textarea);
+    textarea.select();
+    let ok = false;
+
+    try {
+      ok = document.execCommand('copy');
+    } catch {
+      ok = false;
+    }
+
+    document.body.removeChild(textarea);
+    return ok;
+  };
+
   customElements.define(
     'product-info',
     class ProductInfo extends HTMLElement {
@@ -13,11 +33,13 @@ if (!customElements.get('product-info')) {
       stickyBarIo = undefined;
       stickyBarUnavailable = false;
       stickyBarBuyInView = null;
+      discountCopyResetTimer = undefined;
 
       constructor() {
         super();
 
         this.quantityInput = this.querySelector('.quantity__input');
+        this.handleDiscountCopyClick = this.handleDiscountCopyClick.bind(this);
       }
 
       connectedCallback() {
@@ -31,6 +53,7 @@ if (!customElements.get('product-info')) {
         this.initQuantityHandlers();
         this.initDirectCheckoutForms();
         this.initStickyBarReveal();
+        this.addEventListener('click', this.handleDiscountCopyClick);
         this.dispatchEvent(new CustomEvent('product-info:loaded', { bubbles: true }));
       }
 
@@ -114,10 +137,64 @@ if (!customElements.get('product-info')) {
         this.cartUpdateUnsubscriber?.();
         this.stickyBarIo?.disconnect();
         this.stickyBarIo = undefined;
+        this.removeEventListener('click', this.handleDiscountCopyClick);
+        clearTimeout(this.discountCopyResetTimer);
+        this.discountCopyResetTimer = undefined;
         if (this.directCheckoutForms?.length && this.directCheckoutSubmitHandler) {
           for (const form of this.directCheckoutForms) {
             form.removeEventListener('submit', this.directCheckoutSubmitHandler);
           }
+        }
+      }
+
+      handleDiscountCopyClick(event) {
+        const btn = event.target.closest('[data-discount-copy]');
+        if (!btn || !this.contains(btn)) return;
+
+        const code = (btn.dataset.code || '').trim();
+        if (!code) return;
+
+        event.preventDefault();
+
+        const successMsg = btn.dataset.copySuccess || 'Copied';
+        const failedMsg = btn.dataset.copyFailed || 'Could not copy';
+        const live = btn.querySelector('[data-copy-live]');
+
+        const clearLiveLater = (ms) => {
+          clearTimeout(this.discountCopyResetTimer);
+          this.discountCopyResetTimer = setTimeout(() => {
+            if (live) live.textContent = '';
+          }, ms);
+        };
+
+        const onSuccess = () => {
+          btn.classList.add('is-copied');
+          if (live) live.textContent = successMsg;
+          clearTimeout(this.discountCopyResetTimer);
+          this.discountCopyResetTimer = setTimeout(() => {
+            btn.classList.remove('is-copied');
+            if (live) live.textContent = '';
+          }, 2000);
+        };
+
+        const onFail = () => {
+          btn.classList.remove('is-copied');
+          if (live) live.textContent = failedMsg;
+          clearLiveLater(2000);
+        };
+
+        if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+          navigator.clipboard.writeText(code).then(onSuccess).catch(() => {
+            if (copyTextViaExecCommand(code)) {
+              onSuccess();
+            } else {
+              onFail();
+            }
+          });
+        } else if (copyTextViaExecCommand(code)) {
+          onSuccess();
+        } else {
+          onFail();
         }
       }
 

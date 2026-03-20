@@ -125,6 +125,9 @@
       "inventory_out_of_stock": "Out of stock",
       "inventory_out_of_stock_continue_selling": "In stock",
       "sku": "SKU",
+      "discount_code_copy": "Copy discount code",
+      "discount_code_copied": "Copied",
+      "discount_code_copy_failed": "Could not copy",
       "on_sale": "Sale",
       "product_variants": "Product variants",
       "media": {

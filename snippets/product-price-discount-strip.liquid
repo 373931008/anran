@@ -1,0 +1,66 @@
+{%- comment -%}
+  产品页价格旁红条：手动配置主文案、副文案、折扣码与复制前缀；供 main-product-v2 price block 使用。
+  @param block {Object} 当前 price block
+{%- endcomment -%}
+{%- liquid
+  assign show_strip = block.settings.show_promo_strip
+  assign code = block.settings.discount_code | strip
+  assign primary = block.settings.promo_primary_text | strip
+  assign subtitle = block.settings.promo_subtitle | strip
+  assign copy_label = block.settings.copy_label | strip
+  assign promo_bg = block.settings.promo_bg | default: '#b51010'
+
+  assign has_left = false
+  if primary != blank or subtitle != blank
+    assign has_left = true
+  endif
+  assign has_code = false
+  if code != blank
+    assign has_code = true
+  endif
+
+  assign render_strip = false
+  if show_strip and has_left or show_strip and has_code
+    assign render_strip = true
+  endif
+-%}
+{%- if render_strip -%}
+  <div
+    class="product-price-promo"
+    style="background: {{ promo_bg }};"
+  >
+    {%- if has_left -%}
+      <div class="product-price-promo__left">
+        {%- if primary != blank -%}
+          <span class="product-price-promo__primary">{{ primary | escape }}</span>
+        {%- endif -%}
+        {%- if subtitle != blank -%}
+          <span class="product-price-promo__subtitle">{{ subtitle | escape }}</span>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+    {%- if has_left and has_code -%}
+      <span class="product-price-promo__divider" aria-hidden="true"></span>
+    {%- endif -%}
+    {%- if has_code -%}
+      <button
+        type="button"
+        class="product-price-promo__copy"
+        data-discount-copy
+        aria-label="{{ 'products.product.discount_code_copy' | t }}"
+        data-code="{{ code | escape }}"
+        data-copy-success="{{ 'products.product.discount_code_copied' | t | escape }}"
+        data-copy-failed="{{ 'products.product.discount_code_copy_failed' | t | escape }}"
+      >
+        <span class="product-price-promo__copy-inner">
+          {%- if copy_label != blank -%}
+            <span class="product-price-promo__copy-label">{{ copy_label | escape }}</span>
+          {%- endif -%}
+          <span class="product-price-promo__code">{{ code | escape }}</span>
+        </span>
+        <span class="product-price-promo__copy-done">{{ 'products.product.discount_code_copied' | t }}</span>
+        <span class="visually-hidden" data-copy-live aria-live="polite" aria-atomic="true"></span>
+      </button>
+    {%- endif -%}
+  </div>
+{%- endif -%}

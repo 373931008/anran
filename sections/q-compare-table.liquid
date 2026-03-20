@@ -364,18 +364,36 @@
               - 旧数据：纯文本 + 换行（不含 <p>），按换行拆分
               - 新数据：richtext HTML（<p>...</p>），按段落拆分
             {%- endcomment -%}
-            {%- assign raw_specs = block.settings.specs | default: '' -%}
-            {%- if raw_specs contains '</p>' -%}
-              {%- comment -%}richtext：将 </p><p> 替换为换行，再去掉首尾 <p>{%- endcomment -%}
-              {%- assign specs_normalized = raw_specs
-                | replace: '</p><p>', '\n'
+            {%- comment -%}
+              规格拆分（统一一条流水线，避免分支遗漏）：
+              1. 多段 <p> 先合并为分隔符（须在 newline_to_br 之前，避免 </p>\\n<p> 变成 </p><br /><p>）
+              2. newline_to_br：把「段内真实换行」转成 <br />（单段 <p> 多行、纯文本多行都靠这步）
+              3. 所有 <br> 变分隔符，去 <p>，再 split
+            {%- endcomment -%}
+            {%- assign spec_row_delim = '##q-ct-spec-row##' -%}
+            {%- assign raw_specs = block.settings.specs | default: '' | strip -%}
+            {%- if raw_specs == blank -%}
+              {%- assign spec_rows = '' | split: '@@q-ct-empty@@' -%}
+            {%- else -%}
+              {%- assign specs_work = raw_specs
+                | replace: '</p><p>', spec_row_delim
+                | replace: '</p> <p>', spec_row_delim
+                | replace: "</p>\n<p>", spec_row_delim
+                | replace: "</p>\r\n<p>", spec_row_delim
+                | replace: '</p><br /><p>', spec_row_delim
+                | replace: '</p><br/><p>', spec_row_delim
+              -%}
+              {%- assign specs_work = specs_work | newline_to_br -%}
+              {%- assign specs_work = specs_work
+                | replace: '<br />', spec_row_delim
+                | replace: '<br/>', spec_row_delim
+                | replace: '<br>', spec_row_delim
+              -%}
+              {%- assign specs_work = specs_work
                 | replace: '<p>', ''
                 | replace: '</p>', ''
               -%}
-              {%- assign spec_rows = specs_normalized | split: '\n' -%}
-            {%- else -%}
-              {%- comment -%}纯文本：按换行符拆分{%- endcomment -%}
-              {%- assign spec_rows = raw_specs | newline_to_br | split: '<br />' -%}
+              {%- assign spec_rows = specs_work | split: spec_row_delim -%}
             {%- endif -%}
             <swiper-slide {{ block.shopify_attributes }}>
               <div class="q-ct__product-card">
@@ -395,7 +413,7 @@
                 {%- comment -%} 规格行 {%- endcomment -%}
                 <ul class="q-ct__spec-list">
                   {%- for spec in spec_rows -%}
-                    {%- assign spec_text = spec | strip -%}
+                    {%- assign spec_text = spec | strip_html | strip -%}
                     {%- if spec_text != blank -%}
                       <li>
                         <svg class="q-ct__check-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="24" viewBox="0 0 22 24" fill="none" aria-hidden="true">

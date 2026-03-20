@@ -1,9 +1,9 @@
 {%- comment -%}
   Block: See in Action 视频卡片轮播（main-product-v2）
-  功能：swiper-container slides-per-view=auto，固定宽度卡片（桌面 178px / 移动 240px），
+  功能：swiper-container slides-per-view=auto，固定宽度卡片（桌面 178px / 移动 239px），
   支持本地视频、YouTube/Vimeo 链接、备用 URL；整块可点弹窗播放；进入视口/滑动后自动播当前页本地视频，播完自动下一张；可配置定时轮播。
   需传入: section, header_block（可为 nil）, item_blocks（q_see_in_action_card 数组）
-  设计稿：桌面 178×291 圆角 10px，移动 240px 宽；播放按钮 42×42。
+  设计稿：桌面 178×291 圆角 10px；移动约 239×391（Figma Group 445）；播放按钮 42×42。
 {%- endcomment -%}
 {%- assign section_id = section.id -%}
 {%- assign header_block = header_block | default: nil -%}
@@ -51,7 +51,7 @@
   }
   .section-{{ section_id }} .product__see-in-action swiper-slide {
     flex-shrink: 0;
-    width: 240px;
+    width: 239px;
   }
   @media screen and (min-width: 750px) {
     .section-{{ section_id }} .product__see-in-action swiper-slide {
@@ -63,13 +63,18 @@
     border-radius: 10px;
     overflow: hidden;
     border: 1px solid #cacbcc;
-    aspect-ratio: 178 / 291;
+    aspect-ratio: 239 / 391;
     cursor: pointer;
     display: block;
     width: 100%;
     height: 100%;
     text-decoration: none;
     color: inherit;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section_id }} .product__see-in-action .product__sia-card {
+      aspect-ratio: 178 / 291;
+    }
   }
   .section-{{ section_id }} .product__see-in-action .product__sia-card__media {
     position: absolute;
