@@ -20,7 +20,7 @@
 >
   {{ 'section-main-product.css' | asset_url | stylesheet_tag }}
   {{ 'component-accordion.css' | asset_url | stylesheet_tag }}
-  {{ 'component-price.css' | asset_url | stylesheet_tag }}
+  {{ 'component-price-v2.css' | asset_url | stylesheet_tag }}
   {{ 'component-slider.css' | asset_url | stylesheet_tag }}
   {{ 'component-rating.css' | asset_url | stylesheet_tag }}
   {{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}
@@ -58,6 +58,25 @@
         }
       }
     {%- endif -%}
+
+    .section-{{ section.id }} .quantity__label.form__label {
+      color: #1E1E1E;
+      font-family: Poppins, sans-serif;
+      font-style: normal;
+      font-size: 12px; /* 移动端 */
+      line-height: 18px;
+    }
+
+    .section-{{ section.id }} [data-selected-value] {
+      font-weight: 700;
+    }
+
+    @media screen and (min-width: 750px) {
+      .section-{{ section.id }} .quantity__label.form__label {
+        font-size: 16px; /* 电脑端 */
+        line-height: 24px;
+      }
+    }
   {%- endstyle -%}
 
   <script src="{{ 'product-info-v2.js' | asset_url }}" defer="defer"></script>
@@ -94,7 +113,7 @@
   {%- endif -%}
 
   {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
-  <div class="page-width">
+  <div class="page-width section-{{ section.id }} ">
     <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
       <div class="grid__item product__media-wrapper">
         {% render 'product-media-gallery', variant_images: variant_images %}
@@ -134,7 +153,7 @@
                 <div class="product__price-block" {{ block.shopify_attributes }}>
                   <div id="price-{{ section.id }}" role="status" class="product__price-row">
                     <div class="product__price-row-main">
-                      {%- render 'price',
+                      {%- render 'price-v2',
                         product: product,
                         use_variant: true,
                         show_badges: true,
@@ -143,7 +162,7 @@
                     </div>
                     {%- render 'product-price-discount-strip', block: block -%}
                   </div>
-                  {%- if product.quantity_price_breaks_configured? -%}
+                  {% comment %} {%- if product.quantity_price_breaks_configured? -%}
                     <div class="volume-pricing-note" id="Volume-Note-{{ section.id }}">
                       <span>{{ 'products.product.volume_pricing.note' | t }}</span>
                     </div>
@@ -161,7 +180,7 @@
                         {{ 'products.product.shipping_policy_html' | t: link: shop.shipping_policy.url }}
                       {%- endif -%}
                     </div>
-                  {%- endif -%}
+                  {%- endif -%} {% endcomment %}
                   <div>
                     {%- assign product_form_installment_id = 'product-form-installment-' | append: section.id -%}
                     {%- form 'product', product, id: product_form_installment_id, class: 'installment caption-large' -%}
@@ -282,14 +301,14 @@
                     aria-labelledby="quantity-label-{{ section.id }}"
                   >
                     <span aria-hidden="true">{{ 'products.product.quantity.label' | t }}</span>
-                    <span class="quantity__rules-cart{% if cart_qty == 0 %} hidden{% endif %}" aria-hidden="true">
+                    {% comment %} <span class="quantity__rules-cart{% if cart_qty == 0 %} hidden{% endif %}" aria-hidden="true">
                       {%- render 'loading-spinner' -%}
                       <span
                         >(
                         {{- 'products.product.quantity.in_cart_html' | t: quantity: cart_qty -}}
                         )</span
                       >
-                    </span>
+                    </span> {% endcomment %}
                   </label>
                   <div class="price-per-item__container">
                     <quantity-input class="quantity" data-url="{{ product.url }}" data-section="{{ section.id }}">
@@ -707,6 +726,8 @@
                 {% render 'icon-with-text', block: block %}
               {%- when 'trust_cards' -%}
                 {% render 'q-block-trust_cards', block: block, section: section %}
+              {%- when 'q_camera_finder' -%}
+                {% render 'q-block-camera_finder', block: block, section: section %}
               {%- when 'q_trust_badges' -%}
                 {% render 'q-block-trust_badges', block: block, section: section %}
               {%- when 'testimonial' -%}
@@ -785,7 +806,7 @@
     {% assign warranty_blocks = section.blocks | where: 'type', 'q_warranty' %}
     {%- for block in warranty_blocks -%}
       {%- if block.settings.modal_content != blank -%}
-        <modal-dialog id="WarrantyModal-{{ block.id }}" class="product-popup-modal" {{ block.shopify_attributes }}>
+        <modal-dialog id="WarrantyModal-{{ block.id }}" class="product-popup-modal product-popup-modal--warranty" {{ block.shopify_attributes }}>
           <div
             role="dialog"
             aria-label="{{ block.settings.title | default: '保修说明' | escape }}"
@@ -815,7 +836,7 @@
     {% assign trust_cards_blocks = section.blocks | where: 'type', 'trust_cards' %}
     {%- for block in trust_cards_blocks -%}
       {%- if block.settings.card_1_content != blank -%}
-        <modal-dialog id="TrustCardModal-{{ section.id }}-{{ block.id }}-1" class="product-popup-modal">
+        <modal-dialog id="TrustCardModal-{{ section.id }}-{{ block.id }}-1" class="product-popup-modal product-popup-modal--warranty">
           <div role="dialog" aria-label="{{ block.settings.card_1_label }}" aria-modal="true" class="product-popup-modal__content" tabindex="-1">
             <button id="ModalClose-TrustCard-{{ section.id }}-{{ block.id }}-1" type="button" class="product-popup-modal__toggle" aria-label="{{ 'accessibility.close' | t }}">{{- 'icon-close.svg' | inline_asset_content -}}</button>
             <div class="product-popup-modal__content-info">
@@ -826,7 +847,7 @@
         </modal-dialog>
       {%- endif -%}
       {%- if block.settings.card_2_content != blank -%}
-        <modal-dialog id="TrustCardModal-{{ section.id }}-{{ block.id }}-2" class="product-popup-modal">
+        <modal-dialog id="TrustCardModal-{{ section.id }}-{{ block.id }}-2" class="product-popup-modal product-popup-modal--warranty">
           <div role="dialog" aria-label="{{ block.settings.card_2_label }}" aria-modal="true" class="product-popup-modal__content" tabindex="-1">
             <button id="ModalClose-TrustCard-{{ section.id }}-{{ block.id }}-2" type="button" class="product-popup-modal__toggle" aria-label="{{ 'accessibility.close' | t }}">{{- 'icon-close.svg' | inline_asset_content -}}</button>
             <div class="product-popup-modal__content-info">
@@ -837,7 +858,7 @@
         </modal-dialog>
       {%- endif -%}
       {%- if block.settings.card_3_content != blank -%}
-        <modal-dialog id="TrustCardModal-{{ section.id }}-{{ block.id }}-3" class="product-popup-modal">
+        <modal-dialog id="TrustCardModal-{{ section.id }}-{{ block.id }}-3" class="product-popup-modal product-popup-modal--warranty">
           <div role="dialog" aria-label="{{ block.settings.card_3_label }}" aria-modal="true" class="product-popup-modal__content" tabindex="-1">
             <button id="ModalClose-TrustCard-{{ section.id }}-{{ block.id }}-3" type="button" class="product-popup-modal__toggle" aria-label="{{ 'accessibility.close' | t }}">{{- 'icon-close.svg' | inline_asset_content -}}</button>
             <div class="product-popup-modal__content-info">
@@ -848,12 +869,49 @@
         </modal-dialog>
       {%- endif -%}
       {%- if block.settings.card_4_content != blank -%}
-        <modal-dialog id="TrustCardModal-{{ section.id }}-{{ block.id }}-4" class="product-popup-modal">
+        <modal-dialog id="TrustCardModal-{{ section.id }}-{{ block.id }}-4" class="product-popup-modal product-popup-modal--warranty">
           <div role="dialog" aria-label="{{ block.settings.card_4_label }}" aria-modal="true" class="product-popup-modal__content" tabindex="-1">
             <button id="ModalClose-TrustCard-{{ section.id }}-{{ block.id }}-4" type="button" class="product-popup-modal__toggle" aria-label="{{ 'accessibility.close' | t }}">{{- 'icon-close.svg' | inline_asset_content -}}</button>
             <div class="product-popup-modal__content-info">
               <h2 class="h2">{{ block.settings.card_4_label | escape }}</h2>
               <div class="rte">{{ block.settings.card_4_content }}</div>
+            </div>
+          </div>
+        </modal-dialog>
+      {%- endif -%}
+    {%- endfor -%}
+
+    {% assign camera_finder_blocks = section.blocks | where: 'type', 'q_camera_finder' %}
+    {%- for block in camera_finder_blocks -%}
+      {%- if block.settings.card_1_content != blank -%}
+        <modal-dialog id="CameraFinderModal-{{ section.id }}-{{ block.id }}-1" class="product-popup-modal product-popup-modal--warranty">
+          <div role="dialog" aria-label="{{ block.settings.card_1_label }}" aria-modal="true" class="product-popup-modal__content" tabindex="-1">
+            <button id="ModalClose-CameraFinder-{{ section.id }}-{{ block.id }}-1" type="button" class="product-popup-modal__toggle" aria-label="{{ 'accessibility.close' | t }}">{{- 'icon-close.svg' | inline_asset_content -}}</button>
+            <div class="product-popup-modal__content-info">
+              <h2 class="h2">{{ block.settings.card_1_label | escape }}</h2>
+              <div class="rte">{{ block.settings.card_1_content }}</div>
+            </div>
+          </div>
+        </modal-dialog>
+      {%- endif -%}
+      {%- if block.settings.card_2_content != blank -%}
+        <modal-dialog id="CameraFinderModal-{{ section.id }}-{{ block.id }}-2" class="product-popup-modal product-popup-modal--warranty">
+          <div role="dialog" aria-label="{{ block.settings.card_2_label }}" aria-modal="true" class="product-popup-modal__content" tabindex="-1">
+            <button id="ModalClose-CameraFinder-{{ section.id }}-{{ block.id }}-2" type="button" class="product-popup-modal__toggle" aria-label="{{ 'accessibility.close' | t }}">{{- 'icon-close.svg' | inline_asset_content -}}</button>
+            <div class="product-popup-modal__content-info">
+              <h2 class="h2">{{ block.settings.card_2_label | escape }}</h2>
+              <div class="rte">{{ block.settings.card_2_content }}</div>
+            </div>
+          </div>
+        </modal-dialog>
+      {%- endif -%}
+      {%- if block.settings.card_3_content != blank -%}
+        <modal-dialog id="CameraFinderModal-{{ section.id }}-{{ block.id }}-3" class="product-popup-modal product-popup-modal--warranty">
+          <div role="dialog" aria-label="{{ block.settings.card_3_label }}" aria-modal="true" class="product-popup-modal__content" tabindex="-1">
+            <button id="ModalClose-CameraFinder-{{ section.id }}-{{ block.id }}-3" type="button" class="product-popup-modal__toggle" aria-label="{{ 'accessibility.close' | t }}">{{- 'icon-close.svg' | inline_asset_content -}}</button>
+            <div class="product-popup-modal__content-info">
+              <h2 class="h2">{{ block.settings.card_3_label | escape }}</h2>
+              <div class="rte">{{ block.settings.card_3_content }}</div>
             </div>
           </div>
         </modal-dialog>
@@ -2350,7 +2408,7 @@
     },
     {
       "type": "trust_cards",
-      "name": "信任/保障卡片（可点击弹窗）",
+      "name": "Q-信任/保障卡片（可点击弹窗）",
       "limit": 1,
       "settings": [
         {
@@ -2457,6 +2515,90 @@
           "id": "logo_image",
           "label": "Logo 图片",
           "info": "可选。显示在整排卡片下方居中，如 Trust Guard、安全认证等整图；建议透明底 PNG。"
+        }
+      ]
+    },
+    {
+      "type": "q_camera_finder",
+      "name": "Q-摄像机选购要点（可弹窗）",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "设计稿：桌面 195:14 / 移动 58:1525。标题 + 三张横向卡片（左图标右文案）。填写弹窗内容后整张卡片可点击打开说明，与「信任/保障卡片」弹窗一致。"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "标题",
+          "default": "Find the perfect security cameras!"
+        },
+        {
+          "type": "header",
+          "content": "卡片 1"
+        },
+        {
+          "type": "image_picker",
+          "id": "card_1_icon",
+          "label": "图标",
+          "info": "建议与设计稿星星装饰图一致，约 52px 宽导出。"
+        },
+        {
+          "type": "text",
+          "id": "card_1_label",
+          "label": "标题",
+          "default": "Is there a subscription required?"
+        },
+        {
+          "type": "richtext",
+          "id": "card_1_content",
+          "label": "弹窗内容",
+          "default": "<p>Describe subscription options for your cameras here.</p>",
+          "info": "留空则该卡片不可点击。"
+        },
+        {
+          "type": "header",
+          "content": "卡片 2"
+        },
+        {
+          "type": "image_picker",
+          "id": "card_2_icon",
+          "label": "图标"
+        },
+        {
+          "type": "text",
+          "id": "card_2_label",
+          "label": "标题",
+          "default": "Does it protect my data privacy?"
+        },
+        {
+          "type": "richtext",
+          "id": "card_2_content",
+          "label": "弹窗内容",
+          "default": "<p>Explain how you protect customer data and privacy.</p>",
+          "info": "留空则该卡片不可点击。"
+        },
+        {
+          "type": "header",
+          "content": "卡片 3"
+        },
+        {
+          "type": "image_picker",
+          "id": "card_3_icon",
+          "label": "图标"
+        },
+        {
+          "type": "text",
+          "id": "card_3_label",
+          "label": "标题",
+          "default": "Can it detect motion?"
+        },
+        {
+          "type": "richtext",
+          "id": "card_3_content",
+          "label": "弹窗内容",
+          "default": "<p>Describe motion detection capabilities here.</p>",
+          "info": "留空则该卡片不可点击。"
         }
       ]
     },
@@ -2621,7 +2763,7 @@
       "settings": [
         {
           "type": "paragraph",
-          "content": "每张卡片对应轮播中的一张。视频来源按优先级：① 本地短视频 ② YouTube/Vimeo 链接 ③ 备用直链。点击整张卡片可在弹窗中播放完整视频；有本地视频时，进入视口会在当前张自动静音播放预览，播完可自动滑到下一张。"
+          "content": "每张卡片对应轮播中的一张。卡片内预览仅使用「本地短视频」（video_tag）；点击弹窗播放顺序为：① YouTube/Vimeo 链接 ② 备用直链 ③ 本地视频源。同时配置本地与外链时，卡片仍播本地预览，弹窗打开链接中的完整视频。"
         },
         {
           "type": "header",
@@ -2631,27 +2773,22 @@
           "type": "video",
           "id": "video",
           "label": "本地短视频",
-          "info": "上传后可在卡片内自动播放预览（静音），弹窗中也可播放。"
+          "info": "上传后可在卡片内自动静音预览。若同时填写下方链接或备用直链，点击卡片弹窗将优先播放链接视频。"
         },
         {
-          "type": "url",
+          "type": "video_url",
           "id": "video_link",
           "label": "视频链接（YouTube / Vimeo）",
-          "default": "/",
-          "info": "未配置本地视频时使用。填写完整页面地址即可，例如 youtube.com/watch?v=… 或 vimeo.com/…。"
+          "accept": ["youtube", "vimeo"],
+          "default": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+          "info": "填写后弹窗优先嵌入该地址（与是否上传本地短视频无关）。完整页面地址，例如 youtube.com/watch?v=… 或 vimeo.com/…。"
         },
         {
           "type": "url",
           "id": "video_url_fallback",
           "label": "备用视频地址（直链）",
           "default": "/",
-          "info": "当前两项都未使用时作为兜底，需为可直接播放的视频文件地址（如 .mp4）。"
-        },
-        {
-          "type": "image_picker",
-          "id": "poster",
-          "label": "封面图",
-          "info": "可选。不填时优先使用本地视频的预览图；无本地视频时显示占位。"
+          "info": "未填视频链接时使用；弹窗优先于本地源。需为可直接播放的文件地址（如 .mp4）。"
         }
       ]
     },
@@ -2797,7 +2934,20 @@
           "type": "richtext",
           "id": "content",
           "label": "展开内容",
-          "info": "支持段落、列表、加粗等；列表圆点为浅蓝色。也可在富文本中插入图片或图标。"
+          "info": "支持段落、列表、加粗等；无序列表圆点颜色见下方「列表圆点颜色」。也可在富文本中插入图片或图标。"
+        },
+        {
+          "type": "color",
+          "id": "list_marker_color",
+          "label": "列表圆点颜色",
+          "default": "#ADC5FA",
+          "info": "仅作用于无序列表默认圆点；若配置了「无序列表图标」则此项不生效。"
+        },
+        {
+          "type": "image_picker",
+          "id": "list_item_icon",
+          "label": "无序列表图标",
+          "info": "选填。上传后展开内容里无序列表（ul）左侧显示该图；留空则保持默认圆点（浅蓝色）。"
         },
         { "type": "header", "content": "可选图片" },
         {

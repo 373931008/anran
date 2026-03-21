@@ -7,9 +7,168 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
-{
+ {
   "layout": "theme",
   "sections": {
+    "main": {
+      "type": "main-product-v2",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {
+            "subtitle": "Guardian Cam Q3M8."
+          }
+        },
+        "judge_me_reviews_preview_badge_zMwFUy": {
+          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "show_promo_strip": true,
+            "promo_primary_text": "$10 off",
+            "promo_subtitle": "(1 DEVICE)",
+            "discount_code": "anran10",
+            "copy_label": "copy:",
+            "promo_bg": "#b51010"
+          }
+        },
+        "q_feature_list_ibgtN8": {
+          "type": "q_feature_list",
+          "settings": {
+            "heading": "<p>Crystal-Clear 4K HDR Video with Wireless Solar Power, Smart Motion Alerts, and Effortless Outdoor Protection.</p>",
+            "feature_1": "4K HDR Video",
+            "feature_2": "Smart Human Motion Alerts",
+            "feature_3": "Wireless Solar Power",
+            "feature_4": "Color Night Vision",
+            "feature_5": "Two-Way Audio",
+            "feature_6": "Works with Alexa"
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "show_variant_images": true,
+            "swatch_shape": "circle"
+          }
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "q_warranty_GUqegQ": {
+          "type": "q_warranty",
+          "settings": {
+            "title": "2-Year Extended Protection Plan",
+            "label": "Free",
+            "link_prefix": "View all",
+            "link_suffix": "warranty",
+            "modal_heading": "Outstanding customer",
+            "modal_content": "<p>Outstanding customer service. Fast response and very helpful. Highly recommended.Outstanding customer service. Fast response and very helpful. Highly recommended.Outstanding customer service. Fast response and very helpful. Highly recommended.</p>",
+            "bg_color": "#ffffff"
+          }
+        },
+        "q_worry_free_returns_g3Jexz": {
+          "type": "q_worry_free_returns",
+          "settings": {
+            "icon": "shopify://shop_images/fi_4989753.png",
+            "title": "Worry-Free Returns",
+            "description": "<p>Buy online with confidence with our 30-day risk-free return policy.</p>",
+            "bg_color": "#f3f7ff",
+            "title_color": "#1565d8"
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons_v2",
+          "settings": {
+            "secondary_checkout": "direct",
+            "show_gift_card_recipient": false
+          }
+        },
+        "q_accordion_item_Vbkz8W": {
+          "type": "q_accordion_item",
+          "settings": {
+            "heading": "What you’ll love",
+            "content": "<p>See more, worry less with this solar-powered 2K security camera. Get full 360° coverage, smart motion alerts, and clear day-to-night monitoring.</p><ul><li>2K HD Video with 360° PTZ View</li><li>Solar Powered – No Wires Needed</li><li>Real-Time Motion Alerts & Two-Way Talk</li></ul>",
+            "list_marker_color": "#adc5fa",
+            "layout": "image_top_content_bottom"
+          }
+        },
+        "q_accordion_item_qm7B6g": {
+          "type": "q_accordion_item",
+          "settings": {
+            "heading": "Key Benefits",
+            "content": "<ul><li>Comprehensive security features with no monthly fees;</li><li>Solar-powered wireless camera with included panel;</li><li>2K HD video with full 360° view;</li><li>Color night vision with spotlight protection;</li><li>Smart motion detection with instant alerts;</li><li>Two-way talk with visitors or delivery drivers;</li><li>Local SD storage with optional cloud backup;</li><li>Alexa compatible for easy voice control. (Can't add to NVR)</li></ul>",
+            "list_marker_color": "#adc5fa",
+            "list_item_icon": "shopify://shop_images/fi_7641727.png",
+            "image": "shopify://shop_images/Gemini_Generated_Image_oakgk7oakgk7oakg.webp",
+            "layout": "image_top_content_bottom"
+          }
+        },
+        "q_accordion_item_b3qTjT": {
+          "type": "q_accordion_item",
+          "settings": {
+            "heading": "Included in your Box",
+            "content": "<ul><li>1 Wireless Solar Security Camera</li><li>1  3W Solar Panel</li><li>1 USB Charging Cable</li><li>1 Mounting Screw Pack</li><li>1 User Manual</li></ul>",
+            "list_marker_color": "#adc5fa",
+            "image": "shopify://shop_images/image.webp",
+            "layout": "image_left_content_right"
+          }
+        },
+        "q_accordion_item_8xHHm8": {
+          "type": "q_accordion_item",
+          "settings": {
+            "heading": "Installation Instructions",
+            "content": "<ol><li>Download ANRAN APP and Register Account.</li><li>Fully Charged and Connect the 2.4 GHz WiFi.</li><li>Choose a suitable location and mount the camera using the included screws.</li><li>Attach the solar panel to provide continuous power.</li><li>Control the camera to view the screen through the APP.</li></ol><p><strong>Setup takes only a few minutes.</strong></p>",
+            "list_marker_color": "#adc5fa",
+            "layout": "image_top_content_bottom"
+          }
+        },
+        "q_accordion_item_PCXGy9": {
+          "type": "q_accordion_item",
+          "settings": {
+            "heading": "Specs",
+            "content": "<ul><li>Video Resolution: <strong>2K / 3MP</strong></li><li>Viewing Angle: <strong>355° Pan / 90° Tilt</strong></li><li>Zoom: <strong>4× Digital Zoom</strong></li><li>Night Vision: <strong>Color & Infrared (up to 50 ft)</strong></li><li>Connectivity: <strong>2.4GHz Wi-Fi</strong></li><li>Power: <strong>Solar + Rechargeable Battery</strong></li><li>Storage: <strong>MicroSD (up to 128GB) or Cloud</strong></li><li>Weather Resistance: <strong>IP66 Weatherproof</strong></li><li>Smart Integration: <strong>Alexa Compatible</strong></li></ul>",
+            "list_marker_color": "#adc5fa",
+            "layout": "image_top_content_bottom"
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "judge_me_reviews_preview_badge_zMwFUy",
+        "price",
+        "q_feature_list_ibgtN8",
+        "variant_picker",
+        "quantity_selector",
+        "q_warranty_GUqegQ",
+        "q_worry_free_returns_g3Jexz",
+        "buy_buttons",
+        "q_accordion_item_Vbkz8W",
+        "q_accordion_item_qm7B6g",
+        "q_accordion_item_b3qTjT",
+        "q_accordion_item_8xHHm8",
+        "q_accordion_item_PCXGy9"
+      ],
+      "settings": {
+        "enable_sticky_info": true,
+        "enable_sticky_cart_bar": true,
+        "color_scheme": "scheme-1",
+        "media_size": "large",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "gallery_layout": "stacked",
+        "mobile_thumbnails": "hide",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": true,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 12
+      }
+    },
     "q-reviews-quote": {
       "type": "q-reviews-quote",
       "blocks": {
@@ -134,19 +293,27 @@
       "blocks": {
         "logo-1": {
           "type": "logo",
-          "settings": {}
+          "settings": {
+            "logo_image": "shopify://shop_images/Group_551.jpg"
+          }
         },
         "logo-2": {
           "type": "logo",
-          "settings": {}
+          "settings": {
+            "logo_image": "shopify://shop_images/Group_547.jpg"
+          }
         },
         "logo-3": {
           "type": "logo",
-          "settings": {}
+          "settings": {
+            "logo_image": "shopify://shop_images/Group_548.jpg"
+          }
         },
         "logo-4": {
           "type": "logo",
-          "settings": {}
+          "settings": {
+            "logo_image": "shopify://shop_images/Group_550.jpg"
+          }
         },
         "logo-5": {
           "type": "logo",
@@ -154,15 +321,21 @@
         },
         "logo-6": {
           "type": "logo",
-          "settings": {}
+          "settings": {
+            "logo_image": "shopify://shop_images/Group_552.jpg"
+          }
         },
         "logo-7": {
           "type": "logo",
-          "settings": {}
+          "settings": {
+            "logo_image": "shopify://shop_images/Group_553.jpg"
+          }
         },
         "logo-8": {
           "type": "logo",
-          "settings": {}
+          "settings": {
+            "logo_image": "shopify://shop_images/Group_547.jpg"
+          }
         }
       },
       "block_order": [
@@ -182,7 +355,7 @@
         "logo_height_desktop": 44,
         "logo_opacity": 60,
         "logo_opacity_hover": 100,
-        "bg_color": "#FFFFFF",
+        "bg_color": "#F3F7FF",
         "show_divider": false,
         "divider_color": "#e5e7eb",
         "padding_top_mobile": 24,
@@ -1557,88 +1730,10 @@
         "header_margin_bottom_desktop": 40,
         "header_margin_bottom_mobile": 24
       }
-    },
-    "main": {
-      "type": "main-product-v2",
-      "blocks": {
-        "judge_me_reviews_preview_badge_zMwFUy": {
-          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-          "settings": {}
-        },
-        "vendor": {
-          "type": "text",
-          "settings": {
-            "text": "{{ product.vendor }}",
-            "text_style": "uppercase"
-          }
-        },
-        "title": {
-          "type": "title",
-          "settings": {}
-        },
-        "price": {
-          "type": "price",
-          "settings": {}
-        },
-        "variant_picker": {
-          "type": "variant_picker",
-          "settings": {
-            "picker_type": "button",
-            "show_variant_images": true,
-            "swatch_shape": "circle"
-          }
-        },
-        "quantity_selector": {
-          "type": "quantity_selector",
-          "settings": {}
-        },
-        "buy_buttons": {
-          "type": "buy_buttons_v2",
-          "settings": {
-            "secondary_checkout": "direct",
-            "show_gift_card_recipient": true
-          }
-        },
-        "description": {
-          "type": "description",
-          "settings": {}
-        },
-        "share": {
-          "type": "share",
-          "settings": {
-            "share_label": "Share"
-          }
-        }
-      },
-      "block_order": [
-        "judge_me_reviews_preview_badge_zMwFUy",
-        "vendor",
-        "title",
-        "price",
-        "variant_picker",
-        "quantity_selector",
-        "buy_buttons",
-        "description",
-        "share"
-      ],
-      "settings": {
-        "enable_sticky_info": true,
-        "color_scheme": "scheme-1",
-        "media_size": "large",
-        "constrain_to_viewport": true,
-        "media_fit": "contain",
-        "gallery_layout": "stacked",
-        "mobile_thumbnails": "hide",
-        "media_position": "left",
-        "image_zoom": "lightbox",
-        "hide_variants": true,
-        "enable_video_looping": false,
-        "padding_top": 36,
-        "padding_bottom": 12
-      }
     }
   },
   "order": [
+    "main",
     "q-reviews-quote",
     "q-reviews-slider",
     "q-logo-marquee",
@@ -1662,7 +1757,6 @@
     "q-product-specs",
     "q-service-features",
     "q-product-recommend",
-    "q-faq",
-    "main"
+    "q-faq"
   ]
 }

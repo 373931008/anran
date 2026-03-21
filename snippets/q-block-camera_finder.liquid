@@ -1,0 +1,197 @@
+{%- comment -%}
+  Block: q_camera_finder（main-product-v2）
+  设计稿：桌面 195:14 / 移动 58:1525 — 标题 + 三张横向问答卡片（浅底蓝框），点击打开弹窗。
+  需传入: block, section
+  弹窗 DOM 在 sections/main-product-v2.liquid（CameraFinderModal-*）
+{%- endcomment -%}
+<style>
+  .section-{{ section.id }}.product__camera-finder {
+    margin-top: 2.4rem;
+    margin-bottom: 0;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}.product__camera-finder {
+      margin-top: 3rem;
+    }
+  }
+  .section-{{ section.id }}.product__camera-finder .product__camera-finder__title {
+    margin: 0 0 0.6rem;
+    font-family: var(--font-heading-family);
+    font-weight: 600;
+    font-size: 1.4rem;
+    line-height: 3.6rem;
+    color: #0f263d;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}.product__camera-finder .product__camera-finder__title {
+      margin-bottom: 1.6rem;
+      font-size: 2rem;
+      text-align: left;
+    }
+  }
+  .section-{{ section.id }}.product__camera-finder .product__camera-finder__list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.6rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}.product__camera-finder .product__camera-finder__list {
+      gap: 1.6rem;
+    }
+  }
+  .section-{{ section.id }}.product__camera-finder .product__camera-finder__item {
+    min-width: 0;
+  }
+  .section-{{ section.id }}.product__camera-finder .product__camera-finder__card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.6rem;
+    width: 100%;
+    min-height: 8.1rem;
+    box-sizing: border-box;
+    padding: 0.8rem 0.6rem;
+    margin: 0;
+    border: 1px solid #1565d8;
+    border-radius: 1rem;
+    background: #f3f7ff;
+    color: #1565d8;
+    font-family: Poppins, sans-serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    line-height: 1.6rem;
+    text-align: left;
+    cursor: default;
+    transition: background 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}.product__camera-finder .product__camera-finder__card {
+      gap: 1rem;
+      padding: 1rem 1.2rem;
+      font-size: 1.2rem;
+      font-weight: 600;
+      line-height: 1.6rem;
+      color: #1565d8;
+    }
+  }
+  .section-{{ section.id }}.product__camera-finder .product__camera-finder__card--clickable {
+    cursor: pointer;
+  }
+  .section-{{ section.id }}.product__camera-finder .product__camera-finder__card--clickable:hover {
+    background: #e4edfc;
+    border-color: #0d4ea6;
+  }
+  .section-{{ section.id }}.product__camera-finder .product__camera-finder__card--clickable:active {
+    opacity: 0.88;
+  }
+  .section-{{ section.id }}.product__camera-finder .product__camera-finder__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.9rem;
+    height: 1.9rem;
+    flex-shrink: 0;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}.product__camera-finder .product__camera-finder__icon {
+      width: 2.6rem;
+      height: 2.6rem;
+    }
+  }
+  .section-{{ section.id }}.product__camera-finder .product__camera-finder__img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .section-{{ section.id }}.product__camera-finder .product__camera-finder__label {
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+</style>
+<div class="section-{{ section.id }} product__camera-finder product__camera-finder--{{ section.id }}-{{ block.id }}" {{ block.shopify_attributes }}>
+  {%- if block.settings.heading != blank -%}
+    <h3 class="product__camera-finder__title">{{ block.settings.heading | escape }}</h3>
+  {%- endif -%}
+  <ul class="product__camera-finder__list list-unstyled" role="list">
+    {%- if block.settings.card_1_label != blank or block.settings.card_1_icon != blank -%}
+      <li class="product__camera-finder__item">
+        {%- if block.settings.card_1_content != blank -%}
+          <modal-opener class="product-popup-modal__opener" data-modal="#CameraFinderModal-{{ section.id }}-{{ block.id }}-1">
+            <button type="button" class="product__camera-finder__card product__camera-finder__card--clickable product-popup-modal__button" aria-haspopup="dialog">
+              {%- if block.settings.card_1_icon != blank -%}
+                <span class="product__camera-finder__icon">
+                  {{- block.settings.card_1_icon | image_url: width: 52 | image_tag: loading: 'lazy', class: 'product__camera-finder__img' -}}
+                </span>
+              {%- endif -%}
+              <span class="product__camera-finder__label">{{ block.settings.card_1_label }}</span>
+            </button>
+          </modal-opener>
+        {%- else -%}
+          <div class="product__camera-finder__card">
+            {%- if block.settings.card_1_icon != blank -%}
+              <span class="product__camera-finder__icon">
+                {{- block.settings.card_1_icon | image_url: width: 52 | image_tag: loading: 'lazy', class: 'product__camera-finder__img' -}}
+              </span>
+            {%- endif -%}
+            <span class="product__camera-finder__label">{{ block.settings.card_1_label }}</span>
+          </div>
+        {%- endif -%}
+      </li>
+    {%- endif -%}
+    {%- if block.settings.card_2_label != blank or block.settings.card_2_icon != blank -%}
+      <li class="product__camera-finder__item">
+        {%- if block.settings.card_2_content != blank -%}
+          <modal-opener class="product-popup-modal__opener" data-modal="#CameraFinderModal-{{ section.id }}-{{ block.id }}-2">
+            <button type="button" class="product__camera-finder__card product__camera-finder__card--clickable product-popup-modal__button" aria-haspopup="dialog">
+              {%- if block.settings.card_2_icon != blank -%}
+                <span class="product__camera-finder__icon">
+                  {{- block.settings.card_2_icon | image_url: width: 52 | image_tag: loading: 'lazy', class: 'product__camera-finder__img' -}}
+                </span>
+              {%- endif -%}
+              <span class="product__camera-finder__label">{{ block.settings.card_2_label }}</span>
+            </button>
+          </modal-opener>
+        {%- else -%}
+          <div class="product__camera-finder__card">
+            {%- if block.settings.card_2_icon != blank -%}
+              <span class="product__camera-finder__icon">
+                {{- block.settings.card_2_icon | image_url: width: 52 | image_tag: loading: 'lazy', class: 'product__camera-finder__img' -}}
+              </span>
+            {%- endif -%}
+            <span class="product__camera-finder__label">{{ block.settings.card_2_label }}</span>
+          </div>
+        {%- endif -%}
+      </li>
+    {%- endif -%}
+    {%- if block.settings.card_3_label != blank or block.settings.card_3_icon != blank -%}
+      <li class="product__camera-finder__item">
+        {%- if block.settings.card_3_content != blank -%}
+          <modal-opener class="product-popup-modal__opener" data-modal="#CameraFinderModal-{{ section.id }}-{{ block.id }}-3">
+            <button type="button" class="product__camera-finder__card product__camera-finder__card--clickable product-popup-modal__button" aria-haspopup="dialog">
+              {%- if block.settings.card_3_icon != blank -%}
+                <span class="product__camera-finder__icon">
+                  {{- block.settings.card_3_icon | image_url: width: 52 | image_tag: loading: 'lazy', class: 'product__camera-finder__img' -}}
+                </span>
+              {%- endif -%}
+              <span class="product__camera-finder__label">{{ block.settings.card_3_label }}</span>
+            </button>
+          </modal-opener>
+        {%- else -%}
+          <div class="product__camera-finder__card">
+            {%- if block.settings.card_3_icon != blank -%}
+              <span class="product__camera-finder__icon">
+                {{- block.settings.card_3_icon | image_url: width: 52 | image_tag: loading: 'lazy', class: 'product__camera-finder__img' -}}
+              </span>
+            {%- endif -%}
+            <span class="product__camera-finder__label">{{ block.settings.card_3_label }}</span>
+          </div>
+        {%- endif -%}
+      </li>
+    {%- endif -%}
+  </ul>
+</div>

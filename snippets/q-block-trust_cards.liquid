@@ -2,52 +2,74 @@
   Block: trust_cards (main-product-v2)
   信任/保障卡片：图标+标题，可配置弹窗内容；卡片列表下可配置 Logo。
   需传入: block, section（用于 modal id 与样式前缀）
+  弹窗 DOM 在 sections/main-product-v2.liquid（TrustCardModal-*），样式与 q_warranty 一致：class product-popup-modal--warranty。
 {%- endcomment -%}
 <style>
+  {%- comment -%}
+    布局与标注来自 Figma（桌面 195:11 / 移动 196:123）：
+    - 无描边卡片，上图下文居中；文案 Poppins SemiBold、#404040
+    - 移动：图标 27px，字号 11px，首行 3 列网格 + 徽章单独一行居中
+    - 桌面：图标 36px，字号 13px，卡片行与 Trust 徽章同一行两端对齐
+  {%- endcomment -%}
   .section-{{ section.id }}.product__trust-cards {
-    margin-top: 1.6rem;
+    margin-top: 28px;
     margin-bottom: 0;
   }
-  .section-{{ section.id }}.product__trust-cards .product__trust-cards-list {
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}.product__trust-cards {
+      margin-top: 48px;
+    }
+  }
+  .section-{{ section.id }}.product__trust-cards .product__trust-cards-wrap {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: column;
     align-items: stretch;
-    gap: 0.8rem;
+    gap: 0;
+  }
+  .section-{{ section.id }}.product__trust-cards .product__trust-cards-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.2rem 0.8rem;
     list-style: none;
     padding: 0;
     margin: 0;
+    width: 100%;
   }
   .section-{{ section.id }}.product__trust-cards .product__trust-cards-item {
-    flex: 1 1 calc(33.333% - 0.6rem);
-    min-width: 9.5rem;
-    max-width: 20.6rem;
     display: flex;
+    justify-content: center;
+    min-width: 0;
+  }
+  .section-{{ section.id }}.product__trust-cards .product__trust-cards-item:nth-child(n + 4) {
+    grid-column: 1 / -1;
+    justify-self: center;
+    max-width: 12rem;
   }
   .section-{{ section.id }}.product__trust-cards .product__trust-cards-trigger {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 0.6rem;
+    justify-content: flex-start;
+    gap: 0.8rem;
     width: 100%;
-    min-height: 8.1rem;
-    padding: 1rem 0.6rem;
+    min-height: 0;
+    padding: 0;
     box-sizing: border-box;
-    border: 1px solid #1565d8;
-    border-radius: 10px;
-    background: #f3f7ff;
-    color: #1565d8;
-    font-family: inherit;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    color: #404040;
+    font-family: Poppins, sans-serif;
     font-size: 1.2rem;
-    font-weight: 600;
-    line-height: 1.33;
+    font-weight: 500;
+    line-height: normal;
     text-align: center;
     text-decoration: none;
     cursor: pointer;
+    transition: opacity 0.2s ease;
   }
   .section-{{ section.id }}.product__trust-cards .product__trust-cards-trigger:hover {
-    opacity: 0.92;
+    opacity: 0.85;
     text-decoration: none;
   }
   .section-{{ section.id }}.product__trust-cards .product__trust-cards-trigger--no-popup {
@@ -60,8 +82,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 2.6rem;
-    height: 2.6rem;
+    width: 2.7rem;
+    height: 2.7rem;
     flex-shrink: 0;
   }
   .section-{{ section.id }}.product__trust-cards .product__trust-cards-icon img {
@@ -70,47 +92,68 @@
     object-fit: contain;
   }
   .section-{{ section.id }}.product__trust-cards .product__trust-cards-label {
-    color: #1565d8;
+    color: #404040;
+    max-width: 10rem;
   }
   .section-{{ section.id }}.product__trust-cards .product__trust-cards-logo {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 1.2rem;
+    flex-shrink: 0;
   }
   .section-{{ section.id }}.product__trust-cards .product__trust-cards-logo img {
-    max-width: 12.7rem;
+    width: 12.7rem;
+    max-width: 100%;
     height: auto;
     object-fit: contain;
   }
   @media screen and (min-width: 750px) {
+    .section-{{ section.id }}.product__trust-cards .product__trust-cards-wrap {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+    }
     .section-{{ section.id }}.product__trust-cards .product__trust-cards-list {
-      gap: 1.2rem;
-      justify-content: center;
+      display: flex;
+      flex: 1 1 0;
+      flex-wrap: nowrap;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1.6rem;
+      min-width: 0;
     }
     .section-{{ section.id }}.product__trust-cards .product__trust-cards-item {
-      flex: 1 1 18rem;
-      max-width: 20.6rem;
-      min-width: 12rem;
+      flex: 1 1 0;
+      min-width: 0;
+    }
+    .section-{{ section.id }}.product__trust-cards .product__trust-cards-item:nth-child(n + 4) {
+      grid-column: auto;
+      justify-self: stretch;
+      max-width: none;
     }
     .section-{{ section.id }}.product__trust-cards .product__trust-cards-trigger {
-      min-height: 8.1rem;
-      padding: 1.2rem 1rem;
-      font-size: 1.2rem;
+      gap: 1rem;
+      font-size: 1.3rem;
     }
     .section-{{ section.id }}.product__trust-cards .product__trust-cards-icon {
-      width: 2.6rem;
-      height: 2.6rem;
+      width: 3.6rem;
+      height: 3.6rem;
+    }
+    .section-{{ section.id }}.product__trust-cards .product__trust-cards-label {
+      max-width: 15.2rem;
     }
     .section-{{ section.id }}.product__trust-cards .product__trust-cards-logo {
-      margin-top: 1.6rem;
+      margin-top: 0;
     }
     .section-{{ section.id }}.product__trust-cards .product__trust-cards-logo img {
-      max-width: 15rem;
+      width: 14.8rem;
     }
   }
 </style>
 <div class="section-{{ section.id }} product__trust-cards product__trust-cards--{{ section.id }}-{{ block.id }}" {{ block.shopify_attributes }}>
+  <div class="product__trust-cards-wrap">
   <ul class="product__trust-cards-list list-unstyled" role="list">
     {%- if block.settings.card_1_label != blank or block.settings.card_1_icon != blank -%}
       <li class="product__trust-cards-item">
@@ -183,7 +226,8 @@
   </ul>
   {%- if block.settings.logo_image != blank -%}
     <div class="product__trust-cards-logo">
-      <img src="{{ block.settings.logo_image | image_url: width: 254 }}" alt="{{ block.settings.logo_image.alt | escape }}" width="127" height="42" loading="lazy">
+      <img src="{{ block.settings.logo_image | image_url: width: 296 }}" alt="{{ block.settings.logo_image.alt | escape }}" width="148" height="53" loading="lazy">
     </div>
   {%- endif -%}
+  </div>
 </div>
