@@ -1,7 +1,7 @@
 {%- comment -%}
   Block: q_accordion_item (main-product-v2)
   可展开收起项：标题 + 箭头，展开后显示富文本与可选图片；支持图片在左/上两种布局。
-  富文本列表黑点色 #ADC5FA，正文 #2D3F60；箭头见规范。
+  富文本无序列表圆点色可配置（默认 #ADC5FA）；可选「无序列表图标」替换 ul 左侧圆点。正文 #2D3F60；箭头见规范。
   需传入: block, section
   Islands: frontend/islands/q-accordion-item-element.js
 {%- endcomment -%}
@@ -73,14 +73,72 @@
     font-size: 14px;
     line-height: 1.5;
   }
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .product__accordion-content {
+      font-size: 16px;
+    }
+  }
+
+
   .section-{{ section.id }} .product__accordion-content ul,
   .section-{{ section.id }} .product__accordion-content ol {
     padding-left: 1.2em;
     margin: 0.5em 0 1em;
   }
-  .section-{{ section.id }} .product__accordion-content ul li::marker {
-    color: #ADC5FA;
+  .section-{{ section.id }} .product__accordion-content ul > li,
+  .section-{{ section.id }} .product__accordion-content ol > li {
+    margin-bottom: 0.5em;
   }
+  .section-{{ section.id }} .product__accordion-content ul > li:last-child,
+  .section-{{ section.id }} .product__accordion-content ol > li:last-child {
+    margin-bottom: 0;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .product__accordion-content ul > li,
+    .section-{{ section.id }} .product__accordion-content ol > li {
+      margin-bottom: 0.6em;
+    }
+  }
+  {%- assign list_marker_color = block.settings.list_marker_color | default: '#ADC5FA' -%}
+  .section-{{ section.id }} .product__accordion-content--block-{{ block.id }} ul li::marker {
+    color: {{ list_marker_color }};
+  }
+  {%- if block.settings.list_item_icon != blank -%}
+    {%- assign accordion_li_icon_url = block.settings.list_item_icon | image_url: width: 64 -%}
+    .section-{{ section.id }} .product__accordion-content--li-icon-{{ block.id }} ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    .section-{{ section.id }} .product__accordion-content--li-icon-{{ block.id }} ul ul {
+      margin-top: 0.35em;
+      margin-bottom: 0.35em;
+      padding-left: 1.25em;
+    }
+    .section-{{ section.id }} .product__accordion-content--li-icon-{{ block.id }} ul > li {
+      position: relative;
+      padding-left: 1.6em;
+      list-style: none;
+    }
+    .section-{{ section.id }} .product__accordion-content--li-icon-{{ block.id }} ul > li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 16px;
+      height: 16px;
+      background: url('{{ accordion_li_icon_url }}') center / contain no-repeat;
+    }
+    @media screen and (min-width: 750px) {
+      .section-{{ section.id }} .product__accordion-content--li-icon-{{ block.id }} ul > li::before {
+        width: 20px;
+        height: 20px;
+      }
+      .section-{{ section.id }} .product__accordion-content--li-icon-{{ block.id }} ul > li {
+        padding-left: 1.75em;
+      }
+    }
+  {%- endif -%}
   .section-{{ section.id }} .product__accordion-content p {
     margin: 0 0 0.5em;
   }
@@ -153,7 +211,9 @@
             </div>
           {%- endif -%}
           {%- if block.settings.content != blank -%}
-            <div class="product__accordion-content rte">
+            <div
+              class="product__accordion-content rte product__accordion-content--block-{{ block.id }}{% if block.settings.list_item_icon != blank %} product__accordion-content--li-icon-{{ block.id }}{% endif %}"
+            >
               {{ block.settings.content }}
             </div>
           {%- endif -%}

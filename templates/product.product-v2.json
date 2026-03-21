@@ -86,6 +86,49 @@
             "secondary_checkout": "direct",
             "show_gift_card_recipient": false
           }
+        },
+        "q_accordion_item_Vbkz8W": {
+          "type": "q_accordion_item",
+          "settings": {
+            "heading": "What you’ll love",
+            "content": "<p>See more, worry less with this solar-powered 2K security camera. Get full 360° coverage, smart motion alerts, and clear day-to-night monitoring.</p><ul><li>2K HD Video with 360° PTZ View</li><li>Solar Powered – No Wires Needed</li><li>Real-Time Motion Alerts & Two-Way Talk</li></ul>",
+            "layout": "image_top_content_bottom"
+          }
+        },
+        "q_accordion_item_qm7B6g": {
+          "type": "q_accordion_item",
+          "settings": {
+            "heading": "Key Benefits",
+            "content": "<ul><li>Comprehensive security features with no monthly fees;</li><li>Solar-powered wireless camera with included panel;</li><li>2K HD video with full 360° view;</li><li>Color night vision with spotlight protection;</li><li>Smart motion detection with instant alerts;</li><li>Two-way talk with visitors or delivery drivers;</li><li>Local SD storage with optional cloud backup;</li><li>Alexa compatible for easy voice control. (Can't add to NVR)</li></ul>",
+            "list_item_icon": "shopify://shop_images/fi_7641727.png",
+            "image": "shopify://shop_images/Gemini_Generated_Image_oakgk7oakgk7oakg.webp",
+            "layout": "image_top_content_bottom"
+          }
+        },
+        "q_accordion_item_b3qTjT": {
+          "type": "q_accordion_item",
+          "settings": {
+            "heading": "Included in your Box",
+            "content": "<ul><li>1 Wireless Solar Security Camera</li><li>1  3W Solar Panel</li><li>1 USB Charging Cable</li><li>1 Mounting Screw Pack</li><li>1 User Manual</li></ul>",
+            "image": "shopify://shop_images/image.webp",
+            "layout": "image_left_content_right"
+          }
+        },
+        "q_accordion_item_8xHHm8": {
+          "type": "q_accordion_item",
+          "settings": {
+            "heading": "Installation Instructions",
+            "content": "<ol><li>Download ANRAN APP and Register Account.</li><li>Fully Charged and Connect the 2.4 GHz WiFi.</li><li>Choose a suitable location and mount the camera using the included screws.</li><li>Attach the solar panel to provide continuous power.</li><li>Control the camera to view the screen through the APP.</li></ol><p><strong>Setup takes only a few minutes.</strong></p>",
+            "layout": "image_top_content_bottom"
+          }
+        },
+        "q_accordion_item_PCXGy9": {
+          "type": "q_accordion_item",
+          "settings": {
+            "heading": "Specs",
+            "content": "<ul><li>Video Resolution: <strong>2K / 3MP</strong></li><li>Viewing Angle: <strong>355° Pan / 90° Tilt</strong></li><li>Zoom: <strong>4× Digital Zoom</strong></li><li>Night Vision: <strong>Color & Infrared (up to 50 ft)</strong></li><li>Connectivity: <strong>2.4GHz Wi-Fi</strong></li><li>Power: <strong>Solar + Rechargeable Battery</strong></li><li>Storage: <strong>MicroSD (up to 128GB) or Cloud</strong></li><li>Weather Resistance: <strong>IP66 Weatherproof</strong></li><li>Smart Integration: <strong>Alexa Compatible</strong></li></ul>",
+            "layout": "image_top_content_bottom"
+          }
         }
       },
       "block_order": [
@@ -97,7 +140,12 @@
         "quantity_selector",
         "q_warranty_GUqegQ",
         "q_worry_free_returns_g3Jexz",
-        "buy_buttons"
+        "buy_buttons",
+        "q_accordion_item_Vbkz8W",
+        "q_accordion_item_qm7B6g",
+        "q_accordion_item_b3qTjT",
+        "q_accordion_item_8xHHm8",
+        "q_accordion_item_PCXGy9"
       ],
       "settings": {
         "enable_sticky_info": true,
