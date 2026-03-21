@@ -61,13 +61,11 @@
         "q_warranty_GUqegQ": {
           "type": "q_warranty",
           "settings": {
-            "title": "2-Year Extended Protection Plan",
-            "label": "Free",
-            "link_prefix": "View all",
+            "link_prefix": "View all ",
             "link_suffix": "warranty",
             "modal_heading": "Outstanding customer",
             "modal_content": "<p>Outstanding customer service. Fast response and very helpful. Highly recommended.Outstanding customer service. Fast response and very helpful. Highly recommended.Outstanding customer service. Fast response and very helpful. Highly recommended.</p>",
-            "bg_color": "#dbecff"
+            "bg_color": "#ffffff"
           }
         },
         "q_worry_free_returns_g3Jexz": {
