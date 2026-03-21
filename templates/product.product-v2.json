@@ -37,7 +37,7 @@
         "q_feature_list_ibgtN8": {
           "type": "q_feature_list",
           "settings": {
-            "heading": "<p>Crystal-Clear 4K HDR Video with Wireless Solar Power, Smart Motion Alerts, and Effortless Outdoor Protection.</p>",
+            "heading": "<p>Crystal-Clear 4K HDR Video with Wireless Solar Power, Smart Motion Alerts, and Effortless Outdoor Protection</p>",
             "feature_1": "4K HDR Video",
             "feature_2": "Smart Human Motion Alerts",
             "feature_3": "Wireless Solar Power",
@@ -67,7 +67,7 @@
             "link_suffix": "warranty",
             "modal_heading": "Outstanding customer",
             "modal_content": "<p>Outstanding customer service. Fast response and very helpful. Highly recommended.Outstanding customer service. Fast response and very helpful. Highly recommended.Outstanding customer service. Fast response and very helpful. Highly recommended.</p>",
-            "bg_color": "#ffffff"
+            "bg_color": "#DBECFF"
           }
         },
         "q_worry_free_returns_g3Jexz": {
@@ -134,6 +134,87 @@
             "list_marker_color": "#adc5fa",
             "layout": "image_top_content_bottom"
           }
+        },
+        "trust_cards_7izheJ": {
+          "type": "trust_cards",
+          "settings": {
+            "card_1_icon": "shopify://shop_images/fi_7420534.png",
+            "card_1_label": "30-Day Risk-Free Trial",
+            "card_1_content": "",
+            "card_2_icon": "shopify://shop_images/fi_7532627.png",
+            "card_2_label": "24-Month Warranty",
+            "card_2_content": "",
+            "card_3_icon": "shopify://shop_images/fi_9502802.png",
+            "card_3_label": "Free App Access",
+            "card_3_content": "",
+            "card_4_label": "",
+            "card_4_content": "",
+            "logo_image": "shopify://shop_images/image_273.png"
+          }
+        },
+        "q_see_in_action_qqPxfb": {
+          "type": "q_see_in_action",
+          "settings": {
+            "heading": "See in Action",
+            "autoplay_timer": false,
+            "autoplay_delay": 5000
+          }
+        },
+        "q_see_in_action_card_yrNeJw": {
+          "type": "q_see_in_action_card",
+          "settings": {
+            "video": "shopify://files/videos/Invisible_selfie_stick_vid_pc_xlarge.mp4",
+            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "video_url_fallback": "/"
+          }
+        },
+        "q_see_in_action_card_ekQeaR": {
+          "type": "q_see_in_action_card",
+          "settings": {
+            "video": "shopify://files/videos/active_hdr_vid_pc_SC_xlarge.mp4",
+            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "video_url_fallback": "/"
+          }
+        },
+        "q_see_in_action_card_x9tfpr": {
+          "type": "q_see_in_action_card",
+          "settings": {
+            "video": "shopify://files/videos/Portrait_Mode_PC_xlarge.mp4",
+            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "video_url_fallback": "/"
+          }
+        },
+        "q_see_in_action_card_YVXWf8": {
+          "type": "q_see_in_action_card",
+          "settings": {
+            "video": "shopify://files/videos/8k360_video_vid_pc_xlarge.mp4",
+            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "video_url_fallback": "/"
+          }
+        },
+        "testimonial_7pQ6qr": {
+          "type": "testimonial",
+          "settings": {
+            "avatar": "shopify://shop_images/Ellipse_2.png",
+            "stars": 5,
+            "quote": "Great traction for outdoor adventures.",
+            "author_name": "Karen B"
+          }
+        },
+        "q_camera_finder_MKbeYn": {
+          "type": "q_camera_finder",
+          "settings": {
+            "heading": "Find the perfect security cameras!",
+            "card_1_icon": "shopify://shop_images/fi_2525795.png",
+            "card_1_label": "Is there a subscription required?",
+            "card_1_content": "<p>Describe subscription options for your cameras here.</p>",
+            "card_2_icon": "shopify://shop_images/fi_2525795.png",
+            "card_2_label": "Does it protect my data privacy?",
+            "card_2_content": "<p>Explain how you protect customer data and privacy.</p>",
+            "card_3_icon": "shopify://shop_images/fi_2525795.png",
+            "card_3_label": "Can it detect motion?",
+            "card_3_content": "<p>Describe motion detection capabilities here.</p>"
+          }
         }
       },
       "block_order": [
@@ -150,7 +231,15 @@
         "q_accordion_item_qm7B6g",
         "q_accordion_item_b3qTjT",
         "q_accordion_item_8xHHm8",
-        "q_accordion_item_PCXGy9"
+        "q_accordion_item_PCXGy9",
+        "trust_cards_7izheJ",
+        "q_see_in_action_qqPxfb",
+        "q_see_in_action_card_yrNeJw",
+        "q_see_in_action_card_ekQeaR",
+        "q_see_in_action_card_x9tfpr",
+        "q_see_in_action_card_YVXWf8",
+        "testimonial_7pQ6qr",
+        "q_camera_finder_MKbeYn"
       ],
       "settings": {
         "enable_sticky_info": true,
@@ -350,10 +439,10 @@
       ],
       "settings": {
         "scroll_speed": 8,
-        "gap": 60,
-        "logo_height_mobile": 32,
-        "logo_height_desktop": 44,
-        "logo_opacity": 60,
+        "gap": 20,
+        "logo_height_mobile": 76,
+        "logo_height_desktop": 112,
+        "logo_opacity": 100,
         "logo_opacity_hover": 100,
         "bg_color": "#F3F7FF",
         "show_divider": false,
