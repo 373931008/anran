@@ -1141,6 +1141,7 @@ a.product__text {
     display: flex;
     align-items: center;
     margin-top: 15px;
+    margin-bottom: 15px;
   }
 
   .thumbnail-slider .slider-button {
@@ -1156,6 +1157,15 @@ a.product__text {
     margin-bottom: 0;
     scroll-padding-left: 0;
     scroll-padding-right: 8px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .thumbnail-slider .thumbnail-list.slider {
+      display: flex;
+      padding: .5rem .5rem .5rem 1.5rem;
+      flex: 1;
+      scroll-padding-left: 1.5rem;
+    }
   }
 
   .thumbnail-slider .slider.slider--mobile .slider__slide {

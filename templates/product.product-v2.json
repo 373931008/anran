@@ -37,7 +37,7 @@
         "q_feature_list_ibgtN8": {
           "type": "q_feature_list",
           "settings": {
-            "heading": "<p>Crystal-Clear 4K HDR Video with Wireless Solar Power, Smart Motion Alerts, and Effortless Outdoor Protection.</p>",
+            "heading": "<p>Crystal-Clear 4K HDR Video with Wireless Solar Power, Smart Motion Alerts, and Effortless Outdoor Protection</p>",
             "feature_1": "4K HDR Video",
             "feature_2": "Smart Human Motion Alerts",
             "feature_3": "Wireless Solar Power",
@@ -67,7 +67,7 @@
             "link_suffix": "warranty",
             "modal_heading": "Outstanding customer",
             "modal_content": "<p>Outstanding customer service. Fast response and very helpful. Highly recommended.Outstanding customer service. Fast response and very helpful. Highly recommended.Outstanding customer service. Fast response and very helpful. Highly recommended.</p>",
-            "bg_color": "#ffffff"
+            "bg_color": "#DBECFF"
           }
         },
         "q_worry_free_returns_g3Jexz": {
@@ -134,6 +134,87 @@
             "list_marker_color": "#adc5fa",
             "layout": "image_top_content_bottom"
           }
+        },
+        "trust_cards_7izheJ": {
+          "type": "trust_cards",
+          "settings": {
+            "card_1_icon": "shopify://shop_images/fi_7420534.png",
+            "card_1_label": "30-Day Risk-Free Trial",
+            "card_1_content": "",
+            "card_2_icon": "shopify://shop_images/fi_7532627.png",
+            "card_2_label": "24-Month Warranty",
+            "card_2_content": "",
+            "card_3_icon": "shopify://shop_images/fi_9502802.png",
+            "card_3_label": "Free App Access",
+            "card_3_content": "",
+            "card_4_label": "",
+            "card_4_content": "",
+            "logo_image": "shopify://shop_images/image_273.png"
+          }
+        },
+        "q_see_in_action_qqPxfb": {
+          "type": "q_see_in_action",
+          "settings": {
+            "heading": "See in Action",
+            "autoplay_timer": false,
+            "autoplay_delay": 5000
+          }
+        },
+        "q_see_in_action_card_yrNeJw": {
+          "type": "q_see_in_action_card",
+          "settings": {
+            "video": "shopify://files/videos/Invisible_selfie_stick_vid_pc_xlarge.mp4",
+            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "video_url_fallback": "/"
+          }
+        },
+        "q_see_in_action_card_ekQeaR": {
+          "type": "q_see_in_action_card",
+          "settings": {
+            "video": "shopify://files/videos/active_hdr_vid_pc_SC_xlarge.mp4",
+            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "video_url_fallback": "/"
+          }
+        },
+        "q_see_in_action_card_x9tfpr": {
+          "type": "q_see_in_action_card",
+          "settings": {
+            "video": "shopify://files/videos/Portrait_Mode_PC_xlarge.mp4",
+            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "video_url_fallback": "/"
+          }
+        },
+        "q_see_in_action_card_YVXWf8": {
+          "type": "q_see_in_action_card",
+          "settings": {
+            "video": "shopify://files/videos/8k360_video_vid_pc_xlarge.mp4",
+            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "video_url_fallback": "/"
+          }
+        },
+        "testimonial_7pQ6qr": {
+          "type": "testimonial",
+          "settings": {
+            "avatar": "shopify://shop_images/Ellipse_2.png",
+            "stars": 5,
+            "quote": "Great traction for outdoor adventures.",
+            "author_name": "Karen B"
+          }
+        },
+        "q_camera_finder_MKbeYn": {
+          "type": "q_camera_finder",
+          "settings": {
+            "heading": "Find the perfect security cameras!",
+            "card_1_icon": "shopify://shop_images/fi_2525795.png",
+            "card_1_label": "Is there a subscription required?",
+            "card_1_content": "<p>Describe subscription options for your cameras here.</p>",
+            "card_2_icon": "shopify://shop_images/fi_2525795.png",
+            "card_2_label": "Does it protect my data privacy?",
+            "card_2_content": "<p>Explain how you protect customer data and privacy.</p>",
+            "card_3_icon": "shopify://shop_images/fi_2525795.png",
+            "card_3_label": "Can it detect motion?",
+            "card_3_content": "<p>Describe motion detection capabilities here.</p>"
+          }
         }
       },
       "block_order": [
@@ -150,7 +231,15 @@
         "q_accordion_item_qm7B6g",
         "q_accordion_item_b3qTjT",
         "q_accordion_item_8xHHm8",
-        "q_accordion_item_PCXGy9"
+        "q_accordion_item_PCXGy9",
+        "trust_cards_7izheJ",
+        "q_see_in_action_qqPxfb",
+        "q_see_in_action_card_yrNeJw",
+        "q_see_in_action_card_ekQeaR",
+        "q_see_in_action_card_x9tfpr",
+        "q_see_in_action_card_YVXWf8",
+        "testimonial_7pQ6qr",
+        "q_camera_finder_MKbeYn"
       ],
       "settings": {
         "enable_sticky_info": true,
@@ -160,7 +249,7 @@
         "constrain_to_viewport": true,
         "media_fit": "contain",
         "gallery_layout": "stacked",
-        "mobile_thumbnails": "hide",
+        "mobile_thumbnails": "show",
         "media_position": "left",
         "image_zoom": "lightbox",
         "hide_variants": true,
@@ -350,10 +439,10 @@
       ],
       "settings": {
         "scroll_speed": 8,
-        "gap": 60,
-        "logo_height_mobile": 32,
-        "logo_height_desktop": 44,
-        "logo_opacity": 60,
+        "gap": 20,
+        "logo_height_mobile": 76,
+        "logo_height_desktop": 112,
+        "logo_opacity": 100,
         "logo_opacity_hover": 100,
         "bg_color": "#F3F7FF",
         "show_divider": false,
@@ -1159,8 +1248,28 @@
         "padding_bottom_desktop": 60
       }
     },
-    "q-full-width-image": {
-      "type": "q-full-width-image",
+    "17740849476b89dca3": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_bYjAaY": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "sample_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "empty_widget"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_bYjAaY"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "q-pdp-fullwidth-hero": {
+      "type": "q-fullwidth-hero",
       "settings": {
         "image_desktop": "shopify://shop_images/image_287.jpg",
         "image_mobile": "shopify://shop_images/image_287.jpg",
@@ -1169,43 +1278,38 @@
         "show_overlay": true,
         "overlay_position": "top",
         "overlay_opacity": 80,
-        "title": "Weather-Resistant Design",
-        "description": "<p>IP65 weatherproof design, built to withstand heat, cold, rain, or sun. in temperatures from -4°F to 140°F (-20°C to 60°C)</p>",
-        "text_align": "center",
+        "overlay_title": "Weather-Resistant Design",
+        "overlay_description": "<p>IP65 weatherproof design, built to withstand heat, cold, rain, or sun. in temperatures from -4°F to 140°F (-20°C to 60°C)</p>",
+        "overlay_text_align": "center",
         "text_position": "top",
-        "title_color": "#ffffff",
-        "desc_color": "#ffffff",
-        "title_size_desktop": 42,
-        "title_size_mobile": 24,
-        "desc_size_desktop": 16,
-        "desc_size_mobile": 12,
-        "text_padding_desktop": 48,
-        "text_padding_mobile": 24
-      }
-    },
-    "q-hero-banner": {
-      "type": "q-hero-banner",
-      "settings": {
-        "title": "All-in-One Security. <em>Ready to Protect.</em>",
-        "title_size_desktop": 42,
-        "title_size_mobile": 24,
-        "title_color": "#1e1e1e",
-        "em_color_from": "#6cbce7",
-        "em_color_to": "#367cf6",
-        "description": "Enjoy reliable performance, easy setup, and full control—straight from the box.",
-        "desc_size_desktop": 16,
-        "desc_size_mobile": 12,
-        "desc_color": "#4e5357",
-        "image": "shopify://shop_images/image_294.jpg",
+        "overlay_title_color": "#ffffff",
+        "overlay_desc_color": "#ffffff",
+        "overlay_title_size_desktop": 42,
+        "overlay_title_size_mobile": 24,
+        "overlay_desc_size_desktop": 16,
+        "overlay_desc_size_mobile": 12,
+        "overlay_text_padding_desktop": 48,
+        "overlay_text_padding_mobile": 24,
+        "hero_title": "All-in-One Security. <em>Ready to Protect.</em>",
+        "hero_title_size_desktop": 42,
+        "hero_title_size_mobile": 24,
+        "hero_title_color": "#1e1e1e",
+        "hero_em_color_from": "#6cbce7",
+        "hero_em_color_to": "#367cf6",
+        "hero_description": "Enjoy reliable performance, easy setup, and full control—straight from the box.",
+        "hero_desc_size_desktop": 16,
+        "hero_desc_size_mobile": 12,
+        "hero_desc_color": "#4e5357",
+        "hero_product_image": "shopify://shop_images/image_294.jpg",
         "btn_label": "Buy Now",
         "btn_link": "/",
         "btn_bg_color": "#1565d8",
         "btn_text_color": "#ffffff",
-        "bg_color": "#ffffff",
-        "padding_top_mobile": 40,
-        "padding_bottom_mobile": 40,
-        "padding_top_desktop": 60,
-        "padding_bottom_desktop": 60
+        "hero_bg_color": "#ffffff",
+        "hero_padding_top_mobile": 40,
+        "hero_padding_bottom_mobile": 40,
+        "hero_padding_top_desktop": 60,
+        "hero_padding_bottom_desktop": 60
       }
     },
     "q-trial-guarantee": {
@@ -1485,112 +1589,6 @@
         "padding_bottom_desktop": 60
       }
     },
-    "q-product-recommend": {
-      "type": "q-product-recommend",
-      "blocks": {
-        "tab-1": {
-          "type": "tab",
-          "settings": {
-            "tab_label": "You May Also Like"
-          }
-        },
-        "tab-2": {
-          "type": "tab",
-          "settings": {
-            "tab_label": "Recently Viewed"
-          }
-        },
-        "card-1": {
-          "type": "product_card",
-          "settings": {
-            "product": "anran-2k-4g-solar-outdoor-camera-with-sim-card-two-way-audio",
-            "tab_id": "1",
-            "custom_title": "ANRAN C3 5MP Integrated Solar Battery Camera",
-            "custom_price": "$79.99",
-            "custom_compare_price": "$149.99",
-            "review_count": "236 reviews",
-            "feature_1": "360° Coverage and Tracking",
-            "feature_2": "Full Protection for the whole Home",
-            "save_badge": "Save 50%",
-            "button_label": "Shop Now",
-            "button_link": "/"
-          }
-        },
-        "card-2": {
-          "type": "product_card",
-          "settings": {
-            "product": "",
-            "tab_id": "1",
-            "custom_title": "ANRAN C3 5MP Integrated Solar Battery Camera",
-            "custom_price": "$79.99",
-            "custom_compare_price": "$149.99",
-            "review_count": "236 reviews",
-            "feature_1": "360° Coverage and Tracking",
-            "feature_2": "Full Protection for the whole Home",
-            "save_badge": "Save 50%",
-            "button_label": "Shop Now",
-            "button_link": "/"
-          }
-        },
-        "card-3": {
-          "type": "product_card",
-          "settings": {
-            "product": "",
-            "tab_id": "1",
-            "custom_title": "ANRAN C3 5MP Integrated Solar Battery Camera",
-            "custom_price": "$79.99",
-            "custom_compare_price": "$149.99",
-            "review_count": "236 reviews",
-            "feature_1": "360° Coverage and Tracking",
-            "feature_2": "Full Protection for the whole Home",
-            "save_badge": "Save 50%",
-            "button_label": "Shop Now",
-            "button_link": "/"
-          }
-        },
-        "card-4": {
-          "type": "product_card",
-          "settings": {
-            "product": "",
-            "tab_id": "1",
-            "custom_title": "ANRAN C3 5MP Integrated Solar Battery Camera",
-            "custom_price": "$79.99",
-            "custom_compare_price": "$149.99",
-            "review_count": "236 reviews",
-            "feature_1": "360° Coverage and Tracking",
-            "feature_2": "Full Protection for the whole Home",
-            "save_badge": "Save 50%",
-            "button_label": "Shop Now",
-            "button_link": "/"
-          }
-        }
-      },
-      "block_order": [
-        "tab-1",
-        "tab-2",
-        "card-1",
-        "card-2",
-        "card-3",
-        "card-4"
-      ],
-      "settings": {
-        "padding_top_mobile": 40,
-        "padding_bottom_mobile": 40,
-        "padding_top_desktop": 60,
-        "padding_bottom_desktop": 60,
-        "tab_active_bg": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 57.21%)",
-        "header_title": "<p>Pair Up Our Products to Unlock Features and Save</p>",
-        "header_description": "",
-        "header_center": true,
-        "header_em_color": "#FF6B35",
-        "header_title_size_desktop": 42,
-        "header_title_size_mobile": 22,
-        "header_desc_size_desktop": 16,
-        "header_desc_size_mobile": 12,
-        "header_margin_bottom_desktop": 40,
-        "header_margin_bottom_mobile": 20
-      }
-    },
     "q-faq": {
       "type": "q-faq",
       "blocks": {
@@ -1730,6 +1728,112 @@
         "header_margin_bottom_desktop": 40,
         "header_margin_bottom_mobile": 24
       }
+    },
+    "q-product-recommend": {
+      "type": "q-product-recommend",
+      "blocks": {
+        "tab-1": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "You May Also Like"
+          }
+        },
+        "tab-2": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "Recently Viewed"
+          }
+        },
+        "card-1": {
+          "type": "product_card",
+          "settings": {
+            "product": "anran-2k-4g-solar-outdoor-camera-with-sim-card-two-way-audio",
+            "tab_id": "1",
+            "custom_title": "ANRAN C3 5MP Integrated Solar Battery Camera",
+            "custom_price": "$79.99",
+            "custom_compare_price": "$149.99",
+            "review_count": "236 reviews",
+            "feature_1": "360° Coverage and Tracking",
+            "feature_2": "Full Protection for the whole Home",
+            "save_badge": "Save 50%",
+            "button_label": "Shop Now",
+            "button_link": "/"
+          }
+        },
+        "card-2": {
+          "type": "product_card",
+          "settings": {
+            "product": "",
+            "tab_id": "1",
+            "custom_title": "ANRAN C3 5MP Integrated Solar Battery Camera",
+            "custom_price": "$79.99",
+            "custom_compare_price": "$149.99",
+            "review_count": "236 reviews",
+            "feature_1": "360° Coverage and Tracking",
+            "feature_2": "Full Protection for the whole Home",
+            "save_badge": "Save 50%",
+            "button_label": "Shop Now",
+            "button_link": "/"
+          }
+        },
+        "card-3": {
+          "type": "product_card",
+          "settings": {
+            "product": "",
+            "tab_id": "1",
+            "custom_title": "ANRAN C3 5MP Integrated Solar Battery Camera",
+            "custom_price": "$79.99",
+            "custom_compare_price": "$149.99",
+            "review_count": "236 reviews",
+            "feature_1": "360° Coverage and Tracking",
+            "feature_2": "Full Protection for the whole Home",
+            "save_badge": "Save 50%",
+            "button_label": "Shop Now",
+            "button_link": "/"
+          }
+        },
+        "card-4": {
+          "type": "product_card",
+          "settings": {
+            "product": "",
+            "tab_id": "1",
+            "custom_title": "ANRAN C3 5MP Integrated Solar Battery Camera",
+            "custom_price": "$79.99",
+            "custom_compare_price": "$149.99",
+            "review_count": "236 reviews",
+            "feature_1": "360° Coverage and Tracking",
+            "feature_2": "Full Protection for the whole Home",
+            "save_badge": "Save 50%",
+            "button_label": "Shop Now",
+            "button_link": "/"
+          }
+        }
+      },
+      "block_order": [
+        "tab-1",
+        "tab-2",
+        "card-1",
+        "card-2",
+        "card-3",
+        "card-4"
+      ],
+      "settings": {
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60,
+        "tab_active_bg": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 57.21%)",
+        "header_title": "<p>Pair Up Our Products to Unlock Features and Save</p>",
+        "header_description": "",
+        "header_center": true,
+        "header_em_color": "#FF6B35",
+        "header_title_size_desktop": 42,
+        "header_title_size_mobile": 22,
+        "header_desc_size_desktop": 16,
+        "header_desc_size_mobile": 12,
+        "header_margin_bottom_desktop": 40,
+        "header_margin_bottom_mobile": 20
+      }
     }
   },
   "order": [
@@ -1751,12 +1855,12 @@
     "q-privacy-security",
     "q-setup-steps",
     "q-compare-table",
-    "q-full-width-image",
-    "q-hero-banner",
+    "17740849476b89dca3",
+    "q-pdp-fullwidth-hero",
     "q-trial-guarantee",
     "q-product-specs",
     "q-service-features",
-    "q-product-recommend",
-    "q-faq"
+    "q-faq",
+    "q-product-recommend"
   ]
 }

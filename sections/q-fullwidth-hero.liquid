@@ -1,0 +1,767 @@
+{%- comment -%}
+  Section: q-fullwidth-hero
+  功能说明：合并 q-full-width-image（全宽背景图 + 叠字遮罩）与 q-hero-banner（标题 em 渐变、副标题、产品图、CTA）
+  版本：1.0.0
+{%- endcomment -%}
+
+{%- liquid
+  assign image_desktop = section.settings.image_desktop
+  assign image_mobile = section.settings.image_mobile
+  assign overlay_position = section.settings.overlay_position
+  assign text_position = section.settings.text_position
+-%}
+
+<style>
+  .section-{{ section.id }} {
+    --fwh-bg-height-mobile: {{ section.settings.image_height_mobile }}px;
+    --fwh-bg-height-desktop: {{ section.settings.image_height_desktop }}px;
+    --fwh-overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    --fwh-overlay-title-color: {{ section.settings.overlay_title_color }};
+    --fwh-overlay-desc-color: {{ section.settings.overlay_desc_color }};
+    --fwh-overlay-title-size-mobile: {{ section.settings.overlay_title_size_mobile }}px;
+    --fwh-overlay-title-size-desktop: {{ section.settings.overlay_title_size_desktop }}px;
+    --fwh-overlay-desc-size-mobile: {{ section.settings.overlay_desc_size_mobile }}px;
+    --fwh-overlay-desc-size-desktop: {{ section.settings.overlay_desc_size_desktop }}px;
+    --fwh-overlay-text-padding-mobile: {{ section.settings.overlay_text_padding_mobile }}px;
+    --fwh-overlay-text-padding-desktop: {{ section.settings.overlay_text_padding_desktop }}px;
+    --fwh-hero-bg: {{ section.settings.hero_bg_color }};
+    --fwh-hero-title-color: {{ section.settings.hero_title_color }};
+    --fwh-hero-em-from: {{ section.settings.hero_em_color_from }};
+    --fwh-hero-em-to: {{ section.settings.hero_em_color_to }};
+    --fwh-hero-desc-color: {{ section.settings.hero_desc_color }};
+    --fwh-btn-bg: {{ section.settings.btn_bg_color }};
+    --fwh-btn-text: {{ section.settings.btn_text_color }};
+    --fwh-hero-padding-top-mobile: {{ section.settings.hero_padding_top_mobile }}px;
+    --fwh-hero-padding-bottom-mobile: {{ section.settings.hero_padding_bottom_mobile }}px;
+    --fwh-hero-padding-top-desktop: {{ section.settings.hero_padding_top_desktop }}px;
+    --fwh-hero-padding-bottom-desktop: {{ section.settings.hero_padding_bottom_desktop }}px;
+  }
+
+  /* ----- 全宽背景图 ----- */
+  .section-{{ section.id }}.q-fullwidth-hero {
+    width: 100%;
+  }
+
+  .section-{{ section.id }} .q-fullwidth-hero__bg {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: var(--fwh-bg-height-mobile, 400px);
+  }
+
+  .section-{{ section.id }} .q-fullwidth-hero__bg-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .section-{{ section.id }} .q-fullwidth-hero__bg-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  .section-{{ section.id }} .q-fullwidth-hero__bg-img--mobile {
+    display: block;
+  }
+
+  .section-{{ section.id }} .q-fullwidth-hero__bg-img--desktop {
+    display: none;
+  }
+
+  .section-{{ section.id }} .q-fullwidth-hero__bg-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  {%- if overlay_position == 'top' -%}
+    .section-{{ section.id }} .q-fullwidth-hero__bg-overlay {
+      background: linear-gradient(to bottom, rgba(0,0,0,var(--fwh-overlay-opacity)) 0%, rgba(0,0,0,0) 60%);
+    }
+  {%- elsif overlay_position == 'bottom' -%}
+    .section-{{ section.id }} .q-fullwidth-hero__bg-overlay {
+      background: linear-gradient(to top, rgba(0,0,0,var(--fwh-overlay-opacity)) 0%, rgba(0,0,0,0) 60%);
+    }
+  {%- else -%}
+    .section-{{ section.id }} .q-fullwidth-hero__bg-overlay {
+      background: linear-gradient(to bottom, rgba(0,0,0,var(--fwh-overlay-opacity)) 0%, rgba(0,0,0,0) 60%);
+    }
+  {%- endif -%}
+
+  .section-{{ section.id }} .q-fullwidth-hero__bg-content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    padding: var(--fwh-overlay-text-padding-mobile, 24px);
+    z-index: 2;
+  }
+
+  {%- if text_position == 'top' -%}
+    .section-{{ section.id }} .q-fullwidth-hero__bg-content {
+      justify-content: flex-start;
+    }
+  {%- elsif text_position == 'bottom' -%}
+    .section-{{ section.id }} .q-fullwidth-hero__bg-content {
+      justify-content: flex-end;
+    }
+  {%- else -%}
+    .section-{{ section.id }} .q-fullwidth-hero__bg-content {
+      justify-content: flex-start;
+    }
+  {%- endif -%}
+
+  {%- if section.settings.overlay_text_align == 'center' -%}
+    .section-{{ section.id }} .q-fullwidth-hero__bg-content {
+      align-items: center;
+      text-align: center;
+    }
+  {%- elsif section.settings.overlay_text_align == 'right' -%}
+    .section-{{ section.id }} .q-fullwidth-hero__bg-content {
+      align-items: flex-end;
+      text-align: right;
+    }
+  {%- else -%}
+    .section-{{ section.id }} .q-fullwidth-hero__bg-content {
+      align-items: flex-start;
+      text-align: left;
+    }
+  {%- endif -%}
+
+  .section-{{ section.id }} .q-fullwidth-hero__bg-title {
+    color: var(--fwh-overlay-title-color, #ffffff);
+    font-size: var(--fwh-overlay-title-size-mobile, 24px);
+    font-weight: 600;
+    line-height: 1.3;
+    margin: 0;
+    max-width: 600px;
+  }
+
+  .section-{{ section.id }} .q-fullwidth-hero__bg-desc {
+    color: var(--fwh-overlay-desc-color, #ffffff);
+    font-size: var(--fwh-overlay-desc-size-mobile, 12px);
+    line-height: 1.6;
+    margin: 12px 0 0;
+  }
+
+  .section-{{ section.id }} .q-fullwidth-hero__bg-desc p {
+    margin: 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-fullwidth-hero__bg {
+      height: var(--fwh-bg-height-desktop, 739px);
+    }
+
+    .section-{{ section.id }} .q-fullwidth-hero__bg-img--mobile {
+      display: none;
+    }
+
+    .section-{{ section.id }} .q-fullwidth-hero__bg-img--desktop {
+      display: block;
+    }
+
+    .section-{{ section.id }} .q-fullwidth-hero__bg-content {
+      padding: var(--fwh-overlay-text-padding-desktop, 48px);
+    }
+
+    .section-{{ section.id }} .q-fullwidth-hero__bg-title {
+      font-size: var(--fwh-overlay-title-size-desktop, 42px);
+    }
+
+    .section-{{ section.id }} .q-fullwidth-hero__bg-desc {
+      font-size: var(--fwh-overlay-desc-size-desktop, 16px);
+      margin-top: 20px;
+    }
+  }
+
+  /* ----- Hero 内容区 ----- */
+  .section-{{ section.id }} .q-fullwidth-hero__hero {
+    background: var(--fwh-hero-bg, #ffffff);
+    padding-top: var(--fwh-hero-padding-top-mobile, 40px);
+    padding-bottom: var(--fwh-hero-padding-bottom-mobile, 40px);
+    font-family: var(--font-body-family);
+    text-align: center;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-fullwidth-hero__hero {
+      padding-top: var(--fwh-hero-padding-top-desktop, 60px);
+      padding-bottom: var(--fwh-hero-padding-bottom-desktop, 60px);
+    }
+  }
+
+  .section-{{ section.id }} .q-fullwidth-hero__hero-title {
+    font-size: {{ section.settings.hero_title_size_mobile }}px;
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--fwh-hero-title-color, #1e1e1e);
+    margin: 0 0 12px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-fullwidth-hero__hero-title {
+      font-size: {{ section.settings.hero_title_size_desktop }}px;
+      margin: 0 0 16px;
+    }
+  }
+
+  .section-{{ section.id }} .q-fullwidth-hero__hero-title em {
+    font-style: normal;
+    background: linear-gradient(90deg, var(--fwh-hero-em-from, #6cbce7) 0%, var(--fwh-hero-em-to, #367cf6) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .section-{{ section.id }} .q-fullwidth-hero__hero-desc {
+    font-size: {{ section.settings.hero_desc_size_mobile }}px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--fwh-hero-desc-color, #4e5357);
+    margin: 0 auto 0;
+    padding: 0 16px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-fullwidth-hero__hero-desc {
+      font-size: {{ section.settings.hero_desc_size_desktop }}px;
+      padding: 0;
+    }
+  }
+
+  .section-{{ section.id }} .q-fullwidth-hero__hero-image-wrap {
+    margin: 24px auto;
+    max-width: 280px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-fullwidth-hero__hero-image-wrap {
+      max-width: 613px;
+      margin: 32px auto;
+    }
+  }
+
+  .section-{{ section.id }} .q-fullwidth-hero__hero-image {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .section-{{ section.id }} .q-fullwidth-hero__btn-wrap {
+    margin-top: 0;
+  }
+
+  .section-{{ section.id }} .q-fullwidth-hero__btn {
+    display: inline-block;
+    background: var(--fwh-btn-bg, #1565d8);
+    color: var(--fwh-btn-text, #ffffff);
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1;
+    padding: 10px 36px;
+    border-radius: 30px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, opacity 0.2s;
+    min-width: 142px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-fullwidth-hero__btn {
+      padding: 14px 60px;
+      border-radius: 10px;
+      font-size: 16px;
+      min-width: 220px;
+    }
+  }
+
+  .section-{{ section.id }} .q-fullwidth-hero__btn:hover {
+    background: #0e52b8;
+  }
+
+  .section-{{ section.id }} .q-fullwidth-hero__btn:active {
+    opacity: 0.8;
+  }
+</style>
+
+<div class="q-fullwidth-hero section-{{ section.id }}">
+  {%- comment -%} 全宽背景图区域 {%- endcomment -%}
+  <div class="q-fullwidth-hero__bg">
+    {%- if image_desktop != blank -%}
+      <div class="q-fullwidth-hero__bg-img q-fullwidth-hero__bg-img--desktop">
+        {{
+          image_desktop
+          | image_url: width: 1920
+          | image_tag:
+            loading: 'lazy',
+            widths: '750, 1100, 1440, 1920',
+            sizes: '100vw',
+            alt: image_desktop.alt
+        }}
+      </div>
+    {%- elsif image_mobile != blank -%}
+      <div class="q-fullwidth-hero__bg-img q-fullwidth-hero__bg-img--desktop">
+        {{
+          image_mobile
+          | image_url: width: 1920
+          | image_tag:
+            loading: 'lazy',
+            widths: '750, 1100, 1440, 1920',
+            sizes: '100vw',
+            alt: image_mobile.alt
+        }}
+      </div>
+    {%- endif -%}
+
+    {%- if image_mobile != blank -%}
+      <div class="q-fullwidth-hero__bg-img q-fullwidth-hero__bg-img--mobile">
+        {{
+          image_mobile
+          | image_url: width: 750
+          | image_tag:
+            loading: 'lazy',
+            widths: '375, 550, 750',
+            sizes: '100vw',
+            alt: image_mobile.alt
+        }}
+      </div>
+    {%- elsif image_desktop != blank -%}
+      <div class="q-fullwidth-hero__bg-img q-fullwidth-hero__bg-img--mobile">
+        {{
+          image_desktop
+          | image_url: width: 750
+          | image_tag:
+            loading: 'lazy',
+            widths: '375, 550, 750',
+            sizes: '100vw',
+            alt: image_desktop.alt
+        }}
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.show_overlay -%}
+      <div class="q-fullwidth-hero__bg-overlay"></div>
+    {%- endif -%}
+
+    {%- assign has_overlay_title = section.settings.overlay_title | strip | size -%}
+    {%- assign has_overlay_desc = section.settings.overlay_description | strip | size -%}
+    {%- if has_overlay_title > 0 or has_overlay_desc > 0 -%}
+      <div class="q-fullwidth-hero__bg-content">
+        {%- if has_overlay_title > 0 -%}
+          <h2 class="q-fullwidth-hero__bg-title">{{ section.settings.overlay_title }}</h2>
+        {%- endif -%}
+        {%- if has_overlay_desc > 0 -%}
+          <div class="q-fullwidth-hero__bg-desc">{{ section.settings.overlay_description }}</div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+
+  {%- comment -%} Hero：标题 + 副标题 + 产品图 + CTA {%- endcomment -%}
+  <div class="q-fullwidth-hero__hero">
+    <div class="page-width">
+      {%- if section.settings.hero_title != blank -%}
+        <h2 class="q-fullwidth-hero__hero-title">{{ section.settings.hero_title }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.hero_description != blank -%}
+        <p class="q-fullwidth-hero__hero-desc">{{ section.settings.hero_description }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.hero_product_image != blank -%}
+        <div class="q-fullwidth-hero__hero-image-wrap">
+          {{-
+            section.settings.hero_product_image
+            | image_url: width: 613
+            | image_tag:
+              class: 'q-fullwidth-hero__hero-image',
+              loading: 'lazy',
+              sizes: '(min-width: 750px) 613px, 280px',
+              widths: '280, 400, 560, 613'
+          -}}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.btn_label != blank -%}
+        <div class="q-fullwidth-hero__btn-wrap">
+          <a class="q-fullwidth-hero__btn" href="{{ section.settings.btn_link }}">
+            {{- section.settings.btn_label -}}
+          </a>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "q-fullwidth-hero",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "全宽背景图"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_desktop",
+      "label": "桌面端图片"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "移动端图片"
+    },
+    {
+      "type": "range",
+      "id": "image_height_desktop",
+      "label": "背景高度（桌面端）",
+      "min": 200,
+      "max": 900,
+      "step": 10,
+      "unit": "px",
+      "default": 740
+    },
+    {
+      "type": "range",
+      "id": "image_height_mobile",
+      "label": "背景高度（移动端）",
+      "min": 200,
+      "max": 700,
+      "step": 10,
+      "unit": "px",
+      "default": 500
+    },
+    {
+      "type": "header",
+      "content": "背景遮罩"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_overlay",
+      "label": "显示渐变遮罩",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "overlay_position",
+      "label": "遮罩方向",
+      "options": [
+        { "value": "top", "label": "从顶部向下渐变" },
+        { "value": "bottom", "label": "从底部向上渐变" }
+      ],
+      "default": "top"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "遮罩不透明度",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 80
+    },
+    {
+      "type": "header",
+      "content": "叠在背景图上的文字"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "overlay_title",
+      "label": "标题",
+      "default": "Weather-Resistant Design"
+    },
+    {
+      "type": "richtext",
+      "id": "overlay_description",
+      "label": "描述",
+      "default": "<p>IP65 weatherproof design, built to withstand heat, cold, rain, or sun. in temperatures from -4°F to 140°F (-20°C to 60°C)</p>"
+    },
+    {
+      "type": "select",
+      "id": "overlay_text_align",
+      "label": "文字对齐",
+      "options": [
+        { "value": "left", "label": "左对齐" },
+        { "value": "center", "label": "居中" },
+        { "value": "right", "label": "右对齐" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "text_position",
+      "label": "文字位置",
+      "options": [
+        { "value": "top", "label": "顶部" },
+        { "value": "bottom", "label": "底部" }
+      ],
+      "default": "top"
+    },
+    {
+      "type": "color_background",
+      "id": "overlay_title_color",
+      "label": "标题颜色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color_background",
+      "id": "overlay_desc_color",
+      "label": "描述颜色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "overlay_title_size_desktop",
+      "label": "叠字标题字号（桌面端）",
+      "min": 20,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 42
+    },
+    {
+      "type": "range",
+      "id": "overlay_title_size_mobile",
+      "label": "叠字标题字号（移动端）",
+      "min": 14,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "overlay_desc_size_desktop",
+      "label": "叠字描述字号（桌面端）",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "overlay_desc_size_mobile",
+      "label": "叠字描述字号（移动端）",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "overlay_text_padding_desktop",
+      "label": "叠字内边距（桌面端）",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "overlay_text_padding_mobile",
+      "label": "叠字内边距（移动端）",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Hero 标题"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "hero_title",
+      "label": "标题（支持 em 高亮）",
+      "default": "All-in-One Security. <em>Ready to Protect.</em>"
+    },
+    {
+      "type": "range",
+      "id": "hero_title_size_desktop",
+      "label": "标题字号（桌面端）",
+      "min": 24,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 42
+    },
+    {
+      "type": "range",
+      "id": "hero_title_size_mobile",
+      "label": "标题字号（移动端）",
+      "min": 16,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "color_background",
+      "id": "hero_title_color",
+      "label": "标题颜色",
+      "default": "#1e1e1e"
+    },
+    {
+      "type": "color_background",
+      "id": "hero_em_color_from",
+      "label": "em 高亮渐变起始色",
+      "default": "#6cbce7"
+    },
+    {
+      "type": "color_background",
+      "id": "hero_em_color_to",
+      "label": "em 高亮渐变结束色",
+      "default": "#367cf6"
+    },
+    {
+      "type": "header",
+      "content": "Hero 副标题"
+    },
+    {
+      "type": "text",
+      "id": "hero_description",
+      "label": "副标题描述",
+      "default": "Enjoy reliable performance, easy setup, and full control—straight from the box."
+    },
+    {
+      "type": "range",
+      "id": "hero_desc_size_desktop",
+      "label": "副标题字号（桌面端）",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "hero_desc_size_mobile",
+      "label": "副标题字号（移动端）",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "color_background",
+      "id": "hero_desc_color",
+      "label": "副标题颜色",
+      "default": "#4e5357"
+    },
+    {
+      "type": "header",
+      "content": "Hero 产品图"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_product_image",
+      "label": "产品图片",
+      "info": "建议尺寸：613×613px，PNG 透明底"
+    },
+    {
+      "type": "header",
+      "content": "CTA 按钮"
+    },
+    {
+      "type": "text",
+      "id": "btn_label",
+      "label": "按钮文字",
+      "default": "Buy Now"
+    },
+    {
+      "type": "url",
+      "id": "btn_link",
+      "label": "按钮链接",
+      "default": "/"
+    },
+    {
+      "type": "color_background",
+      "id": "btn_bg_color",
+      "label": "按钮背景色",
+      "default": "#1565d8"
+    },
+    {
+      "type": "color_background",
+      "id": "btn_text_color",
+      "label": "按钮文字颜色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Hero 区域背景"
+    },
+    {
+      "type": "color_background",
+      "id": "hero_bg_color",
+      "label": "背景色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Hero 区域上下边距"
+    },
+    {
+      "type": "range",
+      "id": "hero_padding_top_mobile",
+      "label": "上边距（移动端）",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "hero_padding_bottom_mobile",
+      "label": "下边距（移动端）",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "hero_padding_top_desktop",
+      "label": "上边距（桌面端）",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "hero_padding_bottom_desktop",
+      "label": "下边距（桌面端）",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "q-fullwidth-hero"
+    }
+  ]
+}
+{% endschema %}
