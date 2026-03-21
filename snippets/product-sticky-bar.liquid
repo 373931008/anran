@@ -30,8 +30,19 @@
     assign sticky_image = product.featured_media.preview_image | default: product.featured_image
   endif
 
+  assign check_against_inventory = true
+  if sticky_variant != blank
+    if sticky_variant.inventory_management != 'shopify' or sticky_variant.inventory_policy == 'continue'
+      assign check_against_inventory = false
+    endif
+  endif
+  assign quantity_rule_soldout = false
+  if sticky_variant != blank and check_against_inventory and sticky_variant.quantity_rule.min > sticky_variant.inventory_quantity
+    assign quantity_rule_soldout = true
+  endif
+
   assign atc_disabled = false
-  if sticky_variant == null or sticky_variant.available == false
+  if sticky_variant == null or sticky_variant.available == false or quantity_rule_soldout
     assign atc_disabled = true
   endif
 -%}
@@ -63,7 +74,7 @@
     </div>
 
     <div id="StickyBarPrice-{{ section.id }}" class="product-sticky-bar__price-slot">
-      {%- render 'price', product: product, use_variant: true, show_badges: false, price_class: 'product-sticky-bar__price' -%}
+      {%- render 'price-v2', product: product, use_variant: true, show_badges: false, price_class: 'product-sticky-bar__price' -%}
     </div>
 
     <div class="product-sticky-bar__actions product-sticky-bar__actions--desktop">
@@ -71,24 +82,24 @@
         type="submit"
         name="add"
         form="{{ product_form_id }}"
-        class="button product-sticky-bar__btn product-sticky-bar__btn--atc-outline product-sticky-bar__atc"
+        class="button buy-buttons-v2__btn buy-buttons-v2__btn--atc product-sticky-bar__atc"
         {% if atc_disabled %}
           disabled
         {% endif %}
       >
-        <span class="product-sticky-bar__atc-text">{{ 'products.product.add_to_cart' | t }}</span>
+        <span class="buy-buttons-v2__btn-label product-sticky-bar__atc-text">{{ 'products.product.add_to_cart' | t }}</span>
         {%- render 'loading-spinner' -%}
       </button>
       {%- if sticky_show_direct_checkout -%}
         <button
           type="submit"
           form="ProductStickyCheckout-{{ section.id }}"
-          class="button product-sticky-bar__btn product-sticky-bar__btn--checkout product-sticky-bar__checkout"
+          class="button buy-buttons-v2__btn buy-buttons-v2__btn--checkout buy-buttons-v2__checkout product-sticky-bar__checkout"
           {% if atc_disabled %}
             disabled
           {% endif %}
         >
-          <span class="product-sticky-bar__checkout-text">{{ 'products.product.sticky_bar.buy_now' | t }}</span>
+          <span class="buy-buttons-v2__btn-label product-sticky-bar__checkout-text">{{ 'products.product.sticky_bar.buy_now' | t }}</span>
           {%- render 'loading-spinner' -%}
         </button>
       {%- endif -%}
@@ -100,13 +111,13 @@
           type="submit"
           name="add"
           form="{{ product_form_id }}"
-          class="button product-sticky-bar__btn product-sticky-bar__btn--atc-icon product-sticky-bar__atc"
+          class="button buy-buttons-v2__btn buy-buttons-v2__btn--atc product-sticky-bar__atc product-sticky-bar__atc--icon"
           aria-label="{{ 'products.product.add_to_cart' | t }}"
           {% if atc_disabled %}
             disabled
           {% endif %}
         >
-          <span class="visually-hidden product-sticky-bar__atc-text">{{ 'products.product.add_to_cart' | t }}</span>
+          <span class="visually-hidden buy-buttons-v2__btn-label product-sticky-bar__atc-text">{{ 'products.product.add_to_cart' | t }}</span>
           <span class="product-sticky-bar__atc-icon svg-wrapper" aria-hidden="true">
             {{- 'icon-cart.svg' | inline_asset_content -}}
           </span>
@@ -116,12 +127,12 @@
           <button
             type="submit"
             form="ProductStickyCheckout-{{ section.id }}"
-            class="button product-sticky-bar__btn product-sticky-bar__btn--checkout-pill product-sticky-bar__checkout"
+            class="button buy-buttons-v2__btn buy-buttons-v2__btn--checkout buy-buttons-v2__checkout product-sticky-bar__checkout product-sticky-bar__checkout--pill"
             {% if atc_disabled %}
               disabled
             {% endif %}
           >
-            <span class="product-sticky-bar__checkout-text">{{ 'products.product.sticky_bar.buy_now' | t }}</span>
+            <span class="buy-buttons-v2__btn-label product-sticky-bar__checkout-text">{{ 'products.product.sticky_bar.buy_now' | t }}</span>
             {%- render 'loading-spinner' -%}
           </button>
         {%- endif -%}
@@ -146,10 +157,153 @@
 
 {% stylesheet %}
   .product-sticky-bar {
-    --sticky-atc: rgba(44, 119, 253, 1);
-    --sticky-atc-hover: rgb(36, 100, 220);
-    --sticky-checkout: rgba(250, 166, 26, 1);
-    --sticky-checkout-hover: #e8940f;
+    padding: 8px 0;
+  }
+  @media screen and (min-width: 750px) {
+    .product-sticky-bar {
+      padding: 12px 0;
+    }
+  }
+  /* 与 buy-buttons-v2 一致的按钮皮肤（自包含，不依赖购买块是否渲染） */
+  .product-sticky-bar .buy-buttons-v2__btn {
+    position: relative;
+    flex: 1 1 auto;
+    min-width: 0;
+    margin: 0;
+    min-height: 36px !important;
+    height: 36px !important;
+    padding: 0 16px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: none;
+    font-family: 'Poppins', var(--font-body-family, inherit);
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    border: none;
+    cursor: pointer;
+
+    --buttons-radius-outset: 10px;
+    --buttons-radius: 10px;
+    --buttons-border-width: 0px;
+    --border-offset: 0px;
+    --border-opacity: 0;
+    --buttons-shadow-horizontal-offset: 0px;
+    --buttons-shadow-vertical-offset: 0px;
+    --buttons-shadow-blur-radius: 0px;
+    --buttons-shadow-opacity: 0;
+    --buttons-shadow-visible: 0;
+
+    transition:
+      background-color 0.2s ease,
+      opacity 0.2s ease,
+      transform 0.15s ease;
+  }
+
+  .product-sticky-bar .buy-buttons-v2__btn:focus-visible {
+    outline: 0.2rem solid rgba(44, 119, 253, 0.45);
+    outline-offset: 0.2rem;
+    box-shadow: none;
+  }
+
+  .product-sticky-bar .buy-buttons-v2__btn::before {
+    box-shadow: none;
+  }
+
+  .product-sticky-bar .buy-buttons-v2__btn::after {
+    box-shadow: none;
+  }
+
+  .product-sticky-bar .buy-buttons-v2__btn:not([disabled]):hover::after {
+    box-shadow: none;
+  }
+
+  .product-sticky-bar .buy-buttons-v2__btn--atc {
+    background-color: #2c77fd;
+    color: #ffffff;
+    --color-button: 44 119 253;
+    --alpha-button-background: 1;
+    --color-button-text: 255 255 255;
+  }
+
+  .product-sticky-bar .buy-buttons-v2__btn--atc .loading__spinner .path {
+    stroke: rgb(var(--color-button-text));
+  }
+
+  .product-sticky-bar .buy-buttons-v2__btn--atc:hover {
+    background-color: #2464dc;
+  }
+
+  .product-sticky-bar .buy-buttons-v2__btn--checkout {
+    background-color: #faa61a;
+    color: #ffffff;
+    --color-button: 250 166 26;
+    --alpha-button-background: 1;
+    --color-button-text: 255 255 255;
+  }
+
+  .product-sticky-bar .buy-buttons-v2__btn--checkout .loading__spinner .path {
+    stroke: rgb(var(--color-button-text));
+  }
+
+  .product-sticky-bar .buy-buttons-v2__btn--checkout:hover {
+    background-color: #e8940f;
+  }
+
+  .product-sticky-bar .buy-buttons-v2__btn:active {
+    opacity: 0.88;
+    transform: scale(0.98);
+  }
+
+  .product-sticky-bar .buy-buttons-v2__btn[disabled] {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+  .product-sticky-bar .buy-buttons-v2__btn[disabled]:active {
+    transform: none;
+  }
+
+  .product-sticky-bar .buy-buttons-v2__btn-label {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .product-sticky-bar .buy-buttons-v2__btn.loading > .loading__spinner {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  .product-sticky-bar .buy-buttons-v2__btn.loading .buy-buttons-v2__btn-label {
+    opacity: 0;
+  }
+
+  .product-sticky-bar .buy-buttons-v2__btn.loading .product-sticky-bar__atc-icon {
+    opacity: 0;
+  }
+
+  /* 提交中使用 aria-disabled，非原生 disabled；避免与售罄态 0.55 透明度冲突 */
+  .product-sticky-bar .buy-buttons-v2__btn.loading:not([disabled]) {
+    opacity: 1;
+    cursor: wait;
+  }
+
+  .product-sticky-bar .buy-buttons-v2__btn.loading:not([disabled]):active {
+    transform: none;
+  }
+
+  .product-sticky-bar {
     position: fixed;
     bottom: 0;
     left: 0;
@@ -194,87 +348,57 @@
 
   .product-sticky-bar__pill {
     display: flex;
+    gap: 8px;
     align-items: stretch;
-    border-radius: 999px;
+    border-radius: 10px;
     overflow: hidden;
+    max-width: min(100vw - 3rem, 28rem);
   }
 
-  .product-sticky-bar__pill--atc-only .product-sticky-bar__btn--atc-icon {
-    border-radius: 999px;
+  .product-sticky-bar__pill .svg-wrapper {
+    width: 28px;
+    height: 28px;
   }
 
-  .product-sticky-bar__btn {
-    position: relative;
-    margin: 0;
-    cursor: pointer;
-    transition:
-      background-color 0.2s ease,
-      color 0.2s ease,
-      border-color 0.2s ease,
-      opacity 0.2s ease,
-      transform 0.15s ease;
+  .product-sticky-bar__pill .buy-buttons-v2__btn--atc {
+    flex: 0 0 auto;
+    border-radius: 0;
   }
 
-  .product-sticky-bar__btn:focus-visible {
-    outline: 0.2rem solid rgba(44, 119, 253, 0.5);
-    outline-offset: 0.2rem;
+  .product-sticky-bar__pill:not(.product-sticky-bar__pill--atc-only) .buy-buttons-v2__btn--atc {
+    border-radius: 10px;
   }
 
-  .product-sticky-bar__btn--atc-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 4.4rem;
-    min-height: 4.4rem;
-    padding: 0 1.4rem;
-    border: none;
-    border-radius: 999px 0 0 999px;
-    background: var(--sticky-atc);
-    color: rgb(var(--color-button-text));
+  .product-sticky-bar__pill .buy-buttons-v2__btn--checkout {
+    border-radius: 10px;
+    flex: 1 1 auto;
+    min-width: 0;
   }
 
-  .product-sticky-bar__btn--atc-icon .loading__spinner .path {
-    stroke: rgb(var(--color-button-text));
+  .product-sticky-bar__pill--atc-only .buy-buttons-v2__btn--atc {
+    border-radius: 10px;
   }
 
-  .product-sticky-bar__btn--atc-icon:hover {
-    background: var(--sticky-atc-hover);
-  }
-
-  .product-sticky-bar__btn--atc-icon:active {
-    opacity: 0.88;
-    transform: scale(0.98);
-  }
-
-  .product-sticky-bar__btn--checkout-pill {
-    border: none;
-    border-radius: 0 999px 999px 0;
-    padding: 0 2rem;
-    min-height: 4.4rem;
-    font-weight: 600;
-    background: var(--sticky-checkout);
-    color: rgb(var(--color-button-text));
-  }
-
-  .product-sticky-bar__btn--checkout-pill .loading__spinner .path {
-    stroke: rgb(var(--color-button-text));
-  }
-
-  .product-sticky-bar__btn--checkout-pill:hover {
-    background: var(--sticky-checkout-hover);
-  }
-
-  .product-sticky-bar__btn--checkout-pill:active {
-    opacity: 0.88;
-    transform: scale(0.98);
+  .product-sticky-bar__atc--icon {
+    min-width: 44px;
+    padding: 0 12px;
   }
 
   .product-sticky-bar__atc-icon svg {
-    width: 2.2rem;
-    height: 2.2rem;
+    width: 2rem;
+    height: 2rem;
   }
 
   @media screen and (min-width: 750px) {
+    .product-sticky-bar .buy-buttons-v2__btn {
+      min-height: 44px !important;
+      height: 44px !important;
+      padding: 0 24px;
+      font-size: 18px;
+      font-weight: 700;
+      min-width: 170px !important;
+    }
+
     .product-sticky-bar__inner {
       grid-template-columns: minmax(0, 1fr) auto auto;
       grid-template-areas: 'meta price actions';
@@ -328,84 +452,13 @@
       grid-area: actions;
       display: flex;
       align-items: center;
-      gap: 1.2rem;
+      gap: 20px;
       flex-shrink: 0;
     }
 
-    .product-sticky-bar__btn--atc-outline {
-      min-height: 4.4rem;
-      padding: 0 2rem;
-      border-radius: 999px;
-      border: 0.15rem solid var(--sticky-atc);
-      background: transparent;
-      color: var(--sticky-atc);
-      font-weight: 600;
+    .product-sticky-bar__actions--desktop .buy-buttons-v2__btn {
+      flex: 1 1 50%;
+      min-width: 0;
     }
-
-    .product-sticky-bar__btn--atc-outline .loading__spinner .path {
-      stroke: var(--sticky-atc);
-    }
-
-    .product-sticky-bar__btn--atc-outline:hover {
-      background: var(--sticky-atc);
-      color: rgb(var(--color-button-text));
-    }
-
-    .product-sticky-bar__btn--atc-outline:hover .loading__spinner .path {
-      stroke: rgb(var(--color-button-text));
-    }
-
-    .product-sticky-bar__btn--atc-outline:active {
-      opacity: 0.88;
-      transform: scale(0.98);
-    }
-
-    .product-sticky-bar__btn--checkout {
-      min-height: 4.4rem;
-      padding: 0 2rem;
-      border-radius: 999px;
-      border: none;
-      background: var(--sticky-checkout);
-      color: rgb(var(--color-button-text));
-      font-weight: 600;
-    }
-
-    .product-sticky-bar__btn--checkout .loading__spinner .path {
-      stroke: rgb(var(--color-button-text));
-    }
-
-    .product-sticky-bar__btn--checkout:hover {
-      background: var(--sticky-checkout-hover);
-    }
-
-    .product-sticky-bar__btn--checkout:active {
-      opacity: 0.88;
-      transform: scale(0.98);
-    }
-  }
-
-  .product-sticky-bar__btn.loading > .loading__spinner {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    position: absolute;
-    height: 100%;
-    display: flex;
-    align-items: center;
-  }
-
-  .product-sticky-bar__btn.loading .product-sticky-bar__atc-text,
-  .product-sticky-bar__btn.loading .product-sticky-bar__checkout-text,
-  .product-sticky-bar__btn.loading .product-sticky-bar__atc-icon {
-    opacity: 0;
-  }
-
-  .product-sticky-bar__btn[disabled] {
-    opacity: 0.55;
-    cursor: not-allowed;
-  }
-
-  .product-sticky-bar__btn[disabled]:active {
-    transform: none;
   }
 {% endstylesheet %}

@@ -1248,8 +1248,28 @@
         "padding_bottom_desktop": 60
       }
     },
-    "q-full-width-image": {
-      "type": "q-full-width-image",
+    "17740849476b89dca3": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_bYjAaY": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "sample_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "empty_widget"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_bYjAaY"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "q-pdp-fullwidth-hero": {
+      "type": "q-fullwidth-hero",
       "settings": {
         "image_desktop": "shopify://shop_images/image_287.jpg",
         "image_mobile": "shopify://shop_images/image_287.jpg",
@@ -1258,43 +1278,38 @@
         "show_overlay": true,
         "overlay_position": "top",
         "overlay_opacity": 80,
-        "title": "Weather-Resistant Design",
-        "description": "<p>IP65 weatherproof design, built to withstand heat, cold, rain, or sun. in temperatures from -4°F to 140°F (-20°C to 60°C)</p>",
-        "text_align": "center",
+        "overlay_title": "Weather-Resistant Design",
+        "overlay_description": "<p>IP65 weatherproof design, built to withstand heat, cold, rain, or sun. in temperatures from -4°F to 140°F (-20°C to 60°C)</p>",
+        "overlay_text_align": "center",
         "text_position": "top",
-        "title_color": "#ffffff",
-        "desc_color": "#ffffff",
-        "title_size_desktop": 42,
-        "title_size_mobile": 24,
-        "desc_size_desktop": 16,
-        "desc_size_mobile": 12,
-        "text_padding_desktop": 48,
-        "text_padding_mobile": 24
-      }
-    },
-    "q-hero-banner": {
-      "type": "q-hero-banner",
-      "settings": {
-        "title": "All-in-One Security. <em>Ready to Protect.</em>",
-        "title_size_desktop": 42,
-        "title_size_mobile": 24,
-        "title_color": "#1e1e1e",
-        "em_color_from": "#6cbce7",
-        "em_color_to": "#367cf6",
-        "description": "Enjoy reliable performance, easy setup, and full control—straight from the box.",
-        "desc_size_desktop": 16,
-        "desc_size_mobile": 12,
-        "desc_color": "#4e5357",
-        "image": "shopify://shop_images/image_294.jpg",
+        "overlay_title_color": "#ffffff",
+        "overlay_desc_color": "#ffffff",
+        "overlay_title_size_desktop": 42,
+        "overlay_title_size_mobile": 24,
+        "overlay_desc_size_desktop": 16,
+        "overlay_desc_size_mobile": 12,
+        "overlay_text_padding_desktop": 48,
+        "overlay_text_padding_mobile": 24,
+        "hero_title": "All-in-One Security. <em>Ready to Protect.</em>",
+        "hero_title_size_desktop": 42,
+        "hero_title_size_mobile": 24,
+        "hero_title_color": "#1e1e1e",
+        "hero_em_color_from": "#6cbce7",
+        "hero_em_color_to": "#367cf6",
+        "hero_description": "Enjoy reliable performance, easy setup, and full control—straight from the box.",
+        "hero_desc_size_desktop": 16,
+        "hero_desc_size_mobile": 12,
+        "hero_desc_color": "#4e5357",
+        "hero_product_image": "shopify://shop_images/image_294.jpg",
         "btn_label": "Buy Now",
         "btn_link": "/",
         "btn_bg_color": "#1565d8",
         "btn_text_color": "#ffffff",
-        "bg_color": "#ffffff",
-        "padding_top_mobile": 40,
-        "padding_bottom_mobile": 40,
-        "padding_top_desktop": 60,
-        "padding_bottom_desktop": 60
+        "hero_bg_color": "#ffffff",
+        "hero_padding_top_mobile": 40,
+        "hero_padding_bottom_mobile": 40,
+        "hero_padding_top_desktop": 60,
+        "hero_padding_bottom_desktop": 60
       }
     },
     "q-trial-guarantee": {
@@ -1574,112 +1589,6 @@
         "padding_bottom_desktop": 60
       }
     },
-    "q-product-recommend": {
-      "type": "q-product-recommend",
-      "blocks": {
-        "tab-1": {
-          "type": "tab",
-          "settings": {
-            "tab_label": "You May Also Like"
-          }
-        },
-        "tab-2": {
-          "type": "tab",
-          "settings": {
-            "tab_label": "Recently Viewed"
-          }
-        },
-        "card-1": {
-          "type": "product_card",
-          "settings": {
-            "product": "anran-2k-4g-solar-outdoor-camera-with-sim-card-two-way-audio",
-            "tab_id": "1",
-            "custom_title": "ANRAN C3 5MP Integrated Solar Battery Camera",
-            "custom_price": "$79.99",
-            "custom_compare_price": "$149.99",
-            "review_count": "236 reviews",
-            "feature_1": "360° Coverage and Tracking",
-            "feature_2": "Full Protection for the whole Home",
-            "save_badge": "Save 50%",
-            "button_label": "Shop Now",
-            "button_link": "/"
-          }
-        },
-        "card-2": {
-          "type": "product_card",
-          "settings": {
-            "product": "",
-            "tab_id": "1",
-            "custom_title": "ANRAN C3 5MP Integrated Solar Battery Camera",
-            "custom_price": "$79.99",
-            "custom_compare_price": "$149.99",
-            "review_count": "236 reviews",
-            "feature_1": "360° Coverage and Tracking",
-            "feature_2": "Full Protection for the whole Home",
-            "save_badge": "Save 50%",
-            "button_label": "Shop Now",
-            "button_link": "/"
-          }
-        },
-        "card-3": {
-          "type": "product_card",
-          "settings": {
-            "product": "",
-            "tab_id": "1",
-            "custom_title": "ANRAN C3 5MP Integrated Solar Battery Camera",
-            "custom_price": "$79.99",
-            "custom_compare_price": "$149.99",
-            "review_count": "236 reviews",
-            "feature_1": "360° Coverage and Tracking",
-            "feature_2": "Full Protection for the whole Home",
-            "save_badge": "Save 50%",
-            "button_label": "Shop Now",
-            "button_link": "/"
-          }
-        },
-        "card-4": {
-          "type": "product_card",
-          "settings": {
-            "product": "",
-            "tab_id": "1",
-            "custom_title": "ANRAN C3 5MP Integrated Solar Battery Camera",
-            "custom_price": "$79.99",
-            "custom_compare_price": "$149.99",
-            "review_count": "236 reviews",
-            "feature_1": "360° Coverage and Tracking",
-            "feature_2": "Full Protection for the whole Home",
-            "save_badge": "Save 50%",
-            "button_label": "Shop Now",
-            "button_link": "/"
-          }
-        }
-      },
-      "block_order": [
-        "tab-1",
-        "tab-2",
-        "card-1",
-        "card-2",
-        "card-3",
-        "card-4"
-      ],
-      "settings": {
-        "padding_top_mobile": 40,
-        "padding_bottom_mobile": 40,
-        "padding_top_desktop": 60,
-        "padding_bottom_desktop": 60,
-        "tab_active_bg": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 57.21%)",
-        "header_title": "<p>Pair Up Our Products to Unlock Features and Save</p>",
-        "header_description": "",
-        "header_center": true,
-        "header_em_color": "#FF6B35",
-        "header_title_size_desktop": 42,
-        "header_title_size_mobile": 22,
-        "header_desc_size_desktop": 16,
-        "header_desc_size_mobile": 12,
-        "header_margin_bottom_desktop": 40,
-        "header_margin_bottom_mobile": 20
-      }
-    },
     "q-faq": {
       "type": "q-faq",
       "blocks": {
@@ -1819,6 +1728,112 @@
         "header_margin_bottom_desktop": 40,
         "header_margin_bottom_mobile": 24
       }
+    },
+    "q-product-recommend": {
+      "type": "q-product-recommend",
+      "blocks": {
+        "tab-1": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "You May Also Like"
+          }
+        },
+        "tab-2": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "Recently Viewed"
+          }
+        },
+        "card-1": {
+          "type": "product_card",
+          "settings": {
+            "product": "anran-2k-4g-solar-outdoor-camera-with-sim-card-two-way-audio",
+            "tab_id": "1",
+            "custom_title": "ANRAN C3 5MP Integrated Solar Battery Camera",
+            "custom_price": "$79.99",
+            "custom_compare_price": "$149.99",
+            "review_count": "236 reviews",
+            "feature_1": "360° Coverage and Tracking",
+            "feature_2": "Full Protection for the whole Home",
+            "save_badge": "Save 50%",
+            "button_label": "Shop Now",
+            "button_link": "/"
+          }
+        },
+        "card-2": {
+          "type": "product_card",
+          "settings": {
+            "product": "",
+            "tab_id": "1",
+            "custom_title": "ANRAN C3 5MP Integrated Solar Battery Camera",
+            "custom_price": "$79.99",
+            "custom_compare_price": "$149.99",
+            "review_count": "236 reviews",
+            "feature_1": "360° Coverage and Tracking",
+            "feature_2": "Full Protection for the whole Home",
+            "save_badge": "Save 50%",
+            "button_label": "Shop Now",
+            "button_link": "/"
+          }
+        },
+        "card-3": {
+          "type": "product_card",
+          "settings": {
+            "product": "",
+            "tab_id": "1",
+            "custom_title": "ANRAN C3 5MP Integrated Solar Battery Camera",
+            "custom_price": "$79.99",
+            "custom_compare_price": "$149.99",
+            "review_count": "236 reviews",
+            "feature_1": "360° Coverage and Tracking",
+            "feature_2": "Full Protection for the whole Home",
+            "save_badge": "Save 50%",
+            "button_label": "Shop Now",
+            "button_link": "/"
+          }
+        },
+        "card-4": {
+          "type": "product_card",
+          "settings": {
+            "product": "",
+            "tab_id": "1",
+            "custom_title": "ANRAN C3 5MP Integrated Solar Battery Camera",
+            "custom_price": "$79.99",
+            "custom_compare_price": "$149.99",
+            "review_count": "236 reviews",
+            "feature_1": "360° Coverage and Tracking",
+            "feature_2": "Full Protection for the whole Home",
+            "save_badge": "Save 50%",
+            "button_label": "Shop Now",
+            "button_link": "/"
+          }
+        }
+      },
+      "block_order": [
+        "tab-1",
+        "tab-2",
+        "card-1",
+        "card-2",
+        "card-3",
+        "card-4"
+      ],
+      "settings": {
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60,
+        "tab_active_bg": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 57.21%)",
+        "header_title": "<p>Pair Up Our Products to Unlock Features and Save</p>",
+        "header_description": "",
+        "header_center": true,
+        "header_em_color": "#FF6B35",
+        "header_title_size_desktop": 42,
+        "header_title_size_mobile": 22,
+        "header_desc_size_desktop": 16,
+        "header_desc_size_mobile": 12,
+        "header_margin_bottom_desktop": 40,
+        "header_margin_bottom_mobile": 20
+      }
     }
   },
   "order": [
@@ -1840,12 +1855,12 @@
     "q-privacy-security",
     "q-setup-steps",
     "q-compare-table",
-    "q-full-width-image",
-    "q-hero-banner",
+    "17740849476b89dca3",
+    "q-pdp-fullwidth-hero",
     "q-trial-guarantee",
     "q-product-specs",
     "q-service-features",
-    "q-product-recommend",
-    "q-faq"
+    "q-faq",
+    "q-product-recommend"
   ]
 }

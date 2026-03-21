@@ -19,12 +19,26 @@ if (!customElements.get('product-form')) {
       }
 
       getAddToCartSubmitButtons() {
-        const formId = this.form.id;
-        const inside = [...this.form.querySelectorAll('button[type="submit"][name="add"]')];
-        const external = [...document.querySelectorAll(`button[type="submit"][name="add"][form="${formId}"]`)];
+        const formId = this.form?.id;
+        const inside = formId
+          ? [...this.form.querySelectorAll('button[type="submit"][name="add"]')]
+          : [];
+        const external = formId
+          ? [...document.querySelectorAll(`button[type="submit"][name="add"][form="${formId}"]`)]
+          : [];
+
+        const sectionId = this.dataset.sectionId;
+        const stickyRoot =
+          sectionId != null && sectionId !== ''
+            ? document.getElementById(`ProductStickyBar-${sectionId}`)
+            : null;
+        const stickyAtc = stickyRoot
+          ? [...stickyRoot.querySelectorAll('button[type="submit"][name="add"]')]
+          : [];
+
         const seen = new Set();
         const list = [];
-        for (const btn of [...inside, ...external]) {
+        for (const btn of [...inside, ...external, ...stickyAtc]) {
           if (!seen.has(btn)) {
             seen.add(btn);
             list.push(btn);
@@ -49,6 +63,7 @@ if (!customElements.get('product-form')) {
 
         for (const btn of addButtons) {
           btn.setAttribute('aria-disabled', 'true');
+          btn.setAttribute('aria-busy', 'true');
         }
         activeButton.classList.add('loading');
         activeButton.querySelector('.loading__spinner')?.classList.remove('hidden');
@@ -128,13 +143,15 @@ if (!customElements.get('product-form')) {
             console.error(e);
           })
           .finally(() => {
-            for (const btn of addButtons) {
+            const buttonsToReset = new Set([...addButtons, ...this.getAddToCartSubmitButtons()]);
+            for (const btn of buttonsToReset) {
               btn.classList.remove('loading');
+              btn.removeAttribute('aria-busy');
               btn.querySelector('.loading__spinner')?.classList.add('hidden');
             }
             if (this.cart && this.cart.classList.contains('is-empty')) this.cart.classList.remove('is-empty');
             if (!this.error) {
-              for (const btn of addButtons) {
+              for (const btn of buttonsToReset) {
                 btn.removeAttribute('aria-disabled');
               }
             }
@@ -174,8 +191,9 @@ if (!customElements.get('product-form')) {
             if (disable && text) {
               textSpan.textContent = text;
             } else if (!disable) {
-              // buy-buttons-v2：文案由服务端片段同步（含价格），勿覆盖为通用「加入购物车」
-              if (!btn.classList.contains('buy-buttons-v2__btn--atc')) {
+              // 主购买区 v2 带价按钮：文案由服务端片段同步，勿覆盖
+              const isPricedV2Atc = btn.id && String(btn.id).startsWith('ProductSubmitButtonV2-');
+              if (!isPricedV2Atc) {
                 textSpan.textContent = window.variantStrings.addToCart;
               }
             }
