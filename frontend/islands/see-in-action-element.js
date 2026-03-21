@@ -23,6 +23,8 @@ export default class SeeInActionElement extends HTMLElement {
     this.autoplayTimerId = null
   }
 
+  #inlineVideoSelector = 'video.product__sia-card__inline-video'
+
   connectedCallback() {
     this.swiperContainer = this.querySelector('swiper-container')
     this.addEventListener('click', this.handleClick)
@@ -82,6 +84,7 @@ export default class SeeInActionElement extends HTMLElement {
       const video = document.createElement('video')
       video.src = url
       video.controls = true
+      video.playsInline = true
       video.autoplay = true
       video.style.cssText = 'width:100%;height:100%;border:none;border-radius:8px;object-fit:contain'
       inner.appendChild(video)
@@ -142,8 +145,26 @@ export default class SeeInActionElement extends HTMLElement {
     }
   }
 
+  /** 自定义元素默认 display:inline 时 getBoundingClientRect 不可靠，用于与 IO 互补 */
+  #isRoughlyInViewport() {
+    const rect = this.getBoundingClientRect()
+    const vh = window.innerHeight || document.documentElement.clientHeight
+    const visible = Math.min(rect.bottom, vh) - Math.max(rect.top, 0)
+    if (rect.height <= 0) return visible > 0
+    return visible / rect.height >= 0.2
+  }
+
+  #syncViewportFromLayout() {
+    requestAnimationFrame(() => {
+      if (this.#isRoughlyInViewport()) {
+        this.isInView = true
+        this.#playActiveSlideVideo()
+      }
+    })
+  }
+
   #setupViewportObserver() {
-    const inlineVideos = this.querySelectorAll('video[data-sia-inline-video]')
+    const inlineVideos = this.querySelectorAll(this.#inlineVideoSelector)
     if (inlineVideos.length === 0) return
 
     this.intersectionObserver = new IntersectionObserver(
@@ -157,7 +178,7 @@ export default class SeeInActionElement extends HTMLElement {
           this.#pauseAllInlineVideos()
         }
       },
-      { root: null, rootMargin: '0px', threshold: 0.25 }
+      { root: null, rootMargin: '0px', threshold: 0.2 }
     )
     this.intersectionObserver.observe(this)
   }
@@ -173,19 +194,24 @@ export default class SeeInActionElement extends HTMLElement {
     const container = this.swiperContainer
     if (!container) return
 
-    this.querySelectorAll('video[data-sia-inline-video]').forEach((video) => {
+    this.querySelectorAll(this.#inlineVideoSelector).forEach((video) => {
       video.addEventListener('ended', this.onVideoEnded)
     })
 
-    if (container.swiper) {
-      container.swiper.on('slideChangeTransitionEnd', this.onSlideChange)
+    const bindSwiper = (swiper) => {
+      swiper.on('slideChangeTransitionEnd', this.onSlideChange)
+      if (this.#isRoughlyInViewport()) this.isInView = true
       if (this.isInView) this.#playActiveSlideVideo()
+    }
+
+    if (container.swiper) {
+      bindSwiper(container.swiper)
     } else {
       container.addEventListener(
         'swiperinit',
         () => {
-          container.swiper.on('slideChangeTransitionEnd', this.onSlideChange)
-          if (this.isInView) this.#playActiveSlideVideo()
+          bindSwiper(container.swiper)
+          this.#syncViewportFromLayout()
         },
         { once: true }
       )
@@ -197,7 +223,7 @@ export default class SeeInActionElement extends HTMLElement {
     if (container && container.swiper) {
       container.swiper.off('slideChangeTransitionEnd', this.onSlideChange)
     }
-    this.querySelectorAll('video[data-sia-inline-video]').forEach((video) => {
+    this.querySelectorAll(this.#inlineVideoSelector).forEach((video) => {
       video.removeEventListener('ended', this.onVideoEnded)
     })
   }
@@ -227,10 +253,10 @@ export default class SeeInActionElement extends HTMLElement {
     const swiper = container.swiper
     const activeSlide = swiper.slides[swiper.activeIndex]
     const activeVideo = activeSlide
-      ? activeSlide.querySelector('video[data-sia-inline-video]')
+      ? activeSlide.querySelector(this.#inlineVideoSelector)
       : null
 
-    this.querySelectorAll('video[data-sia-inline-video]').forEach((video) => {
+    this.querySelectorAll(this.#inlineVideoSelector).forEach((video) => {
       if (video === activeVideo) {
         video.currentTime = 0
         const playPromise = video.play()
@@ -245,7 +271,7 @@ export default class SeeInActionElement extends HTMLElement {
   }
 
   #pauseAllInlineVideos() {
-    this.querySelectorAll('video[data-sia-inline-video]').forEach((video) => {
+    this.querySelectorAll(this.#inlineVideoSelector).forEach((video) => {
       video.pause()
       video.currentTime = 0
     })

@@ -726,6 +726,8 @@
                 {% render 'icon-with-text', block: block %}
               {%- when 'trust_cards' -%}
                 {% render 'q-block-trust_cards', block: block, section: section %}
+              {%- when 'q_camera_finder' -%}
+                {% render 'q-block-camera_finder', block: block, section: section %}
               {%- when 'q_trust_badges' -%}
                 {% render 'q-block-trust_badges', block: block, section: section %}
               {%- when 'testimonial' -%}
@@ -834,7 +836,7 @@
     {% assign trust_cards_blocks = section.blocks | where: 'type', 'trust_cards' %}
     {%- for block in trust_cards_blocks -%}
       {%- if block.settings.card_1_content != blank -%}
-        <modal-dialog id="TrustCardModal-{{ section.id }}-{{ block.id }}-1" class="product-popup-modal">
+        <modal-dialog id="TrustCardModal-{{ section.id }}-{{ block.id }}-1" class="product-popup-modal product-popup-modal--warranty">
           <div role="dialog" aria-label="{{ block.settings.card_1_label }}" aria-modal="true" class="product-popup-modal__content" tabindex="-1">
             <button id="ModalClose-TrustCard-{{ section.id }}-{{ block.id }}-1" type="button" class="product-popup-modal__toggle" aria-label="{{ 'accessibility.close' | t }}">{{- 'icon-close.svg' | inline_asset_content -}}</button>
             <div class="product-popup-modal__content-info">
@@ -845,7 +847,7 @@
         </modal-dialog>
       {%- endif -%}
       {%- if block.settings.card_2_content != blank -%}
-        <modal-dialog id="TrustCardModal-{{ section.id }}-{{ block.id }}-2" class="product-popup-modal">
+        <modal-dialog id="TrustCardModal-{{ section.id }}-{{ block.id }}-2" class="product-popup-modal product-popup-modal--warranty">
           <div role="dialog" aria-label="{{ block.settings.card_2_label }}" aria-modal="true" class="product-popup-modal__content" tabindex="-1">
             <button id="ModalClose-TrustCard-{{ section.id }}-{{ block.id }}-2" type="button" class="product-popup-modal__toggle" aria-label="{{ 'accessibility.close' | t }}">{{- 'icon-close.svg' | inline_asset_content -}}</button>
             <div class="product-popup-modal__content-info">
@@ -856,7 +858,7 @@
         </modal-dialog>
       {%- endif -%}
       {%- if block.settings.card_3_content != blank -%}
-        <modal-dialog id="TrustCardModal-{{ section.id }}-{{ block.id }}-3" class="product-popup-modal">
+        <modal-dialog id="TrustCardModal-{{ section.id }}-{{ block.id }}-3" class="product-popup-modal product-popup-modal--warranty">
           <div role="dialog" aria-label="{{ block.settings.card_3_label }}" aria-modal="true" class="product-popup-modal__content" tabindex="-1">
             <button id="ModalClose-TrustCard-{{ section.id }}-{{ block.id }}-3" type="button" class="product-popup-modal__toggle" aria-label="{{ 'accessibility.close' | t }}">{{- 'icon-close.svg' | inline_asset_content -}}</button>
             <div class="product-popup-modal__content-info">
@@ -867,12 +869,49 @@
         </modal-dialog>
       {%- endif -%}
       {%- if block.settings.card_4_content != blank -%}
-        <modal-dialog id="TrustCardModal-{{ section.id }}-{{ block.id }}-4" class="product-popup-modal">
+        <modal-dialog id="TrustCardModal-{{ section.id }}-{{ block.id }}-4" class="product-popup-modal product-popup-modal--warranty">
           <div role="dialog" aria-label="{{ block.settings.card_4_label }}" aria-modal="true" class="product-popup-modal__content" tabindex="-1">
             <button id="ModalClose-TrustCard-{{ section.id }}-{{ block.id }}-4" type="button" class="product-popup-modal__toggle" aria-label="{{ 'accessibility.close' | t }}">{{- 'icon-close.svg' | inline_asset_content -}}</button>
             <div class="product-popup-modal__content-info">
               <h2 class="h2">{{ block.settings.card_4_label | escape }}</h2>
               <div class="rte">{{ block.settings.card_4_content }}</div>
+            </div>
+          </div>
+        </modal-dialog>
+      {%- endif -%}
+    {%- endfor -%}
+
+    {% assign camera_finder_blocks = section.blocks | where: 'type', 'q_camera_finder' %}
+    {%- for block in camera_finder_blocks -%}
+      {%- if block.settings.card_1_content != blank -%}
+        <modal-dialog id="CameraFinderModal-{{ section.id }}-{{ block.id }}-1" class="product-popup-modal product-popup-modal--warranty">
+          <div role="dialog" aria-label="{{ block.settings.card_1_label }}" aria-modal="true" class="product-popup-modal__content" tabindex="-1">
+            <button id="ModalClose-CameraFinder-{{ section.id }}-{{ block.id }}-1" type="button" class="product-popup-modal__toggle" aria-label="{{ 'accessibility.close' | t }}">{{- 'icon-close.svg' | inline_asset_content -}}</button>
+            <div class="product-popup-modal__content-info">
+              <h2 class="h2">{{ block.settings.card_1_label | escape }}</h2>
+              <div class="rte">{{ block.settings.card_1_content }}</div>
+            </div>
+          </div>
+        </modal-dialog>
+      {%- endif -%}
+      {%- if block.settings.card_2_content != blank -%}
+        <modal-dialog id="CameraFinderModal-{{ section.id }}-{{ block.id }}-2" class="product-popup-modal product-popup-modal--warranty">
+          <div role="dialog" aria-label="{{ block.settings.card_2_label }}" aria-modal="true" class="product-popup-modal__content" tabindex="-1">
+            <button id="ModalClose-CameraFinder-{{ section.id }}-{{ block.id }}-2" type="button" class="product-popup-modal__toggle" aria-label="{{ 'accessibility.close' | t }}">{{- 'icon-close.svg' | inline_asset_content -}}</button>
+            <div class="product-popup-modal__content-info">
+              <h2 class="h2">{{ block.settings.card_2_label | escape }}</h2>
+              <div class="rte">{{ block.settings.card_2_content }}</div>
+            </div>
+          </div>
+        </modal-dialog>
+      {%- endif -%}
+      {%- if block.settings.card_3_content != blank -%}
+        <modal-dialog id="CameraFinderModal-{{ section.id }}-{{ block.id }}-3" class="product-popup-modal product-popup-modal--warranty">
+          <div role="dialog" aria-label="{{ block.settings.card_3_label }}" aria-modal="true" class="product-popup-modal__content" tabindex="-1">
+            <button id="ModalClose-CameraFinder-{{ section.id }}-{{ block.id }}-3" type="button" class="product-popup-modal__toggle" aria-label="{{ 'accessibility.close' | t }}">{{- 'icon-close.svg' | inline_asset_content -}}</button>
+            <div class="product-popup-modal__content-info">
+              <h2 class="h2">{{ block.settings.card_3_label | escape }}</h2>
+              <div class="rte">{{ block.settings.card_3_content }}</div>
             </div>
           </div>
         </modal-dialog>
@@ -2369,7 +2408,7 @@
     },
     {
       "type": "trust_cards",
-      "name": "信任/保障卡片（可点击弹窗）",
+      "name": "Q-信任/保障卡片（可点击弹窗）",
       "limit": 1,
       "settings": [
         {
@@ -2476,6 +2515,90 @@
           "id": "logo_image",
           "label": "Logo 图片",
           "info": "可选。显示在整排卡片下方居中，如 Trust Guard、安全认证等整图；建议透明底 PNG。"
+        }
+      ]
+    },
+    {
+      "type": "q_camera_finder",
+      "name": "Q-摄像机选购要点（可弹窗）",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "设计稿：桌面 195:14 / 移动 58:1525。标题 + 三张横向卡片（左图标右文案）。填写弹窗内容后整张卡片可点击打开说明，与「信任/保障卡片」弹窗一致。"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "标题",
+          "default": "Find the perfect security cameras!"
+        },
+        {
+          "type": "header",
+          "content": "卡片 1"
+        },
+        {
+          "type": "image_picker",
+          "id": "card_1_icon",
+          "label": "图标",
+          "info": "建议与设计稿星星装饰图一致，约 52px 宽导出。"
+        },
+        {
+          "type": "text",
+          "id": "card_1_label",
+          "label": "标题",
+          "default": "Is there a subscription required?"
+        },
+        {
+          "type": "richtext",
+          "id": "card_1_content",
+          "label": "弹窗内容",
+          "default": "<p>Describe subscription options for your cameras here.</p>",
+          "info": "留空则该卡片不可点击。"
+        },
+        {
+          "type": "header",
+          "content": "卡片 2"
+        },
+        {
+          "type": "image_picker",
+          "id": "card_2_icon",
+          "label": "图标"
+        },
+        {
+          "type": "text",
+          "id": "card_2_label",
+          "label": "标题",
+          "default": "Does it protect my data privacy?"
+        },
+        {
+          "type": "richtext",
+          "id": "card_2_content",
+          "label": "弹窗内容",
+          "default": "<p>Explain how you protect customer data and privacy.</p>",
+          "info": "留空则该卡片不可点击。"
+        },
+        {
+          "type": "header",
+          "content": "卡片 3"
+        },
+        {
+          "type": "image_picker",
+          "id": "card_3_icon",
+          "label": "图标"
+        },
+        {
+          "type": "text",
+          "id": "card_3_label",
+          "label": "标题",
+          "default": "Can it detect motion?"
+        },
+        {
+          "type": "richtext",
+          "id": "card_3_content",
+          "label": "弹窗内容",
+          "default": "<p>Describe motion detection capabilities here.</p>",
+          "info": "留空则该卡片不可点击。"
         }
       ]
     },
@@ -2640,7 +2763,7 @@
       "settings": [
         {
           "type": "paragraph",
-          "content": "每张卡片对应轮播中的一张。视频来源按优先级：① 本地短视频 ② YouTube/Vimeo 链接 ③ 备用直链。点击整张卡片可在弹窗中播放完整视频；有本地视频时，进入视口会在当前张自动静音播放预览，播完可自动滑到下一张。"
+          "content": "每张卡片对应轮播中的一张。卡片内预览仅使用「本地短视频」（video_tag）；点击弹窗播放顺序为：① YouTube/Vimeo 链接 ② 备用直链 ③ 本地视频源。同时配置本地与外链时，卡片仍播本地预览，弹窗打开链接中的完整视频。"
         },
         {
           "type": "header",
@@ -2650,27 +2773,22 @@
           "type": "video",
           "id": "video",
           "label": "本地短视频",
-          "info": "上传后可在卡片内自动播放预览（静音），弹窗中也可播放。"
+          "info": "上传后可在卡片内自动静音预览。若同时填写下方链接或备用直链，点击卡片弹窗将优先播放链接视频。"
         },
         {
-          "type": "url",
+          "type": "video_url",
           "id": "video_link",
           "label": "视频链接（YouTube / Vimeo）",
-          "default": "/",
-          "info": "未配置本地视频时使用。填写完整页面地址即可，例如 youtube.com/watch?v=… 或 vimeo.com/…。"
+          "accept": ["youtube", "vimeo"],
+          "default": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+          "info": "填写后弹窗优先嵌入该地址（与是否上传本地短视频无关）。完整页面地址，例如 youtube.com/watch?v=… 或 vimeo.com/…。"
         },
         {
           "type": "url",
           "id": "video_url_fallback",
           "label": "备用视频地址（直链）",
           "default": "/",
-          "info": "当前两项都未使用时作为兜底，需为可直接播放的视频文件地址（如 .mp4）。"
-        },
-        {
-          "type": "image_picker",
-          "id": "poster",
-          "label": "封面图",
-          "info": "可选。不填时优先使用本地视频的预览图；无本地视频时显示占位。"
+          "info": "未填视频链接时使用；弹窗优先于本地源。需为可直接播放的文件地址（如 .mp4）。"
         }
       ]
     },

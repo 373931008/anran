@@ -1,7 +1,8 @@
 {%- comment -%}
   Block: See in Action 视频卡片轮播（main-product-v2）
   功能：swiper-container slides-per-view=auto，固定宽度卡片（桌面 178px / 移动 239px），
-  支持本地视频、YouTube/Vimeo 链接、备用 URL；整块可点弹窗播放；进入视口/滑动后自动播当前页本地视频，播完自动下一张；可配置定时轮播。
+  支持本地视频、YouTube/Vimeo 链接、备用 URL；整块可点弹窗播放（弹窗 URL 优先：外链 → 备用直链 → 本地源）；有本地视频时卡片内自动静音预览，进入视口/滑动后播当前页，播完可下一张；可配置定时轮播。
+  本地视频使用 video_tag + image_size 生成预览，无单独封面图。
   需传入: section, header_block（可为 nil）, item_blocks（q_see_in_action_card 数组）
   设计稿：桌面 178×291 圆角 10px；移动约 239×391（Figma Group 445）；播放按钮 42×42。
 {%- endcomment -%}
@@ -23,32 +24,38 @@
 
 <style>
   .section-{{ section_id }} .product__see-in-action {
-    margin-top: 1.2rem;
+    margin-top: 28px;
     margin-bottom: 0;
   }
+  @media screen and (min-width: 750px) {
+    .section-{{ section_id }} .product__see-in-action {
+      overflow: hidden;
+    }
+  }
+
   .section-{{ section_id }} .product__see-in-action__title {
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
     line-height: 36px;
     color: #0f263d;
-    margin: 0 0 12px;
+    margin: 0 0 8px;
     font-size: 14px;
   }
   @media screen and (min-width: 750px) {
     .section-{{ section_id }} .product__see-in-action__title {
       font-size: 20px;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
   }
   .section-{{ section_id }} .product__see-in-action swiper-container {
     display: flex;
     gap: 12px;
   }
-  @media screen and (min-width: 750px) {
+  {% comment %} @media screen and (min-width: 750px) {
     .section-{{ section_id }} .product__see-in-action swiper-container {
       gap: 24px;
     }
-  }
+  } {% endcomment %}
   .section-{{ section_id }} .product__see-in-action swiper-slide {
     flex-shrink: 0;
     width: 239px;
@@ -82,12 +89,20 @@
     width: 100%;
     height: 100%;
   }
-  .section-{{ section_id }} .product__see-in-action .product__sia-card__media img,
+  .section-{{ section_id }} see-in-action-element {
+    display: block;
+    width: 100%;
+  }
   .section-{{ section_id }} .product__see-in-action .product__sia-card__media video {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
+  }
+  .section-{{ section_id }} .product__see-in-action .product__sia-card__placeholder {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.06);
   }
   .section-{{ section_id }} .product__see-in-action .product__sia-card__play {
     position: absolute;
@@ -152,7 +167,6 @@
       space-between="12"
       grab-cursor="true"
       loop="false"
-      breakpoints='{"750":{"spaceBetween":24}}'
       navigation="true"
       navigation-prev-el="[data-carousel-prev='{{ section_id }}']"
       navigation-next-el="[data-carousel-next='{{ section_id }}']"
@@ -162,10 +176,6 @@
           assign local_video = card.settings.video
           assign video_link = card.settings.video_link
           assign video_fallback = card.settings.video_url_fallback
-          assign poster_image = card.settings.poster
-          if local_video != blank and local_video.preview_image != blank and poster_image == blank
-            assign poster_image = local_video.preview_image
-          endif
           assign has_local = false
           if local_video != blank and local_video.sources.size > 0
             assign has_local = true
@@ -182,18 +192,19 @@
           endif
           assign video_type = 'none'
           assign modal_url = ''
-          if has_local
-            assign video_type = 'local'
-            assign first_source = local_video.sources[0]
-            if first_source != blank
-              assign modal_url = first_source.url
-            endif
-          elsif has_external
+          # 弹窗 URL：外链 → 备用直链 → 本地源（卡片内预览仍仅本地 video_tag）
+          if has_external
             assign video_type = 'external'
             assign modal_url = external_url
           elsif has_fallback
             assign video_type = 'fallback'
             assign modal_url = video_fallback
+          elsif has_local
+            assign video_type = 'local'
+            assign first_source = local_video.sources[0]
+            if first_source != blank
+              assign modal_url = first_source.url
+            endif
           endif
         -%}
         <swiper-slide {{ card.shopify_attributes }}>
@@ -207,48 +218,21 @@
             aria-label="{{ 'sections.see_in_action.play_video' | t | default: 'Play video' }}"
           >
             <div class="product__sia-card__media">
-              {%- if poster_image != blank -%}
+              {%- if has_local -%}
                 {{-
-                  poster_image
-                  | image_url: width: 600
-                  | image_tag:
-                    loading: 'lazy',
-                    sizes: '240px',
-                    widths: '178, 240, 360, 600',
-                    alt: poster_image.alt | default: heading
-                -}}
-              {%- elsif local_video != blank and local_video.preview_image != blank -%}
-                {{-
-                  local_video.preview_image
-                  | image_url: width: 600
-                  | image_tag:
-                    loading: 'lazy',
-                    sizes: '240px',
-                    widths: '178, 240, 360, 600',
-                    alt: ''
+                  local_video
+                  | video_tag:
+                    class: 'product__sia-card__inline-video',
+                    image_size: '600x',
+                    autoplay: false,
+                    loop: false,
+                    muted: true,
+                    playsinline: true,
+                    preload: 'auto',
+                    controls: false
                 -}}
               {%- else -%}
-                <div style="width:100%;height:100%;background:#e5e7eb;"></div>
-              {%- endif -%}
-
-              {%- if has_local and local_video.sources.size > 0 -%}
-                <video
-                  class="product__sia-card__inline-video"
-                  muted
-                  playsinline
-                  data-sia-inline-video
-                  preload="metadata"
-                  {% if poster_image != blank %}
-                    poster="{{ poster_image | image_url: width: 600 }}"
-                  {% elsif local_video.preview_image != blank %}
-                    poster="{{ local_video.preview_image | image_url: width: 600 }}"
-                  {% endif %}
-                  aria-hidden="true"
-                >
-                  {%- for source in local_video.sources -%}
-                    <source src="{{ source.url }}" type="{{ source.mime_type }}">
-                  {%- endfor -%}
-                </video>
+                <div class="product__sia-card__placeholder" aria-hidden="true"></div>
               {%- endif -%}
             </div>
 
