@@ -118,6 +118,7 @@
       {% endif %}
       {{ input_dataset }}
     >
+      {{  show_variant_images }}
     <label for="{{ input_id }}">
       {%- if show_variant_images and variant_for_option_value != blank and variant_for_option_value.featured_image -%}
         <span class="product-form__option-image">
