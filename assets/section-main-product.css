@@ -532,6 +532,70 @@ a.product__text {
   .product--mobile-columns .product__media-item {
     width: calc(50% - 1.5rem - var(--grid-mobile-horizontal-spacing));
   }
+
+  /* 移动端主图：一屏一张；左右各 1.5rem 留白；媒体区 10px 圆角（保留 product--mobile-columns 双列） */
+  .product:not(.product--mobile-columns) .product__media-list.slider--mobile {
+    column-gap: 0;
+    scroll-padding-left: 0;
+    scroll-padding-right: 0;
+  }
+
+  .product:not(.product--mobile-columns) .product__media-list.slider--mobile::after {
+    padding-left: 0;
+  }
+
+  .product:not(.product--mobile-columns)
+    .product__media-list.grid--peek.slider--mobile
+    .product__media-item:first-of-type {
+    margin-left: 0;
+  }
+
+  .product:not(.product--mobile-columns) .product__media-list.grid--peek .product__media-item {
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    box-sizing: border-box;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .product .product__media-list .product-media-container.global-media-settings {
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .product .product__media-list .product-media-container.global-media-settings::after {
+    border-radius: 10px;
+  }
+
+  .product .product__media-list .product-media-container.global-media-settings img,
+  .product .product__media-list .product-media-container.global-media-settings video,
+  .product .product__media-list .product-media-container.global-media-settings iframe,
+  .product .product__media-list .product-media-container.global-media-settings model-viewer {
+    border-radius: 10px;
+  }
+
+  /* 设计稿比例 139:136（宽:高）；内联变量需 !important；对全部 mobile 主图区生效（含 product--mobile-columns） */
+  .product .product__media-list .product-media-container {
+    max-width: 100%;
+    --ratio: calc(139 / 136) !important;
+    --preview-ratio: calc(139 / 136) !important;
+    --aspect-ratio: calc(139 / 136) !important;
+  }
+
+  .product .product__media-list .product-media-container.constrain-height.media-fit-contain {
+    width: 100%;
+  }
+
+  /* constrain-height 默认 padding-top: min(视口限制高度, 比例高度) 会压扁固定比例，主图区改为纯比例高度 */
+  .product .product__media-list .product-media-container.constrain-height .media {
+    padding-top: var(--ratio-percent);
+  }
+
+  /* 与 media-fit-contain 一致；覆盖 base .media > img 的 object-fit: cover */
+  .product .product__media-list .product-media-container.media-fit-contain .product__media img {
+    object-fit: contain;
+  }
 }
 
 @media screen and (min-width: 750px) {
@@ -1140,7 +1204,7 @@ a.product__text {
   .thumbnail-slider {
     display: flex;
     align-items: center;
-    margin-top: 15px;
+    margin-top: 0px;
     margin-bottom: 15px;
   }
 

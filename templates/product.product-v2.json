@@ -1098,7 +1098,7 @@
         "header_title": "App Control, Right from Your <em>Phone</em>",
         "header_description": "",
         "header_center": false,
-        "header_em_color": "linear-gradient(90deg, rgba(108,188,231,0.81) 0%, #367CF6 100%)",
+        "header_em_color": "linear-gradient(90deg, rgba(108, 188, 231, 0.81), rgba(54, 124, 246, 1) 100%)",
         "header_title_size_desktop": 42,
         "header_title_size_mobile": 24,
         "header_desc_size_desktop": 16,
@@ -1738,16 +1738,10 @@
             "tab_label": "You May Also Like"
           }
         },
-        "tab-2": {
-          "type": "tab",
-          "settings": {
-            "tab_label": "Recently Viewed"
-          }
-        },
         "card-1": {
           "type": "product_card",
           "settings": {
-            "product": "anran-2k-4g-solar-outdoor-camera-with-sim-card-two-way-audio",
+            "product": "anran-g1-2k-3g-4g-lte-solar-battery-security-camera",
             "tab_id": "1",
             "custom_title": "ANRAN C3 5MP Integrated Solar Battery Camera",
             "custom_price": "$79.99",
@@ -1807,15 +1801,38 @@
             "button_label": "Shop Now",
             "button_link": "/"
           }
+        },
+        "tab-2": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "Recently Viewed"
+          }
+        },
+        "product_card_9DQqWV": {
+          "type": "product_card",
+          "settings": {
+            "product": "",
+            "tab_id": "2",
+            "custom_title": "ANRAN C3 5MP Integrated Solar Battery Camera",
+            "custom_price": "$79.99",
+            "custom_compare_price": "$149.99",
+            "review_count": "236 reviews",
+            "feature_1": "360° Coverage and Tracking",
+            "feature_2": "Full Protection for the whole Home",
+            "save_badge": "Save 50%",
+            "button_label": "Shop Now",
+            "button_link": "/"
+          }
         }
       },
       "block_order": [
         "tab-1",
-        "tab-2",
         "card-1",
         "card-2",
         "card-3",
-        "card-4"
+        "card-4",
+        "tab-2",
+        "product_card_9DQqWV"
       ],
       "settings": {
         "padding_top_mobile": 40,

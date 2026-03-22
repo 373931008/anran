@@ -1883,6 +1883,12 @@ input[type='checkbox'] {
   min-height: calc((var(--inputs-border-width) * 2) + 4.5rem);
 }
 
+@media screen and (max-width: 749px) {
+  .quantity {
+    min-height: calc((var(--inputs-border-width) * 2) + 3.5rem);
+  }
+}
+
 .quantity:after {
   pointer-events: none;
   content: '';
