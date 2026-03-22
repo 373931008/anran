@@ -120,9 +120,6 @@
     >
     <label for="{{ input_id }}">
       {%- if show_variant_images and variant_for_option_value != blank and variant_for_option_value.featured_image -%}
-        {%- liquid
-          assign option_image_alt = variant_for_option_value.featured_image.alt | default: value
-        -%}
         <span class="product-form__option-image">
           {{-
             variant_for_option_value.featured_image
