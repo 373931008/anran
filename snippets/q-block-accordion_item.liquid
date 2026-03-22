@@ -39,7 +39,7 @@
   .section-{{ section.id }} .product__accordion-trigger:hover {
     color: #2D3F60;
   }
-  .section-{{ section.id }} .product__accordion-arrow {
+  .section-{{ section.id }} .product__accordion-arrow svg {
     flex-shrink: 0;
     width: 33px;
     height: 33px;
@@ -47,13 +47,13 @@
     transition: transform 0.3s ease;
   }
   @media screen and (min-width: 750px) {
-    .section-{{ section.id }} .product__accordion-arrow {
+    .section-{{ section.id }} .product__accordion-arrow svg {
       width: 36px;
       height: 36px;
       margin-left: 16px;
     }
   }
-  .section-{{ section.id }} q-accordion-item-element[data-open] .product__accordion-arrow {
+  .section-{{ section.id }} q-accordion-item-element[data-open] .product__accordion-arrow svg {
     transform: rotate(180deg);
   }
   .section-{{ section.id }} .product__accordion-item .answer-wrap {
