@@ -87,7 +87,7 @@
   .section-{{ section.id }} .q-faq__tab-btn--active {
     background: var(--faq-tab-active-bg, #2d4e76);
     color: var(--faq-tab-active-text-color, #ffffff);
-    border-color: var(--faq-tab-active-bg, #2d4e76);
+    border-color: transparent;
     font-weight: 500;
   }
 
@@ -337,10 +337,10 @@
       "default": "#d9e2f2"
     },
     {
-      "type": "color",
+      "type": "color_background",
       "id": "tab_active_bg",
-      "label": "激活背景色",
-      "default": "#2d4e76"
+      "label": "激活 Tab 背景色",
+      "default": "linear-gradient(90deg, #6CBCE7 0%, #367CF6 57.21%)"
     },
     {
       "type": "color",

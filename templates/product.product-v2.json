@@ -899,9 +899,9 @@
         "show_button_mobile": false,
         "bg_color": "#ffffff",
         "padding_top_mobile": 40,
-        "padding_bottom_mobile": 40,
+        "padding_bottom_mobile": 52,
         "padding_top_desktop": 60,
-        "padding_bottom_desktop": 60
+        "padding_bottom_desktop": 100
       }
     },
     "q-protection-scenes": {
@@ -966,10 +966,10 @@
         "header_margin_bottom_desktop": 0,
         "header_margin_bottom_mobile": 0,
         "bg_color": "#0d0d0d",
-        "padding_top_mobile": 40,
-        "padding_bottom_mobile": 40,
-        "padding_top_desktop": 60,
-        "padding_bottom_desktop": 60
+        "padding_top_mobile": 32,
+        "padding_bottom_mobile": 56,
+        "padding_top_desktop": 72,
+        "padding_bottom_desktop": 100
       }
     },
     "q-wifi-connected": {
@@ -1509,7 +1509,7 @@
         "header_description": "",
         "header_center": true,
         "header_em_color": "#FF6B35",
-        "header_title_size_desktop": 42,
+        "header_title_size_desktop": 36,
         "header_title_size_mobile": 24,
         "header_desc_size_desktop": 16,
         "header_desc_size_mobile": 12,
@@ -1717,7 +1717,7 @@
         "padding_bottom_desktop": 60,
         "tab_text_color": "#2d4e76",
         "tab_border_color": "#d9e2f2",
-        "tab_active_bg": "#2d4e76",
+        "tab_active_bg": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 57.21%)",
         "tab_active_text_color": "#ffffff",
         "header_title": "Questions? We've Got Answers",
         "header_description": "",
