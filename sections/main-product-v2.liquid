@@ -87,6 +87,16 @@
       }
     }
 
+    {%- comment -%} 桌面端：变体图片（pill images）固定为 105px {%- endcomment -%}
+    @media screen and (min-width: 750px) {
+      .section-{{ section.id }} .product-form__input--pill-images input[type='radio'] + label {
+        width: 105px;
+        height: 105px;
+        justify-self: center;
+        align-self: center;
+      }
+    }
+
     {%- comment -%} 电脑端：主图媒体数量为偶数时，最后一张全宽 {%- endcomment -%}
     @media screen and (min-width: 990px) {
       #MainProduct-{{ section.id }} .product--stacked .product__media-item:nth-child(2n):last-child {
