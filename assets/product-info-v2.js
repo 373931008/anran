@@ -390,7 +390,9 @@ if (!customElements.get('product-info')) {
             return;
           }
 
-          this.updateMedia(html, variant?.featured_media?.id);
+          if (this.dataset.useVariantFeaturedMedia !== 'false') {
+            this.updateMedia(html, variant?.featured_media?.id);
+          }
 
           const updateSourceFromDestination = (id, shouldHide = (source) => false) => {
             const source = html.getElementById(`${id}-${this.sectionId}`);
