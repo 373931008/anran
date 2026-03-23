@@ -574,11 +574,12 @@
         "cta_color": "#329bff",
         "bg_color": "#000000",
         "inner_bg_color": "#121214",
+        "page_width_bg_color": "#121214",
         "card_bg_color": "#000000",
         "padding_top_mobile": 0,
         "padding_bottom_mobile": 0,
-        "padding_top_desktop": 0,
-        "padding_bottom_desktop": 0
+        "padding_top_desktop": 100,
+        "padding_bottom_desktop": 100
       }
     },
     "q-smart-detection": {
