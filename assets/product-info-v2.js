@@ -32,7 +32,7 @@ if (!customElements.get('product-info')) {
       postProcessHtmlCallbacks = [];
       stickyBarIo = undefined;
       stickyBarUnavailable = false;
-      stickyBarBuyInView = null;
+      stickyBarBuyPassed = false;
       discountCopyResetTimer = undefined;
 
       constructor() {
@@ -210,11 +210,11 @@ if (!customElements.get('product-info')) {
         }
 
         this.stickyBarUnavailable = false;
-        this.stickyBarBuyInView = null;
+        this.stickyBarBuyPassed = false;
 
         const anchor = this.querySelector('.buy-buttons-v2');
         if (!anchor) {
-          this.stickyBarBuyInView = false;
+          this.stickyBarBuyPassed = false;
           this.updateStickyBarVisibility();
           return;
         }
@@ -224,7 +224,11 @@ if (!customElements.get('product-info')) {
           (entries) => {
             const entry = entries[0];
             if (!entry) return;
-            this.stickyBarBuyInView = entry.isIntersecting;
+            // 只在购买区完全离开视口上方时才显示：
+            // - 购买区在下方未进入视口 => rect.bottom > 0 => 不显示
+            // - 购买区在视口内（部分可见也算）=> rect.bottom > 0 => 不显示
+            // - 购买区已滚过视口上方 => rect.bottom < 0 => 显示
+            this.stickyBarBuyPassed = entry.boundingClientRect.bottom <= 0;
             this.updateStickyBarVisibility();
           },
           { root: null, threshold: 0, rootMargin: '0px' }
@@ -232,10 +236,8 @@ if (!customElements.get('product-info')) {
         this.stickyBarIo.observe(anchor);
 
         requestAnimationFrame(() => {
-          const records = typeof this.stickyBarIo.takeRecords === 'function' ? this.stickyBarIo.takeRecords() : [];
-          if (records.length > 0) {
-            this.stickyBarBuyInView = records[0].isIntersecting;
-          }
+          const rect = anchor.getBoundingClientRect();
+          this.stickyBarBuyPassed = rect.bottom <= 0;
           this.updateStickyBarVisibility();
         });
       }
@@ -254,7 +256,7 @@ if (!customElements.get('product-info')) {
           return;
         }
 
-        if (this.stickyBarBuyInView !== false) {
+        if (!this.stickyBarBuyPassed) {
           el.classList.add('hidden');
           return;
         }
@@ -413,12 +415,9 @@ if (!customElements.get('product-info')) {
           this.stickyBarUnavailable = false;
           this.updateStickyBarVisibility();
           requestAnimationFrame(() => {
-            if (this.stickyBarIo && typeof this.stickyBarIo.takeRecords === 'function') {
-              const records = this.stickyBarIo.takeRecords();
-              if (records.length > 0) {
-                this.stickyBarBuyInView = records[0].isIntersecting;
-              }
-            }
+            const anchor = this.querySelector('.buy-buttons-v2');
+            const rect = anchor?.getBoundingClientRect?.();
+            this.stickyBarBuyPassed = rect ? rect.bottom <= 0 : false;
             this.updateStickyBarVisibility();
           });
 
