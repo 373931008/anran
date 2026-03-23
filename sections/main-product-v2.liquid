@@ -78,6 +78,23 @@
         line-height: 24px;
       }
     }
+
+    {%- comment -%} 电脑端主图网格间距：左右/上下均为 8px {%- endcomment -%}
+    @media screen and (min-width: 750px) {
+      #MainProduct-{{ section.id }} {
+        --grid-desktop-horizontal-spacing: 8px;
+        --grid-desktop-vertical-spacing: 8px;
+      }
+    }
+
+    {%- comment -%} 电脑端：主图媒体数量为偶数时，最后一张全宽 {%- endcomment -%}
+    @media screen and (min-width: 990px) {
+      #MainProduct-{{ section.id }} .product--stacked .product__media-item:nth-child(2n):last-child {
+        width: 100%;
+        max-width: 100%;
+        flex: 0 0 100%;
+      }
+    }
   {%- endstyle -%}
 
   <script src="{{ 'product-info-v2.js' | asset_url }}" defer="defer"></script>

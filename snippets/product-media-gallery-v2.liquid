@@ -41,6 +41,12 @@
     endif
   endif
 
+  assign should_full_last_item = false
+  assign media_count_mod2 = media_count | modulo: 2
+  if media_count > 1 and media_count_mod2 == 0
+    assign should_full_last_item = true
+  endif
+
   if media_count == 1 or single_media_visible
     assign single_media_visible_mobile = true
   endif
@@ -96,7 +102,7 @@
       {%- if featured_media != null -%}
         <li
           id="Slide-{{ section.id }}-{{ featured_media.id }}"
-          class="product__media-item grid__item slider__slide is-active{% if single_media_visible %} product__media-item--single{% endif %}{% if featured_media.media_type != 'image' %} product__media-item--full{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
+          class="product__media-item grid__item slider__slide is-active{% if single_media_visible %} product__media-item--single{% endif %}{% if featured_media.media_type != 'image' or should_full_last_item and media_count == 1 %} product__media-item--full{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
           data-media-id="{{ section.id }}-{{ featured_media.id }}"
         >
           {%- assign media_position = 1 -%}
@@ -127,18 +133,23 @@
         {% endif %}
 
         {%- unless featured_media != null and media.id == featured_media.id -%}
+          {%- liquid
+            assign media_position = media_position | default: 0 | plus: 1
+            assign lazy_load = false
+            if media_position > 1
+              assign lazy_load = true
+            endif
+
+            assign is_full_last_item = false
+            if should_full_last_item and media_position == media_count
+              assign is_full_last_item = true
+            endif
+          -%}
           <li
             id="Slide-{{ section.id }}-{{ media.id }}"
-            class="product__media-item grid__item slider__slide{% if single_media_visible %} product__media-item--single{% endif %}{% if featured_media == nil and forloop.index == 1 %} is-active{% endif %}{% if media.media_type != 'image' %} product__media-item--full{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
+            class="product__media-item grid__item slider__slide{% if single_media_visible %} product__media-item--single{% endif %}{% if featured_media == nil and forloop.index == 1 %} is-active{% endif %}{% if media.media_type != 'image' or is_full_last_item %} product__media-item--full{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
             data-media-id="{{ section.id }}-{{ media.id }}"
           >
-            {%- liquid
-              assign media_position = media_position | default: 0 | plus: 1
-              assign lazy_load = false
-              if media_position > 1
-                assign lazy_load = true
-              endif
-            -%}
             {% render 'product-thumbnail',
               media: media,
               media_count: media_count,
