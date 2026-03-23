@@ -121,29 +121,54 @@
     height: 42px;
     display: block;
   }
+  .section-{{ section_id }} .product__see-in-action__swiper-wrap {
+    position: relative;
+  }
+
   .section-{{ section_id }} .product__see-in-action .product__sia-nav {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 8px;
-    margin-top: 12px;
+    padding: 0 6px;
+    pointer-events: none; /* 让滑动手势不被按钮容器拦截 */
+    z-index: 3;
   }
   .section-{{ section_id }} .product__see-in-action .product__sia-nav-btn {
     width: 35px;
     height: 35px;
     border-radius: 50%;
-    border: none;
-    background: rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    background: rgba(0, 0, 0, 0.2);
+    color: #ffffff;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    z-index: 4;
     transition: background 0.2s, opacity 0.2s;
+    pointer-events: auto; /* 仅按钮可点击 */
+    visibility: visible;
   }
-  .section-{{ section_id }} .product__see-in-action .product__sia-nav-btn:hover {
-    background: rgba(0, 0, 0, 0.15);
+  .section-{{ section_id }} .product__see-in-action .product__sia-nav-btn:hover:not(:disabled):not(.swiper-button-disabled) {
+    background: rgba(0, 0, 0, 0.3);
   }
-  .section-{{ section_id }} .product__see-in-action .product__sia-nav-btn:active {
-    opacity: 0.8;
+  .section-{{ section_id }} .product__see-in-action .product__sia-nav-btn:active:not(:disabled):not(.swiper-button-disabled) {
+    opacity: 0.85;
+    background: rgba(0, 0, 0, 0.38);
+  }
+
+  .section-{{ section_id }} .product__see-in-action .product__sia-nav-btn:disabled,
+  .section-{{ section_id }} .product__see-in-action .product__sia-nav-btn.swiper-button-disabled {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
   }
   .section-{{ section_id }} .product__see-in-action .product__sia-nav-btn svg {
     width: 16px;
@@ -162,114 +187,116 @@
     data-autoplay-timer="{{ autoplay_timer }}"
     data-autoplay-delay="{{ autoplay_delay }}"
   >
-    <swiper-container
-      slides-per-view="auto"
-      space-between="12"
-      grab-cursor="true"
-      loop="false"
-      navigation="true"
-      navigation-prev-el="[data-carousel-prev='{{ section_id }}']"
-      navigation-next-el="[data-carousel-next='{{ section_id }}']"
-    >
-      {%- for card in item_blocks -%}
-        {%- liquid
-          assign local_video = card.settings.video
-          assign video_link = card.settings.video_link
-          assign video_fallback = card.settings.video_url_fallback
-          assign has_local = false
-          if local_video != blank and local_video.sources.size > 0
-            assign has_local = true
-          endif
-          assign has_external = false
-          assign external_url = ''
-          if video_link != blank and video_link != ''
-            assign has_external = true
-            assign external_url = video_link
-          endif
-          assign has_fallback = false
-          if video_fallback != blank and video_fallback != '' and video_fallback != '/'
-            assign has_fallback = true
-          endif
-          assign video_type = 'none'
-          assign modal_url = ''
-          # 弹窗 URL：外链 → 备用直链 → 本地源（卡片内预览仍仅本地 video_tag）
-          if has_external
-            assign video_type = 'external'
-            assign modal_url = external_url
-          elsif has_fallback
-            assign video_type = 'fallback'
-            assign modal_url = video_fallback
-          elsif has_local
-            assign video_type = 'local'
-            assign first_source = local_video.sources[0]
-            if first_source != blank
-              assign modal_url = first_source.url
+    <div class="product__see-in-action__swiper-wrap">
+      <swiper-container
+        slides-per-view="auto"
+        space-between="12"
+        grab-cursor="true"
+        loop="false"
+        navigation="true"
+        navigation-prev-el="[data-carousel-prev='{{ section_id }}']"
+        navigation-next-el="[data-carousel-next='{{ section_id }}']"
+      >
+        {%- for card in item_blocks -%}
+          {%- liquid
+            assign local_video = card.settings.video
+            assign video_link = card.settings.video_link
+            assign video_fallback = card.settings.video_url_fallback
+            assign has_local = false
+            if local_video != blank and local_video.sources.size > 0
+              assign has_local = true
             endif
-          endif
-        -%}
-        <swiper-slide {{ card.shopify_attributes }}>
-          <div
-            class="product__sia-card product__sia-card--has-video"
-            role="button"
-            tabindex="0"
-            data-sia-video-type="{{ video_type }}"
-            data-sia-video-url="{{ modal_url | escape }}"
-            data-sia-block-id="{{ card.id }}"
-            aria-label="{{ 'sections.see_in_action.play_video' | t | default: 'Play video' }}"
-          >
-            <div class="product__sia-card__media">
-              {%- if has_local -%}
-                {{-
-                  local_video
-                  | video_tag:
-                    class: 'product__sia-card__inline-video',
-                    image_size: '600x',
-                    autoplay: false,
-                    loop: false,
-                    muted: true,
-                    playsinline: true,
-                    preload: 'auto',
-                    controls: false
-                -}}
-              {%- else -%}
-                <div class="product__sia-card__placeholder" aria-hidden="true"></div>
-              {%- endif -%}
+            assign has_external = false
+            assign external_url = ''
+            if video_link != blank and video_link != ''
+              assign has_external = true
+              assign external_url = video_link
+            endif
+            assign has_fallback = false
+            if video_fallback != blank and video_fallback != '' and video_fallback != '/'
+              assign has_fallback = true
+            endif
+            assign video_type = 'none'
+            assign modal_url = ''
+            # 弹窗 URL：外链 → 备用直链 → 本地源（卡片内预览仍仅本地 video_tag）
+            if has_external
+              assign video_type = 'external'
+              assign modal_url = external_url
+            elsif has_fallback
+              assign video_type = 'fallback'
+              assign modal_url = video_fallback
+            elsif has_local
+              assign video_type = 'local'
+              assign first_source = local_video.sources[0]
+              if first_source != blank
+                assign modal_url = first_source.url
+              endif
+            endif
+          -%}
+          <swiper-slide {{ card.shopify_attributes }}>
+            <div
+              class="product__sia-card product__sia-card--has-video"
+              role="button"
+              tabindex="0"
+              data-sia-video-type="{{ video_type }}"
+              data-sia-video-url="{{ modal_url | escape }}"
+              data-sia-block-id="{{ card.id }}"
+              aria-label="{{ 'sections.see_in_action.play_video' | t | default: 'Play video' }}"
+            >
+              <div class="product__sia-card__media">
+                {%- if has_local -%}
+                  {{-
+                    local_video
+                    | video_tag:
+                      class: 'product__sia-card__inline-video',
+                      image_size: '600x',
+                      autoplay: false,
+                      loop: false,
+                      muted: true,
+                      playsinline: true,
+                      preload: 'auto',
+                      controls: false
+                  -}}
+                {%- else -%}
+                  <div class="product__sia-card__placeholder" aria-hidden="true"></div>
+                {%- endif -%}
+              </div>
+
+              <span class="product__sia-card__play" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none">
+                  <circle cx="21" cy="21" r="21" fill="#1E1E1E" fill-opacity="0.3"/>
+                  <path d="M31.5 20.134C32.1667 20.5189 32.1667 21.4811 31.5 21.866L16.5 30.5263C15.8333 30.9112 15 30.4301 15 29.6603L15 12.3397C15 11.5699 15.8333 11.0888 16.5 11.4737L31.5 20.134Z" fill="white"/>
+                </svg>
+              </span>
             </div>
+          </swiper-slide>
+        {%- endfor -%}
+      </swiper-container>
 
-            <span class="product__sia-card__play" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none">
-                <circle cx="21" cy="21" r="21" fill="#1E1E1E" fill-opacity="0.3"/>
-                <path d="M31.5 20.134C32.1667 20.5189 32.1667 21.4811 31.5 21.866L16.5 30.5263C15.8333 30.9112 15 30.4301 15 29.6603L15 12.3397C15 11.5699 15.8333 11.0888 16.5 11.4737L31.5 20.134Z" fill="white"/>
-              </svg>
-            </span>
-          </div>
-        </swiper-slide>
-      {%- endfor -%}
-    </swiper-container>
-
-    {%- if item_blocks.size > 1 -%}
-      <div class="product__sia-nav" aria-label="{{ 'sections.see_in_action.nav_label' | t | default: 'See in Action navigation' }}">
-        <button
-          type="button"
-          class="product__sia-nav-btn"
-          aria-label="Previous"
-          data-carousel-prev="{{ section_id }}"
-        >
-          <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-        <button
-          type="button"
-          class="product__sia-nav-btn"
-          aria-label="Next"
-          data-carousel-next="{{ section_id }}"
-        >
-          <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-      </div>
-    {%- endif -%}
+      {%- if item_blocks.size > 1 -%}
+        <div class="product__sia-nav" aria-label="{{ 'sections.see_in_action.nav_label' | t | default: 'See in Action navigation' }}">
+          <button
+            type="button"
+            class="product__sia-nav-btn"
+            aria-label="Previous"
+            data-carousel-prev="{{ section_id }}"
+          >
+            <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <button
+            type="button"
+            class="product__sia-nav-btn"
+            aria-label="Next"
+            data-carousel-next="{{ section_id }}"
+          >
+            <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      {%- endif -%}
+    </div>
   </see-in-action-element>
 </div>
