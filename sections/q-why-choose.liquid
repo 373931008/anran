@@ -12,6 +12,7 @@
   .section-{{ section.id }} {
     --wc-bg: {{ section.settings.bg_color }};
     --wc-inner-bg: {{ section.settings.inner_bg_color }};
+    --wc-page-width-bg: {{ section.settings.page_width_bg_color }};
     --wc-card-bg: {{ section.settings.card_bg_color }};
     --wc-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
     --wc-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
@@ -43,7 +44,7 @@
   @media screen and (min-width: 750px) {
     .section-{{ section.id }} {
       --wc-inner-radius: 25px;
-      --wc-inner-padding: 97px 60px;
+      --wc-inner-padding: 68px 60px;
       --wc-grid-cols: 3;
       --wc-grid-gap: 16px;
       --wc-card-height: 275px;
@@ -78,9 +79,22 @@
 
   /* 内层圆角容器 */
   .section-{{ section.id }} .q-wc__inner {
-    background: var(--wc-inner-bg, #121214);
+    background: var(--wc-page-width-bg, #121214);
     border-radius: var(--wc-inner-radius);
     padding: var(--wc-inner-padding);
+    max-width: var(--page-width);
+    margin: 0 auto;
+  }
+  .section-{{ section.id }} .q-wc__inner > div {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  /* 内容区容器（page-width）背景色 */
+  .section-{{ section.id }} .page-width {
+    {% comment %} background: var(--wc-page-width-bg, #121214);
+    border-radius: var(--wc-inner-radius); {% endcomment %}
+    {% comment %} padding: var(--wc-inner-padding); {% endcomment %}
   }
 
   /* 头部标题颜色覆盖（深色背景下标题白色） */
@@ -494,8 +508,8 @@
   
 </style>
 <div class="q-why-choose section-{{ section.id }}">
-  <div class="q-wc__inner">
-    <div class="page-width">
+  <div class="q-wc__inner page-width">
+    <div class="w-full">
       {%- render 'q-section-header', section: section -%}
 
       {%- if section.settings.subtitle != blank -%}
@@ -737,7 +751,8 @@
     { "type": "color_background", "id": "cta_color", "label": "链接颜色", "default": "#329bff" },
     { "type": "header", "content": "颜色配置" },
     { "type": "color_background", "id": "bg_color", "label": "外层背景色", "default": "#000000" },
-    { "type": "color_background", "id": "inner_bg_color", "label": "内容区背景色", "default": "#121214" },
+    { "type": "color_background", "id": "inner_bg_color", "label": "内容区背景色", "default": "#000000" },
+    { "type": "color_background", "id": "page_width_bg_color", "label": "页面宽度背景色", "default": "#121214" },
     { "type": "color_background", "id": "card_bg_color", "label": "卡片背景色", "default": "#000000" },
     { "type": "header", "content": "上下边距" },
     { "type": "range", "id": "padding_top_mobile", "label": "上边距（移动端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 0 },
