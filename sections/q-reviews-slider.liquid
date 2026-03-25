@@ -29,8 +29,16 @@
     --rs-card-radius: 50px;
     --rs-card-height-mobile: 217px;
     --rs-card-height-desktop: 250px;
+    /* 桌面端箭头贴在滑块左右外侧的间距（不占用轮播宽度） */
+    --rs-nav-out-gap: 12px;
 
     overflow: hidden;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} {
+      overflow: visible;
+    }
   }
 
   .section-{{ section.id }}.q-reviews-slider {
@@ -63,7 +71,7 @@
 
     .section-{{ section.id }} .q-rs__wrap {
       padding: 0 10px;
-      overflow: hidden;
+      overflow: visible;
     }
   }
 
@@ -215,6 +223,31 @@
     display: flex;
     justify-content: space-between;
     padding: 0;
+  }
+
+  /* 桌面端：箭头绝对定位到滑块区域左右外侧，不挤占 swiper 宽度 */
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-rs__nav {
+      display: block;
+      height: 0;
+      overflow: visible;
+    }
+
+    .section-{{ section.id }} .q-rs__nav-btn {
+      position: absolute;
+      top: 50%;
+    }
+
+    .section-{{ section.id }} .q-rs__nav-btn--prev {
+      left: 0;
+      transform: translate(calc(-100% - var(--rs-nav-out-gap, 12px)), -50%);
+    }
+
+    .section-{{ section.id }} .q-rs__nav-btn--next {
+      right: 0;
+      left: auto;
+      transform: translate(calc(100% + var(--rs-nav-out-gap, 12px)), -50%);
+    }
   }
 
   .section-{{ section.id }} .q-rs__nav-btn {
