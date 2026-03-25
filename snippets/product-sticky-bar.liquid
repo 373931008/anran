@@ -164,6 +164,12 @@
       padding: 12px 0;
     }
   }
+
+  @media screen and (min-width: 750px) {
+    .product-sticky-bar__price-slot .price .price__sale .price-item--sale {
+      font-size: 25px;font-weight: 500;
+    }
+  }
   /* 与 buy-buttons-v2 一致的按钮皮肤（自包含，不依赖购买块是否渲染） */
   .product-sticky-bar .buy-buttons-v2__btn {
     position: relative;
@@ -403,15 +409,17 @@
       grid-template-columns: minmax(0, 1fr) auto auto;
       grid-template-areas: 'meta price actions';
       gap: 1.2rem 1.6rem;
+      padding-left: 80px;
+      padding-right: 80px;
     }
 
     .product-sticky-bar__meta {
       grid-area: meta;
       display: flex;
       align-items: center;
-      justify-content: flex-end;
-      justify-self: end;
-      text-align: right;
+      justify-content: flex-start;
+      justify-self: start;
+      text-align: left;
       gap: 1.2rem;
       min-width: 0;
     }
@@ -441,7 +449,7 @@
       line-clamp: 2;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
-      text-align: right;
+      text-align: left;
     }
 
     .product-sticky-bar__price-slot {
@@ -466,4 +474,5 @@
       min-width: 0;
     }
   }
+  
 {% endstylesheet %}
