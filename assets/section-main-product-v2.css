@@ -1,0 +1,89 @@
+/* 仅为 main-product-v2 的“放大弹窗”提供 v2 样式覆盖（不修改原 `section-main-product.css`）。 */
+
+.product-media-modal__content--v2 {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.product-media-modal__content--v2 .product-media-modal__swipers-shell,
+.product-media-modal__content--v2 .product-media-modal__swipers-shell * {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.product-media-modal__content--v2 .product-media-modal__swipers-shell {
+  cursor: grab;
+}
+
+.product-media-modal__content--v2 .product-media-modal__thumbs-swiper swiper-slide {
+  cursor: pointer;
+}
+
+.product-media-modal__content--v2 .product-media-modal__main-swiper,
+.product-media-modal__content--v2 .product-media-modal__thumbs-swiper {
+  width: 100%;
+  flex-shrink: 0;
+  overflow: hidden;
+  -webkit-user-drag: none;
+}
+
+/* 让 swiper 的 slide 布局更稳定 */
+.product-media-modal__content--v2 .product-media-modal__main-swiper swiper-slide,
+.product-media-modal__content--v2 .product-media-modal__thumbs-swiper swiper-slide {
+  flex-shrink: 0;
+  -webkit-user-drag: none;
+}
+
+.product-media-modal__content--v2 .product-media-modal__main-swiper swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.product-media-modal__content--v2 .product-media-modal__main-swiper img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: var(--media-radius, 12px);
+  -webkit-user-drag: none;
+  user-select: none;
+  pointer-events: none;
+}
+
+.product-media-modal__content--v2 .product-media-modal__thumbs-swiper swiper-slide {
+  width: 64px;
+  opacity: 0.7;
+  border-radius: var(--media-radius, 12px);
+  overflow: hidden;
+}
+
+/* Swiper 会在缩略图激活时给 thumb slide 添加 `swiper-slide-thumb-active` 类 */
+.product-media-modal__content--v2
+  .product-media-modal__thumbs-swiper
+  swiper-slide.swiper-slide-thumb-active {
+  opacity: 1;
+  outline: 2px solid rgba(var(--color-foreground), 0.25);
+  outline-offset: -2px;
+}
+
+.product-media-modal__content--v2 .product-media-modal__thumbs-swiper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  -webkit-user-drag: none;
+  user-select: none;
+  pointer-events: none;
+}
+
+@media screen and (min-width: 750px) {
+  .product-media-modal__content--v2 {
+    gap: 16px;
+  }
+
+  .product-media-modal__content--v2 .product-media-modal__thumbs-swiper swiper-slide {
+    width: 80px;
+  }
+}
+
