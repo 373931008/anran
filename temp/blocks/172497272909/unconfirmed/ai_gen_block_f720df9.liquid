@@ -1,6 +1,491 @@
+{% doc %}
+  @prompt
+    帮忙生成一个图片横幅，需要可以上传电脑端跟手机端的banner图，用电脑端跟手机端打开页面显示分别对应的画面，大小图片自适应, 查看图片类型，在banner下面加上这种多买多折的模块，内容可以自己编辑的
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-responsive-banner-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .ai-responsive-banner__image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .ai-responsive-banner__image-{{ ai_gen_id }} {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .ai-responsive-banner__desktop-{{ ai_gen_id }} {
+    display: block;
+  }
+
+  .ai-responsive-banner__mobile-{{ ai_gen_id }} {
+    display: none;
+  }
+
+  .ai-responsive-banner__placeholder-{{ ai_gen_id }} {
+    background-color: #f4f4f4;
+    width: 100%;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .ai-responsive-banner__placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 500px;
+    max-height: 400px;
+  }
+
+  .ai-responsive-banner__empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 20px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .ai-responsive-banner__discount-section-{{ ai_gen_id }} {
+    background-color: {{ block.settings.discount_bg_color }};
+    padding: {{ block.settings.discount_padding }}px 20px;
+    text-align: center;
+  }
+
+  .ai-responsive-banner__discount-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.title_font_size }}px;
+    color: {{ block.settings.title_color }};
+    margin: 0 0 {{ block.settings.spacing_between_items }}px;
+    font-weight: 600;
+  }
+
+  .ai-responsive-banner__discount-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat({{ block.settings.columns_desktop }}, 1fr);
+    gap: {{ block.settings.spacing_between_items }}px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .ai-responsive-banner__discount-item-{{ ai_gen_id }} {
+    background-color: {{ block.settings.item_bg_color }};
+    padding: {{ block.settings.item_padding }}px;
+    border-radius: {{ block.settings.item_border_radius }}px;
+    border: {{ block.settings.item_border_width }}px solid {{ block.settings.item_border_color }};
+  }
+
+  .ai-responsive-banner__discount-quantity-{{ ai_gen_id }} {
+    font-size: {{ block.settings.quantity_font_size }}px;
+    color: {{ block.settings.quantity_color }};
+    font-weight: 700;
+    margin: 0 0 8px;
+  }
+
+  .ai-responsive-banner__discount-percentage-{{ ai_gen_id }} {
+    font-size: {{ block.settings.percentage_font_size }}px;
+    color: {{ block.settings.percentage_color }};
+    font-weight: 600;
+    margin: 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-responsive-banner__desktop-{{ ai_gen_id }} {
+      display: none;
+    }
+
+    .ai-responsive-banner__mobile-{{ ai_gen_id }} {
+      display: block;
+    }
+
+    .ai-responsive-banner__placeholder-{{ ai_gen_id }} {
+      min-height: 300px;
+    }
+
+    .ai-responsive-banner__discount-grid-{{ ai_gen_id }} {
+      grid-template-columns: repeat({{ block.settings.columns_mobile }}, 1fr);
+    }
+
+    .ai-responsive-banner__discount-title-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.title_font_size }}px * 0.8);
+    }
+
+    .ai-responsive-banner__discount-quantity-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.quantity_font_size }}px * 0.9);
+    }
+
+    .ai-responsive-banner__discount-percentage-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.percentage_font_size }}px * 0.9);
+    }
+  }
+{% endstyle %}
+
+<responsive-banner-{{ ai_gen_id }} class="ai-responsive-banner-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-responsive-banner__image-wrapper-{{ ai_gen_id }}">
+    {% if block.settings.desktop_image or block.settings.mobile_image %}
+      {% if block.settings.desktop_image %}
+        <div class="ai-responsive-banner__desktop-{{ ai_gen_id }}">
+          <img
+            src="{{ block.settings.desktop_image | image_url: width: 2000 }}"
+            alt="{{ block.settings.desktop_image.alt | escape }}"
+            loading="lazy"
+            width="{{ block.settings.desktop_image.width }}"
+            height="{{ block.settings.desktop_image.height }}"
+            class="ai-responsive-banner__image-{{ ai_gen_id }}"
+          >
+        </div>
+      {% endif %}
+
+      {% if block.settings.mobile_image %}
+        <div class="ai-responsive-banner__mobile-{{ ai_gen_id }}">
+          <img
+            src="{{ block.settings.mobile_image | image_url: width: 1000 }}"
+            alt="{{ block.settings.mobile_image.alt | escape }}"
+            loading="lazy"
+            width="{{ block.settings.mobile_image.width }}"
+            height="{{ block.settings.mobile_image.height }}"
+            class="ai-responsive-banner__image-{{ ai_gen_id }}"
+          >
+        </div>
+      {% endif %}
+    {% else %}
+      <div class="ai-responsive-banner__placeholder-{{ ai_gen_id }}">
+        {{ 'hero-apparel-1' | placeholder_svg_tag }}
+        <div class="ai-responsive-banner__empty-state-{{ ai_gen_id }}">
+          添加桌面端和移动端横幅图片
+        </div>
+      </div>
+    {% endif %}
+  </div>
+
+  {% if block.settings.show_discount_section %}
+    <div class="ai-responsive-banner__discount-section-{{ ai_gen_id }}">
+      {% if block.settings.discount_title != blank %}
+        <h2 class="ai-responsive-banner__discount-title-{{ ai_gen_id }}">
+          {{ block.settings.discount_title }}
+        </h2>
+      {% endif %}
+
+      <div class="ai-responsive-banner__discount-grid-{{ ai_gen_id }}">
+        {% for i in (1..4) %}
+          {% liquid
+            assign quantity_key = 'tier_' | append: i | append: '_quantity'
+            assign discount_key = 'tier_' | append: i | append: '_discount'
+            assign quantity = block.settings[quantity_key]
+            assign discount = block.settings[discount_key]
+          %}
+
+          {% if quantity != blank and discount != blank %}
+            <div class="ai-responsive-banner__discount-item-{{ ai_gen_id }}">
+              <div class="ai-responsive-banner__discount-quantity-{{ ai_gen_id }}">
+                {{ quantity }}
+              </div>
+              <div class="ai-responsive-banner__discount-percentage-{{ ai_gen_id }}">
+                {{ discount }}
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+</responsive-banner-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class ResponsiveBanner{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.checkImages();
+      }
+
+      checkImages() {
+        const desktopImg = this.querySelector('.ai-responsive-banner__desktop-{{ ai_gen_id }}');
+        const mobileImg = this.querySelector('.ai-responsive-banner__mobile-{{ ai_gen_id }}');
+
+        if (desktopImg && !mobileImg) {
+          desktopImg.style.display = 'block';
+        }
+
+        if (mobileImg && !desktopImg) {
+          mobileImg.style.display = 'block';
+        }
+      }
+    }
+
+    customElements.define('responsive-banner-{{ ai_gen_id }}', ResponsiveBanner{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "响应式横幅与折扣",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "横幅图片"
+    },
+    {
+      "type": "image_picker",
+      "id": "desktop_image",
+      "label": "桌面端图片"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "移动端图片"
+    },
+    {
+      "type": "header",
+      "content": "多买多折模块"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_discount_section",
+      "label": "显示折扣模块",
+      "default": true
+    },
+    {
+      "type": "inline_richtext",
+      "id": "discount_title",
+      "label": "标题",
+      "default": "多买多折优惠"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "桌面端列数",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "移动端列数",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "header",
+      "content": "折扣层级 1"
+    },
+    {
+      "type": "text",
+      "id": "tier_1_quantity",
+      "label": "购买数量",
+      "default": "买2件"
+    },
+    {
+      "type": "text",
+      "id": "tier_1_discount",
+      "label": "折扣",
+      "default": "享9折"
+    },
+    {
+      "type": "header",
+      "content": "折扣层级 2"
+    },
+    {
+      "type": "text",
+      "id": "tier_2_quantity",
+      "label": "购买数量",
+      "default": "买3件"
+    },
+    {
+      "type": "text",
+      "id": "tier_2_discount",
+      "label": "折扣",
+      "default": "享8.5折"
+    },
+    {
+      "type": "header",
+      "content": "折扣层级 3"
+    },
+    {
+      "type": "text",
+      "id": "tier_3_quantity",
+      "label": "购买数量",
+      "default": "买4件"
+    },
+    {
+      "type": "text",
+      "id": "tier_3_discount",
+      "label": "折扣",
+      "default": "享8折"
+    },
+    {
+      "type": "header",
+      "content": "折扣层级 4"
+    },
+    {
+      "type": "text",
+      "id": "tier_4_quantity",
+      "label": "购买数量",
+      "default": "买5件及以上"
+    },
+    {
+      "type": "text",
+      "id": "tier_4_discount",
+      "label": "折扣",
+      "default": "享7.5折"
+    },
+    {
+      "type": "header",
+      "content": "样式设置"
+    },
+    {
+      "type": "color",
+      "id": "discount_bg_color",
+      "label": "背景颜色",
+      "default": "#f3f3f3"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "标题颜色",
+      "default": "#121212"
+    },
+    {
+      "type": "range",
+      "id": "title_font_size",
+      "label": "标题字体大小",
+      "min": 16,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "discount_padding",
+      "label": "模块内边距",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "spacing_between_items",
+      "label": "项目间距",
+      "min": 10,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "折扣卡片样式"
+    },
+    {
+      "type": "color",
+      "id": "item_bg_color",
+      "label": "卡片背景颜色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "item_border_color",
+      "label": "卡片边框颜色",
+      "default": "#e0e0e0"
+    },
+    {
+      "type": "range",
+      "id": "item_border_width",
+      "label": "卡片边框宽度",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "item_border_radius",
+      "label": "卡片圆角",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "item_padding",
+      "label": "卡片内边距",
+      "min": 10,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "quantity_color",
+      "label": "数量文字颜色",
+      "default": "#121212"
+    },
+    {
+      "type": "range",
+      "id": "quantity_font_size",
+      "label": "数量字体大小",
+      "min": 14,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "percentage_color",
+      "label": "折扣文字颜色",
+      "default": "#d82c0d"
+    },
+    {
+      "type": "range",
+      "id": "percentage_font_size",
+      "label": "折扣字体大小",
+      "min": 14,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    }
+  ],
+  "presets": [
+    {
+      "name": "响应式横幅与折扣"
+    }
+  ]
+}
 {% endschema %}
