@@ -21,7 +21,7 @@
 
     /* 移动端变量 */
     --wc-inner-radius: 13px;
-    --wc-inner-padding: 58px 16px;
+    --wc-inner-padding: 50px 16px;
     --wc-grid-cols: 2;
     --wc-grid-gap: 8px;
     --wc-card-height: 184px;
@@ -33,7 +33,7 @@
     --wc-card-desc-size: 12px;
     --wc-card-desc-lh: 20px;
     --wc-banner-gap: 8px;
-    --wc-banner-margin-top: 40px;
+    --wc-banner-margin-top: 16px;
     --wc-banner-icon-size: 27px;
     --wc-banner-title-size: 12px;
     --wc-banner-desc-size: 12px;
@@ -44,7 +44,7 @@
   @media screen and (min-width: 750px) {
     .section-{{ section.id }} {
       --wc-inner-radius: 25px;
-      --wc-inner-padding: 68px 60px;
+      --wc-inner-padding: 68px 5%;
       --wc-grid-cols: 3;
       --wc-grid-gap: 16px;
       --wc-card-height: 275px;
@@ -55,11 +55,17 @@
       --wc-card-desc-size: 18px;
       --wc-card-desc-lh: 28px;
       --wc-banner-gap: 12px;
-      --wc-banner-margin-top: 60px;
+      --wc-banner-margin-top: 16px;
       --wc-banner-icon-size: 36px;
       --wc-banner-title-size: 18px;
       --wc-banner-desc-size: 14px;
       --wc-cta-size: 18px;
+    }
+  }
+
+  @media screen and (min-width: 1280px) {
+    .section-{{ section.id }} {
+      --wc-inner-padding: 68px 10%;
     }
   }
 
@@ -70,7 +76,16 @@
     font-family: var(--font-body-family);
   }
 
+  .section-{{ section.id }} .q-wc__inner {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
   @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-wc__inner {
+      padding-left: 50px;
+      padding-right: 50px;
+    }
     .section-{{ section.id }}.q-why-choose {
       padding-top: var(--wc-padding-top-desktop, 60px);
       padding-bottom: var(--wc-padding-bottom-desktop, 60px);
@@ -78,17 +93,20 @@
   }
 
   /* 内层圆角容器 */
-  .section-{{ section.id }} .q-wc__inner {
+  .section-{{ section.id }} .q-wc__inner-container {
     background: var(--wc-page-width-bg, #121214);
     border-radius: var(--wc-inner-radius);
     padding: var(--wc-inner-padding);
     max-width: var(--page-width);
     margin: 0 auto;
   }
-  .section-{{ section.id }} .q-wc__inner > div {
+  {% comment %} .section-{{ section.id }} .q-wc__inner-container {
+    background: var(--wc-page-width-bg, #121214);
+  } {% endcomment %}
+  {% comment %} .section-{{ section.id }} .q-wc__inner > div {
     max-width: 1280px;
     margin: 0 auto;
-  }
+  } {% endcomment %}
 
   /* 内容区容器（page-width）背景色 */
   .section-{{ section.id }} .page-width {
@@ -509,218 +527,220 @@
 </style>
 <div class="q-why-choose section-{{ section.id }}">
   <div class="q-wc__inner page-width">
-    <div class="w-full">
-      {%- render 'q-section-header', section: section -%}
+    <div class="q-wc__inner-container">
+      <div class="w-full">
+        {%- render 'q-section-header', section: section -%}
 
-      {%- if section.settings.subtitle != blank -%}
-        <p class="q-wc__subtitle">{{ section.settings.subtitle }}</p>
-      {%- endif -%}
+        {%- if section.settings.subtitle != blank -%}
+          <p class="q-wc__subtitle">{{ section.settings.subtitle }}</p>
+        {%- endif -%}
 
-      {%- comment -%} 卡片网格：只渲染非 banner_feature 类型 {%- endcomment -%}
-      {%- liquid
-        assign grid_blocks_count = 0
-        for block in section.blocks
-          if block.type != 'banner_feature'
-            assign grid_blocks_count = grid_blocks_count | plus: 1
-          endif
-        endfor
-      -%}
+        {%- comment -%} 卡片网格：只渲染非 banner_feature 类型 {%- endcomment -%}
+        {%- liquid
+          assign grid_blocks_count = 0
+          for block in section.blocks
+            if block.type != 'banner_feature'
+              assign grid_blocks_count = grid_blocks_count | plus: 1
+            endif
+          endfor
+        -%}
 
-      {%- if grid_blocks_count > 0 -%}
-        <div class="q-wc__grid">
-          {%- for block in section.blocks -%}
+        {%- if grid_blocks_count > 0 -%}
+          <div class="q-wc__grid">
+            {%- for block in section.blocks -%}
 
-            {%- if block.type == 'card_image_text' -%}
-              {%- liquid
-                assign it_ts_m = block.settings.title_size_mobile | default: 18
-                assign it_ts_d = block.settings.title_size_desktop | default: 32
-                assign it_ds_m = block.settings.desc_size_mobile | default: 12
-                assign it_ds_d = block.settings.desc_size_desktop | default: 18
-                assign it_pos = block.settings.content_position | default: 'middle'
-              -%}
-              <div
-                class="q-wc__card q-wc__card--image-text q-wc__card--pos-{{ it_pos }}"
-                style="--card-title-size-m: {{ it_ts_m }}px; --card-title-size-d: {{ it_ts_d }}px; --card-desc-size-m: {{ it_ds_m }}px; --card-desc-size-d: {{ it_ds_d }}px;"
-                {{ block.shopify_attributes }}
-              >
-                {%- if block.settings.image != blank -%}
-                  <div class="q-wc__card-image">
-                    {{- block.settings.image
-                      | image_url: width: 800
-                      | image_tag:
-                        loading: 'lazy',
-                        sizes: '(min-width: 750px) calc((100vw - 200px) / 3), 50vw',
-                        widths: '200, 400, 600, 800'
-                    -}}
+              {%- if block.type == 'card_image_text' -%}
+                {%- liquid
+                  assign it_ts_m = block.settings.title_size_mobile | default: 18
+                  assign it_ts_d = block.settings.title_size_desktop | default: 32
+                  assign it_ds_m = block.settings.desc_size_mobile | default: 12
+                  assign it_ds_d = block.settings.desc_size_desktop | default: 18
+                  assign it_pos = block.settings.content_position | default: 'middle'
+                -%}
+                <div
+                  class="q-wc__card q-wc__card--image-text q-wc__card--pos-{{ it_pos }}"
+                  style="--card-title-size-m: {{ it_ts_m }}px; --card-title-size-d: {{ it_ts_d }}px; --card-desc-size-m: {{ it_ds_m }}px; --card-desc-size-d: {{ it_ds_d }}px;"
+                  {{ block.shopify_attributes }}
+                >
+                  {%- if block.settings.image != blank -%}
+                    <div class="q-wc__card-image">
+                      {{- block.settings.image
+                        | image_url: width: 800
+                        | image_tag:
+                          loading: 'lazy',
+                          sizes: '(min-width: 750px) calc((100vw - 200px) / 3), 50vw',
+                          widths: '200, 400, 600, 800'
+                      -}}
+                    </div>
+                  {%- endif -%}
+                  <div class="q-wc__card-overlay"></div>
+                  <div class="q-wc__card-body">
+                    {%- if block.settings.title != blank -%}
+                      <h3 class="q-wc__card-title">{{ block.settings.title | newline_to_br }}</h3>
+                    {%- endif -%}
+                    {%- if block.settings.description != blank -%}
+                      <p class="q-wc__card-desc">{{ block.settings.description | newline_to_br }}</p>
+                    {%- endif -%}
                   </div>
-                {%- endif -%}
-                <div class="q-wc__card-overlay"></div>
-                <div class="q-wc__card-body">
+                </div>
+
+              {%- elsif block.type == 'card_text_icon' -%}
+                {%- liquid
+                  assign ti_ts_m = block.settings.title_size_mobile | default: 18
+                  assign ti_ts_d = block.settings.title_size_desktop | default: 32
+                  assign ti_ss_m = block.settings.subtitle_size_mobile | default: 12
+                  assign ti_ss_d = block.settings.subtitle_size_desktop | default: 18
+                  assign ti_gradient = block.settings.title_gradient | default: 'linear-gradient(90deg, #6cbce7 0%, #367cf6 100%)'
+                -%}
+                <div
+                  class="q-wc__card q-wc__card--text-icon"
+                  style="--card-title-size-m: {{ ti_ts_m }}px; --card-title-size-d: {{ ti_ts_d }}px; --card-subtitle-size-m: {{ ti_ss_m }}px; --card-subtitle-size-d: {{ ti_ss_d }}px; --card-title-gradient: {{ ti_gradient }};"
+                  {{ block.shopify_attributes }}
+                >
+                  {%- if block.settings.image != blank -%}
+                    {{- block.settings.image
+                      | image_url: width: 200
+                      | image_tag:
+                        class: 'q-wc__card-icon',
+                        loading: 'lazy',
+                        sizes: '68px',
+                        widths: '68, 136'
+                    -}}
+                  {%- endif -%}
                   {%- if block.settings.title != blank -%}
                     <h3 class="q-wc__card-title">{{ block.settings.title | newline_to_br }}</h3>
                   {%- endif -%}
-                  {%- if block.settings.description != blank -%}
-                    <p class="q-wc__card-desc">{{ block.settings.description | newline_to_br }}</p>
+                  {%- if block.settings.subtitle != blank -%}
+                    <p class="q-wc__card-subtitle">{{ block.settings.subtitle | newline_to_br }}</p>
                   {%- endif -%}
                 </div>
-              </div>
 
-            {%- elsif block.type == 'card_text_icon' -%}
-              {%- liquid
-                assign ti_ts_m = block.settings.title_size_mobile | default: 18
-                assign ti_ts_d = block.settings.title_size_desktop | default: 32
-                assign ti_ss_m = block.settings.subtitle_size_mobile | default: 12
-                assign ti_ss_d = block.settings.subtitle_size_desktop | default: 18
-                assign ti_gradient = block.settings.title_gradient | default: 'linear-gradient(90deg, #6cbce7 0%, #367cf6 100%)'
-              -%}
-              <div
-                class="q-wc__card q-wc__card--text-icon"
-                style="--card-title-size-m: {{ ti_ts_m }}px; --card-title-size-d: {{ ti_ts_d }}px; --card-subtitle-size-m: {{ ti_ss_m }}px; --card-subtitle-size-d: {{ ti_ss_d }}px; --card-title-gradient: {{ ti_gradient }};"
-                {{ block.shopify_attributes }}
-              >
-                {%- if block.settings.image != blank -%}
-                  {{- block.settings.image
-                    | image_url: width: 200
-                    | image_tag:
-                      class: 'q-wc__card-icon',
-                      loading: 'lazy',
-                      sizes: '68px',
-                      widths: '68, 136'
-                  -}}
-                {%- endif -%}
-                {%- if block.settings.title != blank -%}
-                  <h3 class="q-wc__card-title">{{ block.settings.title | newline_to_br }}</h3>
-                {%- endif -%}
-                {%- if block.settings.subtitle != blank -%}
-                  <p class="q-wc__card-subtitle">{{ block.settings.subtitle | newline_to_br }}</p>
-                {%- endif -%}
-              </div>
+              {%- elsif block.type == 'card_dual_title' -%}
+                {%- liquid
+                  assign dt_ts_m = block.settings.title_size_mobile | default: 18
+                  assign dt_ts_d = block.settings.title_size_desktop | default: 32
+                  assign dt_ds_m = block.settings.desc_size_mobile | default: 12
+                  assign dt_ds_d = block.settings.desc_size_desktop | default: 18
+                -%}
+                <div
+                  class="q-wc__card q-wc__card--dual-title"
+                  style="--card-title-size-m: {{ dt_ts_m }}px; --card-title-size-d: {{ dt_ts_d }}px; --card-desc-size-m: {{ dt_ds_m }}px; --card-desc-size-d: {{ dt_ds_d }}px;"
+                  {{ block.shopify_attributes }}
+                >
+                  {%- if block.settings.title_line1 != blank -%}
+                    <p class="q-wc__dual-line1">{{ block.settings.title_line1 }}</p>
+                  {%- endif -%}
+                  {%- if block.settings.title_line2 != blank -%}
+                    <div class="q-wc__dual-line2-wrap">
+                      <p class="q-wc__dual-line2"><em>{{ block.settings.title_line2 }}</em></p>
+                      {%- if block.settings.icon_image != blank -%}
+                        {{- block.settings.icon_image
+                          | image_url: width: 80
+                          | image_tag:
+                            class: 'q-wc__dual-icon',
+                            loading: 'lazy',
+                            sizes: '39px',
+                            widths: '39, 78'
+                        -}}
+                      {%- endif -%}
+                    </div>
+                  {%- endif -%}
+                  {%- if block.settings.description != blank -%}
+                    <p class="q-wc__dual-desc">{{ block.settings.description | newline_to_br }}</p>
+                  {%- endif -%}
+                </div>
 
-            {%- elsif block.type == 'card_dual_title' -%}
-              {%- liquid
-                assign dt_ts_m = block.settings.title_size_mobile | default: 18
-                assign dt_ts_d = block.settings.title_size_desktop | default: 32
-                assign dt_ds_m = block.settings.desc_size_mobile | default: 12
-                assign dt_ds_d = block.settings.desc_size_desktop | default: 18
-              -%}
-              <div
-                class="q-wc__card q-wc__card--dual-title"
-                style="--card-title-size-m: {{ dt_ts_m }}px; --card-title-size-d: {{ dt_ts_d }}px; --card-desc-size-m: {{ dt_ds_m }}px; --card-desc-size-d: {{ dt_ds_d }}px;"
-                {{ block.shopify_attributes }}
-              >
-                {%- if block.settings.title_line1 != blank -%}
-                  <p class="q-wc__dual-line1">{{ block.settings.title_line1 }}</p>
-                {%- endif -%}
-                {%- if block.settings.title_line2 != blank -%}
-                  <div class="q-wc__dual-line2-wrap">
-                    <p class="q-wc__dual-line2"><em>{{ block.settings.title_line2 }}</em></p>
+              {%- elsif block.type == 'card_app_screenshot' -%}
+                {%- liquid
+                  assign as_ts_m = block.settings.title_size_mobile | default: 12
+                  assign as_ts_d = block.settings.title_size_desktop | default: 20
+                -%}
+                <div
+                  class="q-wc__card q-wc__card--app-screenshot"
+                  style="--card-title-size-m: {{ as_ts_m }}px; --card-title-size-d: {{ as_ts_d }}px;"
+                  {{ block.shopify_attributes }}
+                >
+                  {%- if block.settings.title != blank -%}
+                    <p class="q-wc__app-title">{{ block.settings.title | newline_to_br }}</p>
+                  {%- endif -%}
+                  {%- if block.settings.image != blank -%}
+                    <div class="q-wc__app-image">
+                      {{- block.settings.image
+                        | image_url: width: 240
+                        | image_tag:
+                          loading: 'lazy',
+                          sizes: '(min-width: 750px) 116px, 80px',
+                          widths: '80, 116, 160, 240'
+                      -}}
+                    </div>
+                  {%- endif -%}
+                </div>
+
+              {%- endif -%}
+
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+
+        {%- comment -%} 底部横幅：仅渲染 banner_feature 类型 {%- endcomment -%}
+        {%- liquid
+          assign has_banner = false
+          for block in section.blocks
+            if block.type == 'banner_feature'
+              assign has_banner = true
+              break
+            endif
+          endfor
+        -%}
+
+        {%- if has_banner -%}
+          <div class="q-wc__banner">
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'banner_feature' -%}
+                {%- liquid
+                  assign bf_ts_m = block.settings.title_size_mobile | default: 12
+                  assign bf_ts_d = block.settings.title_size_desktop | default: 18
+                  assign bf_ds_m = block.settings.desc_size_mobile | default: 12
+                  assign bf_ds_d = block.settings.desc_size_desktop | default: 14
+                -%}
+                <div
+                  class="q-wc__banner-item"
+                  style="--banner-title-size-m: {{ bf_ts_m }}px; --banner-title-size-d: {{ bf_ts_d }}px; --banner-desc-size-m: {{ bf_ds_m }}px; --banner-desc-size-d: {{ bf_ds_d }}px;"
+                  {{ block.shopify_attributes }}
+                >
+                  <div class="q-wc__banner-top">
                     {%- if block.settings.icon_image != blank -%}
                       {{- block.settings.icon_image
-                        | image_url: width: 80
+                        | image_url: width: 72
                         | image_tag:
-                          class: 'q-wc__dual-icon',
+                          class: 'q-wc__banner-icon',
                           loading: 'lazy',
-                          sizes: '39px',
-                          widths: '39, 78'
+                          sizes: '(min-width: 750px) 36px, 27px',
+                          widths: '27, 36, 54, 72'
                       -}}
                     {%- endif -%}
+                    {%- if block.settings.title != blank -%}
+                      <p class="q-wc__banner-title">{{ block.settings.title }}</p>
+                    {%- endif -%}
                   </div>
-                {%- endif -%}
-                {%- if block.settings.description != blank -%}
-                  <p class="q-wc__dual-desc">{{ block.settings.description | newline_to_br }}</p>
-                {%- endif -%}
-              </div>
-
-            {%- elsif block.type == 'card_app_screenshot' -%}
-              {%- liquid
-                assign as_ts_m = block.settings.title_size_mobile | default: 12
-                assign as_ts_d = block.settings.title_size_desktop | default: 20
-              -%}
-              <div
-                class="q-wc__card q-wc__card--app-screenshot"
-                style="--card-title-size-m: {{ as_ts_m }}px; --card-title-size-d: {{ as_ts_d }}px;"
-                {{ block.shopify_attributes }}
-              >
-                {%- if block.settings.title != blank -%}
-                  <p class="q-wc__app-title">{{ block.settings.title | newline_to_br }}</p>
-                {%- endif -%}
-                {%- if block.settings.image != blank -%}
-                  <div class="q-wc__app-image">
-                    {{- block.settings.image
-                      | image_url: width: 240
-                      | image_tag:
-                        loading: 'lazy',
-                        sizes: '(min-width: 750px) 116px, 80px',
-                        widths: '80, 116, 160, 240'
-                    -}}
-                  </div>
-                {%- endif -%}
-              </div>
-
-            {%- endif -%}
-
-          {%- endfor -%}
-        </div>
-      {%- endif -%}
-
-      {%- comment -%} 底部横幅：仅渲染 banner_feature 类型 {%- endcomment -%}
-      {%- liquid
-        assign has_banner = false
-        for block in section.blocks
-          if block.type == 'banner_feature'
-            assign has_banner = true
-            break
-          endif
-        endfor
-      -%}
-
-      {%- if has_banner -%}
-        <div class="q-wc__banner">
-          {%- for block in section.blocks -%}
-            {%- if block.type == 'banner_feature' -%}
-              {%- liquid
-                assign bf_ts_m = block.settings.title_size_mobile | default: 12
-                assign bf_ts_d = block.settings.title_size_desktop | default: 18
-                assign bf_ds_m = block.settings.desc_size_mobile | default: 12
-                assign bf_ds_d = block.settings.desc_size_desktop | default: 14
-              -%}
-              <div
-                class="q-wc__banner-item"
-                style="--banner-title-size-m: {{ bf_ts_m }}px; --banner-title-size-d: {{ bf_ts_d }}px; --banner-desc-size-m: {{ bf_ds_m }}px; --banner-desc-size-d: {{ bf_ds_d }}px;"
-                {{ block.shopify_attributes }}
-              >
-                <div class="q-wc__banner-top">
-                  {%- if block.settings.icon_image != blank -%}
-                    {{- block.settings.icon_image
-                      | image_url: width: 72
-                      | image_tag:
-                        class: 'q-wc__banner-icon',
-                        loading: 'lazy',
-                        sizes: '(min-width: 750px) 36px, 27px',
-                        widths: '27, 36, 54, 72'
-                    -}}
-                  {%- endif -%}
-                  {%- if block.settings.title != blank -%}
-                    <p class="q-wc__banner-title">{{ block.settings.title }}</p>
+                  {%- if block.settings.description != blank -%}
+                    <p class="q-wc__banner-desc">{{ block.settings.description }}</p>
                   {%- endif -%}
                 </div>
-                {%- if block.settings.description != blank -%}
-                  <p class="q-wc__banner-desc">{{ block.settings.description }}</p>
-                {%- endif -%}
-              </div>
-            {%- endif -%}
-          {%- endfor -%}
-        </div>
-      {%- endif -%}
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
 
-      {%- comment -%} CTA 链接 {%- endcomment -%}
-      {%- if section.settings.cta_label != blank and section.settings.cta_link != blank -%}
-        <div class="q-wc__cta-wrap">
-          <a href="{{ section.settings.cta_link }}" class="q-wc__cta">
-            {{- section.settings.cta_label -}}
-          </a>
-        </div>
-      {%- endif -%}
+        {%- comment -%} CTA 链接 {%- endcomment -%}
+        {%- if section.settings.cta_label != blank and section.settings.cta_link != blank -%}
+          <div class="q-wc__cta-wrap">
+            <a href="{{ section.settings.cta_link }}" class="q-wc__cta">
+              {{- section.settings.cta_label -}}
+            </a>
+          </div>
+        {%- endif -%}
+      </div>
     </div>
   </div>
 </div>
