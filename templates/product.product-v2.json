@@ -7,7 +7,7 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
- {
+{
   "layout": "theme",
   "sections": {
     "main": {
@@ -172,8 +172,8 @@
           "type": "q_see_in_action_card",
           "settings": {
             "video": "shopify://files/videos/active_hdr_vid_pc_SC_xlarge.mp4",
-            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
-            "video_url_fallback": "/"
+            "video_link": "",
+            "video_url_fallback": "https://www.youtube.com/watch?v=_9VUPq3SxOc"
           }
         },
         "q_see_in_action_card_x9tfpr": {
@@ -1509,6 +1509,7 @@
         "header_description": "",
         "header_center": true,
         "header_em_color": "#FF6B35",
+        "header_title_color": "#3c4043",
         "header_title_size_desktop": 36,
         "header_title_size_mobile": 24,
         "header_desc_size_desktop": 16,
