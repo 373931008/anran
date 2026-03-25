@@ -151,14 +151,17 @@
     display: none;
   }
 
-  .section-{{ section.id }} .q-section-header__title {
+  /* .section-{{ section.id }} .q-section-header__title {
     font-weight: 500 !important;
-  }
+  } */
 </style>
 
 <div class="q-product-specs section-{{ section.id }}">
   <div class="page-width">
-    {%- render 'q-section-header', section: section -%}
+    {%- render 'q-section-header',
+      section: section,
+      title_color: section.settings.header_title_color | default: '#3C4043'
+    -%}
 
     <product-specs-element
       client:visible
@@ -203,6 +206,7 @@
     { "type": "richtext", "id": "header_description", "label": "描述" },
     { "type": "checkbox", "id": "header_center", "label": "居中对齐", "default": true },
     { "type": "color_background", "id": "header_em_color", "label": "em 高亮色", "default": "#FF6B35" },
+    { "type": "color", "id": "header_title_color", "label": "标题颜色", "default": "#3C4043" },
     { "type": "range", "id": "header_title_size_desktop", "label": "标题字号（桌面端）", "min": 20, "max": 80, "step": 2, "unit": "px", "default": 42 },
     { "type": "range", "id": "header_title_size_mobile", "label": "标题字号（移动端）", "min": 16, "max": 50, "step": 2, "unit": "px", "default": 24 },
     { "type": "range", "id": "header_desc_size_desktop", "label": "描述字号（桌面端）", "min": 10, "max": 30, "step": 1, "unit": "px", "default": 16 },
