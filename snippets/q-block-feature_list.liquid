@@ -9,7 +9,7 @@
     --feature-heading-size: 12px;
     --feature-heading-line-height: 18px; /* 移动端：12px * 150% */
     --feature-item-size: 12px;
-    --feature-item-line-height: 32px;
+    --feature-item-line-height: 1.4;
     --feature-icon-size: 20px;
     --feature-icon-text-gap: 13px;
     --feature-gap: 8px;
@@ -20,7 +20,7 @@
       --feature-heading-size: 16px;
       --feature-heading-line-height: 24px; /* 电脑端：16px * 150% */
       --feature-item-size: 16px;
-      --feature-item-line-height: 32px;
+      --feature-item-line-height: 1.4;
       --feature-gap: 10px;
       --feature-icon-text-gap: 4px;
       --feature-cols: 2;
@@ -42,7 +42,7 @@
     display: grid;
     grid-template-columns: repeat(var(--feature-cols, 1), minmax(0, 1fr));
     gap: 0 var(--feature-gap);
-    row-gap: 0;
+    row-gap: 8px;
     list-style: none;
     padding: 0;
     padding-left: 0;
