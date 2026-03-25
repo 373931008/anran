@@ -103,13 +103,17 @@
       }
     }
 
-    {%- comment -%} 桌面端：变体图片（pill images）固定为 105px {%- endcomment -%}
+    {%- comment -%} 桌面端：变体图片 pill 尺寸与列宽一致，避免 repeat(4,1fr) 下小图居中造成视觉间距过大 {%- endcomment -%}
     @media screen and (min-width: 750px) {
+      .section-{{ section.id }} .product-form__input--pill-images {
+        --variant-pill-desktop-size: 90px;
+        grid-template-columns: repeat(4, var(--variant-pill-desktop-size));
+        justify-content: start;
+      }
+
       .section-{{ section.id }} .product-form__input--pill-images input[type='radio'] + label {
-        width: 105px;
-        height: 105px;
-        justify-self: center;
-        align-self: center;
+        width: var(--variant-pill-desktop-size);
+        height: var(--variant-pill-desktop-size);
       }
     }
 
