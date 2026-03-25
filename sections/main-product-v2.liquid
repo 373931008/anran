@@ -133,6 +133,15 @@
         margin: 0 auto;
       }
     }
+
+    .section-{{ section.id }} .product__info-container .product-form {
+      margin-bottom: 36px;
+    }
+    @media screen and (min-width: 750px) {
+      .section-{{ section.id }} .product__info-container .product-form {
+        margin-bottom: 40px;
+      }
+    }
   {%- endstyle -%}
 
   <script src="{{ 'product-info-v2.js' | asset_url }}" defer="defer"></script>
