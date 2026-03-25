@@ -16,20 +16,25 @@ export default class SeeInActionElement extends HTMLElement {
     this.handleKeydown = this.handleKeydown.bind(this)
     this.onSlideChange = this.onSlideChange.bind(this)
     this.onVideoEnded = this.onVideoEnded.bind(this)
+    this.onCardMouseEnter = this.onCardMouseEnter.bind(this)
+    this.onCardMouseLeave = this.onCardMouseLeave.bind(this)
     this.modalEl = null
     this.swiperContainer = null
     this.intersectionObserver = null
     this.isInView = false
     this.autoplayTimerId = null
+    this.isPointerOverCard = false
   }
 
   #inlineVideoSelector = 'video.product__sia-card__inline-video'
+  #cardSelector = '.product__sia-card--has-video'
 
   connectedCallback() {
     this.swiperContainer = this.querySelector('swiper-container')
     this.addEventListener('click', this.handleClick)
     this.#setupViewportObserver()
     this.#setupSwiperAndVideos()
+    this.#setupCardHoverPlayback()
     this.#maybeStartAutoplayTimer()
   }
 
@@ -38,6 +43,7 @@ export default class SeeInActionElement extends HTMLElement {
     this.#removeModal()
     this.#teardownViewportObserver()
     this.#teardownSwiperAndVideos()
+    this.#teardownCardHoverPlayback()
     this.#stopAutoplayTimer()
   }
 
@@ -275,6 +281,56 @@ export default class SeeInActionElement extends HTMLElement {
       video.pause()
       video.currentTime = 0
     })
+  }
+
+  #setupCardHoverPlayback() {
+    this.querySelectorAll(this.#cardSelector).forEach((card) => {
+      card.addEventListener('mouseenter', this.onCardMouseEnter)
+      card.addEventListener('mouseleave', this.onCardMouseLeave)
+    })
+  }
+
+  #teardownCardHoverPlayback() {
+    this.querySelectorAll(this.#cardSelector).forEach((card) => {
+      card.removeEventListener('mouseenter', this.onCardMouseEnter)
+      card.removeEventListener('mouseleave', this.onCardMouseLeave)
+    })
+  }
+
+  onCardMouseEnter(e) {
+    const card = e.currentTarget
+    const video = card ? card.querySelector(this.#inlineVideoSelector) : null
+    if (!video) return
+
+    this.isPointerOverCard = true
+    this.#stopAutoplayTimer()
+
+    const container = this.swiperContainer
+    if (container && container.swiper) {
+      const swiper = container.swiper
+      const slide = card.closest('swiper-slide')
+      const idx = slide ? swiper.slides.indexOf(slide) : -1
+      if (idx >= 0 && idx !== swiper.activeIndex) {
+        swiper.slideTo(idx)
+      }
+    }
+
+    this.querySelectorAll(this.#inlineVideoSelector).forEach((v) => {
+      if (v === video) return
+      v.pause()
+      v.currentTime = 0
+    })
+
+    video.currentTime = 0
+    const playPromise = video.play()
+    if (playPromise && typeof playPromise.catch === 'function') {
+      playPromise.catch(() => {})
+    }
+  }
+
+  onCardMouseLeave(e) {
+    this.isPointerOverCard = false
+    this.#maybeStartAutoplayTimer()
   }
 
   #maybeStartAutoplayTimer() {

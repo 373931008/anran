@@ -24,6 +24,7 @@
     assign has_tabs = true
   endif
   assign first_tab_index = '1'
+  assign should_default_open_first_item = section.settings.default_open_first_item
 -%}
 
 <style>
@@ -242,13 +243,17 @@
         <div class="q-faq__list">
           {%- for block in item_blocks -%}
             {%- assign tab_group = block.settings.tab_index | default: '1' -%}
+            {%- assign is_default_open_item = false -%}
+            {%- if should_default_open_first_item and forloop.first and tab_group == first_tab_index -%}
+              {%- assign is_default_open_item = true -%}
+            {%- endif -%}
             <div
-              class="q-faq__item{% if forloop.first and tab_group == first_tab_index %} q-faq__item--default-open{% endif %}"
+              class="q-faq__item{% if is_default_open_item %} q-faq__item--default-open{% endif %}"
               data-tab-group="{{ tab_group }}"
               {% unless tab_group == first_tab_index %}hidden{% endunless %}
               {{ block.shopify_attributes }}
             >
-              <div class="q-faq__summary" role="button" tabindex="0" aria-expanded="{% if forloop.first and tab_group == first_tab_index %}true{% else %}false{% endif %}">
+              <div class="q-faq__summary" role="button" tabindex="0" aria-expanded="{% if is_default_open_item %}true{% else %}false{% endif %}">
                 <span class="q-faq__question">{{- block.settings.question -}}</span>
                 <span class="q-faq__icon" aria-hidden="true">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -323,6 +328,16 @@
       "step": 4,
       "unit": "px",
       "default": 60
+    },
+    {
+      "type": "header",
+      "content": "交互"
+    },
+    {
+      "type": "checkbox",
+      "id": "default_open_first_item",
+      "label": "默认展开第一个问题",
+      "default": false
     },
     {
       "type": "header",

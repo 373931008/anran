@@ -290,7 +290,7 @@
         "header_desc_size_mobile": 12,
         "header_margin_bottom_desktop": 40,
         "header_margin_bottom_mobile": 24,
-        "image_above_1": "shopify://shop_images/Group_158.png",
+        "image_above_1": "shopify://shop_images/Group_158_93d31f41-d333-474d-bbe0-510c6bfeea20.png",
         "quote_accent_color": "#1565d8",
         "space_between": 16,
         "autoplay_carousel": true,
@@ -1009,7 +1009,7 @@
             "feature_3": "Full access to live view & motion alerts",
             "feature_4": "Footage stays private and under your control",
             "button_label": "Buy now",
-            "button_link": "/"
+            "button_link": "/cart/41859158278221:1"
           }
         },
         "card-cloud": {
