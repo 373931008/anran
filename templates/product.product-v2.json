@@ -804,7 +804,9 @@
           "type": "tab",
           "settings": {
             "tab_label": "4K HDR",
-            "media_type": "video",
+            "media_type": "image",
+            "image_desktop": "shopify://shop_images/4K_HDR_Outdoor_Wireless_Video_Security_Camera.jpg",
+            "image_mobile": "shopify://shop_images/Security_Cameras_Color_Night_mobile.jpg",
             "video_desktop": "shopify://files/videos/Portrait_Mode_PC_xlarge.mp4"
           }
         },
@@ -821,7 +823,7 @@
           "settings": {
             "tab_label": "360° Coverage",
             "media_type": "image",
-            "image_desktop": "shopify://shop_images/Group_366.jpg"
+            "image_desktop": "shopify://shop_images/360_Coverage_Security_Camera_Wireless.jpg"
           }
         }
       },
