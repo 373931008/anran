@@ -814,7 +814,9 @@
           "type": "tab",
           "settings": {
             "tab_label": "Color Night",
-            "media_type": "video",
+            "media_type": "image",
+            "image_desktop": "shopify://shop_images/Wireless_Security_Cameras_Color_Night.jpg",
+            "image_mobile": "shopify://shop_images/Security_Cameras_Color_Night_MOBILE_2.jpg",
             "video_desktop": "shopify://files/videos/Invisible_selfie_stick_vid_pc_xlarge.mp4"
           }
         },
@@ -823,7 +825,8 @@
           "settings": {
             "tab_label": "360° Coverage",
             "media_type": "image",
-            "image_desktop": "shopify://shop_images/360_Coverage_Security_Camera_Wireless.jpg"
+            "image_desktop": "shopify://shop_images/360_Coverage_Security_Camera_Wireless.jpg",
+            "image_mobile": "shopify://shop_images/360_Coverage_Security_Camera_Wireless_mobile.jpg"
           }
         }
       },
