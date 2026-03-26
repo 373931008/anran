@@ -1,1 +1,454 @@
-{"sections":{"image_banner_JtXPm3":{"type":"image-banner","settings":{"image":"shopify:\/\/shop_images\/1920x800_85106592-59a2-466a-bef9-99b84caeb68e.jpg","image_overlay_opacity":0,"image_height":"adapt","image_behavior":"none","desktop_content_position":"middle-center","desktop_content_alignment":"center","show_text_box":true,"color_scheme":"","stack_images_on_mobile":true,"mobile_content_alignment":"center","show_text_below":true}},"rich_text_JyQFTr":{"type":"rich-text","blocks":{"heading_t38WBV":{"type":"heading","settings":{"heading":"<strong>Secure your home with ANRAN’s powerful solar-powered security cameras — now at unbeatable prices!<\/strong>","heading_size":"h2"}},"text_dg78Lx":{"type":"text","disabled":true,"settings":{"text":"<p>Share information about your brand with your customers. Describe a product, make announcements, or welcome customers to your store.<\/p>"}}},"block_order":["heading_t38WBV","text_dg78Lx"],"name":"t:sections.rich-text.presets.name","settings":{"desktop_content_position":"center","content_alignment":"center","color_scheme":"","full_width":true,"padding_top":16,"padding_bottom":16}},"featured_product_Uwfktx":{"type":"featured-product","blocks":{"text_Qb3GmQ":{"type":"text","settings":{"text":"<strong>ANRAN Q3 4K 8MP Solar Battery Camera<\/strong>","text_style":"body"}},"title_MaEgzx":{"type":"title","disabled":true,"settings":{"heading_size":"h1"}},"price_9nUrDb":{"type":"price","settings":{}},"variant_picker_YryzFM":{"type":"variant_picker","settings":{"picker_type":"dropdown"}},"quantity_selector_e6r6yQ":{"type":"quantity_selector","settings":{}},"buy_buttons_VQQATi":{"type":"buy_buttons","settings":{"show_dynamic_checkout":false,"show_gift_card_recipient":true}},"share_6aF3bF":{"type":"share","disabled":true,"settings":{"share_label":"Share"}}},"block_order":["text_Qb3GmQ","title_MaEgzx","price_9nUrDb","variant_picker_YryzFM","quantity_selector_e6r6yQ","buy_buttons_VQQATi","share_6aF3bF"],"settings":{"product":"anran-q3-4k-8mp-solar-battery-camera","color_scheme":"","secondary_background":false,"media_size":"medium","constrain_to_viewport":true,"media_fit":"contain","media_position":"left","image_zoom":"lightbox","hide_variants":false,"enable_video_looping":false,"padding_top":20,"padding_bottom":0}},"featured_product_ryDqrU":{"type":"featured-product","blocks":{"text_9Ve6ij":{"type":"text","settings":{"text":"{{ section.settings.product.vendor }}","text_style":"uppercase"}},"title_raiaCz":{"type":"title","settings":{"heading_size":"h1"}},"price_fgBHai":{"type":"price","settings":{}},"variant_picker_P9kbtP":{"type":"variant_picker","settings":{"picker_type":"button"}},"quantity_selector_QJ9etR":{"type":"quantity_selector","settings":{}},"buy_buttons_mexY64":{"type":"buy_buttons","settings":{"show_dynamic_checkout":false,"show_gift_card_recipient":true}},"share_gxTBtU":{"type":"share","disabled":true,"settings":{"share_label":"Share"}}},"block_order":["text_9Ve6ij","title_raiaCz","price_fgBHai","variant_picker_P9kbtP","quantity_selector_QJ9etR","buy_buttons_mexY64","share_gxTBtU"],"disabled":true,"name":"t:sections.featured-product.presets.name","settings":{"product":"anran-5mp-wifi-ptz-kit-8ch-nvr-2tb-hdd","color_scheme":"","secondary_background":false,"media_size":"medium","constrain_to_viewport":true,"media_fit":"contain","media_position":"left","image_zoom":"lightbox","hide_variants":false,"enable_video_looping":false,"padding_top":24,"padding_bottom":0}},"featured_collection_tYRY7x":{"type":"featured-collection","settings":{"collection":"flash-sale","products_to_show":10,"title":"New Year Sale Up to 65% OFF","heading_size":"h1","description":"","show_description":false,"description_style":"body","columns_desktop":5,"enable_desktop_slider":false,"full_width":false,"show_view_all":true,"view_all_style":"solid","color_scheme":"background-2","image_ratio":"adapt","image_shape":"default","show_secondary_image":true,"show_vendor":false,"show_rating":true,"columns_mobile":"2","swipe_on_mobile":false,"padding_top":36,"padding_bottom":36}},"main":{"type":"main-page","settings":{"padding_top":0,"padding_bottom":0}},"featured_collection_NWzLB3":{"type":"featured-collection","settings":{"collection":"solar-battery-powered-security-camera","products_to_show":8,"title":"New Year Sale for Solar Battery Camera","heading_size":"h2","description":"","show_description":false,"description_style":"body","columns_desktop":4,"enable_desktop_slider":false,"full_width":false,"show_view_all":false,"view_all_style":"solid","color_scheme":"background-2","image_ratio":"adapt","image_shape":"default","show_secondary_image":true,"show_vendor":false,"show_rating":true,"columns_mobile":"2","swipe_on_mobile":false,"padding_top":36,"padding_bottom":36}},"featured_collection_WTW636":{"type":"featured-collection","settings":{"collection":"security-camera-systems","products_to_show":8,"title":"New Year Sale for Security Camera System","heading_size":"h2","description":"","show_description":false,"description_style":"body","columns_desktop":4,"enable_desktop_slider":false,"full_width":false,"show_view_all":true,"view_all_style":"solid","color_scheme":"background-2","image_ratio":"adapt","image_shape":"default","show_secondary_image":true,"show_vendor":false,"show_rating":true,"columns_mobile":"2","swipe_on_mobile":false,"padding_top":36,"padding_bottom":36}},"rich_text_r7Pinj":{"type":"rich-text","blocks":{"heading_8fHtbn":{"type":"heading","disabled":true,"settings":{"heading":"","heading_size":"h2"}},"text_TWH3jy":{"type":"text","settings":{"text":"<h3>Secure your home with ANRAN’s powerful solar-powered security cameras — now at unbeatable prices!<br\/><\/h3><h3>Enjoy the sunshine and peace of mind with wire-free, weatherproof, and motion-activated cameras designed for effortless installation and round-the-clock protection. Whether you're at home or away, stay connected and in control via your smartphone.<\/h3>"}}},"block_order":["heading_8fHtbn","text_TWH3jy"],"name":"t:sections.rich-text.presets.name","settings":{"desktop_content_position":"center","content_alignment":"left","color_scheme":"background-1","full_width":true,"padding_top":20,"padding_bottom":24}},"page_pJfNp6":{"type":"page","name":"t:sections.page.presets.name","settings":{"page":"spring-sale","heading_size":"h1","color_scheme":"","padding_top":0,"padding_bottom":0}},"featured_blog_9yJyCM":{"type":"featured-blog","name":"t:sections.featured-blog.presets.name","settings":{"blog":"news","post_limit":3,"heading":"Blog posts","heading_size":"h1","columns_desktop":3,"show_view_all":true,"show_image":true,"show_date":true,"show_author":false,"color_scheme":"","padding_top":0,"padding_bottom":0}}},"order":["image_banner_JtXPm3","rich_text_JyQFTr","featured_product_Uwfktx","featured_product_ryDqrU","featured_collection_tYRY7x","main","featured_collection_NWzLB3","featured_collection_WTW636","rich_text_r7Pinj","page_pJfNp6","featured_blog_9yJyCM"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "177440908745c624b7": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_d986865_GLFWwf": {
+          "type": "ai_gen_block_d986865",
+          "settings": {
+            "desktop_image": "shopify://shop_images/1920x800_2_f8288318-5971-48ef-80ef-3f70d4dbf4fb.jpg",
+            "mobile_image": "shopify://shop_images/1125x750_2.jpg"
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_54918a1_chdQTX": {
+          "type": "ai_gen_block_54918a1",
+          "name": "多买多折",
+          "disabled": true,
+          "settings": {
+            "title": "多买多折优惠",
+            "title_size": 32,
+            "title_color": "#121212",
+            "tier_1_quantity": "买2件",
+            "tier_1_discount": "9折",
+            "tier_1_description": "享受9折优惠",
+            "tier_2_quantity": "买3件",
+            "tier_2_discount": "8折",
+            "tier_2_description": "享受8折优惠",
+            "tier_3_quantity": "买5件",
+            "tier_3_discount": "7折",
+            "tier_3_description": "享受7折优惠",
+            "max_width": 1200,
+            "background_color": "#ffffff",
+            "card_background": "#f9f9f9",
+            "card_border_width": 2,
+            "card_border_color": "#e0e0e0",
+            "card_border_radius": 8,
+            "quantity_size": 24,
+            "quantity_color": "#121212",
+            "discount_size": 36,
+            "discount_color": "#ff0000",
+            "description_size": 14,
+            "description_color": "#666666"
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_54918a1_HbXMem": {
+          "type": "ai_gen_block_54918a1",
+          "disabled": true,
+          "settings": {
+            "title": "多买多折优惠",
+            "title_size": 32,
+            "title_color": "#121212",
+            "tier_1_quantity": "买2件",
+            "tier_1_discount": "9折",
+            "tier_1_description": "享受9折优惠",
+            "tier_2_quantity": "买3件",
+            "tier_2_discount": "8折",
+            "tier_2_description": "享受8折优惠",
+            "tier_3_quantity": "买5件",
+            "tier_3_discount": "7折",
+            "tier_3_description": "享受7折优惠",
+            "max_width": 1200,
+            "background_color": "#ffffff",
+            "card_background": "#f9f9f9",
+            "card_border_width": 2,
+            "card_border_color": "#e0e0e0",
+            "card_border_radius": 8,
+            "quantity_size": 24,
+            "quantity_color": "#121212",
+            "discount_size": 36,
+            "discount_color": "#ff0000",
+            "description_size": 14,
+            "description_color": "#666666"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_d986865_GLFWwf",
+        "ai_gen_block_54918a1_chdQTX",
+        "ai_gen_block_54918a1_HbXMem"
+      ],
+      "settings": {}
+    },
+    "image_banner_JtXPm3": {
+      "type": "image-banner",
+      "disabled": true,
+      "settings": {
+        "image": "shopify://shop_images/1920x800_85106592-59a2-466a-bef9-99b84caeb68e.jpg",
+        "image_overlay_opacity": 0,
+        "image_height": "adapt",
+        "image_behavior": "none",
+        "desktop_content_position": "middle-center",
+        "desktop_content_alignment": "center",
+        "show_text_box": true,
+        "color_scheme": "",
+        "stack_images_on_mobile": true,
+        "mobile_content_alignment": "center",
+        "show_text_below": true
+      }
+    },
+    "rich_text_JyQFTr": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_t38WBV": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>Secure your home with ANRAN’s powerful solar-powered security cameras — now at unbeatable prices!</strong>",
+            "heading_size": "h2"
+          }
+        },
+        "text_dg78Lx": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "text": "<p>Share information about your brand with your customers. Describe a product, make announcements, or welcome customers to your store.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_t38WBV",
+        "text_dg78Lx"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 16,
+        "padding_bottom": 16
+      }
+    },
+    "featured_product_Uwfktx": {
+      "type": "featured-product",
+      "blocks": {
+        "text_Qb3GmQ": {
+          "type": "text",
+          "settings": {
+            "text": "<strong>ANRAN Q3 4K 8MP Solar Battery Camera</strong>",
+            "text_style": "body"
+          }
+        },
+        "title_MaEgzx": {
+          "type": "title",
+          "disabled": true,
+          "settings": {
+            "heading_size": "h1"
+          }
+        },
+        "price_9nUrDb": {
+          "type": "price",
+          "settings": {}
+        },
+        "variant_picker_YryzFM": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "dropdown",
+            "swatch_shape": "circle"
+          }
+        },
+        "quantity_selector_e6r6yQ": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons_VQQATi": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": false,
+            "show_gift_card_recipient": true
+          }
+        },
+        "share_6aF3bF": {
+          "type": "share",
+          "disabled": true,
+          "settings": {
+            "share_label": "Share"
+          }
+        }
+      },
+      "block_order": [
+        "text_Qb3GmQ",
+        "title_MaEgzx",
+        "price_9nUrDb",
+        "variant_picker_YryzFM",
+        "quantity_selector_e6r6yQ",
+        "buy_buttons_VQQATi",
+        "share_6aF3bF"
+      ],
+      "disabled": true,
+      "settings": {
+        "product": "anran-q3-4k-8mp-solar-battery-camera",
+        "color_scheme": "",
+        "secondary_background": false,
+        "media_size": "medium",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": false,
+        "enable_video_looping": false,
+        "padding_top": 20,
+        "padding_bottom": 0
+      }
+    },
+    "featured_product_ryDqrU": {
+      "type": "featured-product",
+      "blocks": {
+        "text_9Ve6ij": {
+          "type": "text",
+          "settings": {
+            "text": "{{ section.settings.product.vendor }}",
+            "text_style": "uppercase"
+          }
+        },
+        "title_raiaCz": {
+          "type": "title",
+          "settings": {
+            "heading_size": "h1"
+          }
+        },
+        "price_fgBHai": {
+          "type": "price",
+          "settings": {}
+        },
+        "variant_picker_P9kbtP": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatch_shape": "circle"
+          }
+        },
+        "quantity_selector_QJ9etR": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons_mexY64": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": false,
+            "show_gift_card_recipient": true
+          }
+        },
+        "share_gxTBtU": {
+          "type": "share",
+          "disabled": true,
+          "settings": {
+            "share_label": "Share"
+          }
+        }
+      },
+      "block_order": [
+        "text_9Ve6ij",
+        "title_raiaCz",
+        "price_fgBHai",
+        "variant_picker_P9kbtP",
+        "quantity_selector_QJ9etR",
+        "buy_buttons_mexY64",
+        "share_gxTBtU"
+      ],
+      "disabled": true,
+      "name": "t:sections.featured-product.presets.name",
+      "settings": {
+        "product": "anran-5mp-wifi-ptz-kit-8ch-nvr-2tb-hdd",
+        "color_scheme": "",
+        "secondary_background": false,
+        "media_size": "medium",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": false,
+        "enable_video_looping": false,
+        "padding_top": 24,
+        "padding_bottom": 0
+      }
+    },
+    "featured_collection_tYRY7x": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "flash-sale",
+        "products_to_show": 10,
+        "title": "New Year Sale Up to 65% OFF",
+        "heading_size": "h1",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 5,
+        "enable_desktop_slider": false,
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "color_scheme": "background-2",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": true,
+        "quick_add": "none",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "featured_collection_NWzLB3": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "solar-battery-powered-security-camera",
+        "products_to_show": 8,
+        "title": "New Year Sale for Solar Battery Camera",
+        "heading_size": "h2",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 4,
+        "enable_desktop_slider": false,
+        "full_width": false,
+        "show_view_all": false,
+        "view_all_style": "solid",
+        "color_scheme": "background-2",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": true,
+        "quick_add": "none",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "featured_collection_WTW636": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "security-camera-systems",
+        "products_to_show": 8,
+        "title": "New Year Sale for Security Camera System",
+        "heading_size": "h2",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 4,
+        "enable_desktop_slider": false,
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "color_scheme": "background-2",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": true,
+        "quick_add": "none",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "rich_text_r7Pinj": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_8fHtbn": {
+          "type": "heading",
+          "disabled": true,
+          "settings": {
+            "heading": "",
+            "heading_size": "h2"
+          }
+        },
+        "text_TWH3jy": {
+          "type": "text",
+          "settings": {
+            "text": "<h3>Secure your home with ANRAN’s powerful solar-powered security cameras — now at unbeatable prices!<br/></h3><h3>Enjoy the sunshine and peace of mind with wire-free, weatherproof, and motion-activated cameras designed for effortless installation and round-the-clock protection. Whether you're at home or away, stay connected and in control via your smartphone.</h3>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_8fHtbn",
+        "text_TWH3jy"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "left",
+        "color_scheme": "background-1",
+        "full_width": true,
+        "padding_top": 20,
+        "padding_bottom": 24
+      }
+    },
+    "page_pJfNp6": {
+      "type": "page",
+      "name": "t:sections.page.presets.name",
+      "settings": {
+        "page": "spring-sale",
+        "heading_size": "h1",
+        "color_scheme": "",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "featured_blog_9yJyCM": {
+      "type": "featured-blog",
+      "name": "t:sections.featured-blog.presets.name",
+      "settings": {
+        "blog": "news",
+        "post_limit": 3,
+        "heading": "Blog posts",
+        "heading_size": "h1",
+        "columns_desktop": 3,
+        "show_view_all": true,
+        "show_image": true,
+        "show_date": true,
+        "show_author": false,
+        "color_scheme": "",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    }
+  },
+  "order": [
+    "177440908745c624b7",
+    "image_banner_JtXPm3",
+    "rich_text_JyQFTr",
+    "featured_product_Uwfktx",
+    "featured_product_ryDqrU",
+    "featured_collection_tYRY7x",
+    "main",
+    "featured_collection_NWzLB3",
+    "featured_collection_WTW636",
+    "rich_text_r7Pinj",
+    "page_pJfNp6",
+    "featured_blog_9yJyCM"
+  ]
+}
