@@ -657,7 +657,7 @@
         "card-2": {
           "type": "card",
           "settings": {
-            "image": "shopify://shop_images/Rectangle_203.jpg",
+            "image": "shopify://shop_images/Anran_Security_Camera_Threat_prevention.jpg",
             "title": "Threat prevention",
             "description": "<p>Activate built-in spotlight or siren to deter intruders and add an extra layer of active protection.</p>"
           }
@@ -665,7 +665,7 @@
         "card-3": {
           "type": "card",
           "settings": {
-            "image": "shopify://shop_images/image_228.jpg",
+            "image": "shopify://shop_images/Anran_Camera_Custom_Alert_Zones_All-Round_Patrol.jpg",
             "title": "Custom Alert Zones & All-Round Patrol",
             "description": "<p>Set custom detection zones and sensitivity to focus on important areas and reduce false alerts.</p>"
           }
@@ -700,7 +700,7 @@
         "card-1": {
           "type": "card",
           "settings": {
-            "image": "shopify://shop_images/Rectangle_201.jpg",
+            "image": "shopify://shop_images/Solar_Powered_Security_Camera_Two-Way_Audio.jpg",
             "title": "Clear Audio and One-Tap Talk",
             "description": "<p>Enjoy clear, real-time two-way audio and start talking instantly with a single tap on your phone.</p>"
           }
@@ -708,7 +708,7 @@
         "card-2": {
           "type": "card",
           "settings": {
-            "image": "shopify://shop_images/image_214.jpg",
+            "image": "shopify://shop_images/Outdoor_Security_Cameras_Manage_Deliveries.jpg",
             "title": "Manage Deliveries and Deter Strangers",
             "description": "<p>Speak through the camera to deter unwanted visitors or guide deliveries—without opening the door.</p><p><em><strong>No door opening required.</strong></em></p>"
           }
