@@ -1006,13 +1006,13 @@
           "type": "card",
           "settings": {
             "image": "shopify://shop_images/Group_373.jpg",
-            "badge_label": "No Monthly Fees",
-            "card_title": "Local Storage (Free)",
-            "card_description": "Essential recording and playback — no subscription required.",
-            "feature_1": "Continuous or event-based local recording",
-            "feature_2": "Instant playback from device storage",
-            "feature_3": "Full access to live view & motion alerts",
-            "feature_4": "Footage stays private and under your control",
+            "badge_label": "Optional Backup",
+            "card_title": "Flexible Storage Options",
+            "card_description": "Choose local or cloud storage for event recording, footage stays private and under your control.",
+            "feature_1": "No monthly fees for local storage, full control",
+            "feature_2": "Supports 8–128GB microSD card (sold separately)",
+            "feature_3": "Free cloud storage with 6-second event recordings",
+            "feature_4": "Upgrade for 6–30 second videos with subscription",
             "button_label": "Buy now",
             "button_link": "/cart/41859158278221:1"
           }
@@ -1021,13 +1021,13 @@
           "type": "card",
           "settings": {
             "image": "shopify://shop_images/Group_372.jpg",
-            "badge_label": "Optional Backup",
-            "card_title": "Cloud Storage",
-            "card_description": "Extra protection and convenience — only if you choose.",
-            "feature_1": "Encrypted cloud backup",
-            "feature_2": "Extended video history",
-            "feature_3": "Easy sharing & remote access",
-            "feature_4": "Subscription required (optional, not mandatory)",
+            "badge_label": "Hands-Free",
+            "card_title": "Smart Voice Control",
+            "card_description": "Works with Alexa for easy hands-free live view access",
+            "feature_1": "View live footage with simple voice commands",
+            "feature_2": "Check your home anytime, anywhere",
+            "feature_3": "Compatible with Alexa-enabled devices",
+            "feature_4": "Get convenient hands-free control",
             "button_label": "Buy now",
             "button_link": "/"
           }
