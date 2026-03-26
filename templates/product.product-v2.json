@@ -113,7 +113,7 @@
             "heading": "Included in your Box",
             "content": "<ul><li>1 Wireless Solar Security Camera</li><li>1  3W Solar Panel</li><li>1 USB Charging Cable</li><li>1 Mounting Screw Pack</li><li>1 User Manual</li></ul>",
             "list_marker_color": "#adc5fa",
-            "image": "shopify://shop_images/image.webp",
+            "image": "shopify://shop_images/anran_Q3M8_product_box_list.jpg",
             "layout": "image_left_content_right"
           }
         },
@@ -1716,6 +1716,7 @@
         "padding_bottom_mobile": 40,
         "padding_top_desktop": 60,
         "padding_bottom_desktop": 60,
+        "default_open_first_item": false,
         "tab_text_color": "#2d4e76",
         "tab_border_color": "#d9e2f2",
         "tab_active_bg": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 57.21%)",
