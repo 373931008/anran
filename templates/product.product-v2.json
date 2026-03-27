@@ -915,37 +915,37 @@
         "scene-1": {
           "type": "scene_card",
           "settings": {
-            "image": "shopify://shop_images/image_213_1.jpg"
+            "image": "shopify://shop_images/Wireless_Cameras_For_Home_Security_1.jpg"
           }
         },
         "scene-2": {
           "type": "scene_card",
           "settings": {
-            "image": "shopify://shop_images/image_214_1.jpg"
+            "image": "shopify://shop_images/Solar_Powered_Security_Camera_Manage_Deliveries.jpg"
           }
         },
         "scene-3": {
           "type": "scene_card",
           "settings": {
-            "image": "shopify://shop_images/image_215.jpg"
+            "image": "shopify://shop_images/Outdoor_Security_Cameras_parking.jpg"
           }
         },
         "scene-4": {
           "type": "scene_card",
           "settings": {
-            "image": "shopify://shop_images/image_217.jpg"
+            "image": "shopify://shop_images/Wireless_Security_Camera_warehouse.jpg"
           }
         },
         "scene_card_YMaexJ": {
           "type": "scene_card",
           "settings": {
-            "image": "shopify://shop_images/image_217.jpg"
+            "image": "shopify://shop_images/Wireless_Security_Cameras_For_Home_2.jpg"
           }
         },
         "scene_card_My469f": {
           "type": "scene_card",
           "settings": {
-            "image": "shopify://shop_images/image_217.jpg"
+            "image": "shopify://shop_images/Wireless_Outdoor_Security_Cameras_Store.jpg"
           }
         }
       },
@@ -991,7 +991,7 @@
         "header_margin_bottom_desktop": 40,
         "header_margin_bottom_mobile": 24,
         "image_desktop": "shopify://shop_images/Group_371.jpg",
-        "image_mobile": "shopify://shop_images/image_303.jpg",
+        "image_mobile": "shopify://shop_images/Wireless_Home_Security_Camera_Systems.jpg",
         "bg_color": "#FFFFFF",
         "padding_top_mobile": 40,
         "padding_bottom_mobile": 40,
