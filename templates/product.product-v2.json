@@ -1091,8 +1091,8 @@
           "settings": {
             "media_type": "image",
             "image": "shopify://shop_images/Security_Privacy_Controls.jpg",
-            "title": "Security & Privacy Controls",
-            "description": "Manage permissions, access, and key security settings to keep your data protected."
+            "title": "Custom Privacy Zones",
+            "description": "Decide what your camera sees — and what it doesn’t — with easy-to-set privacy zones."
           }
         }
       },
