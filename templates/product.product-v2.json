@@ -800,6 +800,16 @@
     "q-camera-showcase": {
       "type": "q-camera-showcase",
       "blocks": {
+        "tab-2": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "Color Night",
+            "media_type": "image",
+            "image_desktop": "shopify://shop_images/Wireless_Security_Cameras_Color_Night_27408468-30f5-4fcc-a875-c446937a59d0.jpg",
+            "image_mobile": "shopify://shop_images/Wireless_Security_Cameras_Color_Night_mo.jpg",
+            "video_desktop": "shopify://files/videos/Invisible_selfie_stick_vid_pc_xlarge.mp4"
+          }
+        },
         "tab-1": {
           "type": "tab",
           "settings": {
@@ -808,16 +818,6 @@
             "image_desktop": "shopify://shop_images/4K_HDR_Outdoor_Wireless_Video_Security_Camera.jpg",
             "image_mobile": "shopify://shop_images/Security_Cameras_Color_Night_mobile.jpg",
             "video_desktop": "shopify://files/videos/Portrait_Mode_PC_xlarge.mp4"
-          }
-        },
-        "tab-2": {
-          "type": "tab",
-          "settings": {
-            "tab_label": "Color Night",
-            "media_type": "image",
-            "image_desktop": "shopify://shop_images/Wireless_Security_Cameras_Color_Night.jpg",
-            "image_mobile": "shopify://shop_images/Security_Cameras_Color_Night_MOBILE_2.jpg",
-            "video_desktop": "shopify://files/videos/Invisible_selfie_stick_vid_pc_xlarge.mp4"
           }
         },
         "tab-3": {
@@ -831,8 +831,8 @@
         }
       },
       "block_order": [
-        "tab-1",
         "tab-2",
+        "tab-1",
         "tab-3"
       ],
       "settings": {
