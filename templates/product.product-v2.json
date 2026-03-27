@@ -578,8 +578,8 @@
         "card_bg_color": "#000000",
         "padding_top_mobile": 0,
         "padding_bottom_mobile": 0,
-        "padding_top_desktop": 100,
-        "padding_bottom_desktop": 100
+        "padding_top_desktop": 80,
+        "padding_bottom_desktop": 80
       }
     },
     "q-smart-detection": {
