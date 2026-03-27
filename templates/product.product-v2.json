@@ -1005,7 +1005,7 @@
         "card-local": {
           "type": "card",
           "settings": {
-            "image": "shopify://shop_images/Group_373.jpg",
+            "image": "shopify://shop_images/Security_Camera_Local_Storage_Free.jpg",
             "badge_label": "Optional Backup",
             "card_title": "Flexible Storage Options",
             "card_description": "Choose local or cloud storage for event recording, footage stays private and under your control.",
@@ -1020,7 +1020,7 @@
         "card-cloud": {
           "type": "card",
           "settings": {
-            "image": "shopify://shop_images/Group_372.jpg",
+            "image": "shopify://shop_images/Security_Camera_Alexa_works.jpg",
             "badge_label": "Hands-Free",
             "card_title": "Smart Voice Control",
             "card_description": "Works with Alexa for easy hands-free live view access",
