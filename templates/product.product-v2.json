@@ -1070,7 +1070,8 @@
         "feature-2": {
           "type": "feature",
           "settings": {
-            "media_type": "video",
+            "media_type": "image",
+            "image": "shopify://shop_images/Smart_Alerts_That_Matter.jpg",
             "video": "shopify://files/videos/PureVideo_Mode_vid_pc_new.mp4",
             "title": "Smart Alerts That Matter",
             "description": "Get real-time notifications with visual previews, so you never miss what matters."
@@ -1080,7 +1081,7 @@
           "type": "feature",
           "settings": {
             "media_type": "image",
-            "image": "shopify://shop_images/Group_179.jpg",
+            "image": "shopify://shop_images/Connected_Devices.jpg",
             "title": "Connected Devices",
             "description": "View, manage, and securely share devices with family from one app."
           }
@@ -1089,7 +1090,7 @@
           "type": "feature",
           "settings": {
             "media_type": "image",
-            "image": "shopify://shop_images/Group_179.jpg",
+            "image": "shopify://shop_images/Security_Privacy_Controls.jpg",
             "title": "Security & Privacy Controls",
             "description": "Manage permissions, access, and key security settings to keep your data protected."
           }
