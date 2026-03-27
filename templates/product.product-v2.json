@@ -1308,7 +1308,7 @@
         "hero_desc_size_desktop": 16,
         "hero_desc_size_mobile": 12,
         "hero_desc_color": "#4e5357",
-        "hero_product_image": "shopify://shop_images/image_294.jpg",
+        "hero_product_image": "shopify://shop_images/anran_Q3M8_product_box_list.jpg",
         "btn_label": "Buy Now",
         "btn_link": "/",
         "btn_bg_color": "#1565d8",
@@ -1317,7 +1317,7 @@
         "hero_padding_top_mobile": 40,
         "hero_padding_bottom_mobile": 40,
         "hero_padding_top_desktop": 60,
-        "hero_padding_bottom_desktop": 60
+        "hero_padding_bottom_desktop": 32
       }
     },
     "q-trial-guarantee": {
@@ -1364,8 +1364,8 @@
         "btn_text_color": "#ffffff",
         "padding_top_mobile": 32,
         "padding_bottom_mobile": 32,
-        "padding_top_desktop": 60,
-        "padding_bottom_desktop": 60
+        "padding_top_desktop": 40,
+        "padding_bottom_desktop": 40
       }
     },
     "q-product-specs": {
@@ -1533,8 +1533,8 @@
         "btn_text_color": "#404040",
         "padding_top_mobile": 40,
         "padding_bottom_mobile": 40,
-        "padding_top_desktop": 60,
-        "padding_bottom_desktop": 60
+        "padding_top_desktop": 40,
+        "padding_bottom_desktop": 32
       }
     },
     "q-service-features": {
@@ -1584,7 +1584,7 @@
         "header_description": "",
         "header_center": true,
         "header_em_color": "#FF6B35",
-        "header_title_size_desktop": 42,
+        "header_title_size_desktop": 36,
         "header_title_size_mobile": 26,
         "header_desc_size_desktop": 16,
         "header_desc_size_mobile": 12,
@@ -1594,7 +1594,7 @@
         "card_bg_color": "#f9f9f9",
         "padding_top_mobile": 40,
         "padding_bottom_mobile": 40,
-        "padding_top_desktop": 60,
+        "padding_top_desktop": 40,
         "padding_bottom_desktop": 60
       }
     },
