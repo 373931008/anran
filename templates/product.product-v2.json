@@ -1201,7 +1201,7 @@
         "product-1": {
           "type": "product",
           "settings": {
-            "product_image": "shopify://shop_images/Group_562.png",
+            "product_image": "shopify://shop_images/Wireless_Security_Cameras_Q3M8.png",
             "product_name": "Q3M8",
             "specs": "<p>2K / 3MP</p><p>360 Degrees</p><p>50 Feet</p><p>Wi-Fi</p><p>Alexa, Assistant</p><p>Solar & Battery Powered</p><p>Night Color</p><p>5000 mAh, 5W, 5V</p><p>SD Card, up to 128GB</p>",
             "button_link": "/",
@@ -1211,7 +1211,7 @@
         "product-2": {
           "type": "product",
           "settings": {
-            "product_image": "shopify://shop_images/Group_561.png",
+            "product_image": "shopify://shop_images/Solar_Powered_Security_Cameras_C3M5.png",
             "product_name": "C3M5",
             "specs": "<p>3MP</p><p>135 Degrees</p><p>55 Feet</p><p>Wi-Fi</p><p>Amazon Alexa</p><p>Solar Powered</p><p>Night Color</p><p>5000 mAh, 5W, 5V</p><p>SD Card, up to 128GB</p>",
             "button_link": "/",
@@ -1221,9 +1221,9 @@
         "product-3": {
           "type": "product",
           "settings": {
-            "product_image": "shopify://shop_images/Group_560.png",
+            "product_image": "shopify://shop_images/Anran_Solar_Security_Camera_Q4M5.png",
             "product_name": "Q4M5",
-            "specs": "<p>2K / 3MP</p><p>360 Degrees</p><p>50 Feet</p><p>Wi-Fi</p><p>Alexa, Assistant</p><p>Solar &amp; Battery Powered</p><p>Night Color</p><p>5000 mAh, 5W, 5V</p><p>SD Card, up to 128GB</p>",
+            "specs": "<p>2K / 3MP</p><p>360 Degrees</p><p>50 Feet</p><p>Wi-Fi</p><p>Alexa, Assistant</p><p>Solar & Battery Powered</p><p>Night Color</p><p>5000 mAh, 5W, 5V</p><p>SD Card, up to 128GB</p>",
             "button_link": "/",
             "button_label": "Shop now"
           }
