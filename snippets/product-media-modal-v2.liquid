@@ -1,0 +1,192 @@
+{% comment %}
+  Renders a product media modal. Also see 'product-media-gallery'
+
+  Accepts:
+  - product: {Object} Product liquid object
+  - variant_images: {Array} Product images associated with a variant
+
+  Usage:
+  {% render 'product-media-modal' %}
+{% endcomment %}
+
+<product-modal id="ProductModal-{{ section.id }}" class="product-media-modal media-modal">
+  <div
+    class="product-media-modal__dialog color-{{ section.settings.color_scheme }} gradient"
+    role="dialog"
+    aria-label="{{ 'products.modal.label' | t }}"
+    aria-modal="true"
+    tabindex="-1"
+  >
+    <button
+      id="ModalClose-{{ section.id }}"
+      type="button"
+      class="product-media-modal__toggle"
+      aria-label="{{ 'accessibility.close' | t }}"
+    >
+      {{ 'icon-close.svg' | inline_asset_content }}
+    </button>
+
+    <div
+      class="product-media-modal__content color-{{ section.settings.color_scheme }} gradient product-media-modal__content--v2"
+      role="document"
+      aria-label="{{ 'products.modal.label' | t }}"
+      tabindex="0"
+    >
+      {%- comment -%}
+        v2：仅图片进入“主图轮播 + 缩略图画廊”（联动切换）。
+      {%- endcomment -%}
+
+      {%- liquid
+        assign use_variant_featured_media = section.settings.use_variant_featured_media
+        assign should_hide_variant_media = section.settings.hide_variants
+
+        if use_variant_featured_media == false
+          assign should_hide_variant_media = true
+        endif
+
+        assign featured_media = product.selected_or_first_available_variant.featured_media
+
+        if use_variant_featured_media == false
+          if featured_media == null or featured_media.media_type == 'image' and variant_images contains featured_media.src
+            assign featured_media = nil
+          endif
+
+          if featured_media == nil
+            for media in product.media
+              unless media.media_type == 'image' and variant_images contains media.src
+                assign featured_media = media
+                break
+              endunless
+            endfor
+          endif
+        endif
+
+        assign featured_image = nil
+        if featured_media != null and featured_media.media_type == 'image'
+          assign featured_image = featured_media
+        endif
+
+        if featured_image == nil
+          for media in product.media
+            if media.media_type == 'image'
+              if should_hide_variant_media and variant_images contains media.src
+                continue
+              endif
+
+              assign featured_image = media
+              break
+            endif
+          endfor
+        endif
+      -%}
+
+      <deferred-media class="product-media-modal__swipers-shell">
+      <swiper-container
+        id="ProductModalMain-{{ section.id }}"
+        class="product-media-modal__main-swiper active"
+        draggable="false"
+        slides-per-view="1"
+        space-between="0"
+        grab-cursor="true"
+        loop="false"
+        thumbs-swiper="#ProductModalThumbs-{{ section.id }}"
+      >
+        {%- if featured_image != null -%}
+          <swiper-slide data-media-id="{{ featured_image.id }}" draggable="false">
+            <div class="product-media-modal__image-wrap">
+              {{
+                featured_image.preview_image
+                | image_url: width: 2048
+                | image_tag:
+                  loading: 'eager',
+                  draggable: false,
+                  widths: '600,800,1000,1200,1600,2048',
+                  sizes: '(min-width: 750px) 747px, 100vw',
+                  alt: featured_image.alt
+              }}
+            </div>
+          </swiper-slide>
+        {%- endif -%}
+
+        {%- for media in product.media -%}
+          {%- if media.media_type != 'image' -%}
+            {% continue %}
+          {%- endif -%}
+          {%- if featured_image != null and media.id == featured_image.id -%}
+            {% continue %}
+          {%- endif -%}
+          {%- if should_hide_variant_media and variant_images contains media.src -%}
+            {% continue %}
+          {%- endif -%}
+
+          <swiper-slide data-media-id="{{ media.id }}" draggable="false">
+            <div class="product-media-modal__image-wrap">
+              {{
+                media.preview_image
+                | image_url: width: 2048
+                | image_tag:
+                  loading: 'lazy',
+                  draggable: false,
+                  widths: '600,800,1000,1200,1600,2048',
+                  sizes: '(min-width: 750px) 747px, 100vw',
+                  alt: media.alt
+              }}
+            </div>
+          </swiper-slide>
+        {%- endfor -%}
+      </swiper-container>
+
+      <swiper-container
+        id="ProductModalThumbs-{{ section.id }}"
+        class="product-media-modal__thumbs-swiper active"
+        draggable="false"
+        slides-per-view="auto"
+        space-between="8"
+        grab-cursor="true"
+        loop="false"
+        watch-slides-progress="true"
+      >
+        {%- if featured_image != null -%}
+          <swiper-slide data-media-id="{{ featured_image.id }}" draggable="false">
+            {{
+              featured_image.preview_image
+              | image_url: width: 416
+              | image_tag:
+                loading: 'lazy',
+                draggable: false,
+                widths: '54,74,104,162,208,324,416',
+                sizes: '80px',
+                alt: featured_image.alt
+            }}
+          </swiper-slide>
+        {%- endif -%}
+
+        {%- for media in product.media -%}
+          {%- if media.media_type != 'image' -%}
+            {% continue %}
+          {%- endif -%}
+          {%- if featured_image != null and media.id == featured_image.id -%}
+            {% continue %}
+          {%- endif -%}
+          {%- if should_hide_variant_media and variant_images contains media.src -%}
+            {% continue %}
+          {%- endif -%}
+
+          <swiper-slide data-media-id="{{ media.id }}" draggable="false">
+            {{
+              media.preview_image
+              | image_url: width: 416
+              | image_tag:
+                loading: 'lazy',
+                draggable: false,
+                widths: '54,74,104,162,208,324,416',
+                sizes: '80px',
+                alt: media.alt
+            }}
+          </swiper-slide>
+        {%- endfor -%}
+      </swiper-container>
+      </deferred-media>
+    </div>
+  </div>
+</product-modal>

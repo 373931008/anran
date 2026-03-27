@@ -20,6 +20,7 @@
   {% endif %}
 >
   {{ 'section-main-product.css' | asset_url | stylesheet_tag }}
+  {{ 'section-main-product-v2.css' | asset_url | stylesheet_tag }}
   {{ 'component-accordion.css' | asset_url | stylesheet_tag }}
   {{ 'component-price-v2.css' | asset_url | stylesheet_tag }}
   {{ 'component-slider.css' | asset_url | stylesheet_tag }}
@@ -129,7 +130,7 @@
     @media screen and (min-width: 750px) {
       .product-media-modal__content>* {
         width: 100%;
-        max-width: 900px;
+        max-width: 747px;
         margin: 0 auto;
       }
     }
@@ -840,7 +841,7 @@
       </div>
     </div>
 
-    {% render 'product-media-modal', variant_images: variant_images %}
+    {% render 'product-media-modal-v2', variant_images: variant_images %}
 
     {% assign popups = section.blocks | where: 'type', 'popup' %}
     {%- for block in popups -%}
@@ -1021,7 +1022,7 @@
     {%- endfor -%}
 
     {%- if product.media.size > 0 -%}
-      <script src="{{ 'product-modal.js' | asset_url }}" defer="defer"></script>
+      <script src="{{ 'product-modal-v2.js' | asset_url }}" defer="defer"></script>
       <script src="{{ 'media-gallery.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
 
