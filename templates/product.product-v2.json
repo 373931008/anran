@@ -825,8 +825,8 @@
           "settings": {
             "tab_label": "360° Coverage",
             "media_type": "image",
-            "image_desktop": "shopify://shop_images/360_Coverage_Security_Camera_Wireless.jpg",
-            "image_mobile": "shopify://shop_images/360_Coverage_Security_Camera_Wireless_mobile.jpg"
+            "image_desktop": "shopify://shop_images/360_Coverage_Security_Camera_1.jpg",
+            "image_mobile": "shopify://shop_images/360_Coverage_Security_Camera_mobile.jpg"
           }
         }
       },
