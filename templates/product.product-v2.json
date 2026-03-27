@@ -732,7 +732,7 @@
         "bg_color": "#FFFFFF",
         "padding_top_mobile": 40,
         "padding_bottom_mobile": 40,
-        "padding_top_desktop": 60,
+        "padding_top_desktop": 40,
         "padding_bottom_desktop": 60
       }
     },
@@ -792,7 +792,7 @@
         "padding_top_mobile": 40,
         "padding_bottom_mobile": 40,
         "padding_top_desktop": 60,
-        "padding_bottom_desktop": 60,
+        "padding_bottom_desktop": 40,
         "autoplay_carousel": false,
         "autoplay_delay": 5
       }
@@ -850,8 +850,8 @@
         "bg_color": "#FFFFFF",
         "padding_top_mobile": 40,
         "padding_bottom_mobile": 40,
-        "padding_top_desktop": 60,
-        "padding_bottom_desktop": 60
+        "padding_top_desktop": 52,
+        "padding_bottom_desktop": 40
       }
     },
     "q-battery-life": {
@@ -996,7 +996,7 @@
         "padding_top_mobile": 40,
         "padding_bottom_mobile": 40,
         "padding_top_desktop": 60,
-        "padding_bottom_desktop": 60
+        "padding_bottom_desktop": 72
       }
     },
     "q-storage-options": {
@@ -1052,7 +1052,7 @@
         "padding_top_mobile": 40,
         "padding_bottom_mobile": 40,
         "padding_top_desktop": 60,
-        "padding_bottom_desktop": 60
+        "padding_bottom_desktop": 72
       }
     },
     "q-app-features": {
@@ -1140,8 +1140,8 @@
         "bg_color": "#f3f7ff",
         "padding_top_mobile": 40,
         "padding_bottom_mobile": 40,
-        "padding_top_desktop": 60,
-        "padding_bottom_desktop": 60
+        "padding_top_desktop": 80,
+        "padding_bottom_desktop": 80
       }
     },
     "q-setup-steps": {
