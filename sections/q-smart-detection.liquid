@@ -299,7 +299,7 @@
           {%- if section.settings.side_image_1 != blank -%}
             <div class="q-smart-detection__side-img q-smart-detection__side-img--left-top">
               <img
-                src="{{ section.settings.side_image_1 | image_url: width: 340 }}"
+                src="{{ section.settings.side_image_1 | image_url: width: 200 }}"
                 alt=""
                 loading="lazy"
                 width="167"
@@ -311,7 +311,7 @@
           {%- if section.settings.side_image_2 != blank -%}
             <div class="q-smart-detection__side-img q-smart-detection__side-img--left-mid">
               <img
-                src="{{ section.settings.side_image_2 | image_url: width: 340 }}"
+                src="{{ section.settings.side_image_2 | image_url: width: 200 }}"
                 alt=""
                 loading="lazy"
                 width="167"
@@ -324,7 +324,7 @@
             <div class="q-smart-detection__phone-frame">
               <div class="q-smart-detection__phone-screen">
                 {%- if section.settings.video != blank -%}
-                  {{ section.settings.video | video_tag: class:'q-smart-detection__video', image_size: '800x', autoplay: true, loop: true, muted: true, playsinline: true }}
+                  {{ section.settings.video | video_tag: class:'q-smart-detection__video', image_size: '400x', autoplay: true, loop: true, muted: true, playsinline: true }}
                 {%- endif -%}
               </div>
             </div>
@@ -333,7 +333,7 @@
           {%- if section.settings.side_image_3 != blank -%}
             <div class="q-smart-detection__side-img q-smart-detection__side-img--right-top">
               <img
-                src="{{ section.settings.side_image_3 | image_url: width: 340 }}"
+                src="{{ section.settings.side_image_3 | image_url: width: 200 }}"
                 alt=""
                 loading="lazy"
                 width="167"
