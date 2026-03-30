@@ -402,7 +402,7 @@
           "settings": {
             "image": "{{ product.metafields.custom.overview_extra_image_03.value }}",
             "title": "",
-            "text": "{{ product.metafields.custom.overview_extra_text_04 | metafield_tag }}",
+            "text": "{{ product.metafields.custom.overview_extra_text_03 | metafield_tag }}",
             "link_label": "",
             "link": ""
           }
