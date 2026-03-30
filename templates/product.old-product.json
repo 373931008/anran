@@ -356,7 +356,7 @@
       ],
       "name": "q-camera-showcase",
       "settings": {
-        "header_title": "<em>See Details</em> in the Dark",
+        "header_title": "<em>Whay Choose</em> This Camera?",
         "header_description": "",
         "header_center": true,
         "header_em_color": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 100%)",
