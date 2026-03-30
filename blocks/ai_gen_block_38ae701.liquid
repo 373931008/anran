@@ -1,0 +1,886 @@
+{% doc %}
+  @prompt
+    生成一个产品列表, 内容需要在标题下增加小描述，
+    整个模块两侧留白，且可以控制上下左右的边距，还可以设置整体模块的底色，
+    所有卡片 等高（equal height），底部元素（价格 + 按钮）底对齐（bottom aligned），中间内容用留白撑开（flexible spacing）
+    增加加购按钮，且可以设置按钮的大小, 按钮设置只留一个按钮文字就好，点击跳转至对应产品的页面，不需要加载中文字和成功蚊子；现价格在原价前面，且可以分别控制现价和原价的字体大小和颜色, 标题下面显示描述内容前面总字符数80 个字符（含空格），并设置显示和不显示的开关；增加产品评论的星级和评分数值，也设置可开可关；在促销标签做成优惠了多少金额,标签的样式在左上角，贴着左上角的边边, 评分分数可以跟随产品系统自带的,不需要显示评论数量；标题下的描述不用设置开关，我说的是每个产品标题下方增加产品自带的描述，并且设置开关，显示80个字符含空格的, 产品标题需要增加pc端和移动端的字体大小分开设置，星级和评分要在同一行垂直居中，促销标签可以设置大小, 可以设置卡片网络行间距和列间距分开控制，产品描述的字体大小也需要可设置
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-product-list-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    background-color: {{ block.settings.section_background }};
+    padding: {{ block.settings.padding_top }}px {{ block.settings.padding_horizontal }}px {{ block.settings.padding_bottom }}px {{ block.settings.padding_horizontal }}px;
+  }
+
+  .ai-product-list__container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.container_width }}px;
+    margin: 0 auto;
+  }
+
+  .ai-product-list__header-{{ ai_gen_id }} {
+    text-align: {{ block.settings.heading_alignment }};
+    margin-bottom: {{ block.settings.heading_spacing }}px;
+  }
+
+  .ai-product-list__title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.heading_size }}px;
+    color: {{ block.settings.heading_color }};
+    margin: 0 0 12px 0;
+    font-weight: 600;
+  }
+
+  .ai-product-list__description-{{ ai_gen_id }} {
+    font-size: {{ block.settings.description_size }}px;
+    color: {{ block.settings.description_color }};
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .ai-product-list__grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat({{ block.settings.columns_desktop }}, 1fr);
+    column-gap: {{ block.settings.grid_gap_horizontal }}px;
+    row-gap: {{ block.settings.grid_gap_vertical }}px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .ai-product-list__item-{{ ai_gen_id }} {
+    position: relative;
+    display: flex;
+  }
+
+  .ai-product-list__card-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+    background-color: {{ block.settings.card_background }};
+    border-radius: {{ block.settings.card_border_radius }}px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .ai-product-list__card-{{ ai_gen_id }}:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  .ai-product-list__image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%;
+    overflow: hidden;
+    background-color: #f4f4f4;
+  }
+
+  .ai-product-list__image-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-product-list__placeholder-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f4f4f4;
+  }
+
+  .ai-product-list__placeholder-{{ ai_gen_id }} svg {
+    width: 60%;
+    height: 60%;
+    opacity: 0.3;
+  }
+
+  .ai-product-list__badge-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: {{ block.settings.badge_background }};
+    color: {{ block.settings.badge_text_color }};
+    padding: {{ block.settings.badge_padding }}px {{ block.settings.badge_padding | times: 1.5 }}px;
+    font-size: {{ block.settings.badge_font_size }}px;
+    font-weight: 600;
+    z-index: 1;
+    border-bottom-right-radius: 8px;
+    line-height: 1.2;
+  }
+
+  .ai-product-list__info-{{ ai_gen_id }} {
+    padding: {{ block.settings.card_padding }}px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .ai-product-list__content-{{ ai_gen_id }} {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .ai-product-list__vendor-{{ ai_gen_id }} {
+    font-size: 12px;
+    color: {{ block.settings.vendor_color }};
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .ai-product-list__product-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.product_title_size_desktop }}px;
+    color: {{ block.settings.product_title_color }};
+    margin: 0;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  .ai-product-list__product-description-{{ ai_gen_id }} {
+    font-size: {{ block.settings.product_description_size }}px;
+    color: #666666;
+    line-height: 1.5;
+    margin: 4px 0 0 0;
+  }
+
+  .ai-product-list__rating-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 4px;
+  }
+
+  .ai-product-list__stars-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .ai-product-list__star-{{ ai_gen_id }} {
+    width: 14px;
+    height: 14px;
+    fill: {{ block.settings.star_color }};
+  }
+
+  .ai-product-list__star--empty-{{ ai_gen_id }} {
+    fill: #e0e0e0;
+  }
+
+  .ai-product-list__rating-value-{{ ai_gen_id }} {
+    font-size: 12px;
+    color: #666666;
+    font-weight: 500;
+    line-height: 1;
+  }
+
+  .ai-product-list__bottom-{{ ai_gen_id }} {
+    margin-top: auto;
+    padding-top: 12px;
+  }
+
+  .ai-product-list__price-{{ ai_gen_id }} {
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .ai-product-list__price--current-{{ ai_gen_id }} {
+    font-size: {{ block.settings.current_price_size }}px;
+    color: {{ block.settings.current_price_color }};
+    font-weight: 600;
+  }
+
+  .ai-product-list__price--compare-{{ ai_gen_id }} {
+    font-size: {{ block.settings.compare_price_size }}px;
+    color: {{ block.settings.compare_price_color }};
+    text-decoration: line-through;
+    font-weight: 400;
+  }
+
+  .ai-product-list__button-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    padding: {{ block.settings.button_padding }}px;
+    background-color: {{ block.settings.button_background }};
+    color: {{ block.settings.button_text_color }};
+    border: none;
+    border-radius: {{ block.settings.button_border_radius }}px;
+    font-size: {{ block.settings.button_font_size }}px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+  }
+
+  .ai-product-list__button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_background }};
+  }
+
+  .ai-product-list__empty-{{ ai_gen_id }} {
+    text-align: center;
+    padding: 60px 20px;
+    color: #666;
+    font-size: 16px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-product-list-{{ ai_gen_id }} {
+      padding: {{ block.settings.padding_top | times: 0.6 }}px {{ block.settings.padding_horizontal | times: 0.5 }}px {{ block.settings.padding_bottom | times: 0.6 }}px {{ block.settings.padding_horizontal | times: 0.5 }}px;
+    }
+
+    .ai-product-list__grid-{{ ai_gen_id }} {
+      grid-template-columns: repeat({{ block.settings.columns_mobile }}, 1fr);
+      column-gap: {{ block.settings.grid_gap_horizontal | times: 0.7 }}px;
+      row-gap: {{ block.settings.grid_gap_vertical | times: 0.7 }}px;
+    }
+
+    .ai-product-list__title-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.heading_size }}px * 0.8);
+    }
+
+    .ai-product-list__description-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.description_size }}px * 0.9);
+    }
+
+    .ai-product-list__product-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.product_title_size_mobile }}px;
+    }
+
+    .ai-product-list__product-description-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.product_description_size }}px * 0.9);
+    }
+
+    .ai-product-list__badge-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.badge_font_size }}px * 0.9);
+      padding: calc({{ block.settings.badge_padding }}px * 0.8) calc({{ block.settings.badge_padding | times: 1.5 }}px * 0.8);
+    }
+  }
+{% endstyle %}
+
+<product-list-{{ ai_gen_id }} class="ai-product-list-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-product-list__container-{{ ai_gen_id }}">
+    {% if block.settings.heading != blank or block.settings.description != blank %}
+      <div class="ai-product-list__header-{{ ai_gen_id }}">
+        {% if block.settings.heading != blank %}
+          <h2 class="ai-product-list__title-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
+        {% endif %}
+        {% if block.settings.description != blank %}
+          <div class="ai-product-list__description-{{ ai_gen_id }}">{{ block.settings.description }}</div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if block.settings.products != blank %}
+      <ul class="ai-product-list__grid-{{ ai_gen_id }}">
+        {% for product in block.settings.products %}
+          <li class="ai-product-list__item-{{ ai_gen_id }}">
+            <div class="ai-product-list__card-{{ ai_gen_id }}">
+              <a href="{{ product.url }}" class="ai-product-list__image-wrapper-{{ ai_gen_id }}">
+                {% if product.featured_image %}
+                  <img
+                    src="{{ product.featured_image | image_url: width: 600 }}"
+                    alt="{{ product.featured_image.alt | escape }}"
+                    class="ai-product-list__image-{{ ai_gen_id }}"
+                    loading="lazy"
+                    width="600"
+                    height="600"
+                  >
+                {% else %}
+                  <div class="ai-product-list__placeholder-{{ ai_gen_id }}">
+                    {{ 'product-1' | placeholder_svg_tag }}
+                  </div>
+                {% endif %}
+
+                {% if product.compare_at_price > product.price %}
+                  {% assign savings = product.compare_at_price | minus: product.price %}
+                  <span class="ai-product-list__badge-{{ ai_gen_id }}">
+                    -{{ savings | money }}
+                  </span>
+                {% endif %}
+              </a>
+
+              <div class="ai-product-list__info-{{ ai_gen_id }}">
+                <div class="ai-product-list__content-{{ ai_gen_id }}">
+                  {% if block.settings.show_vendor and product.vendor != blank %}
+                    <div class="ai-product-list__vendor-{{ ai_gen_id }}">{{ product.vendor }}</div>
+                  {% endif %}
+
+                  <a href="{{ product.url }}" style="text-decoration: none; color: inherit;">
+                    <h3 class="ai-product-list__product-title-{{ ai_gen_id }}">{{ product.title }}</h3>
+                  </a>
+
+                  {% if block.settings.show_product_description and product.description != blank %}
+                    {% assign description_text = product.description | strip_html | truncate: 80 %}
+                    <p class="ai-product-list__product-description-{{ ai_gen_id }}">{{ description_text }}</p>
+                  {% endif %}
+
+                  {% if block.settings.show_rating %}
+                    <div class="ai-product-list__rating-{{ ai_gen_id }}">
+                      <div class="ai-product-list__stars-{{ ai_gen_id }}">
+                        {% if product.metafields.reviews.rating.value != blank %}
+                          {% assign rating = product.metafields.reviews.rating.value.rating %}
+                          {% assign rating_decimal = rating | modulo: 1 %}
+                          {% assign rating_whole = rating | floor %}
+                          {% assign next_star = rating_whole | plus: 1 %}
+                          
+                          {% for i in (1..5) %}
+                            {% if i <= rating_whole %}
+                              <svg class="ai-product-list__star-{{ ai_gen_id }}" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                              </svg>
+                            {% elsif i == next_star and rating_decimal >= 0.3 %}
+                              <svg class="ai-product-list__star-{{ ai_gen_id }}" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                  <linearGradient id="half-{{ ai_gen_id }}-{{ forloop.index }}">
+                                    <stop offset="50%" stop-color="{{ block.settings.star_color }}"/>
+                                    <stop offset="50%" stop-color="#e0e0e0"/>
+                                  </linearGradient>
+                                </defs>
+                                <path fill="url(#half-{{ ai_gen_id }}-{{ forloop.index }})" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                              </svg>
+                            {% else %}
+                              <svg class="ai-product-list__star-{{ ai_gen_id }} ai-product-list__star--empty-{{ ai_gen_id }}" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                              </svg>
+                            {% endif %}
+                          {% endfor %}
+                        {% else %}
+                          {% assign default_rating = block.settings.default_rating %}
+                          {% for i in (1..5) %}
+                            {% if i <= default_rating %}
+                              <svg class="ai-product-list__star-{{ ai_gen_id }}" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                              </svg>
+                            {% else %}
+                              <svg class="ai-product-list__star-{{ ai_gen_id }} ai-product-list__star--empty-{{ ai_gen_id }}" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                              </svg>
+                            {% endif %}
+                          {% endfor %}
+                        {% endif %}
+                      </div>
+                      {% if product.metafields.reviews.rating.value != blank %}
+                        <span class="ai-product-list__rating-value-{{ ai_gen_id }}">{{ rating | round: 1 }}</span>
+                      {% else %}
+                        <span class="ai-product-list__rating-value-{{ ai_gen_id }}">{{ block.settings.default_rating }}.0</span>
+                      {% endif %}
+                    </div>
+                  {% endif %}
+                </div>
+
+                <div class="ai-product-list__bottom-{{ ai_gen_id }}">
+                  {% if block.settings.show_price %}
+                    <div class="ai-product-list__price-{{ ai_gen_id }}">
+                      <span class="ai-product-list__price--current-{{ ai_gen_id }}">
+                        {{ product.price | money }}
+                      </span>
+                      {% if product.compare_at_price > product.price %}
+                        <span class="ai-product-list__price--compare-{{ ai_gen_id }}">
+                          {{ product.compare_at_price | money }}
+                        </span>
+                      {% endif %}
+                    </div>
+                  {% endif %}
+
+                  <a
+                    href="{{ product.url }}"
+                    class="ai-product-list__button-{{ ai_gen_id }}"
+                  >
+                    {{ block.settings.button_text }}
+                  </a>
+                </div>
+              </div>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <div class="ai-product-list__empty-{{ ai_gen_id }}">
+        请在设置中选择要显示的产品
+      </div>
+    {% endif %}
+  </div>
+</product-list-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class ProductList{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+      }
+    }
+
+    customElements.define('product-list-{{ ai_gen_id }}', ProductList{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "产品列表",
+  "settings": [
+    {
+      "type": "header",
+      "content": "内容"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "标题",
+      "default": "精选产品"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "描述",
+      "default": "<p>浏览我们精心挑选的产品系列</p>"
+    },
+    {
+      "type": "product_list",
+      "id": "products",
+      "label": "产品",
+      "limit": 12
+    },
+    {
+      "type": "header",
+      "content": "区块设置"
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "背景颜色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "label": "容器最大宽度",
+      "min": 800,
+      "max": 1600,
+      "step": 100,
+      "unit": "px",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "上边距",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "下边距",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal",
+      "label": "左右边距",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "布局"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "桌面端列数",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "移动端列数",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "range",
+      "id": "grid_gap_horizontal",
+      "label": "网格列间距",
+      "min": 8,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "grid_gap_vertical",
+      "label": "网格行间距",
+      "min": 8,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "标题样式"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "标题大小",
+      "min": 16,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "标题对齐",
+      "options": [
+        {
+          "value": "left",
+          "label": "左对齐"
+        },
+        {
+          "value": "center",
+          "label": "居中"
+        },
+        {
+          "value": "right",
+          "label": "右对齐"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "标题颜色",
+      "default": "#121212"
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "label": "描述大小",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "描述颜色",
+      "default": "#666666"
+    },
+    {
+      "type": "range",
+      "id": "heading_spacing",
+      "label": "标题间距",
+      "min": 16,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "header",
+      "content": "卡片样式"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "卡片背景色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "label": "卡片圆角",
+      "min": 0,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "label": "卡片内边距",
+      "min": 8,
+      "max": 32,
+      "step": 4,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "产品信息"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "显示品牌",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "vendor_color",
+      "label": "品牌颜色",
+      "default": "#666666"
+    },
+    {
+      "type": "range",
+      "id": "product_title_size_desktop",
+      "label": "产品标题大小（桌面端）",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "product_title_size_mobile",
+      "label": "产品标题大小（移动端）",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "product_title_color",
+      "label": "产品标题颜色",
+      "default": "#121212"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_description",
+      "label": "显示产品描述",
+      "default": false,
+      "info": "显示前80个字符（含空格）"
+    },
+    {
+      "type": "range",
+      "id": "product_description_size",
+      "label": "产品描述字体大小",
+      "min": 11,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+    {
+      "type": "header",
+      "content": "评分设置"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": "显示评分",
+      "default": false,
+      "info": "优先显示产品系统评分，如无则显示默认星级"
+    },
+    {
+      "type": "range",
+      "id": "default_rating",
+      "label": "默认星级",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 5,
+      "info": "当产品无评分时显示"
+    },
+    {
+      "type": "color",
+      "id": "star_color",
+      "label": "星级颜色",
+      "default": "#ffc107"
+    },
+    {
+      "type": "header",
+      "content": "价格设置"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_price",
+      "label": "显示价格",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "current_price_size",
+      "label": "现价大小",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "current_price_color",
+      "label": "现价颜色",
+      "default": "#d82c0d"
+    },
+    {
+      "type": "range",
+      "id": "compare_price_size",
+      "label": "原价大小",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "compare_price_color",
+      "label": "原价颜色",
+      "default": "#999999"
+    },
+    {
+      "type": "header",
+      "content": "按钮设置"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "button_text",
+      "label": "按钮文字",
+      "default": "查看详情"
+    },
+    {
+      "type": "range",
+      "id": "button_padding",
+      "label": "按钮内边距",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "label": "按钮字体大小",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "按钮背景色",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_background",
+      "label": "按钮悬停背景色",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "按钮文字颜色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "label": "按钮圆角",
+      "min": 0,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "促销标签"
+    },
+    {
+      "type": "range",
+      "id": "badge_font_size",
+      "label": "标签字体大小",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "badge_padding",
+      "label": "标签内边距",
+      "min": 4,
+      "max": 16,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "color",
+      "id": "badge_background",
+      "label": "标签背景色",
+      "default": "#d82c0d"
+    },
+    {
+      "type": "color",
+      "id": "badge_text_color",
+      "label": "标签文字颜色",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "产品列表"
+    }
+  ]
+}
+{% endschema %}
