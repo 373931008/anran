@@ -552,7 +552,7 @@
             "title": "Product Specifications",
             "title_alignment": "center",
             "title_size": 30,
-            "title_color": "#121212",
+            "title_color": "#3c4043",
             "content": "<ul><li><strong>Image Sensor:</strong> 1/2.9'' 5Megapixel CMOS</li><li><strong>Effective Pixels:</strong> 2304(H) * 1296(V)</li><li><strong>Shutter:</strong> 1/25~1/10,000s</li><li><strong>Min Illuminance:</strong> Color 1Lux, Black/White 0.01Lux</li><li><strong>IR Distance:</strong> Black & white image, night vision distance is 12M</li><li><strong>Day/Night:</strong> Auto(ICR)/Color/B/W</li><li><strong>WDR:</strong> DWDR (Digital Wide Dynamic Range)</li><li><strong>Lens:</strong> 3.6mm, 95° view angle (Note: FAQ mentions up to 135°)</li><li><strong>Video Compression:</strong> H.264</li><li><strong>Bit Rate:</strong> 32Kbps~2Mbps</li><li><strong>Audio Input/Output:</strong> Built-in mic/speaker (Supports Two-Way Audio)</li></ul>",
             "initial_items": 10,
             "desktop_columns": "2",
@@ -585,175 +585,6 @@
         "ai_gen_block_93cd808_dmkBkT"
       ],
       "settings": {}
-    },
-    "q-product-specs": {
-      "type": "q-product-specs",
-      "blocks": {
-        "spec-1": {
-          "type": "spec_item",
-          "settings": {
-            "label": "Video Capture Resolution",
-            "value": "2K / 3MP"
-          }
-        },
-        "spec-2": {
-          "type": "spec_item",
-          "settings": {
-            "label": "Viewing Angle",
-            "value": "360 Degrees"
-          }
-        },
-        "spec-3": {
-          "type": "spec_item",
-          "settings": {
-            "label": "Night Vision Range",
-            "value": "50 Feet"
-          }
-        },
-        "spec-4": {
-          "type": "spec_item",
-          "settings": {
-            "label": "Connectivity Protocol",
-            "value": "Wi-Fi"
-          }
-        },
-        "spec-5": {
-          "type": "spec_item",
-          "settings": {
-            "label": "Controller Type",
-            "value": "Amazon Alexa, Google Assistant"
-          }
-        },
-        "spec-6": {
-          "type": "spec_item",
-          "settings": {
-            "label": "Power Source",
-            "value": "Solar & Battery Powered"
-          }
-        },
-        "spec-7": {
-          "type": "spec_item",
-          "settings": {
-            "label": "Low Light Technology",
-            "value": "Night Color"
-          }
-        },
-        "spec-8": {
-          "type": "spec_item",
-          "settings": {
-            "label": "Battery Power",
-            "value": "5000 mAh, 5W, 5V"
-          }
-        },
-        "spec-9": {
-          "type": "spec_item",
-          "settings": {
-            "label": "Max Supported",
-            "value": "SD Card, up to 128GB"
-          }
-        },
-        "spec-10": {
-          "type": "spec_item",
-          "settings": {
-            "label": "Water Resistance Level / IP Rating",
-            "value": "IP66 Waterproof"
-          }
-        },
-        "spec-11": {
-          "type": "spec_item",
-          "settings": {
-            "label": "Form Factor / Shape",
-            "value": "Dome"
-          }
-        },
-        "spec-12": {
-          "type": "spec_item",
-          "settings": {
-            "label": "Video Encoding / Capture Format",
-            "value": "MPEG-4"
-          }
-        },
-        "spec-13": {
-          "type": "spec_item",
-          "settings": {
-            "label": "Optical & Digital Zoom",
-            "value": "4x / 4:1"
-          }
-        },
-        "spec-14": {
-          "type": "spec_item",
-          "settings": {
-            "label": "Focus Type",
-            "value": "Auto / Manual"
-          }
-        },
-        "spec-15": {
-          "type": "spec_item",
-          "settings": {
-            "label": "Number of IR LEDs",
-            "value": "4"
-          }
-        },
-        "spec-16": {
-          "type": "spec_item",
-          "settings": {
-            "label": "Installation Type / Mounting Type",
-            "value": "Screw In / Wall Mount"
-          }
-        },
-        "spec-17": {
-          "type": "spec_item",
-          "settings": {
-            "label": "Item Dimensions & Weight",
-            "value": "9 x 7 x 6 in, 1.83 lbs"
-          }
-        }
-      },
-      "block_order": [
-        "spec-1",
-        "spec-2",
-        "spec-3",
-        "spec-4",
-        "spec-5",
-        "spec-6",
-        "spec-7",
-        "spec-8",
-        "spec-9",
-        "spec-10",
-        "spec-11",
-        "spec-12",
-        "spec-13",
-        "spec-14",
-        "spec-15",
-        "spec-16",
-        "spec-17"
-      ],
-      "settings": {
-        "header_title": "Product Specifications",
-        "header_description": "",
-        "header_center": true,
-        "header_em_color": "#FF6B35",
-        "header_title_color": "#3c4043",
-        "header_title_size_desktop": 36,
-        "header_title_size_mobile": 24,
-        "header_desc_size_desktop": 16,
-        "header_desc_size_mobile": 12,
-        "header_margin_bottom_desktop": 40,
-        "header_margin_bottom_mobile": 24,
-        "show_count_mobile": 9,
-        "show_count_desktop": 9,
-        "btn_show_more_text": "Show more",
-        "btn_show_less_text": "Show less",
-        "bg_color": "#FFFFFF",
-        "tag_bg_color": "#F7F7F7",
-        "tag_text_color": "#1E1E1E",
-        "btn_border_color": "#4E5357",
-        "btn_text_color": "#404040",
-        "padding_top_mobile": 40,
-        "padding_bottom_mobile": 40,
-        "padding_top_desktop": 40,
-        "padding_bottom_desktop": 32
-      }
     },
     "q-service-features": {
       "type": "q-service-features",
@@ -1125,7 +956,6 @@
     "17740849476b89dca3",
     "q-trial-guarantee",
     "17748769960b9d81f8",
-    "q-product-specs",
     "q-service-features",
     "collapsible_content_mHXHW8",
     "q-faq",
