@@ -9,6 +9,13 @@
   assign image_mobile = section.settings.image_mobile
   assign overlay_position = section.settings.overlay_position
   assign text_position = section.settings.text_position
+  assign above_fold = section.settings.above_fold
+  assign img_loading = 'lazy'
+  assign img_fetchpriority = 'auto'
+  if above_fold
+    assign img_loading = 'eager'
+    assign img_fetchpriority = 'high'
+  endif
 -%}
 
 <style>
@@ -299,7 +306,8 @@
           image_desktop
           | image_url: width: 1920
           | image_tag:
-            loading: 'lazy',
+            loading: img_loading,
+            fetchpriority: img_fetchpriority,
             widths: '750, 1100, 1440, 1920',
             sizes: '100vw',
             alt: image_desktop.alt
@@ -311,7 +319,8 @@
           image_mobile
           | image_url: width: 1920
           | image_tag:
-            loading: 'lazy',
+            loading: img_loading,
+            fetchpriority: img_fetchpriority,
             widths: '750, 1100, 1440, 1920',
             sizes: '100vw',
             alt: image_mobile.alt
@@ -325,7 +334,8 @@
           image_mobile
           | image_url: width: 750
           | image_tag:
-            loading: 'lazy',
+            loading: img_loading,
+            fetchpriority: img_fetchpriority,
             widths: '375, 550, 750',
             sizes: '100vw',
             alt: image_mobile.alt
@@ -337,7 +347,8 @@
           image_desktop
           | image_url: width: 750
           | image_tag:
-            loading: 'lazy',
+            loading: img_loading,
+            fetchpriority: img_fetchpriority,
             widths: '375, 550, 750',
             sizes: '100vw',
             alt: image_desktop.alt
@@ -411,6 +422,13 @@
     {
       "type": "header",
       "content": "全宽背景图"
+    },
+    {
+      "type": "checkbox",
+      "id": "above_fold",
+      "label": "首屏图片（LCP 优化）",
+      "info": "该板块位于页面顶部时开启，优先加载图片提升 LCP 分数",
+      "default": false
     },
     {
       "type": "image_picker",
