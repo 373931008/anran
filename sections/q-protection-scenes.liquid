@@ -137,11 +137,11 @@
                 {%- if block.settings.image != blank -%}
                   {{-
                     block.settings.image
-                    | image_url: width: 600
+                    | image_url: width: 400
                     | image_tag:
                       class: 'q-protection-scenes__card-img',
                       loading: 'lazy',
-                      widths: '300,400,500,600',
+                      widths: '300,400',
                       alt: block.settings.image.alt
                   -}}
                 {%- else -%}
