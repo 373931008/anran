@@ -1,6 +1,415 @@
+{% doc %}
+  @prompt
+    帮我生成一个specs的规格模块，不用功能简单点就好，有一个标题，一个描述，一个可以规格参数，规格参数自带下划线分开，一开始的时候只展示10个，下方有个查看更多的按钮，点击可以查看更多，规格参数可以直接调用动态源的富文本
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-specs-container-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    padding: {{ block.settings.padding }}px;
+    background-color: {{ block.settings.background_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+  }
+
+  .ai-specs-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.title_size }}px;
+    font-weight: 600;
+    margin: 0 0 {{ block.settings.spacing }}px;
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-specs-description-{{ ai_gen_id }} {
+    font-size: {{ block.settings.description_size }}px;
+    margin: 0 0 {{ block.settings.spacing }}px;
+    color: {{ block.settings.text_color }};
+    line-height: 1.6;
+  }
+
+  .ai-specs-list-{{ ai_gen_id }} {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .ai-specs-item-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: space-between;
+    padding: {{ block.settings.item_padding }}px 0;
+    border-bottom: {{ block.settings.divider_thickness }}px solid {{ block.settings.divider_color }};
+    font-size: {{ block.settings.spec_size }}px;
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-specs-item-{{ ai_gen_id }}:last-child {
+    border-bottom: none;
+  }
+
+  .ai-specs-item-label-{{ ai_gen_id }} {
+    font-weight: 500;
+    flex-shrink: 0;
+    margin-right: 20px;
+  }
+
+  .ai-specs-item-value-{{ ai_gen_id }} {
+    text-align: right;
+    color: {{ block.settings.value_color }};
+  }
+
+  .ai-specs-item-{{ ai_gen_id }}.hidden {
+    display: none;
+  }
+
+  .ai-specs-button-{{ ai_gen_id }} {
+    margin-top: {{ block.settings.spacing }}px;
+    padding: 12px 24px;
+    background-color: {{ block.settings.button_bg_color }};
+    color: {{ block.settings.button_text_color }};
+    border: none;
+    border-radius: {{ block.settings.button_radius }}px;
+    cursor: pointer;
+    font-size: {{ block.settings.button_size }}px;
+    transition: background-color 0.3s ease;
+    width: 100%;
+  }
+
+  .ai-specs-button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_color }};
+  }
+
+  .ai-specs-button-{{ ai_gen_id }}.hidden {
+    display: none;
+  }
+{% endstyle %}
+
+<product-specs-{{ ai_gen_id }} class="ai-specs-container-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  {% if block.settings.title != blank %}
+    <h2 class="ai-specs-title-{{ ai_gen_id }}">{{ block.settings.title }}</h2>
+  {% endif %}
+
+  {% if block.settings.description != blank %}
+    <div class="ai-specs-description-{{ ai_gen_id }}">{{ block.settings.description }}</div>
+  {% endif %}
+
+  {% if block.settings.specs_content != blank %}
+    <ul class="ai-specs-list-{{ ai_gen_id }}" data-specs-list>
+      {% assign specs_lines = block.settings.specs_content | split: '</p>' %}
+      {% for line in specs_lines %}
+        {% if line contains '<p>' %}
+          {% assign clean_line = line | replace: '<p>', '' | strip %}
+          {% if clean_line != blank %}
+            {% assign parts = clean_line | split: ':' %}
+            {% if parts.size >= 2 %}
+              <li class="ai-specs-item-{{ ai_gen_id }}" data-spec-item>
+                <span class="ai-specs-item-label-{{ ai_gen_id }}">{{ parts[0] | strip }}</span>
+                <span class="ai-specs-item-value-{{ ai_gen_id }}">{{ parts[1] | strip }}</span>
+              </li>
+            {% endif %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    </ul>
+
+    <button class="ai-specs-button-{{ ai_gen_id }}" data-toggle-button>
+      <span data-show-text>{{ block.settings.show_more_text }}</span>
+      <span data-hide-text style="display: none;">{{ block.settings.show_less_text }}</span>
+    </button>
+  {% else %}
+    <div class="ai-specs-description-{{ ai_gen_id }}" style="text-align: center; color: #999; font-style: italic;">
+      请在设置中添加规格参数内容
+    </div>
+  {% endif %}
+</product-specs-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class ProductSpecs{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.initialDisplayCount = {{ block.settings.initial_display_count }};
+      }
+
+      connectedCallback() {
+        this.specsList = this.querySelector('[data-specs-list]');
+        this.toggleButton = this.querySelector('[data-toggle-button]');
+        this.showText = this.querySelector('[data-show-text]');
+        this.hideText = this.querySelector('[data-hide-text]');
+        
+        if (!this.specsList || !this.toggleButton) return;
+
+        this.specItems = Array.from(this.querySelectorAll('[data-spec-item]'));
+        this.isExpanded = false;
+
+        this.initializeDisplay();
+        this.toggleButton.addEventListener('click', () => this.toggleSpecs());
+      }
+
+      initializeDisplay() {
+        if (this.specItems.length <= this.initialDisplayCount) {
+          this.toggleButton.classList.add('hidden');
+          return;
+        }
+
+        this.specItems.forEach((item, index) => {
+          if (index >= this.initialDisplayCount) {
+            item.classList.add('hidden');
+          }
+        });
+      }
+
+      toggleSpecs() {
+        this.isExpanded = !this.isExpanded;
+
+        this.specItems.forEach((item, index) => {
+          if (index >= this.initialDisplayCount) {
+            if (this.isExpanded) {
+              item.classList.remove('hidden');
+            } else {
+              item.classList.add('hidden');
+            }
+          }
+        });
+
+        if (this.isExpanded) {
+          this.showText.style.display = 'none';
+          this.hideText.style.display = 'inline';
+        } else {
+          this.showText.style.display = 'inline';
+          this.hideText.style.display = 'none';
+        }
+      }
+    }
+
+    customElements.define('product-specs-{{ ai_gen_id }}', ProductSpecs{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "产品规格参数",
+  "settings": [
+    {
+      "type": "header",
+      "content": "内容"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "label": "标题",
+      "default": "产品规格"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "描述",
+      "default": "<p>查看详细的产品规格参数</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "specs_content",
+      "label": "规格参数",
+      "info": "每行格式：参数名称: 参数值。例如：尺寸: 10 x 5 x 3 cm"
+    },
+    {
+      "type": "range",
+      "id": "initial_display_count",
+      "label": "初始显示数量",
+      "min": 5,
+      "max": 20,
+      "step": 1,
+      "default": 10
+    },
+    {
+      "type": "inline_richtext",
+      "id": "show_more_text",
+      "label": "查看更多按钮文字",
+      "default": "查看更多"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "show_less_text",
+      "label": "收起按钮文字",
+      "default": "收起"
+    },
+    {
+      "type": "header",
+      "content": "样式"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "桌面宽度",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "padding",
+      "label": "内边距",
+      "min": 0,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "spacing",
+      "label": "元素间距",
+      "min": 10,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "圆角",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "背景颜色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "文字颜色",
+      "default": "#121212"
+    },
+    {
+      "type": "header",
+      "content": "标题"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "标题大小",
+      "min": 16,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "描述"
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "label": "描述大小",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "规格项"
+    },
+    {
+      "type": "range",
+      "id": "spec_size",
+      "label": "规格文字大小",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "item_padding",
+      "label": "规格项内边距",
+      "min": 5,
+      "max": 25,
+      "step": 5,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "divider_thickness",
+      "label": "分隔线粗细",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "分隔线颜色",
+      "default": "#e5e5e5"
+    },
+    {
+      "type": "color",
+      "id": "value_color",
+      "label": "参数值颜色",
+      "default": "#666666"
+    },
+    {
+      "type": "header",
+      "content": "按钮"
+    },
+    {
+      "type": "range",
+      "id": "button_size",
+      "label": "按钮文字大小",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "button_radius",
+      "label": "按钮圆角",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "按钮背景颜色",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "按钮文字颜色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_color",
+      "label": "按钮悬停颜色",
+      "default": "#000000"
+    }
+  ],
+  "presets": [
+    {
+      "name": "产品规格参数"
+    }
+  ]
+}
 {% endschema %}
