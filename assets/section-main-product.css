@@ -1806,6 +1806,12 @@ a.product__text {
   color: rgb(255, 255, 255);
 }
 
+@media screen and (min-width: 750px) {
+  .product-price-promo {
+    margin-bottom: .5rem;
+  }
+}
+
 .product-price-promo__left {
   display: flex;
   flex-direction: row;
