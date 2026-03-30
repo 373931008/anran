@@ -37,20 +37,13 @@
         "q_feature_list_ibgtN8": {
           "type": "q_feature_list",
           "settings": {
-            "heading": "<p>Crystal-Clear 4K HDR Video with Wireless Solar Power, Smart Motion Alerts, and Effortless Outdoor Protection</p>",
+            "heading": "{{ product.metafields.custom.product_selling_point | metafield_tag }}",
             "feature_1": "",
             "feature_2": "",
             "feature_3": "",
             "feature_4": "",
             "feature_5": "",
             "feature_6": ""
-          }
-        },
-        "text_a3zbaQ": {
-          "type": "text",
-          "settings": {
-            "text": "Text block",
-            "text_style": "body"
           }
         },
         "variant_picker": {
@@ -96,6 +89,7 @@
         },
         "q_accordion_item_Vbkz8W": {
           "type": "q_accordion_item",
+          "disabled": true,
           "settings": {
             "heading": "What you’ll love",
             "content": "<p>See more, worry less with this solar-powered 2K security camera. Get full 360° coverage, smart motion alerts, and clear day-to-night monitoring.</p><ul><li>2K HD Video with 360° PTZ View</li><li>Solar Powered – No Wires Needed</li><li>Real-Time Motion Alerts & Two-Way Talk</li></ul>",
@@ -105,6 +99,7 @@
         },
         "q_accordion_item_qm7B6g": {
           "type": "q_accordion_item",
+          "disabled": true,
           "settings": {
             "heading": "Key Benefits",
             "content": "<ul><li>Comprehensive security features with no monthly fees;</li><li>Solar-powered wireless camera with included panel;</li><li>2K HD video with full 360° view;</li><li>Color night vision with spotlight protection;</li><li>Smart motion detection with instant alerts;</li><li>Two-way talk with visitors or delivery drivers;</li><li>Local SD storage with optional cloud backup;</li><li>Alexa compatible for easy voice control. (Can't add to NVR)</li></ul>",
@@ -116,6 +111,7 @@
         },
         "q_accordion_item_b3qTjT": {
           "type": "q_accordion_item",
+          "disabled": true,
           "settings": {
             "heading": "Included in your Box",
             "content": "<ul><li>1 Wireless Solar Security Camera</li><li>1  3W Solar Panel</li><li>1 USB Charging Cable</li><li>1 Mounting Screw Pack</li><li>1 User Manual</li></ul>",
@@ -126,6 +122,7 @@
         },
         "q_accordion_item_8xHHm8": {
           "type": "q_accordion_item",
+          "disabled": true,
           "settings": {
             "heading": "Installation Instructions",
             "content": "<ol><li>Download ANRAN APP and Register Account.</li><li>Fully Charged and Connect the 2.4 GHz WiFi.</li><li>Choose a suitable location and mount the camera using the included screws.</li><li>Attach the solar panel to provide continuous power.</li><li>Control the camera to view the screen through the APP.</li></ol><p><strong>Setup takes only a few minutes.</strong></p>",
@@ -135,6 +132,7 @@
         },
         "q_accordion_item_PCXGy9": {
           "type": "q_accordion_item",
+          "disabled": true,
           "settings": {
             "heading": "Specs",
             "content": "<ul><li>Video Resolution: <strong>2K / 3MP</strong></li><li>Viewing Angle: <strong>355° Pan / 90° Tilt</strong></li><li>Zoom: <strong>4× Digital Zoom</strong></li><li>Night Vision: <strong>Color & Infrared (up to 50 ft)</strong></li><li>Connectivity: <strong>2.4GHz Wi-Fi</strong></li><li>Power: <strong>Solar + Rechargeable Battery</strong></li><li>Storage: <strong>MicroSD (up to 128GB) or Cloud</strong></li><li>Weather Resistance: <strong>IP66 Weatherproof</strong></li><li>Smart Integration: <strong>Alexa Compatible</strong></li></ul>",
@@ -159,48 +157,9 @@
             "logo_image": "shopify://shop_images/image_273.png"
           }
         },
-        "q_see_in_action_qqPxfb": {
-          "type": "q_see_in_action",
-          "settings": {
-            "heading": "See in Action",
-            "autoplay_timer": false,
-            "autoplay_delay": 5000
-          }
-        },
-        "q_see_in_action_card_yrNeJw": {
-          "type": "q_see_in_action_card",
-          "settings": {
-            "video": "shopify://files/videos/Invisible_selfie_stick_vid_pc_xlarge.mp4",
-            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
-            "video_url_fallback": "/"
-          }
-        },
-        "q_see_in_action_card_ekQeaR": {
-          "type": "q_see_in_action_card",
-          "settings": {
-            "video": "shopify://files/videos/active_hdr_vid_pc_SC_xlarge.mp4",
-            "video_link": "",
-            "video_url_fallback": "https://www.youtube.com/watch?v=_9VUPq3SxOc"
-          }
-        },
-        "q_see_in_action_card_x9tfpr": {
-          "type": "q_see_in_action_card",
-          "settings": {
-            "video": "shopify://files/videos/Portrait_Mode_PC_xlarge.mp4",
-            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
-            "video_url_fallback": "/"
-          }
-        },
-        "q_see_in_action_card_YVXWf8": {
-          "type": "q_see_in_action_card",
-          "settings": {
-            "video": "shopify://files/videos/8k360_video_vid_pc_xlarge.mp4",
-            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
-            "video_url_fallback": "/"
-          }
-        },
         "testimonial_7pQ6qr": {
           "type": "testimonial",
+          "disabled": true,
           "settings": {
             "avatar": "shopify://shop_images/Ellipse_2.png",
             "stars": 5,
@@ -210,6 +169,7 @@
         },
         "q_camera_finder_MKbeYn": {
           "type": "q_camera_finder",
+          "disabled": true,
           "settings": {
             "heading": "Find the perfect security cameras!",
             "card_1_icon": "shopify://shop_images/fi_2525795.png",
@@ -229,7 +189,6 @@
         "judge_me_reviews_preview_badge_zMwFUy",
         "price",
         "q_feature_list_ibgtN8",
-        "text_a3zbaQ",
         "variant_picker",
         "quantity_selector",
         "q_warranty_GUqegQ",
@@ -241,11 +200,6 @@
         "q_accordion_item_8xHHm8",
         "q_accordion_item_PCXGy9",
         "trust_cards_7izheJ",
-        "q_see_in_action_qqPxfb",
-        "q_see_in_action_card_yrNeJw",
-        "q_see_in_action_card_ekQeaR",
-        "q_see_in_action_card_x9tfpr",
-        "q_see_in_action_card_YVXWf8",
         "testimonial_7pQ6qr",
         "q_camera_finder_MKbeYn"
       ],
@@ -256,58 +210,15 @@
         "media_size": "large",
         "constrain_to_viewport": true,
         "media_fit": "contain",
-        "gallery_layout": "stacked",
+        "gallery_layout": "thumbnail_slider",
         "mobile_thumbnails": "show",
         "media_position": "left",
         "image_zoom": "lightbox",
         "hide_variants": true,
-        "use_variant_featured_media": false,
+        "use_variant_featured_media": true,
         "enable_video_looping": false,
         "padding_top": 36,
         "padding_bottom": 12
-      }
-    },
-    "q-reviews-quote": {
-      "type": "q-reviews-quote",
-      "blocks": {
-        "quote-1": {
-          "type": "quote",
-          "settings": {
-            "quote_text": "<p>One of the best security tools I've ever owned. Being able to monitor my home 24/7 is truly incredible.</p>"
-          }
-        },
-        "quote-2": {
-          "type": "quote",
-          "settings": {
-            "quote_text": "<p>Easy to install and the picture quality is excellent. Highly recommend.</p>"
-          }
-        }
-      },
-      "block_order": [
-        "quote-1",
-        "quote-2"
-      ],
-      "settings": {
-        "header_title": "",
-        "header_description": "",
-        "header_center": true,
-        "header_em_color": "#FF6B35",
-        "header_title_size_desktop": 42,
-        "header_title_size_mobile": 26,
-        "header_desc_size_desktop": 16,
-        "header_desc_size_mobile": 12,
-        "header_margin_bottom_desktop": 40,
-        "header_margin_bottom_mobile": 24,
-        "image_above_1": "shopify://shop_images/Group_158_93d31f41-d333-474d-bbe0-510c6bfeea20.png",
-        "quote_accent_color": "#1565d8",
-        "space_between": 16,
-        "autoplay_carousel": true,
-        "autoplay_delay": 5,
-        "bg_color": "#f4f7ff",
-        "padding_top_mobile": 32,
-        "padding_bottom_mobile": 0,
-        "padding_top_desktop": 36,
-        "padding_bottom_desktop": 0
       }
     },
     "q-reviews-slider": {
@@ -361,6 +272,7 @@
         "review_TGw7M4",
         "review_NAVQwt"
       ],
+      "disabled": true,
       "settings": {
         "header_title": "",
         "header_description": "",
@@ -386,882 +298,72 @@
         "padding_bottom_desktop": 20
       }
     },
-    "q-logo-marquee": {
-      "type": "q-logo-marquee",
+    "multicolumn_6cMcap": {
+      "type": "multicolumn",
       "blocks": {
-        "logo-1": {
-          "type": "logo",
+        "column_3Ddzgm": {
+          "type": "column",
           "settings": {
-            "logo_image": "shopify://shop_images/Group_551.jpg"
-          }
-        },
-        "logo-2": {
-          "type": "logo",
-          "settings": {
-            "logo_image": "shopify://shop_images/Group_547.jpg"
-          }
-        },
-        "logo-3": {
-          "type": "logo",
-          "settings": {
-            "logo_image": "shopify://shop_images/Group_548.jpg"
-          }
-        },
-        "logo-4": {
-          "type": "logo",
-          "settings": {
-            "logo_image": "shopify://shop_images/Group_550.jpg"
-          }
-        },
-        "logo-5": {
-          "type": "logo",
-          "settings": {}
-        },
-        "logo-6": {
-          "type": "logo",
-          "settings": {
-            "logo_image": "shopify://shop_images/Group_552.jpg"
-          }
-        },
-        "logo-7": {
-          "type": "logo",
-          "settings": {
-            "logo_image": "shopify://shop_images/Group_553.jpg"
-          }
-        },
-        "logo-8": {
-          "type": "logo",
-          "settings": {
-            "logo_image": "shopify://shop_images/Group_547.jpg"
-          }
-        }
-      },
-      "block_order": [
-        "logo-1",
-        "logo-2",
-        "logo-3",
-        "logo-4",
-        "logo-5",
-        "logo-6",
-        "logo-7",
-        "logo-8"
-      ],
-      "settings": {
-        "scroll_speed": 4,
-        "gap": 20,
-        "logo_height_mobile": 76,
-        "logo_height_desktop": 112,
-        "logo_opacity": 100,
-        "logo_opacity_hover": 100,
-        "bg_color": "#F3F7FF",
-        "show_divider": false,
-        "divider_color": "#e5e7eb",
-        "padding_top_mobile": 12,
-        "padding_bottom_mobile": 52,
-        "padding_top_desktop": 12,
-        "padding_bottom_desktop": 60
-      }
-    },
-    "q-why-choose": {
-      "type": "q-why-choose",
-      "blocks": {
-        "card-4k-hdr": {
-          "type": "card_image_text",
-          "settings": {
-            "image": "shopify://shop_images/Group_347.jpg",
-            "title": "4K HDR Video",
-            "description": "",
-            "content_position": "bottom",
-            "title_size_desktop": 32,
-            "title_size_mobile": 18,
-            "desc_size_desktop": 18,
-            "desc_size_mobile": 12
-          }
-        },
-        "card-auto-tracking": {
-          "type": "card_text_icon",
-          "settings": {
-            "image": "shopify://shop_images/image_306.png",
-            "title": "<em>Auto Tracking</em>",
-            "subtitle": "Locks on and follows moving people",
-            "title_gradient": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 100%)",
-            "title_size_desktop": 32,
-            "title_size_mobile": 18,
-            "subtitle_size_desktop": 18,
-            "subtitle_size_mobile": 12
-          }
-        },
-        "card-360": {
-          "type": "card_image_text",
-          "settings": {
-            "image": "shopify://shop_images/Group_349.jpg",
-            "title": "360°",
-            "description": "AI Eliminate Blindspots",
-            "content_position": "bottom",
-            "title_size_desktop": 32,
-            "title_size_mobile": 18,
-            "desc_size_desktop": 18,
-            "desc_size_mobile": 12
-          }
-        },
-        "card-smart-alarm": {
-          "type": "card_dual_title",
-          "settings": {
-            "title_line1": "Smart Alarm",
-            "title_line2": "Quick Alert",
-            "icon_image": "shopify://shop_images/image_307.png",
-            "description": "If alarm is triggered, get notified instantly",
-            "title_size_desktop": 32,
-            "title_size_mobile": 18,
-            "desc_size_desktop": 18,
-            "desc_size_mobile": 12
-          }
-        },
-        "card-app-screenshot": {
-          "type": "card_image_text",
-          "settings": {
-            "image": "shopify://shop_images/Group_351.jpg",
+            "image": "{{ product.metafields.custom.overview_extra_image_01.value }}",
             "title": "",
-            "description": "Smart App ControlNo Monthly Fees",
-            "content_position": "top",
-            "title_size_desktop": 20,
-            "title_size_mobile": 12,
-            "desc_size_desktop": 18,
-            "desc_size_mobile": 12
+            "text": "<p></p>{{ product.metafields.custom.overview_extra_text_01 | metafield_tag }}",
+            "link_label": "",
+            "link": ""
           }
         },
-        "card-solar-powered": {
-          "type": "card_dual_title",
+        "column_netQfT": {
+          "type": "column",
           "settings": {
-            "title_line1": "Solar Powered",
-            "title_line2": "Always On",
-            "icon_image": "shopify://shop_images/fi_664886.png",
-            "description": "If alarm is triggered, get notified instantly",
-            "title_size_desktop": 32,
-            "title_size_mobile": 18,
-            "desc_size_desktop": 18,
-            "desc_size_mobile": 12
+            "image": "{{ product.metafields.custom.overview_extra_image_02.value }}",
+            "title": "",
+            "text": "{{ product.metafields.custom.overview_extra_text_02 | metafield_tag }}",
+            "link_label": "",
+            "link": ""
           }
         },
-        "banner-two-way-audio": {
-          "type": "banner_feature",
+        "column_ALEFVp": {
+          "type": "column",
           "settings": {
-            "icon_image": "shopify://shop_images/fi_10268950.png",
-            "title": "Two-Way Audio",
-            "description": "Talk and listen in real time through the camera—anytime, anywhere.",
-            "title_size_desktop": 18,
-            "title_size_mobile": 12,
-            "desc_size_desktop": 14,
-            "desc_size_mobile": 12
+            "image": "{{ product.metafields.custom.overview_extra_image_03.value }}",
+            "title": "",
+            "text": "{{ product.metafields.custom.overview_extra_text_04 | metafield_tag }}",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_KmhpAx": {
+          "type": "column",
+          "settings": {
+            "image": "{{ product.metafields.custom.overview_extra_image_04.value }}",
+            "title": "",
+            "text": "{{ product.metafields.custom.overview_extra_text_04 | metafield_tag }}",
+            "link_label": "",
+            "link": ""
           }
         }
       },
       "block_order": [
-        "card-4k-hdr",
-        "card-auto-tracking",
-        "card-360",
-        "card-smart-alarm",
-        "card-app-screenshot",
-        "card-solar-powered",
-        "banner-two-way-audio"
+        "column_3Ddzgm",
+        "column_netQfT",
+        "column_ALEFVp",
+        "column_KmhpAx"
       ],
+      "name": "t:sections.multicolumn.presets.name",
       "settings": {
-        "header_title": "Why Choose Our Camera?",
-        "header_description": "<p>A few ways Anran Cam gives you more.</p>",
-        "header_center": false,
-        "header_em_color": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 100%)",
-        "header_title_size_desktop": 46,
-        "header_title_size_mobile": 26,
-        "header_desc_size_desktop": 18,
-        "header_desc_size_mobile": 12,
-        "header_margin_bottom_desktop": 16,
-        "header_margin_bottom_mobile": 8,
-        "subtitle": "",
-        "cta_label": "100% Worth Buying >",
-        "cta_link": "/",
-        "cta_color": "#329bff",
-        "bg_color": "#000000",
-        "inner_bg_color": "#121214",
-        "page_width_bg_color": "#121214",
-        "card_bg_color": "#000000",
-        "padding_top_mobile": 0,
-        "padding_bottom_mobile": 0,
-        "padding_top_desktop": 80,
-        "padding_bottom_desktop": 80
-      }
-    },
-    "q-smart-detection": {
-      "type": "q-smart-detection",
-      "blocks": {
-        "detection-people": {
-          "type": "detection_type",
-          "settings": {
-            "label": "People",
-            "icon_image": "shopify://shop_images/Group_230.jpg"
-          }
-        },
-        "detection-pets": {
-          "type": "detection_type",
-          "settings": {
-            "label": "Pets",
-            "icon_image": "shopify://shop_images/Group_231.jpg"
-          }
-        },
-        "detection-vehicles": {
-          "type": "detection_type",
-          "settings": {
-            "label": "Vehicles",
-            "icon_image": "shopify://shop_images/Group_232.jpg"
-          }
-        },
-        "detection-motion": {
-          "type": "detection_type",
-          "settings": {
-            "label": "Motion",
-            "icon_image": "shopify://shop_images/Group_233.jpg"
-          }
-        }
-      },
-      "block_order": [
-        "detection-people",
-        "detection-pets",
-        "detection-vehicles",
-        "detection-motion"
-      ],
-      "settings": {
-        "header_title": "Smarter Detection Camera Tracking",
-        "header_description": "",
-        "header_center": false,
-        "header_em_color": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 100%)",
-        "header_title_size_desktop": 46,
-        "header_title_size_mobile": 26,
-        "header_desc_size_desktop": 16,
-        "header_desc_size_mobile": 12,
-        "header_margin_bottom_desktop": 40,
-        "header_margin_bottom_mobile": 24,
-        "description": "AI-powered detection recognizes, and filters out false alerts—so you stay informed without constant interruptions.",
-        "video": "shopify://files/videos/Portrait_Mode_PC_xlarge.mp4",
-        "side_image_1": "shopify://shop_images/Rectangle_193.jpg",
-        "side_image_2": "shopify://shop_images/Rectangle_197.jpg",
-        "side_image_3": "shopify://shop_images/Rectangle_194.jpg",
-        "bg_color": "#f3f7ff",
-        "padding_top_mobile": 40,
-        "padding_bottom_mobile": 40,
-        "padding_top_desktop": 60,
-        "padding_bottom_desktop": 60
-      }
-    },
-    "q-alert-cards": {
-      "type": "q-alert-cards",
-      "blocks": {
-        "card-1": {
-          "type": "card",
-          "settings": {
-            "image": "shopify://shop_images/Anran_Security_Instant_App_Alerts.jpg",
-            "title": "Instant App Alerts",
-            "description": "<p>Receive instant notifications on your phone when important motion is detected, so you can respond quickly.</p>"
-          }
-        },
-        "card-2": {
-          "type": "card",
-          "settings": {
-            "image": "shopify://shop_images/Anran_Security_Camera_Threat_prevention.jpg",
-            "title": "Threat prevention",
-            "description": "<p>Activate built-in spotlight or siren to deter intruders and add an extra layer of active protection.</p>"
-          }
-        },
-        "card-3": {
-          "type": "card",
-          "settings": {
-            "image": "shopify://shop_images/Anran_Camera_Custom_Alert_Zones_All-Round_Patrol.jpg",
-            "title": "Custom Alert Zones & All-Round Patrol",
-            "description": "<p>Set custom detection zones and sensitivity to focus on important areas and reduce false alerts.</p>"
-          }
-        }
-      },
-      "block_order": [
-        "card-1",
-        "card-2",
-        "card-3"
-      ],
-      "settings": {
-        "header_title": "<em>Real-Time Alerts</em> and Instant Siren",
-        "header_description": "",
-        "header_center": false,
-        "header_em_color": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 100%)",
-        "header_title_size_desktop": 50,
-        "header_title_size_mobile": 26,
-        "header_desc_size_desktop": 16,
-        "header_desc_size_mobile": 12,
-        "header_margin_bottom_desktop": 40,
-        "header_margin_bottom_mobile": 24,
-        "bg_color": "#FFFFFF",
-        "padding_top_mobile": 40,
-        "padding_bottom_mobile": 40,
-        "padding_top_desktop": 60,
-        "padding_bottom_desktop": 60
-      }
-    },
-    "q-audio-live-view": {
-      "type": "q-audio-live-view",
-      "blocks": {
-        "card-1": {
-          "type": "card",
-          "settings": {
-            "image": "shopify://shop_images/Solar_Powered_Security_Camera_Two-Way_Audio.jpg",
-            "title": "Clear Audio and One-Tap Talk",
-            "description": "<p>Enjoy clear, real-time two-way audio and start talking instantly with a single tap on your phone.</p>"
-          }
-        },
-        "card-2": {
-          "type": "card",
-          "settings": {
-            "image": "shopify://shop_images/Outdoor_Security_Cameras_Manage_Deliveries.jpg",
-            "title": "Manage Deliveries and Deter Strangers",
-            "description": "<p>Speak through the camera to deter unwanted visitors or guide deliveries—without opening the door.</p><p><em><strong>No door opening required.</strong></em></p>"
-          }
-        }
-      },
-      "block_order": [
-        "card-1",
-        "card-2"
-      ],
-      "settings": {
-        "header_title": "Two-Way Audio & <em>Live View</em>",
-        "header_description": "",
-        "header_center": false,
-        "header_em_color": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 100%)",
-        "header_title_size_desktop": 50,
-        "header_title_size_mobile": 26,
-        "header_desc_size_desktop": 16,
-        "header_desc_size_mobile": 12,
-        "header_margin_bottom_desktop": 40,
-        "header_margin_bottom_mobile": 24,
-        "bg_color": "#FFFFFF",
-        "padding_top_mobile": 40,
-        "padding_bottom_mobile": 40,
-        "padding_top_desktop": 40,
-        "padding_bottom_desktop": 60
-      }
-    },
-    "q-expert-testimonials": {
-      "type": "q-expert-testimonials",
-      "blocks": {
-        "card-1": {
-          "type": "card",
-          "settings": {
-            "local_video": "shopify://files/videos/Invisible_selfie_stick_vid_pc_xlarge.mp4",
-            "video": "https://www.youtube.com/watch?v=1sIDyzU7EfA",
-            "video_url_alt": "/",
-            "pill_1": "Cutting-edge Security Technology",
-            "pill_2": "Ideal for Homes, Apartments, and Small Businesses",
-            "pill_3": "Easy to Install and Simple to Use",
-            "quote": "<p>See for yourself how this versatile camera <strong>protects what matters most.</strong></p>",
-            "expert_avatar": "shopify://shop_images/Ellipse_3.jpg",
-            "expert_name": "Ava Martinez",
-            "expert_title": "Home Security Specialist",
-            "show_verified_badge": true
-          }
-        },
-        "card_rjVfVa": {
-          "type": "card",
-          "settings": {
-            "local_video": "shopify://files/videos/Portrait_Mode_PC_xlarge.mp4",
-            "video": "https://www.youtube.com/watch?v=1sIDyzU7EfA",
-            "video_url_alt": "/",
-            "pill_1": "Cutting-edge Security Technology",
-            "pill_2": "Ideal for Homes, Apartments, and Small Businesses",
-            "pill_3": "Easy to Install and Simple to Use",
-            "quote": "<p>See for yourself how this versatile camera <strong>protects what matters most.</strong></p>",
-            "expert_avatar": "shopify://shop_images/Ellipse_3.jpg",
-            "expert_name": "Ava Martinez",
-            "expert_title": "Home Security Specialist",
-            "show_verified_badge": true
-          }
-        }
-      },
-      "block_order": [
-        "card-1",
-        "card_rjVfVa"
-      ],
-      "settings": {
-        "header_title": "Tested and trusted by <em>home security experts</em>",
-        "header_description": "",
-        "header_center": true,
-        "header_em_color": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 100%)",
-        "header_title_size_desktop": 46,
-        "header_title_size_mobile": 22,
-        "header_desc_size_desktop": 16,
-        "header_desc_size_mobile": 12,
-        "header_margin_bottom_desktop": 40,
-        "header_margin_bottom_mobile": 24,
-        "bg_color": "#FFFFFF",
-        "bg_image": "shopify://shop_images/Group_402.jpg",
-        "padding_top_mobile": 40,
-        "padding_bottom_mobile": 40,
-        "padding_top_desktop": 60,
-        "padding_bottom_desktop": 40,
-        "autoplay_carousel": false,
-        "autoplay_delay": 5
-      }
-    },
-    "q-camera-showcase": {
-      "type": "q-camera-showcase",
-      "blocks": {
-        "tab-2": {
-          "type": "tab",
-          "settings": {
-            "tab_label": "Color Night",
-            "media_type": "image",
-            "image_desktop": "shopify://shop_images/Wireless_Security_Cameras_Color_Night_27408468-30f5-4fcc-a875-c446937a59d0.jpg",
-            "image_mobile": "shopify://shop_images/Wireless_Security_Cameras_Color_Night_mo.jpg",
-            "video_desktop": "shopify://files/videos/Invisible_selfie_stick_vid_pc_xlarge.mp4"
-          }
-        },
-        "tab-1": {
-          "type": "tab",
-          "settings": {
-            "tab_label": "4K HDR",
-            "media_type": "image",
-            "image_desktop": "shopify://shop_images/4K_HDR_Outdoor_Wireless_Video_Security_Camera.jpg",
-            "image_mobile": "shopify://shop_images/Security_Cameras_Color_Night_mobile.jpg",
-            "video_desktop": "shopify://files/videos/Portrait_Mode_PC_xlarge.mp4"
-          }
-        },
-        "tab-3": {
-          "type": "tab",
-          "settings": {
-            "tab_label": "360° Coverage",
-            "media_type": "image",
-            "image_desktop": "shopify://shop_images/360_Coverage_Security_Camera_1.jpg",
-            "image_mobile": "shopify://shop_images/360_Coverage_Security_Camera_mobile.jpg"
-          }
-        }
-      },
-      "block_order": [
-        "tab-2",
-        "tab-1",
-        "tab-3"
-      ],
-      "settings": {
-        "header_title": "<em>See Details</em> in the Dark",
-        "header_description": "<p>Featuring an f/1.6 large aperture and spotlights, the camera captures 20% more light, showing more details in dark.</p>",
-        "header_center": true,
-        "header_em_color": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 100%)",
-        "header_title_size_desktop": 50,
-        "header_title_size_mobile": 26,
-        "header_desc_size_desktop": 16,
-        "header_desc_size_mobile": 12,
-        "header_margin_bottom_desktop": 40,
-        "header_margin_bottom_mobile": 24,
-        "media_height_mode": "fixed",
-        "bg_color": "#FFFFFF",
-        "padding_top_mobile": 40,
-        "padding_bottom_mobile": 40,
-        "padding_top_desktop": 52,
-        "padding_bottom_desktop": 40
-      }
-    },
-    "q-battery-life": {
-      "type": "q-battery-life",
-      "blocks": {
-        "feature-1": {
-          "type": "feature_item",
-          "settings": {
-            "icon": "shopify://shop_images/fi_664886.jpg",
-            "title": "Battery",
-            "description": "<p>Long-lasting rechargeable battery provides reliable protection for months with fewer recharges required.</p>"
-          }
-        },
-        "feature-2": {
-          "type": "feature_item",
-          "settings": {
-            "icon": "shopify://shop_images/fi_10854086.jpg",
-            "title": "Solar Panel",
-            "description": "<p>Optional solar panel uses daily sunlight to keep your camera powered with minimal maintenance.</p>"
-          }
-        },
-        "feature-3": {
-          "type": "feature_item",
-          "settings": {
-            "icon": "shopify://shop_images/fi_3093298.jpg",
-            "title": "All-Weather / Low Maintenance",
-            "description": "<p>Designed to withstand rain, snow, heat, and cold for worry-free outdoor performance.</p>"
-          }
-        }
-      },
-      "block_order": [
-        "feature-1",
-        "feature-2",
-        "feature-3"
-      ],
-      "settings": {
-        "header_title": "Looking for <em>Longer Battery</em> Life?",
-        "header_description": "",
-        "header_center": true,
-        "header_em_color": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 100%)",
-        "header_title_size_desktop": 42,
-        "header_title_size_mobile": 26,
-        "header_desc_size_desktop": 16,
-        "header_desc_size_mobile": 12,
-        "header_margin_bottom_desktop": 40,
-        "header_margin_bottom_mobile": 24,
-        "image": "shopify://shop_images/Solar_Security_Cameras_Longer_Battery_Life.jpg",
-        "button_label": "Buy now",
-        "button_link": "/",
-        "show_button_mobile": false,
-        "bg_color": "#ffffff",
-        "padding_top_mobile": 40,
-        "padding_bottom_mobile": 52,
-        "padding_top_desktop": 60,
-        "padding_bottom_desktop": 100
-      }
-    },
-    "q-protection-scenes": {
-      "type": "q-protection-scenes",
-      "blocks": {
-        "scene-1": {
-          "type": "scene_card",
-          "settings": {
-            "image": "shopify://shop_images/Wireless_Cameras_For_Home_Security_1.jpg"
-          }
-        },
-        "scene-2": {
-          "type": "scene_card",
-          "settings": {
-            "image": "shopify://shop_images/Solar_Powered_Security_Camera_Manage_Deliveries.jpg"
-          }
-        },
-        "scene-3": {
-          "type": "scene_card",
-          "settings": {
-            "image": "shopify://shop_images/Outdoor_Security_Cameras_parking.jpg"
-          }
-        },
-        "scene-4": {
-          "type": "scene_card",
-          "settings": {
-            "image": "shopify://shop_images/Wireless_Security_Camera_warehouse.jpg"
-          }
-        },
-        "scene_card_YMaexJ": {
-          "type": "scene_card",
-          "settings": {
-            "image": "shopify://shop_images/Wireless_Security_Cameras_For_Home_2.jpg"
-          }
-        },
-        "scene_card_My469f": {
-          "type": "scene_card",
-          "settings": {
-            "image": "shopify://shop_images/Wireless_Outdoor_Security_Cameras_Store.jpg"
-          }
-        }
-      },
-      "block_order": [
-        "scene-1",
-        "scene-2",
-        "scene-3",
-        "scene-4",
-        "scene_card_YMaexJ",
-        "scene_card_My469f"
-      ],
-      "settings": {
-        "header_title": "<em>Protection</em> Where It Matters Most",
-        "header_description": "<p>Keep an eye on your front door, driveway, backyard, or indoors—whether you're home or away.</p>",
-        "header_center": true,
-        "header_em_color": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 100%)",
-        "header_title_color": "#ffffff",
-        "header_desc_color": "#e0e0e0",
-        "header_title_size_desktop": 42,
-        "header_title_size_mobile": 28,
-        "header_desc_size_desktop": 14,
-        "header_desc_size_mobile": 14,
-        "header_margin_bottom_desktop": 0,
-        "header_margin_bottom_mobile": 0,
-        "bg_color": "#0d0d0d",
-        "padding_top_mobile": 32,
-        "padding_bottom_mobile": 56,
-        "padding_top_desktop": 72,
-        "padding_bottom_desktop": 100
-      }
-    },
-    "q-wifi-connected": {
-      "type": "q-wifi-connected",
-      "settings": {
-        "header_title": "Always <em>Connected</em>",
-        "header_description": "<p>Built with <strong>Wi-Fi 6</strong> for faster, more stable wireless performance—so live view stays smooth and alerts arrive right when they matter. Bluetooth is used for quick setup.</p>",
-        "header_center": true,
-        "header_em_color": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 100%)",
-        "header_title_size_desktop": 42,
-        "header_title_size_mobile": 26,
-        "header_desc_size_desktop": 16,
-        "header_desc_size_mobile": 12,
-        "header_margin_bottom_desktop": 40,
-        "header_margin_bottom_mobile": 24,
-        "image_desktop": "shopify://shop_images/Group_371.jpg",
-        "image_mobile": "shopify://shop_images/Wireless_Home_Security_Camera_Systems.jpg",
-        "bg_color": "#FFFFFF",
-        "padding_top_mobile": 40,
-        "padding_bottom_mobile": 40,
-        "padding_top_desktop": 60,
-        "padding_bottom_desktop": 72
-      }
-    },
-    "q-storage-options": {
-      "type": "q-storage-options",
-      "blocks": {
-        "card-local": {
-          "type": "card",
-          "settings": {
-            "image": "shopify://shop_images/Security_Camera_Local_Storage_Free.jpg",
-            "badge_label": "Optional Backup",
-            "card_title": "Flexible Storage Options",
-            "card_description": "Choose local or cloud storage for event recording, footage stays private and under your control.",
-            "feature_1": "No monthly fees for local storage, full control",
-            "feature_2": "Supports 8–128GB microSD card (sold separately)",
-            "feature_3": "Free lifetime cloud storage with 6-second event videos",
-            "feature_4": "Subscribe to unlock longer event video recordings",
-            "button_label": "Buy now",
-            "button_link": "/cart/41859158278221:1"
-          }
-        },
-        "card-cloud": {
-          "type": "card",
-          "settings": {
-            "image": "shopify://shop_images/Security_Camera_Alexa_works.jpg",
-            "badge_label": "Hands-Free",
-            "card_title": "Smart Voice Control",
-            "card_description": "Works with Alexa for easy hands-free live view access",
-            "feature_1": "View live footage with simple voice commands",
-            "feature_2": "Check your home anytime, anywhere",
-            "feature_3": "Compatible with Alexa-enabled devices",
-            "feature_4": "Get convenient hands-free control",
-            "button_label": "Buy now",
-            "button_link": "/"
-          }
-        }
-      },
-      "block_order": [
-        "card-local",
-        "card-cloud"
-      ],
-      "settings": {
-        "header_title": "Local & Cloud Storage — No Monthly Fee",
-        "header_description": "",
-        "header_center": true,
-        "header_em_color": "#1565d8",
-        "header_title_size_desktop": 42,
-        "header_title_size_mobile": 24,
-        "header_desc_size_desktop": 16,
-        "header_desc_size_mobile": 12,
-        "header_margin_bottom_desktop": 44,
-        "header_margin_bottom_mobile": 24,
-        "bg_color": "#F7F7F7",
-        "padding_top_mobile": 40,
-        "padding_bottom_mobile": 40,
-        "padding_top_desktop": 60,
-        "padding_bottom_desktop": 72
-      }
-    },
-    "q-app-features": {
-      "type": "q-app-features",
-      "blocks": {
-        "feature-1": {
-          "type": "feature",
-          "settings": {
-            "media_type": "video",
-            "video": "shopify://files/videos/8k360_video_vid_pc_xlarge.mp4",
-            "title": "Live View & Event Playback",
-            "description": "Watch live video and replay key moments anytime, from anywhere."
-          }
-        },
-        "feature-2": {
-          "type": "feature",
-          "settings": {
-            "media_type": "image",
-            "image": "shopify://shop_images/Smart_Alerts_That_Matter.jpg",
-            "video": "shopify://files/videos/PureVideo_Mode_vid_pc_new.mp4",
-            "title": "Smart Alerts That Matter",
-            "description": "Get real-time notifications with visual previews, so you never miss what matters."
-          }
-        },
-        "feature-3": {
-          "type": "feature",
-          "settings": {
-            "media_type": "image",
-            "image": "shopify://shop_images/Connected_Devices.jpg",
-            "title": "Connected Devices",
-            "description": "View, manage, and securely share devices with family from one app."
-          }
-        },
-        "feature-4": {
-          "type": "feature",
-          "settings": {
-            "media_type": "image",
-            "image": "shopify://shop_images/Security_Privacy_Controls.jpg",
-            "title": "Custom Privacy Zones",
-            "description": "Decide what your camera sees — and what it doesn’t — with easy-to-set privacy zones."
-          }
-        }
-      },
-      "block_order": [
-        "feature-1",
-        "feature-2",
-        "feature-3",
-        "feature-4"
-      ],
-      "settings": {
-        "header_title": "App Control, Right from Your <em>Phone</em>",
-        "header_description": "",
-        "header_center": false,
-        "header_em_color": "linear-gradient(90deg, rgba(108, 188, 231, 0.81), rgba(54, 124, 246, 1) 100%)",
-        "header_title_size_desktop": 42,
-        "header_title_size_mobile": 24,
-        "header_desc_size_desktop": 16,
-        "header_desc_size_mobile": 12,
-        "header_margin_bottom_desktop": 40,
-        "header_margin_bottom_mobile": 24,
-        "bg_color": "#FFFFFF",
-        "card_bg_color": "#FFFFFF",
-        "img_bg_color": "#F3F7FF",
-        "padding_top_mobile": 40,
-        "padding_bottom_mobile": 40,
-        "padding_top_desktop": 60,
-        "padding_bottom_desktop": 60
-      }
-    },
-    "q-privacy-security": {
-      "type": "q-privacy-security",
-      "settings": {
-        "header_title": "Protecting Your Privacy and Security",
-        "header_description": "<p>We prioritize your privacy at every step. Our devices use end-to-end encryption and secure data practices to ensure your information is protected.</p><p>Only the data you choose is collected, and you can review, manage, or delete it at any time, giving you full control over your information.</p><p>Features like Home/Away modes and status indicators are designed to keep your home and family's information safe while letting you enjoy smart technology with peace of mind.</p>",
-        "header_center": false,
-        "header_em_color": "#3b7dd8",
-        "header_title_size_desktop": 42,
-        "header_title_size_mobile": 24,
-        "header_desc_size_desktop": 16,
-        "header_desc_size_mobile": 12,
-        "header_margin_bottom_desktop": 0,
-        "header_margin_bottom_mobile": 0,
-        "image": "shopify://shop_images/Rectangle_205.jpg",
-        "icon_image": "shopify://shop_images/fi_7532627.svg",
-        "bg_color": "#f3f7ff",
-        "padding_top_mobile": 40,
-        "padding_bottom_mobile": 40,
-        "padding_top_desktop": 80,
-        "padding_bottom_desktop": 80
-      }
-    },
-    "q-setup-steps": {
-      "type": "q-setup-steps",
-      "blocks": {
-        "step-1": {
-          "type": "step",
-          "settings": {
-            "image": "shopify://shop_images/Anran_camera_Wireless_Battery-Powered_Installation.jpg",
-            "title": "Wireless, Battery-Powered Installation",
-            "description": "Skip the hassle of wiring. The battery-powered design makes installation quick, clean, and stress-free—no outlets needed."
-          }
-        },
-        "step-2": {
-          "type": "step",
-          "settings": {
-            "image": "shopify://shop_images/Anran_cameras_Bluetooth_Setup.jpg",
-            "title": "Bluetooth Setup",
-            "description": "Connect in seconds with Bluetooth-assisted setup. Just enable Bluetooth, select your Wi-Fi, and you're ready to go—simple and foolproof."
-          }
-        },
-        "step-3": {
-          "type": "step",
-          "settings": {
-            "image": "shopify://shop_images/Anran_camera_Wire-Free_Installation.jpg",
-            "title": "Wall or Ceiling Mount",
-            "description": "Mount it on a wall or ceiling to fit your space. Flexible installation options make it easy to place the camera exactly where you need it."
-          }
-        }
-      },
-      "block_order": [
-        "step-1",
-        "step-2",
-        "step-3"
-      ],
-      "settings": {
-        "header_title": "Set Up in Minutes. <em>Wire-Free Installation.</em>",
-        "header_description": "",
-        "header_center": false,
-        "header_em_color": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 100%)",
-        "header_title_size_desktop": 42,
-        "header_title_size_mobile": 26,
-        "header_desc_size_desktop": 16,
-        "header_desc_size_mobile": 12,
-        "header_margin_bottom_desktop": 40,
-        "header_margin_bottom_mobile": 24,
-        "bg_color": "#FFFFFF",
-        "padding_top_mobile": 40,
-        "padding_bottom_mobile": 40,
-        "padding_top_desktop": 60,
-        "padding_bottom_desktop": 60
-      }
-    },
-    "q-compare-table": {
-      "type": "q-compare-table",
-      "blocks": {
-        "product-1": {
-          "type": "product",
-          "settings": {
-            "product_image": "shopify://shop_images/Wireless_Security_Cameras_Q3M8.png",
-            "product_name": "Q3M8",
-            "specs": "<p>2K / 3MP</p><p>360 Degrees</p><p>50 Feet</p><p>Wi-Fi</p><p>Alexa, Assistant</p><p>Solar & Battery Powered</p><p>Night Color</p><p>5000 mAh, 5W, 5V</p><p>SD Card, up to 128GB</p>",
-            "button_link": "/",
-            "button_label": "Shop now"
-          }
-        },
-        "product-2": {
-          "type": "product",
-          "settings": {
-            "product_image": "shopify://shop_images/Solar_Powered_Security_Cameras_C3M5.png",
-            "product_name": "C3M5",
-            "specs": "<p>3MP</p><p>135 Degrees</p><p>55 Feet</p><p>Wi-Fi</p><p>Amazon Alexa</p><p>Solar Powered</p><p>Night Color</p><p>5000 mAh, 5W, 5V</p><p>SD Card, up to 128GB</p>",
-            "button_link": "/",
-            "button_label": "Shop now"
-          }
-        },
-        "product-3": {
-          "type": "product",
-          "settings": {
-            "product_image": "shopify://shop_images/Anran_Solar_Security_Camera_Q4M5.png",
-            "product_name": "Q4M5",
-            "specs": "<p>2K / 3MP</p><p>360 Degrees</p><p>50 Feet</p><p>Wi-Fi</p><p>Alexa, Assistant</p><p>Solar & Battery Powered</p><p>Night Color</p><p>5000 mAh, 5W, 5V</p><p>SD Card, up to 128GB</p>",
-            "button_link": "/",
-            "button_label": "Shop now"
-          }
-        }
-      },
-      "block_order": [
-        "product-1",
-        "product-2",
-        "product-3"
-      ],
-      "settings": {
-        "header_title": "Discover What's <em>Popular</em>",
-        "header_description": "",
-        "header_center": true,
-        "header_em_color": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 67%)",
-        "header_title_size_desktop": 42,
-        "header_title_size_mobile": 26,
-        "header_desc_size_desktop": 16,
-        "header_desc_size_mobile": 12,
-        "header_margin_bottom_desktop": 40,
-        "header_margin_bottom_mobile": 24,
-        "feature_col_title": "Feature",
-        "feature_rows": "Video Capture Resolution\nViewing Angle\nNight Vision Range\nConnectivity Protocol\nController Type\nPower Source\nLow Light Technology\nBattery Power\nMax Supported",
-        "btn_color": "#faa61a",
-        "bg_color": "#f3f7ff",
-        "card_bg_color": "#ffffff",
-        "padding_top_mobile": 40,
-        "padding_bottom_mobile": 40,
-        "padding_top_desktop": 60,
-        "padding_bottom_desktop": 60
+        "title": "",
+        "heading_size": "h1",
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "button_label": "",
+        "button_link": "",
+        "columns_desktop": 4,
+        "column_alignment": "left",
+        "background_style": "primary",
+        "color_scheme": "background-1",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
       }
     },
     "17740849476b89dca3": {
@@ -1270,7 +372,7 @@
         "judge_me_reviews_review_widget_bYjAaY": {
           "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
           "settings": {
-            "review_data": "sample_data",
+            "review_data": "real_data",
             "max_width": 1200,
             "show_shop_reviews": false,
             "empty_state": "empty_widget"
@@ -1282,50 +384,6 @@
       ],
       "settings": {
         "include_margins": true
-      }
-    },
-    "q-pdp-fullwidth-hero": {
-      "type": "q-fullwidth-hero",
-      "settings": {
-        "image_desktop": "shopify://shop_images/Wireless_Security_Cameras_Weather-Resistant_Designm_anran.jpg",
-        "image_mobile": "shopify://shop_images/Wireless_Security_Cameras_Weather-Resistant_Designm_mobile.jpg",
-        "image_height_desktop": 740,
-        "image_height_mobile": 500,
-        "show_overlay": true,
-        "overlay_position": "top",
-        "overlay_opacity": 80,
-        "overlay_title": "Weather-Resistant Design",
-        "overlay_description": "<p>IP65 weatherproof design, built to withstand heat, cold, rain, or sun. in temperatures from -4°F to 140°F (-20°C to 60°C)</p>",
-        "overlay_text_align": "center",
-        "text_position": "top",
-        "overlay_title_color": "#ffffff",
-        "overlay_desc_color": "#ffffff",
-        "overlay_title_size_desktop": 42,
-        "overlay_title_size_mobile": 24,
-        "overlay_desc_size_desktop": 16,
-        "overlay_desc_size_mobile": 12,
-        "overlay_text_padding_desktop": 48,
-        "overlay_text_padding_mobile": 24,
-        "hero_title": "All-in-One Security. <em>Ready to Protect.</em>",
-        "hero_title_size_desktop": 42,
-        "hero_title_size_mobile": 24,
-        "hero_title_color": "#1e1e1e",
-        "hero_em_color_from": "#6cbce7",
-        "hero_em_color_to": "#367cf6",
-        "hero_description": "Enjoy reliable performance, easy setup, and full control—straight from the box.",
-        "hero_desc_size_desktop": 16,
-        "hero_desc_size_mobile": 12,
-        "hero_desc_color": "#4e5357",
-        "hero_product_image": "shopify://shop_images/anran_Q3M8_product_box_list.jpg",
-        "btn_label": "Buy Now",
-        "btn_link": "/",
-        "btn_bg_color": "#1565d8",
-        "btn_text_color": "#ffffff",
-        "hero_bg_color": "#ffffff",
-        "hero_padding_top_mobile": 40,
-        "hero_padding_bottom_mobile": 40,
-        "hero_padding_top_desktop": 60,
-        "hero_padding_bottom_desktop": 32
       }
     },
     "q-trial-guarantee": {
@@ -1873,25 +931,9 @@
   },
   "order": [
     "main",
-    "q-reviews-quote",
     "q-reviews-slider",
-    "q-logo-marquee",
-    "q-why-choose",
-    "q-smart-detection",
-    "q-alert-cards",
-    "q-audio-live-view",
-    "q-expert-testimonials",
-    "q-camera-showcase",
-    "q-battery-life",
-    "q-protection-scenes",
-    "q-wifi-connected",
-    "q-storage-options",
-    "q-app-features",
-    "q-privacy-security",
-    "q-setup-steps",
-    "q-compare-table",
+    "multicolumn_6cMcap",
     "17740849476b89dca3",
-    "q-pdp-fullwidth-hero",
     "q-trial-guarantee",
     "q-product-specs",
     "q-service-features",
