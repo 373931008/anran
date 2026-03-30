@@ -1,6 +1,582 @@
+{% doc %}
+  @prompt
+    帮我生成一个可以specs的模块，包含标题，描述，具体specs的列表，列表左侧是规格名称，右侧是具体的数据，名称和数据分别可以设置动态源, 我不需要一个一个设置，名称一列可以设置连接动态源到富文本，数据一列也可以设置连接动态源到富文本。两列对齐就好, 一开始只要展示8个，下方有一个查看更多的按钮，点击后可以显示剩下的内容
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-specs-container-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    padding: {{ block.settings.container_padding }}px;
+    background-color: {{ block.settings.background_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+  }
+
+  .ai-specs-header-{{ ai_gen_id }} {
+    margin-bottom: {{ block.settings.header_spacing }}px;
+  }
+
+  .ai-specs-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.title_size }}px;
+    color: {{ block.settings.title_color }};
+    margin: 0 0 {{ block.settings.title_bottom_spacing }}px 0;
+    font-weight: 600;
+  }
+
+  .ai-specs-description-{{ ai_gen_id }} {
+    font-size: {{ block.settings.description_size }}px;
+    color: {{ block.settings.description_color }};
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .ai-specs-content-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: {{ block.settings.column_gap }}px;
+  }
+
+  .ai-specs-column-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ai-specs-column-{{ ai_gen_id }} p {
+    margin: 0;
+    padding: {{ block.settings.item_padding }}px 0;
+    border-bottom: {{ block.settings.divider_thickness }}px solid {{ block.settings.divider_color }};
+    font-size: {{ block.settings.text_size }}px;
+    line-height: 1.5;
+  }
+
+  .ai-specs-column-{{ ai_gen_id }} p:last-child {
+    border-bottom: none;
+  }
+
+  .ai-specs-column-{{ ai_gen_id }}--labels p {
+    color: {{ block.settings.label_color }};
+    font-weight: 600;
+  }
+
+  .ai-specs-column-{{ ai_gen_id }}--values p {
+    color: {{ block.settings.value_color }};
+    text-align: {{ block.settings.value_alignment }};
+  }
+
+  .ai-specs-column-{{ ai_gen_id }} p.ai-specs-hidden-{{ ai_gen_id }} {
+    display: none;
+  }
+
+  .ai-specs-toggle-{{ ai_gen_id }} {
+    margin-top: {{ block.settings.button_top_spacing }}px;
+    text-align: center;
+  }
+
+  .ai-specs-toggle-btn-{{ ai_gen_id }} {
+    background-color: {{ block.settings.button_bg_color }};
+    color: {{ block.settings.button_text_color }};
+    border: {{ block.settings.button_border_thickness }}px solid {{ block.settings.button_border_color }};
+    border-radius: {{ block.settings.button_border_radius }}px;
+    padding: {{ block.settings.button_padding_vertical }}px {{ block.settings.button_padding_horizontal }}px;
+    font-size: {{ block.settings.button_text_size }}px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .ai-specs-toggle-btn-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_bg_color }};
+    color: {{ block.settings.button_hover_text_color }};
+  }
+
+  .ai-specs-toggle-{{ ai_gen_id }}.ai-specs-hidden-{{ ai_gen_id }} {
+    display: none;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-specs-container-{{ ai_gen_id }} {
+      width: 100%;
+    }
+
+    .ai-specs-content-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    .ai-specs-column-{{ ai_gen_id }}--values {
+      margin-top: -{{ block.settings.item_padding }}px;
+    }
+
+    .ai-specs-column-{{ ai_gen_id }}--values p {
+      text-align: left;
+      padding-top: {{ block.settings.item_padding | divided_by: 2 }}px;
+      padding-bottom: {{ block.settings.item_padding | times: 1.5 }}px;
+    }
+
+    .ai-specs-column-{{ ai_gen_id }}--labels p {
+      padding-bottom: {{ block.settings.item_padding | divided_by: 2 }}px;
+      border-bottom: none;
+    }
+  }
+{% endstyle %}
+
+<product-specs-{{ ai_gen_id }} class="ai-specs-container-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  {% if block.settings.title != blank or block.settings.description != blank %}
+    <div class="ai-specs-header-{{ ai_gen_id }}">
+      {% if block.settings.title != blank %}
+        <h2 class="ai-specs-title-{{ ai_gen_id }}">{{ block.settings.title }}</h2>
+      {% endif %}
+      {% if block.settings.description != blank %}
+        <div class="ai-specs-description-{{ ai_gen_id }}">{{ block.settings.description }}</div>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <div class="ai-specs-content-{{ ai_gen_id }}">
+    <div class="ai-specs-column-{{ ai_gen_id }} ai-specs-column-{{ ai_gen_id }}--labels" data-column="labels">
+      {{ block.settings.spec_labels }}
+    </div>
+    <div class="ai-specs-column-{{ ai_gen_id }} ai-specs-column-{{ ai_gen_id }}--values" data-column="values">
+      {{ block.settings.spec_values }}
+    </div>
+  </div>
+
+  <div class="ai-specs-toggle-{{ ai_gen_id }}">
+    <button class="ai-specs-toggle-btn-{{ ai_gen_id }}" data-toggle-btn>
+      <span data-show-text>{{ block.settings.show_more_text }}</span>
+      <span data-hide-text style="display: none;">{{ block.settings.show_less_text }}</span>
+    </button>
+  </div>
+</product-specs-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class ProductSpecs{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.initialVisibleCount = {{ block.settings.initial_visible_count }};
+        this.isExpanded = false;
+      }
+
+      connectedCallback() {
+        this.labelColumn = this.querySelector('[data-column="labels"]');
+        this.valueColumn = this.querySelector('[data-column="values"]');
+        this.toggleBtn = this.querySelector('[data-toggle-btn]');
+        this.toggleContainer = this.querySelector('.ai-specs-toggle-{{ ai_gen_id }}');
+        this.showText = this.querySelector('[data-show-text]');
+        this.hideText = this.querySelector('[data-hide-text]');
+
+        if (!this.labelColumn || !this.valueColumn || !this.toggleBtn) return;
+
+        this.labelItems = Array.from(this.labelColumn.querySelectorAll('p'));
+        this.valueItems = Array.from(this.valueColumn.querySelectorAll('p'));
+
+        this.init();
+      }
+
+      init() {
+        if (this.labelItems.length <= this.initialVisibleCount) {
+          this.toggleContainer.classList.add('ai-specs-hidden-{{ ai_gen_id }}');
+          return;
+        }
+
+        this.hideExtraItems();
+
+        this.toggleBtn.addEventListener('click', () => {
+          this.toggleItems();
+        });
+      }
+
+      hideExtraItems() {
+        this.labelItems.forEach((item, index) => {
+          if (index >= this.initialVisibleCount) {
+            item.classList.add('ai-specs-hidden-{{ ai_gen_id }}');
+          }
+        });
+
+        this.valueItems.forEach((item, index) => {
+          if (index >= this.initialVisibleCount) {
+            item.classList.add('ai-specs-hidden-{{ ai_gen_id }}');
+          }
+        });
+      }
+
+      toggleItems() {
+        this.isExpanded = !this.isExpanded;
+
+        this.labelItems.forEach((item, index) => {
+          if (index >= this.initialVisibleCount) {
+            if (this.isExpanded) {
+              item.classList.remove('ai-specs-hidden-{{ ai_gen_id }}');
+            } else {
+              item.classList.add('ai-specs-hidden-{{ ai_gen_id }}');
+            }
+          }
+        });
+
+        this.valueItems.forEach((item, index) => {
+          if (index >= this.initialVisibleCount) {
+            if (this.isExpanded) {
+              item.classList.remove('ai-specs-hidden-{{ ai_gen_id }}');
+            } else {
+              item.classList.add('ai-specs-hidden-{{ ai_gen_id }}');
+            }
+          }
+        });
+
+        if (this.isExpanded) {
+          this.showText.style.display = 'none';
+          this.hideText.style.display = 'inline';
+        } else {
+          this.showText.style.display = 'inline';
+          this.hideText.style.display = 'none';
+        }
+      }
+    }
+
+    customElements.define('product-specs-{{ ai_gen_id }}', ProductSpecs{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "产品规格",
+  "settings": [
+    {
+      "type": "header",
+      "content": "标题和描述"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "label": "标题",
+      "default": "产品规格"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "描述",
+      "default": "<p>查看详细的产品技术规格</p>"
+    },
+    {
+      "type": "range",
+      "id": "header_spacing",
+      "label": "标题底部间距",
+      "min": 10,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "title_bottom_spacing",
+      "label": "标题与描述间距",
+      "min": 5,
+      "max": 30,
+      "step": 5,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "header",
+      "content": "规格内容"
+    },
+    {
+      "type": "richtext",
+      "id": "spec_labels",
+      "label": "规格名称列",
+      "default": "<p>分辨率</p><p>夜视距离</p><p>电池容量</p><p>防水等级</p><p>存储方式</p><p>视角</p><p>工作温度</p><p>WiFi频段</p><p>尺寸</p><p>重量</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "spec_values",
+      "label": "规格数据列",
+      "default": "<p>1080P</p><p>10米</p><p>5000mAh</p><p>IP66</p><p>云存储/本地存储</p><p>110°</p><p>-20°C ~ 50°C</p><p>2.4GHz</p><p>120 x 80 x 60mm</p><p>350g</p>"
+    },
+    {
+      "type": "range",
+      "id": "initial_visible_count",
+      "label": "初始显示数量",
+      "min": 3,
+      "max": 15,
+      "step": 1,
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "查看更多按钮"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "show_more_text",
+      "label": "展开按钮文字",
+      "default": "查看更多"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "show_less_text",
+      "label": "收起按钮文字",
+      "default": "收起"
+    },
+    {
+      "type": "range",
+      "id": "button_top_spacing",
+      "label": "按钮顶部间距",
+      "min": 10,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "按钮背景颜色",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "按钮文字颜色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg_color",
+      "label": "按钮悬停背景颜色",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text_color",
+      "label": "按钮悬停文字颜色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "按钮边框颜色",
+      "default": "#121212"
+    },
+    {
+      "type": "range",
+      "id": "button_border_thickness",
+      "label": "按钮边框粗细",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "label": "按钮圆角",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "button_padding_vertical",
+      "label": "按钮垂直内边距",
+      "min": 8,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "button_padding_horizontal",
+      "label": "按钮水平内边距",
+      "min": 16,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "button_text_size",
+      "label": "按钮文字大小",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "布局设置"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "桌面宽度",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "container_padding",
+      "label": "容器内边距",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "圆角",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "column_gap",
+      "label": "列间距",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "item_padding",
+      "label": "项目内边距",
+      "min": 10,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "value_alignment",
+      "label": "数据列对齐方式",
+      "options": [
+        {
+          "value": "left",
+          "label": "左对齐"
+        },
+        {
+          "value": "center",
+          "label": "居中"
+        },
+        {
+          "value": "right",
+          "label": "右对齐"
+        }
+      ],
+      "default": "right"
+    },
+    {
+      "type": "header",
+      "content": "颜色设置"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "背景颜色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "标题颜色",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "描述颜色",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "label": "规格名称颜色",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "value_color",
+      "label": "规格数据颜色",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "分隔线颜色",
+      "default": "#e5e5e5"
+    },
+    {
+      "type": "header",
+      "content": "字体大小"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "标题字体大小",
+      "min": 16,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "label": "描述字体大小",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "label": "规格文字大小",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "分隔线"
+    },
+    {
+      "type": "range",
+      "id": "divider_thickness",
+      "label": "分隔线粗细",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    }
+  ],
+  "presets": [
+    {
+      "name": "产品规格"
+    }
+  ]
+}
 {% endschema %}
