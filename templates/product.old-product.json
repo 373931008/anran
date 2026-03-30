@@ -543,6 +543,49 @@
         "padding_bottom_desktop": 40
       }
     },
+    "17748769960b9d81f8": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_93cd808_dmkBkT": {
+          "type": "ai_gen_block_93cd808",
+          "settings": {
+            "title": "Product Specifications",
+            "title_alignment": "center",
+            "title_size": 30,
+            "title_color": "#121212",
+            "content": "<ul><li><strong>Image Sensor:</strong> 1/2.9'' 5Megapixel CMOS</li><li><strong>Effective Pixels:</strong> 2304(H) * 1296(V)</li><li><strong>Shutter:</strong> 1/25~1/10,000s</li><li><strong>Min Illuminance:</strong> Color 1Lux, Black/White 0.01Lux</li><li><strong>IR Distance:</strong> Black & white image, night vision distance is 12M</li><li><strong>Day/Night:</strong> Auto(ICR)/Color/B/W</li><li><strong>WDR:</strong> DWDR (Digital Wide Dynamic Range)</li><li><strong>Lens:</strong> 3.6mm, 95° view angle (Note: FAQ mentions up to 135°)</li><li><strong>Video Compression:</strong> H.264</li><li><strong>Bit Rate:</strong> 32Kbps~2Mbps</li><li><strong>Audio Input/Output:</strong> Built-in mic/speaker (Supports Two-Way Audio)</li></ul>",
+            "initial_items": 10,
+            "desktop_columns": "2",
+            "column_gap": 20,
+            "text_size": 14,
+            "text_color": "#121212",
+            "item_padding": 14,
+            "divider_color": "#e5e5e5",
+            "show_more_text": "Show more",
+            "show_less_text": "Show less",
+            "button_alignment": "center",
+            "button_text_size": 14,
+            "button_padding": 12,
+            "button_radius": 4,
+            "button_bg_color": "#ffffff",
+            "button_text_color": "#121212",
+            "button_border_color": "#e5e5e5",
+            "button_hover_bg_color": "#f3f3f3",
+            "button_hover_text_color": "#121212",
+            "max_width": 800,
+            "padding": 20,
+            "spacing": 20,
+            "border_radius": 0,
+            "background_color": "#ffffff"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_93cd808_dmkBkT"
+      ],
+      "settings": {}
+    },
     "q-product-specs": {
       "type": "q-product-specs",
       "blocks": {
@@ -1081,6 +1124,7 @@
     "1774861317e9ce9929",
     "17740849476b89dca3",
     "q-trial-guarantee",
+    "17748769960b9d81f8",
     "q-product-specs",
     "q-service-features",
     "collapsible_content_mHXHW8",
