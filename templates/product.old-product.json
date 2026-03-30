@@ -442,6 +442,39 @@
         "padding_bottom": 36
       }
     },
+    "1774861317e9ce9929": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_b429a13_mgRCth": {
+          "type": "ai_gen_block_b429a13",
+          "settings": {
+            "metafield_key": "overview_extra_image_list",
+            "title": "",
+            "description": "",
+            "text_alignment": "center",
+            "title_size": 28,
+            "description_size": 16,
+            "title_color": "#121212",
+            "description_color": "#666666",
+            "title_spacing": 12,
+            "header_spacing": 32,
+            "container_width": 1000,
+            "columns_desktop": 1,
+            "columns_mobile": "1",
+            "horizontal_padding": 0,
+            "horizontal_padding_mobile": 16,
+            "image_spacing": 16,
+            "image_border_radius": 16,
+            "section_padding": 20
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_b429a13_mgRCth"
+      ],
+      "settings": {}
+    },
     "17740849476b89dca3": {
       "type": "apps",
       "blocks": {
@@ -1010,6 +1043,7 @@
     "q-reviews-slider",
     "q_camera_showcase_kYWAec",
     "multicolumn_6cMcap",
+    "1774861317e9ce9929",
     "17740849476b89dca3",
     "q-trial-guarantee",
     "q-product-specs",
