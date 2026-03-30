@@ -30,6 +30,10 @@
     assign lazy = 'lazy'
   endunless
 
+  if position == 1
+    assign lazy = nil
+  endif
+
   assign desktop_columns = 1
   if desktop_layout == 'columns' and media_count > 1
     assign desktop_columns = 2
@@ -78,6 +82,9 @@
     </span>
     {%- render 'loading-spinner' -%}
     <div class="product__media media media--transparent">
+      {%- if position == 1 -%}
+        {{- media.preview_image | image_url: width: 1946 | preload_tag: as: 'image' -}}
+      {%- endif -%}
       {{
         media.preview_image
         | image_url: width: 1946

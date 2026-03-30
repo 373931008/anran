@@ -240,6 +240,12 @@
     height: 100%;
     display: block;
   }
+
+  @media screen and (max-width: 750px) {
+    .section-{{ section.id }} .q-rq__quote-text {
+      font-weight: 600;
+    }
+  }
 </style>
 
 <div class="q-reviews-quote section-{{ section.id }}">
