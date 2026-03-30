@@ -1,6 +1,457 @@
+{% doc %}
+  @prompt
+    帮我生成一个可以放图片的section，动态源可以链接图片文件的或者单张图片，模块格式标题，描述，图片三部分组成，图片设置中可以选择的素材高度自适应，以及Fill
+    Fit
+    Crop
+    Tile的选择
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-image-display-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: {{ block.settings.section_padding }}px;
+    background-color: {{ block.settings.background_color }};
+  }
+
+  .ai-image-display-content-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: {{ block.settings.content_spacing }}px;
+  }
+
+  .ai-image-display-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.title_size }}px;
+    color: {{ block.settings.title_color }};
+    margin: 0;
+    text-align: {{ block.settings.text_alignment }};
+  }
+
+  .ai-image-display-description-{{ ai_gen_id }} {
+    font-size: {{ block.settings.description_size }}px;
+    color: {{ block.settings.description_color }};
+    line-height: 1.6;
+    text-align: {{ block.settings.text_alignment }};
+  }
+
+  .ai-image-display-image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: {{ block.settings.image_border_radius }}px;
+  }
+
+  {% if block.settings.image_fit == 'fill' %}
+    .ai-image-display-image-wrapper-{{ ai_gen_id }} {
+      height: {{ block.settings.image_height }}px;
+    }
+    .ai-image-display-image-{{ ai_gen_id }} {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  {% elsif block.settings.image_fit == 'fit' %}
+    .ai-image-display-image-wrapper-{{ ai_gen_id }} {
+      height: {{ block.settings.image_height }}px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: {{ block.settings.image_background_color }};
+    }
+    .ai-image-display-image-{{ ai_gen_id }} {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+  {% elsif block.settings.image_fit == 'crop' %}
+    .ai-image-display-image-wrapper-{{ ai_gen_id }} {
+      height: {{ block.settings.image_height }}px;
+    }
+    .ai-image-display-image-{{ ai_gen_id }} {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: {{ block.settings.crop_position }};
+    }
+  {% elsif block.settings.image_fit == 'tile' %}
+    .ai-image-display-image-wrapper-{{ ai_gen_id }} {
+      height: {{ block.settings.image_height }}px;
+      background-size: {{ block.settings.tile_size }}px;
+      background-repeat: repeat;
+      background-position: center;
+    }
+    .ai-image-display-image-{{ ai_gen_id }} {
+      display: none;
+    }
+  {% else %}
+    .ai-image-display-image-{{ ai_gen_id }} {
+      width: 100%;
+      height: auto;
+    }
+  {% endif %}
+
+  .ai-image-display-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: {{ block.settings.image_height }}px;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border-radius: {{ block.settings.image_border_radius }}px;
+  }
+
+  .ai-image-display-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 400px;
+    max-height: 400px;
+  }
+
+  .ai-image-display-empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 20px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-image-display-{{ ai_gen_id }} {
+      width: 100%;
+      padding: {{ block.settings.section_padding | times: 0.6 }}px;
+    }
+
+    .ai-image-display-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_size | times: 0.8 }}px;
+    }
+
+    .ai-image-display-description-{{ ai_gen_id }} {
+      font-size: {{ block.settings.description_size | times: 0.9 }}px;
+    }
+
+    .ai-image-display-image-wrapper-{{ ai_gen_id }},
+    .ai-image-display-placeholder-{{ ai_gen_id }} {
+      height: {{ block.settings.image_height | times: 0.7 }}px;
+    }
+  }
+{% endstyle %}
+
+<image-display-{{ ai_gen_id }}
+  class="ai-image-display-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-image-display-content-{{ ai_gen_id }}">
+    {% if block.settings.title != blank %}
+      <h2 class="ai-image-display-title-{{ ai_gen_id }}">{{ block.settings.title }}</h2>
+    {% endif %}
+
+    {% if block.settings.description != blank %}
+      <div class="ai-image-display-description-{{ ai_gen_id }}">
+        {{ block.settings.description }}
+      </div>
+    {% endif %}
+
+    <div class="ai-image-display-image-wrapper-{{ ai_gen_id }}"
+      {% if block.settings.image_fit == 'tile' and block.settings.image %}
+        style="background-image: url('{{ block.settings.image | image_url: width: block.settings.tile_size }}');"
+      {% endif %}
+    >
+      {% if block.settings.image %}
+        {% if block.settings.image_fit == 'adaptive' %}
+          <img
+            src="{{ block.settings.image | image_url: width: 2000 }}"
+            alt="{{ block.settings.image.alt | escape }}"
+            loading="lazy"
+            width="{{ block.settings.image.width }}"
+            height="{{ block.settings.image.height }}"
+            class="ai-image-display-image-{{ ai_gen_id }}"
+          >
+        {% elsif block.settings.image_fit != 'tile' %}
+          <img
+            src="{{ block.settings.image | image_url: width: 2000 }}"
+            alt="{{ block.settings.image.alt | escape }}"
+            loading="lazy"
+            class="ai-image-display-image-{{ ai_gen_id }}"
+          >
+        {% endif %}
+      {% else %}
+        <div class="ai-image-display-placeholder-{{ ai_gen_id }}">
+          {{ 'image' | placeholder_svg_tag }}
+          <div class="ai-image-display-empty-state-{{ ai_gen_id }}">
+            请添加图片
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</image-display-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class ImageDisplay{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.init();
+      }
+
+      init() {
+        const imageWrapper = this.querySelector('.ai-image-display-image-wrapper-{{ ai_gen_id }}');
+        if (imageWrapper) {
+          imageWrapper.style.opacity = '0';
+          setTimeout(() => {
+            imageWrapper.style.transition = 'opacity 0.3s ease';
+            imageWrapper.style.opacity = '1';
+          }, 100);
+        }
+      }
+    }
+
+    customElements.define('image-display-{{ ai_gen_id }}', ImageDisplay{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "图片展示",
+  "settings": [
+    {
+      "type": "header",
+      "content": "内容"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "label": "标题",
+      "default": "图片展示标题"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "描述",
+      "default": "<p>在这里添加图片的描述信息，可以详细介绍图片内容或相关产品特点。</p>"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "文本对齐",
+      "options": [
+        {
+          "value": "left",
+          "label": "左对齐"
+        },
+        {
+          "value": "center",
+          "label": "居中"
+        },
+        {
+          "value": "right",
+          "label": "右对齐"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "图片"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "图片"
+    },
+    {
+      "type": "select",
+      "id": "image_fit",
+      "label": "图片显示模式",
+      "options": [
+        {
+          "value": "adaptive",
+          "label": "自适应高度"
+        },
+        {
+          "value": "fill",
+          "label": "Fill - 填充容器"
+        },
+        {
+          "value": "fit",
+          "label": "Fit - 完整显示"
+        },
+        {
+          "value": "crop",
+          "label": "Crop - 裁剪"
+        },
+        {
+          "value": "tile",
+          "label": "Tile - 平铺"
+        }
+      ],
+      "default": "adaptive",
+      "info": "选择图片在容器中的显示方式"
+    },
+    {
+      "type": "range",
+      "id": "image_height",
+      "label": "图片高度",
+      "min": 200,
+      "max": 800,
+      "step": 50,
+      "unit": "px",
+      "default": 400,
+      "info": "仅适用于 Fill、Fit、Crop 和 Tile 模式"
+    },
+    {
+      "type": "select",
+      "id": "crop_position",
+      "label": "裁剪位置",
+      "options": [
+        {
+          "value": "center",
+          "label": "居中"
+        },
+        {
+          "value": "top",
+          "label": "顶部"
+        },
+        {
+          "value": "bottom",
+          "label": "底部"
+        },
+        {
+          "value": "left",
+          "label": "左侧"
+        },
+        {
+          "value": "right",
+          "label": "右侧"
+        }
+      ],
+      "default": "center",
+      "info": "仅适用于 Crop 模式"
+    },
+    {
+      "type": "range",
+      "id": "tile_size",
+      "label": "平铺尺寸",
+      "min": 50,
+      "max": 500,
+      "step": 50,
+      "unit": "px",
+      "default": 200,
+      "info": "仅适用于 Tile 模式"
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "label": "图片圆角",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "image_background_color",
+      "label": "图片背景色",
+      "default": "#f4f4f4",
+      "info": "仅适用于 Fit 模式"
+    },
+    {
+      "type": "header",
+      "content": "样式"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "桌面宽度",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "label": "内边距",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "content_spacing",
+      "label": "内容间距",
+      "min": 10,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "背景颜色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "标题样式"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "标题字号",
+      "min": 16,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "标题颜色",
+      "default": "#121212"
+    },
+    {
+      "type": "header",
+      "content": "描述样式"
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "label": "描述字号",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "描述颜色",
+      "default": "#121212"
+    }
+  ],
+  "presets": [
+    {
+      "name": "图片展示"
+    }
+  ]
+}
 {% endschema %}
