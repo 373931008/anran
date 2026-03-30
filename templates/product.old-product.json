@@ -298,6 +298,82 @@
         "padding_bottom_desktop": 20
       }
     },
+    "q_camera_showcase_kYWAec": {
+      "type": "q-camera-showcase",
+      "blocks": {
+        "tab_PCpRtA": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "{{ product.metafields.custom.overview_text_01.value }}",
+            "media_type": "image",
+            "image_desktop": "{{ product.metafields.custom.overview_image_01.value }}",
+            "image_mobile": "{{ product.metafields.custom.overview_image_01.value }}"
+          }
+        },
+        "tab_McVqLi": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "{{ product.metafields.custom.overview_text_02.value }}",
+            "media_type": "image",
+            "image_desktop": "{{ product.metafields.custom.overview_image_02.value }}",
+            "image_mobile": "{{ product.metafields.custom.overview_image_02.value }}"
+          }
+        },
+        "tab_FJw3FG": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "{{ product.metafields.custom.overview_text_03.value }}",
+            "media_type": "image",
+            "image_desktop": "{{ product.metafields.custom.overview_image_03.value }}",
+            "image_mobile": "{{ product.metafields.custom.overview_image_03.value }}"
+          }
+        },
+        "tab_P48bUT": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "{{ product.metafields.custom.overview_text_04.value }}",
+            "media_type": "image",
+            "image_desktop": "{{ product.metafields.custom.overview_image_04.value }}",
+            "image_mobile": "{{ product.metafields.custom.overview_image_04.value }}"
+          }
+        },
+        "tab_VDHrUh": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "{{ product.metafields.custom.overview_text_05.value }}",
+            "media_type": "image",
+            "image_desktop": "{{ product.metafields.custom.overview_image_05.value }}",
+            "image_mobile": "{{ product.metafields.custom.overview_image_05.value }}"
+          }
+        }
+      },
+      "block_order": [
+        "tab_PCpRtA",
+        "tab_McVqLi",
+        "tab_FJw3FG",
+        "tab_P48bUT",
+        "tab_VDHrUh"
+      ],
+      "name": "q-camera-showcase",
+      "settings": {
+        "header_title": "<em>See Details</em> in the Dark",
+        "header_description": "",
+        "header_center": true,
+        "header_em_color": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 100%)",
+        "header_title_size_desktop": 50,
+        "header_title_size_mobile": 26,
+        "header_desc_size_desktop": 16,
+        "header_desc_size_mobile": 12,
+        "header_margin_bottom_desktop": 40,
+        "header_margin_bottom_mobile": 24,
+        "media_height_mode": "auto",
+        "bg_color": "#FFFFFF",
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60
+      }
+    },
     "multicolumn_6cMcap": {
       "type": "multicolumn",
       "blocks": {
@@ -932,6 +1008,7 @@
   "order": [
     "main",
     "q-reviews-slider",
+    "q_camera_showcase_kYWAec",
     "multicolumn_6cMcap",
     "17740849476b89dca3",
     "q-trial-guarantee",
