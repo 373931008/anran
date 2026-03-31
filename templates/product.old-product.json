@@ -586,39 +586,6 @@
       ],
       "settings": {}
     },
-    "collapsible_content_mHXHW8": {
-      "type": "collapsible-content",
-      "blocks": {
-        "collapsible_row_wwNPBU": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "Answers to Frequently Asked Questions",
-            "icon": "none",
-            "row_content": "{{ product.metafields.custom.faq | metafield_tag }}",
-            "page": ""
-          }
-        }
-      },
-      "block_order": [
-        "collapsible_row_wwNPBU"
-      ],
-      "custom_css": [],
-      "name": "t:sections.collapsible_content.presets.name",
-      "settings": {
-        "caption": "",
-        "heading": "<strong>FAQ</strong>",
-        "heading_size": "h1",
-        "heading_alignment": "center",
-        "layout": "section",
-        "container_color_scheme": "",
-        "color_scheme": "",
-        "open_first_collapsible_row": true,
-        "image_ratio": "adapt",
-        "desktop_layout": "image_first",
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
-    },
     "q-service-features": {
       "type": "q-service-features",
       "blocks": {
@@ -674,10 +641,43 @@
         "header_margin_bottom_mobile": 24,
         "bg_color": "#ffffff",
         "card_bg_color": "#f9f9f9",
-        "padding_top_mobile": 20,
+        "padding_top_mobile": 32,
         "padding_bottom_mobile": 40,
-        "padding_top_desktop": 20,
+        "padding_top_desktop": 40,
         "padding_bottom_desktop": 52
+      }
+    },
+    "collapsible_content_mHXHW8": {
+      "type": "collapsible-content",
+      "blocks": {
+        "collapsible_row_wwNPBU": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Answers to Frequently Asked Questions",
+            "icon": "none",
+            "row_content": "{{ product.metafields.custom.faq | metafield_tag }}",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "collapsible_row_wwNPBU"
+      ],
+      "custom_css": [],
+      "name": "t:sections.collapsible_content.presets.name",
+      "settings": {
+        "caption": "",
+        "heading": "<strong>FAQ</strong>",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "layout": "section",
+        "container_color_scheme": "",
+        "color_scheme": "",
+        "open_first_collapsible_row": true,
+        "image_ratio": "adapt",
+        "desktop_layout": "image_first",
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     },
     "q-product-recommend": {
@@ -864,8 +864,8 @@
     "17740849476b89dca3",
     "q-trial-guarantee",
     "17748769960b9d81f8",
-    "collapsible_content_mHXHW8",
     "q-service-features",
+    "collapsible_content_mHXHW8",
     "q-product-recommend"
   ]
 }
