@@ -37,22 +37,28 @@
       ],
       "settings": {}
     },
-    "image_banner_eHxUW8": {
-      "type": "image-banner",
-      "disabled": true,
-      "name": "t:sections.image-banner.presets.name",
+    "rich_text_iqDYhn": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_HDrJfG": {
+          "type": "heading",
+          "settings": {
+            "heading": "<em><strong>Weekly Flash Sale</strong></em>",
+            "heading_size": "h2"
+          }
+        }
+      },
+      "block_order": [
+        "heading_HDrJfG"
+      ],
+      "name": "t:sections.rich-text.presets.name",
       "settings": {
-        "image": "shopify://shop_images/1920x800_2.jpg",
-        "image_overlay_opacity": 0,
-        "image_height": "adapt",
-        "image_behavior": "none",
-        "desktop_content_position": "middle-center",
-        "desktop_content_alignment": "center",
-        "show_text_box": true,
-        "color_scheme": "background-1",
-        "stack_images_on_mobile": true,
-        "mobile_content_alignment": "center",
-        "show_text_below": true
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 32,
+        "padding_bottom": 24
       }
     },
     "multicolumn_6QgJEg": {
@@ -185,7 +191,7 @@
   "order": [
     "main",
     "177449525509dcff96",
-    "image_banner_eHxUW8",
+    "rich_text_iqDYhn",
     "multicolumn_6QgJEg",
     "featured_collection_Ycjgfx",
     "featured_collection_6brhAR",
