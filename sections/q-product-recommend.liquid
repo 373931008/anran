@@ -454,7 +454,7 @@
             {{ block.shopify_attributes }}
           >
             <div class="q-pr__card">
-              <div class="q-pr__card-image">
+              <a class="q-pr__card-image" href="{% if product_item != blank %}{{ product_item.url }}{% else %}{{ block.settings.button_link }}{% endif %}">
                 {%- if block.settings.custom_image != blank -%}
                   {{- block.settings.custom_image | image_url: width: 460 | image_tag:
                       loading: 'lazy',
@@ -477,7 +477,7 @@
                 {%- else -%}
                   {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
                 {%- endif -%}
-              </div>
+              </a>
 
               <div class="q-pr__card-body">
                 <p class="q-pr__card-title">

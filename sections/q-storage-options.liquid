@@ -269,16 +269,15 @@
           endif
         -%}
         <div class="q-so__card{% if is_reverse %} q-so__card--reverse{% endif %}" {{ block.shopify_attributes }}>
-
           {%- if block.settings.image != blank -%}
-            <div class="q-so__card-img">
+            <a class="q-so__card-img" href="{{ block.settings.button_link | default: '#' }}">
               {{- block.settings.image | image_url: width: 720 | image_tag:
                 loading: 'lazy',
                 sizes: '(min-width: 750px) 50vw, 100vw',
                 widths: '400, 600, 720, 900',
                 alt: block.settings.card_title
               -}}
-            </div>
+            </a>
           {%- endif -%}
 
           <div class="q-so__card-content">
@@ -331,7 +330,7 @@
 
             {%- if block.settings.button_label != blank -%}
               <a
-                href="{{ block.settings.button_link | default: '/' }}"
+                href="{{ block.settings.button_link | default: '#' }}"
                 class="q-so__btn"
               >
                 {{- block.settings.button_label -}}
@@ -421,7 +420,7 @@
           "type": "url",
           "id": "button_link",
           "label": "按钮链接",
-          "default": "/"
+          "default": "#"
         }
       ]
     }
@@ -441,7 +440,7 @@
             "feature_3": "Full access to live view & motion alerts",
             "feature_4": "Footage stays private and under your control",
             "button_label": "Buy now",
-            "button_link": "/"
+            "button_link": "#"
           }
         },
         {
@@ -455,7 +454,7 @@
             "feature_3": "Easy sharing & remote access",
             "feature_4": "Subscription required (optional, not mandatory)",
             "button_label": "Buy now",
-            "button_link": "/"
+            "button_link": "#"
           }
         }
       ]
