@@ -236,7 +236,7 @@
             "title_color": "#121212",
             "description_font_size": 16,
             "description_color": "#666666",
-            "desktop_width_px": 1200,
+            "desktop_width_px": 1400,
             "spacing": 20,
             "tab_alignment": "center",
             "tab_gap": 10,
