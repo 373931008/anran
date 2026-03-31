@@ -549,9 +549,9 @@
         "ai_gen_block_93cd808_dmkBkT": {
           "type": "ai_gen_block_93cd808",
           "settings": {
-            "title": "Product Specifications",
+            "title": "Specifications",
             "title_alignment": "center",
-            "title_size": 30,
+            "title_size": 26,
             "title_color": "#3c4043",
             "content": "<ul><li><strong>Image Sensor:</strong> 1/2.9'' 5Megapixel CMOS</li><li><strong>Effective Pixels:</strong> 2304(H) * 1296(V)</li><li><strong>Shutter:</strong> 1/25~1/10,000s</li><li><strong>Min Illuminance:</strong> Color 1Lux, Black/White 0.01Lux</li><li><strong>IR Distance:</strong> Black & white image, night vision distance is 12M</li><li><strong>Day/Night:</strong> Auto(ICR)/Color/B/W</li><li><strong>WDR:</strong> DWDR (Digital Wide Dynamic Range)</li><li><strong>Lens:</strong> 3.6mm, 95° view angle (Note: FAQ mentions up to 135°)</li><li><strong>Video Compression:</strong> H.264</li><li><strong>Bit Rate:</strong> 32Kbps~2Mbps</li><li><strong>Audio Input/Output:</strong> Built-in mic/speaker (Supports Two-Way Audio)</li></ul>",
             "initial_items": 10,
@@ -559,7 +559,7 @@
             "column_gap": 20,
             "text_size": 14,
             "text_color": "#121212",
-            "item_padding": 14,
+            "item_padding": 10,
             "divider_color": "#e5e5e5",
             "show_more_text": "Show more",
             "show_less_text": "Show less",
@@ -586,6 +586,39 @@
       ],
       "settings": {}
     },
+    "collapsible_content_mHXHW8": {
+      "type": "collapsible-content",
+      "blocks": {
+        "collapsible_row_wwNPBU": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Answers to Frequently Asked Questions",
+            "icon": "none",
+            "row_content": "{{ product.metafields.custom.faq | metafield_tag }}",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "collapsible_row_wwNPBU"
+      ],
+      "custom_css": [],
+      "name": "t:sections.collapsible_content.presets.name",
+      "settings": {
+        "caption": "",
+        "heading": "<strong>FAQ</strong>",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "layout": "section",
+        "container_color_scheme": "",
+        "color_scheme": "",
+        "open_first_collapsible_row": true,
+        "image_ratio": "adapt",
+        "desktop_layout": "image_first",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
     "q-service-features": {
       "type": "q-service-features",
       "blocks": {
@@ -610,7 +643,7 @@
           "settings": {
             "icon": "shopify://shop_images/fi_2169854.svg",
             "title": "Flexible Payment",
-            "description": "Pay in installments for your camera."
+            "description": "Paypal & Credit Card Secure Payments."
           }
         },
         "card-support": {
@@ -641,185 +674,10 @@
         "header_margin_bottom_mobile": 24,
         "bg_color": "#ffffff",
         "card_bg_color": "#f9f9f9",
-        "padding_top_mobile": 40,
+        "padding_top_mobile": 20,
         "padding_bottom_mobile": 40,
-        "padding_top_desktop": 40,
-        "padding_bottom_desktop": 60
-      }
-    },
-    "collapsible_content_mHXHW8": {
-      "type": "collapsible-content",
-      "blocks": {
-        "collapsible_row_wwNPBU": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "Answers to Frequently Asked Questions",
-            "icon": "none",
-            "row_content": "{{ product.metafields.custom.faq | metafield_tag }}",
-            "page": ""
-          }
-        }
-      },
-      "block_order": [
-        "collapsible_row_wwNPBU"
-      ],
-      "custom_css": [],
-      "name": "t:sections.collapsible_content.presets.name",
-      "settings": {
-        "caption": "",
-        "heading": "FAQ",
-        "heading_size": "h1",
-        "heading_alignment": "center",
-        "layout": "section",
-        "container_color_scheme": "",
-        "color_scheme": "",
-        "open_first_collapsible_row": true,
-        "image_ratio": "adapt",
-        "desktop_layout": "image_first",
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
-    },
-    "q-faq": {
-      "type": "q-faq",
-      "blocks": {
-        "tab-security": {
-          "type": "tab",
-          "settings": {
-            "tab_label": "Security Camera"
-          }
-        },
-        "tab-shipping": {
-          "type": "tab",
-          "settings": {
-            "tab_label": "Shipping & Returns"
-          }
-        },
-        "item-1": {
-          "type": "item",
-          "settings": {
-            "question": "Does the camera come with an SD card?",
-            "answer": "<p>Only the G1 model includes a built-in SD card in the package. Other camera models do NOT come with an SD card. You will need to purchase one separately.</p>",
-            "tab_index": "1"
-          }
-        },
-        "item-2": {
-          "type": "item",
-          "settings": {
-            "question": "What format of SD card does the camera support?",
-            "answer": "<p>The camera supports microSD cards up to 128GB in FAT32 or exFAT format.</p>",
-            "tab_index": "1"
-          }
-        },
-        "item-3": {
-          "type": "item",
-          "settings": {
-            "question": "Do you have to have Alexa for this?",
-            "answer": "<p>No, Alexa is not required. The camera works independently via the mobile app. Alexa integration is optional for voice control.</p>",
-            "tab_index": "1"
-          }
-        },
-        "item-4": {
-          "type": "item",
-          "settings": {
-            "question": "What is the viewing angle and What range of coverage is it?",
-            "answer": "<p>The camera has a 130° wide-angle lens with up to 30 feet of night vision range.</p>",
-            "tab_index": "1"
-          }
-        },
-        "item-5": {
-          "type": "item",
-          "settings": {
-            "question": "How long does it take to fully charge a low-power battery camera?",
-            "answer": "<p>It takes approximately 4-6 hours to fully charge the battery using the included USB-C cable.</p>",
-            "tab_index": "1"
-          }
-        },
-        "item-6": {
-          "type": "item",
-          "settings": {
-            "question": "Will this camera record continuously if I insert an SD card?",
-            "answer": "<p>Yes, with a microSD card inserted, the camera supports continuous local recording.</p>",
-            "tab_index": "1"
-          }
-        },
-        "item-7": {
-          "type": "item",
-          "settings": {
-            "question": "Why the Solar Panel Might Not Be Charging?",
-            "answer": "<p>Ensure the solar panel is placed in direct sunlight for at least 6 hours per day. Clean the panel surface if dirty and check the cable connection.</p>",
-            "tab_index": "1"
-          }
-        },
-        "item-8": {
-          "type": "item",
-          "settings": {
-            "question": "How long does shipping take?",
-            "answer": "<p>Standard shipping takes 5-7 business days. Expedited shipping (2-3 business days) is available at checkout.</p>",
-            "tab_index": "2"
-          }
-        },
-        "item-9": {
-          "type": "item",
-          "settings": {
-            "question": "What is your return policy?",
-            "answer": "<p>We offer a 30-day hassle-free return policy. Items must be in their original packaging and unused condition. Contact our support team to initiate a return.</p>",
-            "tab_index": "2"
-          }
-        },
-        "item-10": {
-          "type": "item",
-          "settings": {
-            "question": "Do you offer free shipping?",
-            "answer": "<p>Yes! Free standard shipping is available on all orders over $50. Orders below $50 have a flat shipping fee of $4.99.</p>",
-            "tab_index": "2"
-          }
-        },
-        "item-11": {
-          "type": "item",
-          "settings": {
-            "question": "Can I track my order?",
-            "answer": "<p>Absolutely. Once your order ships, you will receive a tracking number via email. You can also track your order through your account dashboard.</p>",
-            "tab_index": "2"
-          }
-        }
-      },
-      "block_order": [
-        "tab-security",
-        "tab-shipping",
-        "item-1",
-        "item-2",
-        "item-3",
-        "item-4",
-        "item-5",
-        "item-6",
-        "item-7",
-        "item-8",
-        "item-9",
-        "item-10",
-        "item-11"
-      ],
-      "disabled": true,
-      "settings": {
-        "padding_top_mobile": 40,
-        "padding_bottom_mobile": 40,
-        "padding_top_desktop": 60,
-        "padding_bottom_desktop": 60,
-        "default_open_first_item": false,
-        "tab_text_color": "#2d4e76",
-        "tab_border_color": "#d9e2f2",
-        "tab_active_bg": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 57.21%)",
-        "tab_active_text_color": "#ffffff",
-        "header_title": "Questions? We've Got Answers",
-        "header_description": "",
-        "header_center": true,
-        "header_em_color": "#2d4e76",
-        "header_title_size_desktop": 46,
-        "header_title_size_mobile": 26,
-        "header_desc_size_desktop": 16,
-        "header_desc_size_mobile": 12,
-        "header_margin_bottom_desktop": 40,
-        "header_margin_bottom_mobile": 24
+        "padding_top_desktop": 20,
+        "padding_bottom_desktop": 52
       }
     },
     "q-product-recommend": {
@@ -836,10 +694,10 @@
           "settings": {
             "product": "anran-g1-2k-3g-4g-lte-solar-battery-security-camera",
             "tab_id": "1",
-            "custom_title": "ANRAN C3 5MP Integrated Solar Battery Camera",
-            "custom_price": "$79.99",
-            "custom_compare_price": "$149.99",
-            "review_count": "236 reviews",
+            "custom_title": "",
+            "custom_price": "",
+            "custom_compare_price": "",
+            "review_count": "",
             "feature_1": "360° Coverage and Tracking",
             "feature_2": "Full Protection for the whole Home",
             "save_badge": "Save 50%",
@@ -850,12 +708,12 @@
         "card-2": {
           "type": "product_card",
           "settings": {
-            "product": "",
+            "product": "anran-4mp2mp-2mp-dual-lens-wireless-solar-security-camera-with-2-way-talk",
             "tab_id": "1",
-            "custom_title": "ANRAN C3 5MP Integrated Solar Battery Camera",
-            "custom_price": "$79.99",
-            "custom_compare_price": "$149.99",
-            "review_count": "236 reviews",
+            "custom_title": "",
+            "custom_price": "",
+            "custom_compare_price": "",
+            "review_count": "",
             "feature_1": "360° Coverage and Tracking",
             "feature_2": "Full Protection for the whole Home",
             "save_badge": "Save 50%",
@@ -866,12 +724,12 @@
         "card-3": {
           "type": "product_card",
           "settings": {
-            "product": "",
+            "product": "anran-q3-4k-8mp-solar-battery-camera",
             "tab_id": "1",
-            "custom_title": "ANRAN C3 5MP Integrated Solar Battery Camera",
-            "custom_price": "$79.99",
-            "custom_compare_price": "$149.99",
-            "review_count": "236 reviews",
+            "custom_title": "",
+            "custom_price": "",
+            "custom_compare_price": "",
+            "review_count": "",
             "feature_1": "360° Coverage and Tracking",
             "feature_2": "Full Protection for the whole Home",
             "save_badge": "Save 50%",
@@ -882,12 +740,12 @@
         "card-4": {
           "type": "product_card",
           "settings": {
-            "product": "",
+            "product": "anran-c3-5mp-integrated-solar-battery-camera",
             "tab_id": "1",
-            "custom_title": "ANRAN C3 5MP Integrated Solar Battery Camera",
-            "custom_price": "$79.99",
-            "custom_compare_price": "$149.99",
-            "review_count": "236 reviews",
+            "custom_title": "",
+            "custom_price": "",
+            "custom_compare_price": "",
+            "review_count": "",
             "feature_1": "360° Coverage and Tracking",
             "feature_2": "Full Protection for the whole Home",
             "save_badge": "Save 50%",
@@ -927,7 +785,6 @@
         "tab-2",
         "product_card_9DQqWV"
       ],
-      "disabled": true,
       "settings": {
         "padding_top_mobile": 40,
         "padding_bottom_mobile": 40,
@@ -956,9 +813,8 @@
     "17740849476b89dca3",
     "q-trial-guarantee",
     "17748769960b9d81f8",
-    "q-service-features",
     "collapsible_content_mHXHW8",
-    "q-faq",
+    "q-service-features",
     "q-product-recommend"
   ]
 }
