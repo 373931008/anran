@@ -842,7 +842,7 @@
         "padding_top_desktop": 60,
         "padding_bottom_desktop": 60,
         "tab_active_bg": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 57.21%)",
-        "header_title": "<p>Pair Up Our Products to Unlock Features and Save</p>",
+        "header_title": "<p>Pair Up Our Products to Unlock<br/>Features and Save</p>",
         "header_description": "",
         "header_center": true,
         "header_em_color": "#FF6B35",
