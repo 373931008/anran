@@ -482,7 +482,7 @@
           "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
           "settings": {
             "review_data": "real_data",
-            "max_width": 1200,
+            "max_width": 1000,
             "show_shop_reviews": false,
             "empty_state": "empty_widget"
           }
@@ -572,7 +572,7 @@
             "button_border_color": "#4e5357",
             "button_hover_bg_color": "#f3f7ff",
             "button_hover_text_color": "#121212",
-            "max_width": 800,
+            "max_width": 1000,
             "padding": 20,
             "spacing": 20,
             "border_radius": 0,
