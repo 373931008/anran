@@ -263,7 +263,7 @@
             "product_title_color": "#121212",
             "show_product_description": false,
             "product_description_size": 13,
-            "show_rating": true,
+            "show_rating": false,
             "default_rating": 5,
             "star_color": "#ffc107",
             "show_price": true,
