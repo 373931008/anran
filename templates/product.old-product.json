@@ -642,9 +642,9 @@
         "bg_color": "#ffffff",
         "card_bg_color": "#f9f9f9",
         "padding_top_mobile": 32,
-        "padding_bottom_mobile": 40,
+        "padding_bottom_mobile": 20,
         "padding_top_desktop": 40,
-        "padding_bottom_desktop": 52
+        "padding_bottom_desktop": 24
       }
     },
     "collapsible_content_mHXHW8": {
