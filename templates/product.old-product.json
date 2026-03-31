@@ -553,7 +553,7 @@
             "title_alignment": "center",
             "title_size": 26,
             "title_color": "#3c4043",
-            "content": "<ul><li><strong>Image Sensor:</strong> 1/2.9'' 5Megapixel CMOS</li><li><strong>Effective Pixels:</strong> 2304(H) * 1296(V)</li><li><strong>Shutter:</strong> 1/25~1/10,000s</li><li><strong>Min Illuminance:</strong> Color 1Lux, Black/White 0.01Lux</li><li><strong>IR Distance:</strong> Black & white image, night vision distance is 12M</li><li><strong>Day/Night:</strong> Auto(ICR)/Color/B/W</li><li><strong>WDR:</strong> DWDR (Digital Wide Dynamic Range)</li><li><strong>Lens:</strong> 3.6mm, 95° view angle (Note: FAQ mentions up to 135°)</li><li><strong>Video Compression:</strong> H.264</li><li><strong>Bit Rate:</strong> 32Kbps~2Mbps</li><li><strong>Audio Input/Output:</strong> Built-in mic/speaker (Supports Two-Way Audio)</li></ul>",
+            "content": "{{ closest.product.metafields.custom.product_rich_text | metafield_tag }}",
             "initial_items": 10,
             "desktop_columns": "2",
             "column_gap": 20,
