@@ -531,7 +531,7 @@
       "settings": {
         "title": "You have <em>30 days</em> to test Anran",
         "btn_label": "Learn more",
-        "btn_link": "/",
+        "btn_link": "shopify://policies/shipping-policy",
         "bg_color": "#2d3f60",
         "em_color_from": "#6cbce7",
         "em_color_to": "#367cf6",
