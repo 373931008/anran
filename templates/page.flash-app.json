@@ -158,63 +158,6 @@
       "name": "促销产品网格",
       "settings": {}
     },
-    "multicolumn_6QgJEg": {
-      "type": "multicolumn",
-      "blocks": {
-        "column_Qp4JM6": {
-          "type": "column",
-          "settings": {
-            "image": "shopify://shop_images/q3-4k-8mp-solar-battery-camera.jpg",
-            "title": "",
-            "text": "<h4><a href=\"/products/anran-q3-4k-8mp-solar-battery-camera\" title=\"ANRAN Q3 4K 8MP Solar Battery Camera\"><strong>360° Solar Camera – Always On, Always Powered.</strong></a></h4>",
-            "link_label": "Shop Now",
-            "link": "shopify://products/anran-q3-4k-8mp-solar-battery-camera"
-          }
-        },
-        "column_TYBLkN": {
-          "type": "column",
-          "settings": {
-            "image": "shopify://shop_images/C3_bc81836e-834f-4ccf-8240-ad5edbcbc2a8.jpg",
-            "title": "",
-            "text": "<h4><a href=\"/products/anran-c3-5mp-integrated-solar-battery-camera\" title=\"ANRAN C3 5MP Integrated Solar Battery Camera\"><strong>5MP Color Night Vision,Smart PIR Human Detection</strong></a></h4>",
-            "link_label": "Shop Now",
-            "link": "shopify://products/anran-c3-5mp-integrated-solar-battery-camera"
-          }
-        },
-        "column_q8V3QL": {
-          "type": "column",
-          "settings": {
-            "image": "shopify://shop_images/F2M3_5dd48a19-d7ed-4471-9872-d4948717f714.jpg",
-            "title": "",
-            "text": "<h4><a href=\"/products/anran-f2m3-2k-solar-floodlight-security-camera\" title=\"ANRAN F2M3 2K Solar Floodlight Security Camera\"><strong>leave no detail unseen with vibrant and clear night vision</strong></a></h4>",
-            "link_label": "Shop Now",
-            "link": "shopify://products/anran-f2m3-2k-solar-floodlight-security-camera"
-          }
-        }
-      },
-      "block_order": [
-        "column_Qp4JM6",
-        "column_TYBLkN",
-        "column_q8V3QL"
-      ],
-      "name": "t:sections.multicolumn.presets.name",
-      "settings": {
-        "title": "",
-        "heading_size": "h1",
-        "image_width": "full",
-        "image_ratio": "adapt",
-        "button_label": "",
-        "button_link": "",
-        "columns_desktop": 3,
-        "column_alignment": "center",
-        "background_style": "primary",
-        "color_scheme": "",
-        "columns_mobile": "1",
-        "swipe_on_mobile": false,
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
     "featured_collection_Ycjgfx": {
       "type": "featured-collection",
       "name": "t:sections.featured-collection.presets.name",
@@ -290,7 +233,6 @@
     "177449525509dcff96",
     "rich_text_iqDYhn",
     "blocks_zDwPUk",
-    "multicolumn_6QgJEg",
     "featured_collection_Ycjgfx",
     "featured_collection_6brhAR",
     "page_PAGrJp"
