@@ -27,9 +27,9 @@
           "type": "price",
           "settings": {
             "show_promo_strip": true,
-            "promo_primary_text": "$10 off",
-            "promo_subtitle": "(1 DEVICE)",
-            "discount_code": "anran10",
+            "promo_primary_text": "5% OFF",
+            "promo_subtitle": "",
+            "discount_code": "ANRAN2026",
             "copy_label": "copy:",
             "promo_bg": "#b51010"
           }
@@ -1279,6 +1279,7 @@
     "q-pdp-fullwidth-hero": {
       "type": "q-fullwidth-hero",
       "settings": {
+        "above_fold": false,
         "image_desktop": "shopify://shop_images/Wireless_Security_Cameras_Weather-Resistant_Designm_anran.jpg",
         "image_mobile": "shopify://shop_images/Wireless_Security_Cameras_Weather-Resistant_Designm_mobile.jpg",
         "image_height_desktop": 740,
