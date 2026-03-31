@@ -689,17 +689,33 @@
             "tab_label": "You May Also Like"
           }
         },
-        "card-1": {
+        "card-3": {
           "type": "product_card",
           "settings": {
-            "product": "anran-g1-2k-3g-4g-lte-solar-battery-security-camera",
+            "product": "anran-q3-4k-8mp-solar-battery-camera",
             "tab_id": "1",
             "custom_title": "",
             "custom_price": "",
             "custom_compare_price": "",
             "review_count": "",
             "feature_1": "360° Coverage and Tracking",
-            "feature_2": "Full Protection for the whole Home",
+            "feature_2": "A Rare and Remarkable 8MP Integrated Solar Camera",
+            "save_badge": "Save 47%",
+            "button_label": "Shop Now",
+            "button_link": "/"
+          }
+        },
+        "card-1": {
+          "type": "product_card",
+          "settings": {
+            "product": "anran-q4-max-5mp-integrated-solar-camera",
+            "tab_id": "1",
+            "custom_title": "",
+            "custom_price": "",
+            "custom_compare_price": "",
+            "review_count": "",
+            "feature_1": "5MP Crisp Image Quality",
+            "feature_2": "Smart PIR Human Detection",
             "save_badge": "Save 50%",
             "button_label": "Shop Now",
             "button_link": "/"
@@ -714,25 +730,9 @@
             "custom_price": "",
             "custom_compare_price": "",
             "review_count": "",
-            "feature_1": "360° Coverage and Tracking",
-            "feature_2": "Full Protection for the whole Home",
-            "save_badge": "Save 50%",
-            "button_label": "Shop Now",
-            "button_link": "/"
-          }
-        },
-        "card-3": {
-          "type": "product_card",
-          "settings": {
-            "product": "anran-q3-4k-8mp-solar-battery-camera",
-            "tab_id": "1",
-            "custom_title": "",
-            "custom_price": "",
-            "custom_compare_price": "",
-            "review_count": "",
-            "feature_1": "360° Coverage and Tracking",
-            "feature_2": "Full Protection for the whole Home",
-            "save_badge": "Save 50%",
+            "feature_1": "360° Coverage & Smart Tracking",
+            "feature_2": "Instant Alerts with Active Defense",
+            "save_badge": "Save 53%",
             "button_label": "Shop Now",
             "button_link": "/"
           }
@@ -746,9 +746,9 @@
             "custom_price": "",
             "custom_compare_price": "",
             "review_count": "",
-            "feature_1": "360° Coverage and Tracking",
-            "feature_2": "Full Protection for the whole Home",
-            "save_badge": "Save 50%",
+            "feature_1": "Smart PIR Human Detection",
+            "feature_2": "More Sensitive and Accurate PIR Sensor",
+            "save_badge": "Save 55%",
             "button_label": "Shop Now",
             "button_link": "/"
           }
@@ -756,21 +756,69 @@
         "tab-2": {
           "type": "tab",
           "settings": {
-            "tab_label": "Recently Viewed"
+            "tab_label": "Camera Kits"
           }
         },
         "product_card_9DQqWV": {
           "type": "product_card",
           "settings": {
-            "product": "",
+            "product": "anran-5mp-wifi-ptz-kit-8ch-nvr-2tb-hdd",
             "tab_id": "2",
-            "custom_title": "ANRAN C3 5MP Integrated Solar Battery Camera",
-            "custom_price": "$79.99",
-            "custom_compare_price": "$149.99",
-            "review_count": "236 reviews",
-            "feature_1": "360° Coverage and Tracking",
-            "feature_2": "Full Protection for the whole Home",
-            "save_badge": "Save 50%",
+            "custom_title": "",
+            "custom_price": "",
+            "custom_compare_price": "",
+            "review_count": "",
+            "feature_1": "8-Channel NVR With 4Pcs 5MP PTZ Cameras",
+            "feature_2": "5MP Outdoor 2Way Audio 360° PTZ Camera",
+            "save_badge": "Save 45%",
+            "button_label": "Shop Now",
+            "button_link": "/"
+          }
+        },
+        "product_card_HrTLVg": {
+          "type": "product_card",
+          "settings": {
+            "product": "anran-4k-8mp-poe-security-camera-system",
+            "tab_id": "2",
+            "custom_title": "",
+            "custom_price": "",
+            "custom_compare_price": "",
+            "review_count": "",
+            "feature_1": "4K Ultra HD Clarity | 100ft Full-Color Night Vision",
+            "feature_2": "2-Way Talk & Remote Access | No Subscription Fees",
+            "save_badge": "Save 24%",
+            "button_label": "Shop Now",
+            "button_link": "/"
+          }
+        },
+        "product_card_49aR8K": {
+          "type": "product_card",
+          "settings": {
+            "product": "anran-4mp-fhd-integrated-solar-panel-battery-cameras-system-with-32gb-sd-card",
+            "tab_id": "2",
+            "custom_title": "",
+            "custom_price": "",
+            "custom_compare_price": "",
+            "review_count": "",
+            "feature_1": "2K 4MP Crisp Image & 360° View",
+            "feature_2": "4 Channel NVR with 32GB SD Card Built-in NVR to Recording",
+            "save_badge": "Save 43%",
+            "button_label": "Shop Now",
+            "button_link": "/"
+          }
+        },
+        "product_card_bgeyjR": {
+          "type": "product_card",
+          "settings": {
+            "product": "anran-c3-4mp-wifi-solar-battery-camera-kit-surveillance-security-system",
+            "tab_id": "2",
+            "custom_title": "",
+            "custom_price": "",
+            "custom_compare_price": "",
+            "review_count": "",
+            "feature_1": "Smart PIR Human Detection",
+            "feature_2": "4Channel NVR with 32GB SD Card Built-in NVR to Recording",
+            "save_badge": "Save 41%",
             "button_label": "Shop Now",
             "button_link": "/"
           }
@@ -778,12 +826,15 @@
       },
       "block_order": [
         "tab-1",
+        "card-3",
         "card-1",
         "card-2",
-        "card-3",
         "card-4",
         "tab-2",
-        "product_card_9DQqWV"
+        "product_card_9DQqWV",
+        "product_card_HrTLVg",
+        "product_card_49aR8K",
+        "product_card_bgeyjR"
       ],
       "settings": {
         "padding_top_mobile": 40,
