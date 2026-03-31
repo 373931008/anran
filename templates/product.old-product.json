@@ -221,6 +221,64 @@
         "padding_bottom": 12
       }
     },
+    "1774954448a89154ab": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_dfa7101_QGUgdp": {
+          "type": "ai_gen_block_dfa7101",
+          "settings": {
+            "title": "Why Choose This Camera?",
+            "description": "",
+            "header_alignment": "center",
+            "header_spacing": 10,
+            "title_font_size": 36,
+            "title_margin_bottom": 10,
+            "title_color": "#121212",
+            "description_font_size": 16,
+            "description_color": "#666666",
+            "desktop_width_px": 1200,
+            "spacing": 20,
+            "tab_alignment": "center",
+            "tab_gap": 10,
+            "tab_padding_horizontal": 25,
+            "tab_padding_vertical": 10,
+            "tab_font_size": 12,
+            "tab_border_radius": 30,
+            "tab_border_width": 1,
+            "tab_bg_color": "#ffffff",
+            "tab_text_color": "#121212",
+            "tab_border_color": "#cccccc",
+            "tab_hover_bg_color": "#f3f3f3",
+            "tab_hover_text_color": "#121212",
+            "tab_hover_border_color": "#999999",
+            "tab_active_bg_color": "#121212",
+            "tab_active_text_color": "#ffffff",
+            "tab_active_border_color": "#121212",
+            "image_border_radius": 16,
+            "tab_1_enabled": true,
+            "tab_1_label": "{{ closest.product.metafields.custom.overview_text_01.value }}",
+            "tab_1_image": "{{ closest.product.metafields.custom.overview_image_01.value }}",
+            "tab_2_enabled": true,
+            "tab_2_label": "{{ closest.product.metafields.custom.overview_text_02.value }}",
+            "tab_2_image": "{{ closest.product.metafields.custom.overview_image_02.value }}",
+            "tab_3_enabled": true,
+            "tab_3_label": "{{ closest.product.metafields.custom.overview_text_03.value }}",
+            "tab_3_image": "{{ closest.product.metafields.custom.overview_image_03.value }}",
+            "tab_4_enabled": true,
+            "tab_4_label": "{{ closest.product.metafields.custom.overview_text_04.value }}",
+            "tab_4_image": "{{ closest.product.metafields.custom.overview_image_04.value }}",
+            "tab_5_enabled": true,
+            "tab_5_label": "{{ closest.product.metafields.custom.overview_text_05.value }}",
+            "tab_5_image": "{{ closest.product.metafields.custom.overview_image_05.value }}"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_dfa7101_QGUgdp"
+      ],
+      "settings": {}
+    },
     "q-reviews-slider": {
       "type": "q-reviews-slider",
       "blocks": {
@@ -354,6 +412,7 @@
         "tab_P48bUT",
         "tab_VDHrUh"
       ],
+      "disabled": true,
       "name": "q-camera-showcase",
       "settings": {
         "header_title": "<em>Why Choose</em> This Camera?",
@@ -857,6 +916,7 @@
   },
   "order": [
     "main",
+    "1774954448a89154ab",
     "q-reviews-slider",
     "q_camera_showcase_kYWAec",
     "multicolumn_6cMcap",
