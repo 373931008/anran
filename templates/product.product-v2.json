@@ -1746,21 +1746,21 @@
         "tab-1": {
           "type": "tab",
           "settings": {
-            "tab_label": "You May Also Like"
+            "tab_label": "Camera Kits"
           }
         },
         "card-1": {
           "type": "product_card",
           "settings": {
-            "product": "anran-g1-2k-3g-4g-lte-solar-battery-security-camera",
+            "product": "anran-4mp-fhd-integrated-solar-panel-battery-cameras-system-with-32gb-sd-card",
             "tab_id": "1",
-            "custom_title": "ANRAN C3 5MP Integrated Solar Battery Camera",
-            "custom_price": "$79.99",
-            "custom_compare_price": "$149.99",
-            "review_count": "236 reviews",
-            "feature_1": "360° Coverage and Tracking",
-            "feature_2": "Full Protection for the whole Home",
-            "save_badge": "Save 50%",
+            "custom_title": "",
+            "custom_price": "",
+            "custom_compare_price": "",
+            "review_count": "",
+            "feature_1": "2K 4MP Crisp Image & 360° View",
+            "feature_2": "4 Channel NVR with 32GB SD Card Built-in NVR to Recording",
+            "save_badge": "Save 43%",
             "button_label": "Shop Now",
             "button_link": "/"
           }
@@ -1768,15 +1768,15 @@
         "card-2": {
           "type": "product_card",
           "settings": {
-            "product": "",
+            "product": "anran-c3-4mp-wifi-solar-battery-camera-kit-surveillance-security-system",
             "tab_id": "1",
-            "custom_title": "ANRAN C3 5MP Integrated Solar Battery Camera",
-            "custom_price": "$79.99",
-            "custom_compare_price": "$149.99",
-            "review_count": "236 reviews",
-            "feature_1": "360° Coverage and Tracking",
-            "feature_2": "Full Protection for the whole Home",
-            "save_badge": "Save 50%",
+            "custom_title": "",
+            "custom_price": "",
+            "custom_compare_price": "",
+            "review_count": "",
+            "feature_1": "Smart PIR Human Detection",
+            "feature_2": "4Channel NVR with 32GB SD Card Built-in NVR to Recording",
+            "save_badge": "Save 41%",
             "button_label": "Shop Now",
             "button_link": "/"
           }
@@ -1784,15 +1784,15 @@
         "card-3": {
           "type": "product_card",
           "settings": {
-            "product": "",
+            "product": "anran-4k-8mp-poe-security-camera-system",
             "tab_id": "1",
-            "custom_title": "ANRAN C3 5MP Integrated Solar Battery Camera",
-            "custom_price": "$79.99",
-            "custom_compare_price": "$149.99",
-            "review_count": "236 reviews",
-            "feature_1": "360° Coverage and Tracking",
-            "feature_2": "Full Protection for the whole Home",
-            "save_badge": "Save 50%",
+            "custom_title": "",
+            "custom_price": "",
+            "custom_compare_price": "",
+            "review_count": "",
+            "feature_1": "4K Ultra HD Clarity | 100ft Full-Color Night Vision",
+            "feature_2": "2-Way Talk & Remote Access | No Subscription Fees",
+            "save_badge": "Save 24%",
             "button_label": "Shop Now",
             "button_link": "/"
           }
@@ -1800,15 +1800,15 @@
         "card-4": {
           "type": "product_card",
           "settings": {
-            "product": "",
+            "product": "anran-5mp-wifi-ptz-kit-8ch-nvr-2tb-hdd",
             "tab_id": "1",
-            "custom_title": "ANRAN C3 5MP Integrated Solar Battery Camera",
-            "custom_price": "$79.99",
-            "custom_compare_price": "$149.99",
-            "review_count": "236 reviews",
-            "feature_1": "360° Coverage and Tracking",
-            "feature_2": "Full Protection for the whole Home",
-            "save_badge": "Save 50%",
+            "custom_title": "",
+            "custom_price": "",
+            "custom_compare_price": "",
+            "review_count": "",
+            "feature_1": "8-Channel NVR With 4Pcs 5MP PTZ Cameras",
+            "feature_2": "5MP Outdoor 2Way Audio 360° PTZ Camera",
+            "save_badge": "Save 45%",
             "button_label": "Shop Now",
             "button_link": "/"
           }
@@ -1816,7 +1816,7 @@
         "tab-2": {
           "type": "tab",
           "settings": {
-            "tab_label": "Recently Viewed"
+            "tab_label": "You May Also Like"
           }
         },
         "product_card_9DQqWV": {
