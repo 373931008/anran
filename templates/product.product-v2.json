@@ -461,7 +461,7 @@
           "type": "card_image_text",
           "settings": {
             "image": "{{ product.metafields.custom.q_why_choose_1_image.value }}",
-            "title": "{{ product.metafields.custom.q_why_choose_1_title.value }}",
+            "title": "4K HDR Video",
             "description": "",
             "content_position": "bottom",
             "title_size_desktop": 32,
@@ -475,7 +475,7 @@
           "settings": {
             "image": "shopify://shop_images/image_306.png",
             "title": "<em>Auto Tracking</em>",
-            "subtitle": "{{ product.metafields.custom.q_why_choose_2_title.value }}",
+            "subtitle": "Locks on and follows moving people",
             "title_gradient": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 100%)",
             "title_size_desktop": 32,
             "title_size_mobile": 18,
@@ -487,7 +487,7 @@
           "type": "card_image_text",
           "settings": {
             "image": "{{ product.metafields.custom.q_why_choose_3_image.value }}",
-            "title": "{{ product.metafields.custom.q_why_choose_3_title.value }}",
+            "title": "360°",
             "description": "AI Eliminate Blindspots",
             "content_position": "bottom",
             "title_size_desktop": 32,
