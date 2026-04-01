@@ -772,8 +772,8 @@
         "card-1": {
           "type": "card",
           "settings": {
-            "local_video": "shopify://files/videos/Invisible_selfie_stick_vid_pc_xlarge.mp4",
-            "video": "https://www.youtube.com/watch?v=1sIDyzU7EfA",
+            "local_video": "shopify://files/videos/Anran Q3 Cam video 1.mov",
+            "video": "https://www.youtube.com/watch?v=lTZ-EJ4ZzJs",
             "video_url_alt": "/",
             "pill_1": "Cutting-edge Security Technology",
             "pill_2": "Ideal for Homes, Apartments, and Small Businesses",
@@ -787,6 +787,7 @@
         },
         "card_rjVfVa": {
           "type": "card",
+          "disabled": true,
           "settings": {
             "local_video": "shopify://files/videos/Portrait_Mode_PC_xlarge.mp4",
             "video": "https://www.youtube.com/watch?v=H7rcfYQ6Tpw",
