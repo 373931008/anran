@@ -16,7 +16,7 @@
         "title": {
           "type": "title",
           "settings": {
-            "subtitle": "Guardian Cam Q3M8."
+            "subtitle": "{{ product.metafields.custom.new_product_name.value }}"
           }
         },
         "judge_me_reviews_preview_badge_zMwFUy": {
@@ -37,13 +37,13 @@
         "q_feature_list_ibgtN8": {
           "type": "q_feature_list",
           "settings": {
-            "heading": "<p>Crystal-Clear 4K HDR Video with Wireless Solar Power, Smart Motion Alerts, and Effortless Outdoor Protection</p>",
-            "feature_1": "4K HDR Video",
-            "feature_2": "Smart Human Motion Alerts",
-            "feature_3": "Wireless Solar Power",
-            "feature_4": "Color Night Vision",
-            "feature_5": "Two-Way Audio",
-            "feature_6": "Works with Alexa"
+            "heading": "{{ product.description }}",
+            "feature_1": "{{ product.metafields.custom.new_product_features_list_1.value }}",
+            "feature_2": "{{ product.metafields.custom.new_product_features_list_2.value }}",
+            "feature_3": "{{ product.metafields.custom.new_product_features_list_3.value }}",
+            "feature_4": "{{ product.metafields.custom.new_product_features_list_4.value }}",
+            "feature_5": "{{ product.metafields.custom.new_product_features_list_5.value }}",
+            "feature_6": "{{ product.metafields.custom.new_product_features_list_6.value }}"
           }
         },
         "variant_picker": {
@@ -66,7 +66,7 @@
             "link_prefix": "View all",
             "link_suffix": "warranty",
             "modal_heading": "Warranty Information Tips",
-            "modal_content": "<p>Register Your Products to Extend Warranty to 24 Months<br/><br/>1. Free Warranty Extension: In addition to our regular 12-month warranty, ANRAN offcial buyers can extend the warranty on their ANRAN products to 24 months.<br/><br/>2. Submit your ANRAN offcial Order ID to get warrantv extended. you can check our rules as followed to ensure that you can apply for an extended warranty.<br/><br/>3. After registering with your Order ID, you can make a warranty claim on my product. You’ll get a response on one business day.<br/><br/><strong>Note: </strong>Warranty extension is not valid for resold goods.</p>",
+            "modal_content": "<p>Register Your Products to Extend Warranty to 24 Months<br/><br/>1. Free Warranty Extension: In addition to our regular 12-month warranty, ANRAN offcial buyers can extend the warranty on their ANRAN products to 24 months.<br/><br/>2. Submit your ANRAN offcial Order ID to get warrantv extended. you can check our rules as followed to ensure that you can apply for an extended warranty.<br/><br/>3. After registering with your Order ID, you can make a warranty claim on my product. You’ll get a response on one business day.<br/></p>",
             "bg_color": "#DBECFF"
           }
         },
@@ -91,7 +91,7 @@
           "type": "q_accordion_item",
           "settings": {
             "heading": "What you’ll love",
-            "content": "<p>See more, worry less with this solar-powered 2K security camera. Get full 360° coverage, smart motion alerts, and clear day-to-night monitoring.</p><ul><li>2K HD Video with 360° PTZ View</li><li>Solar Powered – No Wires Needed</li><li>Real-Time Motion Alerts & Two-Way Talk</li></ul>",
+            "content": "{{ product.metafields.custom.what_you_love | metafield_tag }}",
             "list_marker_color": "#adc5fa",
             "layout": "image_top_content_bottom"
           }
@@ -100,7 +100,7 @@
           "type": "q_accordion_item",
           "settings": {
             "heading": "Key Benefits",
-            "content": "<ul><li>Comprehensive security features with no monthly fees;</li><li>Solar-powered wireless camera with included panel;</li><li>2K HD video with full 360° view;</li><li>Color night vision with spotlight protection;</li><li>Smart motion detection with instant alerts;</li><li>Two-way talk with visitors or delivery drivers;</li><li>Local SD storage with optional cloud backup;</li><li>Alexa compatible for easy voice control. (Can't add to NVR)</li></ul>",
+            "content": "{{ product.metafields.custom.key_benefits | metafield_tag }}",
             "list_marker_color": "#adc5fa",
             "list_item_icon": "shopify://shop_images/fi_7641727.png",
             "image": "shopify://shop_images/Gemini_Generated_Image_oakgk7oakgk7oakg.webp",
@@ -111,9 +111,9 @@
           "type": "q_accordion_item",
           "settings": {
             "heading": "Included in your Box",
-            "content": "<ul><li>1 Wireless Solar Security Camera</li><li>1  3W Solar Panel</li><li>1 USB Charging Cable</li><li>1 Mounting Screw Pack</li><li>1 User Manual</li></ul>",
+            "content": "{{ product.metafields.custom.included_in_your_box | metafield_tag }}",
             "list_marker_color": "#adc5fa",
-            "image": "shopify://shop_images/anran_Q3M8_product_box_list.jpg",
+            "image": "{{ product.metafields.custom.included_in_your_box_image.value }}",
             "layout": "image_left_content_right"
           }
         },
@@ -121,7 +121,7 @@
           "type": "q_accordion_item",
           "settings": {
             "heading": "Installation Instructions",
-            "content": "<ol><li>Download ANRAN APP and Register Account.</li><li>Fully Charged and Connect the 2.4 GHz WiFi.</li><li>Choose a suitable location and mount the camera using the included screws.</li><li>Attach the solar panel to provide continuous power.</li><li>Control the camera to view the screen through the APP.</li></ol><p><strong>Setup takes only a few minutes.</strong></p>",
+            "content": "{{ product.metafields.custom.installation_instructions | metafield_tag }}",
             "list_marker_color": "#adc5fa",
             "layout": "image_top_content_bottom"
           }
@@ -130,7 +130,7 @@
           "type": "q_accordion_item",
           "settings": {
             "heading": "Specs",
-            "content": "<ul><li>Video Resolution: <strong>2K / 3MP</strong></li><li>Viewing Angle: <strong>355° Pan / 90° Tilt</strong></li><li>Zoom: <strong>4× Digital Zoom</strong></li><li>Night Vision: <strong>Color & Infrared (up to 50 ft)</strong></li><li>Connectivity: <strong>2.4GHz Wi-Fi</strong></li><li>Power: <strong>Solar + Rechargeable Battery</strong></li><li>Storage: <strong>MicroSD (up to 128GB) or Cloud</strong></li><li>Weather Resistance: <strong>IP66 Weatherproof</strong></li><li>Smart Integration: <strong>Alexa Compatible</strong></li></ul>",
+            "content": "{{ product.metafields.custom.hero_specs | metafield_tag }}",
             "list_marker_color": "#adc5fa",
             "layout": "image_top_content_bottom"
           }
