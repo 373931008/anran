@@ -262,10 +262,16 @@
     "q-reviews-quote": {
       "type": "q-reviews-quote",
       "blocks": {
-        "quote-1": {
+        "quote_am8iXt": {
           "type": "quote",
           "settings": {
-            "quote_text": "<p>One of the best security tools I've ever owned. Being able to monitor my home 24/7 is truly incredible.</p>"
+            "quote_text": "<p>I love this camera. Image quality and coverage area are fantastic. Plus, the extreme Texas heat doesn’t bother it at all.</p>"
+          }
+        },
+        "quote_9Gxa4B": {
+          "type": "quote",
+          "settings": {
+            "quote_text": "<p>I don’t have to wonder what is going on outside, I can see it. This is a high-quality camera for a great price.</p>"
           }
         },
         "quote-2": {
@@ -273,11 +279,26 @@
           "settings": {
             "quote_text": "<p>Easy to install and the picture quality is excellent. Highly recommend.</p>"
           }
+        },
+        "quote_7CDh8d": {
+          "type": "quote",
+          "settings": {
+            "quote_text": "<p>My purchase went smoothly. Delivery was fast. Plus, the camera has been even better than I hoped. I’m very satisfied.</p>"
+          }
+        },
+        "quote-1": {
+          "type": "quote",
+          "settings": {
+            "quote_text": "<p>One of the best security tools I've ever owned. Being able to monitor my home 24/7 is truly incredible.</p>"
+          }
         }
       },
       "block_order": [
-        "quote-1",
-        "quote-2"
+        "quote_am8iXt",
+        "quote_9Gxa4B",
+        "quote-2",
+        "quote_7CDh8d",
+        "quote-1"
       ],
       "settings": {
         "header_title": "",
@@ -309,40 +330,48 @@
           "type": "review",
           "settings": {
             "author_name": "Lynda C.",
-            "date_place": "02-05-26-CA, US",
-            "body": "<p>Outstanding customer service. Fast response and very helpful. Highly recommended.</p>"
+            "date_place": "03-25-26-CA, US",
+            "body": "<p>I don’t have to wonder what is going on outside, I can see it. This is a high-quality camera for a great price.</p>"
           }
         },
         "review-2": {
           "type": "review",
           "settings": {
             "author_name": "Christopher H.",
-            "date_place": "01-28-26-US",
-            "body": "<p>Bought it as a gift. Setup was easy and everything looks well made so far.</p>"
+            "date_place": "03-08-26-MO, US",
+            "body": "<p>I was looking for a dependable camera and Guardian is certainly that. Has all the best features, too.</p>"
           }
         },
         "review-3": {
           "type": "review",
           "settings": {
-            "author_name": "Maria S.",
-            "date_place": "01-15-26-UK",
-            "body": "<p>Great communication and prompt support. The camera works exactly as described.</p>"
+            "author_name": "Maria C.",
+            "date_place": "02-15-26-NY, US",
+            "body": "<p>My purchase went smoothly. Delivery was fast. Plus, the camera has been even better than I hoped. I’m very satisfied.</p>"
           }
         },
         "review_TGw7M4": {
           "type": "review",
           "settings": {
-            "author_name": "Maria S.",
-            "date_place": "01-15-26-UK",
-            "body": "<p>Great communication and prompt support. The camera works exactly as described.</p>"
+            "author_name": "Ashley O.",
+            "date_place": "03-15-26-UK",
+            "body": "<p>This is a great outdoor camera. It was easy to setup and is easy to operate. The video is very detailed and bright..</p>"
           }
         },
         "review_NAVQwt": {
           "type": "review",
           "settings": {
-            "author_name": "Maria S.",
-            "date_place": "01-15-26-UK",
-            "body": "<p>Great communication and prompt support. The camera works exactly as described.</p>"
+            "author_name": "Julien M.",
+            "date_place": "03-12-26-FR",
+            "body": "<p>Très easy to install and works perfectly. The video quality is clear, even at night. Great value for the price.</p>"
+          }
+        },
+        "review_T7WENa": {
+          "type": "review",
+          "settings": {
+            "author_name": "Lukas S.",
+            "date_place": "03-20-26-DE",
+            "body": "<p>Very reliable camera. Setup was simple and the connection is stable. I feel much more secure at home now.</p>"
           }
         }
       },
@@ -351,7 +380,8 @@
         "review-2",
         "review-3",
         "review_TGw7M4",
-        "review_NAVQwt"
+        "review_NAVQwt",
+        "review_T7WENa"
       ],
       "settings": {
         "header_title": "",
@@ -759,7 +789,7 @@
           "type": "card",
           "settings": {
             "local_video": "shopify://files/videos/Portrait_Mode_PC_xlarge.mp4",
-            "video": "https://www.youtube.com/watch?v=1sIDyzU7EfA",
+            "video": "https://www.youtube.com/watch?v=H7rcfYQ6Tpw",
             "video_url_alt": "/",
             "pill_1": "Cutting-edge Security Technology",
             "pill_2": "Ideal for Homes, Apartments, and Small Businesses",
