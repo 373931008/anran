@@ -66,7 +66,7 @@
             "link_prefix": "View all",
             "link_suffix": "warranty",
             "modal_heading": "Warranty Information Tips",
-            "modal_content": "<p>Register Your Products to Extend Warranty to 24 Months<br/><br/>1. Free Warranty Extension: In addition to our regular 12-month warranty, ANRAN offcial buyers can extend the warranty on their ANRAN products to 24 months.<br/><br/>2. Submit your ANRAN offcial Order ID to get warrantv extended. you can check our rules as followed to ensure that you can apply for an extended warranty.<br/><br/>3. After registering with your Order ID, you can make a warranty claim on my product. You’ll get a response on one business day.<br/><br/><strong>Note:</strong> Warranty extension is not valid for resold goods.</p>",
+            "modal_content": "<p>Register Your Products to Extend Warranty to 24 Months<br/><br/>1. Free Warranty Extension: In addition to our regular 12-month warranty, ANRAN offcial buyers can extend the warranty on their ANRAN products to 24 months.<br/><br/>2. Submit your ANRAN offcial Order ID to get warrantv extended. you can check our rules as followed to ensure that you can apply for an extended warranty.<br/><br/>3. After registering with your Order ID, you can make a warranty claim on my product. You’ll get a response on one business day.</p>",
             "bg_color": "#DBECFF"
           }
         },
@@ -570,7 +570,7 @@
           "settings": {
             "icon": "shopify://shop_images/fi_3180087.jpg",
             "title": "Free shipping",
-            "description": "3-10 Business Days"
+            "description": "3-8 Business Days"
           }
         },
         "step-3": {
