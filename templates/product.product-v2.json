@@ -197,8 +197,8 @@
           "settings": {
             "avatar": "shopify://shop_images/Ellipse_2.png",
             "stars": 5,
-            "quote": "Great traction for outdoor adventures.",
-            "author_name": "Karen B"
+            "quote": "I set up the camera myself and absolutely love the security it provides!",
+            "author_name": "Karen B."
           }
         },
         "q_camera_finder_MKbeYn": {
@@ -207,13 +207,13 @@
             "heading": "Find the perfect security cameras!",
             "card_1_icon": "shopify://shop_images/fi_2525795.png",
             "card_1_label": "Is there a subscription required?",
-            "card_1_content": "<p>Describe subscription options for your cameras here.</p>",
+            "card_1_content": "<p>No. You can rest assured that there are no surprise monthly fees with the Anran security camera. You pay for the camera, and that’s it. As for data storage, you can store recordings on a microSD card (up to 128GB). We also offer optional cloud storage for those who want additional data backup, but it is by no means required. It is merely a convenience that we offer customers. </p>",
             "card_2_icon": "shopify://shop_images/fi_2525795.png",
-            "card_2_label": "Does it protect my data privacy?",
-            "card_2_content": "<p>Explain how you protect customer data and privacy.</p>",
+            "card_2_label": "Is my privacy protected?",
+            "card_2_content": "<p>Yes. All camera recordings are encrypted, and data transmission is conducted securely should you choose to have cloud storage backup. With local storage, footage is saved directly on the camera’s microSD card. You have total control over this data.</p>",
             "card_3_icon": "shopify://shop_images/fi_2525795.png",
-            "card_3_label": "Can it detect motion?",
-            "card_3_content": "<p>Describe motion detection capabilities here.</p>"
+            "card_3_label": "Does the camera detect motion?",
+            "card_3_content": "<p>Yes. This camera is equipped with advanced AI and PIR motion detection to not just detect motion but also identify human motion. When movement is detected, an alert is immediately sent to you so that you can check the video and respond instantly, if needed.</p>"
           }
         }
       },
