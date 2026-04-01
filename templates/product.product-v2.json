@@ -1822,15 +1822,63 @@
         "product_card_9DQqWV": {
           "type": "product_card",
           "settings": {
-            "product": "",
+            "product": "anran-4k-8mp-solar-battery-camera",
             "tab_id": "2",
-            "custom_title": "ANRAN C3 5MP Integrated Solar Battery Camera",
-            "custom_price": "$79.99",
-            "custom_compare_price": "$149.99",
-            "review_count": "236 reviews",
+            "custom_title": "",
+            "custom_price": "",
+            "custom_compare_price": "",
+            "review_count": "",
             "feature_1": "360° Coverage and Tracking",
-            "feature_2": "Full Protection for the whole Home",
+            "feature_2": "A Rare and Remarkable 8MP Integrated Solar Camera",
             "save_badge": "Save 50%",
+            "button_label": "Shop Now",
+            "button_link": "/"
+          }
+        },
+        "product_card_Kqex7j": {
+          "type": "product_card",
+          "settings": {
+            "product": "anran-q4-max-5mp-integrated-solar-camera",
+            "tab_id": "2",
+            "custom_title": "",
+            "custom_price": "",
+            "custom_compare_price": "",
+            "review_count": "",
+            "feature_1": "5MP Crisp Image Quality",
+            "feature_2": "Smart PIR Human Detection",
+            "save_badge": "Save 50%",
+            "button_label": "Shop Now",
+            "button_link": "/"
+          }
+        },
+        "product_card_Qk7Ua6": {
+          "type": "product_card",
+          "settings": {
+            "product": "anran-4mp2mp-2mp-dual-lens-wireless-solar-security-camera-with-2-way-talk",
+            "tab_id": "2",
+            "custom_title": "",
+            "custom_price": "",
+            "custom_compare_price": "",
+            "review_count": "",
+            "feature_1": "360° Coverage & Smart Tracking",
+            "feature_2": "Instant Alerts with Active Defense",
+            "save_badge": "Save 53%",
+            "button_label": "Shop Now",
+            "button_link": "/"
+          }
+        },
+        "product_card_Nq6JBi": {
+          "type": "product_card",
+          "settings": {
+            "product": "anran-c3-5mp-integrated-solar-battery-camera",
+            "tab_id": "2",
+            "custom_title": "",
+            "custom_price": "",
+            "custom_compare_price": "",
+            "review_count": "",
+            "feature_1": "Smart PIR Human Detection",
+            "feature_2": "More Sensitive and Accurate PIR Sensor",
+            "save_badge": "Save 55%",
             "button_label": "Shop Now",
             "button_link": "/"
           }
@@ -1843,7 +1891,10 @@
         "card-3",
         "card-4",
         "tab-2",
-        "product_card_9DQqWV"
+        "product_card_9DQqWV",
+        "product_card_Kqex7j",
+        "product_card_Qk7Ua6",
+        "product_card_Nq6JBi"
       ],
       "settings": {
         "padding_top_mobile": 40,
