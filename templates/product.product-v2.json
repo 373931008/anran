@@ -1203,7 +1203,7 @@
           "settings": {
             "product_image": "shopify://shop_images/Wireless_Security_Cameras_Q3M8.png",
             "product_name": "Q3M8",
-            "specs": "<p>4K (8MP)</p><p>360° (Pan)</p><p>50 Feet</p><p>Wi-Fi</p><p>Alexa, Google Assistant</p><p>Solar + Battery Powered</p><p>Color Night Vision</p><p>5000 mAh, 5W, 5V</p><p>Up to 128GB (MicroSD Card)</p>",
+            "specs": "<p>4K (8MP)</p><p>355° Pan / 90° Tilt</p><p>Up to 50 ft</p><p>2.4GHz Wi-Fi</p><p>Alexa & Google Assistant</p><p>Solar + Rechargeable Battery</p><p>Color Night Vision</p><p>Rechargeable Battery (5V system)</p><p>Up to 128GB (MicroSD)</p>",
             "button_link": "/",
             "button_label": "Shop now"
           }
@@ -1213,7 +1213,7 @@
           "settings": {
             "product_image": "shopify://shop_images/Solar_Powered_Security_Cameras_C3M5.png",
             "product_name": "C3M5",
-            "specs": "<p>2K / 3MP</p><p>135 Degrees</p><p>55 Feet</p><p>Wi-Fi (2.4GHz only)</p><p>Amazon Alexa</p><p>Solar Powered + Rechargeable Battery</p><p>Color Night Vision</p><p>5V Rechargeable System (built-in battery)</p><p>Up to 128GB (MicroSD Card)</p>",
+            "specs": "<p>2K (3MP)</p><p>135° Wide Angle</p><p>Up to 50 ft</p><p>2.4GHz Wi-Fi</p><p>Works with Alexa</p><p>Solar + Rechargeable Battery</p><p>Color Night Vision</p><p>5V Rechargeable System (built-in battery)</p><p>Up to 128GB (MicroSD)</p>",
             "button_link": "/",
             "button_label": "Shop now"
           }
@@ -1223,7 +1223,7 @@
           "settings": {
             "product_image": "shopify://shop_images/Anran_Solar_Security_Camera_Q4M5.png",
             "product_name": "Q4M5",
-            "specs": "<p>2K / 3MP</p><p>360° PTZ (Pan & Tilt)</p><p>Up to 50 ft (Color + Infrared) </p><p>Wi-Fi</p><p>Alexa</p><p>Solar Powered + Rechargeable Battery</p><p>Color Night Vision</p><p>Rechargeable Battery (Solar Charging System)</p><p>Up to 128GB (MicroSD Card)</p>",
+            "specs": "<p>2K (3MP)</p><p>360° Pan & Tilt (PTZ)</p><p>Up to 50 ft (Color + IR)</p><p>2.4GHz Wi-Fi</p><p>App Control & Alexa</p><p>Solar + Rechargeable Battery</p><p>Color Night Vision</p><p>Rechargeable Battery (Solar Charging System)</p><p>Up to 128GB (MicroSD)</p>",
             "button_link": "/",
             "button_label": "Shop now"
           }
@@ -1246,7 +1246,7 @@
         "header_margin_bottom_desktop": 40,
         "header_margin_bottom_mobile": 24,
         "feature_col_title": "Feature",
-        "feature_rows": "Video Capture Resolution\nViewing Angle\nNight Vision Range\nConnectivity Protocol\nController Type\nPower Source\nLow Light Technology\nBattery Power\nMax Supported",
+        "feature_rows": "Video Capture Resolution\nViewing Angle\nNight Vision Range\nConnectivity Protocol\nSmart Control\nPower Source\nLow Light Technology\nBattery Power\nMax Supported",
         "btn_color": "#faa61a",
         "bg_color": "#f3f7ff",
         "card_bg_color": "#ffffff",
