@@ -23,9 +23,9 @@
         "ai_gen_block_ebe5200_c9Vdp4": {
           "type": "ai_gen_block_ebe5200",
           "settings": {
-            "desktop_image": "shopify://shop_images/Easter_Deal.jpg",
+            "desktop_image": "shopify://shop_images/1920_800.jpg",
             "desktop_width_percent": 100,
-            "mobile_image": "shopify://shop_images/Easter_Deal.jpg",
+            "mobile_image": "shopify://shop_images/Easter_Deal_199747fa-5b8f-4293-be1b-209cb548e363.jpg",
             "banner_link": "shopify://products/anran-q3-4k-8mp-solar-battery-camera",
             "border_radius": 0
           },
@@ -138,7 +138,7 @@
             "original_price_2": "99.99",
             "discount_2": "55% OFF",
             "button_link_2": "shopify://products/anran-c3-5mp-integrated-solar-battery-camera",
-            "product_image_3": "shopify://shop_images/Q4_syetm_10.jpg",
+            "product_image_3": "shopify://shop_images/2_f7bdd7e8-ab0a-4a8f-b56b-a06fc7cdbac6.jpg",
             "product_title_3": "ANRAN Q4 Max 5MP Integrated Solar Camera",
             "rating_3": 5,
             "review_count_3": "4.9",
