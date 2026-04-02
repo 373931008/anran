@@ -116,7 +116,7 @@
             "original_price_weight": 400,
             "discount_size": 12,
             "discount_weight": 600,
-            "product_image_1": "shopify://shop_images/8-3.jpg",
+            "product_image_1": "shopify://shop_images/Q3M8.png",
             "product_title_1": "360° Solar Camera – Always On, Always Powered",
             "rating_1": 5,
             "review_count_1": "4.8",
@@ -127,7 +127,7 @@
             "original_price_1": "149.99",
             "discount_1": "47% OFF",
             "button_link_1": "shopify://products/anran-q3-4k-8mp-solar-battery-camera",
-            "product_image_2": "shopify://shop_images/new_7.jpg",
+            "product_image_2": "shopify://shop_images/C3_9d1118ce-5574-440e-99e4-b7a29cace215.jpg",
             "product_title_2": "5MP Color Night Vision,Smart PIR Human Detection",
             "rating_2": 5,
             "review_count_2": "4.7",
@@ -306,6 +306,7 @@
     },
     "page_PAGrJp": {
       "type": "page",
+      "disabled": true,
       "name": "t:sections.page.presets.name",
       "settings": {
         "page": "spring-sale",
