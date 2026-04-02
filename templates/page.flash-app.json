@@ -23,9 +23,9 @@
         "ai_gen_block_ebe5200_c9Vdp4": {
           "type": "ai_gen_block_ebe5200",
           "settings": {
-            "desktop_image": "shopify://shop_images/1920x800_2_f8288318-5971-48ef-80ef-3f70d4dbf4fb.jpg",
+            "desktop_image": "shopify://shop_images/Easter_Deal.jpg",
             "desktop_width_percent": 100,
-            "mobile_image": "shopify://shop_images/1125x750_2.jpg",
+            "mobile_image": "shopify://shop_images/Easter_Deal.jpg",
             "banner_link": "",
             "border_radius": 0
           },
