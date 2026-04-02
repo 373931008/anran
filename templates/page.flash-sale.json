@@ -15,79 +15,14 @@
         "ai_gen_block_d986865_GLFWwf": {
           "type": "ai_gen_block_d986865",
           "settings": {
-            "desktop_image": "shopify://shop_images/1920x800_2_f8288318-5971-48ef-80ef-3f70d4dbf4fb.jpg",
-            "mobile_image": "shopify://shop_images/1125x750_2.jpg"
-          },
-          "blocks": {}
-        },
-        "ai_gen_block_54918a1_chdQTX": {
-          "type": "ai_gen_block_54918a1",
-          "name": "多买多折",
-          "disabled": true,
-          "settings": {
-            "title": "多买多折优惠",
-            "title_size": 32,
-            "title_color": "#121212",
-            "tier_1_quantity": "买2件",
-            "tier_1_discount": "9折",
-            "tier_1_description": "享受9折优惠",
-            "tier_2_quantity": "买3件",
-            "tier_2_discount": "8折",
-            "tier_2_description": "享受8折优惠",
-            "tier_3_quantity": "买5件",
-            "tier_3_discount": "7折",
-            "tier_3_description": "享受7折优惠",
-            "max_width": 1200,
-            "background_color": "#ffffff",
-            "card_background": "#f9f9f9",
-            "card_border_width": 2,
-            "card_border_color": "#e0e0e0",
-            "card_border_radius": 8,
-            "quantity_size": 24,
-            "quantity_color": "#121212",
-            "discount_size": 36,
-            "discount_color": "#ff0000",
-            "description_size": 14,
-            "description_color": "#666666"
-          },
-          "blocks": {}
-        },
-        "ai_gen_block_54918a1_HbXMem": {
-          "type": "ai_gen_block_54918a1",
-          "disabled": true,
-          "settings": {
-            "title": "多买多折优惠",
-            "title_size": 32,
-            "title_color": "#121212",
-            "tier_1_quantity": "买2件",
-            "tier_1_discount": "9折",
-            "tier_1_description": "享受9折优惠",
-            "tier_2_quantity": "买3件",
-            "tier_2_discount": "8折",
-            "tier_2_description": "享受8折优惠",
-            "tier_3_quantity": "买5件",
-            "tier_3_discount": "7折",
-            "tier_3_description": "享受7折优惠",
-            "max_width": 1200,
-            "background_color": "#ffffff",
-            "card_background": "#f9f9f9",
-            "card_border_width": 2,
-            "card_border_color": "#e0e0e0",
-            "card_border_radius": 8,
-            "quantity_size": 24,
-            "quantity_color": "#121212",
-            "discount_size": 36,
-            "discount_color": "#ff0000",
-            "description_size": 14,
-            "description_color": "#666666"
+            "desktop_image": "shopify://shop_images/Easter_Deal.jpg",
+            "mobile_image": "shopify://shop_images/Easter_Deal.jpg"
           },
           "blocks": {}
         }
       },
       "block_order": [
-        "ai_gen_block_d986865_GLFWwf",
-        "ai_gen_block_54918a1_chdQTX",
-        "ai_gen_block_54918a1_HbXMem"
+        "ai_gen_block_d986865_GLFWwf"
       ],
       "settings": {}
     },
@@ -165,6 +100,7 @@
           "type": "variant_picker",
           "settings": {
             "picker_type": "dropdown",
+            "show_variant_images": false,
             "swatch_shape": "circle"
           }
         },
@@ -236,6 +172,7 @@
           "type": "variant_picker",
           "settings": {
             "picker_type": "button",
+            "show_variant_images": false,
             "swatch_shape": "circle"
           }
         },
@@ -289,7 +226,7 @@
       "settings": {
         "collection": "flash-sale",
         "products_to_show": 10,
-        "title": "New Year Sale Up to 65% OFF",
+        "title": "Easter Sale Up to 65% OFF",
         "heading_size": "h1",
         "description": "",
         "show_description": false,
@@ -314,6 +251,7 @@
     },
     "main": {
       "type": "main-page",
+      "disabled": true,
       "settings": {
         "padding_top": 0,
         "padding_bottom": 0
@@ -324,7 +262,7 @@
       "settings": {
         "collection": "solar-battery-powered-security-camera",
         "products_to_show": 8,
-        "title": "New Year Sale for Solar Battery Camera",
+        "title": "Easter Sale for Solar Battery Camera",
         "heading_size": "h2",
         "description": "",
         "show_description": false,
@@ -352,7 +290,7 @@
       "settings": {
         "collection": "security-camera-systems",
         "products_to_show": 8,
-        "title": "New Year Sale for Security Camera System",
+        "title": "Easter Sale for Security Camera System",
         "heading_size": "h2",
         "description": "",
         "show_description": false,
@@ -409,6 +347,7 @@
     },
     "page_pJfNp6": {
       "type": "page",
+      "disabled": true,
       "name": "t:sections.page.presets.name",
       "settings": {
         "page": "spring-sale",
