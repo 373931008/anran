@@ -779,7 +779,7 @@
             "pill_2": "Ideal for Homes & Businesses",
             "pill_3": "Easy to Install and Use",
             "quote": "<p>I’m very impressed by the<strong> image quality</strong> and <strong>convenient features</strong> Anran’s camera offers. I believe it is <strong>a much better choice</strong> than higher-priced models.</p>",
-            "expert_avatar": "shopify://shop_images/Seen_Through_a_Lens.png",
+            "expert_avatar": "shopify://shop_images/channels4_profile_1.jpg",
             "expert_name": "Seen Through a Lens",
             "expert_title": "Home Security Specialist",
             "show_verified_badge": true
@@ -787,18 +787,17 @@
         },
         "card_rjVfVa": {
           "type": "card",
-          "disabled": true,
           "settings": {
-            "local_video": "shopify://files/videos/Portrait_Mode_PC_xlarge.mp4",
-            "video": "https://www.youtube.com/watch?v=H7rcfYQ6Tpw",
+            "local_video": "shopify://files/videos/Anran Q3 Cam video 5.mov",
+            "video": "https://www.youtube.com/watch?v=r-VK-q8rYgw",
             "video_url_alt": "/",
-            "pill_1": "Cutting-edge Security Technology",
-            "pill_2": "Ideal for Homes, Apartments, and Small Businesses",
-            "pill_3": "Easy to Install and Simple to Use",
-            "quote": "<p>See for yourself how this versatile camera <strong>protects what matters most.</strong></p>",
-            "expert_avatar": "shopify://shop_images/Ellipse_3.jpg",
-            "expert_name": "Ava Martinez",
-            "expert_title": "Home Security Specialist",
+            "pill_1": "AI-Enhanced Motion Detection",
+            "pill_2": "360° Coverage Ensures No Blind Spots",
+            "pill_3": "Provides Reliable Protection (Day & Night)",
+            "quote": "<p>This camera offers all the latest and best smart technology at an affordable price. Plus, it is easy to use. It’s a great choice for those looking to improve their security.</p>",
+            "expert_avatar": "shopify://shop_images/channels4_profile.jpg",
+            "expert_name": "JOLATE TV",
+            "expert_title": "Smart Home Consultant",
             "show_verified_badge": true
           }
         }
