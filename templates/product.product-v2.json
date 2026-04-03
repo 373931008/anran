@@ -600,7 +600,7 @@
         "header_margin_bottom_mobile": 8,
         "subtitle": "",
         "cta_label": "100% Worth Buying >",
-        "cta_link": "/",
+        "cta_link": "/cart/41859158278221:1",
         "cta_color": "#329bff",
         "bg_color": "#000000",
         "inner_bg_color": "#121214",
@@ -930,7 +930,7 @@
         "header_margin_bottom_mobile": 24,
         "image": "shopify://shop_images/Solar_Security_Cameras_Longer_Battery_Life.jpg",
         "button_label": "Buy now",
-        "button_link": "/",
+        "button_link": "/cart/41859158278221:1",
         "show_button_mobile": false,
         "bg_color": "#ffffff",
         "padding_top_mobile": 40,
@@ -1059,7 +1059,7 @@
             "feature_3": "Compatible with Alexa-enabled devices",
             "feature_4": "Get convenient hands-free control",
             "button_label": "Buy now",
-            "button_link": "/"
+            "button_link": "/cart/41859158278221:1"
           }
         }
       },
@@ -1342,7 +1342,7 @@
         "hero_desc_color": "#4e5357",
         "hero_product_image": "shopify://shop_images/anran_Q3M8_product_box_list.jpg",
         "btn_label": "Buy Now",
-        "btn_link": "/",
+        "btn_link": "/cart/41859158278221:1",
         "btn_bg_color": "#1565d8",
         "btn_text_color": "#ffffff",
         "hero_bg_color": "#ffffff",
@@ -1387,7 +1387,7 @@
       ],
       "settings": {
         "title": "You have <em>30 days</em> to test Anran",
-        "btn_label": "Learn more",
+        "btn_label": "",
         "btn_link": "/",
         "bg_color": "#2d3f60",
         "em_color_from": "#6cbce7",
