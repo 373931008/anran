@@ -1,6 +1,1072 @@
+{% doc %}
+  @prompt
+    生成一个Product list, 促销设置
+    产品图片（image picker）
+    
+    标题（text）
+    
+    评分（number）
+    
+    评论数（number）
+    
+    卖点1/卖点2（text）
+    
+    当前价格 / 原价（text）
+    
+    折扣（自动计算或手动）
+    
+    按钮链接（url）, 所有的内容靠左对齐，产品卖点再增加一条，另外可以设置上传卖点前面的icon图标，价格可以单独设置原价和优惠价还有折扣的字体大小，, 我需要做成可以设置一行做4个或者3个或者2个或者1个，购买的按钮我可以设置可以控制长宽。, 产品选择只要4个就够了，产品1，产品2，产品3，产品4；产品图标的图片选择功能可以删除；字体大小中需要增加产品卖点的字体大小调整；整个模块的布局宽度需要可以设置，以及两侧以及上下留白的大小设置, 我需要在颜色设置中可以设置整个模块的底色。我需要在字体大小中设置字体粗细。另外需要在价格前显示货币符号, 货币显示不需要我设置，直接按系统默认的可以吗, 产品图片和卡片上方，左右两个不需要留白, 我需要所有卡片 等高（equal height）
+    
+    底部元素（价格 + 按钮）底对齐（bottom aligned）
+    
+    中间内容用留白撑开（flexible spacing）
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-promo-product-list-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    background-color: {{ block.settings.module_bg_color }};
+    padding: {{ block.settings.padding_top }}px {{ block.settings.padding_horizontal }}px {{ block.settings.padding_bottom }}px {{ block.settings.padding_horizontal }}px;
+  }
+
+  .ai-promo-product-list__container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.module_width }}px;
+    margin: 0 auto;
+  }
+
+  .ai-promo-product-list__grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat({{ block.settings.columns_desktop }}, 1fr);
+    gap: {{ block.settings.grid_gap }}px;
+  }
+
+  .ai-promo-product-card-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: {{ block.settings.card_bg_color }};
+    border-radius: {{ block.settings.card_border_radius }}px;
+    overflow: hidden;
+  }
+
+  .ai-promo-product-card__image-wrapper-{{ ai_gen_id }} {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ai-promo-product-card__image-{{ ai_gen_id }} {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .ai-promo-product-card__content-{{ ai_gen_id }} {
+    padding: {{ block.settings.card_padding }}px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    text-align: left;
+  }
+
+  .ai-promo-product-card__title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.title_font_size }}px;
+    font-weight: {{ block.settings.title_font_weight }};
+    color: {{ block.settings.title_color }};
+    margin: 0 0 8px 0;
+  }
+
+  .ai-promo-product-card__rating-wrapper-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .ai-promo-product-card__stars-{{ ai_gen_id }} {
+    display: flex;
+    gap: 2px;
+  }
+
+  .ai-promo-product-card__star-{{ ai_gen_id }} {
+    width: 16px;
+    height: 16px;
+    fill: {{ block.settings.star_color }};
+  }
+
+  .ai-promo-product-card__star--empty-{{ ai_gen_id }} {
+    fill: {{ block.settings.star_empty_color }};
+  }
+
+  .ai-promo-product-card__reviews-{{ ai_gen_id }} {
+    font-size: {{ block.settings.reviews_font_size }}px;
+    font-weight: {{ block.settings.reviews_font_weight }};
+    color: {{ block.settings.reviews_color }};
+  }
+
+  .ai-promo-product-card__features-{{ ai_gen_id }} {
+    margin-bottom: 16px;
+    flex-grow: 1;
+  }
+
+  .ai-promo-product-card__feature-{{ ai_gen_id }} {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: {{ block.settings.feature_font_size }}px;
+    font-weight: {{ block.settings.feature_font_weight }};
+    color: {{ block.settings.feature_color }};
+  }
+
+  .ai-promo-product-card__feature-icon-{{ ai_gen_id }} {
+    width: {{ block.settings.feature_icon_size }}px;
+    height: {{ block.settings.feature_icon_size }}px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .ai-promo-product-card__feature-icon-{{ ai_gen_id }} img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .ai-promo-product-card__feature-text-{{ ai_gen_id }} {
+    flex: 1;
+  }
+
+  .ai-promo-product-card__bottom-{{ ai_gen_id }} {
+    margin-top: auto;
+  }
+
+  .ai-promo-product-card__price-wrapper-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+
+  .ai-promo-product-card__current-price-{{ ai_gen_id }} {
+    font-size: {{ block.settings.current_price_font_size }}px;
+    font-weight: {{ block.settings.current_price_font_weight }};
+    color: {{ block.settings.current_price_color }};
+  }
+
+  .ai-promo-product-card__original-price-{{ ai_gen_id }} {
+    font-size: {{ block.settings.original_price_font_size }}px;
+    font-weight: {{ block.settings.original_price_font_weight }};
+    color: {{ block.settings.original_price_color }};
+    text-decoration: line-through;
+  }
+
+  .ai-promo-product-card__discount-{{ ai_gen_id }} {
+    font-size: {{ block.settings.discount_font_size }}px;
+    font-weight: {{ block.settings.discount_font_weight }};
+    color: {{ block.settings.discount_color }};
+    background-color: {{ block.settings.discount_bg_color }};
+    padding: 4px 8px;
+    border-radius: 4px;
+  }
+
+  .ai-promo-product-card__button-{{ ai_gen_id }} {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: {{ block.settings.button_width }}px;
+    height: {{ block.settings.button_height }}px;
+    background-color: {{ block.settings.button_bg_color }};
+    color: {{ block.settings.button_text_color }};
+    font-size: {{ block.settings.button_font_size }}px;
+    font-weight: {{ block.settings.button_font_weight }};
+    border: none;
+    border-radius: {{ block.settings.button_border_radius }}px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .ai-promo-product-card__button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_bg_color }};
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-promo-product-list__grid-{{ ai_gen_id }} {
+      grid-template-columns: repeat({{ block.settings.columns_mobile }}, 1fr);
+    }
+  }
+{% endstyle %}
+
+<promo-product-list-{{ ai_gen_id }} class="ai-promo-product-list-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-promo-product-list__container-{{ ai_gen_id }}">
+    <div class="ai-promo-product-list__grid-{{ ai_gen_id }}">
+      {% for i in (1..4) %}
+        {% liquid
+          assign title_key = 'product_' | append: i | append: '_title'
+          assign rating_key = 'product_' | append: i | append: '_rating'
+          assign reviews_key = 'product_' | append: i | append: '_reviews'
+          assign feature1_key = 'product_' | append: i | append: '_feature1'
+          assign feature2_key = 'product_' | append: i | append: '_feature2'
+          assign feature3_key = 'product_' | append: i | append: '_feature3'
+          assign current_price_key = 'product_' | append: i | append: '_current_price'
+          assign original_price_key = 'product_' | append: i | append: '_original_price'
+          assign discount_key = 'product_' | append: i | append: '_discount'
+          assign button_link_key = 'product_' | append: i | append: '_button_link'
+          assign product_key = 'product_' | append: i
+
+          assign title = block.settings[title_key]
+          assign rating = block.settings[rating_key]
+          assign reviews = block.settings[reviews_key]
+          assign feature1 = block.settings[feature1_key]
+          assign feature2 = block.settings[feature2_key]
+          assign feature3 = block.settings[feature3_key]
+          assign current_price = block.settings[current_price_key]
+          assign original_price = block.settings[original_price_key]
+          assign discount = block.settings[discount_key]
+          assign button_link = block.settings[button_link_key]
+          assign product = block.settings[product_key]
+        %}
+
+        <div class="ai-promo-product-card-{{ ai_gen_id }}">
+          <div class="ai-promo-product-card__image-wrapper-{{ ai_gen_id }}">
+            {% if product != blank and product.featured_image %}
+              <img
+                src="{{ product.featured_image | image_url: width: 800 }}"
+                alt="{{ product.featured_image.alt | escape }}"
+                class="ai-promo-product-card__image-{{ ai_gen_id }}"
+                loading="lazy"
+                width="{{ product.featured_image.width }}"
+                height="{{ product.featured_image.height }}"
+              >
+            {% else %}
+              <div class="ai-promo-product-card__image-placeholder-{{ ai_gen_id }}">
+                {{ 'product-1' | placeholder_svg_tag }}
+              </div>
+            {% endif %}
+          </div>
+
+          <div class="ai-promo-product-card__content-{{ ai_gen_id }}">
+            {% if title != blank %}
+              <h3 class="ai-promo-product-card__title-{{ ai_gen_id }}">{{ title }}</h3>
+            {% endif %}
+
+            {% if rating > 0 %}
+              <div class="ai-promo-product-card__rating-wrapper-{{ ai_gen_id }}">
+                <div class="ai-promo-product-card__stars-{{ ai_gen_id }}">
+                  {% for star in (1..5) %}
+                    {% if star <= rating %}
+                      <svg class="ai-promo-product-card__star-{{ ai_gen_id }}" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                      </svg>
+                    {% else %}
+                      <svg class="ai-promo-product-card__star-{{ ai_gen_id }} ai-promo-product-card__star--empty-{{ ai_gen_id }}" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                      </svg>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+                {% if reviews > 0 %}
+                  <span class="ai-promo-product-card__reviews-{{ ai_gen_id }}">({{ reviews }})</span>
+                {% endif %}
+              </div>
+            {% endif %}
+
+            <div class="ai-promo-product-card__features-{{ ai_gen_id }}">
+              {% if feature1 != blank %}
+                <div class="ai-promo-product-card__feature-{{ ai_gen_id }}">
+                  {% if block.settings.feature_icon %}
+                    <div class="ai-promo-product-card__feature-icon-{{ ai_gen_id }}">
+                      <img src="{{ block.settings.feature_icon | image_url: width: 100 }}" alt="" loading="lazy">
+                    </div>
+                  {% endif %}
+                  <span class="ai-promo-product-card__feature-text-{{ ai_gen_id }}">{{ feature1 }}</span>
+                </div>
+              {% endif %}
+
+              {% if feature2 != blank %}
+                <div class="ai-promo-product-card__feature-{{ ai_gen_id }}">
+                  {% if block.settings.feature_icon %}
+                    <div class="ai-promo-product-card__feature-icon-{{ ai_gen_id }}">
+                      <img src="{{ block.settings.feature_icon | image_url: width: 100 }}" alt="" loading="lazy">
+                    </div>
+                  {% endif %}
+                  <span class="ai-promo-product-card__feature-text-{{ ai_gen_id }}">{{ feature2 }}</span>
+                </div>
+              {% endif %}
+
+              {% if feature3 != blank %}
+                <div class="ai-promo-product-card__feature-{{ ai_gen_id }}">
+                  {% if block.settings.feature_icon %}
+                    <div class="ai-promo-product-card__feature-icon-{{ ai_gen_id }}">
+                      <img src="{{ block.settings.feature_icon | image_url: width: 100 }}" alt="" loading="lazy">
+                    </div>
+                  {% endif %}
+                  <span class="ai-promo-product-card__feature-text-{{ ai_gen_id }}">{{ feature3 }}</span>
+                </div>
+              {% endif %}
+            </div>
+
+            <div class="ai-promo-product-card__bottom-{{ ai_gen_id }}">
+              {% if current_price != blank or original_price != blank %}
+                <div class="ai-promo-product-card__price-wrapper-{{ ai_gen_id }}">
+                  {% if current_price != blank %}
+                    <span class="ai-promo-product-card__current-price-{{ ai_gen_id }}">{{ cart.currency.symbol }}{{ current_price }}</span>
+                  {% endif %}
+                  {% if original_price != blank %}
+                    <span class="ai-promo-product-card__original-price-{{ ai_gen_id }}">{{ cart.currency.symbol }}{{ original_price }}</span>
+                  {% endif %}
+                  {% if discount != blank %}
+                    <span class="ai-promo-product-card__discount-{{ ai_gen_id }}">{{ discount }}</span>
+                  {% endif %}
+                </div>
+              {% endif %}
+
+              {% if button_link != blank %}
+                <a href="{{ button_link }}" class="ai-promo-product-card__button-{{ ai_gen_id }}">
+                  {{ block.settings.button_text }}
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</promo-product-list-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class PromoProductList{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+      }
+    }
+
+    customElements.define('promo-product-list-{{ ai_gen_id }}', PromoProductList{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Promotional product list",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "module_width",
+      "label": "Module width",
+      "min": 800,
+      "max": 1600,
+      "step": 100,
+      "unit": "px",
+      "default": 1200
+    },
+    {
+      "type": "select",
+      "id": "columns_desktop",
+      "label": "Columns on desktop",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" },
+        { "value": "4", "label": "4" }
+      ],
+      "default": "4"
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Columns on mobile",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" }
+      ],
+      "default": "1"
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "label": "Gap between products",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal",
+      "label": "Horizontal padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Card style"
+    },
+    {
+      "type": "color",
+      "id": "card_bg_color",
+      "label": "Card background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "label": "Card border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "label": "Card padding",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "module_bg_color",
+      "label": "Module background",
+      "default": "#f3f3f3"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "star_color",
+      "label": "Star filled",
+      "default": "#ffc107"
+    },
+    {
+      "type": "color",
+      "id": "star_empty_color",
+      "label": "Star empty",
+      "default": "#e0e0e0"
+    },
+    {
+      "type": "color",
+      "id": "reviews_color",
+      "label": "Reviews count",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "feature_color",
+      "label": "Feature text",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "current_price_color",
+      "label": "Current price",
+      "default": "#d32f2f"
+    },
+    {
+      "type": "color",
+      "id": "original_price_color",
+      "label": "Original price",
+      "default": "#999999"
+    },
+    {
+      "type": "color",
+      "id": "discount_color",
+      "label": "Discount text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "discount_bg_color",
+      "label": "Discount background",
+      "default": "#d32f2f"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button background",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg_color",
+      "label": "Button hover background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Font sizes"
+    },
+    {
+      "type": "range",
+      "id": "title_font_size",
+      "label": "Title",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "reviews_font_size",
+      "label": "Reviews count",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "feature_font_size",
+      "label": "Feature text",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "current_price_font_size",
+      "label": "Current price",
+      "min": 14,
+      "max": 36,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "original_price_font_size",
+      "label": "Original price",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "discount_font_size",
+      "label": "Discount",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "label": "Button",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Font weights"
+    },
+    {
+      "type": "select",
+      "id": "title_font_weight",
+      "label": "Title",
+      "options": [
+        { "value": "400", "label": "Normal" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi bold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "select",
+      "id": "reviews_font_weight",
+      "label": "Reviews count",
+      "options": [
+        { "value": "400", "label": "Normal" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi bold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "400"
+    },
+    {
+      "type": "select",
+      "id": "feature_font_weight",
+      "label": "Feature text",
+      "options": [
+        { "value": "400", "label": "Normal" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi bold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "400"
+    },
+    {
+      "type": "select",
+      "id": "current_price_font_weight",
+      "label": "Current price",
+      "options": [
+        { "value": "400", "label": "Normal" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi bold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "700"
+    },
+    {
+      "type": "select",
+      "id": "original_price_font_weight",
+      "label": "Original price",
+      "options": [
+        { "value": "400", "label": "Normal" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi bold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "400"
+    },
+    {
+      "type": "select",
+      "id": "discount_font_weight",
+      "label": "Discount",
+      "options": [
+        { "value": "400", "label": "Normal" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi bold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "select",
+      "id": "button_font_weight",
+      "label": "Button",
+      "options": [
+        { "value": "400", "label": "Normal" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi bold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "header",
+      "content": "Feature icon"
+    },
+    {
+      "type": "image_picker",
+      "id": "feature_icon",
+      "label": "Icon"
+    },
+    {
+      "type": "range",
+      "id": "feature_icon_size",
+      "label": "Icon size",
+      "min": 12,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Buy now"
+    },
+    {
+      "type": "range",
+      "id": "button_width",
+      "label": "Button width",
+      "min": 80,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "default": 150
+    },
+    {
+      "type": "range",
+      "id": "button_height",
+      "label": "Button height",
+      "min": 30,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "label": "Button border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Product 1"
+    },
+    {
+      "type": "product",
+      "id": "product_1",
+      "label": "Product"
+    },
+    {
+      "type": "text",
+      "id": "product_1_title",
+      "label": "Title",
+      "default": "Product name"
+    },
+    {
+      "type": "range",
+      "id": "product_1_rating",
+      "label": "Rating",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "range",
+      "id": "product_1_reviews",
+      "label": "Reviews count",
+      "min": 0,
+      "max": 1000,
+      "step": 10,
+      "default": 100
+    },
+    {
+      "type": "text",
+      "id": "product_1_feature1",
+      "label": "Feature 1",
+      "default": "High quality materials"
+    },
+    {
+      "type": "text",
+      "id": "product_1_feature2",
+      "label": "Feature 2",
+      "default": "Fast shipping"
+    },
+    {
+      "type": "text",
+      "id": "product_1_feature3",
+      "label": "Feature 3",
+      "default": "30-day money back guarantee"
+    },
+    {
+      "type": "text",
+      "id": "product_1_current_price",
+      "label": "Current price",
+      "default": "99.99"
+    },
+    {
+      "type": "text",
+      "id": "product_1_original_price",
+      "label": "Original price",
+      "default": "149.99"
+    },
+    {
+      "type": "text",
+      "id": "product_1_discount",
+      "label": "Discount",
+      "default": "-33%"
+    },
+    {
+      "type": "url",
+      "id": "product_1_button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Product 2"
+    },
+    {
+      "type": "product",
+      "id": "product_2",
+      "label": "Product"
+    },
+    {
+      "type": "text",
+      "id": "product_2_title",
+      "label": "Title",
+      "default": "Product name"
+    },
+    {
+      "type": "range",
+      "id": "product_2_rating",
+      "label": "Rating",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "range",
+      "id": "product_2_reviews",
+      "label": "Reviews count",
+      "min": 0,
+      "max": 1000,
+      "step": 10,
+      "default": 100
+    },
+    {
+      "type": "text",
+      "id": "product_2_feature1",
+      "label": "Feature 1",
+      "default": "High quality materials"
+    },
+    {
+      "type": "text",
+      "id": "product_2_feature2",
+      "label": "Feature 2",
+      "default": "Fast shipping"
+    },
+    {
+      "type": "text",
+      "id": "product_2_feature3",
+      "label": "Feature 3",
+      "default": "30-day money back guarantee"
+    },
+    {
+      "type": "text",
+      "id": "product_2_current_price",
+      "label": "Current price",
+      "default": "99.99"
+    },
+    {
+      "type": "text",
+      "id": "product_2_original_price",
+      "label": "Original price",
+      "default": "149.99"
+    },
+    {
+      "type": "text",
+      "id": "product_2_discount",
+      "label": "Discount",
+      "default": "-33%"
+    },
+    {
+      "type": "url",
+      "id": "product_2_button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Product 3"
+    },
+    {
+      "type": "product",
+      "id": "product_3",
+      "label": "Product"
+    },
+    {
+      "type": "text",
+      "id": "product_3_title",
+      "label": "Title",
+      "default": "Product name"
+    },
+    {
+      "type": "range",
+      "id": "product_3_rating",
+      "label": "Rating",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "range",
+      "id": "product_3_reviews",
+      "label": "Reviews count",
+      "min": 0,
+      "max": 1000,
+      "step": 10,
+      "default": 100
+    },
+    {
+      "type": "text",
+      "id": "product_3_feature1",
+      "label": "Feature 1",
+      "default": "High quality materials"
+    },
+    {
+      "type": "text",
+      "id": "product_3_feature2",
+      "label": "Feature 2",
+      "default": "Fast shipping"
+    },
+    {
+      "type": "text",
+      "id": "product_3_feature3",
+      "label": "Feature 3",
+      "default": "30-day money back guarantee"
+    },
+    {
+      "type": "text",
+      "id": "product_3_current_price",
+      "label": "Current price",
+      "default": "99.99"
+    },
+    {
+      "type": "text",
+      "id": "product_3_original_price",
+      "label": "Original price",
+      "default": "149.99"
+    },
+    {
+      "type": "text",
+      "id": "product_3_discount",
+      "label": "Discount",
+      "default": "-33%"
+    },
+    {
+      "type": "url",
+      "id": "product_3_button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Product 4"
+    },
+    {
+      "type": "product",
+      "id": "product_4",
+      "label": "Product"
+    },
+    {
+      "type": "text",
+      "id": "product_4_title",
+      "label": "Title",
+      "default": "Product name"
+    },
+    {
+      "type": "range",
+      "id": "product_4_rating",
+      "label": "Rating",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "range",
+      "id": "product_4_reviews",
+      "label": "Reviews count",
+      "min": 0,
+      "max": 1000,
+      "step": 10,
+      "default": 100
+    },
+    {
+      "type": "text",
+      "id": "product_4_feature1",
+      "label": "Feature 1",
+      "default": "High quality materials"
+    },
+    {
+      "type": "text",
+      "id": "product_4_feature2",
+      "label": "Feature 2",
+      "default": "Fast shipping"
+    },
+    {
+      "type": "text",
+      "id": "product_4_feature3",
+      "label": "Feature 3",
+      "default": "30-day money back guarantee"
+    },
+    {
+      "type": "text",
+      "id": "product_4_current_price",
+      "label": "Current price",
+      "default": "99.99"
+    },
+    {
+      "type": "text",
+      "id": "product_4_original_price",
+      "label": "Original price",
+      "default": "149.99"
+    },
+    {
+      "type": "text",
+      "id": "product_4_discount",
+      "label": "Discount",
+      "default": "-33%"
+    },
+    {
+      "type": "url",
+      "id": "product_4_button_link",
+      "label": "Button link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Promotional product list"
+    }
+  ]
+}
 {% endschema %}
