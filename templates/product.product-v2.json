@@ -1157,7 +1157,7 @@
       "type": "q-privacy-security",
       "settings": {
         "header_title": "Protecting Your Privacy and Security",
-        "header_description": "<p>We prioritize your privacy at every step. Our devices use end-to-end encryption and secure data practices to ensure your information is protected.</p><p>Only the data you choose is collected, and you can review, manage, or delete it at any time, giving you full control over your information.</p><p>Features like Home/Away modes and status indicators are designed to keep your home and family's information safe while letting you enjoy smart technology with peace of mind.</p>",
+        "header_description": "<p>We prioritize your privacy at every step. Our devices use end-to-end encryption and secure data practices to ensure your information is protected.</p><p>Only the data you choose is collected, and you can review, manage, or delete it at any time, giving you full control over your information.</p><p>Keep your home and family's information safe while letting you enjoy smart technology with peace of mind.</p>",
         "header_center": false,
         "header_em_color": "#3b7dd8",
         "header_title_size_desktop": 42,
@@ -1198,7 +1198,7 @@
           "type": "step",
           "settings": {
             "image": "shopify://shop_images/Anran_camera_Wire-Free_Installation.jpg",
-            "title": "Wall or Ceiling Mount",
+            "title": "Wall Mount Installation",
             "description": "Mount it on a wall or ceiling to fit your space. Flexible installation options make it easy to place the camera exactly where you need it."
           }
         }
@@ -1234,7 +1234,7 @@
           "settings": {
             "product_image": "shopify://shop_images/Wireless_Security_Cameras_Q3M8.png",
             "product_name": "Q3M8",
-            "specs": "<p>4K (8MP)</p><p>360° Pan / 90° Tilt</p><p>Up to 50 ft</p><p>2.4GHz Wi-Fi</p><p>App Control & Alexa</p><p>Solar + Rechargeable Battery</p><p>Color Night Vision</p><p>Rechargeable Battery (5V system)</p><p>Up to 128GB (MicroSD)</p>",
+            "specs": "<p>4K (8MP)</p><p>360° Pan / 90° Tilt</p><p>Up to 50 ft</p><p>2.4GHz Wi-Fi</p><p>App & Alexa Live View</p><p>Solar + Rechargeable Battery</p><p>Color Night Vision</p><p>Rechargeable Battery (5V system)</p><p>Up to 128GB (MicroSD)</p>",
             "button_link": "shopify://products/anran-q3-4k-8mp-solar-battery-camera",
             "button_label": "Shop now"
           }
@@ -1244,7 +1244,7 @@
           "settings": {
             "product_image": "shopify://shop_images/Solar_Powered_Security_Cameras_C3M5.png",
             "product_name": "C3M5",
-            "specs": "<p>2K (5MP)</p><p>135° Wide Angle</p><p>Up to 50 ft</p><p>2.4GHz Wi-Fi</p><p>App Control & Alexa</p><p>Solar + Rechargeable Battery</p><p>Color Night Vision</p><p>5V Rechargeable System (built-in battery)</p><p>Up to 128GB (MicroSD)</p>",
+            "specs": "<p>2K (5MP)</p><p>135° Wide Angle</p><p>Up to 50 ft</p><p>2.4GHz Wi-Fi</p><p>App & Alexa Live View</p><p>Solar + Rechargeable Battery</p><p>Color Night Vision</p><p>5V Rechargeable System (built-in battery)</p><p>Up to 128GB (MicroSD)</p>",
             "button_link": "shopify://products/anran-c3-5mp-integrated-solar-battery-camera",
             "button_label": "Shop now"
           }
@@ -1254,7 +1254,7 @@
           "settings": {
             "product_image": "shopify://shop_images/Anran_Solar_Security_Camera_Q4M5.png",
             "product_name": "Q4M5",
-            "specs": "<p>2K (5MP)</p><p>360° Pan & Tilt (PTZ)</p><p>Up to 50 ft (Color + IR)</p><p>2.4GHz Wi-Fi</p><p>App Control & Alexa</p><p>Solar + Rechargeable Battery</p><p>Color Night Vision</p><p>Rechargeable Battery (Solar Charging System)</p><p>Up to 128GB (MicroSD)</p>",
+            "specs": "<p>2K (5MP)</p><p>360° Pan & Tilt (PTZ)</p><p>Up to 50 ft (Color + IR)</p><p>2.4GHz Wi-Fi</p><p>App & Alexa Live View</p><p>Solar + Rechargeable Battery</p><p>Color Night Vision</p><p>Rechargeable Battery (Solar Charging System)</p><p>Up to 128GB (MicroSD)</p>",
             "button_link": "shopify://products/anran-q4-max-5mp-integrated-solar-camera",
             "button_label": "Shop now"
           }
@@ -1277,7 +1277,7 @@
         "header_margin_bottom_desktop": 40,
         "header_margin_bottom_mobile": 24,
         "feature_col_title": "Feature",
-        "feature_rows": "Video Capture Resolution\nViewing Angle\nNight Vision Range\nConnectivity Protocol\nSmart Control\nPower Source\nLow Light Technology\nBattery Power\nMax Supported",
+        "feature_rows": "Video Capture Resolution\nViewing Angle\nNight Vision Range\nConnectivity Protocol\nView with Voice\nPower Source\nLow Light Technology\nBattery Power\nMax Supported",
         "btn_color": "#faa61a",
         "bg_color": "#f3f7ff",
         "card_bg_color": "#ffffff",
@@ -1407,7 +1407,7 @@
           "type": "spec_item",
           "settings": {
             "label": "Video Capture Resolution",
-            "value": "2K / 3MP"
+            "value": "4K / 8MP"
           }
         },
         "spec-2": {
@@ -1435,7 +1435,7 @@
           "type": "spec_item",
           "settings": {
             "label": "Controller Type",
-            "value": "Amazon Alexa, Google Assistant"
+            "value": "Amazon Alexa"
           }
         },
         "spec-6": {
@@ -1456,7 +1456,7 @@
           "type": "spec_item",
           "settings": {
             "label": "Battery Power",
-            "value": "5000 mAh, 5W, 5V"
+            "value": "5000 mAh, 3W, 5V"
           }
         },
         "spec-9": {
@@ -1470,7 +1470,7 @@
           "type": "spec_item",
           "settings": {
             "label": "Water Resistance Level / IP Rating",
-            "value": "IP66 Waterproof"
+            "value": "IP65 Waterproof"
           }
         },
         "spec-11": {
@@ -1673,7 +1673,7 @@
           "type": "item",
           "settings": {
             "question": "What is the viewing angle and What range of coverage is it?",
-            "answer": "<p>The camera has a 130° wide-angle lens with up to 30 feet of night vision range.</p>",
+            "answer": "<p>The camera has a 130° wide-angle lens with up to 50 feet of night vision range.</p>",
             "tab_index": "1"
           }
         },
