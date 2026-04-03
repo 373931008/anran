@@ -867,7 +867,7 @@
       ],
       "settings": {
         "header_title": "<em>See Details</em> in the Dark",
-        "header_description": "<p>Featuring an f/1.6 large aperture and spotlights, the camera captures 20% more light, showing more details in dark.</p>",
+        "header_description": "<p>Featuring an f/2.0 large aperture and spotlights, the camera captures 20% more light, showing more details in dark.</p>",
         "header_center": true,
         "header_em_color": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 100%)",
         "header_title_size_desktop": 50,
