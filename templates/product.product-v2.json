@@ -168,12 +168,12 @@
             "video_url_fallback": "/"
           }
         },
-        "q_see_in_action_card_ekQeaR": {
+        "q_see_in_action_card_YVXWf8": {
           "type": "q_see_in_action_card",
           "settings": {
-            "video": "shopify://files/videos/Anran Q3 Cam video mo 2.mov",
-            "video_link": "https://www.youtube.com/watch?v=ZjxujJ0LYZk",
-            "video_url_fallback": "https://www.youtube.com/watch?v=_9VUPq3SxOc"
+            "video": "shopify://files/videos/Anran Q3 Cam video mo 4.mov",
+            "video_link": "https://www.youtube.com/watch?v=lKiBqokvYtI",
+            "video_url_fallback": "/"
           }
         },
         "q_see_in_action_card_x9tfpr": {
@@ -184,12 +184,12 @@
             "video_url_fallback": "/"
           }
         },
-        "q_see_in_action_card_YVXWf8": {
+        "q_see_in_action_card_ekQeaR": {
           "type": "q_see_in_action_card",
           "settings": {
-            "video": "shopify://files/videos/8k360_video_vid_pc_xlarge.mp4",
-            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
-            "video_url_fallback": "/"
+            "video": "shopify://files/videos/Anran Q3 Cam video mo 2.mov",
+            "video_link": "https://www.youtube.com/watch?v=ZjxujJ0LYZk",
+            "video_url_fallback": "https://www.youtube.com/watch?v=_9VUPq3SxOc"
           }
         },
         "testimonial_7pQ6qr": {
@@ -235,9 +235,9 @@
         "trust_cards_7izheJ",
         "q_see_in_action_qqPxfb",
         "q_see_in_action_card_yrNeJw",
-        "q_see_in_action_card_ekQeaR",
-        "q_see_in_action_card_x9tfpr",
         "q_see_in_action_card_YVXWf8",
+        "q_see_in_action_card_x9tfpr",
+        "q_see_in_action_card_ekQeaR",
         "testimonial_7pQ6qr",
         "q_camera_finder_MKbeYn"
       ],
