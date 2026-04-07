@@ -1,6 +1,1325 @@
+{% doc %}
+  @prompt
+    帮我生成一个适用于 Shopify Dawn 主题的“分类展示模块”（Shop by Category）。
+    
+    ### 一、布局要求（PC端）
+    
+    - 顶部有模块标题（如：Shop by Category）
+    - 标题下方是一排分类切换按钮（tabs）：
+      - 如：Camera Kits / Solar Cameras / Wireless NVR Kit 等
+      - 当前选中状态有高亮样式（背景色区分）
+    
+    - 下方为图片展示区域：
+      - 左侧一张大图
+      - 右侧两张小图（上下排列）
+      - 左右宽度比例约为 2:1（左侧约66%，右侧约34%）
+      - 图片之间有间距（如12px-16px）
+      - 整体对齐整齐，圆角统一（如12px）
+    
+    - 模块整体居中显示
+    - 左右边距：50px
+    - 支持上下边距（padding 可配置）
+    - 图片使用 object-fit: cover（铺满不变形）
+    
+    ---
+    
+    ### 二、功能要求
+    
+    分类切换：
+    - 点击不同分类按钮，下方图片内容切换
+    - 切换时有简单过渡效果（淡入或切换即可）
+    
+    图片功能：
+    - 每张图片支持：
+      - 整张图可点击（设置链接）
+      - 图片内可添加内容：
+        - 标题
+        - 描述
+        - 按钮（如 Shop Now）
+        - 按钮链接
+    
+    内容样式：
+    - 标题、描述、按钮可单独设置字体大小和颜色
+    - 内容位置可配置（左下 / 左中 / 居中）
+    - 移动端标题、描述、按钮间距更紧凑
+    
+    交互效果：
+    - hover 图片轻微放大或遮罩效果
+    
+    ---
+    
+    ### 三、响应式要求
+    
+    - PC端：左大图 + 右两小图布局
+    - 平板：比例缩小，间距减少
+    - 移动端：
+      - 所有图片改为上下排列（3张图竖排）
+      - 分类按钮支持横向滑动
+      - 内容适配移动端（字体更小、间距更紧凑）
+    
+    ---
+    
+    ### 四、后台可配置（Shopify schema）
+    
+    - 模块标题
+    - 上下边距（padding）
+    - 分类（blocks 或 group）：
+      - 每个分类包含：
+        - 分类名称
+        - 左侧大图（图片 + 链接 + 内容）
+        - 右上图（图片 + 链接 + 内容）
+        - 右下图（图片 + 链接 + 内容）
+    - 内容显示开关
+    - 内容位置选择
+    
+    ---
+    
+    ### 五、性能优化（重点）
+    
+    - 代码简洁，避免冗余 DOM
+    - 不引入任何第三方 JS
+    - 使用最少 JS 实现分类切换（或仅CSS+少量JS）
+    - 图片优化：
+      - 使用 loading="lazy"
+      - 使用 Shopify image_url 控制尺寸
+    - 避免 CLS（布局偏移）：
+      - 提前设置图片容器 aspect-ratio
+    - 减少 DOM 层级，结构扁平化
+    - 不影响页面加载速度
+    
+    ---
+    
+    ### 六、技术要求
+    
+    - 使用 Liquid + HTML + CSS + 少量原生 JS
+    - 完全兼容 Dawn 主题
+    - 不影响原主题样式（避免全局污染）
+    - 使用 scoped / 局部 class 命名
+    - 不修改全局 CSS
+    
+    ---
+    
+    ### 输出要求
+    
+    - 输出完整 Shopify section 代码（Liquid + schema + CSS + 必要JS）
+    - 可直接复制使用, 桌面宽度用px单位控制，section的功能名称用中文，每个tab中的图片的尺寸大小定比例，标题和tab标签左对齐, 我需要整个图片模块的比例按W:H为1415：635，其中左侧图片比例为942：635，右侧图片比例为464：309，当移动端左侧图片展示为上方第一张图片，右侧两张在移动端并排显示在第一张下方, 再增加两个分类, 手机端的时候，分类标题可以左右滑动
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-shop-category-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    padding: {{ block.settings.padding_top }}px 50px {{ block.settings.padding_bottom }}px;
+  }
+
+  .ai-shop-category-container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.container_width }}px;
+    margin: 0 auto;
+  }
+
+  .ai-shop-category-title-{{ ai_gen_id }} {
+    text-align: left;
+    font-size: {{ block.settings.title_size }}px;
+    color: {{ block.settings.title_color }};
+    margin: 0 0 32px;
+    font-weight: 600;
+  }
+
+  .ai-shop-category-tabs-wrapper-{{ ai_gen_id }} {
+    margin-bottom: 40px;
+  }
+
+  .ai-shop-category-tabs-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: flex-start;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .ai-shop-category-tab-{{ ai_gen_id }} {
+    padding: 12px 24px;
+    background-color: {{ block.settings.tab_bg_color }};
+    color: {{ block.settings.tab_text_color }};
+    border: 1px solid {{ block.settings.tab_border_color }};
+    border-radius: {{ block.settings.tab_radius }}px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: {{ block.settings.tab_font_size }}px;
+    white-space: nowrap;
+  }
+
+  .ai-shop-category-tab-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.tab_hover_bg }};
+  }
+
+  .ai-shop-category-tab-{{ ai_gen_id }}.active {
+    background-color: {{ block.settings.tab_active_bg }};
+    color: {{ block.settings.tab_active_text }};
+    border-color: {{ block.settings.tab_active_bg }};
+  }
+
+  .ai-shop-category-content-{{ ai_gen_id }} {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .ai-shop-category-content-{{ ai_gen_id }}.active {
+    display: block;
+    opacity: 1;
+  }
+
+  .ai-shop-category-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 942fr 464fr;
+    gap: {{ block.settings.image_gap }}px;
+    aspect-ratio: 1415 / 635;
+  }
+
+  .ai-shop-category-image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    overflow: hidden;
+    border-radius: {{ block.settings.image_radius }}px;
+  }
+
+  .ai-shop-category-image-wrapper-{{ ai_gen_id }}.large {
+    grid-row: span 2;
+    aspect-ratio: 942 / 635;
+  }
+
+  .ai-shop-category-image-wrapper-{{ ai_gen_id }}.small {
+    aspect-ratio: 464 / 309;
+  }
+
+  .ai-shop-category-image-wrapper-{{ ai_gen_id }} img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .ai-shop-category-image-wrapper-{{ ai_gen_id }}:hover img {
+    transform: scale(1.05);
+  }
+
+  .ai-shop-category-image-wrapper-{{ ai_gen_id }}::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0);
+    transition: background 0.3s ease;
+    pointer-events: none;
+  }
+
+  .ai-shop-category-image-wrapper-{{ ai_gen_id }}:hover::after {
+    background: rgba(0, 0, 0, {{ block.settings.hover_overlay_opacity }});
+  }
+
+  .ai-shop-category-image-link-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  .ai-shop-category-image-content-{{ ai_gen_id }} {
+    position: absolute;
+    z-index: 1;
+    padding: 24px;
+    {% if block.settings.content_position == 'bottom-left' %}
+      bottom: 0;
+      left: 0;
+      text-align: left;
+    {% elsif block.settings.content_position == 'center-left' %}
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      text-align: left;
+    {% elsif block.settings.content_position == 'center' %}
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    {% endif %}
+  }
+
+  .ai-shop-category-image-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.content_title_size }}px;
+    color: {{ block.settings.content_title_color }};
+    margin: 0 0 8px;
+    font-weight: 600;
+  }
+
+  .ai-shop-category-image-desc-{{ ai_gen_id }} {
+    font-size: {{ block.settings.content_desc_size }}px;
+    color: {{ block.settings.content_desc_color }};
+    margin: 0 0 16px;
+    line-height: 1.5;
+  }
+
+  .ai-shop-category-image-button-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: {{ block.settings.content_button_bg }};
+    color: {{ block.settings.content_button_text }};
+    text-decoration: none;
+    border-radius: {{ block.settings.content_button_radius }}px;
+    font-size: {{ block.settings.content_button_size }}px;
+    transition: background-color 0.3s ease;
+  }
+
+  .ai-shop-category-image-button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.content_button_hover }};
+  }
+
+  .ai-shop-category-small-images-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: {{ block.settings.image_gap }}px;
+  }
+
+  .ai-shop-category-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-shop-category-placeholder-{{ ai_gen_id }} svg {
+    width: 60%;
+    height: 60%;
+    opacity: 0.3;
+  }
+
+  @media screen and (max-width: 989px) {
+    .ai-shop-category-{{ ai_gen_id }} {
+      padding-left: 30px;
+      padding-right: 30px;
+    }
+
+    .ai-shop-category-grid-{{ ai_gen_id }} {
+      gap: {{ block.settings.image_gap | times: 0.75 }}px;
+    }
+
+    .ai-shop-category-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_size | times: 0.85 }}px;
+      margin-bottom: 24px;
+    }
+
+    .ai-shop-category-tabs-wrapper-{{ ai_gen_id }} {
+      margin-bottom: 32px;
+    }
+
+    .ai-shop-category-image-content-{{ ai_gen_id }} {
+      padding: 16px;
+    }
+
+    .ai-shop-category-image-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.content_title_size | times: 0.85 }}px;
+      margin-bottom: 6px;
+    }
+
+    .ai-shop-category-image-desc-{{ ai_gen_id }} {
+      font-size: {{ block.settings.content_desc_size | times: 0.85 }}px;
+      margin-bottom: 12px;
+    }
+
+    .ai-shop-category-image-button-{{ ai_gen_id }} {
+      font-size: {{ block.settings.content_button_size | times: 0.85 }}px;
+      padding: 8px 16px;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-shop-category-{{ ai_gen_id }} {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    .ai-shop-category-tabs-wrapper-{{ ai_gen_id }} {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      margin-left: -20px;
+      margin-right: -20px;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    .ai-shop-category-tabs-wrapper-{{ ai_gen_id }}::-webkit-scrollbar {
+      display: none;
+    }
+
+    .ai-shop-category-tabs-{{ ai_gen_id }} {
+      justify-content: flex-start;
+      flex-wrap: nowrap;
+      padding-bottom: 8px;
+    }
+
+    .ai-shop-category-tab-{{ ai_gen_id }} {
+      font-size: {{ block.settings.tab_font_size | times: 0.9 }}px;
+      padding: 10px 20px;
+    }
+
+    .ai-shop-category-grid-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: {{ block.settings.image_gap | times: 0.5 }}px;
+      aspect-ratio: auto;
+    }
+
+    .ai-shop-category-image-wrapper-{{ ai_gen_id }}.large {
+      grid-row: span 1;
+      aspect-ratio: 942 / 635;
+    }
+
+    .ai-shop-category-small-images-{{ ai_gen_id }} {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: {{ block.settings.image_gap | times: 0.5 }}px;
+    }
+
+    .ai-shop-category-image-wrapper-{{ ai_gen_id }}.small {
+      aspect-ratio: 464 / 309;
+    }
+
+    .ai-shop-category-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_size | times: 0.75 }}px;
+      margin-bottom: 20px;
+    }
+
+    .ai-shop-category-image-content-{{ ai_gen_id }} {
+      padding: 12px;
+    }
+
+    .ai-shop-category-image-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.content_title_size | times: 0.75 }}px;
+      margin-bottom: 4px;
+    }
+
+    .ai-shop-category-image-desc-{{ ai_gen_id }} {
+      font-size: {{ block.settings.content_desc_size | times: 0.75 }}px;
+      margin-bottom: 8px;
+    }
+
+    .ai-shop-category-image-button-{{ ai_gen_id }} {
+      font-size: {{ block.settings.content_button_size | times: 0.75 }}px;
+      padding: 6px 12px;
+    }
+  }
+{% endstyle %}
+
+<shop-by-category-{{ ai_gen_id }} class="ai-shop-category-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-shop-category-container-{{ ai_gen_id }}">
+    {% if block.settings.section_title != blank %}
+      <h2 class="ai-shop-category-title-{{ ai_gen_id }}">{{ block.settings.section_title }}</h2>
+    {% endif %}
+
+    <div class="ai-shop-category-tabs-wrapper-{{ ai_gen_id }}">
+      <div class="ai-shop-category-tabs-{{ ai_gen_id }}">
+        <button class="ai-shop-category-tab-{{ ai_gen_id }} active" data-category="1" aria-label="{{ block.settings.cat1_name }}">
+          {{ block.settings.cat1_name }}
+        </button>
+        <button class="ai-shop-category-tab-{{ ai_gen_id }}" data-category="2" aria-label="{{ block.settings.cat2_name }}">
+          {{ block.settings.cat2_name }}
+        </button>
+        <button class="ai-shop-category-tab-{{ ai_gen_id }}" data-category="3" aria-label="{{ block.settings.cat3_name }}">
+          {{ block.settings.cat3_name }}
+        </button>
+        <button class="ai-shop-category-tab-{{ ai_gen_id }}" data-category="4" aria-label="{{ block.settings.cat4_name }}">
+          {{ block.settings.cat4_name }}
+        </button>
+        <button class="ai-shop-category-tab-{{ ai_gen_id }}" data-category="5" aria-label="{{ block.settings.cat5_name }}">
+          {{ block.settings.cat5_name }}
+        </button>
+      </div>
+    </div>
+
+    {% for i in (1..5) %}
+      {% assign cat_name_key = 'cat' | append: i | append: '_name' %}
+      {% assign cat_large_image_key = 'cat' | append: i | append: '_large_image' %}
+      {% assign cat_large_link_key = 'cat' | append: i | append: '_large_link' %}
+      {% assign cat_large_title_key = 'cat' | append: i | append: '_large_title' %}
+      {% assign cat_large_desc_key = 'cat' | append: i | append: '_large_desc' %}
+      {% assign cat_large_button_key = 'cat' | append: i | append: '_large_button' %}
+      {% assign cat_top_image_key = 'cat' | append: i | append: '_top_image' %}
+      {% assign cat_top_link_key = 'cat' | append: i | append: '_top_link' %}
+      {% assign cat_top_title_key = 'cat' | append: i | append: '_top_title' %}
+      {% assign cat_top_desc_key = 'cat' | append: i | append: '_top_desc' %}
+      {% assign cat_top_button_key = 'cat' | append: i | append: '_top_button' %}
+      {% assign cat_bottom_image_key = 'cat' | append: i | append: '_bottom_image' %}
+      {% assign cat_bottom_link_key = 'cat' | append: i | append: '_bottom_link' %}
+      {% assign cat_bottom_title_key = 'cat' | append: i | append: '_bottom_title' %}
+      {% assign cat_bottom_desc_key = 'cat' | append: i | append: '_bottom_desc' %}
+      {% assign cat_bottom_button_key = 'cat' | append: i | append: '_bottom_button' %}
+
+      <div class="ai-shop-category-content-{{ ai_gen_id }} {% if i == 1 %}active{% endif %}" data-content="{{ i }}">
+        <div class="ai-shop-category-grid-{{ ai_gen_id }}">
+          <div class="ai-shop-category-image-wrapper-{{ ai_gen_id }} large">
+            {% if block.settings[cat_large_link_key] != blank %}
+              <a href="{{ block.settings[cat_large_link_key] }}" class="ai-shop-category-image-link-{{ ai_gen_id }}">
+            {% else %}
+              <div class="ai-shop-category-image-link-{{ ai_gen_id }}">
+            {% endif %}
+              {% if block.settings[cat_large_image_key] %}
+                <img
+                  src="{{ block.settings[cat_large_image_key] | image_url: width: 1200 }}"
+                  alt="{{ block.settings[cat_large_image_key].alt | escape }}"
+                  loading="lazy"
+                  width="{{ block.settings[cat_large_image_key].width }}"
+                  height="{{ block.settings[cat_large_image_key].height }}"
+                >
+              {% else %}
+                <div class="ai-shop-category-placeholder-{{ ai_gen_id }}">
+                  {{ 'image' | placeholder_svg_tag }}
+                </div>
+              {% endif %}
+              {% if block.settings.show_content %}
+                <div class="ai-shop-category-image-content-{{ ai_gen_id }}">
+                  {% if block.settings[cat_large_title_key] != blank %}
+                    <h3 class="ai-shop-category-image-title-{{ ai_gen_id }}">{{ block.settings[cat_large_title_key] }}</h3>
+                  {% endif %}
+                  {% if block.settings[cat_large_desc_key] != blank %}
+                    <p class="ai-shop-category-image-desc-{{ ai_gen_id }}">{{ block.settings[cat_large_desc_key] }}</p>
+                  {% endif %}
+                  {% if block.settings[cat_large_button_key] != blank %}
+                    <span class="ai-shop-category-image-button-{{ ai_gen_id }}">{{ block.settings[cat_large_button_key] }}</span>
+                  {% endif %}
+                </div>
+              {% endif %}
+            {% if block.settings[cat_large_link_key] != blank %}
+              </a>
+            {% else %}
+              </div>
+            {% endif %}
+          </div>
+
+          <div class="ai-shop-category-small-images-{{ ai_gen_id }}">
+            <div class="ai-shop-category-image-wrapper-{{ ai_gen_id }} small">
+              {% if block.settings[cat_top_link_key] != blank %}
+                <a href="{{ block.settings[cat_top_link_key] }}" class="ai-shop-category-image-link-{{ ai_gen_id }}">
+              {% else %}
+                <div class="ai-shop-category-image-link-{{ ai_gen_id }}">
+              {% endif %}
+                {% if block.settings[cat_top_image_key] %}
+                  <img
+                    src="{{ block.settings[cat_top_image_key] | image_url: width: 800 }}"
+                    alt="{{ block.settings[cat_top_image_key].alt | escape }}"
+                    loading="lazy"
+                    width="{{ block.settings[cat_top_image_key].width }}"
+                    height="{{ block.settings[cat_top_image_key].height }}"
+                  >
+                {% else %}
+                  <div class="ai-shop-category-placeholder-{{ ai_gen_id }}">
+                    {{ 'image' | placeholder_svg_tag }}
+                  </div>
+                {% endif %}
+                {% if block.settings.show_content %}
+                  <div class="ai-shop-category-image-content-{{ ai_gen_id }}">
+                    {% if block.settings[cat_top_title_key] != blank %}
+                      <h3 class="ai-shop-category-image-title-{{ ai_gen_id }}">{{ block.settings[cat_top_title_key] }}</h3>
+                    {% endif %}
+                    {% if block.settings[cat_top_desc_key] != blank %}
+                      <p class="ai-shop-category-image-desc-{{ ai_gen_id }}">{{ block.settings[cat_top_desc_key] }}</p>
+                    {% endif %}
+                    {% if block.settings[cat_top_button_key] != blank %}
+                      <span class="ai-shop-category-image-button-{{ ai_gen_id }}">{{ block.settings[cat_top_button_key] }}</span>
+                    {% endif %}
+                  </div>
+                {% endif %}
+              {% if block.settings[cat_top_link_key] != blank %}
+                </a>
+              {% else %}
+                </div>
+              {% endif %}
+            </div>
+
+            <div class="ai-shop-category-image-wrapper-{{ ai_gen_id }} small">
+              {% if block.settings[cat_bottom_link_key] != blank %}
+                <a href="{{ block.settings[cat_bottom_link_key] }}" class="ai-shop-category-image-link-{{ ai_gen_id }}">
+              {% else %}
+                <div class="ai-shop-category-image-link-{{ ai_gen_id }}">
+              {% endif %}
+                {% if block.settings[cat_bottom_image_key] %}
+                  <img
+                    src="{{ block.settings[cat_bottom_image_key] | image_url: width: 800 }}"
+                    alt="{{ block.settings[cat_bottom_image_key].alt | escape }}"
+                    loading="lazy"
+                    width="{{ block.settings[cat_bottom_image_key].width }}"
+                    height="{{ block.settings[cat_bottom_image_key].height }}"
+                  >
+                {% else %}
+                  <div class="ai-shop-category-placeholder-{{ ai_gen_id }}">
+                    {{ 'image' | placeholder_svg_tag }}
+                  </div>
+                {% endif %}
+                {% if block.settings.show_content %}
+                  <div class="ai-shop-category-image-content-{{ ai_gen_id }}">
+                    {% if block.settings[cat_bottom_title_key] != blank %}
+                      <h3 class="ai-shop-category-image-title-{{ ai_gen_id }}">{{ block.settings[cat_bottom_title_key] }}</h3>
+                    {% endif %}
+                    {% if block.settings[cat_bottom_desc_key] != blank %}
+                      <p class="ai-shop-category-image-desc-{{ ai_gen_id }}">{{ block.settings[cat_bottom_desc_key] }}</p>
+                    {% endif %}
+                    {% if block.settings[cat_bottom_button_key] != blank %}
+                      <span class="ai-shop-category-image-button-{{ ai_gen_id }}">{{ block.settings[cat_bottom_button_key] }}</span>
+                    {% endif %}
+                  </div>
+                {% endif %}
+              {% if block.settings[cat_bottom_link_key] != blank %}
+                </a>
+              {% else %}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</shop-by-category-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class ShopByCategory{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.tabs = this.querySelectorAll('.ai-shop-category-tab-{{ ai_gen_id }}');
+        this.contents = this.querySelectorAll('.ai-shop-category-content-{{ ai_gen_id }}');
+        this.setupEventListeners();
+      }
+
+      setupEventListeners() {
+        this.tabs.forEach((tab) => {
+          tab.addEventListener('click', () => {
+            const categoryId = tab.getAttribute('data-category');
+            this.switchCategory(categoryId);
+          });
+        });
+      }
+
+      switchCategory(categoryId) {
+        this.tabs.forEach((tab) => {
+          if (tab.getAttribute('data-category') === categoryId) {
+            tab.classList.add('active');
+            tab.setAttribute('aria-selected', 'true');
+          } else {
+            tab.classList.remove('active');
+            tab.setAttribute('aria-selected', 'false');
+          }
+        });
+
+        this.contents.forEach((content) => {
+          if (content.getAttribute('data-content') === categoryId) {
+            content.classList.add('active');
+          } else {
+            content.classList.remove('active');
+          }
+        });
+      }
+    }
+
+    customElements.define('shop-by-category-{{ ai_gen_id }}', ShopByCategory{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "分类展示",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "模块设置"
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "模块标题",
+      "default": "按分类选购"
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "label": "容器宽度",
+      "min": 1000,
+      "max": 1600,
+      "step": 100,
+      "unit": "px",
+      "default": 1400
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "上边距",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "下边距",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "标题样式"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "字体大小",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "颜色",
+      "default": "#121212"
+    },
+    {
+      "type": "header",
+      "content": "标签样式"
+    },
+    {
+      "type": "range",
+      "id": "tab_font_size",
+      "label": "字体大小",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "tab_bg_color",
+      "label": "背景色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "tab_text_color",
+      "label": "文字颜色",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "tab_border_color",
+      "label": "边框颜色",
+      "default": "#e0e0e0"
+    },
+    {
+      "type": "color",
+      "id": "tab_hover_bg",
+      "label": "悬停背景色",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "color",
+      "id": "tab_active_bg",
+      "label": "激活背景色",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "tab_active_text",
+      "label": "激活文字颜色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "tab_radius",
+      "label": "圆角",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "图片样式"
+    },
+    {
+      "type": "range",
+      "id": "image_gap",
+      "label": "图片间距",
+      "min": 8,
+      "max": 32,
+      "step": 4,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "image_radius",
+      "label": "圆角",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "hover_overlay_opacity",
+      "label": "悬停遮罩透明度",
+      "min": 0,
+      "max": 0.5,
+      "step": 0.1,
+      "default": 0.2
+    },
+    {
+      "type": "header",
+      "content": "内容设置"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_content",
+      "label": "显示图片内容",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "content_position",
+      "label": "内容位置",
+      "options": [
+        {
+          "value": "bottom-left",
+          "label": "左下"
+        },
+        {
+          "value": "center-left",
+          "label": "左中"
+        },
+        {
+          "value": "center",
+          "label": "居中"
+        }
+      ],
+      "default": "bottom-left"
+    },
+    {
+      "type": "range",
+      "id": "content_title_size",
+      "label": "标题大小",
+      "min": 16,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "color",
+      "id": "content_title_color",
+      "label": "标题颜色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "content_desc_size",
+      "label": "描述大小",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "content_desc_color",
+      "label": "描述颜色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "content_button_size",
+      "label": "按钮大小",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "content_button_bg",
+      "label": "按钮背景色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "content_button_text",
+      "label": "按钮文字颜色",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "content_button_hover",
+      "label": "按钮悬停颜色",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "range",
+      "id": "content_button_radius",
+      "label": "按钮圆角",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "分类 1"
+    },
+    {
+      "type": "text",
+      "id": "cat1_name",
+      "label": "分类名称",
+      "default": "摄像头套装"
+    },
+    {
+      "type": "image_picker",
+      "id": "cat1_large_image",
+      "label": "大图"
+    },
+    {
+      "type": "url",
+      "id": "cat1_large_link",
+      "label": "大图链接"
+    },
+    {
+      "type": "text",
+      "id": "cat1_large_title",
+      "label": "大图标题"
+    },
+    {
+      "type": "textarea",
+      "id": "cat1_large_desc",
+      "label": "大图描述"
+    },
+    {
+      "type": "text",
+      "id": "cat1_large_button",
+      "label": "大图按钮"
+    },
+    {
+      "type": "image_picker",
+      "id": "cat1_top_image",
+      "label": "右上图"
+    },
+    {
+      "type": "url",
+      "id": "cat1_top_link",
+      "label": "右上图链接"
+    },
+    {
+      "type": "text",
+      "id": "cat1_top_title",
+      "label": "右上图标题"
+    },
+    {
+      "type": "textarea",
+      "id": "cat1_top_desc",
+      "label": "右上图描述"
+    },
+    {
+      "type": "text",
+      "id": "cat1_top_button",
+      "label": "右上图按钮"
+    },
+    {
+      "type": "image_picker",
+      "id": "cat1_bottom_image",
+      "label": "右下图"
+    },
+    {
+      "type": "url",
+      "id": "cat1_bottom_link",
+      "label": "右下图链接"
+    },
+    {
+      "type": "text",
+      "id": "cat1_bottom_title",
+      "label": "右下图标题"
+    },
+    {
+      "type": "textarea",
+      "id": "cat1_bottom_desc",
+      "label": "右下图描述"
+    },
+    {
+      "type": "text",
+      "id": "cat1_bottom_button",
+      "label": "右下图按钮"
+    },
+    {
+      "type": "header",
+      "content": "分类 2"
+    },
+    {
+      "type": "text",
+      "id": "cat2_name",
+      "label": "分类名称",
+      "default": "太阳能摄像头"
+    },
+    {
+      "type": "image_picker",
+      "id": "cat2_large_image",
+      "label": "大图"
+    },
+    {
+      "type": "url",
+      "id": "cat2_large_link",
+      "label": "大图链接"
+    },
+    {
+      "type": "text",
+      "id": "cat2_large_title",
+      "label": "大图标题"
+    },
+    {
+      "type": "textarea",
+      "id": "cat2_large_desc",
+      "label": "大图描述"
+    },
+    {
+      "type": "text",
+      "id": "cat2_large_button",
+      "label": "大图按钮"
+    },
+    {
+      "type": "image_picker",
+      "id": "cat2_top_image",
+      "label": "右上图"
+    },
+    {
+      "type": "url",
+      "id": "cat2_top_link",
+      "label": "右上图链接"
+    },
+    {
+      "type": "text",
+      "id": "cat2_top_title",
+      "label": "右上图标题"
+    },
+    {
+      "type": "textarea",
+      "id": "cat2_top_desc",
+      "label": "右上图描述"
+    },
+    {
+      "type": "text",
+      "id": "cat2_top_button",
+      "label": "右上图按钮"
+    },
+    {
+      "type": "image_picker",
+      "id": "cat2_bottom_image",
+      "label": "右下图"
+    },
+    {
+      "type": "url",
+      "id": "cat2_bottom_link",
+      "label": "右下图链接"
+    },
+    {
+      "type": "text",
+      "id": "cat2_bottom_title",
+      "label": "右下图标题"
+    },
+    {
+      "type": "textarea",
+      "id": "cat2_bottom_desc",
+      "label": "右下图描述"
+    },
+    {
+      "type": "text",
+      "id": "cat2_bottom_button",
+      "label": "右下图按钮"
+    },
+    {
+      "type": "header",
+      "content": "分类 3"
+    },
+    {
+      "type": "text",
+      "id": "cat3_name",
+      "label": "分类名称",
+      "default": "无线NVR套装"
+    },
+    {
+      "type": "image_picker",
+      "id": "cat3_large_image",
+      "label": "大图"
+    },
+    {
+      "type": "url",
+      "id": "cat3_large_link",
+      "label": "大图链接"
+    },
+    {
+      "type": "text",
+      "id": "cat3_large_title",
+      "label": "大图标题"
+    },
+    {
+      "type": "textarea",
+      "id": "cat3_large_desc",
+      "label": "大图描述"
+    },
+    {
+      "type": "text",
+      "id": "cat3_large_button",
+      "label": "大图按钮"
+    },
+    {
+      "type": "image_picker",
+      "id": "cat3_top_image",
+      "label": "右上图"
+    },
+    {
+      "type": "url",
+      "id": "cat3_top_link",
+      "label": "右上图链接"
+    },
+    {
+      "type": "text",
+      "id": "cat3_top_title",
+      "label": "右上图标题"
+    },
+    {
+      "type": "textarea",
+      "id": "cat3_top_desc",
+      "label": "右上图描述"
+    },
+    {
+      "type": "text",
+      "id": "cat3_top_button",
+      "label": "右上图按钮"
+    },
+    {
+      "type": "image_picker",
+      "id": "cat3_bottom_image",
+      "label": "右下图"
+    },
+    {
+      "type": "url",
+      "id": "cat3_bottom_link",
+      "label": "右下图链接"
+    },
+    {
+      "type": "text",
+      "id": "cat3_bottom_title",
+      "label": "右下图标题"
+    },
+    {
+      "type": "textarea",
+      "id": "cat3_bottom_desc",
+      "label": "右下图描述"
+    },
+    {
+      "type": "text",
+      "id": "cat3_bottom_button",
+      "label": "右下图按钮"
+    },
+    {
+      "type": "header",
+      "content": "分类 4"
+    },
+    {
+      "type": "text",
+      "id": "cat4_name",
+      "label": "分类名称",
+      "default": "POE摄像头"
+    },
+    {
+      "type": "image_picker",
+      "id": "cat4_large_image",
+      "label": "大图"
+    },
+    {
+      "type": "url",
+      "id": "cat4_large_link",
+      "label": "大图链接"
+    },
+    {
+      "type": "text",
+      "id": "cat4_large_title",
+      "label": "大图标题"
+    },
+    {
+      "type": "textarea",
+      "id": "cat4_large_desc",
+      "label": "大图描述"
+    },
+    {
+      "type": "text",
+      "id": "cat4_large_button",
+      "label": "大图按钮"
+    },
+    {
+      "type": "image_picker",
+      "id": "cat4_top_image",
+      "label": "右上图"
+    },
+    {
+      "type": "url",
+      "id": "cat4_top_link",
+      "label": "右上图链接"
+    },
+    {
+      "type": "text",
+      "id": "cat4_top_title",
+      "label": "右上图标题"
+    },
+    {
+      "type": "textarea",
+      "id": "cat4_top_desc",
+      "label": "右上图描述"
+    },
+    {
+      "type": "text",
+      "id": "cat4_top_button",
+      "label": "右上图按钮"
+    },
+    {
+      "type": "image_picker",
+      "id": "cat4_bottom_image",
+      "label": "右下图"
+    },
+    {
+      "type": "url",
+      "id": "cat4_bottom_link",
+      "label": "右下图链接"
+    },
+    {
+      "type": "text",
+      "id": "cat4_bottom_title",
+      "label": "右下图标题"
+    },
+    {
+      "type": "textarea",
+      "id": "cat4_bottom_desc",
+      "label": "右下图描述"
+    },
+    {
+      "type": "text",
+      "id": "cat4_bottom_button",
+      "label": "右下图按钮"
+    },
+    {
+      "type": "header",
+      "content": "分类 5"
+    },
+    {
+      "type": "text",
+      "id": "cat5_name",
+      "label": "分类名称",
+      "default": "配件"
+    },
+    {
+      "type": "image_picker",
+      "id": "cat5_large_image",
+      "label": "大图"
+    },
+    {
+      "type": "url",
+      "id": "cat5_large_link",
+      "label": "大图链接"
+    },
+    {
+      "type": "text",
+      "id": "cat5_large_title",
+      "label": "大图标题"
+    },
+    {
+      "type": "textarea",
+      "id": "cat5_large_desc",
+      "label": "大图描述"
+    },
+    {
+      "type": "text",
+      "id": "cat5_large_button",
+      "label": "大图按钮"
+    },
+    {
+      "type": "image_picker",
+      "id": "cat5_top_image",
+      "label": "右上图"
+    },
+    {
+      "type": "url",
+      "id": "cat5_top_link",
+      "label": "右上图链接"
+    },
+    {
+      "type": "text",
+      "id": "cat5_top_title",
+      "label": "右上图标题"
+    },
+    {
+      "type": "textarea",
+      "id": "cat5_top_desc",
+      "label": "右上图描述"
+    },
+    {
+      "type": "text",
+      "id": "cat5_top_button",
+      "label": "右上图按钮"
+    },
+    {
+      "type": "image_picker",
+      "id": "cat5_bottom_image",
+      "label": "右下图"
+    },
+    {
+      "type": "url",
+      "id": "cat5_bottom_link",
+      "label": "右下图链接"
+    },
+    {
+      "type": "text",
+      "id": "cat5_bottom_title",
+      "label": "右下图标题"
+    },
+    {
+      "type": "textarea",
+      "id": "cat5_bottom_desc",
+      "label": "右下图描述"
+    },
+    {
+      "type": "text",
+      "id": "cat5_bottom_button",
+      "label": "右下图按钮"
+    }
+  ],
+  "presets": [
+    {
+      "name": "分类展示"
+    }
+  ]
+}
 {% endschema %}
