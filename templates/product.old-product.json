@@ -606,7 +606,7 @@
       "type": "_blocks",
       "blocks": {
         "ai_gen_block_93cd808_dmkBkT": {
-          "type": "ai_gen_block_93cd808",
+          "type": "d_specs_list",
           "settings": {
             "title": "Specifications",
             "title_alignment": "center",
