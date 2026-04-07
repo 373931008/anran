@@ -13,9 +13,124 @@
     "ecom-ecomposer-home-home": {
       "type": "ecom-ecomposer-home-home",
       "settings": {}
+    },
+    "slideshow_JgFyHM": {
+      "type": "slideshow",
+      "blocks": {
+        "slide_RKxRyE": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/1920_800_1.jpg",
+            "image_overlay_opacity": 0,
+            "heading": "",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "",
+            "link": "",
+            "button_style_secondary": false,
+            "show_text_box": false,
+            "box_align": "middle-center",
+            "text_alignment": "center",
+            "text_alignment_mobile": "center",
+            "color_scheme": ""
+          }
+        },
+        "slide_xhcCyY": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Q3M8_4K_security_camera_cfca9844-2c41-413e-b25d-41f32884dd24.jpg",
+            "image_overlay_opacity": 0,
+            "heading": "",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "",
+            "link": "",
+            "button_style_secondary": false,
+            "show_text_box": false,
+            "box_align": "middle-center",
+            "text_alignment": "center",
+            "text_alignment_mobile": "center",
+            "color_scheme": ""
+          }
+        },
+        "slide_AUUdyE": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Outdoor_security_camera_for_home.jpg",
+            "image_overlay_opacity": 0,
+            "heading": "",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "",
+            "link": "",
+            "button_style_secondary": false,
+            "show_text_box": false,
+            "box_align": "middle-center",
+            "text_alignment": "center",
+            "text_alignment_mobile": "center",
+            "color_scheme": ""
+          }
+        },
+        "slide_6TaHER": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/cctv_security_camera_system_783144ec-66e7-4686-86ca-55854c6f84b4.jpg",
+            "image_overlay_opacity": 0,
+            "heading": "",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "",
+            "link": "",
+            "button_style_secondary": false,
+            "show_text_box": false,
+            "box_align": "middle-center",
+            "text_alignment": "center",
+            "text_alignment_mobile": "center",
+            "color_scheme": ""
+          }
+        },
+        "slide_kiBayx": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/8MP_POE_Security_Camera_System.jpg",
+            "image_overlay_opacity": 0,
+            "heading": "",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "",
+            "link": "",
+            "button_style_secondary": false,
+            "show_text_box": false,
+            "box_align": "middle-center",
+            "text_alignment": "center",
+            "text_alignment_mobile": "center",
+            "color_scheme": ""
+          }
+        }
+      },
+      "block_order": [
+        "slide_RKxRyE",
+        "slide_xhcCyY",
+        "slide_AUUdyE",
+        "slide_6TaHER",
+        "slide_kiBayx"
+      ],
+      "disabled": true,
+      "name": "t:sections.slideshow.presets.name",
+      "settings": {
+        "layout": "full_bleed",
+        "slide_height": "medium",
+        "slider_visual": "counter",
+        "auto_rotate": false,
+        "change_slides_speed": 5,
+        "image_behavior": "none",
+        "show_text_below": true,
+        "accessibility_info": "Slideshow about our brand"
+      }
     }
   },
   "order": [
-    "ecom-ecomposer-home-home"
+    "ecom-ecomposer-home-home",
+    "slideshow_JgFyHM"
   ]
 }
