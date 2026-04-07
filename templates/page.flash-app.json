@@ -216,7 +216,7 @@
       "type": "_blocks",
       "blocks": {
         "ai_gen_block_38ae701_Ymg7gh": {
-          "type": "ai_gen_block_38ae701",
+          "type": "d_product_list",
           "settings": {
             "heading": "<em>Top Picks</em>",
             "description": "<p>Favored by 90% of Anran fans!</p>",
@@ -282,7 +282,7 @@
           "blocks": {}
         },
         "ai_gen_block_38ae701_npawhG": {
-          "type": "ai_gen_block_38ae701",
+          "type": "d_product_list",
           "settings": {
             "heading": "<em><strong>Save More in Bundle</strong></em>",
             "description": "<p>Top-Selling bundles, designed to go together and save more.</p>",

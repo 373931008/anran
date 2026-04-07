@@ -225,7 +225,7 @@
       "type": "_blocks",
       "blocks": {
         "ai_gen_block_dfa7101_QGUgdp": {
-          "type": "ai_gen_block_dfa7101",
+          "type": "d_tab_image",
           "settings": {
             "title": "Why Choose This Camera?",
             "description": "",
@@ -505,7 +505,7 @@
       "type": "_blocks",
       "blocks": {
         "ai_gen_block_b429a13_mgRCth": {
-          "type": "ai_gen_block_b429a13",
+          "type": "d_product_Image_file",
           "settings": {
             "metafield_key": "overview_extra_image_list",
             "title": "",
