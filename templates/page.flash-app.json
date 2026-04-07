@@ -119,7 +119,7 @@
       "type": "_blocks",
       "blocks": {
         "ai_gen_block_5dbbb75_6KqJNb": {
-          "type": "ai_gen_block_5dbbb75",
+          "type": "d_sale_product_grid",
           "settings": {
             "container_width": 1200,
             "section_padding_top": 30,
