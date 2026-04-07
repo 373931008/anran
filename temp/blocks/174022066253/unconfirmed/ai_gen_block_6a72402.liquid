@@ -1,6 +1,427 @@
+{% doc %}
+  @prompt
+    一张产品卡，顶部是产品图片，下方是价格和标题。添加平滑的全息微光效果和阴影。
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-product-card-{{ ai_gen_id }} {
+    display: block;
+    position: relative;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    background: {{ block.settings.card_background }};
+    border-radius: {{ block.settings.border_radius }}px;
+    overflow: hidden;
+    box-shadow: 
+      0 {{ block.settings.shadow_vertical }}px {{ block.settings.shadow_blur }}px rgba(0, 0, 0, {{ block.settings.shadow_opacity }});
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .ai-product-card-{{ ai_gen_id }}:hover {
+    transform: translateY(-8px);
+    box-shadow: 
+      0 {{ block.settings.shadow_vertical | plus: 8 }}px {{ block.settings.shadow_blur | plus: 10 }}px rgba(0, 0, 0, {{ block.settings.shadow_opacity | plus: 0.1 }});
+  }
+
+  .ai-product-card-{{ ai_gen_id }}::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.3),
+      transparent
+    );
+    transition: left 0.5s ease;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .ai-product-card-{{ ai_gen_id }}:hover::before {
+    left: 100%;
+  }
+
+  .ai-product-card-image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    aspect-ratio: {{ block.settings.image_aspect_ratio }};
+    overflow: hidden;
+    background: {{ block.settings.image_background }};
+  }
+
+  .ai-product-card-image-wrapper-{{ ai_gen_id }}::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      45deg,
+      transparent 30%,
+      rgba(255, 0, 255, 0.15) 40%,
+      rgba(0, 255, 255, 0.15) 50%,
+      rgba(255, 255, 0, 0.15) 60%,
+      transparent 70%
+    );
+    animation: ai-holographic-shimmer-{{ ai_gen_id }} 3s linear infinite;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .ai-product-card-{{ ai_gen_id }}:hover .ai-product-card-image-wrapper-{{ ai_gen_id }}::after {
+    opacity: 1;
+  }
+
+  @keyframes ai-holographic-shimmer-{{ ai_gen_id }} {
+    0% {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+    100% {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+  }
+
+  .ai-product-card-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .ai-product-card-{{ ai_gen_id }}:hover .ai-product-card-image-{{ ai_gen_id }} {
+    transform: scale(1.05);
+  }
+
+  .ai-product-card-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f4f4f4;
+  }
+
+  .ai-product-card-placeholder-{{ ai_gen_id }} svg {
+    width: 60%;
+    height: 60%;
+    opacity: 0.3;
+  }
+
+  .ai-product-card-content-{{ ai_gen_id }} {
+    padding: {{ block.settings.content_padding }}px;
+    background: {{ block.settings.card_background }};
+  }
+
+  .ai-product-card-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.title_size }}px;
+    font-weight: 600;
+    color: {{ block.settings.title_color }};
+    margin: 0 0 8px 0;
+    line-height: 1.3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  .ai-product-card-price-{{ ai_gen_id }} {
+    font-size: {{ block.settings.price_size }}px;
+    font-weight: 700;
+    color: {{ block.settings.price_color }};
+    margin: 0;
+  }
+
+  .ai-product-card-compare-price-{{ ai_gen_id }} {
+    font-size: {{ block.settings.price_size | times: 0.85 }}px;
+    color: {{ block.settings.compare_price_color }};
+    text-decoration: line-through;
+    margin-left: 8px;
+    opacity: 0.7;
+  }
+
+  .ai-product-card-link-{{ ai_gen_id }} {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-product-card-{{ ai_gen_id }} {
+      width: 100%;
+    }
+  }
+{% endstyle %}
+
+<product-card-{{ ai_gen_id }} class="ai-product-card-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  {% if block.settings.product %}
+    <a href="{{ block.settings.product.url }}" class="ai-product-card-link-{{ ai_gen_id }}">
+      <div class="ai-product-card-image-wrapper-{{ ai_gen_id }}">
+        {% if block.settings.product.featured_image %}
+          <img
+            src="{{ block.settings.product.featured_image | image_url: width: 800 }}"
+            alt="{{ block.settings.product.featured_image.alt | escape }}"
+            loading="lazy"
+            width="800"
+            height="800"
+            class="ai-product-card-image-{{ ai_gen_id }}"
+          >
+        {% else %}
+          <div class="ai-product-card-placeholder-{{ ai_gen_id }}">
+            {{ 'product-1' | placeholder_svg_tag }}
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="ai-product-card-content-{{ ai_gen_id }}">
+        <h3 class="ai-product-card-title-{{ ai_gen_id }}">
+          {{ block.settings.product.title }}
+        </h3>
+        <div class="ai-product-card-price-{{ ai_gen_id }}">
+          {{ block.settings.product.price | money }}
+          {% if block.settings.product.compare_at_price > block.settings.product.price %}
+            <span class="ai-product-card-compare-price-{{ ai_gen_id }}">
+              {{ block.settings.product.compare_at_price | money }}
+            </span>
+          {% endif %}
+        </div>
+      </div>
+    </a>
+  {% else %}
+    <div class="ai-product-card-link-{{ ai_gen_id }}">
+      <div class="ai-product-card-image-wrapper-{{ ai_gen_id }}">
+        <div class="ai-product-card-placeholder-{{ ai_gen_id }}">
+          {{ 'product-1' | placeholder_svg_tag }}
+        </div>
+      </div>
+
+      <div class="ai-product-card-content-{{ ai_gen_id }}">
+        <h3 class="ai-product-card-title-{{ ai_gen_id }}">
+          产品标题
+        </h3>
+        <div class="ai-product-card-price-{{ ai_gen_id }}">
+          $99.00
+        </div>
+      </div>
+    </div>
+  {% endif %}
+</product-card-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class ProductCard{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.setupHolographicEffect();
+      }
+
+      setupHolographicEffect() {
+        const card = this;
+        const imageWrapper = this.querySelector('.ai-product-card-image-wrapper-{{ ai_gen_id }}');
+        
+        if (!imageWrapper) return;
+
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          
+          const rotateX = (y - centerY) / 20;
+          const rotateY = (centerX - x) / 20;
+          
+          card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
+        });
+
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = '';
+        });
+      }
+    }
+
+    customElements.define('product-card-{{ ai_gen_id }}', ProductCard{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "产品卡片",
+  "settings": [
+    {
+      "type": "header",
+      "content": "产品"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "选择产品"
+    },
+    {
+      "type": "select",
+      "id": "image_aspect_ratio",
+      "label": "图片比例",
+      "options": [
+        {
+          "value": "1/1",
+          "label": "方形 (1:1)"
+        },
+        {
+          "value": "4/3",
+          "label": "横向 (4:3)"
+        },
+        {
+          "value": "3/4",
+          "label": "纵向 (3:4)"
+        },
+        {
+          "value": "16/9",
+          "label": "宽屏 (16:9)"
+        }
+      ],
+      "default": "1/1"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "桌面宽度",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "header",
+      "content": "卡片样式"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "背景颜色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "image_background",
+      "label": "图片背景颜色",
+      "default": "#f4f4f4"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "圆角",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "content_padding",
+      "label": "内容内边距",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "阴影"
+    },
+    {
+      "type": "range",
+      "id": "shadow_vertical",
+      "label": "垂直偏移",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "shadow_blur",
+      "label": "模糊",
+      "min": 0,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "shadow_opacity",
+      "label": "不透明度",
+      "min": 0,
+      "max": 1,
+      "step": 0.1,
+      "default": 0.2
+    },
+    {
+      "type": "header",
+      "content": "标题"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "字体大小",
+      "min": 12,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "颜色",
+      "default": "#121212"
+    },
+    {
+      "type": "header",
+      "content": "价格"
+    },
+    {
+      "type": "range",
+      "id": "price_size",
+      "label": "字体大小",
+      "min": 12,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "price_color",
+      "label": "颜色",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "compare_price_color",
+      "label": "对比价格颜色",
+      "default": "#999999"
+    }
+  ],
+  "presets": [
+    {
+      "name": "产品卡片"
+    }
+  ]
+}
 {% endschema %}
