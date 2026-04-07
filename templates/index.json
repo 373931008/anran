@@ -115,6 +115,7 @@
         "slide_QAbKxC",
         "slide_gCEFwp"
       ],
+      "disabled": true,
       "custom_css": [
         "@media screen and (max-width: 749px) {.slider-counter__link--dots .dot {width: 4px; height: 4px; opacity: 0.6; } .slider-counter__link--active .dot {opacity: 1; } .slideshow .slider-controls {margin-top: 1px !important; /* 可改 0~6px 自调 */ padding-top: 0 !important; }}"
       ],
@@ -191,6 +192,7 @@
         "column_pqVYmz",
         "column_CkRkdG"
       ],
+      "disabled": true,
       "name": "t:sections.multicolumn.presets.name",
       "settings": {
         "title": "",
@@ -258,10 +260,12 @@
       "block_order": [
         "ai_gen_block_56b8163_9rLTqE"
       ],
+      "disabled": true,
       "settings": {}
     },
     "featured_collection_xPhU3b": {
       "type": "featured-collection",
+      "disabled": true,
       "name": "t:sections.featured-collection.presets.name",
       "settings": {
         "collection": "security-camera-systems",
