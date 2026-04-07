@@ -65,6 +65,7 @@
         "heading_t38WBV",
         "text_dg78Lx"
       ],
+      "disabled": true,
       "name": "t:sections.rich-text.presets.name",
       "settings": {
         "desktop_content_position": "center",
@@ -223,6 +224,7 @@
     },
     "featured_collection_tYRY7x": {
       "type": "featured-collection",
+      "disabled": true,
       "settings": {
         "collection": "flash-sale",
         "products_to_show": 10,
@@ -259,6 +261,7 @@
     },
     "featured_collection_NWzLB3": {
       "type": "featured-collection",
+      "disabled": true,
       "settings": {
         "collection": "solar-battery-powered-security-camera",
         "products_to_show": 8,
@@ -287,6 +290,7 @@
     },
     "featured_collection_WTW636": {
       "type": "featured-collection",
+      "disabled": true,
       "settings": {
         "collection": "security-camera-systems",
         "products_to_show": 8,
@@ -335,6 +339,7 @@
         "heading_8fHtbn",
         "text_TWH3jy"
       ],
+      "disabled": true,
       "name": "t:sections.rich-text.presets.name",
       "settings": {
         "desktop_content_position": "center",
@@ -359,6 +364,7 @@
     },
     "featured_blog_9yJyCM": {
       "type": "featured-blog",
+      "disabled": true,
       "name": "t:sections.featured-blog.presets.name",
       "settings": {
         "blog": "news",
