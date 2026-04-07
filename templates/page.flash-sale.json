@@ -516,7 +516,7 @@
             "current_price_size": 18,
             "current_price_color": "#d82c0d",
             "compare_price_size": 12,
-            "compare_price_color": "#999999",
+            "compare_price_color": "#121212",
             "button_text": "Shop Now",
             "button_padding": 8,
             "button_font_size": 14,
