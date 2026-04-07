@@ -530,11 +530,71 @@
             "badge_text_color": "#ffffff"
           },
           "blocks": {}
+        },
+        "d_product_list_CPbNKE": {
+          "type": "d_product_list",
+          "name": "D-产品列表",
+          "settings": {
+            "heading": "<em><strong>Save More in Bundle</strong></em>",
+            "description": "<p>Top-Selling bundles, designed to go together and save more.</p>",
+            "products": [
+              "anran-5mp-wifi-ptz-kit-8ch-nvr-2tb-hdd",
+              "anran-4k-8mp-poe-security-camera-system",
+              "anran-c3-4mp-wifi-solar-battery-camera-kit-surveillance-security-system",
+              "anran-4mp-fhd-integrated-solar-panel-battery-cameras-system-with-32gb-sd-card"
+            ],
+            "section_background": "#f3f7ff",
+            "container_width": 1200,
+            "padding_top": 52,
+            "padding_bottom": 32,
+            "padding_horizontal": 20,
+            "columns_desktop": 4,
+            "columns_mobile": "2",
+            "grid_gap_horizontal": 20,
+            "grid_gap_vertical": 20,
+            "heading_size": 32,
+            "heading_alignment": "center",
+            "heading_color": "#121212",
+            "description_size": 16,
+            "description_color": "#666666",
+            "heading_spacing": 32,
+            "card_background": "#ffffff",
+            "card_border_radius": 8,
+            "card_padding": 16,
+            "show_vendor": false,
+            "vendor_color": "#666666",
+            "product_title_size_desktop": 16,
+            "product_title_size_mobile": 14,
+            "product_title_color": "#121212",
+            "show_product_description": false,
+            "product_description_size": 13,
+            "show_rating": true,
+            "default_rating": 5,
+            "star_color": "#ffc107",
+            "show_price": true,
+            "current_price_size": 16,
+            "current_price_color": "#d82c0d",
+            "compare_price_size": 12,
+            "compare_price_color": "#121212",
+            "button_text": "Shop Now",
+            "button_padding": 8,
+            "button_font_size": 14,
+            "button_background": "#ffa500",
+            "button_hover_background": "#ff5252",
+            "button_text_color": "#ffffff",
+            "button_border_radius": 24,
+            "badge_font_size": 13,
+            "badge_padding": 8,
+            "badge_background": "#d82c0d",
+            "badge_text_color": "#ffffff"
+          },
+          "blocks": {}
         }
       },
       "block_order": [
         "ai_gen_block_c5d1f53_AWCwd3",
-        "d_product_list_irLy8a"
+        "d_product_list_irLy8a",
+        "d_product_list_CPbNKE"
       ],
       "settings": {}
     }
