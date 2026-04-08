@@ -1,6 +1,648 @@
+{% doc %}
+  @prompt
+    帮我生成一个适用于 Shopify Dawn 主题的Icon模块（USP icon bar）。
+    
+    ### 一、布局要求（PC端）
+    
+    - 整体为一行横向排列的卖点内容（icon + 文案）
+    - 每个卖点包含：
+      - 左侧图标（icon）
+      - 右侧文字说明（如：30-Day Trial）
+    - 所有卖点水平排列，间距均匀
+    - 每个卖点之间有竖向分隔线（divider）
+    - 模块整体居中并两边对齐显示,
+    - 左右边距：50px
+    - 模块背景为浅灰色或可自定义
+    - 模块上下有内边距（如20px-30px）
+    - 图标与文字垂直居中对齐
+    
+    ---
+    
+    ### 二、功能要求
+    
+    - 每个卖点支持：
+      - 自定义图标（SVG 或图片）
+      - 文本内容
+    - 支持添加多个卖点（block形式）
+    - hover 时有轻微颜色变化或下划线效果
+    
+    分隔线要求：
+    - 分隔线为竖线（1px宽）
+    - 高度与内容对齐（略低于整体高度）
+    - 最后一个卖点不显示分隔线
+    
+    ---
+    
+    ### 三、响应式要求
+    
+    - PC端：一行展示所有卖点
+    - 平板：间距缩小
+    - 移动端：
+      - 支持横向滑动（推荐）
+      - 或自动换行
+      - 分隔线在移动端可隐藏或变淡
+      - 保证内容不拥挤
+    
+    ---
+    
+    ### 四、后台可配置（Shopify schema）
+    
+    - 模块背景颜色
+    - 上下边距（padding）
+    - 卖点列表（blocks）：
+      - 图标（image 或 SVG）
+      - 文本内容
+    
+    ---
+    
+    ### 五、设计要求
+    
+    - 风格简洁、现代（电商品牌风格）
+    - 图标尺寸统一（如20px-24px）
+    - 文本字号适中（14px-16px）
+    - 间距均匀，整体视觉平衡
+    - 分隔线颜色浅（如 #ddd）
+    - hover 有轻微交互效果
+    
+    ---
+    
+    ### 六、性能优化（重点）
+    
+    - 不引入任何第三方 JS 或库
+    - 使用 SVG 图标（减少请求）
+    - 代码简洁，减少 DOM 层级
+    - 避免 CLS（布局偏移）
+    - 不影响页面加载速度
+    
+    ---
+    
+    ### 七、技术要求
+    
+    - 使用 Liquid + HTML + CSS
+    - 完全兼容 Dawn 主题
+    - 使用 scoped / 局部 class 命名
+    - 不污染全局样式, 功能名称用中文，不需要Hover effect和Hover opacity的效果，Item增加至6个，我需要整个模块默认两端对齐布局，中间分隔线需要两个Item的中间
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-usp-bar-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    background-color: {{ block.settings.background_color }};
+    padding: {{ block.settings.padding_top }}px {{ block.settings.padding_horizontal }}px {{ block.settings.padding_bottom }}px;
+  }
+
+  .ai-usp-bar-container-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: {{ block.settings.max_width }}px;
+    margin: 0 auto;
+    gap: {{ block.settings.item_spacing }}px;
+  }
+
+  .ai-usp-item-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: {{ block.settings.icon_text_gap }}px;
+    flex: 0 0 auto;
+    position: relative;
+  }
+
+  .ai-usp-item-{{ ai_gen_id }}:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: calc(100% + {{ block.settings.item_spacing }}px / 2);
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: {{ block.settings.divider_height }}%;
+    background-color: {{ block.settings.divider_color }};
+  }
+
+  .ai-usp-icon-{{ ai_gen_id }} {
+    flex-shrink: 0;
+    width: {{ block.settings.icon_size }}px;
+    height: {{ block.settings.icon_size }}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-usp-icon-{{ ai_gen_id }} img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .ai-usp-icon-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    fill: {{ block.settings.icon_color }};
+  }
+
+  .ai-usp-text-{{ ai_gen_id }} {
+    font-size: {{ block.settings.text_size }}px;
+    color: {{ block.settings.text_color }};
+    line-height: 1.4;
+    white-space: nowrap;
+  }
+
+  @media screen and (max-width: 989px) {
+    .ai-usp-bar-{{ ai_gen_id }} {
+      padding-left: {{ block.settings.padding_horizontal | times: 0.7 }}px;
+      padding-right: {{ block.settings.padding_horizontal | times: 0.7 }}px;
+    }
+
+    .ai-usp-bar-container-{{ ai_gen_id }} {
+      gap: {{ block.settings.item_spacing | times: 0.7 }}px;
+    }
+
+    .ai-usp-icon-{{ ai_gen_id }} {
+      width: {{ block.settings.icon_size | times: 0.9 }}px;
+      height: {{ block.settings.icon_size | times: 0.9 }}px;
+    }
+
+    .ai-usp-text-{{ ai_gen_id }} {
+      font-size: {{ block.settings.text_size | times: 0.9 }}px;
+    }
+
+    .ai-usp-item-{{ ai_gen_id }}:not(:last-child)::after {
+      left: calc(100% + {{ block.settings.item_spacing | times: 0.7 }}px / 2);
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-usp-bar-{{ ai_gen_id }} {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .ai-usp-bar-{{ ai_gen_id }}::-webkit-scrollbar {
+      display: none;
+    }
+
+    .ai-usp-bar-container-{{ ai_gen_id }} {
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      min-width: min-content;
+    }
+
+    .ai-usp-item-{{ ai_gen_id }} {
+      flex: 0 0 auto;
+      white-space: nowrap;
+    }
+
+    .ai-usp-text-{{ ai_gen_id }} {
+      white-space: nowrap;
+    }
+
+    {% if block.settings.hide_divider_mobile %}
+      .ai-usp-item-{{ ai_gen_id }}:not(:last-child)::after {
+        opacity: 0.3;
+      }
+    {% endif %}
+  }
+{% endstyle %}
+
+<usp-icon-bar-{{ ai_gen_id }} class="ai-usp-bar-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-usp-bar-container-{{ ai_gen_id }}">
+    {% if block.settings.icon_1 != blank or block.settings.text_1 != blank %}
+      <div class="ai-usp-item-{{ ai_gen_id }}">
+        <div class="ai-usp-icon-{{ ai_gen_id }}">
+          {% if block.settings.icon_1 != blank %}
+            <img
+              src="{{ block.settings.icon_1 | image_url: width: 100 }}"
+              alt="{{ block.settings.text_1 | escape }}"
+              width="100"
+              height="100"
+              loading="lazy"
+            >
+          {% else %}
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          {% endif %}
+        </div>
+        {% if block.settings.text_1 != blank %}
+          <div class="ai-usp-text-{{ ai_gen_id }}">{{ block.settings.text_1 }}</div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if block.settings.icon_2 != blank or block.settings.text_2 != blank %}
+      <div class="ai-usp-item-{{ ai_gen_id }}">
+        <div class="ai-usp-icon-{{ ai_gen_id }}">
+          {% if block.settings.icon_2 != blank %}
+            <img
+              src="{{ block.settings.icon_2 | image_url: width: 100 }}"
+              alt="{{ block.settings.text_2 | escape }}"
+              width="100"
+              height="100"
+              loading="lazy"
+            >
+          {% else %}
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+          {% endif %}
+        </div>
+        {% if block.settings.text_2 != blank %}
+          <div class="ai-usp-text-{{ ai_gen_id }}">{{ block.settings.text_2 }}</div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if block.settings.icon_3 != blank or block.settings.text_3 != blank %}
+      <div class="ai-usp-item-{{ ai_gen_id }}">
+        <div class="ai-usp-icon-{{ ai_gen_id }}">
+          {% if block.settings.icon_3 != blank %}
+            <img
+              src="{{ block.settings.icon_3 | image_url: width: 100 }}"
+              alt="{{ block.settings.text_3 | escape }}"
+              width="100"
+              height="100"
+              loading="lazy"
+            >
+          {% else %}
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+          {% endif %}
+        </div>
+        {% if block.settings.text_3 != blank %}
+          <div class="ai-usp-text-{{ ai_gen_id }}">{{ block.settings.text_3 }}</div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if block.settings.icon_4 != blank or block.settings.text_4 != blank %}
+      <div class="ai-usp-item-{{ ai_gen_id }}">
+        <div class="ai-usp-icon-{{ ai_gen_id }}">
+          {% if block.settings.icon_4 != blank %}
+            <img
+              src="{{ block.settings.icon_4 | image_url: width: 100 }}"
+              alt="{{ block.settings.text_4 | escape }}"
+              width="100"
+              height="100"
+              loading="lazy"
+            >
+          {% else %}
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+          {% endif %}
+        </div>
+        {% if block.settings.text_4 != blank %}
+          <div class="ai-usp-text-{{ ai_gen_id }}">{{ block.settings.text_4 }}</div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if block.settings.icon_5 != blank or block.settings.text_5 != blank %}
+      <div class="ai-usp-item-{{ ai_gen_id }}">
+        <div class="ai-usp-icon-{{ ai_gen_id }}">
+          {% if block.settings.icon_5 != blank %}
+            <img
+              src="{{ block.settings.icon_5 | image_url: width: 100 }}"
+              alt="{{ block.settings.text_5 | escape }}"
+              width="100"
+              height="100"
+              loading="lazy"
+            >
+          {% else %}
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+          {% endif %}
+        </div>
+        {% if block.settings.text_5 != blank %}
+          <div class="ai-usp-text-{{ ai_gen_id }}">{{ block.settings.text_5 }}</div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if block.settings.icon_6 != blank or block.settings.text_6 != blank %}
+      <div class="ai-usp-item-{{ ai_gen_id }}">
+        <div class="ai-usp-icon-{{ ai_gen_id }}">
+          {% if block.settings.icon_6 != blank %}
+            <img
+              src="{{ block.settings.icon_6 | image_url: width: 100 }}"
+              alt="{{ block.settings.text_6 | escape }}"
+              width="100"
+              height="100"
+              loading="lazy"
+            >
+          {% else %}
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          {% endif %}
+        </div>
+        {% if block.settings.text_6 != blank %}
+          <div class="ai-usp-text-{{ ai_gen_id }}">{{ block.settings.text_6 }}</div>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</usp-icon-bar-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class UspIconBar{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.setupMobileScroll();
+      }
+
+      setupMobileScroll() {
+        if (window.innerWidth <= 749) {
+          const container = this.querySelector('.ai-usp-bar-container-{{ ai_gen_id }}');
+          if (container) {
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+
+            container.addEventListener('mousedown', (e) => {
+              isDown = true;
+              startX = e.pageX - container.offsetLeft;
+              scrollLeft = container.scrollLeft;
+            });
+
+            container.addEventListener('mouseleave', () => {
+              isDown = false;
+            });
+
+            container.addEventListener('mouseup', () => {
+              isDown = false;
+            });
+
+            container.addEventListener('mousemove', (e) => {
+              if (!isDown) return;
+              e.preventDefault();
+              const x = e.pageX - container.offsetLeft;
+              const walk = (x - startX) * 2;
+              container.scrollLeft = scrollLeft - walk;
+            });
+          }
+        }
+      }
+    }
+
+    customElements.define('usp-icon-bar-{{ ai_gen_id }}', UspIconBar{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "USP 图标栏",
+  "tag": null,
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "布局设置"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "最大宽度",
+      "min": 1000,
+      "max": 1600,
+      "step": 100,
+      "unit": "px",
+      "default": 1400
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "上边距",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "下边距",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal",
+      "label": "左右边距",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "item_spacing",
+      "label": "项目间距",
+      "min": 10,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "icon_text_gap",
+      "label": "图标文字间距",
+      "min": 5,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "颜色设置"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "背景颜色",
+      "default": "#f3f3f3"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "文字颜色",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "图标颜色",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "分隔线颜色",
+      "default": "#dddddd"
+    },
+    {
+      "type": "header",
+      "content": "图标设置"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "图标大小",
+      "min": 16,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "文字设置"
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "label": "文字大小",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "分隔线设置"
+    },
+    {
+      "type": "range",
+      "id": "divider_height",
+      "label": "分隔线高度",
+      "min": 30,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 60
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_divider_mobile",
+      "label": "移动端淡化分隔线",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "项目 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_1",
+      "label": "图标"
+    },
+    {
+      "type": "text",
+      "id": "text_1",
+      "label": "文字",
+      "default": "30天试用"
+    },
+    {
+      "type": "header",
+      "content": "项目 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_2",
+      "label": "图标"
+    },
+    {
+      "type": "text",
+      "id": "text_2",
+      "label": "文字",
+      "default": "免费配送"
+    },
+    {
+      "type": "header",
+      "content": "项目 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_3",
+      "label": "图标"
+    },
+    {
+      "type": "text",
+      "id": "text_3",
+      "label": "文字",
+      "default": "2年质保"
+    },
+    {
+      "type": "header",
+      "content": "项目 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_4",
+      "label": "图标"
+    },
+    {
+      "type": "text",
+      "id": "text_4",
+      "label": "文字",
+      "default": "24/7 客服"
+    },
+    {
+      "type": "header",
+      "content": "项目 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_5",
+      "label": "图标"
+    },
+    {
+      "type": "text",
+      "id": "text_5",
+      "label": "文字",
+      "default": "安全支付"
+    },
+    {
+      "type": "header",
+      "content": "项目 6"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_6",
+      "label": "图标"
+    },
+    {
+      "type": "text",
+      "id": "text_6",
+      "label": "文字",
+      "default": "正品保证"
+    }
+  ],
+  "presets": [
+    {
+      "name": "USP 图标栏"
+    }
+  ]
+}
 {% endschema %}
