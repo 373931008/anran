@@ -26,23 +26,6 @@
       ],
       "settings": {}
     },
-    "image_banner_JtXPm3": {
-      "type": "image-banner",
-      "disabled": true,
-      "settings": {
-        "image": "shopify://shop_images/1920x800_85106592-59a2-466a-bef9-99b84caeb68e.jpg",
-        "image_overlay_opacity": 0,
-        "image_height": "adapt",
-        "image_behavior": "none",
-        "desktop_content_position": "middle-center",
-        "desktop_content_alignment": "center",
-        "show_text_box": true,
-        "color_scheme": "",
-        "stack_images_on_mobile": true,
-        "mobile_content_alignment": "center",
-        "show_text_below": true
-      }
-    },
     "rich_text_JyQFTr": {
       "type": "rich-text",
       "blocks": {
@@ -52,18 +35,10 @@
             "heading": "<strong>Secure your home with ANRAN’s powerful solar-powered security cameras — now at unbeatable prices!</strong>",
             "heading_size": "h2"
           }
-        },
-        "text_dg78Lx": {
-          "type": "text",
-          "disabled": true,
-          "settings": {
-            "text": "<p>Share information about your brand with your customers. Describe a product, make announcements, or welcome customers to your store.</p>"
-          }
         }
       },
       "block_order": [
-        "heading_t38WBV",
-        "text_dg78Lx"
+        "heading_t38WBV"
       ],
       "name": "t:sections.rich-text.presets.name",
       "settings": {
@@ -73,152 +48,6 @@
         "full_width": true,
         "padding_top": 16,
         "padding_bottom": 16
-      }
-    },
-    "featured_product_Uwfktx": {
-      "type": "featured-product",
-      "blocks": {
-        "text_Qb3GmQ": {
-          "type": "text",
-          "settings": {
-            "text": "<strong>ANRAN Q3 4K 8MP Solar Battery Camera</strong>",
-            "text_style": "body"
-          }
-        },
-        "title_MaEgzx": {
-          "type": "title",
-          "disabled": true,
-          "settings": {
-            "heading_size": "h1"
-          }
-        },
-        "price_9nUrDb": {
-          "type": "price",
-          "settings": {}
-        },
-        "variant_picker_YryzFM": {
-          "type": "variant_picker",
-          "settings": {
-            "picker_type": "dropdown",
-            "show_variant_images": false,
-            "swatch_shape": "circle"
-          }
-        },
-        "quantity_selector_e6r6yQ": {
-          "type": "quantity_selector",
-          "settings": {}
-        },
-        "buy_buttons_VQQATi": {
-          "type": "buy_buttons",
-          "settings": {
-            "show_dynamic_checkout": false,
-            "show_gift_card_recipient": true
-          }
-        },
-        "share_6aF3bF": {
-          "type": "share",
-          "disabled": true,
-          "settings": {
-            "share_label": "Share"
-          }
-        }
-      },
-      "block_order": [
-        "text_Qb3GmQ",
-        "title_MaEgzx",
-        "price_9nUrDb",
-        "variant_picker_YryzFM",
-        "quantity_selector_e6r6yQ",
-        "buy_buttons_VQQATi",
-        "share_6aF3bF"
-      ],
-      "disabled": true,
-      "settings": {
-        "product": "anran-q3-4k-8mp-solar-battery-camera",
-        "color_scheme": "",
-        "secondary_background": false,
-        "media_size": "medium",
-        "constrain_to_viewport": true,
-        "media_fit": "contain",
-        "media_position": "left",
-        "image_zoom": "lightbox",
-        "hide_variants": false,
-        "enable_video_looping": false,
-        "padding_top": 20,
-        "padding_bottom": 0
-      }
-    },
-    "featured_product_ryDqrU": {
-      "type": "featured-product",
-      "blocks": {
-        "text_9Ve6ij": {
-          "type": "text",
-          "settings": {
-            "text": "{{ section.settings.product.vendor }}",
-            "text_style": "uppercase"
-          }
-        },
-        "title_raiaCz": {
-          "type": "title",
-          "settings": {
-            "heading_size": "h1"
-          }
-        },
-        "price_fgBHai": {
-          "type": "price",
-          "settings": {}
-        },
-        "variant_picker_P9kbtP": {
-          "type": "variant_picker",
-          "settings": {
-            "picker_type": "button",
-            "show_variant_images": false,
-            "swatch_shape": "circle"
-          }
-        },
-        "quantity_selector_QJ9etR": {
-          "type": "quantity_selector",
-          "settings": {}
-        },
-        "buy_buttons_mexY64": {
-          "type": "buy_buttons",
-          "settings": {
-            "show_dynamic_checkout": false,
-            "show_gift_card_recipient": true
-          }
-        },
-        "share_gxTBtU": {
-          "type": "share",
-          "disabled": true,
-          "settings": {
-            "share_label": "Share"
-          }
-        }
-      },
-      "block_order": [
-        "text_9Ve6ij",
-        "title_raiaCz",
-        "price_fgBHai",
-        "variant_picker_P9kbtP",
-        "quantity_selector_QJ9etR",
-        "buy_buttons_mexY64",
-        "share_gxTBtU"
-      ],
-      "disabled": true,
-      "name": "t:sections.featured-product.presets.name",
-      "settings": {
-        "product": "anran-5mp-wifi-ptz-kit-8ch-nvr-2tb-hdd",
-        "color_scheme": "",
-        "secondary_background": false,
-        "media_size": "medium",
-        "constrain_to_viewport": true,
-        "media_fit": "contain",
-        "media_position": "left",
-        "image_zoom": "lightbox",
-        "hide_variants": false,
-        "enable_video_looping": false,
-        "padding_top": 24,
-        "padding_bottom": 0
       }
     },
     "featured_collection_tYRY7x": {
@@ -316,39 +145,6 @@
         "padding_bottom": 36
       }
     },
-    "rich_text_r7Pinj": {
-      "type": "rich-text",
-      "blocks": {
-        "heading_8fHtbn": {
-          "type": "heading",
-          "disabled": true,
-          "settings": {
-            "heading": "",
-            "heading_size": "h2"
-          }
-        },
-        "text_TWH3jy": {
-          "type": "text",
-          "settings": {
-            "text": "<h3>Secure your home with ANRAN’s powerful solar-powered security cameras — now at unbeatable prices!<br/></h3><h3>Enjoy the sunshine and peace of mind with wire-free, weatherproof, and motion-activated cameras designed for effortless installation and round-the-clock protection. Whether you're at home or away, stay connected and in control via your smartphone.</h3>"
-          }
-        }
-      },
-      "block_order": [
-        "heading_8fHtbn",
-        "text_TWH3jy"
-      ],
-      "disabled": true,
-      "name": "t:sections.rich-text.presets.name",
-      "settings": {
-        "desktop_content_position": "center",
-        "content_alignment": "left",
-        "color_scheme": "background-1",
-        "full_width": true,
-        "padding_top": 20,
-        "padding_bottom": 24
-      }
-    },
     "page_pJfNp6": {
       "type": "page",
       "disabled": true,
@@ -397,13 +193,13 @@
             "module_bg_color": "#ffffff",
             "title_color": "#121212",
             "rating_color": "#121212",
-            "star_color": "#FFB800",
+            "star_color": "#ffb800",
             "feature_color": "#2d4e76",
-            "feature_icon_color": "#00AA00",
-            "current_price_color": "#E53935",
+            "feature_icon_color": "#00aa00",
+            "current_price_color": "#e53935",
             "original_price_color": "#121212",
             "discount_color": "#ffffff",
-            "discount_bg_color": "#E53935",
+            "discount_bg_color": "#e53935",
             "button_bg_color": "#ffa500",
             "button_hover_color": "#ff5252",
             "button_text_color": "#ffffff",
@@ -606,15 +402,11 @@
   },
   "order": [
     "177440908745c624b7",
-    "image_banner_JtXPm3",
     "rich_text_JyQFTr",
-    "featured_product_Uwfktx",
-    "featured_product_ryDqrU",
     "featured_collection_tYRY7x",
     "main",
     "featured_collection_NWzLB3",
     "featured_collection_WTW636",
-    "rich_text_r7Pinj",
     "page_pJfNp6",
     "featured_blog_9yJyCM",
     "1775187809c6458664"
