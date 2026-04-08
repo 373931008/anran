@@ -367,16 +367,16 @@
               "anran-4k-8mp-solar-battery-camera"
             ],
             "section_background": "#ffffff",
-            "container_width": 1200,
+            "container_width": 1400,
             "padding_top": 52,
             "padding_bottom": 40,
-            "padding_horizontal": 20,
+            "padding_horizontal": 32,
             "columns_desktop": 5,
             "columns_mobile": "2",
             "grid_gap_horizontal": 12,
             "grid_gap_vertical": 20,
             "heading_size": 32,
-            "heading_alignment": "center",
+            "heading_alignment": "left",
             "heading_color": "#121212",
             "description_size": 16,
             "description_color": "#666666",
@@ -421,32 +421,148 @@
       "disabled": true,
       "settings": {}
     },
-    "featured_collection_xPhU3b": {
-      "type": "featured-collection",
+    "collection_list_pcRD7B": {
+      "type": "collection-list",
+      "blocks": {
+        "featured_collection_gXrxQn": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "security-camera-systems"
+          }
+        },
+        "featured_collection_r6nybr": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "solar-battery-powered-security-camera"
+          }
+        },
+        "featured_collection_UM4Ep3": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "wifi-cameras"
+          }
+        },
+        "featured_collection_eCjNEV": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "accessories"
+          }
+        }
+      },
+      "block_order": [
+        "featured_collection_gXrxQn",
+        "featured_collection_r6nybr",
+        "featured_collection_UM4Ep3",
+        "featured_collection_eCjNEV"
+      ],
       "disabled": true,
-      "name": "t:sections.featured-collection.presets.name",
+      "name": "t:sections.collection-list.presets.name",
       "settings": {
-        "collection": "security-camera-systems",
-        "products_to_show": 4,
-        "title": "Featured collection",
+        "title": "<strong>Shop by Product Category</strong>",
         "heading_size": "h1",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
+        "image_ratio": "square",
         "columns_desktop": 4,
-        "enable_desktop_slider": false,
-        "full_width": false,
-        "show_view_all": true,
-        "view_all_style": "solid",
-        "color_scheme": "",
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": false,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
+        "color_scheme": "background-1",
+        "show_view_all": false,
         "columns_mobile": "2",
         "swipe_on_mobile": false,
+        "padding_top": 32,
+        "padding_bottom": 32
+      }
+    },
+    "rich_text_brKaiq": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_TrgHB7": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>Protect What Matters. No Wires. No Worries.</strong>",
+            "heading_size": "h1"
+          }
+        },
+        "text_Tmigdn": {
+          "type": "text",
+          "settings": {
+            "text": "<h4>ANRAN delivers smart, wireless security solutions trusted by thousands of families and businesses worldwide. Our <a href=\"https://anran-cctv.com/products/anran-q3-4k-8mp-solar-battery-camera\">solar security cameras</a> and <a href=\"https://anran-cctv.com/products/anran-5mp-wifi-ptz-kit-4ch-nvr-2tb-hdd\">Wireless security CCTV systems</a> are easy to install, weatherproof, and designed for 24/7 protection — even in places without power or Wi-Fi. Whether you need a 4G <a href=\"https://anran-cctv.com/collections/all-product\">security camera</a> for remote areas, a smart <a href=\"https://anran-cctv.com/products/anran-5mp-wifi-ptz-kit-4ch-nvr-2tb-hdd\">home surveillance system</a>   for your front door, or a complete outdoor wireless CCTV setup, ANRAN has you covered.</h4>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_TrgHB7",
+        "text_Tmigdn"
+      ],
+      "disabled": true,
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "q_expert_testimonials_KtChzP": {
+      "type": "q-expert-testimonials",
+      "blocks": {
+        "card_WWLeTa": {
+          "type": "card",
+          "settings": {
+            "local_video": "shopify://files/videos/Anran Q3 Cam video 2.mov",
+            "video": "https://www.youtube.com/watch?v=H7rcfYQ6Tpw",
+            "video_url_alt": "/",
+            "pill_1": "Advanced Technology",
+            "pill_2": "Ideal for Homes & Businesses",
+            "pill_3": "Easy to Install and Use",
+            "quote": "<p>I’m very impressed by the<strong> image quality</strong> and <strong>convenient features</strong> Anran’s camera offers. I believe it is <strong>a much better choice</strong> than higher-priced models.</p>",
+            "expert_avatar": "shopify://shop_images/channels4_profile_1.jpg",
+            "expert_name": "Seen Through a Lens",
+            "expert_title": "Home Security Specialist",
+            "show_verified_badge": true
+          }
+        }
+      },
+      "block_order": [
+        "card_WWLeTa"
+      ],
+      "disabled": true,
+      "name": "q-expert-testimonials",
+      "settings": {
+        "header_title": "Tested and trusted by <em>home security experts</em>",
+        "header_description": "",
+        "header_center": true,
+        "header_em_color": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 100%)",
+        "header_title_size_desktop": 46,
+        "header_title_size_mobile": 22,
+        "header_desc_size_desktop": 16,
+        "header_desc_size_mobile": 12,
+        "header_margin_bottom_desktop": 40,
+        "header_margin_bottom_mobile": 24,
+        "bg_color": "#FFFFFF",
+        "bg_image": "shopify://shop_images/Group_402.jpg",
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60,
+        "autoplay_carousel": false,
+        "autoplay_delay": 5
+      }
+    },
+    "featured_blog_tBntiM": {
+      "type": "featured-blog",
+      "disabled": true,
+      "name": "t:sections.featured-blog.presets.name",
+      "settings": {
+        "blog": "news",
+        "post_limit": 3,
+        "heading": "",
+        "heading_size": "h2",
+        "columns_desktop": 3,
+        "show_view_all": false,
+        "show_image": true,
+        "show_date": true,
+        "show_author": false,
+        "color_scheme": "background-1",
         "padding_top": 36,
         "padding_bottom": 36
       }
@@ -458,6 +574,9 @@
     "multicolumn_KQYXVh",
     "1775548782bc47be98",
     "1775555498e1559ce7",
-    "featured_collection_xPhU3b"
+    "collection_list_pcRD7B",
+    "rich_text_brKaiq",
+    "q_expert_testimonials_KtChzP",
+    "featured_blog_tBntiM"
   ]
 }

@@ -65,10 +65,10 @@
     "collection_card_shadow_horizontal_offset": 0,
     "collection_card_shadow_vertical_offset": 4,
     "collection_card_shadow_blur": 5,
-    "blog_card_style": "standard",
+    "blog_card_style": "card",
     "blog_card_image_padding": 0,
     "blog_card_text_alignment": "left",
-    "blog_card_color_scheme": "background-2",
+    "blog_card_color_scheme": "scheme-2b9a84c2-6b22-42ee-ae63-5a9c5b5abbfc",
     "blog_card_border_thickness": 0,
     "blog_card_border_opacity": 10,
     "blog_card_corner_radius": 0,
@@ -248,7 +248,7 @@
       },
       "scheme-2b9a84c2-6b22-42ee-ae63-5a9c5b5abbfc": {
         "settings": {
-          "background": "#ffffff",
+          "background": "#f7f7f7",
           "background_gradient": "",
           "text": "#121212",
           "button": "#121212",
