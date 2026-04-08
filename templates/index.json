@@ -131,85 +131,47 @@
         "accessibility_info": ""
       }
     },
-    "multicolumn_KQYXVh": {
-      "type": "multicolumn",
+    "17756345667c67da33": {
+      "type": "_blocks",
       "blocks": {
-        "column_te6Pew": {
-          "type": "column",
+        "ai_gen_block_aeca860_RCVk3C": {
+          "type": "ai_gen_block_aeca860",
           "settings": {
-            "image": "shopify://shop_images/Group_565.png",
-            "title": "",
-            "text": "",
-            "link_label": "",
-            "link": ""
-          }
-        },
-        "column_Y6hUFa": {
-          "type": "column",
-          "settings": {
-            "image": "shopify://shop_images/Group_568.png",
-            "title": "",
-            "text": "",
-            "link_label": "",
-            "link": ""
-          }
-        },
-        "column_qUY8y4": {
-          "type": "column",
-          "settings": {
-            "image": "shopify://shop_images/Group_569.png",
-            "title": "",
-            "text": "",
-            "link_label": "",
-            "link": ""
-          }
-        },
-        "column_pqVYmz": {
-          "type": "column",
-          "settings": {
-            "image": "shopify://shop_images/Group_568.png",
-            "title": "",
-            "text": "",
-            "link_label": "",
-            "link": ""
-          }
-        },
-        "column_CkRkdG": {
-          "type": "column",
-          "settings": {
-            "image": "shopify://shop_images/Group_570.png",
-            "title": "",
-            "text": "",
-            "link_label": "",
-            "link": ""
-          }
+            "max_width": 1400,
+            "padding_top": 25,
+            "padding_bottom": 25,
+            "item_spacing": 80,
+            "icon_text_gap": 12,
+            "mobile_layout": "scroll",
+            "mobile_item_spacing": 20,
+            "background_color": "#f0f5fb",
+            "text_color": "#121212",
+            "icon_color": "#0071e0",
+            "divider_color": "#0071e0",
+            "icon_size": 24,
+            "text_size": 14,
+            "divider_height": 60,
+            "hide_divider_mobile": true,
+            "icon_1": "shopify://shop_images/fi_16328753.png",
+            "text_1": "30-Day Trial",
+            "icon_2": "shopify://shop_images/image_288.png",
+            "text_2": "2-Year Warranty",
+            "icon_3": "shopify://shop_images/image_289.png",
+            "text_3": "Worldwide Shipping",
+            "icon_4": "shopify://shop_images/image_287.png",
+            "text_4": "3-7 Days Delivery",
+            "icon_5": "shopify://shop_images/image_290.png",
+            "text_5": "Priority Support",
+            "text_6": ""
+          },
+          "blocks": {}
         }
       },
       "block_order": [
-        "column_te6Pew",
-        "column_Y6hUFa",
-        "column_qUY8y4",
-        "column_pqVYmz",
-        "column_CkRkdG"
+        "ai_gen_block_aeca860_RCVk3C"
       ],
       "disabled": true,
-      "name": "t:sections.multicolumn.presets.name",
-      "settings": {
-        "title": "",
-        "heading_size": "h2",
-        "image_width": "full",
-        "image_ratio": "adapt",
-        "button_label": "",
-        "button_link": "",
-        "columns_desktop": 5,
-        "column_alignment": "left",
-        "background_style": "none",
-        "color_scheme": "background-1",
-        "columns_mobile": "2",
-        "swipe_on_mobile": false,
-        "padding_top": 12,
-        "padding_bottom": 12
-      }
+      "settings": {}
     },
     "1775548782bc47be98": {
       "type": "_blocks",
@@ -270,8 +232,8 @@
           "type": "d_carousel_cards",
           "name": "D-轮播卡片",
           "settings": {
-            "title": "精选推荐",
-            "title_size": 28,
+            "title": "Start with Top Picks",
+            "title_size": 36,
             "title_color": "#121212",
             "padding_top": 40,
             "padding_bottom": 40,
@@ -912,7 +874,7 @@
   "order": [
     "ecom-ecomposer-home-home",
     "slideshow_UrYVqd",
-    "multicolumn_KQYXVh",
+    "17756345667c67da33",
     "1775548782bc47be98",
     "1775555498e1559ce7",
     "collection_list_pcRD7B",
