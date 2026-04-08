@@ -357,14 +357,15 @@
               "anran-q4-max-5mp-integrated-solar-camera",
               "anran-q3-max-5mp-solar-battery-camera",
               "anran-f2m3-2k-solar-floodlight-security-camera",
-              "anran-4k-8mp-solar-battery-camera"
+              "anran-4k-8mp-solar-battery-camera",
+              "anran-2k-wifi-wireless-solar-powered-security-ip-camera-outdoo-full-color-night"
             ],
             "section_background": "#ffffff",
             "container_width": 1400,
             "padding_top": 52,
             "padding_bottom": 40,
             "padding_horizontal": 32,
-            "columns_desktop": 5,
+            "columns_desktop": 6,
             "columns_mobile": "2",
             "grid_gap_horizontal": 12,
             "grid_gap_vertical": 20,
