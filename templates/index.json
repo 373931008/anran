@@ -115,7 +115,6 @@
         "slide_QAbKxC",
         "slide_gCEFwp"
       ],
-      "disabled": true,
       "custom_css": [
         "@media screen and (max-width: 749px) {.slider-counter__link--dots .dot {width: 4px; height: 4px; opacity: 0.6; } .slider-counter__link--active .dot {opacity: 1; } .slideshow .slider-controls {margin-top: 1px !important; /* 可改 0~6px 自调 */ padding-top: 0 !important; }}"
       ],
@@ -192,7 +191,6 @@
         "column_pqVYmz",
         "column_CkRkdG"
       ],
-      "disabled": true,
       "name": "t:sections.multicolumn.presets.name",
       "settings": {
         "title": "",
@@ -260,7 +258,6 @@
       "block_order": [
         "ai_gen_block_56b8163_9rLTqE"
       ],
-      "disabled": true,
       "settings": {}
     },
     "1775555498e1559ce7": {
@@ -375,7 +372,7 @@
             "columns_mobile": "2",
             "grid_gap_horizontal": 12,
             "grid_gap_vertical": 20,
-            "heading_size": 32,
+            "heading_size": 36,
             "heading_alignment": "left",
             "heading_color": "#121212",
             "description_size": 16,
@@ -402,7 +399,7 @@
             "button_text": "View More",
             "button_padding": 8,
             "button_font_size": 12,
-            "button_background": "#121212",
+            "button_background": "#0071e0",
             "button_hover_background": "#0071e0",
             "button_text_color": "#ffffff",
             "button_border_radius": 24,
@@ -418,7 +415,6 @@
         "d_carousel_cards_3hcA3d",
         "d_product_list_jfh9CQ"
       ],
-      "disabled": true,
       "settings": {}
     },
     "collection_list_pcRD7B": {
@@ -455,7 +451,6 @@
         "featured_collection_UM4Ep3",
         "featured_collection_eCjNEV"
       ],
-      "disabled": true,
       "name": "t:sections.collection-list.presets.name",
       "settings": {
         "title": "<strong>Shop by Product Category</strong>",
@@ -466,9 +461,48 @@
         "show_view_all": false,
         "columns_mobile": "2",
         "swipe_on_mobile": false,
-        "padding_top": 32,
-        "padding_bottom": 32
+        "padding_top": 44,
+        "padding_bottom": 44
       }
+    },
+    "1775629892b89a8f8c": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_2de40d5_pVY6r9": {
+          "type": "ai_gen_block_2de40d5",
+          "settings": {
+            "max_width": 1400,
+            "padding_vertical": 25,
+            "item_spacing": 100,
+            "scroll_speed": 20,
+            "background_color": "#dbecff",
+            "text_color": "#1565d8",
+            "icon_color": "#1565d8",
+            "text_size": 15,
+            "icon_size": 24,
+            "icon_text_gap": 10,
+            "item_1_text": "Free Global Shipping",
+            "item_1_icon_image": "shopify://shop_images/truck-side-1.webp",
+            "item_2_text": "No Subscription Fees",
+            "item_2_icon_image": "shopify://shop_images/no-fee-1.webp",
+            "item_3_text": "Portable & Wireless",
+            "item_3_icon_image": "shopify://shop_images/remote-control-1.webp",
+            "item_4_text": "Crystal-Clear Imaging",
+            "item_4_icon_image": "shopify://shop_images/graphic-style-1.webp",
+            "item_5_text": "iOS & Android Compatible",
+            "item_5_icon_image": "shopify://shop_images/laptop-mobile-1.webp",
+            "item_6_text": "Lightweight & Compact",
+            "item_6_icon_image": "shopify://shop_images/feather-pointed-1.webp",
+            "item_7_text": "",
+            "item_8_text": ""
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_2de40d5_pVY6r9"
+      ],
+      "settings": {}
     },
     "rich_text_brKaiq": {
       "type": "rich-text",
@@ -491,7 +525,6 @@
         "heading_TrgHB7",
         "text_Tmigdn"
       ],
-      "disabled": true,
       "name": "t:sections.rich-text.presets.name",
       "settings": {
         "desktop_content_position": "center",
@@ -525,7 +558,6 @@
       "block_order": [
         "card_WWLeTa"
       ],
-      "disabled": true,
       "name": "q-expert-testimonials",
       "settings": {
         "header_title": "Tested and trusted by <em>home security experts</em>",
@@ -548,6 +580,268 @@
         "autoplay_delay": 5
       }
     },
+    "q_privacy_security_t8cY7Y": {
+      "type": "q-privacy-security",
+      "name": "q-privacy-security",
+      "settings": {
+        "header_title": "Protecting Your <em>Privacy and Security</em>",
+        "header_description": "<p>We prioritize your privacy at every step. Our devices use end-to-end encryption and secure data practices to ensure your information is protected.</p><p>Only the data you choose is collected, and you can review, manage, or delete it at any time, giving you full control over your information.</p><p>Keep your home and family's information safe while letting you enjoy smart technology with peace of mind.</p>",
+        "header_center": false,
+        "header_em_color": "#3b7dd8",
+        "header_title_size_desktop": 42,
+        "header_title_size_mobile": 24,
+        "header_desc_size_desktop": 16,
+        "header_desc_size_mobile": 12,
+        "header_margin_bottom_desktop": 0,
+        "header_margin_bottom_mobile": 0,
+        "image": "shopify://shop_images/Rectangle_205.jpg",
+        "icon_image": "shopify://shop_images/fi_7532627.png",
+        "bg_color": "#ffffff",
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60
+      }
+    },
+    "q_faq_khMiTV": {
+      "type": "q-faq",
+      "blocks": {
+        "tab_YGa9Uf": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "Security Camera"
+          }
+        },
+        "tab_cAJQNf": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "Shipping & Returns"
+          }
+        },
+        "item_PKk79N": {
+          "type": "item",
+          "settings": {
+            "question": "Does the camera come with an SD card?",
+            "answer": "<p>Only the G1 model includes a built-in SD card in the package. Other camera models do NOT come with an SD card. You will need to purchase one separately.</p>",
+            "tab_index": "1"
+          }
+        },
+        "item_nWKebp": {
+          "type": "item",
+          "settings": {
+            "question": "What format of SD card does the camera support?",
+            "answer": "<p>The camera supports microSD cards up to 128GB in FAT32 or exFAT format.</p>",
+            "tab_index": "1"
+          }
+        },
+        "item_hLxxin": {
+          "type": "item",
+          "settings": {
+            "question": "Do you have to have Alexa for this?",
+            "answer": "<p>No, Alexa is not required. The camera works independently via the mobile app. Alexa integration is optional for voice control.</p>",
+            "tab_index": "1"
+          }
+        },
+        "item_9y6pJj": {
+          "type": "item",
+          "settings": {
+            "question": "What is the viewing angle and What range of coverage is it?",
+            "answer": "<p>The camera has a 130° wide-angle lens with up to 50 feet of night vision range.</p>",
+            "tab_index": "1"
+          }
+        },
+        "item_g68wzt": {
+          "type": "item",
+          "settings": {
+            "question": "How long does it take to fully charge a low-power battery camera?",
+            "answer": "<p>It takes approximately 3-4 hours to fully charge the battery using the included USB-C cable.</p>",
+            "tab_index": "1"
+          }
+        },
+        "item_HacrCH": {
+          "type": "item",
+          "settings": {
+            "question": "Will this camera record continuously if I insert an SD card?",
+            "answer": "<p>Yes, with a microSD card inserted, the camera supports continuous local recording.</p>",
+            "tab_index": "1"
+          }
+        },
+        "item_b7FRCt": {
+          "type": "item",
+          "settings": {
+            "question": "Why the Solar Panel Might Not Be Charging?",
+            "answer": "<p>Ensure the solar panel is placed in direct sunlight for at least 3-4 hours per day. Clean the panel surface if dirty and check the cable connection.</p>",
+            "tab_index": "1"
+          }
+        },
+        "item_xjfqNf": {
+          "type": "item",
+          "settings": {
+            "question": "How long does shipping take?",
+            "answer": "<p>Standard shipping takes 4-7 business days. Expedited shipping.</p>",
+            "tab_index": "2"
+          }
+        },
+        "item_33KkcM": {
+          "type": "item",
+          "settings": {
+            "question": "What is your return policy?",
+            "answer": "<p>We offer a 30-day hassle-free return policy. Contact our support team to initiate a return.</p>",
+            "tab_index": "2"
+          }
+        },
+        "item_YCW4xr": {
+          "type": "item",
+          "settings": {
+            "question": "Do you offer free shipping?",
+            "answer": "<p>Yes! Free standard shipping is available on all orders over $50. Orders below $50 have a flat shipping fee of $4.99.</p>",
+            "tab_index": "2"
+          }
+        },
+        "item_63AEqg": {
+          "type": "item",
+          "settings": {
+            "question": "Can I track my order?",
+            "answer": "<p>Absolutely. Once your order ships, you will receive a tracking number via email. You can also track your order through your account dashboard.</p>",
+            "tab_index": "2"
+          }
+        }
+      },
+      "block_order": [
+        "tab_YGa9Uf",
+        "tab_cAJQNf",
+        "item_PKk79N",
+        "item_nWKebp",
+        "item_hLxxin",
+        "item_9y6pJj",
+        "item_g68wzt",
+        "item_HacrCH",
+        "item_b7FRCt",
+        "item_xjfqNf",
+        "item_33KkcM",
+        "item_YCW4xr",
+        "item_63AEqg"
+      ],
+      "name": "q-faq",
+      "settings": {
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60,
+        "default_open_first_item": false,
+        "tab_text_color": "#2d4e76",
+        "tab_border_color": "#d9e2f2",
+        "tab_active_bg": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 57.21%)",
+        "tab_active_text_color": "#ffffff",
+        "header_title": "Questions? We've Got Answers",
+        "header_description": "",
+        "header_center": true,
+        "header_em_color": "#2d4e76",
+        "header_title_size_desktop": 46,
+        "header_title_size_mobile": 26,
+        "header_desc_size_desktop": 16,
+        "header_desc_size_mobile": 12,
+        "header_margin_bottom_desktop": 40,
+        "header_margin_bottom_mobile": 24
+      }
+    },
+    "multicolumn_X6HQ6a": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_Nfei9D": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Risk-Free_30-Day_Trial_1.jpg",
+            "title": "",
+            "text": "",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_Nfei9D"
+      ],
+      "name": "t:sections.multicolumn.presets.name",
+      "settings": {
+        "title": "",
+        "heading_size": "h2",
+        "image_width": "third",
+        "image_ratio": "adapt",
+        "button_label": "",
+        "button_link": "",
+        "columns_desktop": 1,
+        "column_alignment": "center",
+        "background_style": "none",
+        "color_scheme": "",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 20,
+        "padding_bottom": 0
+      }
+    },
+    "q_service_features_8JFDMC": {
+      "type": "q-service-features",
+      "blocks": {
+        "card_7Ydfjj": {
+          "type": "card",
+          "settings": {
+            "icon": "shopify://shop_images/fi_1670915.svg",
+            "title": "Free Shipping",
+            "description": "Enjoy fast, free delivery on all orders, returns within 30 days."
+          }
+        },
+        "card_VEwQGV": {
+          "type": "card",
+          "settings": {
+            "icon": "shopify://shop_images/fi_5782872.svg",
+            "title": "Official Warranty",
+            "description": "All Anran cameras are backed by our quality guarantee."
+          }
+        },
+        "card_Py4EbD": {
+          "type": "card",
+          "settings": {
+            "icon": "shopify://shop_images/fi_2169854.svg",
+            "title": "Flexible Payment",
+            "description": "Pay in installments for your camera."
+          }
+        },
+        "card_RkpCbk": {
+          "type": "card",
+          "settings": {
+            "icon": "shopify://shop_images/fi_508190.svg",
+            "title": "Expert Support",
+            "description": "Our team is here to help you every step of the way."
+          }
+        }
+      },
+      "block_order": [
+        "card_7Ydfjj",
+        "card_VEwQGV",
+        "card_Py4EbD",
+        "card_RkpCbk"
+      ],
+      "name": "q-service-features",
+      "settings": {
+        "header_title": "<em>Risk-Free 30-Day Trial </em>- Experience the Difference",
+        "header_description": "<p>Try our Security cameras for 30 days. If youre not completely satisfied, wellrefund your fullpurchase price</p>",
+        "header_center": true,
+        "header_em_color": "#367cf6",
+        "header_title_size_desktop": 42,
+        "header_title_size_mobile": 26,
+        "header_desc_size_desktop": 16,
+        "header_desc_size_mobile": 12,
+        "header_margin_bottom_desktop": 40,
+        "header_margin_bottom_mobile": 24,
+        "bg_color": "#ffffff",
+        "card_bg_color": "#f9f9f9",
+        "padding_top_mobile": 20,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 20,
+        "padding_bottom_desktop": 60
+      }
+    },
     "featured_blog_tBntiM": {
       "type": "featured-blog",
       "disabled": true,
@@ -566,6 +860,40 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "newsletter_zk3T67": {
+      "type": "newsletter",
+      "blocks": {
+        "heading_4BqeTe": {
+          "type": "heading",
+          "settings": {
+            "heading": "Join Our Newsletter For 10% OFF",
+            "heading_size": "h1"
+          }
+        },
+        "paragraph_9c8kze": {
+          "type": "paragraph",
+          "settings": {
+            "text": "<p>We'll email you voucher your first order over $50.</p>"
+          }
+        },
+        "email_form_fqmLcd": {
+          "type": "email_form",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "heading_4BqeTe",
+        "paragraph_9c8kze",
+        "email_form_fqmLcd"
+      ],
+      "name": "t:sections.newsletter.presets.name",
+      "settings": {
+        "color_scheme": "scheme-f871e85f-787c-44d0-bb29-e1eaeb9d8e6e",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
     }
   },
   "order": [
@@ -575,8 +903,14 @@
     "1775548782bc47be98",
     "1775555498e1559ce7",
     "collection_list_pcRD7B",
+    "1775629892b89a8f8c",
     "rich_text_brKaiq",
     "q_expert_testimonials_KtChzP",
-    "featured_blog_tBntiM"
+    "q_privacy_security_t8cY7Y",
+    "q_faq_khMiTV",
+    "multicolumn_X6HQ6a",
+    "q_service_features_8JFDMC",
+    "featured_blog_tBntiM",
+    "newsletter_zk3T67"
   ]
 }
