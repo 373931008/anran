@@ -1,6 +1,658 @@
+{% doc %}
+  @prompt
+    帮忙生成图片横幅，需要五张，可以选择页面跟产品链接大小为1920*800。上传的banner图点击图片可跳转链接。，加上每张图轮换时间间隔为3秒
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-banner-slider-{{ ai_gen_id }} {
+    display: block;
+    position: relative;
+    width: 100%;
+    max-width: 1920px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+
+  .ai-banner-slider-container-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1920 / 800;
+  }
+
+  .ai-banner-slider-track-{{ ai_gen_id }} {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.5s ease-in-out;
+  }
+
+  .ai-banner-slide-{{ ai_gen_id }} {
+    flex: 0 0 100%;
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  .ai-banner-slide-link-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
+
+  .ai-banner-slide-link-{{ ai_gen_id }}.no-link {
+    cursor: default;
+  }
+
+  .ai-banner-slide-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-banner-slide-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .ai-banner-slide-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 500px;
+    max-height: 500px;
+  }
+
+  .ai-banner-empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 20px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .ai-banner-dots-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 2;
+  }
+
+  .ai-banner-dot-{{ ai_gen_id }} {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    padding: 0;
+  }
+
+  .ai-banner-dot-{{ ai_gen_id }}.active {
+    background-color: rgba(255, 255, 255, 1);
+  }
+
+  .ai-banner-arrow-{{ ai_gen_id }} {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+  }
+
+  .ai-banner-arrow-{{ ai_gen_id }}:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+
+  .ai-banner-arrow-{{ ai_gen_id }}.prev {
+    left: 20px;
+  }
+
+  .ai-banner-arrow-{{ ai_gen_id }}.next {
+    right: 20px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-banner-arrow-{{ ai_gen_id }} {
+      width: 40px;
+      height: 40px;
+    }
+
+    .ai-banner-arrow-{{ ai_gen_id }}.prev {
+      left: 10px;
+    }
+
+    .ai-banner-arrow-{{ ai_gen_id }}.next {
+      right: 10px;
+    }
+  }
+{% endstyle %}
+
+<banner-slider-{{ ai_gen_id }} class="ai-banner-slider-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-banner-slider-container-{{ ai_gen_id }}">
+    <div class="ai-banner-slider-track-{{ ai_gen_id }}">
+      {% for i in (1..5) %}
+        {% liquid
+          assign image_key = 'slide_' | append: i | append: '_image'
+          assign link_key = 'slide_' | append: i | append: '_link'
+          assign link_type_key = 'slide_' | append: i | append: '_link_type'
+          
+          assign slide_image = block.settings[image_key]
+          assign slide_link = block.settings[link_key]
+          assign slide_link_type = block.settings[link_type_key]
+          
+          assign has_link = false
+          if slide_link_type == 'url' and slide_link != blank
+            assign has_link = true
+            assign final_link = slide_link
+          elsif slide_link_type == 'product' and slide_link != blank
+            assign has_link = true
+            assign final_link = slide_link.url
+          elsif slide_link_type == 'collection' and slide_link != blank
+            assign has_link = true
+            assign final_link = slide_link.url
+          elsif slide_link_type == 'page' and slide_link != blank
+            assign has_link = true
+            assign final_link = slide_link.url
+          endif
+        %}
+
+        <div class="ai-banner-slide-{{ ai_gen_id }}" data-slide="{{ i }}">
+          {% if has_link %}
+            <a href="{{ final_link }}" class="ai-banner-slide-link-{{ ai_gen_id }}">
+              {% if slide_image %}
+                <img
+                  src="{{ slide_image | image_url: width: 1920 }}"
+                  alt="{{ slide_image.alt | escape }}"
+                  loading="lazy"
+                  width="1920"
+                  height="800"
+                  class="ai-banner-slide-image-{{ ai_gen_id }}"
+                >
+              {% else %}
+                <div class="ai-banner-slide-placeholder-{{ ai_gen_id }}">
+                  {{ 'hero-apparel-1' | placeholder_svg_tag }}
+                  {% if i == 1 %}
+                    <div class="ai-banner-empty-state-{{ ai_gen_id }}">
+                      添加横幅图片
+                    </div>
+                  {% endif %}
+                </div>
+              {% endif %}
+            </a>
+          {% else %}
+            <div class="ai-banner-slide-link-{{ ai_gen_id }} no-link">
+              {% if slide_image %}
+                <img
+                  src="{{ slide_image | image_url: width: 1920 }}"
+                  alt="{{ slide_image.alt | escape }}"
+                  loading="lazy"
+                  width="1920"
+                  height="800"
+                  class="ai-banner-slide-image-{{ ai_gen_id }}"
+                >
+              {% else %}
+                <div class="ai-banner-slide-placeholder-{{ ai_gen_id }}">
+                  {{ 'hero-apparel-1' | placeholder_svg_tag }}
+                  {% if i == 1 %}
+                    <div class="ai-banner-empty-state-{{ ai_gen_id }}">
+                      添加横幅图片
+                    </div>
+                  {% endif %}
+                </div>
+              {% endif %}
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+
+    <button class="ai-banner-arrow-{{ ai_gen_id }} prev" aria-label="上一张">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
+    </button>
+
+    <button class="ai-banner-arrow-{{ ai_gen_id }} next" aria-label="下一张">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="9 18 15 12 9 6"></polyline>
+      </svg>
+    </button>
+
+    <div class="ai-banner-dots-{{ ai_gen_id }}">
+      {% for i in (1..5) %}
+        <button class="ai-banner-dot-{{ ai_gen_id }} {% if i == 1 %}active{% endif %}" data-slide="{{ i }}" aria-label="跳转到第{{ i }}张"></button>
+      {% endfor %}
+    </div>
+  </div>
+</banner-slider-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class BannerSlider{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.currentSlide = 0;
+        this.totalSlides = 5;
+        this.autoplayInterval = null;
+        this.intervalTime = {{ block.settings.autoplay_interval | times: 1000 }};
+      }
+
+      connectedCallback() {
+        this.track = this.querySelector('.ai-banner-slider-track-{{ ai_gen_id }}');
+        this.dots = this.querySelectorAll('.ai-banner-dot-{{ ai_gen_id }}');
+        this.prevButton = this.querySelector('.ai-banner-arrow-{{ ai_gen_id }}.prev');
+        this.nextButton = this.querySelector('.ai-banner-arrow-{{ ai_gen_id }}.next');
+
+        this.setupEventListeners();
+        this.startAutoplay();
+      }
+
+      setupEventListeners() {
+        this.prevButton.addEventListener('click', () => {
+          this.goToPrevSlide();
+          this.resetAutoplay();
+        });
+
+        this.nextButton.addEventListener('click', () => {
+          this.goToNextSlide();
+          this.resetAutoplay();
+        });
+
+        this.dots.forEach((dot, index) => {
+          dot.addEventListener('click', () => {
+            this.goToSlide(index);
+            this.resetAutoplay();
+          });
+        });
+      }
+
+      goToSlide(index) {
+        this.currentSlide = index;
+        this.updateSlider();
+      }
+
+      goToNextSlide() {
+        this.currentSlide = (this.currentSlide + 1) % this.totalSlides;
+        this.updateSlider();
+      }
+
+      goToPrevSlide() {
+        this.currentSlide = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
+        this.updateSlider();
+      }
+
+      updateSlider() {
+        const offset = -this.currentSlide * 100;
+        this.track.style.transform = `translateX(${offset}%)`;
+
+        this.dots.forEach((dot, index) => {
+          if (index === this.currentSlide) {
+            dot.classList.add('active');
+          } else {
+            dot.classList.remove('active');
+          }
+        });
+      }
+
+      startAutoplay() {
+        if (this.intervalTime > 0) {
+          this.autoplayInterval = setInterval(() => {
+            this.goToNextSlide();
+          }, this.intervalTime);
+        }
+      }
+
+      resetAutoplay() {
+        if (this.autoplayInterval) {
+          clearInterval(this.autoplayInterval);
+          this.startAutoplay();
+        }
+      }
+
+      disconnectedCallback() {
+        if (this.autoplayInterval) {
+          clearInterval(this.autoplayInterval);
+        }
+      }
+    }
+
+    customElements.define('banner-slider-{{ ai_gen_id }}', BannerSlider{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "横幅轮播",
+  "settings": [
+    {
+      "type": "header",
+      "content": "轮播设置"
+    },
+    {
+      "type": "range",
+      "id": "autoplay_interval",
+      "label": "自动播放间隔",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "unit": "秒",
+      "default": 3
+    },
+    {
+      "type": "header",
+      "content": "横幅 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_1_image",
+      "label": "图片"
+    },
+    {
+      "type": "select",
+      "id": "slide_1_link_type",
+      "label": "链接类型",
+      "options": [
+        {
+          "value": "none",
+          "label": "无链接"
+        },
+        {
+          "value": "url",
+          "label": "网址"
+        },
+        {
+          "value": "product",
+          "label": "产品"
+        },
+        {
+          "value": "collection",
+          "label": "产品系列"
+        },
+        {
+          "value": "page",
+          "label": "页面"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "url",
+      "id": "slide_1_link",
+      "label": "网址链接"
+    },
+    {
+      "type": "product",
+      "id": "slide_1_link_product",
+      "label": "产品链接"
+    },
+    {
+      "type": "collection",
+      "id": "slide_1_link_collection",
+      "label": "产品系列链接"
+    },
+    {
+      "type": "page",
+      "id": "slide_1_link_page",
+      "label": "页面链接"
+    },
+    {
+      "type": "header",
+      "content": "横幅 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_2_image",
+      "label": "图片"
+    },
+    {
+      "type": "select",
+      "id": "slide_2_link_type",
+      "label": "链接类型",
+      "options": [
+        {
+          "value": "none",
+          "label": "无链接"
+        },
+        {
+          "value": "url",
+          "label": "网址"
+        },
+        {
+          "value": "product",
+          "label": "产品"
+        },
+        {
+          "value": "collection",
+          "label": "产品系列"
+        },
+        {
+          "value": "page",
+          "label": "页面"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "url",
+      "id": "slide_2_link",
+      "label": "网址链接"
+    },
+    {
+      "type": "product",
+      "id": "slide_2_link_product",
+      "label": "产品链接"
+    },
+    {
+      "type": "collection",
+      "id": "slide_2_link_collection",
+      "label": "产品系列链接"
+    },
+    {
+      "type": "page",
+      "id": "slide_2_link_page",
+      "label": "页面链接"
+    },
+    {
+      "type": "header",
+      "content": "横幅 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_3_image",
+      "label": "图片"
+    },
+    {
+      "type": "select",
+      "id": "slide_3_link_type",
+      "label": "链接类型",
+      "options": [
+        {
+          "value": "none",
+          "label": "无链接"
+        },
+        {
+          "value": "url",
+          "label": "网址"
+        },
+        {
+          "value": "product",
+          "label": "产品"
+        },
+        {
+          "value": "collection",
+          "label": "产品系列"
+        },
+        {
+          "value": "page",
+          "label": "页面"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "url",
+      "id": "slide_3_link",
+      "label": "网址链接"
+    },
+    {
+      "type": "product",
+      "id": "slide_3_link_product",
+      "label": "产品链接"
+    },
+    {
+      "type": "collection",
+      "id": "slide_3_link_collection",
+      "label": "产品系列链接"
+    },
+    {
+      "type": "page",
+      "id": "slide_3_link_page",
+      "label": "页面链接"
+    },
+    {
+      "type": "header",
+      "content": "横幅 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_4_image",
+      "label": "图片"
+    },
+    {
+      "type": "select",
+      "id": "slide_4_link_type",
+      "label": "链接类型",
+      "options": [
+        {
+          "value": "none",
+          "label": "无链接"
+        },
+        {
+          "value": "url",
+          "label": "网址"
+        },
+        {
+          "value": "product",
+          "label": "产品"
+        },
+        {
+          "value": "collection",
+          "label": "产品系列"
+        },
+        {
+          "value": "page",
+          "label": "页面"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "url",
+      "id": "slide_4_link",
+      "label": "网址链接"
+    },
+    {
+      "type": "product",
+      "id": "slide_4_link_product",
+      "label": "产品链接"
+    },
+    {
+      "type": "collection",
+      "id": "slide_4_link_collection",
+      "label": "产品系列链接"
+    },
+    {
+      "type": "page",
+      "id": "slide_4_link_page",
+      "label": "页面链接"
+    },
+    {
+      "type": "header",
+      "content": "横幅 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_5_image",
+      "label": "图片"
+    },
+    {
+      "type": "select",
+      "id": "slide_5_link_type",
+      "label": "链接类型",
+      "options": [
+        {
+          "value": "none",
+          "label": "无链接"
+        },
+        {
+          "value": "url",
+          "label": "网址"
+        },
+        {
+          "value": "product",
+          "label": "产品"
+        },
+        {
+          "value": "collection",
+          "label": "产品系列"
+        },
+        {
+          "value": "page",
+          "label": "页面"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "url",
+      "id": "slide_5_link",
+      "label": "网址链接"
+    },
+    {
+      "type": "product",
+      "id": "slide_5_link_product",
+      "label": "产品链接"
+    },
+    {
+      "type": "collection",
+      "id": "slide_5_link_collection",
+      "label": "产品系列链接"
+    },
+    {
+      "type": "page",
+      "id": "slide_5_link_page",
+      "label": "页面链接"
+    }
+  ],
+  "presets": [
+    {
+      "name": "横幅轮播"
+    }
+  ],
+  "tag": null
+}
 {% endschema %}
