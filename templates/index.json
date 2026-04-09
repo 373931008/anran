@@ -12,6 +12,7 @@
   "sections": {
     "ecom-ecomposer-home-home": {
       "type": "ecom-ecomposer-home-home",
+      "disabled": true,
       "settings": {}
     },
     "slideshow_UrYVqd": {
@@ -115,7 +116,6 @@
         "slide_QAbKxC",
         "slide_gCEFwp"
       ],
-      "disabled": true,
       "custom_css": [
         "@media screen and (max-width: 749px) {.slider-counter__link--dots .dot {width: 4px; height: 4px; opacity: 0.6; } .slider-counter__link--active .dot {opacity: 1; } .slideshow .slider-controls {margin-top: 1px !important; /* 可改 0~6px 自调 */ padding-top: 0 !important; }}"
       ],
@@ -138,8 +138,8 @@
           "type": "ai_gen_block_aeca860",
           "settings": {
             "max_width": 1400,
-            "padding_top": 25,
-            "padding_bottom": 25,
+            "padding_top": 20,
+            "padding_bottom": 20,
             "item_spacing": 80,
             "icon_text_gap": 12,
             "mobile_layout": "scroll",
@@ -170,7 +170,6 @@
       "block_order": [
         "ai_gen_block_aeca860_RCVk3C"
       ],
-      "disabled": true,
       "settings": {}
     },
     "rich_text_DdbTMB": {
@@ -187,7 +186,6 @@
       "block_order": [
         "heading_pMBe8P"
       ],
-      "disabled": true,
       "name": "t:sections.rich-text.presets.name",
       "settings": {
         "desktop_content_position": "left",
@@ -247,7 +245,6 @@
       "block_order": [
         "ai_gen_block_56b8163_9rLTqE"
       ],
-      "disabled": true,
       "settings": {}
     },
     "1775555498e1559ce7": {
@@ -412,7 +409,6 @@
         "d_carousel_cards_3hcA3d",
         "d_product_list_jfh9CQ"
       ],
-      "disabled": true,
       "settings": {}
     },
     "collection_list_pcRD7B": {
@@ -449,7 +445,6 @@
         "featured_collection_UM4Ep3",
         "featured_collection_eCjNEV"
       ],
-      "disabled": true,
       "name": "t:sections.collection-list.presets.name",
       "settings": {
         "title": "<strong>Shop by Category</strong>",
@@ -501,7 +496,6 @@
       "block_order": [
         "ai_gen_block_2de40d5_pVY6r9"
       ],
-      "disabled": true,
       "settings": {}
     },
     "rich_text_brKaiq": {
@@ -525,7 +519,6 @@
         "heading_TrgHB7",
         "text_Tmigdn"
       ],
-      "disabled": true,
       "name": "t:sections.rich-text.presets.name",
       "settings": {
         "desktop_content_position": "center",
@@ -559,7 +552,6 @@
       "block_order": [
         "card_WWLeTa"
       ],
-      "disabled": true,
       "name": "q-expert-testimonials",
       "settings": {
         "header_title": "Tested and trusted by <em>home security experts</em>",
@@ -584,7 +576,6 @@
     },
     "q_privacy_security_t8cY7Y": {
       "type": "q-privacy-security",
-      "disabled": true,
       "name": "q-privacy-security",
       "settings": {
         "header_title": "Protecting Your <em>Privacy and Security</em>",
@@ -725,7 +716,6 @@
         "item_YCW4xr",
         "item_63AEqg"
       ],
-      "disabled": true,
       "name": "q-faq",
       "settings": {
         "padding_top_mobile": 40,
@@ -766,7 +756,6 @@
       "block_order": [
         "column_Nfei9D"
       ],
-      "disabled": true,
       "name": "t:sections.multicolumn.presets.name",
       "settings": {
         "title": "",
@@ -827,7 +816,6 @@
         "card_Py4EbD",
         "card_RkpCbk"
       ],
-      "disabled": true,
       "name": "q-service-features",
       "settings": {
         "header_title": "<em>Risk-Free 30-Day Trial </em>- Experience the Difference",
@@ -893,7 +881,6 @@
         "paragraph_9c8kze",
         "email_form_fqmLcd"
       ],
-      "disabled": true,
       "name": "t:sections.newsletter.presets.name",
       "settings": {
         "color_scheme": "scheme-f871e85f-787c-44d0-bb29-e1eaeb9d8e6e",
