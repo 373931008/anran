@@ -27,7 +27,7 @@
             "heading_size": "h1",
             "subheading": "",
             "button_label": "",
-            "link": "",
+            "link": "shopify://pages/sale",
             "button_style_secondary": false,
             "show_text_box": false,
             "box_align": "middle-center",
