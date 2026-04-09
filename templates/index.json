@@ -22,7 +22,7 @@
           "type": "ai_gen_block_7d43844",
           "settings": {
             "autoplay_interval": 3,
-            "slide_1_image": "shopify://shop_images/1920_800.jpg",
+            "slide_1_image": "shopify://shop_images/1920_800_1.jpg",
             "slide_1_link_type": "page",
             "slide_1_link": "shopify://pages/sale",
             "slide_1_link_product": "",
