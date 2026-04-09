@@ -15,6 +15,59 @@
       "disabled": true,
       "settings": {}
     },
+    "1775702162b2c53eff": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_a0f2392_RWwdCi": {
+          "type": "ai_gen_block_a0f2392",
+          "settings": {
+            "banner_image_1": "shopify://shop_images/1920_800.jpg",
+            "banner_link_type_1": "none",
+            "banner_page_1": "",
+            "banner_product_1": "",
+            "banner_url_1": "",
+            "banner_image_2": "shopify://shop_images/Q3M8_4K_security_camera_cfca9844-2c41-413e-b25d-41f32884dd24.jpg",
+            "banner_link_type_2": "none",
+            "banner_page_2": "",
+            "banner_product_2": "",
+            "banner_url_2": "",
+            "banner_image_3": "shopify://shop_images/Outdoor_security_camera_for_home.jpg",
+            "banner_link_type_3": "none",
+            "banner_page_3": "",
+            "banner_product_3": "",
+            "banner_url_3": "",
+            "banner_image_4": "shopify://shop_images/cctv_security_camera_system_783144ec-66e7-4686-86ca-55854c6f84b4.jpg",
+            "banner_link_type_4": "none",
+            "banner_page_4": "",
+            "banner_product_4": "",
+            "banner_url_4": "",
+            "banner_image_5": "shopify://shop_images/8MP_POE_Security_Camera_System.jpg",
+            "banner_link_type_5": "none",
+            "banner_page_5": "",
+            "banner_product_5": "",
+            "banner_url_5": "",
+            "autoplay": true,
+            "autoplay_speed": 3,
+            "show_navigation": true,
+            "nav_button_size": 40,
+            "nav_button_offset": 20,
+            "nav_button_opacity": 70,
+            "nav_button_color": "#ffffff",
+            "nav_button_icon_color": "#000000",
+            "show_dots": true,
+            "dot_size": 10,
+            "dots_offset": 20,
+            "dot_opacity": 50,
+            "dot_color": "#ffffff"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_a0f2392_RWwdCi"
+      ],
+      "settings": {}
+    },
     "slideshow_UrYVqd": {
       "type": "slideshow",
       "blocks": {
@@ -892,6 +945,7 @@
   },
   "order": [
     "ecom-ecomposer-home-home",
+    "1775702162b2c53eff",
     "slideshow_UrYVqd",
     "17756345667c67da33",
     "rich_text_DdbTMB",
