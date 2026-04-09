@@ -61,123 +61,6 @@
       ],
       "settings": {}
     },
-    "slideshow_UrYVqd": {
-      "type": "slideshow",
-      "blocks": {
-        "slide_wqeUxM": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/1920_800_1.jpg",
-            "image_overlay_opacity": 0,
-            "heading": "",
-            "heading_size": "h1",
-            "subheading": "",
-            "button_label": "",
-            "link": "shopify://pages/sale",
-            "button_style_secondary": false,
-            "show_text_box": false,
-            "box_align": "middle-center",
-            "text_alignment": "center",
-            "text_alignment_mobile": "center",
-            "color_scheme": ""
-          }
-        },
-        "slide_x4f77N": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/Q3M8_4K_security_camera_cfca9844-2c41-413e-b25d-41f32884dd24.jpg",
-            "image_overlay_opacity": 0,
-            "heading": "",
-            "heading_size": "h1",
-            "subheading": "",
-            "button_label": "",
-            "link": "shopify://products/anran-q3-4k-8mp-solar-battery-camera",
-            "button_style_secondary": false,
-            "show_text_box": false,
-            "box_align": "middle-center",
-            "text_alignment": "center",
-            "text_alignment_mobile": "center",
-            "color_scheme": ""
-          }
-        },
-        "slide_x7gLR9": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/Outdoor_security_camera_for_home.jpg",
-            "image_overlay_opacity": 0,
-            "heading": "",
-            "heading_size": "h1",
-            "subheading": "",
-            "button_label": "",
-            "link": "shopify://products/anran-4mp2mp-2mp-dual-lens-wireless-solar-security-camera-with-2-way-talk",
-            "button_style_secondary": false,
-            "show_text_box": false,
-            "box_align": "middle-center",
-            "text_alignment": "center",
-            "text_alignment_mobile": "center",
-            "color_scheme": ""
-          }
-        },
-        "slide_QAbKxC": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/cctv_security_camera_system_783144ec-66e7-4686-86ca-55854c6f84b4.jpg",
-            "image_overlay_opacity": 0,
-            "heading": "",
-            "heading_size": "h1",
-            "subheading": "",
-            "button_label": "",
-            "link": "shopify://products/anran-5mp-wifi-ptz-kit-8ch-nvr-2tb-hdd",
-            "button_style_secondary": false,
-            "show_text_box": false,
-            "box_align": "middle-center",
-            "text_alignment": "center",
-            "text_alignment_mobile": "center",
-            "color_scheme": ""
-          }
-        },
-        "slide_gCEFwp": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/8MP_POE_Security_Camera_System.jpg",
-            "image_overlay_opacity": 0,
-            "heading": "",
-            "heading_size": "h1",
-            "subheading": "",
-            "button_label": "",
-            "link": "shopify://products/anran-4k-8mp-poe-security-camera-system",
-            "button_style_secondary": false,
-            "show_text_box": false,
-            "box_align": "middle-center",
-            "text_alignment": "center",
-            "text_alignment_mobile": "center",
-            "color_scheme": ""
-          }
-        }
-      },
-      "block_order": [
-        "slide_wqeUxM",
-        "slide_x4f77N",
-        "slide_x7gLR9",
-        "slide_QAbKxC",
-        "slide_gCEFwp"
-      ],
-      "disabled": true,
-      "custom_css": [
-        "@media screen and (max-width: 749px) {.slider-counter__link--dots .dot {width: 4px; height: 4px; opacity: 0.6; } .slider-counter__link--active .dot {opacity: 1; } .slideshow .slider-controls {margin-top: 1px !important; /* 可改 0~6px 自调 */ padding-top: 0 !important; }}"
-      ],
-      "name": "t:sections.slideshow.presets.name",
-      "settings": {
-        "layout": "full_bleed",
-        "slide_height": "adapt_image",
-        "slider_visual": "dots",
-        "auto_rotate": false,
-        "change_slides_speed": 3,
-        "image_behavior": "none",
-        "show_text_below": false,
-        "accessibility_info": ""
-      }
-    },
     "17756345667c67da33": {
       "type": "_blocks",
       "blocks": {
@@ -940,7 +823,6 @@
   "order": [
     "ecom-ecomposer-home-home",
     "1775702162b2c53eff",
-    "slideshow_UrYVqd",
     "17756345667c67da33",
     "rich_text_DdbTMB",
     "1775548782bc47be98",
