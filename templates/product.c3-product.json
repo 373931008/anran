@@ -490,8 +490,8 @@
         "card-4k-hdr": {
           "type": "card_image_text",
           "settings": {
-            "image": "{{ product.metafields.custom.q_why_choose_1_image.value }}",
-            "title": "4K HDR Video",
+            "image": "shopify://shop_images/3_146da1d1-2c39-4d47-a18c-5df9fb200d96.jpg",
+            "title": "",
             "description": "",
             "content_position": "bottom",
             "title_size_desktop": 32,
@@ -516,9 +516,9 @@
         "card-360": {
           "type": "card_image_text",
           "settings": {
-            "image": "{{ product.metafields.custom.q_why_choose_3_image.value }}",
-            "title": "360°",
-            "description": "AI Eliminate Blindspots",
+            "image": "shopify://shop_images/7_4f26d329-3e1f-42cc-be83-455095fa453a.jpg",
+            "title": "",
+            "description": "",
             "content_position": "bottom",
             "title_size_desktop": 32,
             "title_size_mobile": 18,
