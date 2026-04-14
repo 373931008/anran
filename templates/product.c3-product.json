@@ -37,7 +37,7 @@
         "q_feature_list_ibgtN8": {
           "type": "q_feature_list",
           "settings": {
-            "heading": "{{ product.description }}",
+            "heading": "<p>2.4Ghz WiFi Surveillance Outdoor Camera for Home Security with Embedded Solar Panel, Color Night Vision, 2-Way Talk, IP67 Waterproof, Work with Alexa<br/></p>",
             "feature_1": "{{ product.metafields.custom.new_product_features_list_1.value }}",
             "feature_2": "{{ product.metafields.custom.new_product_features_list_2.value }}",
             "feature_3": "{{ product.metafields.custom.new_product_features_list_3.value }}",
