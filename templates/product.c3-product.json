@@ -1043,7 +1043,7 @@
             "feature_2": "Supports 8–128GB microSD card (sold separately)",
             "feature_3": "Free lifetime cloud storage with 6-second event videos",
             "feature_4": "Subscribe to unlock longer event video recordings",
-            "button_label": "Buy now",
+            "button_label": "",
             "button_link": "/cart/41859158278221:1"
           }
         },
@@ -1058,7 +1058,7 @@
             "feature_2": "Check your home anytime, anywhere",
             "feature_3": "Compatible with Alexa-enabled devices",
             "feature_4": "Get convenient hands-free control",
-            "button_label": "Buy now",
+            "button_label": "",
             "button_link": "/cart/41859158278221:1"
           }
         }
