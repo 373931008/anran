@@ -730,7 +730,7 @@
         "card-1": {
           "type": "card",
           "settings": {
-            "image": "shopify://shop_images/Solar_Powered_Security_Camera_Two-Way_Audio.jpg",
+            "image": "shopify://shop_images/4-1_b8d9645c-8886-40d6-b86c-7101f8f10127.jpg",
             "title": "Clear Audio and One-Tap Talk",
             "description": "<p>Enjoy clear, real-time two-way audio and start talking instantly with a single tap on your phone.</p>"
           }
@@ -835,8 +835,8 @@
           "settings": {
             "tab_label": "Color Night",
             "media_type": "image",
-            "image_desktop": "shopify://shop_images/Wireless_Security_Cameras_Color_Night_27408468-30f5-4fcc-a875-c446937a59d0.jpg",
-            "image_mobile": "shopify://shop_images/Wireless_Security_Cameras_Color_Night_mo.jpg",
+            "image_desktop": "shopify://shop_images/773b1515f06b4b9d9ed57b6dc6a435b2.jpg",
+            "image_mobile": "shopify://shop_images/773b1515f06b4b9d9ed57b6dc6a435b2_039748a1-4b26-4c1f-8440-4e29672c29ff.jpg",
             "video_desktop": "shopify://files/videos/Invisible_selfie_stick_vid_pc_xlarge.mp4"
           }
         },
@@ -853,7 +853,7 @@
         "tab-3": {
           "type": "tab",
           "settings": {
-            "tab_label": "360° Coverage",
+            "tab_label": "95° Coverage",
             "media_type": "image",
             "image_desktop": "shopify://shop_images/360_Coverage_Security_Camera_1.jpg",
             "image_mobile": "shopify://shop_images/360_Coverage_Security_Camera_mobile.jpg"
@@ -928,7 +928,7 @@
         "header_desc_size_mobile": 12,
         "header_margin_bottom_desktop": 40,
         "header_margin_bottom_mobile": 24,
-        "image": "shopify://shop_images/Solar_Security_Cameras_Longer_Battery_Life.jpg",
+        "image": "shopify://shop_images/7-1_053c81cf-5c2b-47b3-8fd2-2b187fa06a22.jpg",
         "button_label": "Buy now",
         "button_link": "/cart/41859158278221:1",
         "show_button_mobile": false,
@@ -1020,8 +1020,8 @@
         "header_desc_size_mobile": 12,
         "header_margin_bottom_desktop": 40,
         "header_margin_bottom_mobile": 24,
-        "image_desktop": "shopify://shop_images/Group_371.jpg",
-        "image_mobile": "shopify://shop_images/Wireless_Home_Security_Camera_Systems_-3.jpg",
+        "image_desktop": "shopify://shop_images/01.jpg",
+        "image_mobile": "shopify://shop_images/15MP.jpg",
         "bg_color": "#FFFFFF",
         "padding_top_mobile": 40,
         "padding_bottom_mobile": 40,
@@ -1035,7 +1035,7 @@
         "card-local": {
           "type": "card",
           "settings": {
-            "image": "shopify://shop_images/Security_Camera_Local_Storage_Free.jpg",
+            "image": "shopify://shop_images/9_b004bc38-0383-4d35-9310-a7d1a647e162.jpg",
             "badge_label": "Optional Backup",
             "card_title": "Flexible Storage Options",
             "card_description": "Choose local or cloud storage for event recording, footage stays private and under your control.",
@@ -1311,8 +1311,8 @@
       "type": "q-fullwidth-hero",
       "settings": {
         "above_fold": false,
-        "image_desktop": "shopify://shop_images/Wireless_Security_Cameras_Weather-Resistant_Designm_anran.jpg",
-        "image_mobile": "shopify://shop_images/Wireless_Security_Cameras_Weather-Resistant_Designm_mobile.jpg",
+        "image_desktop": "shopify://shop_images/10_8e3773d8-9162-46d6-af1c-f9065ead4440.jpg",
+        "image_mobile": "shopify://shop_images/10-1_64c76bbc-0837-4b1c-89cb-d4f94dc78924.jpg",
         "image_height_desktop": 740,
         "image_height_mobile": 500,
         "show_overlay": true,
@@ -1340,7 +1340,7 @@
         "hero_desc_size_desktop": 16,
         "hero_desc_size_mobile": 12,
         "hero_desc_color": "#4e5357",
-        "hero_product_image": "shopify://shop_images/anran_Q3M8_product_box_list.jpg",
+        "hero_product_image": "shopify://shop_images/1-list.jpg",
         "btn_label": "Buy Now",
         "btn_link": "/cart/41859158278221:1",
         "btn_bg_color": "#1565d8",
