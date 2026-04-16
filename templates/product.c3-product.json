@@ -951,49 +951,48 @@
         "scene-1": {
           "type": "scene_card",
           "settings": {
-            "image": "shopify://shop_images/Wireless_Cameras_For_Home_Security_1.jpg"
+            "image": "shopify://shop_images/Outdoor_Security_Cameras_parking_5b9c6c4f-94c3-496a-95ad-fdd35a314c3e.jpg"
           }
         },
         "scene-2": {
           "type": "scene_card",
           "settings": {
-            "image": "shopify://shop_images/Solar_Powered_Security_Camera_Manage_Deliveries.jpg"
-          }
-        },
-        "scene-3": {
-          "type": "scene_card",
-          "settings": {
-            "image": "shopify://shop_images/Outdoor_Security_Cameras_parking.jpg"
-          }
-        },
-        "scene-4": {
-          "type": "scene_card",
-          "settings": {
-            "image": "shopify://shop_images/Wireless_Security_Camera_warehouse.jpg"
+            "image": "shopify://shop_images/Wireless_Outdoor_Security_Cameras_Store_5ca00263-b28d-4344-ba08-5cb368e99b8f.jpg"
           }
         },
         "scene_card_YMaexJ": {
           "type": "scene_card",
           "settings": {
-            "image": "shopify://shop_images/Wireless_Security_Cameras_For_Home_2.jpg"
+            "image": "shopify://shop_images/Solar_Powered_Security_Camera_Manage_Deliveries_3cef4d5d-15ce-4747-9acd-e7b5e2c8747c.jpg"
+          }
+        },
+        "scene-4": {
+          "type": "scene_card",
+          "settings": {
+            "image": "shopify://shop_images/Wireless_Security_Camera_warehouse_5fcb427b-5061-49f6-bbdc-362c2969b819.jpg"
+          }
+        },
+        "scene-3": {
+          "type": "scene_card",
+          "settings": {
+            "image": "shopify://shop_images/Wireless_Security_Cameras_For_Home_2_b6059b55-bf4f-4c59-8a1e-8f29f3858eed.jpg"
           }
         },
         "scene_card_My469f": {
           "type": "scene_card",
           "settings": {
-            "image": "shopify://shop_images/Wireless_Outdoor_Security_Cameras_Store.jpg"
+            "image": "shopify://shop_images/Wireless_Cameras_For_Home_Security_1_ec9e172f-332f-4ca6-92e0-00acfd943e6d.jpg"
           }
         }
       },
       "block_order": [
         "scene-1",
         "scene-2",
-        "scene-3",
-        "scene-4",
         "scene_card_YMaexJ",
+        "scene-4",
+        "scene-3",
         "scene_card_My469f"
       ],
-      "disabled": true,
       "settings": {
         "header_title": "<em>Protection</em> Where It Matters Most",
         "header_description": "<p>Keep an eye on your front door, driveway, backyard, or indoors—whether you're home or away.</p>",
