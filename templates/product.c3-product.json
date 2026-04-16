@@ -154,6 +154,7 @@
         },
         "q_see_in_action_qqPxfb": {
           "type": "q_see_in_action",
+          "disabled": true,
           "settings": {
             "heading": "See in Action",
             "autoplay_timer": false,
@@ -162,6 +163,7 @@
         },
         "q_see_in_action_card_yrNeJw": {
           "type": "q_see_in_action_card",
+          "disabled": true,
           "settings": {
             "video": "shopify://files/videos/Anran Q3 Cam video mo 1.mov",
             "video_link": "https://www.youtube.com/watch?v=lTZ-EJ4ZzJs",
@@ -170,6 +172,7 @@
         },
         "q_see_in_action_card_YVXWf8": {
           "type": "q_see_in_action_card",
+          "disabled": true,
           "settings": {
             "video": "shopify://files/videos/Anran Q3 Cam video mo 4.mov",
             "video_link": "https://www.youtube.com/watch?v=lKiBqokvYtI",
@@ -178,6 +181,7 @@
         },
         "q_see_in_action_card_x9tfpr": {
           "type": "q_see_in_action_card",
+          "disabled": true,
           "settings": {
             "video": "shopify://files/videos/Anran Q3 Cam video mo 3.mov",
             "video_link": "https://www.youtube.com/watch?v=0OUhd_5za58",
@@ -186,6 +190,7 @@
         },
         "q_see_in_action_card_ekQeaR": {
           "type": "q_see_in_action_card",
+          "disabled": true,
           "settings": {
             "video": "shopify://files/videos/Anran Q3 Cam video mo 2.mov",
             "video_link": "https://www.youtube.com/watch?v=ZjxujJ0LYZk",
@@ -806,6 +811,7 @@
         "card-1",
         "card_rjVfVa"
       ],
+      "disabled": true,
       "settings": {
         "header_title": "Tested and trusted by <em>home security experts</em>",
         "header_description": "",
@@ -987,6 +993,7 @@
         "scene_card_YMaexJ",
         "scene_card_My469f"
       ],
+      "disabled": true,
       "settings": {
         "header_title": "<em>Protection</em> Where It Matters Most",
         "header_description": "<p>Keep an eye on your front door, driveway, backyard, or indoors—whether you're home or away.</p>",
