@@ -662,7 +662,7 @@
         "header_margin_bottom_desktop": 40,
         "header_margin_bottom_mobile": 24,
         "description": "AI-powered detection recognizes, and filters out false alerts—so you stay informed without constant interruptions.",
-        "video": "shopify://files/videos/Anran Q3 Cam video mo 7.mov",
+        "video": "shopify://files/videos/C3.mov",
         "side_image_1": "shopify://shop_images/Rectangle_193.jpg",
         "side_image_2": "shopify://shop_images/Rectangle_197.jpg",
         "side_image_3": "shopify://shop_images/Rectangle_194.jpg",
@@ -987,7 +987,6 @@
         "scene_card_YMaexJ",
         "scene_card_My469f"
       ],
-      "disabled": true,
       "settings": {
         "header_title": "<em>Protection</em> Where It Matters Most",
         "header_description": "<p>Keep an eye on your front door, driveway, backyard, or indoors—whether you're home or away.</p>",
