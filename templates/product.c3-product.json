@@ -1414,14 +1414,14 @@
           "type": "spec_item",
           "settings": {
             "label": "Video Capture Resolution",
-            "value": "4K / 8MP"
+            "value": "5MP"
           }
         },
         "spec-2": {
           "type": "spec_item",
           "settings": {
             "label": "Viewing Angle",
-            "value": "360 Degrees"
+            "value": "95 Degrees"
           }
         },
         "spec-3": {
