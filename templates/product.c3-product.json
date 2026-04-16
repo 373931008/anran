@@ -684,7 +684,7 @@
         "card-1": {
           "type": "card",
           "settings": {
-            "image": "shopify://shop_images/3-1_391dbffd-9874-4bde-9010-57d7ba4100d3.jpg",
+            "image": "shopify://shop_images/C3_Integrated_Solar_Battery_Camera.jpg",
             "title": "Instant App Alerts",
             "description": "<p>Receive instant notifications on your phone when important motion is detected, so you can respond quickly.</p>"
           }
@@ -692,7 +692,7 @@
         "card-2": {
           "type": "card",
           "settings": {
-            "image": "shopify://shop_images/Anran_Security_Camera_Threat_prevention.jpg",
+            "image": "shopify://shop_images/C3_Integrated_Camera.jpg",
             "title": "Threat prevention",
             "description": "<p>Activate built-in spotlight or siren to deter intruders and add an extra layer of active protection.</p>"
           }
