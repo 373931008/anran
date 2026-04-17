@@ -849,7 +849,7 @@
         "tab-1": {
           "type": "tab",
           "settings": {
-            "tab_label": "4K HDR",
+            "tab_label": "3K HDR",
             "media_type": "image",
             "image_desktop": "shopify://shop_images/4K_HDR_Outdoor_Wireless_Video_Security_Camera.jpg",
             "image_mobile": "shopify://shop_images/Security_Cameras_Color_Night_mobile.jpg",
@@ -1346,7 +1346,7 @@
         "hero_desc_size_desktop": 16,
         "hero_desc_size_mobile": 12,
         "hero_desc_color": "#4e5357",
-        "hero_product_image": "shopify://shop_images/1-list.jpg",
+        "hero_product_image": "{{ product.metafields.custom.included_in_your_box_image.value }}",
         "btn_label": "Buy Now",
         "btn_link": "/cart/41270927097933:1",
         "btn_bg_color": "#1565d8",
