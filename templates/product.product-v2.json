@@ -491,7 +491,7 @@
           "type": "card_image_text",
           "settings": {
             "image": "shopify://shop_images/Group_347.jpg",
-            "title": "4K HDR Video",
+            "title": "{{ product.metafields.custom.why_choose_our_camera_1.value }}",
             "description": "",
             "content_position": "bottom",
             "title_size_desktop": 32,
@@ -843,7 +843,7 @@
         "tab-1": {
           "type": "tab",
           "settings": {
-            "tab_label": "4K HDR",
+            "tab_label": "{{ product.metafields.custom.see_details_tab_2_text.value }}",
             "media_type": "image",
             "image_desktop": "shopify://shop_images/4K_HDR_Outdoor_Wireless_Video_Security_Camera.jpg",
             "image_mobile": "shopify://shop_images/Security_Cameras_Color_Night_mobile.jpg",
@@ -1340,7 +1340,7 @@
         "hero_desc_size_desktop": 16,
         "hero_desc_size_mobile": 12,
         "hero_desc_color": "#4e5357",
-        "hero_product_image": "shopify://shop_images/anran_Q3M8_product_box_list.jpg",
+        "hero_product_image": "{{ product.metafields.custom.included_in_your_box_image.value }}",
         "btn_label": "Buy Now",
         "btn_link": "/cart/41859158278221:1",
         "btn_bg_color": "#1565d8",
@@ -1407,7 +1407,7 @@
           "type": "spec_item",
           "settings": {
             "label": "Video Capture Resolution",
-            "value": "4K"
+            "value": "{{ product.metafields.custom.specs_1.value }}"
           }
         },
         "spec-2": {
