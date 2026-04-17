@@ -40,7 +40,10 @@
       <script src="{{ 'animations.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
 
-    {{ content_for_header }}
+    {%- comment -%} 屏蔽 App 内嵌页的数据上报 {%- endcomment -%}
+    {%- unless template.suffix == 'flash-app' or page.handle == 'flash-sale-app' -%}
+      {{ content_for_header }}
+    {%- endunless -%}
 
     {%- liquid
       assign body_font_bold = settings.type_body_font | font_modify: 'weight', 'bold'

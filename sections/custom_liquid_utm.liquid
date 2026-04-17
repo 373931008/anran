@@ -1,0 +1,47 @@
+{%- comment -%}
+  为 App 内嵌页自动拼接 UTM 参数
+{%- endcomment -%}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    function appendUtm() {
+      const links = document.querySelectorAll('a[href*="/products/"]');
+      links.forEach(link => {
+        try {
+          const url = new URL(link.href, window.location.origin);
+          if (!url.searchParams.has('utm_source')) {
+            url.searchParams.set('utm_source', 'cus_app');
+            link.href = url.toString();
+          }
+        } catch (e) {
+          console.error('URL解析错误:', e);
+        }
+      });
+    }
+
+    // 初始执行
+    appendUtm();
+
+    // 监听 DOM 变化，处理异步加载的商品
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((m) => {
+        if (m.addedNodes.length > 0) {
+          appendUtm();
+        }
+      });
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "App UTM 参数添加器",
+  "settings": [],
+  "presets": [
+    {
+      "name": "App UTM 参数添加器"
+    }
+  ]
+}
+{% endschema %}

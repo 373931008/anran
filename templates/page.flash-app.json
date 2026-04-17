@@ -359,6 +359,10 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "custom_liquid_utm": {
+      "type": "custom_liquid_utm",
+      "settings": {}
     }
   },
   "order": [
@@ -370,6 +374,7 @@
     "rich_text_iqDYhn",
     "blocks_zDwPUk",
     "blocks_jTNdLC",
-    "page_PAGrJp"
+    "page_PAGrJp",
+    "custom_liquid_utm"
   ]
 }
