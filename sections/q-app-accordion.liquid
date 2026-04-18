@@ -1,0 +1,710 @@
+{%- comment -%}
+  Section: q-app-accordion
+  功能说明：左侧手风琴与右侧大图联动（桌面端）；移动端配图展示在当前展开项下方。
+  交互与 q-faq / faq-tabs 一致（max-height 过渡、箭头旋转、互斥展开）。
+  Islands: frontend/islands/app-feature-accordion.js
+  设计稿：桌面 155-315，移动 334-41
+  版本：1.0.0
+{%- endcomment -%}
+
+{%- liquid
+  assign item_blocks = section.blocks | where: 'type', 'item'
+  assign should_default_open_first_item = section.settings.default_open_first_item
+-%}
+
+<style>
+  .section-{{ section.id }} {
+    --aa-bg: {{ section.settings.bg_color }};
+    --aa-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --aa-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --aa-padding-top-desktop: {{ section.settings.padding_top_desktop }}px;
+    --aa-padding-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --aa-title-row: {{ section.settings.item_title_color }};
+    --aa-body: {{ section.settings.item_body_color }};
+    --aa-divider: {{ section.settings.divider_color | default: '#333940' }};
+    --aa-summary-bg: {{ section.settings.summary_bg_color }};
+    --aa-cta-start: {{ section.settings.cta_bg_start }};
+    --aa-cta-end: {{ section.settings.cta_bg_end }};
+    --aa-cta-text: {{ section.settings.cta_text_color }};
+    --aa-media-radius-mobile: {{ section.settings.media_radius_mobile }}px;
+    --aa-media-radius-desktop: {{ section.settings.media_radius_desktop }}px;
+  }
+
+  .section-{{ section.id }}.q-app-accordion {
+    font-family: var(--font-body-family);
+    padding-top: var(--aa-padding-top-mobile, 40px);
+    padding-bottom: var(--aa-padding-bottom-mobile, 40px);
+    background: var(--aa-bg, #1a1d21);
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}.q-app-accordion {
+      padding-top: var(--aa-padding-top-desktop, 60px);
+      padding-bottom: var(--aa-padding-bottom-desktop, 60px);
+    }
+  }
+
+  .section-{{ section.id }} .q-app-accordion__grid {
+    display: grid;
+    gap: 28px;
+    align-items: start;
+  }
+
+  @media screen and (min-width: 990px) {
+    .section-{{ section.id }} .q-app-accordion__grid {
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 668px);
+      gap: 48px;
+      align-items: center;
+    }
+  }
+
+  .section-{{ section.id }} .q-app-accordion__cta {
+    margin-top: 20px;
+    margin-bottom: 8px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-app-accordion__cta {
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+  }
+
+  .section-{{ section.id }} .q-app-accordion__cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 34px;
+    padding: 0 22px;
+    border-radius: 100px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--aa-cta-text, #fff);
+    text-decoration: none;
+    background: linear-gradient(90deg, var(--aa-cta-start, #6cbce7) 0%, var(--aa-cta-end, #367cf6) 100%);
+    transition: opacity 0.2s;
+  }
+
+  .section-{{ section.id }} .q-app-accordion__cta-btn:hover {
+    opacity: 0.92;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-app-accordion__cta-btn {
+      min-height: 46px;
+      padding: 0 28px;
+      font-size: 18px;
+    }
+  }
+
+  .section-{{ section.id }} .q-app-accordion__cta-icon {
+    margin-left: 6px;
+    font-weight: 600;
+  }
+
+  .section-{{ section.id }} .q-app-accordion__list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .section-{{ section.id }} .q-app-accordion__item {
+    border-top: 1px solid var(--aa-divider, rgba(255, 255, 255, 0.14));
+    overflow: hidden;
+  }
+
+  .section-{{ section.id }} .q-app-accordion__item:first-child {
+    border-top: none;
+    padding-top: 0;
+  }
+
+  .section-{{ section.id }} .q-app-accordion__summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 16px 0 12px;
+    min-height: 48px;
+    cursor: pointer;
+    list-style: none;
+    color: var(--aa-title-row, #ffffff);
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.35;
+    background: transparent;
+  }
+
+  .section-{{ section.id }} .q-app-accordion__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .section-{{ section.id }} .q-app-accordion__question {
+    flex: 1;
+  }
+
+  .section-{{ section.id }} .q-app-accordion__icon {
+    flex-shrink: 0;
+    width: 17px;
+    height: 17px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+    color: inherit;
+    opacity: 0.88;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-app-accordion__summary {
+      padding: 20px 0 14px;
+      font-size: 24px;
+      min-height: 56px;
+    }
+
+    .section-{{ section.id }} .q-app-accordion__icon {
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+  .section-{{ section.id }} .q-app-accordion__item[data-open] .q-app-accordion__icon {
+    transform: rotate(180deg);
+  }
+
+  .section-{{ section.id }} .q-app-accordion__answer-wrap {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .section-{{ section.id }} .q-app-accordion__answer {
+    padding: 0 0 18px;
+    color: var(--aa-body, #cacbcc);
+    font-size: 12px;
+    line-height: 1.55;
+  }
+
+  .section-{{ section.id }} .q-app-accordion__answer p {
+    margin: 0;
+  }
+
+  .section-{{ section.id }} .q-app-accordion__answer p + p {
+    margin-top: 8px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-app-accordion__answer {
+      font-size: 16px;
+      padding: 0 0 22px;
+      max-width: 595px;
+    }
+  }
+
+  /* 移动端：配图在手风琴答案下方 */
+  .section-{{ section.id }} .q-app-accordion__item-visual {
+    display: none;
+    margin-top: 4px;
+    margin-bottom: 8px;
+    border-radius: var(--aa-media-radius-mobile, 15px);
+    overflow: hidden;
+    background: var(--aa-summary-bg, rgba(255, 255, 255, 0.04));
+    aspect-ratio: 345 / 325;
+  }
+
+  .section-{{ section.id }} .q-app-accordion__item[data-open] .q-app-accordion__item-visual {
+    display: block;
+  }
+
+  .section-{{ section.id }} .q-app-accordion__item-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    vertical-align: middle;
+  }
+
+  /* 桌面端：隐藏行内配图，使用右栏 */
+  @media screen and (min-width: 990px) {
+    .section-{{ section.id }} .q-app-accordion__item-visual {
+      display: none !important;
+    }
+  }
+
+  .section-{{ section.id }} .q-app-accordion__media-desktop {
+    display: none;
+    position: relative;
+    width: 100%;
+    max-width: 668px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: var(--aa-media-radius-desktop, 30px);
+    overflow: hidden;
+    background: var(--aa-summary-bg, rgba(255, 255, 255, 0.06));
+    aspect-ratio: 668 / 629;
+  }
+
+  @media screen and (min-width: 990px) {
+    .section-{{ section.id }} .q-app-accordion__media-desktop {
+      display: block;
+    }
+  }
+
+  .section-{{ section.id }} .q-app-accordion__media-panel {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    pointer-events: none;
+  }
+
+  .section-{{ section.id }} .q-app-accordion__media-panel--active {
+    opacity: 1;
+    z-index: 1;
+  }
+
+  .section-{{ section.id }} .q-app-accordion__media-panel img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .section-{{ section.id }} .q-section-header__title {
+    font-weight: 600 !important;
+  }
+</style>
+
+<div class="q-app-accordion section-{{ section.id }}">
+  <div class="page-width">
+    <app-feature-accordion client:visible>
+      <div class="q-app-accordion__grid">
+        <div class="q-app-accordion__copy">
+          {%- render 'q-section-header',
+            section: section,
+            title_color: section.settings.header_title_color,
+            desc_color: section.settings.header_desc_color
+          -%}
+          {%- if section.settings.cta_label != blank -%}
+            <div class="q-app-accordion__cta">
+              <a class="q-app-accordion__cta-btn" href="{{ section.settings.cta_link }}">
+                {{- section.settings.cta_label -}}
+                <span class="q-app-accordion__cta-icon" aria-hidden="true">&gt;</span>
+              </a>
+            </div>
+          {%- endif -%}
+
+          <div class="q-app-accordion__list">
+            {%- for block in item_blocks -%}
+              {%- assign is_default_open_item = false -%}
+              {%- if should_default_open_first_item and forloop.first -%}
+                {%- assign is_default_open_item = true -%}
+              {%- endif -%}
+              {%- assign img_m = block.settings.image_mobile -%}
+              {%- if img_m == blank -%}
+                {%- assign img_m = block.settings.image -%}
+              {%- endif -%}
+              {%- assign img_alt = block.settings.image_alt | default: block.settings.title | escape -%}
+              <div
+                class="q-app-accordion__item{% if is_default_open_item %} q-app-accordion__item--default-open{% endif %}"
+                data-item-index="{{ forloop.index0 }}"
+                {{ block.shopify_attributes }}
+              >
+                <div
+                  class="q-app-accordion__summary"
+                  role="button"
+                  tabindex="0"
+                  aria-expanded="{% if is_default_open_item %}true{% else %}false{% endif %}"
+                >
+                  <span class="q-app-accordion__question">{{- block.settings.title -}}</span>
+                  <span class="q-app-accordion__icon" aria-hidden="true">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </span>
+                </div>
+                {%- if block.settings.answer != blank or img_m != blank -%}
+                  <div class="q-app-accordion__answer-wrap">
+                    <div class="q-app-accordion__answer-inner">
+                      {%- if block.settings.answer != blank -%}
+                        <div class="q-app-accordion__answer">{{- block.settings.answer -}}</div>
+                      {%- endif -%}
+                      {%- if img_m != blank -%}
+                        <div class="q-app-accordion__item-visual">
+                          {{
+                            img_m
+                            | image_url: width: 900
+                            | image_tag:
+                              loading: 'lazy',
+                              widths: '375,550,750,900',
+                              sizes: '100vw',
+                              alt: img_alt
+                          }}
+                        </div>
+                      {%- endif -%}
+                    </div>
+                  </div>
+                {%- endif -%}
+              </div>
+            {%- endfor -%}
+          </div>
+        </div>
+
+        <div
+          class="q-app-accordion__media-desktop"
+          aria-live="polite"
+        >
+          {%- for block in item_blocks -%}
+            {%- assign panel_active = false -%}
+            {%- if should_default_open_first_item and forloop.first -%}
+              {%- assign panel_active = true -%}
+            {%- endif -%}
+            {%- assign img_alt_desktop = block.settings.image_alt | default: block.settings.title | escape -%}
+            <div
+              class="q-app-accordion__media-panel{% if panel_active %} q-app-accordion__media-panel--active{% endif %}"
+              data-media-index="{{ forloop.index0 }}"
+              aria-hidden="{% if panel_active %}false{% else %}true{% endif %}"
+            >
+              {%- if block.settings.image != blank -%}
+                {{
+                  block.settings.image
+                  | image_url: width: 1600
+                  | image_tag:
+                    loading: 'lazy',
+                    widths: '400,668,900,1200,1600',
+                    sizes: '(min-width: 990px) min(668px, 42vw), 0px',
+                    alt: img_alt_desktop
+                }}
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </app-feature-accordion>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "q-app-accordion",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "上下边距"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "上边距（移动端）",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "下边距（移动端）",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "label": "上边距（桌面端）",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "label": "下边距（桌面端）",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "背景与分割"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "板块背景色",
+      "default": "#1a1d21"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "条目分割线颜色",
+      "default": "#333940"
+    },
+    {
+      "type": "color",
+      "id": "summary_bg_color",
+      "label": "配图占位背景",
+      "default": "rgba(255,255,255,0.06)"
+    },
+    {
+      "type": "header",
+      "content": "交互"
+    },
+    {
+      "type": "checkbox",
+      "id": "default_open_first_item",
+      "label": "默认展开第一项",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "板块标题"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "header_title",
+      "label": "标题",
+      "default": "<em>One App</em> for Full Control"
+    },
+    {
+      "type": "richtext",
+      "id": "header_description",
+      "label": "描述",
+      "default": "<p>Stay connected to your home or business anytime, anywhere</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "header_center",
+      "label": "标题区居中对齐",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "header_title_color",
+      "label": "标题颜色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "header_desc_color",
+      "label": "描述颜色",
+      "default": "#cacbcc"
+    },
+    {
+      "type": "color_background",
+      "id": "header_em_color",
+      "label": "em 高亮色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "header_title_size_desktop",
+      "label": "标题字号（桌面端）",
+      "min": 20,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "header_title_size_mobile",
+      "label": "标题字号（移动端）",
+      "min": 16,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "header_desc_size_desktop",
+      "label": "描述字号（桌面端）",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "header_desc_size_mobile",
+      "label": "描述字号（移动端）",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "header_margin_bottom_desktop",
+      "label": "标题下边距（桌面端）",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "header_margin_bottom_mobile",
+      "label": "标题下边距（移动端）",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "下载按钮"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "按钮文案",
+      "default": "Download Our APP"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "按钮链接"
+    },
+    {
+      "type": "color",
+      "id": "cta_bg_start",
+      "label": "按钮渐变起点",
+      "default": "#6cbce7"
+    },
+    {
+      "type": "color",
+      "id": "cta_bg_end",
+      "label": "按钮渐变终点",
+      "default": "#367cf6"
+    },
+    {
+      "type": "color",
+      "id": "cta_text_color",
+      "label": "按钮文字色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "手风琴文字"
+    },
+    {
+      "type": "color",
+      "id": "item_title_color",
+      "label": "条目标题色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "item_body_color",
+      "label": "条目正文色",
+      "default": "#cacbcc"
+    },
+    {
+      "type": "header",
+      "content": "配图圆角"
+    },
+    {
+      "type": "range",
+      "id": "media_radius_mobile",
+      "label": "移动端配图圆角",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "media_radius_desktop",
+      "label": "桌面端配图圆角",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 30
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "功能条目",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "标题",
+          "default": "Instant Alert"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "说明文案",
+          "default": "<p>Receive real-time push notifications or emails to stay in-the-know when anything happens at home.</p>"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "配图（桌面端右侧）"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "配图（移动端，留空则沿用桌面图）"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "q-app-accordion",
+      "blocks": [
+        {
+          "type": "item",
+          "settings": {
+            "title": "Instant Alert",
+            "answer": "<p>Receive real-time push notifications or emails to stay in-the-know when anything happens at home.</p>"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "title": "Motion Zones",
+            "answer": "<p>Customize detection areas so you only get alerts that matter.</p>"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "title": "Easy Playback",
+            "answer": "<p>Review recordings quickly with timeline scrubbing and smart highlights.</p>"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "title": "Recording Scheduling",
+            "answer": "<p>Set schedules for continuous or event-based recording to fit your routine.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

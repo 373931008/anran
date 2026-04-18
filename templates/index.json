@@ -146,54 +146,79 @@
         "bs-card-1": {
           "type": "card",
           "settings": {
+            "image": "shopify://shop_images/Rectangle_300.jpg",
+            "empty_bg": "#d5d5d6",
             "title": "Solar Cam D1 Max",
             "description": "360° 3K PTZ Camera with Enhanced AI Detection.",
             "button_label": "Shop Now",
             "button_link": "/",
             "title_color": "#1e1e1e",
-            "desc_color": "#4e5357"
+            "desc_color": "#4e5357",
+            "btn_bg_start": "#6cbce7",
+            "btn_bg_end": "#367cf6"
           }
         },
         "bs-card-2": {
           "type": "card",
           "settings": {
+            "image": "shopify://shop_images/Rectangle_300_1.jpg",
+            "empty_bg": "#d5d5d6",
             "title": "Solar Cam D1 Max",
             "description": "360° 3K PTZ Camera with Enhanced AI Detection.",
             "button_label": "Shop Now",
             "button_link": "/",
             "title_color": "#1e1e1e",
-            "desc_color": "#4e5357"
+            "desc_color": "#4e5357",
+            "btn_bg_start": "#6cbce7",
+            "btn_bg_end": "#367cf6"
           }
         },
         "bs-card-3": {
           "type": "card",
           "settings": {
+            "image": "shopify://shop_images/Rectangle_300_2.jpg",
+            "empty_bg": "#d5d5d6",
             "title": "Solar Cam D1 Max",
             "description": "360° 3K PTZ Camera with Enhanced AI Detection.",
             "button_label": "Shop Now",
             "button_link": "/",
             "title_color": "#ffffff",
-            "desc_color": "#ffffff"
+            "desc_color": "#ffffff",
+            "btn_bg_start": "#6cbce7",
+            "btn_bg_end": "#367cf6"
           }
         },
         "bs-card-4": {
           "type": "card",
           "settings": {
+            "image": "shopify://shop_images/Rectangle_300_3.jpg",
+            "empty_bg": "#d5d5d6",
             "title": "Solar Cam D1 Max",
             "description": "360° 3K PTZ Camera with Enhanced AI Detection.",
             "button_label": "Shop Now",
             "button_link": "/",
             "title_color": "#1e1e1e",
-            "desc_color": "#4e5357"
+            "desc_color": "#4e5357",
+            "btn_bg_start": "#6cbce7",
+            "btn_bg_end": "#367cf6"
           }
         }
       },
-      "block_order": ["bs-card-1", "bs-card-2", "bs-card-3", "bs-card-4"],
+      "block_order": [
+        "bs-card-1",
+        "bs-card-2",
+        "bs-card-3",
+        "bs-card-4"
+      ],
       "settings": {
         "header_title": "<em>Best</em> Sellers",
-        "header_em_color": "linear-gradient(135deg, #1e1e1e, #848484)",
+        "header_description": "",
+        "header_center": false,
+        "header_em_color": "linear-gradient(135deg, rgba(30, 30, 30, 1), rgba(132, 132, 132, 1) 100%)",
         "header_title_size_desktop": 46,
         "header_title_size_mobile": 24,
+        "header_desc_size_desktop": 16,
+        "header_desc_size_mobile": 12,
         "header_margin_bottom_desktop": 32,
         "header_margin_bottom_mobile": 20,
         "card_gap": 20,
@@ -204,11 +229,174 @@
         "padding_top_desktop": 60,
         "padding_bottom_desktop": 60
       }
+    },
+    "q-shop-by-categories": {
+      "type": "q-shop-by-categories",
+      "blocks": {
+        "sc-cat-1": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/Rectangle_300.png",
+            "empty_bg": "#d5d5d6",
+            "title": "Camera Kits",
+            "description": "All-in-One Security Made Simple.",
+            "title_color": "#1e1e1e",
+            "desc_color": "#4e5357"
+          }
+        },
+        "sc-cat-2": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/Rectangle_300_1.png",
+            "empty_bg": "#d5d5d6",
+            "title": "Outdoor Cameras",
+            "description": "Guard Every Corner, Rain or Shine.",
+            "title_color": "#1e1e1e",
+            "desc_color": "#4e5357"
+          }
+        },
+        "sc-cat-3": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/Rectangle_300_2.png",
+            "empty_bg": "#d5d5d6",
+            "title": "Indoor Cameras",
+            "description": "Peace of Mind, Room by Room.",
+            "title_color": "#1e1e1e",
+            "desc_color": "#4e5357"
+          }
+        },
+        "sc-cat-4": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/Rectangle_300_3.png",
+            "empty_bg": "#d5d5d6",
+            "title": "Solar Cameras",
+            "description": "Smart Security, Solar Simple.",
+            "title_color": "#1e1e1e",
+            "desc_color": "#4e5357"
+          }
+        },
+        "sc-cat-5": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/Rectangle_300_4.png",
+            "empty_bg": "#d5d5d6",
+            "title": "Dual-Lens Security Cameras",
+            "description": "Guard Every Corner, Rain or Shine.",
+            "title_color": "#1e1e1e",
+            "desc_color": "#4e5357"
+          }
+        }
+      },
+      "block_order": [
+        "sc-cat-1",
+        "sc-cat-2",
+        "sc-cat-3",
+        "sc-cat-4",
+        "sc-cat-5"
+      ],
+      "settings": {
+        "header_title": "Shop by Categories",
+        "header_description": "",
+        "header_center": false,
+        "header_em_color": "linear-gradient(135deg, rgba(30, 30, 30, 1), rgba(132, 132, 132, 1) 100%)",
+        "header_title_size_desktop": 46,
+        "header_title_size_mobile": 24,
+        "header_desc_size_desktop": 16,
+        "header_desc_size_mobile": 12,
+        "header_margin_bottom_desktop": 32,
+        "header_margin_bottom_mobile": 20,
+        "grid_gap_mobile": 12,
+        "grid_gap_desktop": 20,
+        "card_radius": 15,
+        "bg_color": "#F5F6F7",
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60
+      }
+    },
+    "q-app-accordion": {
+      "type": "q-app-accordion",
+      "blocks": {
+        "app-acc-1": {
+          "type": "item",
+          "settings": {
+            "title": "Instant Alert",
+            "answer": "<p>Receive real-time push notifications or emails to stay in-the-know when anything happens at home.</p>",
+            "image": "shopify://shop_images/Rectangle_298.png"
+          }
+        },
+        "app-acc-2": {
+          "type": "item",
+          "settings": {
+            "title": "Motion Zones",
+            "answer": "<p>Customize detection areas so you only get alerts that matter.</p>",
+            "image": "shopify://shop_images/Rectangle_300.jpg"
+          }
+        },
+        "app-acc-3": {
+          "type": "item",
+          "settings": {
+            "title": "Easy Playback",
+            "answer": "<p>Review recordings quickly with timeline scrubbing and smart highlights.</p>",
+            "image": "shopify://shop_images/Rectangle_300_3.jpg"
+          }
+        },
+        "app-acc-4": {
+          "type": "item",
+          "settings": {
+            "title": "Recording Scheduling",
+            "answer": "<p>Set schedules for continuous or event-based recording to fit your routine.</p>",
+            "image": "shopify://shop_images/Rectangle_300_1.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "app-acc-1",
+        "app-acc-2",
+        "app-acc-3",
+        "app-acc-4"
+      ],
+      "settings": {
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60,
+        "bg_color": "#1a1d21",
+        "divider_color": "#333940",
+        "summary_bg_color": "#ffffff0f",
+        "default_open_first_item": true,
+        "header_title": "<em>One App</em> for Full Control",
+        "header_description": "<p>Stay connected to your home or business anytime, anywhere</p>",
+        "header_center": false,
+        "header_title_color": "#ffffff",
+        "header_desc_color": "#cacbcc",
+        "header_em_color": "#ffffff",
+        "header_title_size_desktop": 40,
+        "header_title_size_mobile": 24,
+        "header_desc_size_desktop": 16,
+        "header_desc_size_mobile": 12,
+        "header_margin_bottom_desktop": 20,
+        "header_margin_bottom_mobile": 16,
+        "cta_label": "Download Our APP",
+        "cta_link": "",
+        "cta_bg_start": "#6cbce7",
+        "cta_bg_end": "#367cf6",
+        "cta_text_color": "#ffffff",
+        "item_title_color": "#ffffff",
+        "item_body_color": "#cacbcc",
+        "media_radius_mobile": 15,
+        "media_radius_desktop": 30
+      }
     }
   },
   "order": [
     "q-hero-banner",
     "q-benefit-bar",
-    "q-best-sellers"
+    "q-best-sellers",
+    "q-shop-by-categories",
+    "q-app-accordion"
   ]
 }

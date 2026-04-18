@@ -5,7 +5,7 @@
   设计稿：
   - 桌面端: https://www.figma.com/design/5pt3sMVvBe9wjapAFGqdUb/?node-id=155-380
   - 移动端: https://www.figma.com/design/5pt3sMVvBe9wjapAFGqdUb/?node-id=332-19
-  版本：1.0.0
+  版本：1.1.0
 {%- endcomment -%}
 
 <style>
@@ -85,6 +85,14 @@
     height: 100%;
     object-fit: cover;
     display: block;
+    transform: scale(1);
+    transition: transform 0.45s ease;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .section-{{ section.id }} a.q-bs__card:hover .q-bs__card-img {
+      transform: scale(1.06);
+    }
   }
 
   /* ─── 无图片时：纯色/渐变占位（默认深于版块底色 #F5F6F7，避免「看不见」） ─── */

@@ -1,0 +1,462 @@
+{%- comment -%}
+  Section: q-shop-by-categories
+  功能说明：按品类浏览 —— 第一块为大图（左列跨两行），其余为小图（右侧 2×2）；移动端首块通栏，其余两列网格
+  设计稿：
+  - 桌面端: https://www.figma.com/design/5pt3sMVvBe9wjapAFGqdUb/?node-id=155-406
+  - 移动端: https://www.figma.com/design/5pt3sMVvBe9wjapAFGqdUb/?node-id=333-40
+  版本：1.2.0
+{%- endcomment -%}
+
+<style>
+  .section-{{ section.id }} {
+    --sc-bg: {{ section.settings.bg_color }};
+    --sc-pt-mobile: {{ section.settings.padding_top_mobile }}px;
+    --sc-pb-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --sc-pt-desktop: {{ section.settings.padding_top_desktop }}px;
+    --sc-pb-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --sc-gap-mobile: {{ section.settings.grid_gap_mobile }}px;
+    --sc-gap-desktop: {{ section.settings.grid_gap_desktop }}px;
+    --sc-radius: {{ section.settings.card_radius }}px;
+  }
+
+  .section-{{ section.id }}.q-shop-by-categories {
+    background: var(--sc-bg, #F5F6F7);
+    padding-top: var(--sc-pt-mobile, 40px);
+    padding-bottom: var(--sc-pb-mobile, 40px);
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}.q-shop-by-categories {
+      padding-top: var(--sc-pt-desktop, 60px);
+      padding-bottom: var(--sc-pb-desktop, 60px);
+    }
+  }
+
+  /* ─── 网格：移动端首块通栏 + 双列；桌面三列首块跨两行占左列 ─── */
+  .section-{{ section.id }} .q-sc__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--sc-gap-mobile, 12px);
+    align-items: stretch;
+  }
+
+  .section-{{ section.id }} .q-sc__grid > .q-sc__item:first-child {
+    grid-column: 1 / -1;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-sc__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--sc-gap-desktop, 20px);
+    }
+
+    .section-{{ section.id }} .q-sc__grid > .q-sc__item:first-child {
+      grid-column: 1;
+      grid-row: 1 / span 2;
+    }
+  }
+
+  /* ─── 卡片容器（可点为 a，无链接时为 div）─── */
+  .section-{{ section.id }} .q-sc__item {
+    position: relative;
+    display: block;
+    border-radius: var(--sc-radius, 15px);
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .section-{{ section.id }} a.q-sc__item:focus-visible {
+    outline: 2px solid #367cf6;
+    outline-offset: 2px;
+  }
+
+  /* 大图 / 小图 宽高比（对齐设计稿） */
+  .section-{{ section.id }} .q-sc__item--featured {
+    aspect-ratio: 345 / 216;
+  }
+
+  .section-{{ section.id }} .q-sc__item:not(.q-sc__item--featured) {
+    aspect-ratio: 169 / 215;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-sc__item--featured {
+      aspect-ratio: 459 / 694;
+    }
+
+    .section-{{ section.id }} .q-sc__item:not(.q-sc__item--featured) {
+      aspect-ratio: 459 / 337;
+    }
+  }
+
+  .section-{{ section.id }} .q-sc__item picture {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .section-{{ section.id }} .q-sc__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transform: scale(1);
+    transition: transform 0.45s ease;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .section-{{ section.id }} .q-sc__item:hover .q-sc__img {
+      transform: scale(1.06);
+    }
+  }
+
+  .section-{{ section.id }} .q-sc__placeholder {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .section-{{ section.id }} .q-sc__item--no-image {
+    box-shadow: inset 0 0 0 1px rgba(30, 30, 30, 0.06);
+  }
+
+  .section-{{ section.id }} .q-sc__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      transparent 40%,
+      rgba(0, 0, 0, 0.35) 100%
+    );
+    pointer-events: none;
+  }
+
+  .section-{{ section.id }} .q-sc__item--no-image .q-sc__overlay {
+    background: linear-gradient(
+      to bottom,
+      transparent 50%,
+      rgba(0, 0, 0, 0.06) 100%
+    );
+  }
+
+  /* ─── 单卡「文案在上」：遮罩自上而下变亮 ─── */
+  .section-{{ section.id }} .q-sc__item--body-top .q-sc__overlay {
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.35) 0%,
+      transparent 58%
+    );
+  }
+
+  .section-{{ section.id }} .q-sc__item--body-top.q-sc__item--no-image .q-sc__overlay {
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.06) 0%,
+      transparent 55%
+    );
+  }
+
+  /* ─── 文案位置：默认底部 ─── */
+  .section-{{ section.id }} .q-sc__body {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: auto;
+    padding: 12px;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .section-{{ section.id }} .q-sc__item--body-top .q-sc__body {
+    top: 0;
+    bottom: auto;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-sc__body {
+      padding: 20px 26px;
+    }
+
+    .section-{{ section.id }} .q-sc__item--body-top .q-sc__body {
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+  }
+
+  .section-{{ section.id }} .q-sc__title {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.25;
+    margin: 0 0 6px;
+    color: var(--sc-title-color, #1e1e1e);
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-sc__title {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+  }
+
+  .section-{{ section.id }} .q-sc__desc {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.35;
+    margin: 0;
+    color: var(--sc-desc-color, #4e5357);
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-sc__desc {
+      font-size: 16px;
+      line-height: 1.4;
+    }
+  }
+</style>
+
+<div class="q-shop-by-categories section-{{ section.id }}">
+  <div class="page-width">
+    {%- render 'q-section-header', section: section -%}
+
+    <div class="q-sc__grid">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'category' -%}
+          {%- assign has_img = false -%}
+          {%- if block.settings.image != blank or block.settings.image_mobile != blank -%}
+            {%- assign has_img = true -%}
+          {%- endif -%}
+          {%- assign card_link = block.settings.link -%}
+          {%- assign has_card_link = false -%}
+          {%- if card_link != blank -%}
+            {%- assign has_card_link = true -%}
+          {%- endif -%}
+          {%- assign card_aria = block.settings.title | default: block.settings.description | default: 'Category' | strip -%}
+          {%- capture sc_item_classes -%}q-sc__item{% if forloop.first %} q-sc__item--featured{% endif %}{% unless has_img %} q-sc__item--no-image{% endunless %}{% if block.settings.body_position == 'top' %} q-sc__item--body-top{% endif %}{%- endcapture -%}
+          {%- capture sc_item_style -%}--sc-title-color:{{ block.settings.title_color | default: '#1e1e1e' }};--sc-desc-color:{{ block.settings.desc_color | default: '#4e5357' }};{%- endcapture -%}
+
+          {%- if has_card_link -%}
+          <a
+            href="{{ card_link }}"
+            class="{{ sc_item_classes }}"
+            aria-label="{{ card_aria | escape }}"
+            {{ block.shopify_attributes }}
+            style="{{ sc_item_style }}"
+          >
+          {%- else -%}
+          <div
+            class="{{ sc_item_classes }}"
+            {{ block.shopify_attributes }}
+            style="{{ sc_item_style }}"
+          >
+          {%- endif -%}
+            {%- if has_img -%}
+              <picture>
+                {%- if block.settings.image_mobile != blank -%}
+                  <source
+                    media="(max-width: 749px)"
+                    srcset="{{ block.settings.image_mobile | image_url: width: 375 }} 375w, {{ block.settings.image_mobile | image_url: width: 750 }} 750w"
+                    sizes="(max-width: 749px) 100vw, 33vw"
+                  >
+                {%- endif -%}
+                {%- if block.settings.image != blank -%}
+                  {{-
+                    block.settings.image
+                    | image_url: width: 1200
+                    | image_tag:
+                      class: 'q-sc__img',
+                      loading: 'lazy',
+                      widths: '400,600,800,1200',
+                      sizes: '(min-width: 750px) 33vw, 100vw',
+                      alt: block.settings.title
+                  -}}
+                {%- else -%}
+                  {{-
+                    block.settings.image_mobile
+                    | image_url: width: 800
+                    | image_tag:
+                      class: 'q-sc__img',
+                      loading: 'lazy',
+                      widths: '375,750,800',
+                      sizes: '100vw',
+                      alt: block.settings.title
+                  -}}
+                {%- endif -%}
+              </picture>
+            {%- else -%}
+              <div
+                class="q-sc__placeholder"
+                style="background: {{ block.settings.empty_bg | default: '#d5d5d6' }};"
+                aria-hidden="true"
+              ></div>
+            {%- endif -%}
+
+            <div class="q-sc__overlay" aria-hidden="true"></div>
+
+            <div class="q-sc__body">
+              {%- if block.settings.title != blank -%}
+                <h3 class="q-sc__title">{{ block.settings.title }}</h3>
+              {%- endif -%}
+              {%- if block.settings.description != blank -%}
+                <p class="q-sc__desc">{{ block.settings.description }}</p>
+              {%- endif -%}
+            </div>
+          {%- if has_card_link -%}
+          </a>
+          {%- else -%}
+          </div>
+          {%- endif -%}
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Q-Shop by Categories",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "header", "content": "板块标题" },
+    { "type": "inline_richtext", "id": "header_title", "label": "标题", "default": "Shop by Categories" },
+    { "type": "richtext", "id": "header_description", "label": "描述" },
+    { "type": "checkbox", "id": "header_center", "label": "居中对齐", "default": false },
+    {
+      "type": "color_background",
+      "id": "header_em_color",
+      "label": "em 高亮色",
+      "default": "linear-gradient(135deg, #1e1e1e, #848484)"
+    },
+    { "type": "range", "id": "header_title_size_desktop", "label": "标题字号（桌面端）", "min": 20, "max": 80, "step": 2, "unit": "px", "default": 46 },
+    { "type": "range", "id": "header_title_size_mobile", "label": "标题字号（移动端）", "min": 16, "max": 50, "step": 2, "unit": "px", "default": 24 },
+    { "type": "range", "id": "header_desc_size_desktop", "label": "描述字号（桌面端）", "min": 10, "max": 30, "step": 1, "unit": "px", "default": 16 },
+    { "type": "range", "id": "header_desc_size_mobile", "label": "描述字号（移动端）", "min": 10, "max": 24, "step": 1, "unit": "px", "default": 12 },
+    { "type": "range", "id": "header_margin_bottom_desktop", "label": "标题下边距（桌面端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 32 },
+    { "type": "range", "id": "header_margin_bottom_mobile", "label": "标题下边距（移动端）", "min": 0, "max": 80, "step": 4, "unit": "px", "default": 20 },
+    { "type": "header", "content": "网格与卡片" },
+    {
+      "type": "range",
+      "id": "grid_gap_mobile",
+      "label": "卡片间距（移动端）",
+      "min": 8,
+      "max": 32,
+      "step": 4,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "grid_gap_desktop",
+      "label": "卡片间距（桌面端）",
+      "min": 8,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "卡片圆角",
+      "min": 0,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    { "type": "header", "content": "板块背景" },
+    { "type": "color_background", "id": "bg_color", "label": "背景色", "default": "#F5F6F7" },
+    { "type": "header", "content": "上下边距" },
+    { "type": "range", "id": "padding_top_mobile", "label": "上边距（移动端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_bottom_mobile", "label": "下边距（移动端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_top_desktop", "label": "上边距（桌面端）", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 60 },
+    { "type": "range", "id": "padding_bottom_desktop", "label": "下边距（桌面端）", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 60 }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "品类卡片",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "图片（桌面端）" },
+        { "type": "image_picker", "id": "image_mobile", "label": "图片（移动端）", "info": "不设置时使用桌面端图片" },
+        {
+          "type": "color_background",
+          "id": "empty_bg",
+          "label": "无图片时占位背景",
+          "default": "#d5d5d6",
+          "info": "均未上传图片时使用"
+        },
+        { "type": "text", "id": "title", "label": "标题", "default": "Camera Kits" },
+        { "type": "text", "id": "description", "label": "描述", "default": "All-in-One Security Made Simple." },
+        {
+          "type": "select",
+          "id": "body_position",
+          "label": "文案位置",
+          "default": "bottom",
+          "options": [
+            { "value": "bottom", "label": "图片下方（默认）" },
+            { "value": "top", "label": "图片上方" }
+          ],
+          "info": "该卡片标题与描述相对图片的叠放位置"
+        },
+        { "type": "header", "content": "文案颜色" },
+        { "type": "color", "id": "title_color", "label": "标题颜色", "default": "#1e1e1e" },
+        { "type": "color", "id": "desc_color", "label": "描述颜色", "default": "#4e5357" },
+        { "type": "header", "content": "链接" },
+        { "type": "url", "id": "link", "label": "卡片链接", "info": "留空则整块不可点击（不使用链接）；有链接时整块卡片可点" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Q-Shop by Categories",
+      "blocks": [
+        {
+          "type": "category",
+          "settings": {
+            "title": "Camera Kits",
+            "description": "All-in-One Security Made Simple."
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "title": "Outdoor Cameras",
+            "description": "Guard Every Corner, Rain or Shine."
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "title": "Indoor Cameras",
+            "description": "Peace of Mind, Room by Room."
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "title": "Solar Cameras",
+            "description": "Smart Security, Solar Simple."
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "title": "Dual-Lens Security Cameras",
+            "description": "Guard Every Corner, Rain or Shine."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
