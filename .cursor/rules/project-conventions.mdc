@@ -60,6 +60,161 @@ alwaysApply: true
 {% endschema %}
 ```
 
+## 自动化测试规范
+
+> **强制要求**：每次开发完成后，必须使用 `user-chrome-devtools` MCP 对 `http://127.0.0.1:9292/` 进行自动测试，确认无报错、无上传失败、页面渲染正确后方可结束任务。
+
+### 标准测试流程
+
+```javascript
+// 1. 刷新页面（强制忽略缓存）
+navigate_page({ type: "url", url: "http://127.0.0.1:9292/", ignoreCache: true })
+
+// 2. 截图检查页面渲染
+take_screenshot({ format: "png" })
+
+// 3. 抓取 error/warn 级别 console 消息
+list_console_messages({ types: ["error", "warn"] })
+```
+
+### 错误判断标准
+
+| 错误来源 | 处理方式 |
+|---|---|
+| Shopify Upload Errors（红色横幅）| **必须修复**，检查 schema / Liquid 语法 |
+| `sections/*.liquid` 报错 | **必须修复** |
+| `templates/*.json` 报错 | **必须修复** |
+| `https://0d0ac8.myshopify.com/api/collect` CORS | **忽略**，Shopify Analytics 本地跨域，预期行为 |
+| `shop.app` CSP frame-ancestors | **忽略**，Shopify 自有 iframe，预期行为 |
+| `shopify-perf-kit` / `Uncaught (in promise)` | **忽略**，Shopify 性能追踪脚本在本地失败，预期行为 |
+| `Ecom popup data element not found` | **忽略**，第三方 App 组件 |
+| 我们自己代码产生的 JS 错误 | **必须修复** |
+
+### Swiper 特定检查
+
+```javascript
+// 确认无 loop mode 警告（slides 不足时不应开启 loop）
+// 确认 realIndex、激活圆点、fill 动画三值同步
+evaluate_script({
+  function: "() => { const swiper = document.querySelector('swiper-container')?.swiper; return { realIndex: swiper?.realIndex } }"
+})
+```
+
+---
+
+## 性能规范
+
+> **强制要求**：所有新增代码必须遵守以下性能规范，避免 CLS（累积布局偏移）、不必要的 Layout/Paint，确保首屏体验和长列表滚动流畅。
+
+### 1. 图片加载策略
+
+```liquid
+{%- comment -%} ✅ 首屏图片（Hero、第一屏）：eager + 高优先级 {%- endcomment -%}
+{{- image | image_url: width: 1920 | image_tag:
+  loading: 'eager',
+  fetchpriority: 'high',
+  widths: '750,1100,1500,1920',
+  sizes: '100vw',
+  alt: ''
+-}}
+
+{%- comment -%} ✅ 非首屏图片（产品卡片、推荐区等）：lazy {%- endcomment -%}
+{{- image | image_url: width: 800 | image_tag:
+  loading: 'lazy',
+  widths: '375,750,1100',
+  sizes: '(min-width: 750px) 33vw, 50vw',
+  alt: ''
+-}}
+
+{%- comment -%} ❌ 禁止：手写 <img> 或省略 loading/widths/sizes {%- endcomment -%}
+```
+
+**判断原则**：
+- 在 `templates/index.json` 中 `order` 里排在**第 1 位**的 section → `loading: 'eager'`
+- 其余所有 section 内图片 → `loading: 'lazy'`
+- 轮播中第 1 张 slide 的背景图 → `loading: 'eager'`，其余 slides → `loading: 'lazy'`
+
+### 2. JavaScript 懒加载（Islands 架构）
+
+```liquid
+{%- comment -%} ✅ 所有交互组件必须使用 client:visible（进入视口时才初始化） {%- endcomment -%}
+<my-component-element client:visible>
+  ...
+</my-component-element>
+
+{%- comment -%} ❌ 禁止：省略 client:visible（组件随页面立即执行）{%- endcomment -%}
+<my-component-element>
+  ...
+</my-component-element>
+```
+
+**例外**：Hero Banner 等首屏交互组件**可以**使用 `client:visible`（首屏立即可见，observer 会立刻触发），无需特殊处理。
+
+### 3. CSS 动画性能
+
+```css
+/* ✅ 优先使用 transform / opacity（GPU Compositor 线程，不触发 Layout/Paint） */
+.fill { transform: scaleX(var(--progress)); will-change: transform; }
+.fade { opacity: 0; transition: opacity 0.3s; }
+
+/* ❌ 避免对 width/height/top/left 做动画（触发 Layout → Paint → Composite） */
+.bad { width: 0%; transition: width 5s; }
+```
+
+**规则**：
+- 进度条、展开/收起等动画 → 用 `transform: scaleX() / scaleY()` 代替 `width / height`
+- 淡入淡出 → 用 `opacity`，配合 `visibility: hidden` 控制交互
+- `will-change` 仅在动画元素上使用，动画结束后考虑用 JS 移除，避免长期占用 GPU 合成层
+
+### 4. CLS（累积布局偏移）防护
+
+```css
+/* ✅ Swiper 初始化前给出正确宽度，防止 JS 初始化时重排 */
+swiper-container {
+  width: 100%;
+  display: block; /* 不要写 display: flex，会干扰 Swiper 内部布局计算 */
+}
+swiper-slide {
+  width: 100%; /* JS 初始化前的宽度占位 */
+}
+
+/* ✅ 图片容器预留宽高比，避免图片加载后撑开页面 */
+.card__image-wrapper {
+  aspect-ratio: 4 / 3; /* 或使用 padding-top 百分比方式 */
+  overflow: hidden;
+}
+```
+
+### 5. 视频懒加载
+
+```liquid
+{%- comment -%} ✅ 非首屏视频：不自动播放，进入视口后才加载 {%- endcomment -%}
+<video-element client:visible>
+  {{- video | video_tag:
+    autoplay: false,
+    loop: true,
+    muted: true,
+    playsinline: true,
+    loading: 'lazy'
+  -}}
+</video-element>
+
+{%- comment -%} 或对背景视频使用 preload="none" {%- endcomment -%}
+<video preload="none" data-src="..." muted loop playsinline></video>
+```
+
+### 6. 开发完成后性能自检清单
+
+- [ ] 所有非首屏图片设置了 `loading: 'lazy'`
+- [ ] 首屏图片设置了 `loading: 'eager'` 且有 `fetchpriority: 'high'`
+- [ ] 所有交互 Islands 使用了 `client:visible`
+- [ ] CSS 动画使用 `transform` / `opacity` 而非 `width` / `height`
+- [ ] `swiper-container` 有 `width: 100%; display: block`，`swiper-slide` 有 `width: 100%`
+- [ ] 图片容器有明确的宽高比（`aspect-ratio` 或 `padding-top`）
+- [ ] `will-change` 只在真正需要的动画元素上使用
+
+---
+
 ## MCP 工具使用
 
 ### Figma 设计稿

@@ -1,207 +1,665 @@
 {%- comment -%}
   Section: q-hero-banner
-  功能说明：
-  - Hero Banner 展示板块，展示产品主视觉
-  - 大标题（支持 em 渐变高亮）+ 副标题 + 产品图片 + CTA 按钮
-  - 桌面端：标题居中，产品图片居中大图展示
-  - 移动端：标题居中，图片缩小自适应
-
+  功能说明：首页主 Banner 轮播，全宽背景图 + 左侧文字覆盖 + 自定义分页器（5圆点 + 进度条胶囊）
   技术栈：
-  - 纯展示类板块，无 JS 交互
+  - Islands: frontend/islands/hero-banner-element.js（子弹激活态 + 进度条重置）
+  设计稿：
+  - 桌面端: https://www.figma.com/design/5pt3sMVvBe9wjapAFGqdUb/?node-id=155-358
+  - 移动端: https://www.figma.com/design/5pt3sMVvBe9wjapAFGqdUb/?node-id=109-877
   版本：1.0.0
 {%- endcomment -%}
 
+{%- comment -%} 内容对齐：将 left/center 转换为 CSS 用的 margin 和 text-align 值 {%- endcomment -%}
+{%- assign content_align_m = section.settings.content_align_mobile | default: 'left' -%}
+{%- assign content_align_d = section.settings.content_align_desktop | default: 'left' -%}
+{%- assign content_ml_m = '0' -%}
+{%- assign content_ml_d = '0' -%}
+{%- if content_align_m == 'center' -%}{%- assign content_ml_m = 'auto' -%}{%- endif -%}
+{%- if content_align_d == 'center' -%}{%- assign content_ml_d = 'auto' -%}{%- endif -%}
+
 <style>
   .section-{{ section.id }} {
-    --hb-bg: {{ section.settings.bg_color }};
-    --hb-title-color: {{ section.settings.title_color }};
-    --hb-em-from: {{ section.settings.em_color_from }};
-    --hb-em-to: {{ section.settings.em_color_to }};
-    --hb-desc-color: {{ section.settings.desc_color }};
-    --hb-btn-bg: {{ section.settings.btn_bg_color }};
-    --hb-btn-text: {{ section.settings.btn_text_color }};
-    --hb-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
-    --hb-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
-    --hb-padding-top-desktop: {{ section.settings.padding_top_desktop }}px;
-    --hb-padding-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --hb-height-mobile: {{ section.settings.height_mobile }}px;
+    --hb-height-desktop: {{ section.settings.height_desktop }}px;
+    --hb-title-size-mobile: {{ section.settings.title_size_mobile }}px;
+    --hb-title-size-desktop: {{ section.settings.title_size_desktop }}px;
+    --hb-desc-size-mobile: {{ section.settings.desc_size_mobile }}px;
+    --hb-desc-size-desktop: {{ section.settings.desc_size_desktop }}px;
+    --hb-content-pt-mobile: {{ section.settings.content_pt_mobile }}px;
+    --hb-content-pt-desktop: {{ section.settings.content_pt_desktop }}px;
+    --hb-autoplay-delay: {{ section.settings.autoplay_delay }}ms;
+    --hb-star-color: {{ section.settings.star_color | default: '#FFB800' }};
+    /* 内容对齐：margin-left auto = 居中，0 = 靠左 */
+    --hb-content-ml-mobile: {{ content_ml_m }};
+    --hb-content-ml-desktop: {{ content_ml_d }};
+    --hb-text-align-mobile: {{ content_align_m }};
+    --hb-text-align-desktop: {{ content_align_d }};
   }
 
+  /* ─── 根元素：全宽，固定高度 ─── */
   .section-{{ section.id }}.q-hero-banner {
-    background: var(--hb-bg, #ffffff);
-    padding-top: var(--hb-padding-top-mobile, 40px);
-    padding-bottom: var(--hb-padding-bottom-mobile, 40px);
-    font-family: var(--font-body-family);
-    text-align: center;
+    position: relative;
+    height: var(--hb-height-mobile, 460px);
+    overflow: hidden;
   }
 
   @media screen and (min-width: 750px) {
     .section-{{ section.id }}.q-hero-banner {
-      padding-top: var(--hb-padding-top-desktop, 60px);
-      padding-bottom: var(--hb-padding-bottom-desktop, 60px);
+      height: var(--hb-height-desktop, 667px);
     }
   }
 
-  /* 标题 */
-  .section-{{ section.id }} .q-hb__title {
-    font-size: {{ section.settings.title_size_mobile }}px;
-    font-weight: 700;
-    line-height: 1.35;
-    color: var(--hb-title-color, #1e1e1e);
-    margin: 0 0 12px;
-  }
-
-  @media screen and (min-width: 750px) {
-    .section-{{ section.id }} .q-hb__title {
-      font-size: {{ section.settings.title_size_desktop }}px;
-      margin: 0 0 16px;
-    }
-  }
-
-  /* em 渐变高亮 */
-  .section-{{ section.id }} .q-hb__title em {
-    font-style: normal;
-    background: linear-gradient(90deg, var(--hb-em-from, #6cbce7) 0%, var(--hb-em-to, #367cf6) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  /* 描述文字 */
-  .section-{{ section.id }} .q-hb__desc {
-    font-size: {{ section.settings.desc_size_mobile }}px;
-    font-weight: 400;
-    line-height: 1.6;
-    color: var(--hb-desc-color, #4e5357);
-    margin: 0 auto 0;
-    padding: 0 16px;
-  }
-
-  @media screen and (min-width: 750px) {
-    .section-{{ section.id }} .q-hb__desc {
-      font-size: {{ section.settings.desc_size_desktop }}px;
-      padding: 0;
-    }
-  }
-
-  /* 产品图片区 */
-  .section-{{ section.id }} .q-hb__image-wrap {
-    margin: 24px auto;
-    max-width: 280px;
-  }
-
-  @media screen and (min-width: 750px) {
-    .section-{{ section.id }} .q-hb__image-wrap {
-      max-width: 613px;
-      margin: 32px auto;
-    }
-  }
-
-  .section-{{ section.id }} .q-hb__image {
-    display: block;
+  /* ─── Swiper：占满 section ─── */
+  /* width: 100% 在 JS 初始化前给出正确宽度，防止 CLS 重绘 */
+  .section-{{ section.id }} swiper-container {
     width: 100%;
-    height: auto;
+    height: 100%;
+    display: block;
   }
 
-  /* CTA 按钮 */
-  .section-{{ section.id }} .q-hb__btn-wrap {
-    margin-top: 0;
+  .section-{{ section.id }} swiper-slide {
+    width: 100%;
+    flex-shrink: 0;
+    position: relative;
+    height: 100%;
+    overflow: hidden;
   }
 
-  .section-{{ section.id }} .q-hb__btn {
-    display: inline-block;
-    background: var(--hb-btn-bg, #1565d8);
-    color: var(--hb-btn-text, #ffffff);
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 1;
-    padding: 10px 36px;
-    border-radius: 30px;
-    text-decoration: none;
-    border: none;
-    cursor: pointer;
-    transition: background 0.2s, opacity 0.2s;
-    min-width: 142px;
+  /* ─── 背景图 ─── */
+  .section-{{ section.id }} picture {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .section-{{ section.id }} .q-hero-banner__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* ─── 左侧渐变遮罩，提升文字可读性（桌面更强） ─── */
+  .section-{{ section.id }} .q-hero-banner__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.45) 0%,
+      rgba(0, 0, 0, 0.2) 40%,
+      transparent 70%
+    );
+    pointer-events: none;
   }
 
   @media screen and (min-width: 750px) {
-    .section-{{ section.id }} .q-hb__btn {
-      padding: 14px 60px;
-      border-radius: 10px;
-      font-size: 16px;
-      min-width: 220px;
+    .section-{{ section.id }} .q-hero-banner__overlay {
+      background: linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0.35) 0%,
+        rgba(0, 0, 0, 0.15) 45%,
+        transparent 65%
+      );
     }
   }
 
-  .section-{{ section.id }} .q-hb__btn:hover {
-    background: #0e52b8;
+  /* ─── 内容外层：position relative 覆盖在图片上 ─── */
+  .section-{{ section.id }} .q-hero-banner__slide-content {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    padding-top: var(--hb-content-pt-mobile, 24px);
   }
 
-  .section-{{ section.id }} .q-hb__btn:active {
-    opacity: 0.8;
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-hero-banner__slide-content {
+      padding-top: var(--hb-content-pt-desktop, 56px);
+    }
+  }
+
+  /* ─── 文字内容容器：靠左或居中由配置项控制 ─── */
+  .section-{{ section.id }} .q-hero-banner__content {
+    max-width: 600px;
+    margin-left: var(--hb-content-ml-mobile, 0);
+    margin-right: auto;
+    text-align: var(--hb-text-align-mobile, left);
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-hero-banner__content {
+      margin-left: var(--hb-content-ml-desktop, 0);
+      text-align: var(--hb-text-align-desktop, left);
+    }
+  }
+
+  /* ─── 标题 ─── */
+  .section-{{ section.id }} .q-hero-banner__title {
+    font-size: var(--hb-title-size-mobile, 26px);
+    line-height: 1.3;
+    font-weight: 700;
+    color: var(--slide-title-color, #fff);
+    margin: 0 0 10px;
+  }
+
+  /* inline_richtext 输出的 <p> 去掉默认 margin */
+  .section-{{ section.id }} .q-hero-banner__title p {
+    margin: 0;
+  }
+
+  .section-{{ section.id }} .q-hero-banner__title em {
+    font-style: normal;
+    color: #6cbce7;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-hero-banner__title {
+      font-size: var(--hb-title-size-desktop, 66px);
+      line-height: 1.136; /* 75/66 from Figma */
+      margin: 0 0 20px;
+    }
+  }
+
+  /* ─── 星级评分 ─── */
+  .section-{{ section.id }} .q-hero-banner__rating {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-hero-banner__rating {
+      margin-bottom: 16px;
+    }
+  }
+
+  .section-{{ section.id }} .q-hero-banner__stars {
+    display: flex;
+    gap: 2px;
+    align-items: center;
+  }
+
+  .section-{{ section.id }} .q-hero-banner__stars svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    color: var(--hb-star-color, #FFB800);
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-hero-banner__stars svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  .section-{{ section.id }} .q-hero-banner__rating-text {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--slide-rating-text-color, #fff);
+    line-height: 1;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-hero-banner__rating-text {
+      font-size: 16px;
+    }
+  }
+
+  /* ─── 描述文字 ─── */
+  .section-{{ section.id }} .q-hero-banner__desc {
+    font-size: var(--hb-desc-size-mobile, 13px);
+    line-height: 1.65;
+    color: var(--slide-desc-color, rgba(255, 255, 255, 0.9));
+    margin: 0 0 20px;
+    max-width: 550px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-hero-banner__desc {
+      font-size: var(--hb-desc-size-desktop, 20px);
+      line-height: 1.75; /* 35/20 from Figma */
+      margin: 0 0 28px;
+    }
+  }
+
+  /* ─── CTA 按钮（渐变圆角） ─── */
+  .section-{{ section.id }} .q-hero-banner__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 48px;
+    padding: 0 28px;
+    border-radius: 90px;
+    background: linear-gradient(90deg, var(--slide-btn-bg-start, #6cbce7) 0%, var(--slide-btn-bg-end, #367cf6) 100%);
+    color: var(--slide-btn-text-color, #fff);
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: opacity 0.2s;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-hero-banner__btn {
+      height: 67px;
+      padding: 0 40px;
+      font-size: 20px;
+      min-width: 281px;
+    }
+  }
+
+  .section-{{ section.id }} .q-hero-banner__btn:hover {
+    opacity: 0.88;
+  }
+
+  .section-{{ section.id }} .q-hero-banner__btn:active {
+    opacity: 0.75;
+  }
+
+  .section-{{ section.id }} .q-hero-banner__btn-icon {
+    width: 16px;
+    height: 20px;
+    flex-shrink: 0;
+    object-fit: contain;
+    display: block;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-hero-banner__btn-icon {
+      width: 20px;
+      height: 24px;
+    }
+  }
+
+  /* ─── 导航箭头：移动端隐藏，桌面端鼠标移入后渐显 ─── */
+  .section-{{ section.id }} .q-hero-banner__nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    /* 移动端不显示箭头 */
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.22);
+    border: 1.5px solid rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.2s, border-color 0.2s, opacity 0.25s;
+  }
+
+  @media screen and (min-width: 750px) {
+    /* 桌面端默认透明（不可见），hover section 时渐入 */
+    .section-{{ section.id }} .q-hero-banner__nav {
+      display: flex;
+      width: 49px;
+      height: 49px;
+      opacity: 0;
+    }
+
+    .section-{{ section.id }}.q-hero-banner:hover .q-hero-banner__nav {
+      opacity: 1;
+    }
+  }
+
+  .section-{{ section.id }} .q-hero-banner__nav:hover {
+    background: rgba(255, 255, 255, 0.4);
+    border-color: rgba(255, 255, 255, 0.8);
+  }
+
+  .section-{{ section.id }} .q-hero-banner__nav--prev {
+    left: 16px;
+  }
+
+  .section-{{ section.id }} .q-hero-banner__nav--next {
+    right: 16px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-hero-banner__nav--prev {
+      left: 24px;
+    }
+
+    .section-{{ section.id }} .q-hero-banner__nav--next {
+      right: 24px;
+    }
+  }
+
+  .section-{{ section.id }} .q-hero-banner__nav svg {
+    width: 10px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+
+  /* ─── 分页器胶囊：5圆点 + 进度条 ─── */
+  /* 桌面端：高 27px，宽 172px（设计稿 155:446） */
+  .section-{{ section.id }} .q-hero-banner__pagination {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 27px;
+    padding: 0 12px;
+    background: rgba(180, 180, 180, 0.45);
+    border-radius: 100px;
+    backdrop-filter: blur(3px);
+    white-space: nowrap;
+  }
+
+  /* 圆点组 */
+  .section-{{ section.id }} .q-hero-banner__bullets {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  /* ─── 单个圆点：默认圆形，激活时扩展为胶囊并内置进度填充 ─── */
+  .section-{{ section.id }} .q-hero-banner__bullet {
+    position: relative;
+    width: 7px;
+    height: 7px;
+    border-radius: 100px;
+    background: rgba(255, 255, 255, 0.35);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    overflow: hidden;
+    flex-shrink: 0;
+    /* will-change 提示浏览器提前创建合成层，避免首次 width 变化触发重新分层 */
+    will-change: width;
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* 激活圆点扩展为胶囊 */
+  .section-{{ section.id }} .q-hero-banner__bullet--active {
+    width: 28px;
+  }
+
+  /* 圆点内进度填充层
+     使用 transform: scaleX() 代替 width，在 GPU Compositor 线程执行，
+     不触发 Layout/Paint，真正零卡顿 */
+  .section-{{ section.id }} .q-hero-banner__bullet-fill {
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: inherit;
+    transform: scaleX(0);
+    transform-origin: left center;
+    will-change: transform;
+  }
+
+  /* 进度填充动画（时长 = autoplay 切换时间） */
+  @keyframes q-hero-bullet-fill-{{ section.id }} {
+    from { transform: scaleX(0) }
+    to   { transform: scaleX(1) }
+  }
+
+  .section-{{ section.id }} .q-hero-banner__bullet-fill--animating {
+    animation: q-hero-bullet-fill-{{ section.id }} var(--hb-autoplay-delay, 5000ms) linear forwards;
   }
 </style>
 
 <div class="q-hero-banner section-{{ section.id }}">
-  <div class="page-width">
+  <hero-banner-element client:visible>
 
-    {%- if section.settings.title != blank -%}
-      <h2 class="q-hb__title">{{ section.settings.title }}</h2>
-    {%- endif -%}
+    {%- assign slide_count = section.blocks | where: 'type', 'slide' | size -%}
+    <swiper-container
+      slides-per-view="1"
+      space-between="0"
+      {% if slide_count > 1 %}loop="true"{% endif %}
+      grab-cursor="false"
+      autoplay="true"
+      autoplay-delay="{{ section.settings.autoplay_delay }}"
+      autoplay-pause-on-mouse-enter="true"
+      autoplay-disable-on-interaction="false"
+      navigation="true"
+      navigation-prev-el="[data-carousel-prev='{{ section.id }}']"
+      navigation-next-el="[data-carousel-next='{{ section.id }}']"
+    >
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'slide' -%}
+          <swiper-slide {{ block.shopify_attributes }}>
 
-    {%- if section.settings.description != blank -%}
-      <p class="q-hb__desc">{{ section.settings.description }}</p>
-    {%- endif -%}
+            {%- comment -%} 背景图：桌面/移动端各自图片，用 <picture> 按断点切换 {%- endcomment -%}
+            {%- if block.settings.image != blank or block.settings.image_mobile != blank -%}
+              <picture>
+                {%- if block.settings.image_mobile != blank -%}
+                  <source
+                    media="(max-width: 749px)"
+                    srcset="{{ block.settings.image_mobile | image_url: width: 375 }} 375w, {{ block.settings.image_mobile | image_url: width: 750 }} 750w, {{ block.settings.image_mobile | image_url: width: 1100 }} 1100w"
+                    sizes="100vw"
+                  >
+                {%- endif -%}
+                {%- if block.settings.image != blank -%}
+                  {{-
+                    block.settings.image
+                    | image_url: width: 1920
+                    | image_tag:
+                      class: 'q-hero-banner__bg',
+                      loading: 'eager',
+                      widths: '750,1100,1500,1920',
+                      sizes: '100vw',
+                      alt: ''
+                  -}}
+                {%- else -%}
+                  {{-
+                    block.settings.image_mobile
+                    | image_url: width: 1920
+                    | image_tag:
+                      class: 'q-hero-banner__bg',
+                      loading: 'eager',
+                      widths: '750,1100,1500,1920',
+                      sizes: '100vw',
+                      alt: ''
+                  -}}
+                {%- endif -%}
+              </picture>
+            {%- endif -%}
 
-    {%- if section.settings.image != blank -%}
-      <div class="q-hb__image-wrap">
-        {{-
-          section.settings.image
-          | image_url: width: 613
-          | image_tag:
-            class: 'q-hb__image',
-            loading: 'eager',
-            fetchpriority: 'high',
-            sizes: '(min-width: 750px) 613px, 280px',
-            widths: '280, 400, 560, 613'
-        -}}
+            {%- comment -%} 半透明遮罩，提升左侧文字可读性 {%- endcomment -%}
+            <div class="q-hero-banner__overlay" aria-hidden="true"></div>
+
+            {%- comment -%} 文字内容（page-width 提供水平对齐） {%- endcomment -%}
+            <div class="q-hero-banner__slide-content" style="--slide-title-color:{{ block.settings.title_color | default: '#ffffff' }};--slide-desc-color:{{ block.settings.desc_color | default: '#ffffff' }};--slide-rating-text-color:{{ block.settings.rating_text_color | default: '#ffffff' }};--slide-btn-text-color:{{ block.settings.btn_text_color | default: '#ffffff' }};--slide-btn-bg-start:{{ block.settings.btn_bg_start | default: '#6cbce7' }};--slide-btn-bg-end:{{ block.settings.btn_bg_end | default: '#367cf6' }};">
+              <div class="page-width">
+                <div class="q-hero-banner__content">
+
+                  {%- comment -%} 标题 {%- endcomment -%}
+                  {%- if block.settings.title != blank -%}
+                    <h2 class="q-hero-banner__title">{{ block.settings.title }}</h2>
+                  {%- endif -%}
+
+                  {%- comment -%} 星级评分 {%- endcomment -%}
+                  {%- if block.settings.show_rating -%}
+                    <div class="q-hero-banner__rating">
+                      <div class="q-hero-banner__stars" aria-hidden="true">
+                        {%- for i in (1..5) -%}
+                          <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                          </svg>
+                        {%- endfor -%}
+                      </div>
+                      {%- if block.settings.rating_text != blank -%}
+                        <span class="q-hero-banner__rating-text">{{ block.settings.rating_text }}</span>
+                      {%- endif -%}
+                    </div>
+                  {%- endif -%}
+
+                  {%- comment -%} 描述文字 {%- endcomment -%}
+                  {%- if block.settings.description != blank -%}
+                    <p class="q-hero-banner__desc">{{ block.settings.description }}</p>
+                  {%- endif -%}
+
+                  {%- comment -%} CTA 按钮 {%- endcomment -%}
+                  {%- if block.settings.button_label != blank -%}
+                    <a href="{{ block.settings.button_link | default: '/' }}" class="q-hero-banner__btn">
+                      {%- if block.settings.show_btn_icon -%}
+                        {%- if block.settings.btn_icon != blank -%}
+                          {{
+                            block.settings.btn_icon
+                            | image_url: width: 40
+                            | image_tag:
+                              class: 'q-hero-banner__btn-icon',
+                              loading: 'lazy',
+                              alt: ''
+                          }}
+                        {%- else -%}
+                          <svg class="q-hero-banner__btn-icon" viewBox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16 2H4C2.9 2 2 2.9 2 4V20C2 21.1 2.9 22 4 22H16C17.1 22 18 21.1 18 20V4C18 2.9 17.1 2 16 2ZM10 21C9.2 21 8.5 20.3 8.5 19.5S9.2 18 10 18 11.5 18.7 11.5 19.5 10.8 21 10 21ZM16 17H4V5H16V17Z" fill="white"/>
+                          </svg>
+                        {%- endif -%}
+                      {%- endif -%}
+                      <span>{{ block.settings.button_label }}</span>
+                    </a>
+                  {%- endif -%}
+
+                </div>
+              </div>
+            </div>
+
+          </swiper-slide>
+        {%- endif -%}
+      {%- endfor -%}
+    </swiper-container>
+
+    {%- comment -%} 导航箭头（多于1张时显示） {%- endcomment -%}
+    {%- if section.blocks.size > 1 -%}
+      <button
+        class="q-hero-banner__nav q-hero-banner__nav--prev"
+        data-carousel-prev="{{ section.id }}"
+        aria-label="Previous slide"
+        tabindex="0"
+      >
+        <svg viewBox="0 0 10 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 1L1 9L9 17" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+
+      <button
+        class="q-hero-banner__nav q-hero-banner__nav--next"
+        data-carousel-next="{{ section.id }}"
+        aria-label="Next slide"
+        tabindex="0"
+      >
+        <svg viewBox="0 0 10 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1 1L9 9L1 17" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+
+      {%- comment -%} 分页器胶囊：圆点 + 进度条（设计稿 155:446 / 109:1214） {%- endcomment -%}
+      <div class="q-hero-banner__pagination" data-hero-pagination="{{ section.id }}">
+        <div class="q-hero-banner__bullets">
+          {%- assign slide_idx = 0 -%}
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'slide' -%}
+              <button
+                class="q-hero-banner__bullet{% if slide_idx == 0 %} q-hero-banner__bullet--active{% endif %}"
+                data-index="{{ slide_idx }}"
+                aria-label="Slide {{ slide_idx | plus: 1 }}"
+              ><span class="q-hero-banner__bullet-fill{% if slide_idx == 0 %} q-hero-banner__bullet-fill--animating{% endif %}"></span></button>
+              {%- assign slide_idx = slide_idx | plus: 1 -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
       </div>
     {%- endif -%}
 
-    {%- if section.settings.btn_label != blank -%}
-      <div class="q-hb__btn-wrap">
-        <a class="q-hb__btn" href="{{ section.settings.btn_link }}">
-          {{- section.settings.btn_label -}}
-        </a>
-      </div>
-    {%- endif -%}
-
-  </div>
+  </hero-banner-element>
 </div>
 
 {% schema %}
 {
-  "name": "q-hero-banner",
+  "name": "Q-Hero Banner",
   "tag": "section",
   "class": "section",
   "disabled_on": { "groups": ["header", "footer"] },
   "settings": [
-    { "type": "header", "content": "标题" },
+    { "type": "header", "content": "轮播设置" },
     {
-      "type": "inline_richtext",
-      "id": "title",
-      "label": "标题（支持 em 高亮）",
-      "default": "All-in-One Security. <em>Ready to Protect.</em>"
+      "type": "range",
+      "id": "autoplay_delay",
+      "label": "自动切换间隔（ms）",
+      "min": 2000,
+      "max": 9500,
+      "step": 500,
+      "unit": "ms",
+      "default": 5000
+    },
+    { "type": "header", "content": "高度" },
+    {
+      "type": "range",
+      "id": "height_mobile",
+      "label": "高度（移动端）",
+      "min": 300,
+      "max": 700,
+      "step": 10,
+      "unit": "px",
+      "default": 460
     },
     {
       "type": "range",
-      "id": "title_size_desktop",
-      "label": "标题字号（桌面端）",
-      "min": 24,
-      "max": 80,
-      "step": 2,
+      "id": "height_desktop",
+      "label": "高度（桌面端）",
+      "min": 400,
+      "max": 900,
+      "step": 10,
       "unit": "px",
-      "default": 42
+      "default": 670
     },
+    { "type": "header", "content": "内容位置与对齐" },
+    {
+      "type": "range",
+      "id": "content_pt_mobile",
+      "label": "内容上边距（移动端）",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "content_pt_desktop",
+      "label": "内容上边距（桌面端）",
+      "min": 0,
+      "max": 400,
+      "step": 4,
+      "unit": "px",
+      "default": 56
+    },
+    {
+      "type": "select",
+      "id": "content_align_mobile",
+      "label": "内容对齐（移动端）",
+      "options": [
+        { "value": "left", "label": "靠左" },
+        { "value": "center", "label": "居中" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "content_align_desktop",
+      "label": "内容对齐（桌面端）",
+      "options": [
+        { "value": "left", "label": "靠左" },
+        { "value": "center", "label": "居中" }
+      ],
+      "default": "left"
+    },
+    { "type": "header", "content": "标题字号" },
     {
       "type": "range",
       "id": "title_size_mobile",
@@ -210,43 +668,19 @@
       "max": 50,
       "step": 2,
       "unit": "px",
-      "default": 24
-    },
-    {
-      "type": "color_background",
-      "id": "title_color",
-      "label": "标题颜色",
-      "default": "#1e1e1e"
-    },
-    {
-      "type": "color_background",
-      "id": "em_color_from",
-      "label": "em 高亮渐变起始色",
-      "default": "#6cbce7"
-    },
-    {
-      "type": "color_background",
-      "id": "em_color_to",
-      "label": "em 高亮渐变结束色",
-      "default": "#367cf6"
-    },
-    { "type": "header", "content": "描述文字" },
-    {
-      "type": "text",
-      "id": "description",
-      "label": "副标题描述",
-      "default": "Enjoy reliable performance, easy setup, and full control—straight from the box."
+      "default": 26
     },
     {
       "type": "range",
-      "id": "desc_size_desktop",
-      "label": "描述字号（桌面端）",
-      "min": 10,
-      "max": 30,
-      "step": 1,
+      "id": "title_size_desktop",
+      "label": "标题字号（桌面端）",
+      "min": 24,
+      "max": 100,
+      "step": 2,
       "unit": "px",
-      "default": 16
+      "default": 66
     },
+    { "type": "header", "content": "描述字号" },
     {
       "type": "range",
       "id": "desc_size_mobile",
@@ -255,104 +689,147 @@
       "max": 24,
       "step": 1,
       "unit": "px",
-      "default": 12
-    },
-    {
-      "type": "color_background",
-      "id": "desc_color",
-      "label": "描述文字颜色",
-      "default": "#4e5357"
-    },
-    { "type": "header", "content": "产品图片" },
-    {
-      "type": "image_picker",
-      "id": "image",
-      "label": "产品图片",
-      "info": "建议尺寸：613×613px，PNG 透明底"
-    },
-    { "type": "header", "content": "CTA 按钮" },
-    {
-      "type": "text",
-      "id": "btn_label",
-      "label": "按钮文字",
-      "default": "Buy Now"
-    },
-    {
-      "type": "url",
-      "id": "btn_link",
-      "label": "按钮链接",
-      "default": "/"
-    },
-    {
-      "type": "color_background",
-      "id": "btn_bg_color",
-      "label": "按钮背景色",
-      "default": "#1565d8"
-    },
-    {
-      "type": "color_background",
-      "id": "btn_text_color",
-      "label": "按钮文字颜色",
-      "default": "#ffffff"
-    },
-    { "type": "header", "content": "板块背景" },
-    {
-      "type": "color_background",
-      "id": "bg_color",
-      "label": "背景色",
-      "default": "#ffffff"
-    },
-    { "type": "header", "content": "上下边距" },
-    {
-      "type": "range",
-      "id": "padding_top_mobile",
-      "label": "上边距（移动端）",
-      "min": 0,
-      "max": 120,
-      "step": 4,
-      "unit": "px",
-      "default": 40
+      "default": 13
     },
     {
       "type": "range",
-      "id": "padding_bottom_mobile",
-      "label": "下边距（移动端）",
-      "min": 0,
-      "max": 120,
-      "step": 4,
+      "id": "desc_size_desktop",
+      "label": "描述字号（桌面端）",
+      "min": 14,
+      "max": 30,
+      "step": 1,
       "unit": "px",
-      "default": 40
+      "default": 20
     },
+    { "type": "header", "content": "评分样式" },
     {
-      "type": "range",
-      "id": "padding_top_desktop",
-      "label": "上边距（桌面端）",
-      "min": 0,
-      "max": 200,
-      "step": 4,
-      "unit": "px",
-      "default": 60
-    },
+      "type": "color",
+      "id": "star_color",
+      "label": "星级颜色",
+      "default": "#FFB800"
+    }
+  ],
+  "blocks": [
     {
-      "type": "range",
-      "id": "padding_bottom_desktop",
-      "label": "下边距（桌面端）",
-      "min": 0,
-      "max": 200,
-      "step": 4,
-      "unit": "px",
-      "default": 60
+      "type": "slide",
+      "name": "幻灯片",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "背景图片（桌面端）"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "背景图片（移动端）",
+          "info": "不设置时使用桌面端图片"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "title",
+          "label": "标题",
+          "default": "Pro Wireless Security Camera for Home"
+        },
+        { "type": "header", "content": "文案颜色" },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "标题颜色",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "desc_color",
+          "label": "描述文字颜色",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "rating_text_color",
+          "label": "评分文字颜色",
+          "default": "#ffffff"
+        },
+        { "type": "header", "content": "按钮颜色" },
+        {
+          "type": "color",
+          "id": "btn_text_color",
+          "label": "按钮文字颜色",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "btn_bg_start",
+          "label": "按钮渐变起始色",
+          "default": "#6cbce7"
+        },
+        {
+          "type": "color",
+          "id": "btn_bg_end",
+          "label": "按钮渐变结束色",
+          "default": "#367cf6"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_rating",
+          "label": "显示星级评分",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "rating_text",
+          "label": "评分文本（如 4.9）",
+          "default": "4.9"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "描述文字",
+          "default": "Designed for home security, this wireless security cameras puts real-time monitoring in the palm of your hand!"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "按钮文字",
+          "default": "Shop with Free App"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "按钮链接",
+          "default": "/"
+        },
+        { "type": "header", "content": "按钮图标" },
+        {
+          "type": "checkbox",
+          "id": "show_btn_icon",
+          "label": "显示按钮图标",
+          "default": true
+        },
+        {
+          "type": "image_picker",
+          "id": "btn_icon",
+          "label": "自定义图标",
+          "info": "不上传时使用默认手机图标"
+        }
+      ]
     }
   ],
   "presets": [
     {
-      "name": "q-hero-banner",
-      "settings": {
-        "title": "All-in-One Security. <em>Ready to Protect.</em>",
-        "description": "Enjoy reliable performance, easy setup, and full control—straight from the box.",
-        "btn_label": "Buy Now",
-        "btn_link": "/"
-      }
+      "name": "Q-Hero Banner",
+      "blocks": [
+        {
+          "type": "slide",
+          "settings": {
+            "show_rating": true,
+            "rating_text": "4.9",
+            "description": "Designed for home security, this wireless security cameras puts real-time monitoring in the palm of your hand!",
+            "button_label": "Shop with Free App",
+            "button_link": "/"
+          }
+        }
+      ]
     }
   ]
 }

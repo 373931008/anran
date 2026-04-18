@@ -7,15 +7,58 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
-{
+ {
   "layout": "theme",
   "sections": {
-    "ecom-ecomposer-home-home": {
-      "type": "ecom-ecomposer-home-home",
-      "settings": {}
+    "q-hero-banner": {
+      "type": "q-hero-banner",
+      "blocks": {
+        "hero-slide-1": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Group_157.jpg",
+            "title": "Pro Wireless Security Camera for Home",
+            "show_rating": true,
+            "rating_text": "4.9",
+            "description": "Designed for home security, this wireless security cameras puts real-time monitoring in the palm of your hand!",
+            "button_label": "Shop with Free App",
+            "button_link": "/",
+            "show_btn_icon": true
+          }
+        },
+        "slide_it9FF7": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/773b1515f06b4b9d9ed57b6dc6a435b2.jpg",
+            "title": "Pro Wireless Security Camera for Home",
+            "show_rating": true,
+            "rating_text": "4.9",
+            "description": "Designed for home security, this wireless security cameras puts real-time monitoring in the palm of your hand!",
+            "button_label": "Shop with Free App",
+            "button_link": "/",
+            "show_btn_icon": true
+          }
+        }
+      },
+      "block_order": [
+        "hero-slide-1",
+        "slide_it9FF7"
+      ],
+      "settings": {
+        "autoplay_delay": 5000,
+        "height_mobile": 460,
+        "height_desktop": 670,
+        "content_pt_mobile": 24,
+        "content_pt_desktop": 56,
+        "title_size_mobile": 26,
+        "title_size_desktop": 66,
+        "desc_size_mobile": 13,
+        "desc_size_desktop": 20,
+        "star_color": "#ffb800"
+      }
     }
   },
   "order": [
-    "ecom-ecomposer-home-home"
+    "q-hero-banner"
   ]
 }

@@ -545,14 +545,20 @@ Liquid syntax error (line XX): Expected end_of_string but found comparison in "{
 | 位置 | `inline_richtext` | `richtext` |
 |------|-------------------|------------|
 | schema `default` | 纯文本（不能含块级标签） | 需用 `<p>` 等块级标签包裹 |
-| 模板 JSON 实际值 | 需用 `<p>` 等块级标签包裹 | 需用 `<p>` 等块级标签包裹 |
+| 模板 JSON 实际值 | 纯文本或行内 HTML（`<strong>`、`<em>` 等），**禁止** `<p>` 等块级标签 | 需用 `<p>` 等块级标签包裹 |
+
+> ⚠️ Shopify 对 `inline_richtext` 严格执行"不允许块级标签"，在 templates JSON 中写 `<p>` 会报 **"标记'<p>'是不允许的"** 上传错误。
 
 ```json
-// schema default — inline_richtext 用纯文本
+// schema default — inline_richtext 用纯文本（两者一致）
 { "type": "inline_richtext", "id": "header_title", "default": "Why Choose Anran?" }
 
-// 模板 JSON 实际值 — inline_richtext 必须用 <p> 包裹
+// ❌ 错误 — inline_richtext 在模板 JSON 中写 <p> 会报错
 "header_title": "<p>Why Choose Anran?</p>"
+
+// ✅ 正确 — inline_richtext 在模板 JSON 中只写纯文本或行内标签
+"header_title": "Why Choose Anran?"
+"header_title": "Why Choose <strong>Anran</strong>?"
 ```
 
 ---
@@ -650,6 +656,93 @@ Invalid preset "xxx": invalid block type "yyy":
 - 此限制仅针对 `presets` 和 `templates/*.json` 中的**实际赋值**，schema `default` 值也同样受此限制
 - 商户在 Shopify 后台主题编辑器中**手动输入**的富文本可以正常保存内联样式，限制仅在代码预设值中生效
 - `text`、`textarea` 类型无此限制，只有 `richtext` 和 `inline_richtext` 受影响
+
+---
+
+### 7. `range` 字段的 `max` 必须严格小于 10000
+
+**报错信息**：
+```
+Invalid schema: setting with id="xxx" max 必须小于 10000
+```
+
+**原因**：Shopify 对 `range` 类型的 `max` 值有上限约束，**max 必须严格小于 10000**（即 max ≤ 9999）。等于 10000 时上传直接报错。
+
+**解决方案**：将 `max` 改为不超过 9999 的值，并确保 `default` 仍是 `step` 的整数倍。
+
+```json
+❌ 错误 - max 等于 10000，上传报错
+{
+  "type": "range",
+  "id": "autoplay_delay",
+  "min": 2000,
+  "max": 10000,
+  "step": 500,
+  "unit": "ms",
+  "default": 5000
+}
+
+✅ 正确 - max 改为 9500（< 10000，且 (9500-2000)/500 = 15 为整数）
+{
+  "type": "range",
+  "id": "autoplay_delay",
+  "min": 2000,
+  "max": 9500,
+  "step": 500,
+  "unit": "ms",
+  "default": 5000
+}
+```
+
+**常见受影响字段**：任何以毫秒（ms）为单位、且想设到 10000ms 的 `range`（如自动播放间隔）。
+
+---
+
+### 8. `templates/*.json` 中 block 类型无效
+
+**报错信息**：
+```
+块"xxx"的类型值无效。类型必须在架构中定义。
+```
+
+**原因一（级联错误）**：section schema 本身有错（如第 3、5、7 条）→ Shopify 无法解析 schema → 找不到 block type → templates 里所有引用该 section 的 block 均报此错。  
+**原因二（时序问题）**：向 `templates/*.json` 手动内联写入 block 定义时，Shopify admin 做运行时校验，若 section 文件尚未上传或为新增文件，服务端 schema 里找不到该 block type，即使本地代码正确也会报错。
+
+**根本原因**：Shopify admin 在验证 `templates/*.json` 时会对照**服务端已上传的** section schema 校验 block type。若 section 是全新文件，服务端还没有它的 schema，即使本地 schema 正确也会报错。
+
+**正确推送顺序（新 section + 带 blocks 的 template）**：
+- **方案 A（推荐）**：同一次 `shopify theme push` 同时推送 section 文件和 templates/*.json，Shopify 会整批处理，无时序问题。
+- **方案 B**：先推送 section 文件（templates 里暂不加 blocks），确认 section 上传成功后，再推送带 block 定义的 templates/*.json。
+
+```json
+✅ 正确 - 同次推送，block ID 用语义字符串，inline_richtext 用 <p> 包裹
+{
+  "sections": {
+    "q-hero-banner": {
+      "type": "q-hero-banner",
+      "blocks": {
+        "hero-slide-1": {
+          "type": "slide",
+          "settings": {
+            "title": "Pro Wireless Security Camera for Home",
+            "show_rating": true,
+            "button_label": "Shop with Free App",
+            "button_link": "/"
+          }
+        }
+      },
+      "block_order": ["hero-slide-1"],
+      "settings": {}
+    }
+  },
+  "order": ["q-hero-banner"]
+}
+```
+
+**若仍报错**，按以下顺序排查：
+1. 先修复 section 文件的 schema 错误（JSON 语法、range 默认值/max 上限等）
+2. 确认 `"type"` 字段与 schema `blocks[].type` **完全一致（区分大小写）**
+3. 确认 `inline_richtext` / `richtext` 字段值用 `<p>` 包裹，不含内联 `style`
 
 ---
 
@@ -1158,3 +1251,20 @@ Snippet 命名建议：`product-block-{block_type}.liquid`，与 schema 中的 `
 - [ ] 所有按钮添加 hover/active 交互颜色变化（纯色加深、渐变用 opacity）
 - [ ] 产品卡片评分使用 Judge.me badge（关联产品时），无产品时用手写文字降级
 - [ ] 图片设置正确的 `loading` 和 `sizes` 属性
+
+### 性能强制项
+
+- [ ] 排在 `templates/index.json` 第 1 位的 section 内首屏图片：`loading: 'eager'` + `fetchpriority: 'high'`；其余图片：`loading: 'lazy'`
+- [ ] 轮播中第 1 张 slide 背景图：`loading: 'eager'`；其余 slides：`loading: 'lazy'`
+- [ ] 所有交互 Islands 使用了 `client:visible`（首屏 Hero 也适用，observer 立即触发）
+- [ ] CSS 动画使用 `transform` / `opacity`，不对 `width` / `height` / `top` / `left` 做动画
+- [ ] `swiper-container` 设 `width: 100%; display: block`，`swiper-slide` 设 `width: 100%`（防 CLS）
+- [ ] 图片容器设 `aspect-ratio` 或 `padding-top` 百分比，防止图片加载时撑开页面
+- [ ] `will-change` 仅在动画元素上使用，禁止全局或非必要场景使用
+
+### 自动测试强制项
+
+- [ ] **开发完成后**，使用 `user-chrome-devtools` MCP 对 `http://127.0.0.1:9292/` 执行 navigate → screenshot → list_console_messages(error/warn) 完整流程
+- [ ] 确认无 Shopify Upload Error（红色横幅）
+- [ ] 确认自己代码无 JS 错误（排除已知 Shopify/第三方可忽略错误，见项目通用规范）
+- [ ] 截图确认页面视觉渲染正确（布局无错位、无白屏、无 CLS 闪烁）
