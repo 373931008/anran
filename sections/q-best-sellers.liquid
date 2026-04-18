@@ -1,0 +1,413 @@
+{%- comment -%}
+  Section: q-best-sellers
+  功能说明：Best Sellers 产品卡片网格 —— 桌面端 2 列，移动端 1 列
+           整张卡片为可点击链接（与配置的链接一致）；图片全覆盖或占位底，文案与按钮样式叠在底部
+  设计稿：
+  - 桌面端: https://www.figma.com/design/5pt3sMVvBe9wjapAFGqdUb/?node-id=155-380
+  - 移动端: https://www.figma.com/design/5pt3sMVvBe9wjapAFGqdUb/?node-id=332-19
+  版本：1.0.0
+{%- endcomment -%}
+
+<style>
+  .section-{{ section.id }} {
+    --bs-bg: {{ section.settings.bg_color }};
+    --bs-pt-mobile: {{ section.settings.padding_top_mobile }}px;
+    --bs-pb-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --bs-pt-desktop: {{ section.settings.padding_top_desktop }}px;
+    --bs-pb-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --bs-gap: {{ section.settings.card_gap }}px;
+    --bs-radius: {{ section.settings.card_radius }}px;
+  }
+
+  /* ─── 根元素 ─── */
+  .section-{{ section.id }}.q-best-sellers {
+    background: var(--bs-bg, #F5F6F7);
+    padding-top: var(--bs-pt-mobile, 40px);
+    padding-bottom: var(--bs-pb-mobile, 40px);
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}.q-best-sellers {
+      padding-top: var(--bs-pt-desktop, 60px);
+      padding-bottom: var(--bs-pb-desktop, 60px);
+    }
+  }
+
+  /* ─── 卡片网格：移动端 1 列，桌面端 2 列 ─── */
+  .section-{{ section.id }} .q-bs__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--bs-gap, 20px);
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-bs__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* ─── 单个卡片：响应式宽高比 ─── */
+  .section-{{ section.id }} a.q-bs__card {
+    position: relative;
+    border-radius: var(--bs-radius, 15px);
+    overflow: hidden;
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    /* 移动端设计稿 345×400 */
+    aspect-ratio: 345 / 400;
+  }
+
+  .section-{{ section.id }} a.q-bs__card:focus-visible {
+    outline: 2px solid #367cf6;
+    outline-offset: 2px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} a.q-bs__card {
+      /* 桌面端设计稿 698×583 */
+      aspect-ratio: 698 / 583;
+    }
+  }
+
+  /* ─── 响应式背景图 ─── */
+  .section-{{ section.id }} .q-bs__card picture {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .section-{{ section.id }} .q-bs__card-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* ─── 无图片时：纯色/渐变占位（默认深于版块底色 #F5F6F7，避免「看不见」） ─── */
+  .section-{{ section.id }} .q-bs__card-placeholder {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* 无图时在卡片内侧描边，与版块背景区分开 */
+  .section-{{ section.id }} .q-bs__card--no-image {
+    box-shadow: inset 0 0 0 1px rgba(30, 30, 30, 0.06);
+  }
+
+  /* ─── 底部渐变遮罩（提升文字可读性） ─── */
+  .section-{{ section.id }} .q-bs__card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      transparent 45%,
+      rgba(0, 0, 0, 0.3) 100%
+    );
+    pointer-events: none;
+  }
+
+  /* 无图占位时遮罩更轻，避免把浅灰底压得过暗 */
+  .section-{{ section.id }} .q-bs__card--no-image .q-bs__card-overlay {
+    background: linear-gradient(
+      to bottom,
+      transparent 55%,
+      rgba(0, 0, 0, 0.06) 100%
+    );
+  }
+
+  /* ─── 内容区：固定在卡片底部 ─── */
+  /* 移动端：垂直排列，左对齐 */
+  .section-{{ section.id }} .q-bs__card-body {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 12px 20px 20px 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    z-index: 1;
+  }
+
+  @media screen and (min-width: 750px) {
+    /* 桌面端：左侧文案 + 右侧按钮，水平排列底部对齐 */
+    .section-{{ section.id }} .q-bs__card-body {
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: space-between;
+      padding: 16px 28px 40px 38px;
+      gap: 16px;
+    }
+  }
+
+  /* ─── 文案区（flex 弹性撑开左侧） ─── */
+  .section-{{ section.id }} .q-bs__card-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* ─── 产品名称 ─── */
+  .section-{{ section.id }} .q-bs__card-title {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.2;
+    margin: 0 0 4px;
+    color: var(--bs-title-color, #1e1e1e);
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-bs__card-title {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+  }
+
+  /* ─── 产品描述 ─── */
+  .section-{{ section.id }} .q-bs__card-desc {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.4;
+    margin: 0;
+    color: var(--bs-desc-color, #4e5357);
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-bs__card-desc {
+      font-size: 16px;
+    }
+  }
+
+  /* ─── CTA 按钮（渐变胶囊）─── */
+  .section-{{ section.id }} .q-bs__card-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 41px;
+    padding: 0 24px;
+    border-radius: 30px;
+    background: linear-gradient(
+      90deg,
+      var(--bs-btn-start, #6cbce7) 0%,
+      var(--bs-btn-end, #367cf6) 100%
+    );
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    white-space: nowrap;
+    text-decoration: none;
+    flex-shrink: 0;
+    transition: opacity 0.2s;
+    /* 移动端：button 位于文案下方 */
+    margin-top: 10px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-bs__card-btn {
+      height: 43px;
+      margin-top: 0;
+      /* 桌面端：与文案底部对齐 */
+      align-self: flex-end;
+    }
+  }
+
+  .section-{{ section.id }} .q-bs__card-btn:hover {
+    opacity: 0.88;
+  }
+
+  .section-{{ section.id }} .q-bs__card-btn:active {
+    opacity: 0.75;
+  }
+</style>
+
+<div class="q-best-sellers section-{{ section.id }}">
+  <div class="page-width">
+
+    {%- render 'q-section-header', section: section -%}
+
+    <div class="q-bs__grid">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'card' -%}
+
+          {%- assign has_card_image = false -%}
+          {%- if block.settings.image != blank or block.settings.image_mobile != blank -%}
+            {%- assign has_card_image = true -%}
+          {%- endif -%}
+
+          {%- assign card_link = block.settings.button_link | default: '/' -%}
+          {%- assign card_aria = block.settings.title | default: block.settings.button_label | default: 'Product card' | strip -%}
+          {%- comment -%} 整卡为链接（与按钮同 URL）；文案/按钮颜色通过 CSS 变量注入 {%- endcomment -%}
+          <a
+            href="{{ card_link }}"
+            class="q-bs__card{% unless has_card_image %} q-bs__card--no-image{% endunless %}"
+            aria-label="{{ card_aria | escape }}"
+            {{ block.shopify_attributes }}
+            style="--bs-title-color:{{ block.settings.title_color | default: '#1e1e1e' }};--bs-desc-color:{{ block.settings.desc_color | default: '#4e5357' }};--bs-btn-start:{{ block.settings.btn_bg_start | default: '#6cbce7' }};--bs-btn-end:{{ block.settings.btn_bg_end | default: '#367cf6' }};"
+          >
+            {%- comment -%} 有图：<picture> 切换；无图：占位背景色 {%- endcomment -%}
+            {%- if has_card_image -%}
+              <picture>
+                {%- if block.settings.image_mobile != blank -%}
+                  <source
+                    media="(max-width: 749px)"
+                    srcset="{{ block.settings.image_mobile | image_url: width: 375 }} 375w, {{ block.settings.image_mobile | image_url: width: 750 }} 750w"
+                    sizes="100vw"
+                  >
+                {%- endif -%}
+                {%- if block.settings.image != blank -%}
+                  {{-
+                    block.settings.image
+                    | image_url: width: 1400
+                    | image_tag:
+                      class: 'q-bs__card-img',
+                      loading: 'lazy',
+                      widths: '750,1100,1400',
+                      sizes: '(min-width: 750px) 50vw, 100vw',
+                      alt: block.settings.title
+                  -}}
+                {%- else -%}
+                  {{-
+                    block.settings.image_mobile
+                    | image_url: width: 800
+                    | image_tag:
+                      class: 'q-bs__card-img',
+                      loading: 'lazy',
+                      widths: '375,750,800',
+                      sizes: '100vw',
+                      alt: block.settings.title
+                  -}}
+                {%- endif -%}
+              </picture>
+            {%- else -%}
+              <div
+                class="q-bs__card-placeholder"
+                style="background: {{ block.settings.empty_bg | default: '#d5d5d6' }};"
+                aria-hidden="true"
+              ></div>
+            {%- endif -%}
+
+            {%- comment -%} 底部渐变遮罩，提升文字在图片上的可读性 {%- endcomment -%}
+            <div class="q-bs__card-overlay" aria-hidden="true"></div>
+
+            {%- comment -%} 底部文案区：移动端垂直排列，桌面端水平排列 {%- endcomment -%}
+            <div class="q-bs__card-body">
+              <div class="q-bs__card-content">
+                {%- if block.settings.title != blank -%}
+                  <h3 class="q-bs__card-title">{{ block.settings.title }}</h3>
+                {%- endif -%}
+                {%- if block.settings.description != blank -%}
+                  <p class="q-bs__card-desc">{{ block.settings.description }}</p>
+                {%- endif -%}
+              </div>
+              {%- if block.settings.button_label != blank -%}
+                <span class="q-bs__card-btn">{{ block.settings.button_label }}</span>
+              {%- endif -%}
+            </div>
+
+          </a>
+
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Q-Best Sellers",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "header", "content": "板块标题" },
+    { "type": "inline_richtext", "id": "header_title", "label": "标题", "default": "<em>Best</em> Sellers" },
+    { "type": "richtext", "id": "header_description", "label": "描述" },
+    { "type": "checkbox", "id": "header_center", "label": "居中对齐", "default": false },
+    {
+      "type": "color_background",
+      "id": "header_em_color",
+      "label": "em 高亮色",
+      "default": "linear-gradient(135deg, #1e1e1e, #848484)"
+    },
+    { "type": "range", "id": "header_title_size_desktop", "label": "标题字号（桌面端）", "min": 20, "max": 80, "step": 2, "unit": "px", "default": 46 },
+    { "type": "range", "id": "header_title_size_mobile", "label": "标题字号（移动端）", "min": 16, "max": 50, "step": 2, "unit": "px", "default": 24 },
+    { "type": "range", "id": "header_desc_size_desktop", "label": "描述字号（桌面端）", "min": 10, "max": 30, "step": 1, "unit": "px", "default": 16 },
+    { "type": "range", "id": "header_desc_size_mobile", "label": "描述字号（移动端）", "min": 10, "max": 24, "step": 1, "unit": "px", "default": 12 },
+    { "type": "range", "id": "header_margin_bottom_desktop", "label": "标题下边距（桌面端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 32 },
+    { "type": "range", "id": "header_margin_bottom_mobile", "label": "标题下边距（移动端）", "min": 0, "max": 80, "step": 4, "unit": "px", "default": 20 },
+    { "type": "header", "content": "卡片样式" },
+    {
+      "type": "range",
+      "id": "card_gap",
+      "label": "卡片间距",
+      "min": 8,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "卡片圆角",
+      "min": 0,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    { "type": "header", "content": "板块背景" },
+    { "type": "color_background", "id": "bg_color", "label": "背景色", "default": "#F5F6F7" },
+    { "type": "header", "content": "上下边距" },
+    { "type": "range", "id": "padding_top_mobile", "label": "上边距（移动端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_bottom_mobile", "label": "下边距（移动端）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_top_desktop", "label": "上边距（桌面端）", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 60 },
+    { "type": "range", "id": "padding_bottom_desktop", "label": "下边距（桌面端）", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 60 }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "产品卡片",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "图片（桌面端）" },
+        { "type": "image_picker", "id": "image_mobile", "label": "图片（移动端）", "info": "不设置时使用桌面端图片" },
+        {
+          "type": "color_background",
+          "id": "empty_bg",
+          "label": "无图片时占位背景",
+          "default": "#d5d5d6",
+          "info": "均未上传图片时铺满卡片背景。默认略深于版块底色便于区分；若要与版块同色可设为 #F5F6F7"
+        },
+        { "type": "text", "id": "title", "label": "产品名称", "default": "Solar Cam D1 Max" },
+        { "type": "text", "id": "description", "label": "产品描述", "default": "360° 3K PTZ Camera with Enhanced AI Detection." },
+        { "type": "text", "id": "button_label", "label": "按钮文字", "default": "Shop Now" },
+        { "type": "url", "id": "button_link", "label": "卡片链接", "default": "/", "info": "整块卡片可点击跳转，与底部按钮同一链接" },
+        { "type": "header", "content": "文案颜色" },
+        { "type": "color", "id": "title_color", "label": "产品名称颜色", "default": "#1e1e1e" },
+        { "type": "color", "id": "desc_color", "label": "描述文字颜色", "default": "#4e5357" },
+        { "type": "header", "content": "按钮颜色" },
+        { "type": "color", "id": "btn_bg_start", "label": "渐变起始色", "default": "#6cbce7" },
+        { "type": "color", "id": "btn_bg_end", "label": "渐变结束色", "default": "#367cf6" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Q-Best Sellers",
+      "blocks": [
+        { "type": "card", "settings": { "title": "Solar Cam D1 Max", "description": "360° 3K PTZ Camera with Enhanced AI Detection.", "button_label": "Shop Now", "button_link": "/" } },
+        { "type": "card", "settings": { "title": "Solar Cam D1 Max", "description": "360° 3K PTZ Camera with Enhanced AI Detection.", "button_label": "Shop Now", "button_link": "/" } },
+        { "type": "card", "settings": { "title": "Solar Cam D1 Max", "description": "360° 3K PTZ Camera with Enhanced AI Detection.", "button_label": "Shop Now", "button_link": "/" } },
+        { "type": "card", "settings": { "title": "Solar Cam D1 Max", "description": "360° 3K PTZ Camera with Enhanced AI Detection.", "button_label": "Shop Now", "button_link": "/" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
