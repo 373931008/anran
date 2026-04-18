@@ -1,11 +1,11 @@
 ---
-description: Siipet 主题项目通用开发规范 - 适用于所有文件
+description: anran 主题项目通用开发规范 - 适用于所有文件
 alwaysApply: true
 ---
 
-# Siipet 主题开发通用规范
+# anran 主题开发通用规范
 
-本规范适用于整个 Siipet Shopify 主题项目的所有代码文件。
+本规范适用于整个 anran Shopify 主题项目的所有代码文件。
 
 ## 技术栈
 
