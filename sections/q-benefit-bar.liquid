@@ -1,0 +1,308 @@
+{%- comment -%}
+  Section: q-benefit-bar
+  功能说明：权益条跑马灯 —— 图标+文字组合无缝横向循环滚动
+  技术栈：
+  - Islands: frontend/islands/benefit-bar-element.js（设置 linear 缓动）
+  - swiper-container Web Component（slidesPerView: auto, autoplay-delay: 1, loop）
+  设计稿：
+  - 桌面端: https://www.figma.com/design/5pt3sMVvBe9wjapAFGqdUb/?node-id=155-3
+  版本：1.0.0
+{%- endcomment -%}
+
+<style>
+  .section-{{ section.id }} {
+    --bb-bg: {{ section.settings.bg_color }};
+    --bb-text-color: {{ section.settings.text_color }};
+    --bb-icon-size-mobile: {{ section.settings.icon_size_mobile }}px;
+    --bb-icon-size-desktop: {{ section.settings.icon_size_desktop }}px;
+    --bb-item-gap: {{ section.settings.item_gap }}px;
+    --bb-pt-mobile: {{ section.settings.padding_top_mobile }}px;
+    --bb-pb-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --bb-pt-desktop: {{ section.settings.padding_top_desktop }}px;
+    --bb-pb-desktop: {{ section.settings.padding_bottom_desktop }}px;
+  }
+
+  /* ─── 根元素 ─── */
+  .section-{{ section.id }}.q-benefit-bar {
+    background: var(--bb-bg, #ffffff);
+    padding-top: var(--bb-pt-mobile, 0);
+    padding-bottom: var(--bb-pb-mobile, 0);
+    overflow: hidden;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}.q-benefit-bar {
+      padding-top: var(--bb-pt-desktop, 0);
+      padding-bottom: var(--bb-pb-desktop, 0);
+      /* 设计稿高度 70px，由 item 自身撑开，不用 flex 避免影响 swiper 宽度计算 */
+      height: 70px;
+    }
+  }
+
+  /* ─── 可选上下分割线 ─── */
+  .section-{{ section.id }}.q-benefit-bar--divider {
+    border-top: 1px solid {{ section.settings.divider_color }};
+    border-bottom: 1px solid {{ section.settings.divider_color }};
+  }
+
+  /* ─── 自定义元素：设为 block，避免默认 inline 撑开到内容全宽 ─── */
+  .section-{{ section.id }} benefit-bar-element {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  /* ─── swiper 容器：参考 logo-marquee，用 display: flex 确保 slide 宽度正确计算 ─── */
+  .section-{{ section.id }} .q-bb__swiper {
+    overflow: hidden;
+  }
+
+  .section-{{ section.id }} .q-bb__swiper swiper-container {
+    display: flex;
+    gap: 0;
+  }
+
+  .section-{{ section.id }} .q-bb__swiper swiper-slide {
+    flex-shrink: 0;
+    width: auto;
+    display: flex;
+    align-items: center;
+  }
+
+  /* ─── 跑马灯关键：线性缓动 ─── */
+  .section-{{ section.id }} .swiper-wrapper {
+    transition-timing-function: linear !important;
+  }
+
+  /* ─── 单个权益项 ─── */
+  .section-{{ section.id }} .q-bb__item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    /* 两侧 padding 控制项间距（相邻两项 = 2 × item-gap） */
+    padding: 0 var(--bb-item-gap, 32px);
+    height: 46px;
+    white-space: nowrap;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-bb__item {
+      height: 70px;
+      gap: 10px;
+    }
+  }
+
+  /* ─── 图标 ─── */
+  .section-{{ section.id }} .q-bb__icon {
+    width: var(--bb-icon-size-mobile, 18px);
+    height: var(--bb-icon-size-mobile, 18px);
+    flex-shrink: 0;
+    object-fit: contain;
+    display: block;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-bb__icon {
+      width: var(--bb-icon-size-desktop, 25px);
+      height: var(--bb-icon-size-desktop, 25px);
+    }
+  }
+
+  /* ─── 文字：移动端 12px，桌面端 16px（设计稿） ─── */
+  .section-{{ section.id }} .q-bb__text {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--bb-text-color, #0071e0);
+    line-height: 1.3;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-bb__text {
+      font-size: 16px;
+    }
+  }
+</style>
+
+<div class="q-benefit-bar section-{{ section.id }}{% if section.settings.show_divider %} q-benefit-bar--divider{% endif %}">
+  <benefit-bar-element
+    client:visible
+    data-section-id="{{ section.id }}"
+    data-speed="{{ section.settings.scroll_speed }}"
+  >
+    <div class="q-bb__swiper">
+      <swiper-container
+        id="q-bb-swiper-{{ section.id }}"
+        slides-per-view="auto"
+        space-between="0"
+        loop="true"
+        autoplay="true"
+        autoplay-delay="1"
+        autoplay-disable-on-interaction="false"
+        grab-cursor="false"
+        speed="{{ section.settings.scroll_speed | times: 1000 }}"
+      >
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'item' -%}
+            <swiper-slide {{ block.shopify_attributes }}>
+              <div class="q-bb__item">
+                {%- if block.settings.icon != blank -%}
+                  {{-
+                    block.settings.icon
+                    | image_url: width: 50
+                    | image_tag:
+                      class: 'q-bb__icon',
+                      loading: 'lazy',
+                      alt: ''
+                  -}}
+                {%- endif -%}
+                {%- if block.settings.text != blank -%}
+                  <span class="q-bb__text">{{ block.settings.text }}</span>
+                {%- endif -%}
+              </div>
+            </swiper-slide>
+          {%- endif -%}
+        {%- endfor -%}
+
+        {%- comment -%} 补充副本，确保 loop 模式有足够 slides 填满视口 {%- endcomment -%}
+        {%- if section.blocks.size < 10 -%}
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'item' -%}
+              <swiper-slide>
+                <div class="q-bb__item">
+                  {%- if block.settings.icon != blank -%}
+                    {{-
+                      block.settings.icon
+                      | image_url: width: 50
+                      | image_tag:
+                        class: 'q-bb__icon',
+                        loading: 'lazy',
+                        alt: ''
+                    -}}
+                  {%- endif -%}
+                  {%- if block.settings.text != blank -%}
+                    <span class="q-bb__text">{{ block.settings.text }}</span>
+                  {%- endif -%}
+                </div>
+              </swiper-slide>
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
+      </swiper-container>
+    </div>
+  </benefit-bar-element>
+</div>
+
+{% schema %}
+{
+  "name": "Q-Benefit Bar",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "header", "content": "滚动设置" },
+    {
+      "type": "range",
+      "id": "scroll_speed",
+      "label": "滚动速度（秒/圈）",
+      "min": 3,
+      "max": 30,
+      "step": 1,
+      "unit": "s",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "item_gap",
+      "label": "每项水平留白",
+      "min": 12,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    { "type": "header", "content": "图标尺寸" },
+    {
+      "type": "range",
+      "id": "icon_size_mobile",
+      "label": "图标大小（移动端）",
+      "min": 12,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "icon_size_desktop",
+      "label": "图标大小（桌面端）",
+      "min": 16,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    { "type": "header", "content": "颜色" },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "文字颜色",
+      "default": "#0071e0"
+    },
+    {
+      "type": "color_background",
+      "id": "bg_color",
+      "label": "背景色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_divider",
+      "label": "显示上下分割线",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "分割线颜色",
+      "default": "#e5e7eb"
+    },
+    { "type": "header", "content": "上下边距" },
+    { "type": "range", "id": "padding_top_mobile", "label": "上边距（移动端）", "min": 0, "max": 60, "step": 4, "unit": "px", "default": 0 },
+    { "type": "range", "id": "padding_bottom_mobile", "label": "下边距（移动端）", "min": 0, "max": 60, "step": 4, "unit": "px", "default": 0 },
+    { "type": "range", "id": "padding_top_desktop", "label": "上边距（桌面端）", "min": 0, "max": 60, "step": 4, "unit": "px", "default": 0 },
+    { "type": "range", "id": "padding_bottom_desktop", "label": "下边距（桌面端）", "min": 0, "max": 60, "step": 4, "unit": "px", "default": 0 }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "权益项",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "图标图片"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "文字",
+          "default": "Fast, Free Global Shipping"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Q-Benefit Bar",
+      "blocks": [
+        { "type": "item", "settings": { "text": "Fast, Free Global Shipping" } },
+        { "type": "item", "settings": { "text": "No Subscription Fees" } },
+        { "type": "item", "settings": { "text": "Portable & Wireless" } },
+        { "type": "item", "settings": { "text": "Crystal-Clear Imaging" } },
+        { "type": "item", "settings": { "text": "iOS & Android Compatible" } },
+        { "type": "item", "settings": { "text": "Lightweight & Compact" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

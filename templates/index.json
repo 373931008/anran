@@ -18,6 +18,12 @@
           "settings": {
             "image": "shopify://shop_images/Group_157.jpg",
             "title": "Pro Wireless Security Camera for Home",
+            "title_color": "#ffffff",
+            "desc_color": "#ffffff",
+            "rating_text_color": "#ffffff",
+            "btn_text_color": "#ffffff",
+            "btn_bg_start": "#6cbce7",
+            "btn_bg_end": "#367cf6",
             "show_rating": true,
             "rating_text": "4.9",
             "description": "Designed for home security, this wireless security cameras puts real-time monitoring in the palm of your hand!",
@@ -31,6 +37,12 @@
           "settings": {
             "image": "shopify://shop_images/773b1515f06b4b9d9ed57b6dc6a435b2.jpg",
             "title": "Pro Wireless Security Camera for Home",
+            "title_color": "#ffffff",
+            "desc_color": "#ffffff",
+            "rating_text_color": "#ffffff",
+            "btn_text_color": "#ffffff",
+            "btn_bg_start": "#6cbce7",
+            "btn_bg_end": "#367cf6",
             "show_rating": true,
             "rating_text": "4.9",
             "description": "Designed for home security, this wireless security cameras puts real-time monitoring in the palm of your hand!",
@@ -50,15 +62,87 @@
         "height_desktop": 670,
         "content_pt_mobile": 24,
         "content_pt_desktop": 56,
+        "content_align_mobile": "left",
+        "content_align_desktop": "left",
         "title_size_mobile": 26,
         "title_size_desktop": 66,
         "desc_size_mobile": 13,
         "desc_size_desktop": 20,
         "star_color": "#ffb800"
       }
+    },
+    "q-benefit-bar": {
+      "type": "q-benefit-bar",
+      "blocks": {
+        "bb-item-1": {
+          "type": "item",
+          "settings": {
+            "icon": "shopify://shop_images/fi_11241345.svg",
+            "text": "Fast, Free Global Shipping"
+          }
+        },
+        "item_EeN3zj": {
+          "type": "item",
+          "settings": {
+            "icon": "shopify://shop_images/image_289_f630f7cc-a74c-47e9-b405-40d77e10c5db.png",
+            "text": "No Subscription Fees"
+          }
+        },
+        "bb-item-3": {
+          "type": "item",
+          "settings": {
+            "icon": "shopify://shop_images/image_290_00a537ba-329e-4e95-98c6-189ebf7c50d2.png",
+            "text": "Portable & Wireless"
+          }
+        },
+        "bb-item-4": {
+          "type": "item",
+          "settings": {
+            "icon": "shopify://shop_images/image_291.png",
+            "text": "Crystal-Clear Imaging"
+          }
+        },
+        "bb-item-5": {
+          "type": "item",
+          "settings": {
+            "icon": "shopify://shop_images/image_288_c9785ea5-4a15-47a0-ac3b-41a1727fe045.png",
+            "text": "iOS & Android Compatible"
+          }
+        },
+        "bb-item-6": {
+          "type": "item",
+          "settings": {
+            "icon": "shopify://shop_images/image_292.png",
+            "text": "Lightweight & Compact"
+          }
+        }
+      },
+      "block_order": [
+        "bb-item-1",
+        "item_EeN3zj",
+        "bb-item-3",
+        "bb-item-4",
+        "bb-item-5",
+        "bb-item-6"
+      ],
+      "settings": {
+        "scroll_speed": 15,
+        "item_gap": 40,
+        "icon_size_mobile": 18,
+        "icon_size_desktop": 24,
+        "text_color": "#0071e0",
+        "bg_color": "#ffffff",
+        "show_divider": false,
+        "divider_color": "#e5e7eb",
+        "padding_top_mobile": 0,
+        "padding_bottom_mobile": 0,
+        "padding_top_desktop": 0,
+        "padding_bottom_desktop": 0
+      }
     }
   },
   "order": [
-    "q-hero-banner"
+    "q-hero-banner",
+    "q-benefit-bar"
   ]
 }
