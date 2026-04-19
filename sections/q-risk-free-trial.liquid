@@ -1,0 +1,639 @@
+{%- comment -%}
+  Section: q-risk-free-trial
+  功能说明：无风险试用 — 四格利益点 + 主 CTA
+  设计稿：桌面 155:27 / 移动 350:73
+  技术栈：snippets/q-section-header.liquid
+  版本：1.0.2 — 等高 grid stretch + 链接 margin-top:auto 靠底；描述不 flex:1，留白出现在链接上方而非 desc 盒子内
+{%- endcomment -%}
+
+{%- liquid
+  assign benefit_blocks = section.blocks | where: 'type', 'benefit'
+  assign fallbacks = 'q-risk-free-icon-shipping.svg|q-risk-free-icon-easy.svg|q-risk-free-icon-live.svg|q-risk-free-icon-trial.svg' | split: '|'
+-%}
+
+<style>
+  .section-{{ section.id }} {
+    --rft-bg: {{ section.settings.bg_color }};
+    --rft-pt-mobile: {{ section.settings.padding_top_mobile }}px;
+    --rft-pb-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --rft-pt-desktop: {{ section.settings.padding_top_desktop }}px;
+    --rft-pb-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --rft-gap-mobile: {{ section.settings.card_gap_mobile }}px;
+    --rft-gap-desktop: {{ section.settings.card_gap_desktop }}px;
+    --rft-card-radius: {{ section.settings.card_radius }}px;
+    --rft-card-bg: {{ section.settings.card_bg }};
+    --rft-cta-bg: {{ section.settings.cta_bg }};
+    --rft-cta-mt-mobile: {{ section.settings.cta_margin_top_mobile }}px;
+    --rft-cta-mt-desktop: {{ section.settings.cta_margin_top_desktop }}px;
+  }
+
+  .section-{{ section.id }}.q-risk-free-trial {
+    background: var(--rft-bg, #ffffff);
+    padding-top: var(--rft-pt-mobile, 40px);
+    padding-bottom: var(--rft-pb-mobile, 40px);
+    font-family: var(--font-body-family);
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}.q-risk-free-trial {
+      padding-top: var(--rft-pt-desktop, 60px);
+      padding-bottom: var(--rft-pb-desktop, 60px);
+    }
+  }
+
+  .section-{{ section.id }} .q-section-header__title {
+    color: #1e1e1e;
+    line-height: 1.25;
+  }
+
+  .section-{{ section.id }} .q-section-header__desc {
+    color: #4e5357;
+    line-height: 1.333;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-section-header__title {
+      line-height: calc(40 / 46);
+    }
+
+    .section-{{ section.id }} .q-section-header__desc {
+      line-height: calc(24 / 18);
+    }
+  }
+
+  .section-{{ section.id }} .q-rft__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--rft-gap-mobile, 10px);
+    align-items: stretch;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-rft__grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: var(--rft-gap-desktop, 20px);
+    }
+  }
+
+  /* 等高：grid stretch + 卡片 height:100%；链接靠底：card-inner 纵向 flex + .q-rft__link-wrap margin-top:auto。描述不要用 flex:1，避免空白吃进 .q-rft__card-desc 盒子 */
+  .section-{{ section.id }} .q-rft__card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    min-height: 0;
+    padding: 14px 10px 16px;
+    box-sizing: border-box;
+    background: var(--rft-card-bg, #eff4fe);
+    border-radius: var(--rft-card-radius, 10px);
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-rft__card {
+      padding: 20px 16px 24px;
+    }
+  }
+
+  .section-{{ section.id }} .q-rft__card-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+  }
+
+  .section-{{ section.id }} .q-rft__icon {
+    width: 45px;
+    height: 45px;
+    flex-shrink: 0;
+    object-fit: contain;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-rft__icon {
+      width: 95px;
+      height: 95px;
+    }
+  }
+
+  .section-{{ section.id }} .q-rft__card-title {
+    margin: 10px 0 0;
+    flex-shrink: 0;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 16px;
+    color: #384968;
+    max-width: 100%;
+  }
+
+  .section-{{ section.id }} .q-rft__card-desc {
+    margin: 8px 0 0;
+    flex: 0 1 auto;
+    align-self: stretch;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14px;
+    color: #2d4e76;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .section-{{ section.id }} .q-rft__card-desc p {
+    margin: 0;
+  }
+
+  .section-{{ section.id }} .q-rft__card-desc p + p {
+    margin-top: 0.35em;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-rft__card-title {
+      margin-top: 14px;
+      font-size: 22px;
+      line-height: 1.25;
+    }
+
+    .section-{{ section.id }} .q-rft__card-desc {
+      margin-top: 12px;
+      font-size: 18px;
+      line-height: 24px;
+    }
+  }
+
+  .section-{{ section.id }} .q-rft__link-wrap {
+    margin-top: auto;
+    padding-top: 12px;
+    width: 100%;
+    flex-shrink: 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-rft__link-wrap {
+      padding-top: 20px;
+    }
+  }
+
+  .section-{{ section.id }} .q-rft__card-link {
+    display: inline-block;
+    font-weight: 600;
+    font-size: 10px;
+    line-height: 1.2;
+    color: #384968;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.2s, opacity 0.2s;
+  }
+
+  .section-{{ section.id }} .q-rft__card-link:hover {
+    color: #367cf6;
+  }
+
+  .section-{{ section.id }} .q-rft__card-link:active {
+    opacity: 0.85;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-rft__card-link {
+      font-size: 15px;
+      font-weight: 700;
+    }
+  }
+
+  .section-{{ section.id }} .q-rft__cta-wrap {
+    margin-top: var(--rft-cta-mt-mobile, 32px);
+    display: flex;
+    justify-content: center;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-rft__cta-wrap {
+      margin-top: var(--rft-cta-mt-desktop, 48px);
+    }
+  }
+
+  .section-{{ section.id }} .q-rft__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 36px;
+    padding: 0 20px;
+    border-radius: 999px;
+    font-family: var(--font-body-family);
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #ffffff;
+    background: var(--rft-cta-bg, #384968);
+    transition: background 0.2s, opacity 0.2s;
+    box-sizing: border-box;
+  }
+
+  .section-{{ section.id }} .q-rft__cta:hover {
+    background: #2d4e76;
+  }
+
+  .section-{{ section.id }} .q-rft__cta:active {
+    opacity: 0.88;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-rft__cta {
+      min-height: 56px;
+      padding: 0 40px;
+      font-size: 16px;
+      line-height: 36px;
+    }
+  }
+</style>
+
+<div class="q-risk-free-trial section-{{ section.id }}">
+  <div class="page-width">
+    {%- render 'q-section-header', section: section -%}
+
+    {%- if benefit_blocks.size > 0 -%}
+      <div class="q-rft__grid">
+        {%- for block in benefit_blocks -%}
+          {%- liquid
+            assign icon_i = forloop.index0 | modulo: fallbacks.size
+            assign fb = fallbacks[icon_i]
+            if fb == blank
+              assign fb = 'q-risk-free-icon-shipping.svg'
+            endif
+          -%}
+          <article class="q-rft__card" {{ block.shopify_attributes }}>
+            <div class="q-rft__card-inner">
+              {%- if block.settings.icon != blank -%}
+                {{-
+                  block.settings.icon
+                  | image_url: width: 192
+                  | image_tag:
+                    class: 'q-rft__icon',
+                    widths: '45,90,95,190',
+                    loading: 'lazy',
+                    alt: block.settings.icon.alt | default: ''
+                -}}
+              {%- else -%}
+                <img
+                  class="q-rft__icon"
+                  src="{{ fb | asset_url }}"
+                  width="95"
+                  height="95"
+                  loading="lazy"
+                  alt=""
+                  aria-hidden="true"
+                >
+              {%- endif -%}
+
+              {%- if block.settings.title != blank -%}
+                <h3 class="q-rft__card-title">{{ block.settings.title | newline_to_br }}</h3>
+              {%- endif -%}
+
+              {%- if block.settings.description != blank -%}
+                <div class="q-rft__card-desc rte">{{ block.settings.description }}</div>
+              {%- endif -%}
+
+              {%- if block.settings.link_label != blank -%}
+                <div class="q-rft__link-wrap">
+                  <a class="q-rft__card-link" href="{{ block.settings.link | default: '/' }}">
+                    {{- block.settings.link_label | escape -}}
+                  </a>
+                </div>
+              {%- endif -%}
+            </div>
+          </article>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.cta_label != blank -%}
+      <div class="q-rft__cta-wrap">
+        <a class="q-rft__cta" href="{{ section.settings.cta_link | default: '/' }}">
+          {{- section.settings.cta_label | escape -}}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Q Risk-free trial",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "板块标题"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "header_title",
+      "label": "标题",
+      "default": "<em>Risk-Free 30-Day Trial</em> - Experience the Difference"
+    },
+    {
+      "type": "richtext",
+      "id": "header_description",
+      "label": "描述",
+      "default": "<p>Try our security cameras for 30 days. If you're not completely satisfied, we'll refund your full purchase price.</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "header_center",
+      "label": "居中对齐",
+      "default": true
+    },
+    {
+      "type": "color_background",
+      "id": "header_em_color",
+      "label": "em 高亮色",
+      "default": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 100%)"
+    },
+    {
+      "type": "range",
+      "id": "header_title_size_desktop",
+      "label": "标题字号（桌面端）",
+      "min": 20,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 46
+    },
+    {
+      "type": "range",
+      "id": "header_title_size_mobile",
+      "label": "标题字号（移动端）",
+      "min": 16,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "header_desc_size_desktop",
+      "label": "描述字号（桌面端）",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "header_desc_size_mobile",
+      "label": "描述字号（移动端）",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "header_margin_bottom_desktop",
+      "label": "标题下边距（桌面端）",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "header_margin_bottom_mobile",
+      "label": "标题下边距（移动端）",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "利益卡片"
+    },
+    {
+      "type": "range",
+      "id": "card_gap_mobile",
+      "label": "卡片间距（移动端）",
+      "min": 4,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "card_gap_desktop",
+      "label": "卡片间距（桌面端）",
+      "min": 8,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "卡片圆角",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "color_background",
+      "id": "card_bg",
+      "label": "卡片背景色",
+      "default": "#eff4fe"
+    },
+    {
+      "type": "header",
+      "content": "主按钮"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "按钮文字",
+      "default": "START YOUR RISK-FREE TRIAL"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "按钮链接",
+      "default": "/"
+    },
+    {
+      "type": "color_background",
+      "id": "cta_bg",
+      "label": "按钮背景",
+      "default": "#384968"
+    },
+    {
+      "type": "range",
+      "id": "cta_margin_top_mobile",
+      "label": "按钮上边距（移动端）",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "cta_margin_top_desktop",
+      "label": "按钮上边距（桌面端）",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "header",
+      "content": "板块背景"
+    },
+    {
+      "type": "color_background",
+      "id": "bg_color",
+      "label": "背景色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "上下边距"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "上边距（移动端）",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "下边距（移动端）",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "label": "上边距（桌面端）",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "label": "下边距（桌面端）",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "图标"
+        },
+        {
+          "type": "textarea",
+          "id": "title",
+          "label": "标题",
+          "default": "Title"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "描述",
+          "default": "<p>Description text.</p>"
+        },
+        {
+          "type": "text",
+          "id": "link_label",
+          "label": "链接文字",
+          "default": "Learn more"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "链接",
+          "default": "/"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Q Risk-free trial",
+      "blocks": [
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "Free Global Shipping to Your Door",
+            "description": "<p>Safe and reliable delivery, even to destinations outside the U.S.</p>",
+            "link_label": "Learn More",
+            "link": "/"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "Quick and Easy to Use",
+            "description": "<p>Effortless setup and operation, no steep learning curve.</p>",
+            "link_label": "Join ANRAN Corps Rewards",
+            "link": "/"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "No Subscription Fees App",
+            "description": "<p>Enjoy lifetime app access with no monthly or annual renewal fees.</p>",
+            "link_label": "Talk to Us",
+            "link": "/"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "30-Day\nRisk-Free Trial",
+            "description": "<p>Test it in your daily work for 30 days to see if it meets your needs.</p>",
+            "link_label": "View Shipping Info",
+            "link": "/"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

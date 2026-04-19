@@ -275,10 +275,16 @@ closeItem(item, animate) {
     | image_tag:
       loading: 'lazy',
       widths: '400,600,800,1000',
-      alt: section.settings.image_alt
+      alt: section.settings.image.alt | default: ''
   -}}
 {%- endif -%}
 ```
+
+#### 替代文本（alt）
+
+- **禁止**在 Section / Block 的 `{% schema %}` 中增加专用设置项（如 `image_alt`、`icon_alt`、`替代文本`）让商户在主题编辑器里填写 alt。
+- **`image_picker` 等资源**：输出时使用 **`image.alt`**（商户在 Shopify「内容 › 文件」等媒体库中为该文件维护替代文本）。
+- **`asset_url` 装饰图 / 纯装饰图标**：使用 `alt=""`，必要时对元素加 `aria-hidden="true"`，不在 schema 中新增字段。
 
 - **视频**：一律使用 `video_tag` 并通过 `image_size` 控制尺寸，不手动拼接 `<video>` 标签。
 
@@ -462,6 +468,8 @@ CallMcpTool({
 ---
 
 ## 九、常见报错与解决方案
+
+> **索引**：下列条目（九-1～九-8）已在 **`.cursor/rules/project-conventions.mdc`**（Shopify 上传与 Schema 常见报错索引）中列出速查表，与本章内容一致。
 
 ### 1. `{%- liquid %}` 块内不支持布尔表达式赋值
 
@@ -1222,7 +1230,7 @@ Snippet 命名建议：`product-block-{block_type}.liquid`，与 schema 中的 `
 - [ ] 若需两处渲染（如主栏 + 弹窗），两处都按需输出且不遗漏 `block.shopify_attributes`。
 - [ ] block 的 `settings` 遵守 range default、richtext/inline_richtext、无内联 style 等规范。
 - [ ] 样式选择器加 `.section-{{ block.id }}` 前缀，不污染其他 section。
-- [ ] Snippet 内若使用图片、视频、轮播：图片用 `image_url` + `image_tag`，视频用 `video_tag`，轮播用 `swiper-container`，且轮播导航/分页选择器带 block 维度（必要时通过 `block_id` 传入）；与 Section 规范一致。 image_tag: 配置时不需要配置widths、sizes、alt
+- [ ] Snippet 内若使用图片、视频、轮播：图片用 `image_url` + `image_tag`，视频用 `video_tag`，轮播用 `swiper-container`，且轮播导航/分页选择器带 block 维度（必要时通过 `block_id` 传入）；与 Section 规范一致。不在 schema 中配置 alt 字段；`alt` 使用 `image.alt | default: ''`（参见「五、图片与视频输出规范 › 替代文本」）。
 
 ---
 
@@ -1246,7 +1254,7 @@ Snippet 命名建议：`product-block-{block_type}.liquid`，与 schema 中的 `
 - [ ] 轮播功能使用 `swiper-container` Web Component，导航用 `data-carousel-prev/next='{{ section.id }}'`，分页用 `data-carousel-pagination='{{ section.id }}'`
 - [ ] 所有按钮添加 hover/active 交互颜色变化（纯色加深、渐变用 opacity）
 - [ ] 产品卡片评分使用 Judge.me badge（关联产品时），无产品时用手写文字降级
-- [ ] 图片设置正确的 `loading` 和 `sizes` 属性
+- [ ] 图片设置正确的 `loading` 和 `widths` / `sizes`；**不在 schema 中配置 alt 字段**（用 `image.alt` 或装饰图 `alt=""`）
 
 ### 性能强制项
 

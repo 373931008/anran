@@ -90,6 +90,37 @@ list_console_messages({ types: ["error", "warn"] })
 | `Ecom popup data element not found` | **忽略**，第三方 App 组件 |
 | 我们自己代码产生的 JS 错误 | **必须修复** |
 
+> **说明**：与「上传 / 保存失败、Schema 校验」相关的问题，已整理为下表 **《Shopify 上传与 Schema 常见报错索引》**；与 **浏览器控制台** 相关时，以上表「错误判断标准」为准（可忽略项勿当成本地代码 Bug）。
+
+---
+
+## 图片替代文本（Alt）
+
+- **禁止**在 Section / Block 的 `{% schema %}` 中新增「替代文本」「Alt」「icon_alt」等独立配置字段。
+- **`image_tag` 的 `alt`**：使用图片对象的 **`image.alt`**（商户在 Shopify 后台「内容 › 文件」等资源处维护）；无媒体对象时（例如 `asset_url` 静态装饰图）使用 `alt=""`，并可加 `aria-hidden="true"`。
+- 写法与示例见 `.cursor/rules/section-development.mdc` 中「五、Schema 标准配置项 › 图片与视频输出规范 › 替代文本」。
+
+---
+
+## Shopify 上传与 Schema 常见报错索引
+
+以下为上传主题、`templates/*.json` 报错或编辑器保存失败时的**条目索引**；每项的报错原文、原因与修正示例见 **`.cursor/rules/section-development.mdc` 第九章（九、常见报错与解决方案）**。
+
+| 索引 | 摘要 |
+|------|------|
+| 九-1 | `{%- liquid %}` 块内不能直接 `assign` 布尔比较表达式 |
+| 九-2 | 模板 JSON「分区类型不能引用现有分区文件」→ 先修复对应 Section 语法 |
+| 九-3 | `{% schema %}` 内 JSON 无效 |
+| 九-4 | `inline_richtext` / `richtext` 在模板 JSON 中不可用空字符串 `""`；两类字段在 schema default 与 templates JSON 中的 HTML 规则不一致 |
+| 九-5 | `range` 的 `default` 必须是 `step` 整数倍 |
+| 九-6 | `presets`、`templates/*.json` 内富文本不允许内联 `style` |
+| 九-7 | `range` 的 `max` 必须严格小于 **10000** |
+| 九-8 | `templates/*.json` 中 block 的 `type` 须在 Section schema 中定义；新建 Section 宜与模板**同一次推送** |
+
+第九章另含 **`inline_richtext` 在模板 JSON 中禁止使用块级标签（如 `<p>`）** 等细则，上传前请对照完整章节。
+
+---
+
 ### Swiper 特定检查
 
 ```javascript
@@ -109,13 +140,13 @@ evaluate_script({
 ### 1. 图片加载策略
 
 ```liquid
-{%- comment -%} ✅ 首屏图片（Hero、第一屏）：eager + 高优先级 {%- endcomment -%}
+{%- comment -%} ✅ 首屏图片（Hero、第一屏）：eager + 高优先级；alt 用 image.alt，勿在 schema 中单设 alt 字段 {%- endcomment -%}
 {{- image | image_url: width: 1920 | image_tag:
   loading: 'eager',
   fetchpriority: 'high',
   widths: '750,1100,1500,1920',
   sizes: '100vw',
-  alt: ''
+  alt: image.alt | default: ''
 -}}
 
 {%- comment -%} ✅ 非首屏图片（产品卡片、推荐区等）：lazy {%- endcomment -%}
@@ -123,7 +154,7 @@ evaluate_script({
   loading: 'lazy',
   widths: '375,750,1100',
   sizes: '(min-width: 750px) 33vw, 50vw',
-  alt: ''
+  alt: image.alt | default: ''
 -}}
 
 {%- comment -%} ❌ 禁止：手写 <img> 或省略 loading/widths/sizes {%- endcomment -%}
@@ -298,6 +329,7 @@ docs: 更新开发文档
 - ✅ 轮播优先使用 `swiper-container`
 - ✅ 响应式设计（移动端优先）
 - ✅ 图片优化（lazy loading、responsive sizes）
+- ❌ 不在 Schema 中配置图片替代文本字段（alt 用 `image.alt` 或装饰图 `alt=""`，见上文「图片替代文本」）
 - ❌ 避免内联样式
 - ❌ 避免硬编码尺寸（使用 CSS 类或变量）
 - ❌ 避免复杂的自定义 JavaScript（优先使用 Swiper）

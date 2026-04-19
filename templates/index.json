@@ -485,29 +485,53 @@
         "ps-card-1": {
           "type": "card",
           "settings": {
+            "cover_image": "shopify://shop_images/image_282.png",
+            "video": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "video_url_alt": "/",
             "card_title": "Brian Unboxes Anran Tri-Max Cam with Night Vision Demo!",
-            "quote": "<p>\"Watch as we unbox the Tri-Max Cam and test its 4K clarity in total darkness. The precision of the motion tracking and the vivid night vision make it the ultimate choice for anyone serious about home security.\"</p>"
+            "quote": "<p>\"Watch as we unbox the Tri-Max Cam and test its 4K clarity in total darkness. The precision of the motion tracking and the vivid night vision make it the ultimate choice for anyone serious about home security.\"</p>",
+            "product": "anran-4mp2mp-2mp-dual-lens-wireless-solar-security-camera-with-2-way-talk"
           }
         },
         "ps-card-2": {
           "type": "card",
           "settings": {
+            "cover_image": "shopify://shop_images/image_283_96acc5b6-2293-4b5f-b651-aef015fffd8c.jpg",
+            "video": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "video_url_alt": "/",
             "card_title": "How Anran 3-Lens System Delivers Full 360° Home Protection?",
-            "quote": "<p>\"If you're looking to secure your home or business without complex wiring, you can use this as a professional-grade surveillance hub.\"</p>"
+            "quote": "<p>\"If you're looking to secure your home or business without complex wiring, you can use this as a professional-grade surveillance hub.\"</p>",
+            "product": "anran-4mp2mp-2mp-dual-lens-wireless-solar-security-camera-with-2-way-talk"
           }
         },
         "ps-card-3": {
           "type": "card",
           "settings": {
+            "cover_image": "shopify://shop_images/image_284.jpg",
+            "video": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "video_url_alt": "/",
             "card_title": "Anran App Quick Start with Smart AI Human Detection Guide?",
-            "quote": "<p>\"I mean you're not going to find a security camera that is this easy to set up. Just sync it with the app and you're ready to go.\"</p>"
+            "quote": "<p>\"I mean you're not going to find a security camera that is this easy to set up. Just sync it with the app and you're ready to go.\"</p>",
+            "product": "anran-4mp2mp-2mp-dual-lens-wireless-solar-security-camera-with-2-way-talk"
+          }
+        },
+        "card_gEqKCY": {
+          "type": "card",
+          "settings": {
+            "cover_image": "shopify://shop_images/image_285.jpg",
+            "video": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "video_url_alt": "/",
+            "card_title": "Anran App Quick Start with Smart AI Human Detection Guide?",
+            "quote": "<p>\"I mean you're not going to find a security camera that is this easy to set up. Just sync it with the app and you're ready to go.\" </p>",
+            "product": "anran-4mp2mp-2mp-dual-lens-wireless-solar-security-camera-with-2-way-talk"
           }
         }
       },
       "block_order": [
         "ps-card-1",
         "ps-card-2",
-        "ps-card-3"
+        "ps-card-3",
+        "card_gEqKCY"
       ],
       "settings": {
         "header_title": "What <em>professionals</em> are saying",
@@ -530,6 +554,159 @@
         "padding_top_desktop": 60,
         "padding_bottom_desktop": 60
       }
+    },
+    "q-verified-reviews": {
+      "type": "q-verified-reviews",
+      "blocks": {
+        "vr-review-1": {
+          "type": "review",
+          "settings": {
+            "image": "shopify://shop_images/Rectangle_144.jpg",
+            "quote_title": "Comfortable and Easy to Wear",
+            "quote_body": "<p>I like the product, comfortable for walking and easy to wear. Clear video day and night—exactly what we needed for peace of mind.</p>",
+            "reviewer_name": "Dave B.",
+            "reviewer_meta": "12-27-25 · CA, US",
+            "avatar_image": "shopify://shop_images/Ellipse_1.jpg",
+            "verified_label": "Verified customer",
+            "product": "",
+            "star_rating": 5
+          }
+        },
+        "vr-review-2": {
+          "type": "review",
+          "settings": {
+            "image": "shopify://shop_images/Rectangle_144_1.jpg",
+            "quote_title": "Comfortable and Easy to Wear",
+            "quote_body": "<p>Fast setup and reliable alerts. The app is intuitive and video quality beats our old cameras.</p>",
+            "reviewer_name": "Nare S.",
+            "reviewer_meta": "01-08-26 · TX, US",
+            "avatar_image": "shopify://shop_images/Ellipse_1.jpg",
+            "verified_label": "Verified Buyer",
+            "product": "",
+            "star_rating": 5
+          }
+        },
+        "vr-review-3": {
+          "type": "review",
+          "settings": {
+            "image": "shopify://shop_images/Rectangle_144_2.jpg",
+            "quote_title": "Comfortable and Easy to Wear",
+            "quote_body": "<p>Great hardware and customer support answered my install questions quickly.</p>",
+            "reviewer_name": "Alex R.",
+            "reviewer_meta": "02-14-26 · FL, US",
+            "avatar_image": "shopify://shop_images/Ellipse_1.jpg",
+            "verified_label": "Verified customer",
+            "product": "",
+            "star_rating": 5
+          }
+        }
+      },
+      "block_order": [
+        "vr-review-1",
+        "vr-review-2",
+        "vr-review-3"
+      ],
+      "settings": {
+        "trust_badge_label": "Verified Reviews",
+        "trust_row_gap": 12,
+        "trust_margin_bottom_mobile": 20,
+        "trust_margin_bottom_desktop": 32,
+        "header_title": "<em>Trusted</em> by Experts, <em>Loved</em> by Users",
+        "header_description": "<p>Real shoppers. Real cameras. Real peace of mind.</p>",
+        "header_center": true,
+        "header_em_color": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 100%)",
+        "header_title_size_desktop": 46,
+        "header_title_size_mobile": 24,
+        "header_desc_size_desktop": 16,
+        "header_desc_size_mobile": 14,
+        "header_margin_bottom_desktop": 40,
+        "header_margin_bottom_mobile": 28,
+        "slide_width_mobile": 228,
+        "slide_gap_mobile": 10,
+        "slide_gap_desktop": 20,
+        "card_radius_mobile": 15,
+        "card_radius_desktop": 30,
+        "controls_margin_mobile": 24,
+        "controls_margin_desktop": 36,
+        "bg_color": "#FFFFFF",
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60
+      }
+    },
+    "q-risk-free-trial": {
+      "type": "q-risk-free-trial",
+      "blocks": {
+        "rft-shipping": {
+          "type": "benefit",
+          "settings": {
+            "title": "Free Global Shipping to Your Door",
+            "description": "<p>Safe and reliable delivery, even to destinations outside the U.S.</p>",
+            "link_label": "Learn More",
+            "link": "/"
+          }
+        },
+        "rft-easy": {
+          "type": "benefit",
+          "settings": {
+            "title": "Quick and Easy to Use",
+            "description": "<p>Effortless setup and operation, no steep learning curve.</p>",
+            "link_label": "Join ANRAN Corps Rewards",
+            "link": "/"
+          }
+        },
+        "rft-sub": {
+          "type": "benefit",
+          "settings": {
+            "title": "No Subscription Fees App",
+            "description": "<p>Enjoy lifetime app access with no monthly or annual renewal fees.</p>",
+            "link_label": "Talk to Us",
+            "link": "/"
+          }
+        },
+        "rft-trial": {
+          "type": "benefit",
+          "settings": {
+            "title": "30-Day\nRisk-Free Trial",
+            "description": "<p>Test it in your daily work for 30 days to see if it meets your needs.</p>",
+            "link_label": "View Shipping Info",
+            "link": "/"
+          }
+        }
+      },
+      "block_order": [
+        "rft-shipping",
+        "rft-easy",
+        "rft-sub",
+        "rft-trial"
+      ],
+      "settings": {
+        "header_title": "<em>Risk-Free 30-Day Trial</em> - Experience the Difference",
+        "header_description": "<p>Try our security cameras for 30 days. If you're not completely satisfied, we'll refund your full purchase price.</p>",
+        "header_center": true,
+        "header_em_color": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 100%)",
+        "header_title_size_desktop": 46,
+        "header_title_size_mobile": 24,
+        "header_desc_size_desktop": 18,
+        "header_desc_size_mobile": 12,
+        "header_margin_bottom_desktop": 40,
+        "header_margin_bottom_mobile": 24,
+        "card_gap_mobile": 10,
+        "card_gap_desktop": 20,
+        "card_radius": 10,
+        "card_bg": "#eff4fe",
+        "cta_label": "START YOUR RISK-FREE TRIAL",
+        "cta_link": "/",
+        "cta_bg": "#384968",
+        "cta_margin_top_mobile": 32,
+        "cta_margin_top_desktop": 48,
+        "bg_color": "#ffffff",
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60
+      }
     }
   },
   "order": [
@@ -539,6 +716,8 @@
     "q-shop-by-categories",
     "q-app-accordion",
     "q-worth-buying-slider",
-    "q-professionals-saying"
+    "q-professionals-saying",
+    "q-verified-reviews",
+    "q-risk-free-trial"
   ]
 }
