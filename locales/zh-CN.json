@@ -342,6 +342,13 @@
     "page": {
       "title": "页面标题"
     },
+    "professionals_saying": {
+      "play_video": "播放视频",
+      "view_more": "查看更多",
+      "nav_label": "用户评价视频滑块",
+      "previous": "上一张",
+      "next": "下一张"
+    },
     "announcements": {
       "previous_announcement": "上一个公告",
       "next_announcement": "下一个公告",

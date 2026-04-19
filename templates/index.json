@@ -240,8 +240,10 @@
             "empty_bg": "#d5d5d6",
             "title": "Camera Kits",
             "description": "All-in-One Security Made Simple.",
+            "body_position": "bottom",
             "title_color": "#1e1e1e",
-            "desc_color": "#4e5357"
+            "desc_color": "#4e5357",
+            "link": ""
           }
         },
         "sc-cat-2": {
@@ -251,8 +253,10 @@
             "empty_bg": "#d5d5d6",
             "title": "Outdoor Cameras",
             "description": "Guard Every Corner, Rain or Shine.",
+            "body_position": "bottom",
             "title_color": "#1e1e1e",
-            "desc_color": "#4e5357"
+            "desc_color": "#4e5357",
+            "link": ""
           }
         },
         "sc-cat-3": {
@@ -262,8 +266,10 @@
             "empty_bg": "#d5d5d6",
             "title": "Indoor Cameras",
             "description": "Peace of Mind, Room by Room.",
+            "body_position": "top",
             "title_color": "#1e1e1e",
-            "desc_color": "#4e5357"
+            "desc_color": "#4e5357",
+            "link": ""
           }
         },
         "sc-cat-4": {
@@ -273,8 +279,10 @@
             "empty_bg": "#d5d5d6",
             "title": "Solar Cameras",
             "description": "Smart Security, Solar Simple.",
+            "body_position": "bottom",
             "title_color": "#1e1e1e",
-            "desc_color": "#4e5357"
+            "desc_color": "#4e5357",
+            "link": ""
           }
         },
         "sc-cat-5": {
@@ -284,8 +292,10 @@
             "empty_bg": "#d5d5d6",
             "title": "Dual-Lens Security Cameras",
             "description": "Guard Every Corner, Rain or Shine.",
+            "body_position": "bottom",
             "title_color": "#1e1e1e",
-            "desc_color": "#4e5357"
+            "desc_color": "#4e5357",
+            "link": ""
           }
         }
       },
@@ -364,7 +374,7 @@
         "padding_bottom_mobile": 40,
         "padding_top_desktop": 60,
         "padding_bottom_desktop": 60,
-        "bg_color": "#1a1d21",
+        "bg_color": "#000000",
         "divider_color": "#333940",
         "summary_bg_color": "#ffffff0f",
         "default_open_first_item": true,
@@ -390,6 +400,136 @@
         "media_radius_mobile": 15,
         "media_radius_desktop": 30
       }
+    },
+    "q-worth-buying-slider": {
+      "type": "q-worth-buying-slider",
+      "blocks": {
+        "wb-slide-1": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Rectangle_300_4.jpg",
+            "description": "<p><strong>Receive real-time</strong> push notifications or emails to stay in-the-know when anything happens at home.</p>",
+            "link": ""
+          }
+        },
+        "wb-slide-2": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Rectangle_303.jpg",
+            "description": "<p><strong>Receive real-time</strong> push notifications or emails to stay in-the-know when anything happens at home.</p>",
+            "link": ""
+          }
+        },
+        "wb-slide-3": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Rectangle_304.jpg",
+            "description": "<p><strong>Receive real-time</strong> push notifications or emails to stay in-the-know when anything happens at home.</p>",
+            "link": ""
+          }
+        },
+        "wb-slide-4": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Rectangle_300.png",
+            "description": "<p><strong>Receive real-time</strong> push notifications or emails to stay in-the-know when anything happens at home.</p>",
+            "link": ""
+          }
+        },
+        "slide_crfkxt": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Rectangle_300.png",
+            "description": "<p><strong>Receive real-time</strong> push notifications or emails to stay in-the-know when anything happens at home.</p>",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "wb-slide-1",
+        "wb-slide-2",
+        "wb-slide-3",
+        "wb-slide-4",
+        "slide_crfkxt"
+      ],
+      "settings": {
+        "headline": "<p>ANRAN® New look.</p><p>Even more magic.</p>",
+        "eyebrow_link_text": "100% Worth Buying >",
+        "eyebrow_link": "",
+        "headline_color": "#ffffff",
+        "eyebrow_color": "#329bff",
+        "headline_size_mobile": 24,
+        "headline_size_desktop": 40,
+        "eyebrow_size_mobile": 12,
+        "eyebrow_size_desktop": 20,
+        "headline_margin_bottom_mobile": 24,
+        "headline_margin_bottom_desktop": 32,
+        "slide_radius": 30,
+        "slide_width_mobile": 260,
+        "slide_width_desktop": 378,
+        "slide_gap_mobile": 14,
+        "slide_gap_desktop": 18,
+        "slide_desc_color": "#cacbcc",
+        "slide_desc_size_mobile": 14,
+        "slide_desc_size_desktop": 16,
+        "bg_color": "#000000",
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 56,
+        "padding_bottom_desktop": 56
+      }
+    },
+    "q-professionals-saying": {
+      "type": "q-professionals-saying",
+      "blocks": {
+        "ps-card-1": {
+          "type": "card",
+          "settings": {
+            "card_title": "Brian Unboxes Anran Tri-Max Cam with Night Vision Demo!",
+            "quote": "<p>\"Watch as we unbox the Tri-Max Cam and test its 4K clarity in total darkness. The precision of the motion tracking and the vivid night vision make it the ultimate choice for anyone serious about home security.\"</p>"
+          }
+        },
+        "ps-card-2": {
+          "type": "card",
+          "settings": {
+            "card_title": "How Anran 3-Lens System Delivers Full 360° Home Protection?",
+            "quote": "<p>\"If you're looking to secure your home or business without complex wiring, you can use this as a professional-grade surveillance hub.\"</p>"
+          }
+        },
+        "ps-card-3": {
+          "type": "card",
+          "settings": {
+            "card_title": "Anran App Quick Start with Smart AI Human Detection Guide?",
+            "quote": "<p>\"I mean you're not going to find a security camera that is this easy to set up. Just sync it with the app and you're ready to go.\"</p>"
+          }
+        }
+      },
+      "block_order": [
+        "ps-card-1",
+        "ps-card-2",
+        "ps-card-3"
+      ],
+      "settings": {
+        "header_title": "What <em>professionals</em> are saying",
+        "header_description": "<p>Real users, real feedback. Let their experiences guide you.</p>",
+        "header_center": true,
+        "header_em_color": "linear-gradient(90deg, #6CBCE7 0%, #367CF6 100%)",
+        "header_title_size_desktop": 46,
+        "header_title_size_mobile": 24,
+        "header_desc_size_desktop": 18,
+        "header_desc_size_mobile": 12,
+        "header_margin_bottom_desktop": 40,
+        "header_margin_bottom_mobile": 24,
+        "view_more_label": "View more >",
+        "slide_width_mobile": 228,
+        "slide_gap_mobile": 10,
+        "slide_gap_desktop": 38,
+        "bg_color": "#F5F6F7",
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60
+      }
     }
   },
   "order": [
@@ -397,6 +537,8 @@
     "q-benefit-bar",
     "q-best-sellers",
     "q-shop-by-categories",
-    "q-app-accordion"
+    "q-app-accordion",
+    "q-worth-buying-slider",
+    "q-professionals-saying"
   ]
 }

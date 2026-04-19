@@ -169,13 +169,14 @@ evaluate_script({
 ### 4. CLS（累积布局偏移）防护
 
 ```css
-/* ✅ Swiper 初始化前给出正确宽度，防止 JS 初始化时重排 */
-swiper-container {
+/* ✅ 详见 .cursor/rules/section-development.mdc「十三」：宿主 display:flex + slide flex-shrink:0；轨道间距只用 spaceBetween，勿再用 CSS gap 重复 */
+.section-{{ section.id }} swiper-container {
   width: 100%;
-  display: block; /* 不要写 display: flex，会干扰 Swiper 内部布局计算 */
+  display: flex;
+  min-width: 0;
 }
-swiper-slide {
-  width: 100%; /* JS 初始化前的宽度占位 */
+.section-{{ section.id }} swiper-slide {
+  flex-shrink: 0;
 }
 
 /* ✅ 图片容器预留宽高比，避免图片加载后撑开页面 */
@@ -209,7 +210,7 @@ swiper-slide {
 - [ ] 首屏图片设置了 `loading: 'eager'` 且有 `fetchpriority: 'high'`
 - [ ] 所有交互 Islands 使用了 `client:visible`
 - [ ] CSS 动画使用 `transform` / `opacity` 而非 `width` / `height`
-- [ ] `swiper-container` 有 `width: 100%; display: block`，`swiper-slide` 有 `width: 100%`
+- [ ] `swiper-container` 有 `width: 100%; display: flex; min-width: 0`；`swiper-slide` 有 `flex-shrink: 0`；全宽卡时按需 `width: 100%`；**不要**在 `swiper-container` 上再写与 `spaceBetween` 等价的 `gap`
 - [ ] 图片容器有明确的宽高比（`aspect-ratio` 或 `padding-top`）
 - [ ] `will-change` 只在真正需要的动画元素上使用
 

@@ -1,0 +1,888 @@
+{%- comment -%}
+  Section: q-professionals-saying
+  功能说明：「What professionals are saying」视频卡片横滑 — 封面 + 标题 + 引用 + 底部关联产品
+  - 高度：同屏卡片随最高一张拉伸对齐（swiper-slide flex + 卡片 flex:1）
+  - 产品：区块配置 product，主图 + 标题 + 链接；底部「View more」文案可配
+  - 视频：封面可配；播放逻辑见 frontend/islands/professionals-saying-element.js（独立组件）
+  - 滑块：移动端卡片宽 228px、间距 10；桌面端每张 ≈ 容器 1/4，间距 38（四列三缝）
+  版本：1.0.7 — 轨道间距仅用 Swiper space-between（10/38），禁止与 ::part(wrapper) gap 叠用
+{%- endcomment -%}
+
+{%- liquid
+  assign ps_blocks = section.blocks | where: 'type', 'card'
+-%}
+
+<style>
+  .section-{{ section.id }} {
+    --ps-bg: {{ section.settings.bg_color }};
+    --ps-pt-mobile: {{ section.settings.padding_top_mobile }}px;
+    --ps-pb-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --ps-pt-desktop: {{ section.settings.padding_top_desktop }}px;
+    --ps-pb-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --ps-card-radius: 15px;
+    --ps-media-ratio: 300 / 203;
+    --ps-slide-w-mobile: {{ section.settings.slide_width_mobile }}px;
+    --ps-gap-mobile: {{ section.settings.slide_gap_mobile }}px;
+    --ps-gap-desktop: {{ section.settings.slide_gap_desktop }}px;
+    --ps-product-bar-bg: #eff4fe;
+    --ps-link: #0071e0;
+    --ps-title: #1e1e1e;
+    --ps-quote: #4e5357;
+    --ps-play-icon-mobile: 51px;
+    --ps-play-icon-desktop: 50px;
+  }
+
+  .section-{{ section.id }} .page-width {
+    max-width: 1796px;
+  }
+
+  .section-{{ section.id }} swiper-container::part(container) {
+    overflow: visible;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} {
+      --ps-media-ratio: 400 / 270;
+      --ps-play-icon-mobile: 68px;
+      --ps-play-icon-desktop: 68px;
+    }
+  }
+
+  .section-{{ section.id }}.q-professionals-saying {
+    background: var(--ps-bg, #f5f6f7);
+    padding-top: var(--ps-pt-mobile, 40px);
+    padding-bottom: var(--ps-pb-mobile, 40px);
+    font-family: var(--font-body-family);
+    overflow: hidden;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}.q-professionals-saying {
+      padding-top: var(--ps-pt-desktop, 60px);
+      padding-bottom: var(--ps-pb-desktop, 60px);
+    }
+  }
+
+  /* 同列卡片等高：宿主 flex + slide 禁止收缩；轨道间距仅由 swiper space-between（10/38）控制 */
+  .section-{{ section.id }} .q-ps__swiper swiper-slide {
+    flex-shrink: 0;
+    width: var(--ps-slide-w-mobile);
+    height: auto;
+    display: flex;
+    box-sizing: border-box;
+    padding-bottom: 12px;
+  }
+
+  /* 桌面端：每条 ≈ (100% − 3×间距) ÷ 4 → 并排约 4 张，间距均匀 */
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-ps__swiper swiper-slide {
+      width: calc((100% - 3 * var(--ps-gap-desktop)) / 3);
+    }
+  }
+
+  /* 桌面端：每条 ≈ (100% − 3×间距) ÷ 4 → 并排约 4 张，间距均匀 */
+  @media screen and (min-width: 1280px) {
+    .section-{{ section.id }} .q-ps__swiper swiper-slide {
+      width: calc((100% - 3 * var(--ps-gap-desktop)) / 4);
+    }
+  }
+
+  .section-{{ section.id }} .q-ps__card {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100%;
+    background: #ffffff;
+    border-radius: var(--ps-card-radius);
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  }
+
+  .section-{{ section.id }} .q-ps__swiper swiper-container {
+    width: 100%;
+    display: flex;
+    min-width: 0;
+    gap: var(--ps-gap-mobile);
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-ps__swiper swiper-container {
+      gap: var(--ps-gap-desktop);
+    }
+  }
+
+  /* 避免 flex 子项默认 min-width:auto 导致 Swiper 与 % 宽度 slide 二次测量 */
+  .section-{{ section.id }} .q-ps__swiper {
+    overflow: visible;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .section-{{ section.id }} .q-ps__slide-inner {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* 媒体区（沿用 q-et 播放结构，样式在本 section 覆盖） */
+  .section-{{ section.id }} .q-ps__media-col {
+    flex-shrink: 0;
+    width: 100%;
+  }
+
+  .section-{{ section.id }} .q-et__media-wrap {
+    position: relative;
+    border-radius: var(--ps-card-radius) var(--ps-card-radius) 0 0;
+    overflow: hidden;
+    aspect-ratio: var(--ps-media-ratio);
+    background: #000;
+    width: 100%;
+  }
+
+  .section-{{ section.id }} .q-et__media-wrap img,
+  .section-{{ section.id }} .q-et__media-wrap .q-et__inline-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .section-{{ section.id }} .q-et__media-wrap--has-video,
+  .section-{{ section.id }} .q-et__media-wrap:has(video[data-et-inline-video]) {
+    cursor: pointer;
+  }
+
+  .section-{{ section.id }} .q-et__inline-video {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  .section-{{ section.id }} .q-et__media-poster,
+  .section-{{ section.id }} .q-et__media-placeholder {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .section-{{ section.id }} .q-et__play-btn {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    transition: opacity 0.2s;
+  }
+
+  .section-{{ section.id }} .q-et__media-wrap--has-video:hover .q-et__play-btn {
+    opacity: 0.92;
+  }
+
+  .section-{{ section.id }} .q-et__play-icon {
+    width: var(--ps-play-icon-mobile);
+    height: var(--ps-play-icon-mobile);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-et__play-icon {
+      width: var(--ps-play-icon-desktop);
+      height: var(--ps-play-icon-desktop);
+    }
+  }
+
+  .section-{{ section.id }} .q-et__play-icon svg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  /* 文案 */
+  .section-{{ section.id }} .q-ps__body {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 16px 16px 14px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-ps__body {
+      gap: 12px;
+      padding: 20px 20px 18px;
+    }
+  }
+
+  .section-{{ section.id }} .q-ps__card-title {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ps-title);
+    margin: 0;
+    line-height: 1.35;
+    font-family: var(--font-body-family);
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-ps__card-title {
+      font-size: 18px;
+      line-height: 1.44;
+    }
+  }
+
+  .section-{{ section.id }} .q-ps__quote {
+    font-size: 12px;
+    color: var(--ps-quote);
+    line-height: 1.45;
+    margin: 0;
+    flex: 1 1 auto;
+    font-family: var(--font-body-family);
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-ps__quote {
+      font-size: 16px;
+      line-height: 1.5;
+    }
+  }
+
+  /* 底部产品条 */
+  .section-{{ section.id }} .q-ps__product {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 16px 16px;
+    padding: 8px 10px;
+    border-radius: 10px;
+    background: var(--ps-product-bar-bg);
+    text-decoration: none;
+    color: inherit;
+    min-height: 56px;
+    box-sizing: border-box;
+    transition: opacity 0.2s;
+  }
+
+  .section-{{ section.id }} .q-ps__product:hover {
+    opacity: 0.92;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-ps__product {
+      margin: 0 20px 20px;
+      padding: 10px 12px;
+      min-height: 70px;
+      gap: 12px;
+    }
+  }
+
+  .section-{{ section.id }} .q-ps__product-img {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #fff;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-ps__product-img {
+      width: 64px;
+      height: 61px;
+    }
+  }
+
+  .section-{{ section.id }} .q-ps__product-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .section-{{ section.id }} .q-ps__product-meta {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .section-{{ section.id }} .q-ps__product-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ps-title);
+    margin: 0;
+    line-height: 1.35;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .section-{{ section.id }} .q-ps__product-more {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--ps-link);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-ps__product-more {
+      font-size: 14px;
+    }
+  }
+
+  /* 导航：仅桌面端使用；移动端完全隐藏（手势滑动即可） */
+  .section-{{ section.id }} .q-ps__nav {
+    display: none;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-ps__nav {
+      display: flex;
+      margin-top: 28px;
+    }
+
+    /* 桌面：内容未超出一屏时由 JS 加 [hidden]，此处保证隐藏时不占空间 */
+    .section-{{ section.id }} .q-ps__nav[hidden] {
+      display: none !important;
+    }
+  }
+
+  .section-{{ section.id }} .q-ps__nav-btn {
+    --ps-nav-arrow: #ffffff;
+    width: 37px;
+    height: 37px;
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background 0.2s, opacity 0.2s;
+    -webkit-tap-highlight-color: transparent;
+    background: rgba(30, 30, 30, 0.92);
+    color: var(--ps-nav-arrow);
+    padding: 0;
+  }
+
+  .section-{{ section.id }} .q-ps__nav-btn:hover:not(:disabled):not(.swiper-button-disabled) {
+    background: rgba(55, 55, 55, 0.95);
+  }
+
+  .section-{{ section.id }} .q-ps__nav-btn:focus,
+  .section-{{ section.id }} .q-ps__nav-btn:focus-visible,
+  .section-{{ section.id }} .q-ps__nav-btn:active,
+  .section-{{ section.id }} .q-ps__nav-btn:disabled,
+  .section-{{ section.id }} .q-ps__nav-btn.swiper-button-disabled {
+    color: var(--ps-nav-arrow);
+  }
+
+  .section-{{ section.id }} .q-ps__nav-btn svg path {
+    stroke: var(--ps-nav-arrow);
+  }
+
+  .section-{{ section.id }} .q-ps__nav-btn:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.45);
+    outline-offset: 2px;
+  }
+
+  .section-{{ section.id }} .q-ps__nav-btn:disabled,
+  .section-{{ section.id }} .q-ps__nav-btn.swiper-button-disabled {
+    opacity: 0.38;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  .section-{{ section.id }} .q-ps__nav-btn svg {
+    width: 16px;
+    height: 16px;
+    display: block;
+  }
+
+  @media screen and (max-width: 749px) {
+    .section-{{ section.id }} .page-width {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+  }
+</style>
+
+<div class="q-professionals-saying section-{{ section.id }}">
+  <div class="page-width">
+    {%- render 'q-section-header', section: section -%}
+
+    {%- if ps_blocks.size > 0 -%}
+      <professionals-saying-element
+        client:visible
+        data-section-id="{{ section.id }}"
+      >
+        <div class="q-ps__swiper">
+          <swiper-container
+            id="q-ps-swiper-{{ section.id }}"
+            slides-per-view="auto"
+            space-between="{{ section.settings.slide_gap_mobile }}"
+            grab-cursor="true"
+            navigation="true"
+            navigation-prev-el="[data-ps-prev='{{ section.id }}']"
+            navigation-next-el="[data-ps-next='{{ section.id }}']"
+            breakpoints='{"750":{"slidesPerView":"auto","spaceBetween":{{ section.settings.slide_gap_desktop }}}}'
+          >
+            {%- for block in ps_blocks -%}
+              {%- liquid
+                assign ps_product = block.settings.product
+                assign local_video = block.settings.local_video
+                assign video_url = block.settings.video
+                assign cover_image = block.settings.cover_image
+
+                assign has_local = false
+                if local_video != blank
+                  assign has_local = true
+                endif
+
+                assign has_external = false
+                assign external_url = ''
+                if video_url != blank and video_url.url != blank
+                  assign has_external = true
+                  assign external_url = video_url.url
+                elsif block.settings.video_url_alt != blank and block.settings.video_url_alt != '/'
+                  assign has_external = true
+                  assign external_url = block.settings.video_url_alt
+                endif
+
+                assign poster_image = cover_image
+                if poster_image == blank and has_local and local_video.preview_image != blank
+                  assign poster_image = local_video.preview_image
+                endif
+
+                assign poster_ratio = 1.48
+                if poster_image != blank and poster_image.aspect_ratio != blank
+                  assign poster_ratio = poster_image.aspect_ratio
+                endif
+                assign poster_w = 800
+                assign poster_h = poster_w | divided_by: poster_ratio | round
+              -%}
+              <swiper-slide {{ block.shopify_attributes }}>
+                <div class="q-ps__slide-inner">
+                  <article class="q-ps__card">
+                    <div class="q-ps__media-col">
+                      <div
+                        class="q-et__media-wrap{% if has_external %} q-et__media-wrap--has-video{% endif %}"
+                        {% if has_external %}
+                          role="button"
+                          tabindex="0"
+                          data-et-video-url="{{ external_url | escape }}"
+                          aria-label="{{ 'sections.professionals_saying.play_video' | t }}"
+                        {% elsif has_local %}
+                          role="button"
+                          tabindex="0"
+                          aria-label="{{ 'sections.professionals_saying.play_video' | t }}"
+                        {% endif %}
+                      >
+                        {%- if poster_image != blank -%}
+                          {%- liquid
+                            assign ps_img_loading = 'lazy'
+                            assign ps_fetchpriority = 'auto'
+                            if forloop.first
+                              assign ps_img_loading = 'eager'
+                              assign ps_fetchpriority = 'high'
+                            endif
+                          -%}
+                          {{- poster_image | image_url: width: 980 | image_tag:
+                            loading: ps_img_loading,
+                            fetchpriority: ps_fetchpriority,
+                            width: poster_w,
+                            height: poster_h,
+                            sizes: '(min-width: 750px) 400px, 85vw',
+                            widths: '300, 400, 600, 800, 980',
+                            alt: poster_image.alt | default: block.settings.card_title,
+                            class: 'q-et__media-poster'
+                          -}}
+                        {%- else -%}
+                          <div class="q-et__media-placeholder" style="width:100%;height:100%;background:#e5e7eb;"></div>
+                        {%- endif -%}
+
+                        {%- if has_local and local_video.sources.size > 0 -%}
+                          <video
+                            class="q-et__inline-video"
+                            muted
+                            playsinline
+                            data-et-inline-video
+                            preload="metadata"
+                            {% if poster_image != blank %}poster="{{ poster_image | image_url: width: 714 }}"{% endif %}
+                            aria-hidden="true"
+                          >
+                            {%- for source in local_video.sources -%}
+                              <source src="{{ source.url }}" type="{{ source.mime_type }}">
+                            {%- endfor -%}
+                          </video>
+                        {%- endif -%}
+
+                        {%- if has_external -%}
+                          <span class="q-et__play-btn" aria-hidden="true">
+                            <span class="q-et__play-icon">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="103" height="103" viewBox="0 0 103 103" fill="none">
+                                <path d="M100.878 26.7747C99.6905 22.3623 96.2116 18.8842 91.8 17.696C83.7398 15.4902 51.499 15.4902 51.499 15.4902C51.499 15.4902 19.259 15.4902 11.1988 17.612C6.87203 18.7993 3.30832 22.3631 2.12094 26.7747C0 34.8341 0 51.5486 0 51.5486C0 51.5486 0 68.3471 2.12094 76.3225C3.30911 80.7341 6.78717 84.2129 11.1996 85.4011C19.3439 87.6069 51.4998 87.6069 51.4998 87.6069C51.4998 87.6069 83.7398 87.6069 91.8 85.4852C96.2124 84.2978 99.6905 80.819 100.879 76.4073C103 68.3471 103 51.6334 103 51.6334C103 51.6334 103 34.8341 100.878 26.7747Z" fill="#FF0000"/>
+                                <path d="M41.2338 66.9903L68.0437 51.5489L41.2338 36.1074V66.9903Z" fill="white"/>
+                              </svg>
+                            </span>
+                          </span>
+                        {%- elsif has_local -%}
+                          <span class="q-et__play-btn" aria-hidden="true">
+                            <span class="q-et__play-icon">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="103" height="103" viewBox="0 0 103 103" fill="none">
+                                <path d="M100.878 26.7747C99.6905 22.3623 96.2116 18.8842 91.8 17.696C83.7398 15.4902 51.499 15.4902 51.499 15.4902C51.499 15.4902 19.259 15.4902 11.1988 17.612C6.87203 18.7993 3.30832 22.3631 2.12094 26.7747C0 34.8341 0 51.5486 0 51.5486C0 51.5486 0 68.3471 2.12094 76.3225C3.30911 80.7341 6.78717 84.2129 11.1996 85.4011C19.3439 87.6069 51.4998 87.6069 51.4998 87.6069C51.4998 87.6069 83.7398 87.6069 91.8 85.4852C96.2124 84.2978 99.6905 80.819 100.879 76.4073C103 68.3471 103 51.6334 103 51.6334C103 51.6334 103 34.8341 100.878 26.7747Z" fill="#FF0000"/>
+                                <path d="M41.2338 66.9903L68.0437 51.5489L41.2338 36.1074V66.9903Z" fill="white"/>
+                              </svg>
+                            </span>
+                          </span>
+                        {%- endif -%}
+                      </div>
+                    </div>
+
+                    <div class="q-ps__body">
+                      {%- if block.settings.card_title != blank -%}
+                        <h3 class="q-ps__card-title">{{ block.settings.card_title }}</h3>
+                      {%- endif -%}
+                      {%- if block.settings.quote != blank -%}
+                        <div class="q-ps__quote rte">{{ block.settings.quote }}</div>
+                      {%- endif -%}
+                    </div>
+
+                    {%- if ps_product != blank -%}
+                      <a class="q-ps__product" href="{{ ps_product.url }}">
+                        <div class="q-ps__product-img">
+                          {%- if ps_product.featured_image != blank -%}
+                            {%- liquid
+                              assign psi = ps_product.featured_image
+                              assign ps_thumb_w = 90
+                              assign ps_thumb_h = 90
+                              if psi.width != blank and psi.height != blank and psi.width > 0
+                                assign ps_thumb_h = psi.height | times: ps_thumb_w | divided_by: psi.width | round
+                              endif
+                            -%}
+                            {{- psi | image_url: width: 180 | image_tag:
+                              loading: 'lazy',
+                              width: ps_thumb_w,
+                              height: ps_thumb_h,
+                              widths: '90, 120, 180',
+                              sizes: '64px',
+                              alt: psi.alt | default: ps_product.title
+                            -}}
+                          {%- else -%}
+                            {{ 'product-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                          {%- endif -%}
+                        </div>
+                        <div class="q-ps__product-meta">
+                          <p class="q-ps__product-name">{{ ps_product.title }}</p>
+                          <p class="q-ps__product-more">{{ section.settings.view_more_label }}</p>
+                        </div>
+                      </a>
+                    {%- endif -%}
+                  </article>
+                </div>
+              </swiper-slide>
+            {%- endfor -%}
+          </swiper-container>
+        </div>
+
+        {%- if ps_blocks.size > 1 -%}
+          <div class="q-ps__nav" aria-label="{{ 'sections.professionals_saying.nav_label' | t }}">
+            <button
+              class="q-ps__nav-btn"
+              type="button"
+              aria-label="{{ 'sections.professionals_saying.previous' | t }}"
+              data-ps-prev="{{ section.id }}"
+            >
+              <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M10 3L5 8L10 13" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <button
+              class="q-ps__nav-btn"
+              type="button"
+              aria-label="{{ 'sections.professionals_saying.next' | t }}"
+              data-ps-next="{{ section.id }}"
+            >
+              <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M6 3L11 8L6 13" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+        {%- endif -%}
+      </professionals-saying-element>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "q-professionals-saying",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "header", "content": "板块标题" },
+    {
+      "type": "inline_richtext",
+      "id": "header_title",
+      "label": "标题",
+      "default": "What <em>professionals</em> are saying"
+    },
+    {
+      "type": "richtext",
+      "id": "header_description",
+      "label": "描述",
+      "default": "<p>Real users, real feedback. Let their experiences guide you.</p>"
+    },
+    { "type": "checkbox", "id": "header_center", "label": "居中对齐", "default": true },
+    {
+      "type": "color_background",
+      "id": "header_em_color",
+      "label": "em 高亮色",
+      "default": "linear-gradient(90deg, #6CBCE7 0%, #367CF6 100%)"
+    },
+    {
+      "type": "range",
+      "id": "header_title_size_desktop",
+      "label": "标题字号（桌面端）",
+      "min": 20,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 46
+    },
+    {
+      "type": "range",
+      "id": "header_title_size_mobile",
+      "label": "标题字号（移动端）",
+      "min": 16,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "header_desc_size_desktop",
+      "label": "描述字号（桌面端）",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "header_desc_size_mobile",
+      "label": "描述字号（移动端）",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "header_margin_bottom_desktop",
+      "label": "标题下边距（桌面端）",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "header_margin_bottom_mobile",
+      "label": "标题下边距（移动端）",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    { "type": "header", "content": "产品条" },
+    {
+      "type": "text",
+      "id": "view_more_label",
+      "label": "「查看更多」文案",
+      "default": "View more >"
+    },
+    { "type": "header", "content": "滑块尺寸" },
+    {
+      "type": "paragraph",
+      "content": "桌面端每张宽度固定为内容区约 1/4（四列三缝），可通过下方「桌面间距」微调缝隙。"
+    },
+    {
+      "type": "range",
+      "id": "slide_width_mobile",
+      "label": "卡片宽度（移动端）",
+      "min": 200,
+      "max": 320,
+      "step": 2,
+      "unit": "px",
+      "default": 228
+    },
+    {
+      "type": "range",
+      "id": "slide_gap_mobile",
+      "label": "卡片间距（移动端）",
+      "min": 6,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "slide_gap_desktop",
+      "label": "卡片间距（桌面端）",
+      "min": 16,
+      "max": 56,
+      "step": 2,
+      "unit": "px",
+      "default": 38
+    },
+    { "type": "header", "content": "板块背景" },
+    {
+      "type": "color_background",
+      "id": "bg_color",
+      "label": "背景色",
+      "default": "#F5F6F7"
+    },
+    { "type": "header", "content": "上下边距" },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "上边距（移动端）",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "下边距（移动端）",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "label": "上边距（桌面端）",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "label": "下边距（桌面端）",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "视频卡片",
+      "settings": [
+        { "type": "header", "content": "视频与封面" },
+        {
+          "type": "image_picker",
+          "id": "cover_image",
+          "label": "视频封面图",
+          "info": "优先展示；未上传且使用本地视频时，使用视频预览图"
+        },
+        {
+          "type": "video",
+          "id": "local_video",
+          "label": "本地视频",
+          "info": "与下方外链二选一或同时存在：外链优先用于点击弹窗；本地视频可在当前屏自动播放（与专家评价板块相同逻辑）"
+        },
+        {
+          "type": "video_url",
+          "id": "video",
+          "label": "视频链接（YouTube/Vimeo）",
+          "accept": ["youtube", "vimeo"]
+        },
+        {
+          "type": "url",
+          "id": "video_url_alt",
+          "label": "视频链接（备用）",
+          "default": "/",
+          "info": "支持 YouTube Shorts 等"
+        },
+        { "type": "header", "content": "文案" },
+        {
+          "type": "text",
+          "id": "card_title",
+          "label": "卡片标题",
+          "default": "Brian Unboxes Anran Tri-Max Cam with Night Vision Demo!"
+        },
+        {
+          "type": "richtext",
+          "id": "quote",
+          "label": "引用内容",
+          "default": "<p>\"Watch as we unbox the Tri-Max Cam and test its 4K clarity in total darkness.\"</p>"
+        },
+        { "type": "header", "content": "关联产品" },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "产品",
+          "info": "展示在卡片底部，主图为产品特征图"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "q-professionals-saying",
+      "blocks": [
+        {
+          "type": "card",
+          "settings": {
+            "card_title": "Brian Unboxes Anran Tri-Max Cam with Night Vision Demo!",
+            "quote": "<p>\"Watch as we unbox the Tri-Max Cam and test its 4K clarity in total darkness. The precision of the motion tracking and the vivid night vision make it the ultimate choice for anyone serious about home security.\"</p>"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "card_title": "How Anran 3-Lens System Delivers Full 360° Home Protection?",
+            "quote": "<p>\"If you're looking to secure your home or business without complex wiring, you can use this as a professional-grade surveillance hub.\"</p>"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "card_title": "Anran App Quick Start with Smart AI Human Detection Guide?",
+            "quote": "<p>\"I mean you're not going to find a security camera that is this easy to set up. Just sync it with the app and you're ready to go.\"</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

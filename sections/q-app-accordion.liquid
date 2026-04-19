@@ -302,7 +302,6 @@
               {%- if img_m == blank -%}
                 {%- assign img_m = block.settings.image -%}
               {%- endif -%}
-              {%- assign img_alt = block.settings.image_alt | default: block.settings.title | escape -%}
               <div
                 class="q-app-accordion__item{% if is_default_open_item %} q-app-accordion__item--default-open{% endif %}"
                 data-item-index="{{ forloop.index0 }}"
@@ -336,7 +335,7 @@
                               loading: 'lazy',
                               widths: '375,550,750,900',
                               sizes: '100vw',
-                              alt: img_alt
+                              alt: img_m.alt
                           }}
                         </div>
                       {%- endif -%}
@@ -357,7 +356,6 @@
             {%- if should_default_open_first_item and forloop.first -%}
               {%- assign panel_active = true -%}
             {%- endif -%}
-            {%- assign img_alt_desktop = block.settings.image_alt | default: block.settings.title | escape -%}
             <div
               class="q-app-accordion__media-panel{% if panel_active %} q-app-accordion__media-panel--active{% endif %}"
               data-media-index="{{ forloop.index0 }}"
@@ -371,7 +369,7 @@
                     loading: 'lazy',
                     widths: '400,668,900,1200,1600',
                     sizes: '(min-width: 990px) min(668px, 42vw), 0px',
-                    alt: img_alt_desktop
+                    alt: block.settings.image.alt
                 }}
               {%- endif -%}
             </div>
@@ -661,12 +659,14 @@
         {
           "type": "image_picker",
           "id": "image",
-          "label": "配图（桌面端右侧）"
+          "label": "配图（桌面端右侧）",
+          "info": "无障碍替代文本请在「内容 > 文件」中为该图片填写 alt"
         },
         {
           "type": "image_picker",
           "id": "image_mobile",
-          "label": "配图（移动端，留空则沿用桌面图）"
+          "label": "配图（移动端，留空则沿用桌面图）",
+          "info": "alt 沿用媒体库中对应图片的设置"
         }
       ]
     }

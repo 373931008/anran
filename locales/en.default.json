@@ -360,6 +360,13 @@
     "page": {
       "title": "Page title"
     },
+    "professionals_saying": {
+      "play_video": "Play video",
+      "view_more": "View more",
+      "nav_label": "Professionals video carousel",
+      "previous": "Previous slide",
+      "next": "Next slide"
+    },
     "quick_order_list": {
       "product_total": "Product subtotal",
       "view_cart": "View cart",

@@ -1,0 +1,630 @@
+{%- comment -%}
+  Section: q-worth-buying-slider
+  功能说明：深色背景横向卡片滑块 —— 上图下文、右下角箭头导航（与 q-app-features 同款 Swiper 配置）
+  设计稿：
+  - 桌面端 node 155-428 / 移动端 node 336-42
+  版本：1.1.5
+{%- endcomment -%}
+
+<style>
+  .section-{{ section.id }} {
+    --wb-bg: {{ section.settings.bg_color }};
+    --wb-headline-color: {{ section.settings.headline_color }};
+    --wb-eyebrow-color: {{ section.settings.eyebrow_color }};
+    --wb-desc-color: {{ section.settings.slide_desc_color }};
+    --wb-slide-radius: {{ section.settings.slide_radius }}px;
+    --wb-pt-mobile: {{ section.settings.padding_top_mobile }}px;
+    --wb-pb-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --wb-pt-desktop: {{ section.settings.padding_top_desktop }}px;
+    --wb-pb-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --wb-gap-mobile: {{ section.settings.slide_gap_mobile }}px;
+    --wb-gap-desktop: {{ section.settings.slide_gap_desktop }}px;
+    --wb-title-mobile: {{ section.settings.headline_size_mobile }}px;
+    --wb-title-desktop: {{ section.settings.headline_size_desktop }}px;
+    --wb-eyebrow-mobile: {{ section.settings.eyebrow_size_mobile }}px;
+    --wb-eyebrow-desktop: {{ section.settings.eyebrow_size_desktop }}px;
+    --wb-desc-mobile: {{ section.settings.slide_desc_size_mobile }}px;
+    --wb-desc-desktop: {{ section.settings.slide_desc_size_desktop }}px;
+  }
+
+  .section-{{ section.id }}.q-worth-buying-slider {
+    background: var(--wb-bg, #000000);
+    padding-top: var(--wb-pt-mobile, 40px);
+    padding-bottom: var(--wb-pb-mobile, 40px);
+    font-family: var(--font-body-family);
+    overflow: hidden;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}.q-worth-buying-slider {
+      padding-top: var(--wb-pt-desktop, 56px);
+      padding-bottom: var(--wb-pb-desktop, 56px);
+    }
+  }
+
+  /* ─── 顶部：标题 + 右上（桌面）角标链接 ─── */
+  .section-{{ section.id }} .q-wb__intro {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: {{ section.settings.headline_margin_bottom_mobile }}px;
+    align-items: flex-start;
+  }
+
+  .section-{{ section.id }} .q-wb__headline {
+    margin: 0;
+    font-size: var(--wb-title-mobile);
+    font-weight: 600;
+    line-height: 1.15;
+    color: var(--wb-headline-color, #ffffff);
+    max-width: 100%;
+    text-align: left;
+  }
+
+  .section-{{ section.id }} .q-wb__headline p {
+    margin: 0;
+  }
+
+  .section-{{ section.id }} .q-wb__headline p + p {
+    margin-top: 0.2em;
+  }
+
+  .section-{{ section.id }} .q-wb__eyebrow {
+    font-size: var(--wb-eyebrow-mobile);
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--wb-eyebrow-color, #329bff);
+    text-decoration: none;
+    white-space: nowrap;
+    order: -1;
+    transition: opacity 0.2s;
+  }
+
+  .section-{{ section.id }} .q-wb__eyebrow:hover {
+    opacity: 0.88;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-wb__intro {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 24px;
+      margin-bottom: {{ section.settings.headline_margin_bottom_desktop }}px;
+    }
+
+    .section-{{ section.id }} .q-wb__headline {
+      font-size: var(--wb-title-desktop);
+    }
+
+    .section-{{ section.id }} .q-wb__eyebrow {
+      font-size: var(--wb-eyebrow-desktop);
+      order: 0;
+      flex-shrink: 0;
+      padding-top: 8px;
+    }
+  }
+
+  /* ─── Swiper：与 q-app-features 同款 auto 宽度 ─── */
+  .section-{{ section.id }} .q-wb__swiper {
+    width: 100%;
+    display: flex;
+    gap: var(--wb-gap-mobile, 14px);
+  }
+
+  .section-{{ section.id }} .q-wb__swiper swiper-slide {
+    width: {{ section.settings.slide_width_mobile }}px;
+    flex-shrink: 0;
+    height: auto;
+    display: flex;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-wb__swiper {
+      gap: var(--wb-gap-desktop, 24px);
+    }
+
+    .section-{{ section.id }} .q-wb__swiper swiper-slide {
+      width: {{ section.settings.slide_width_desktop }}px;
+    }
+  }
+
+  .section-{{ section.id }} .q-wb__swiper::part(container) {
+    overflow: visible;
+  }
+
+  .section-{{ section.id }} .q-wb__slide {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .section-{{ section.id }} a.q-wb__slide {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  .section-{{ section.id }} a.q-wb__slide:focus-visible {
+    outline: 2px solid #367cf6;
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-wb__slide {
+      gap: 21px;
+    }
+  }
+
+  .section-{{ section.id }} .q-wb__img-area {
+    border-radius: var(--wb-slide-radius, 30px);
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.08);
+    aspect-ratio: 260 / 314;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-wb__img-area {
+      aspect-ratio: 378 / 456;
+    }
+  }
+
+  .section-{{ section.id }} .q-wb__img-area img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transform: scale(1);
+    transition: transform 0.45s ease;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .section-{{ section.id }} a.q-wb__slide--link:hover .q-wb__img-area img {
+      transform: scale(1.06);
+    }
+  }
+
+  .section-{{ section.id }} .q-wb__placeholder {
+    width: 100%;
+    height: 100%;
+    min-height: 120px;
+    background: #c4c4c4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(0, 0, 0, 0.25);
+  }
+
+  .section-{{ section.id }} .q-wb__desc {
+    font-size: var(--wb-desc-mobile);
+    line-height: 1.5;
+    color: var(--wb-desc-color, #cacbcc);
+    text-align: left;
+    margin: 0;
+    padding: 0;
+  }
+
+  .section-{{ section.id }} .q-wb__desc.rte {
+    text-align: left;
+  }
+
+  .section-{{ section.id }} .q-wb__desc p,
+  .section-{{ section.id }} .q-wb__desc ul,
+  .section-{{ section.id }} .q-wb__desc ol,
+  .section-{{ section.id }} .q-wb__desc li {
+    text-align: left;
+  }
+
+  .section-{{ section.id }} .q-wb__desc p {
+    margin: 0;
+  }
+
+  .section-{{ section.id }} .q-wb__desc p + p {
+    margin-top: 0.5em;
+  }
+
+  .section-{{ section.id }} .q-wb__desc strong {
+    font-weight: 600;
+    color: #ffffff;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-wb__desc {
+      font-size: var(--wb-desc-desktop);
+      padding: 0;
+    }
+  }
+
+  /* ─── 导航：左右同款圆钮（深底白箭头），可点击时左右视觉一致 ─── */
+  .section-{{ section.id }} .q-wb__nav {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+    margin-top: 24px;
+  }
+
+  .section-{{ section.id }} .q-wb__nav-btn {
+    --wb-nav-arrow: #ffffff;
+    width: 37px;
+    height: 37px;
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background 0.2s, opacity 0.2s;
+    -webkit-tap-highlight-color: transparent;
+    background: rgba(30, 30, 30, 0.92);
+    color: var(--wb-nav-arrow);
+  }
+
+  .section-{{ section.id }} .q-wb__nav-btn:hover:not(:disabled):not(.swiper-button-disabled) {
+    background: rgba(55, 55, 55, 0.95);
+  }
+
+  /* 全状态同色箭头（防主题 button 覆盖 color） */
+  .section-{{ section.id }} .q-wb__nav-btn:focus,
+  .section-{{ section.id }} .q-wb__nav-btn:focus-visible,
+  .section-{{ section.id }} .q-wb__nav-btn:active,
+  .section-{{ section.id }} .q-wb__nav-btn:disabled,
+  .section-{{ section.id }} .q-wb__nav-btn.swiper-button-disabled {
+    color: var(--wb-nav-arrow);
+  }
+
+  .section-{{ section.id }} .q-wb__nav-btn svg path {
+    stroke: var(--wb-nav-arrow);
+  }
+
+  .section-{{ section.id }} .q-wb__nav-btn:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.45);
+    outline-offset: 2px;
+  }
+
+  .section-{{ section.id }} .q-wb__nav-btn:disabled,
+  .section-{{ section.id }} .q-wb__nav-btn.swiper-button-disabled {
+    opacity: 0.38;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  .section-{{ section.id }} .q-wb__nav-btn svg {
+    width: 16px;
+    height: 16px;
+    display: block;
+  }
+</style>
+
+<div class="q-worth-buying-slider section-{{ section.id }}">
+  <div class="page-width">
+    <div class="q-wb__intro">
+      {%- if section.settings.headline != blank -%}
+        <div class="q-wb__headline rte">{{ section.settings.headline }}</div>
+      {%- endif -%}
+      {%- if section.settings.eyebrow_link_text != blank and section.settings.eyebrow_link != blank -%}
+        <a class="q-wb__eyebrow" href="{{ section.settings.eyebrow_link }}">{{ section.settings.eyebrow_link_text }}</a>
+      {%- elsif section.settings.eyebrow_link_text != blank -%}
+        <span class="q-wb__eyebrow">{{ section.settings.eyebrow_link_text }}</span>
+      {%- endif -%}
+    </div>
+
+    {%- assign wb_slides = section.blocks | where: 'type', 'slide' -%}
+    {%- if wb_slides.size > 0 -%}
+      <swiper-container
+        class="q-wb__swiper"
+        slides-per-view="auto"
+        space-between="{{ section.settings.slide_gap_mobile }}"
+        grab-cursor="true"
+        navigation="true"
+        navigation-prev-el="[data-wb-prev='{{ section.id }}']"
+        navigation-next-el="[data-wb-next='{{ section.id }}']"
+        breakpoints='{"750":{"spaceBetween":{{ section.settings.slide_gap_desktop }}}}'
+      >
+        {%- for block in wb_slides -%}
+            <swiper-slide>
+              {%- liquid
+                assign wb_img = block.settings.image
+                assign wb_img_m = block.settings.image_mobile
+                if wb_img_m == blank
+                  assign wb_img_m = wb_img
+                endif
+                assign slide_link = block.settings.link
+                assign has_slide_link = false
+                if slide_link != blank
+                  assign has_slide_link = true
+                endif
+                assign slide_aria = wb_img.alt | default: wb_img_m.alt | strip
+                if slide_aria == blank
+                  assign slide_aria = 'Slide'
+                endif
+              -%}
+              {%- capture wb_picture_sizes -%}(max-width: 749px) 72vw, {{ section.settings.slide_width_desktop }}px{%- endcapture -%}
+              {%- capture wb_img_tag_sizes -%}(min-width: 750px) {{ section.settings.slide_width_desktop }}px, 72vw{%- endcapture -%}
+              {%- if has_slide_link -%}
+              <a
+                href="{{ slide_link }}"
+                class="q-wb__slide q-wb__slide--link"
+                aria-label="{{ slide_aria | escape }}"
+                {{ block.shopify_attributes }}
+              >
+              {%- else -%}
+              <article class="q-wb__slide" {{ block.shopify_attributes }}>
+              {%- endif -%}
+                <div class="q-wb__img-area">
+                  {%- if wb_img != blank or wb_img_m != blank -%}
+                    <picture>
+                      {%- if block.settings.image_mobile != blank -%}
+                        <source
+                          media="(max-width: 749px)"
+                          srcset="{{ block.settings.image_mobile | image_url: width: 520 }} 260w, {{ block.settings.image_mobile | image_url: width: 750 }} 750w"
+                          sizes="{{ wb_picture_sizes }}"
+                        >
+                      {%- endif -%}
+                      {%- if wb_img != blank -%}
+                        {{
+                          wb_img
+                          | image_url: width: 900
+                          | image_tag:
+                            loading: 'lazy',
+                            widths: '378,540,756,900',
+                            sizes: wb_img_tag_sizes,
+                            alt: wb_img.alt
+                        }}
+                      {%- elsif wb_img_m != blank -%}
+                        {{
+                          wb_img_m
+                          | image_url: width: 750
+                          | image_tag:
+                            loading: 'lazy',
+                            widths: '260,520,750',
+                            sizes: '72vw',
+                            alt: wb_img_m.alt
+                        }}
+                      {%- endif -%}
+                    </picture>
+                  {%- else -%}
+                    <div class="q-wb__placeholder" aria-hidden="true">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true">
+                        <rect x="2" y="2" width="20" height="20" rx="4"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/>
+                      </svg>
+                    </div>
+                  {%- endif -%}
+                </div>
+                {%- if block.settings.description != blank -%}
+                  <div class="q-wb__desc rte">{{ block.settings.description }}</div>
+                {%- endif -%}
+              {%- if has_slide_link -%}
+              </a>
+              {%- else -%}
+              </article>
+              {%- endif -%}
+            </swiper-slide>
+        {%- endfor -%}
+      </swiper-container>
+
+      {%- if wb_slides.size > 1 -%}
+        <div class="q-wb__nav">
+          <button
+            class="q-wb__nav-btn q-wb__nav-btn--prev"
+            type="button"
+            aria-label="Previous slide"
+            data-wb-prev="{{ section.id }}"
+          >
+            <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M10 3L5 8L10 13" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <button
+            class="q-wb__nav-btn q-wb__nav-btn--next"
+            type="button"
+            aria-label="Next slide"
+            data-wb-next="{{ section.id }}"
+          >
+            <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M6 3L11 8L6 13" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "q-worth-buying-slider",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "header", "content": "顶部标题与角标链接" },
+    {
+      "type": "richtext",
+      "id": "headline",
+      "label": "主标题",
+      "default": "<p>ANRAN® New look.</p><p>Even more magic.</p>"
+    },
+    { "type": "text", "id": "eyebrow_link_text", "label": "角标链接文案", "default": "100% Worth Buying >" },
+    { "type": "url", "id": "eyebrow_link", "label": "角标链接地址" },
+    { "type": "color", "id": "headline_color", "label": "主标题颜色", "default": "#ffffff" },
+    { "type": "color", "id": "eyebrow_color", "label": "角标链接颜色", "default": "#329bff" },
+    {
+      "type": "range",
+      "id": "headline_size_mobile",
+      "label": "主标题字号（移动）",
+      "min": 18,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "headline_size_desktop",
+      "label": "主标题字号（桌面）",
+      "min": 24,
+      "max": 56,
+      "step": 1,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_size_mobile",
+      "label": "角标字号（移动）",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_size_desktop",
+      "label": "角标字号（桌面）",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "headline_margin_bottom_mobile",
+      "label": "标题区下边距（移动）",
+      "min": 0,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "headline_margin_bottom_desktop",
+      "label": "标题区下边距（桌面）",
+      "min": 0,
+      "max": 64,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    { "type": "header", "content": "幻灯片外观" },
+    {
+      "type": "range",
+      "id": "slide_radius",
+      "label": "图片圆角",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "slide_width_mobile",
+      "label": "卡片宽度（移动）",
+      "min": 220,
+      "max": 340,
+      "step": 2,
+      "unit": "px",
+      "default": 260,
+      "info": "对应 slides-per-view auto"
+    },
+    {
+      "type": "range",
+      "id": "slide_width_desktop",
+      "label": "卡片宽度（桌面）",
+      "min": 300,
+      "max": 440,
+      "step": 2,
+      "unit": "px",
+      "default": 378,
+      "info": "与设计稿卡片宽度对齐"
+    },
+    {
+      "type": "range",
+      "id": "slide_gap_mobile",
+      "label": "卡片间距（移动）",
+      "min": 8,
+      "max": 28,
+      "step": 2,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "slide_gap_desktop",
+      "label": "卡片间距（桌面）",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 18
+    },
+    { "type": "color", "id": "slide_desc_color", "label": "描述主色", "default": "#cacbcc" },
+    {
+      "type": "range",
+      "id": "slide_desc_size_mobile",
+      "label": "描述字号（移动）",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "slide_desc_size_desktop",
+      "label": "描述字号（桌面）",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    { "type": "header", "content": "板块背景与边距" },
+    { "type": "color", "id": "bg_color", "label": "背景色", "default": "#000000" },
+    { "type": "range", "id": "padding_top_mobile", "label": "上边距（移动）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_bottom_mobile", "label": "下边距（移动）", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_top_desktop", "label": "上边距（桌面）", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 56 },
+    { "type": "range", "id": "padding_bottom_desktop", "label": "下边距（桌面）", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 56 }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "幻灯片",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "图片（桌面端）", "info": "替代文本请在媒体库中为图片填写 alt" },
+        { "type": "image_picker", "id": "image_mobile", "label": "图片（移动端）", "info": "不设置则沿用桌面图；alt 沿用对应图片在媒体库中的设置" },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "描述",
+          "default": "<p><strong>Receive real-time</strong> push notifications or emails to stay in-the-know when anything happens at home.</p>"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "卡片链接",
+          "info": "留空则非链接卡片；填写后整块可点击跳转，悬停时图片轻微放大"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "q-worth-buying-slider",
+      "blocks": [
+        { "type": "slide", "settings": {} },
+        { "type": "slide", "settings": {} },
+        { "type": "slide", "settings": {} },
+        { "type": "slide", "settings": {} }
+      ]
+    }
+  ]
+}
+{% endschema %}

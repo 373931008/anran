@@ -952,18 +952,13 @@ Judge.me badge 内部结构需适配卡片行高：
 
 ### 必须配套的 CSS
 
-`swiper-container` 设置 `display: flex` + `gap`，`swiper-slide` 设置 `flex-shrink: 0`，Swiper 才能正确计算布局：
+`swiper-container` 设置 **`display: flex`**，`swiper-slide` 设置 **`flex-shrink: 0`**，有助于稳定轨道宽度计算、减轻初始化阶段的反复重排。**slide 之间的间距只通过元素属性 `space-between` / `breakpoints.spaceBetween` 控制，不要在 `swiper-container` 上再用 CSS `gap` 重复铺间距**（否则易间距叠加，并徒增多一次布局计算）。
 
 ```css
 .section-{{ section.id }} swiper-container {
   display: flex;
-  gap: 14px; /* 移动端间距，与 space-between 保持一致 */
-}
-
-@media screen and (min-width: 750px) {
-  .section-{{ section.id }} swiper-container {
-    gap: 24px; /* 桌面端间距，与 breakpoints spaceBetween 保持一致 */
-  }
+  width: 100%;
+  min-width: 0;
 }
 
 .section-{{ section.id }} swiper-slide {
@@ -971,15 +966,16 @@ Judge.me badge 内部结构需适配卡片行高：
 }
 ```
 
-> `gap` 值必须与 `swiper-container` 属性中的 `space-between` / `breakpoints spaceBetween` 保持一致。
+> `slides-per-view="auto"` 且设计稿要求固定卡片宽度时，可在 **`swiper-slide` 上设置 `width`**（或与 `calc` 搭配）；数字型 `slides-per-view` 时一般由 Swiper 自动分摊宽度，勿随意写死 `width`（除非设计明确要求）。
 
 ### 关键规则
 
 | 规则 | 说明 |
 |------|------|
-| **swiper-container 设置 flex + gap** | 必须添加 `display: flex` 和 `gap`，值与 `space-between` 保持一致 |
-| **swiper-slide 设置 flex-shrink: 0** | 防止 slide 被压缩，Swiper 才能正确计算布局 |
-| **不设置 slide 宽度** | `slides-per-view` 为数字时 Swiper 自动计算，不要给 `swiper-slide` 设置 `width` |
+| **swiper-container 设置 display: flex** | 建议添加 `display: flex`、`width: 100%`、`min-width: 0`，与内部轨道布局配合 |
+| **swiper-slide 设置 flex-shrink: 0** | 防止 slide 被横向压缩，减少 Swiper 测量与重排 |
+| **间距只用 spaceBetween，不用 CSS gap** | 轨道间距统一写在 `space-between` / `breakpoints`；**禁止**再给 `swiper-container` 加 `gap` 模拟同类间距 |
+| **slide 宽度** | `slides-per-view` 为数字时通常不设宽；**`slides-per-view="auto"`** 时可按设计设 `width`（如 `q-professionals-saying`） |
 | **导航按钮选择器带 section.id** | `[data-carousel-prev='{{ section.id }}']`，防止多个同类板块互相干扰 |
 | **分页器同理** | `[data-carousel-pagination='{{ section.id }}']` |
 | **导航/分页按需使用** | 只有一张 slide 时不渲染导航和分页（用 `blocks.size > 1` 判断） |
@@ -1189,7 +1185,7 @@ Snippet 命名建议：`product-block-{block_type}.liquid`，与 schema 中的 `
 
 - **图片**：一律使用 `image_url` + `image_tag`，设置正确的 `loading`、`widths`/`sizes`、`alt`。禁止手写 `<img>`。详见「五、Schema 标准配置项 → 图片与视频输出规范」。
 - **视频**：一律使用 `video_tag`，通过 `image_size` 控制尺寸。禁止手写 `<video>`；仅当 `video_tag` 无法满足需求时方可手写，并加中文注释说明原因。同上规范。
-- **轮播**：一律使用 `swiper-container` Web Component，禁止手写原生 Swiper 初始化。导航按钮用 `data-carousel-prev` / `data-carousel-next`，分页用 `data-carousel-pagination`；选择器须带 section 维度（如 `[data-carousel-prev='{{ section_id }}']`）以免同页多块冲突。配套 CSS：`swiper-container` 设 `display: flex` + `gap`，`swiper-slide` 设 `flex-shrink: 0`。详见「十三、swiper-container 使用规范」。  
+- **轮播**：一律使用 `swiper-container` Web Component，禁止手写原生 Swiper 初始化。导航按钮用 `data-carousel-prev` / `data-carousel-next`，分页用 `data-carousel-pagination`；选择器须带 section 维度（如 `[data-carousel-prev='{{ section_id }}']`）以免同页多块冲突。配套 CSS：`swiper-container` 设 `display: flex`、`width: 100%`、`min-width: 0`；`swiper-slide` 设 `flex-shrink: 0`；**轨道间距只用** `space-between` / `breakpoints`，**不要**在 `swiper-container` 上再写 CSS `gap` 与 `spaceBetween` 叠用。详见「十三、swiper-container 使用规范」。  
   Snippet 内无 `section` 对象时，由 section 在 `render` 时传入 `section_id`，例如：`{% render 'product-block-xxx', block: block, section_id: section.id %}`，snippet 内用传入的 `section_id` 写导航/分页选择器及 CSS 中的 `.section-{{ section_id }}` 前缀。
 
 ### 4. Block 需在页面两处渲染时（如弹窗）
@@ -1258,7 +1254,7 @@ Snippet 命名建议：`product-block-{block_type}.liquid`，与 schema 中的 `
 - [ ] 轮播中第 1 张 slide 背景图：`loading: 'eager'`；其余 slides：`loading: 'lazy'`
 - [ ] 所有交互 Islands 使用了 `client:visible`（首屏 Hero 也适用，observer 立即触发）
 - [ ] CSS 动画使用 `transform` / `opacity`，不对 `width` / `height` / `top` / `left` 做动画
-- [ ] `swiper-container` 设 `width: 100%; display: block`，`swiper-slide` 设 `width: 100%`（防 CLS）
+- [ ] `swiper-container` 设 `width: 100%; display: flex; min-width: 0`；`swiper-slide` 设 `flex-shrink: 0`；`slides-per-view` 为数字且全宽卡时 slide 可设 `width: 100%`；**不要**在 `swiper-container` 上同时写与 `spaceBetween` 等价的 `gap`（防重复间距与多余重排）
 - [ ] 图片容器设 `aspect-ratio` 或 `padding-top` 百分比，防止图片加载时撑开页面
 - [ ] `will-change` 仅在动画元素上使用，禁止全局或非必要场景使用
 
