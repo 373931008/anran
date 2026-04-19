@@ -196,13 +196,14 @@
     font-weight: 500;
     line-height: 1.25;
     margin: 0 0 6px;
-    color: var(--sc-title-color, #1e1e1e);
+    color: var(--sc-title-color-m, var(--sc-title-color, #1e1e1e));
   }
 
   @media screen and (min-width: 750px) {
     .section-{{ section.id }} .q-sc__title {
       font-size: 24px;
       margin-bottom: 8px;
+      color: var(--sc-title-color, #1e1e1e);
     }
   }
 
@@ -211,13 +212,14 @@
     font-weight: 400;
     line-height: 1.35;
     margin: 0;
-    color: var(--sc-desc-color, #4e5357);
+    color: var(--sc-desc-color-m, var(--sc-desc-color, #4e5357));
   }
 
   @media screen and (min-width: 750px) {
     .section-{{ section.id }} .q-sc__desc {
       font-size: 16px;
       line-height: 1.4;
+      color: var(--sc-desc-color, #4e5357);
     }
   }
 </style>
@@ -240,7 +242,12 @@
           {%- endif -%}
           {%- assign card_aria = block.settings.title | default: block.settings.description | default: 'Category' | strip -%}
           {%- capture sc_item_classes -%}q-sc__item{% if forloop.first %} q-sc__item--featured{% endif %}{% unless has_img %} q-sc__item--no-image{% endunless %}{% if block.settings.body_position == 'top' %} q-sc__item--body-top{% endif %}{%- endcapture -%}
-          {%- capture sc_item_style -%}--sc-title-color:{{ block.settings.title_color | default: '#1e1e1e' }};--sc-desc-color:{{ block.settings.desc_color | default: '#4e5357' }};{%- endcapture -%}
+          {%- capture sc_item_style -%}
+            --sc-title-color:{{ block.settings.title_color | default: '#1e1e1e' }};
+            --sc-desc-color:{{ block.settings.desc_color | default: '#4e5357' }};
+            {%- if block.settings.title_color_mobile != blank -%}--sc-title-color-m:{{ block.settings.title_color_mobile }};{%- endif -%}
+            {%- if block.settings.desc_color_mobile != blank -%}--sc-desc-color-m:{{ block.settings.desc_color_mobile }};{%- endif -%}
+          {%- endcapture -%}
 
           {%- if has_card_link -%}
           <a
@@ -408,9 +415,12 @@
           ],
           "info": "该卡片标题与描述相对图片的叠放位置"
         },
-        { "type": "header", "content": "文案颜色" },
+        { "type": "header", "content": "文案颜色（桌面端）" },
         { "type": "color", "id": "title_color", "label": "标题颜色", "default": "#1e1e1e" },
         { "type": "color", "id": "desc_color", "label": "描述颜色", "default": "#4e5357" },
+        { "type": "header", "content": "文案颜色（移动端）", "info": "不设置时自动使用桌面端颜色" },
+        { "type": "color", "id": "title_color_mobile", "label": "标题颜色（移动端）" },
+        { "type": "color", "id": "desc_color_mobile", "label": "描述颜色（移动端）" },
         { "type": "header", "content": "链接" },
         { "type": "url", "id": "link", "label": "卡片链接", "info": "留空则整块不可点击（不使用链接）；有链接时整块卡片可点" }
       ]

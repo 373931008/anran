@@ -58,15 +58,15 @@
       ],
       "settings": {
         "autoplay_delay": 5000,
-        "height_mobile": 460,
+        "height_mobile": 540,
         "height_desktop": 670,
         "content_pt_mobile": 24,
         "content_pt_desktop": 56,
         "content_align_mobile": "left",
         "content_align_desktop": "left",
-        "title_size_mobile": 26,
+        "title_size_mobile": 30,
         "title_size_desktop": 66,
-        "desc_size_mobile": 13,
+        "desc_size_mobile": 14,
         "desc_size_desktop": 20,
         "star_color": "#ffb800"
       }
@@ -128,10 +128,10 @@
       "settings": {
         "scroll_speed": 15,
         "item_gap": 40,
-        "icon_size_mobile": 18,
+        "icon_size_mobile": 24,
         "icon_size_desktop": 24,
         "text_color": "#0071e0",
-        "bg_color": "#F5F6F7",
+        "bg_color": "#ffffff",
         "show_divider": false,
         "divider_color": "#e5e7eb",
         "padding_top_mobile": 0,
@@ -652,7 +652,7 @@
           "settings": {
             "title": "Quick and Easy to Use",
             "description": "<p>Effortless setup and operation, no steep learning curve.</p>",
-            "link_label": "Join ANRAN Corps Rewards",
+            "link_label": "Join Our Corps Rewards",
             "link": "/"
           }
         },

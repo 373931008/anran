@@ -166,12 +166,14 @@
   .section-{{ section.id }} .q-hero-banner__rating {
     display: flex;
     align-items: center;
+    justify-content: var(--hb-text-align-mobile, left);
     gap: 6px;
     margin-bottom: 10px;
   }
 
   @media screen and (min-width: 750px) {
     .section-{{ section.id }} .q-hero-banner__rating {
+      justify-content: var(--hb-text-align-desktop, left);
       margin-bottom: 16px;
     }
   }
