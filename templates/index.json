@@ -609,12 +609,38 @@
             "product": "",
             "star_rating": 5
           }
+        },
+        "review_4tTTKz": {
+          "type": "review",
+          "settings": {
+            "quote_title": "Comfortable and Easy to Wear",
+            "quote_body": "<p>I like the product, comfortable for walking and easy to wear. Clear video day and night—exactly what we needed for peace of mind.</p>",
+            "reviewer_name": "Dave B.",
+            "reviewer_meta": "12-27-25 · CA, US",
+            "verified_label": "Verified customer",
+            "product": "",
+            "star_rating": 5
+          }
+        },
+        "review_zHjTNW": {
+          "type": "review",
+          "settings": {
+            "quote_title": "Comfortable and Easy to Wear",
+            "quote_body": "<p>I like the product, comfortable for walking and easy to wear. Clear video day and night—exactly what we needed for peace of mind.</p>",
+            "reviewer_name": "Dave B.",
+            "reviewer_meta": "12-27-25 · CA, US",
+            "verified_label": "Verified customer",
+            "product": "",
+            "star_rating": 5
+          }
         }
       },
       "block_order": [
         "vr-review-1",
         "vr-review-2",
-        "vr-review-3"
+        "vr-review-3",
+        "review_4tTTKz",
+        "review_zHjTNW"
       ],
       "settings": {
         "trust_badge_label": "Verified Reviews",
