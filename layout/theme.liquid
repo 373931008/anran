@@ -41,9 +41,15 @@
     {%- endif -%}
 
     {%- comment -%} 屏蔽 App 内嵌页的数据上报 {%- endcomment -%}
-    {%- unless template.suffix == 'flash-app' or page.handle == 'flash-sale-app' -%}
+    {%- if page.handle == 'flash-sale-app' or template.suffix == 'flash-app' -%}
+      {%- comment -%} 该页面不加载 Shopify 追踪脚本 {%- endcomment -%}
+      <script>
+        // 最小化 Shopify 全局对象，防止 JS 报错
+        window.Shopify = window.Shopify || {};
+      </script>
+    {%- else -%}
       {{ content_for_header }}
-    {%- endunless -%}
+    {%- endif -%}
 
     {%- liquid
       assign body_font_bold = settings.type_body_font | font_modify: 'weight', 'bold'
