@@ -144,6 +144,24 @@
     margin: 0 0 10px;
   }
 
+  /* ─── 小标题（置于大标题上方） ─── */
+  .section-{{ section.id }} .q-hero-banner__eyebrow {
+    font-size: 12px;
+    line-height: 1.4;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--slide-eyebrow-color, rgba(255, 255, 255, 0.9));
+    margin: 0 0 10px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-hero-banner__eyebrow {
+      font-size: 14px;
+      margin: 0 0 12px;
+    }
+  }
+
   /* inline_richtext 输出的 <p> 去掉默认 margin */
   .section-{{ section.id }} .q-hero-banner__title p {
     margin: 0;
@@ -220,6 +238,14 @@
     max-width: 550px;
   }
 
+  .section-{{ section.id }} .q-hero-banner__desc > *:first-child {
+    margin-top: 0;
+  }
+
+  .section-{{ section.id }} .q-hero-banner__desc > *:last-child {
+    margin-bottom: 0;
+  }
+
   @media screen and (min-width: 750px) {
     .section-{{ section.id }} .q-hero-banner__desc {
       font-size: var(--hb-desc-size-desktop, 20px);
@@ -250,7 +276,7 @@
     .section-{{ section.id }} .q-hero-banner__btn {
       height: 67px;
       padding: 0 40px;
-      font-size: 20px;
+      font-size: 16px;
     }
   }
 
@@ -290,11 +316,14 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.22);
-    border: 1.5px solid rgba(255, 255, 255, 0.5);
+    --q-hero-banner-nav-bg: rgba(48, 48, 50, 0.40);
+    --q-hero-banner-nav-bg-hover: rgba(48, 48, 50, 0.6);
+    background: var(--q-hero-banner-nav-bg);
+    border: 0;
+    box-shadow: none;
     cursor: pointer;
     padding: 0;
-    transition: background 0.2s, border-color 0.2s, opacity 0.25s;
+    transition: background 0.2s, box-shadow 0.2s, opacity 0.25s;
   }
 
   @media screen and (min-width: 750px) {
@@ -312,8 +341,8 @@
   }
 
   .section-{{ section.id }} .q-hero-banner__nav:hover {
-    background: rgba(255, 255, 255, 0.4);
-    border-color: rgba(255, 255, 255, 0.8);
+    background: var(--q-hero-banner-nav-bg-hover);
+    box-shadow: none;
   }
 
   .section-{{ section.id }} .q-hero-banner__nav--prev {
@@ -416,6 +445,7 @@
   <hero-banner-element client:visible>
 
     {%- assign slide_count = section.blocks | where: 'type', 'slide' | size -%}
+    {%- assign title_heading = section.settings.title_heading | default: 'h2' -%}
     <swiper-container
       slides-per-view="1"
       space-between="0"
@@ -429,6 +459,7 @@
       navigation-prev-el="[data-carousel-prev='{{ section.id }}']"
       navigation-next-el="[data-carousel-next='{{ section.id }}']"
     >
+      {%- assign slide_idx = 0 -%}
       {%- for block in section.blocks -%}
         {%- if block.type == 'slide' -%}
           <swiper-slide {{ block.shopify_attributes }}>
@@ -473,13 +504,22 @@
             <div class="q-hero-banner__overlay" aria-hidden="true"></div>
 
             {%- comment -%} 文字内容（page-width 提供水平对齐） {%- endcomment -%}
-            <div class="q-hero-banner__slide-content" style="--slide-title-color:{{ block.settings.title_color | default: '#ffffff' }};--slide-desc-color:{{ block.settings.desc_color | default: '#ffffff' }};--slide-rating-text-color:{{ block.settings.rating_text_color | default: '#ffffff' }};--slide-btn-text-color:{{ block.settings.btn_text_color | default: '#ffffff' }};--slide-btn-bg-start:{{ block.settings.btn_bg_start | default: '#6cbce7' }};--slide-btn-bg-end:{{ block.settings.btn_bg_end | default: '#367cf6' }};">
+            <div class="q-hero-banner__slide-content" style="--slide-title-color:{{ block.settings.title_color | default: '#ffffff' }};--slide-eyebrow-color:{{ block.settings.eyebrow_color | default: '#ffffff' }};--slide-desc-color:{{ block.settings.desc_color | default: '#ffffff' }};--slide-rating-text-color:{{ block.settings.rating_text_color | default: '#ffffff' }};--slide-btn-text-color:{{ block.settings.btn_text_color | default: '#ffffff' }};--slide-btn-bg-start:{{ block.settings.btn_bg_start | default: '#6cbce7' }};--slide-btn-bg-end:{{ block.settings.btn_bg_end | default: '#367cf6' }};">
               <div class="page-width">
                 <div class="q-hero-banner__content">
 
+                  {%- comment -%} 小标题 {%- endcomment -%}
+                  {%- if block.settings.eyebrow != blank -%}
+                    <p class="q-hero-banner__eyebrow">{{ block.settings.eyebrow }}</p>
+                  {%- endif -%}
+
                   {%- comment -%} 标题 {%- endcomment -%}
                   {%- if block.settings.title != blank -%}
-                    <h2 class="q-hero-banner__title">{{ block.settings.title }}</h2>
+                    {%- if title_heading == 'h1' and slide_idx == 0 -%}
+                      <h1 class="q-hero-banner__title">{{ block.settings.title }}</h1>
+                    {%- else -%}
+                      <h2 class="q-hero-banner__title">{{ block.settings.title }}</h2>
+                    {%- endif -%}
                   {%- endif -%}
 
                   {%- comment -%} 星级评分 {%- endcomment -%}
@@ -500,7 +540,7 @@
 
                   {%- comment -%} 描述文字 {%- endcomment -%}
                   {%- if block.settings.description != blank -%}
-                    <p class="q-hero-banner__desc">{{ block.settings.description }}</p>
+                    <div class="q-hero-banner__desc rte">{{ block.settings.description }}</div>
                   {%- endif -%}
 
                   {%- comment -%} CTA 按钮 {%- endcomment -%}
@@ -517,8 +557,21 @@
                               alt: ''
                           }}
                         {%- else -%}
-                          <svg class="q-hero-banner__btn-icon" viewBox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M16 2H4C2.9 2 2 2.9 2 4V20C2 21.1 2.9 22 4 22H16C17.1 22 18 21.1 18 20V4C18 2.9 17.1 2 16 2ZM10 21C9.2 21 8.5 20.3 8.5 19.5S9.2 18 10 18 11.5 18.7 11.5 19.5 10.8 21 10 21ZM16 17H4V5H16V17Z" fill="white"/>
+                          <svg class="q-hero-banner__btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 23 27" fill="none" aria-hidden="true" focusable="false">
+                            <g filter="url(#filter0_d_{{ section.id }}_{{ block.id }})">
+                              <path d="M0.965931 1.537e-07C0.432462 1.537e-07 0 0.498978 0 1.1145C0 1.73002 0.432462 2.229 0.965931 2.229H2.68461C2.82524 2.229 2.96232 2.28005 3.0764 2.37494C3.19049 2.46982 3.27581 2.60372 3.32028 2.75766L6.50494 13.7832C6.64637 14.2727 6.66435 14.7998 6.55588 15.3004L6.29364 16.5128C5.90887 18.2887 7.10692 20.061 8.69338 20.061H20.2846C20.818 20.061 21.2505 19.562 21.2505 18.9465C21.2505 18.3309 20.818 17.832 20.2846 17.832H8.69338C8.31726 17.832 8.0758 17.4759 8.16702 17.0549L8.36478 16.1435C8.39829 15.9891 8.47556 15.852 8.58432 15.7541C8.69308 15.6562 8.82708 15.603 8.96505 15.603H19.3186C19.7345 15.6032 20.1039 15.2963 20.2355 14.8411L22.8107 5.92512C23.0193 5.20317 22.5534 4.45764 21.8938 4.45799H6.33138C6.19074 4.45799 6.05367 4.40693 5.93957 4.31205C5.82548 4.21717 5.74016 4.08328 5.69568 3.92934L4.7806 0.761864C4.64898 0.306659 4.27962 -0.000250731 3.86372 1.537e-07H0.965931ZM7.72745 21.1755C6.66051 21.1755 5.79559 22.1734 5.79559 23.4045C5.79559 24.6355 6.66051 25.6334 7.72745 25.6334C8.79439 25.6334 9.65931 24.6355 9.65931 23.4045C9.65931 22.1734 8.79439 21.1755 7.72745 21.1755ZM19.3186 21.1755C18.2517 21.1755 17.3868 22.1734 17.3868 23.4045C17.3868 24.6355 18.2517 25.6334 19.3186 25.6334C20.3856 25.6334 21.2505 24.6355 21.2505 23.4045C21.2505 22.1734 20.3856 21.1755 19.3186 21.1755Z" fill="white"/>
+                            </g>
+                            <defs>
+                              <filter id="filter0_d_{{ section.id }}_{{ block.id }}" x="0" y="0" width="22.8611" height="26.6334" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                                <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                                <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                                <feOffset dy="1"/>
+                                <feComposite in2="hardAlpha" operator="out"/>
+                                <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0"/>
+                                <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_{{ section.id }}_{{ block.id }}"/>
+                                <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_{{ section.id }}_{{ block.id }}" result="shape"/>
+                              </filter>
+                            </defs>
                           </svg>
                         {%- endif -%}
                       {%- endif -%}
@@ -531,6 +584,7 @@
             </div>
 
           </swiper-slide>
+          {%- assign slide_idx = slide_idx | plus: 1 -%}
         {%- endif -%}
       {%- endfor -%}
     </swiper-container>
@@ -587,6 +641,17 @@
   "class": "section",
   "disabled_on": { "groups": ["header", "footer"] },
   "settings": [
+    { "type": "header", "content": "SEO / 语义" },
+    {
+      "type": "select",
+      "id": "title_heading",
+      "label": "Banner 标题标签",
+      "options": [
+        { "value": "h2", "label": "默认使用 H2（推荐：避免多张 slide 出现多个 H1）" },
+        { "value": "h1", "label": "仅第一张 slide 使用 H1（其余仍为 H2）" }
+      ],
+      "default": "h2"
+    },
     { "type": "header", "content": "轮播设置" },
     {
       "type": "range",
@@ -732,7 +797,19 @@
           "label": "标题",
           "default": "Pro Wireless Security Camera for Home"
         },
+        {
+          "type": "text",
+          "id": "eyebrow",
+          "label": "小标题（显示在大标题上方）",
+          "default": "ONE-TIME COST, ZERO SUBSCRIPTIONS"
+        },
         { "type": "header", "content": "文案颜色" },
+        {
+          "type": "color",
+          "id": "eyebrow_color",
+          "label": "小标题颜色",
+          "default": "#ffffff"
+        },
         {
           "type": "color",
           "id": "title_color",
@@ -783,10 +860,10 @@
           "default": "4.9"
         },
         {
-          "type": "text",
+          "type": "richtext",
           "id": "description",
           "label": "描述文字",
-          "default": "Designed for home security, this wireless security cameras puts real-time monitoring in the palm of your hand!"
+          "default": "<p>Designed for home security, this wireless security cameras puts real-time monitoring in the palm of your hand!</p>"
         },
         {
           "type": "text",
@@ -825,7 +902,7 @@
           "settings": {
             "show_rating": true,
             "rating_text": "4.9",
-            "description": "Designed for home security, this wireless security cameras puts real-time monitoring in the palm of your hand!",
+            "description": "<p>Designed for home security, this wireless security cameras puts real-time monitoring in the palm of your hand!</p>",
             "button_label": "Shop with Free App",
             "button_link": "/"
           }
