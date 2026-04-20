@@ -88,20 +88,20 @@
     .section-{{ section.id }} .q-wb__intro {
       flex-direction: row;
       justify-content: space-between;
-      align-items: flex-start;
+      align-items: flex-end;
       gap: 24px;
       margin-bottom: {{ section.settings.headline_margin_bottom_desktop }}px;
     }
 
     .section-{{ section.id }} .q-wb__headline {
-      font-size: var(--wb-title-desktop);
+      font-size: calc(var(--wb-title-desktop) - 2px);
     }
 
     .section-{{ section.id }} .q-wb__eyebrow {
-      font-size: var(--wb-eyebrow-desktop);
+      font-size: calc(var(--wb-eyebrow-desktop) - 2px);
       order: 0;
       flex-shrink: 0;
-      padding-top: 8px;
+      padding-top: 0;
     }
   }
 
@@ -243,7 +243,13 @@
     justify-content: flex-end;
     align-items: center;
     gap: 8px;
-    margin-top: 24px;
+    margin-top: 30px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-wb__nav {
+      margin-top: 50px;
+    }
   }
 
   .section-{{ section.id }} .q-wb__nav-btn {
@@ -415,7 +421,7 @@
             data-wb-prev="{{ section.id }}"
           >
             <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path d="M10 3L5 8L10 13" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M10 3L5 8L10 13" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </button>
           <button
@@ -425,7 +431,7 @@
             data-wb-next="{{ section.id }}"
           >
             <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path d="M6 3L11 8L6 13" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M6 3L11 8L6 13" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </button>
         </div>

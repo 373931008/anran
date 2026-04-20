@@ -73,11 +73,11 @@
 
   /* 大图 / 小图 宽高比（对齐设计稿） */
   .section-{{ section.id }} .q-sc__item--featured {
-    aspect-ratio: 345 / 216;
+    aspect-ratio: 345 / 195;
   }
 
   .section-{{ section.id }} .q-sc__item:not(.q-sc__item--featured) {
-    aspect-ratio: 169 / 215;
+    aspect-ratio: 167 / 184;
   }
 
   @media screen and (min-width: 750px) {
@@ -108,9 +108,27 @@
     transition: transform 0.45s ease;
   }
 
+  .section-{{ section.id }} .q-sc__img--hover {
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+
+  .section-{{ section.id }} .q-sc__img--primary {
+    opacity: 1;
+    transition: opacity 0.25s ease, transform 0.45s ease;
+  }
+
   @media (hover: hover) and (pointer: fine) {
     .section-{{ section.id }} .q-sc__item:hover .q-sc__img {
       transform: scale(1.06);
+    }
+
+    .section-{{ section.id }} .q-sc__item:hover .q-sc__img--primary {
+      opacity: 0;
+    }
+
+    .section-{{ section.id }} .q-sc__item:hover .q-sc__img--hover {
+      opacity: 1;
     }
   }
 
@@ -193,7 +211,7 @@
 
   .section-{{ section.id }} .q-sc__title {
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 700;
     line-height: 1.25;
     margin: 0 0 6px;
     color: var(--sc-title-color-m, var(--sc-title-color, #1e1e1e));
@@ -215,6 +233,10 @@
     color: var(--sc-desc-color-m, var(--sc-desc-color, #4e5357));
   }
 
+  .section-{{ section.id }} .q-sc__desc p {
+    margin: 0;
+  }
+
   @media screen and (min-width: 750px) {
     .section-{{ section.id }} .q-sc__desc {
       font-size: 16px;
@@ -234,6 +256,10 @@
           {%- assign has_img = false -%}
           {%- if block.settings.image != blank or block.settings.image_mobile != blank -%}
             {%- assign has_img = true -%}
+          {%- endif -%}
+          {%- assign has_hover_img = false -%}
+          {%- if block.settings.hover_image != blank or block.settings.hover_image_mobile != blank -%}
+            {%- assign has_hover_img = true -%}
           {%- endif -%}
           {%- assign card_link = block.settings.link -%}
           {%- assign has_card_link = false -%}
@@ -278,7 +304,7 @@
                     block.settings.image
                     | image_url: width: 1200
                     | image_tag:
-                      class: 'q-sc__img',
+                      class: 'q-sc__img q-sc__img--primary',
                       loading: 'lazy',
                       widths: '400,600,800,1200',
                       sizes: '(min-width: 750px) 33vw, 100vw',
@@ -289,7 +315,7 @@
                     block.settings.image_mobile
                     | image_url: width: 800
                     | image_tag:
-                      class: 'q-sc__img',
+                      class: 'q-sc__img q-sc__img--primary',
                       loading: 'lazy',
                       widths: '375,750,800',
                       sizes: '100vw',
@@ -297,6 +323,41 @@
                   -}}
                 {%- endif -%}
               </picture>
+
+              {%- if has_hover_img -%}
+                <picture>
+                  {%- if block.settings.hover_image_mobile != blank -%}
+                    <source
+                      media="(max-width: 749px)"
+                      srcset="{{ block.settings.hover_image_mobile | image_url: width: 375 }} 375w, {{ block.settings.hover_image_mobile | image_url: width: 750 }} 750w"
+                      sizes="(max-width: 749px) 100vw, 33vw"
+                    >
+                  {%- endif -%}
+                  {%- if block.settings.hover_image != blank -%}
+                    {{-
+                      block.settings.hover_image
+                      | image_url: width: 1200
+                      | image_tag:
+                        class: 'q-sc__img q-sc__img--hover',
+                        loading: 'lazy',
+                        widths: '400,600,800,1200',
+                        sizes: '(min-width: 750px) 33vw, 100vw',
+                        alt: block.settings.title
+                    -}}
+                  {%- else -%}
+                    {{-
+                      block.settings.hover_image_mobile
+                      | image_url: width: 800
+                      | image_tag:
+                        class: 'q-sc__img q-sc__img--hover',
+                        loading: 'lazy',
+                        widths: '375,750,800',
+                        sizes: '100vw',
+                        alt: block.settings.title
+                    -}}
+                  {%- endif -%}
+                </picture>
+              {%- endif -%}
             {%- else -%}
               <div
                 class="q-sc__placeholder"
@@ -312,7 +373,7 @@
                 <h3 class="q-sc__title">{{ block.settings.title }}</h3>
               {%- endif -%}
               {%- if block.settings.description != blank -%}
-                <p class="q-sc__desc">{{ block.settings.description }}</p>
+                <div class="q-sc__desc">{{ block.settings.description }}</div>
               {%- endif -%}
             </div>
           {%- if has_card_link -%}
@@ -395,6 +456,8 @@
       "settings": [
         { "type": "image_picker", "id": "image", "label": "图片（桌面端）" },
         { "type": "image_picker", "id": "image_mobile", "label": "图片（移动端）", "info": "不设置时使用桌面端图片" },
+        { "type": "image_picker", "id": "hover_image", "label": "悬停图片（桌面端）", "info": "鼠标悬停时显示；不设置则不切换" },
+        { "type": "image_picker", "id": "hover_image_mobile", "label": "悬停图片（移动端）", "info": "不设置时使用「悬停图片（桌面端）」；移动端一般不会触发悬停" },
         {
           "type": "color_background",
           "id": "empty_bg",
@@ -403,7 +466,7 @@
           "info": "均未上传图片时使用"
         },
         { "type": "text", "id": "title", "label": "标题", "default": "Camera Kits" },
-        { "type": "text", "id": "description", "label": "描述", "default": "All-in-One Security Made Simple." },
+        { "type": "richtext", "id": "description", "label": "描述", "default": "<p>All-in-One Security Made Simple.</p>" },
         {
           "type": "select",
           "id": "body_position",
@@ -434,35 +497,35 @@
           "type": "category",
           "settings": {
             "title": "Camera Kits",
-            "description": "All-in-One Security Made Simple."
+            "description": "<p>All-in-One Security Made Simple.</p>"
           }
         },
         {
           "type": "category",
           "settings": {
             "title": "Outdoor Cameras",
-            "description": "Guard Every Corner, Rain or Shine."
+            "description": "<p>Guard Every Corner, Rain or Shine.</p>"
           }
         },
         {
           "type": "category",
           "settings": {
             "title": "Indoor Cameras",
-            "description": "Peace of Mind, Room by Room."
+            "description": "<p>Peace of Mind, Room by Room.</p>"
           }
         },
         {
           "type": "category",
           "settings": {
             "title": "Solar Cameras",
-            "description": "Smart Security, Solar Simple."
+            "description": "<p>Smart Security, Solar Simple.</p>"
           }
         },
         {
           "type": "category",
           "settings": {
             "title": "Dual-Lens Security Cameras",
-            "description": "Guard Every Corner, Rain or Shine."
+            "description": "<p>Guard Every Corner, Rain or Shine.</p>"
           }
         }
       ]

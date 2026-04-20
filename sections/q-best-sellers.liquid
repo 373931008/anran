@@ -136,7 +136,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    padding: 12px 20px 20px 32px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -163,8 +163,8 @@
 
   /* ─── 产品名称 ─── */
   .section-{{ section.id }} .q-bs__card-title {
-    font-size: 16px;
-    font-weight: 500;
+    font-size: 17px;
+    font-weight: 600;
     line-height: 1.2;
     margin: 0 0 4px;
     color: var(--bs-title-color, #1e1e1e);
@@ -179,11 +179,19 @@
 
   /* ─── 产品描述 ─── */
   .section-{{ section.id }} .q-bs__card-desc {
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 400;
     line-height: 1.4;
     margin: 0;
     color: var(--bs-desc-color, #4e5357);
+  }
+
+  .section-{{ section.id }} .q-bs__card-desc > *:first-child {
+    margin-top: 0;
+  }
+
+  .section-{{ section.id }} .q-bs__card-desc > *:last-child {
+    margin-bottom: 0;
   }
 
   @media screen and (min-width: 750px) {
@@ -310,7 +318,7 @@
                   <h3 class="q-bs__card-title">{{ block.settings.title }}</h3>
                 {%- endif -%}
                 {%- if block.settings.description != blank -%}
-                  <p class="q-bs__card-desc">{{ block.settings.description }}</p>
+                  <div class="q-bs__card-desc rte">{{ block.settings.description }}</div>
                 {%- endif -%}
               </div>
               {%- if block.settings.button_label != blank -%}
@@ -394,7 +402,7 @@
           "info": "均未上传图片时铺满卡片背景。默认略深于版块底色便于区分；若要与版块同色可设为 #F5F6F7"
         },
         { "type": "text", "id": "title", "label": "产品名称", "default": "Solar Cam D1 Max" },
-        { "type": "text", "id": "description", "label": "产品描述", "default": "360° 3K PTZ Camera with Enhanced AI Detection." },
+        { "type": "richtext", "id": "description", "label": "产品描述", "default": "<p>360° 3K PTZ Camera with Enhanced AI Detection.</p>" },
         { "type": "text", "id": "button_label", "label": "按钮文字", "default": "Shop Now" },
         { "type": "url", "id": "button_link", "label": "卡片链接", "default": "/", "info": "整块卡片可点击跳转，与底部按钮同一链接" },
         { "type": "header", "content": "文案颜色" },
@@ -410,10 +418,10 @@
     {
       "name": "Q-Best Sellers",
       "blocks": [
-        { "type": "card", "settings": { "title": "Solar Cam D1 Max", "description": "360° 3K PTZ Camera with Enhanced AI Detection.", "button_label": "Shop Now", "button_link": "/" } },
-        { "type": "card", "settings": { "title": "Solar Cam D1 Max", "description": "360° 3K PTZ Camera with Enhanced AI Detection.", "button_label": "Shop Now", "button_link": "/" } },
-        { "type": "card", "settings": { "title": "Solar Cam D1 Max", "description": "360° 3K PTZ Camera with Enhanced AI Detection.", "button_label": "Shop Now", "button_link": "/" } },
-        { "type": "card", "settings": { "title": "Solar Cam D1 Max", "description": "360° 3K PTZ Camera with Enhanced AI Detection.", "button_label": "Shop Now", "button_link": "/" } }
+        { "type": "card", "settings": { "title": "Solar Cam D1 Max", "description": "<p>360° 3K PTZ Camera with Enhanced AI Detection.</p>", "button_label": "Shop Now", "button_link": "/" } },
+        { "type": "card", "settings": { "title": "Solar Cam D1 Max", "description": "<p>360° 3K PTZ Camera with Enhanced AI Detection.</p>", "button_label": "Shop Now", "button_link": "/" } },
+        { "type": "card", "settings": { "title": "Solar Cam D1 Max", "description": "<p>360° 3K PTZ Camera with Enhanced AI Detection.</p>", "button_label": "Shop Now", "button_link": "/" } },
+        { "type": "card", "settings": { "title": "Solar Cam D1 Max", "description": "<p>360° 3K PTZ Camera with Enhanced AI Detection.</p>", "button_label": "Shop Now", "button_link": "/" } }
       ]
     }
   ]

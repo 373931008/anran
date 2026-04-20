@@ -273,8 +273,8 @@
     padding-top: 14px;
     display: grid;
     grid-template-columns: 1fr;
-    gap: 8px;
-    align-items: start;
+    gap: 6px;
+    align-items: center;
   }
 
   @media screen and (min-width: 750px) {
@@ -300,41 +300,27 @@
     }
 
     .section-{{ section.id }} .q-vr__reviewer-name {
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 700;
       line-height: 1.2;
       color: var(--vr-name-color);
     }
 
-    .section-{{ section.id }} .q-vr__meta {
-      margin: 0;
-      font-size: 16px;
-      line-height: 1.5;
-      color: var(--vr-meta-color);
-    }
-
-    .section-{{ section.id }} .q-vr__verified {
-      margin: 0;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+    .section-{{ section.id }} .q-vr__badge {
+      padding: 2px 8px;
       font-size: 12px;
-      line-height: 1.5;
-      color: var(--vr-name-color);
+      line-height: 1.4;
     }
 
-    .section-{{ section.id }} .q-vr__verified-icon {
-      width: 23px;
-      height: 24px;
-      flex-shrink: 0;
-      display: block;
+    .section-{{ section.id }} .q-vr__date {
+      font-size: 12px;
     }
   }
 
   .section-{{ section.id }} .q-vr__avatar {
-    display: none;
-    width: 65px;
-    height: 65px;
+    display: flex;
+    width: 34px;
+    height: 34px;
     border-radius: 50%;
     overflow: hidden;
     background: var(--vr-avatar-bg);
@@ -345,7 +331,8 @@
 
   @media screen and (min-width: 750px) {
     .section-{{ section.id }} .q-vr__avatar {
-      display: flex;
+      width: 65px;
+      height: 65px;
     }
 
     .section-{{ section.id }} .q-vr__avatar img {
@@ -359,10 +346,45 @@
   .section-{{ section.id }} .q-vr__top-line {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     flex-wrap: wrap;
     gap: 10px;
     width: 100%;
+  }
+
+  .section-{{ section.id }} .q-vr__top-left {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+    width: 100%;
+  }
+
+  .section-{{ section.id }} .q-vr__name-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    min-width: 0;
+  }
+
+  .section-{{ section.id }} .q-vr__badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1px 6px;
+    border-radius: 2px;
+    background: #ff791b;
+    color: #ffffff;
+    font-size: 11px;
+    line-height: 1.4;
+  }
+
+  .section-{{ section.id }} .q-vr__date {
+    font-size: 12px;
+    color: var(--vr-name-color);
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 
   .section-{{ section.id }} .q-vr__footer-inner {
@@ -374,38 +396,15 @@
 
   @media screen and (max-width: 749px) {
     .section-{{ section.id }} .q-vr__reviewer-name {
-      font-size: 12px;
-      font-weight: 600;
-      line-height: 1.2;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.3;
       color: var(--vr-name-color);
     }
 
-    .section-{{ section.id }} .q-vr__meta {
-      display: none;
-    }
-
-    .section-{{ section.id }} .q-vr__verified {
-      margin: 0;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 12px;
-      font-weight: 500;
-      line-height: 1.2;
-      color: var(--vr-accent);
-    }
-
-    .section-{{ section.id }} .q-vr__verified-icon {
-      width: 20px;
-      height: 21px;
-      flex-shrink: 0;
-      display: block;
-    }
-  }
-
-  @media screen and (min-width: 750px) {
-    .section-{{ section.id }} .q-vr__verified {
-      color: var(--vr-name-color);
+    .section-{{ section.id }} .q-vr__stars svg {
+      width: 10px;
+      height: 10px;
     }
   }
 
@@ -426,6 +425,12 @@
       width: 17px;
       height: 17px;
     }
+  }
+
+  .section-{{ section.id }} .q-vr__stars-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
   }
 
   .section-{{ section.id }} .q-vr__stars-wrap .jdgm-widget.jdgm-preview-badge {
@@ -637,47 +642,41 @@
 
                     <div class="q-vr__footer-inner">
                       <div class="q-vr__top-line">
-                        {%- if block.settings.reviewer_name != blank -%}
-                          <span class="q-vr__reviewer-name">{{ block.settings.reviewer_name | escape }}</span>
-                        {%- endif -%}
-                        <div class="q-vr__stars-wrap">
-                          {%- if vr_product != blank -%}
-                            <div class="jdgm-widget jdgm-preview-badge" data-id="{{ vr_product.id }}">
-                              {{- vr_product.metafields.judgeme.badge -}}
-                            </div>
-                          {%- else -%}
-                            <div class="q-vr__stars" aria-hidden="true">
-                              {%- for i in (1..vr_stars) -%}
-                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                  <path fill="var(--vr-star)" d="M12 3.5l2.7 5.47 6.04.88-4.37 4.26 1.03 6.02L12 17.77l-5.4 2.84 1.03-6.02L3.26 9.85l6.04-.88L12 3.5z"/>
-                                </svg>
-                              {%- endfor -%}
-                            </div>
-                          {%- endif -%}
+                        <div class="q-vr__top-left">
+                          <div class="q-vr__name-row">
+                            {%- if block.settings.reviewer_name != blank -%}
+                              <span class="q-vr__reviewer-name">{{ block.settings.reviewer_name | escape }}</span>
+                            {%- endif -%}
+                            {%- if block.settings.verified_label != blank -%}
+                              <span class="q-vr__badge">{{ block.settings.verified_label | escape }}</span>
+                            {%- endif -%}
+                          </div>
+
+                          <div class="q-vr__stars-wrap">
+                            {%- if vr_product != blank -%}
+                              <div class="jdgm-widget jdgm-preview-badge" data-id="{{ vr_product.id }}">
+                                {{- vr_product.metafields.judgeme.badge -}}
+                              </div>
+                            {%- else -%}
+                              <div class="q-vr__stars" aria-hidden="true">
+                                {%- for i in (1..vr_stars) -%}
+                                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill="var(--vr-star)" d="M12 3.5l2.7 5.47 6.04.88-4.37 4.26 1.03 6.02L12 17.77l-5.4 2.84 1.03-6.02L3.26 9.85l6.04-.88L12 3.5z"/>
+                                  </svg>
+                                {%- endfor -%}
+                              </div>
+                            {%- endif -%}
+
+                            {%- if block.settings.reviewer_meta != blank -%}
+                              <div class="q-vr__date">{{ block.settings.reviewer_meta | escape }}</div>
+                            {%- endif -%}
+                          </div>
+
+                          
                         </div>
+
+                        
                       </div>
-
-                      {%- if block.settings.reviewer_meta != blank -%}
-                        <p class="q-vr__meta">{{ block.settings.reviewer_meta | escape }}</p>
-                      {%- endif -%}
-
-                      {%- if block.settings.verified_label != blank -%}
-                        <div class="q-vr__verified">
-                          <svg
-                            class="q-vr__verified-icon"
-                            width="23"
-                            height="24"
-                            viewBox="0 0 23 24"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                            aria-hidden="true"
-                          >
-                            <path d="M19.8559 10.0072C19.5515 9.81843 19.278 9.57795 19.0461 9.29524C19.0696 8.90166 19.1574 8.51549 19.3057 8.15424C19.5785 7.33324 19.8868 6.40324 19.392 5.68024C18.8971 4.95724 17.9628 4.98024 17.1428 5.00024C16.7804 5.04003 16.4144 5.01365 16.0603 4.92224C15.8717 4.59475 15.737 4.23523 15.662 3.85924C15.4296 3.01424 15.1644 2.05924 14.35 1.77324C13.5646 1.50324 12.8374 2.09724 12.1945 2.61924C11.9171 2.88956 11.5957 3.10342 11.2461 3.25024C10.8929 3.10462 10.5678 2.8907 10.2874 2.61924C9.64633 2.10024 8.9219 1.50024 8.13281 1.77424C7.32028 2.05624 7.05506 3.01424 6.82077 3.85924C6.74592 4.23401 6.61254 4.59268 6.42622 4.92024C6.07152 5.0114 5.705 5.03844 5.34192 5.00024C4.51908 4.97624 3.59222 4.95024 3.09271 5.68024C2.5932 6.41024 2.90528 7.33324 3.17893 8.15324C3.32929 8.51395 3.41846 8.90028 3.44227 9.29424C3.21087 9.57732 2.93768 9.81816 2.6335 10.0072C1.94749 10.5072 1.1687 11.0762 1.1687 12.0002C1.1687 12.9242 1.94749 13.4912 2.6335 13.9932C2.93761 14.182 3.21079 14.4225 3.44227 14.7052C3.42096 15.0991 3.33433 15.4857 3.18643 15.8472C2.91465 16.6672 2.60726 17.5972 3.10114 18.3202C3.59503 19.0432 4.52658 19.0202 5.35035 19.0002C5.713 18.9604 6.07936 18.9868 6.43372 19.0782C6.62151 19.4061 6.75586 19.7655 6.83108 20.1412C7.0635 20.9862 7.32871 21.9412 8.14312 22.2272C8.27368 22.2719 8.40992 22.2949 8.54703 22.2952C9.20606 22.1943 9.81857 21.8745 10.2977 21.3812C10.5751 21.1109 10.8965 20.8971 11.2461 20.7502C11.5993 20.8959 11.9243 21.1098 12.2048 21.3812C12.8468 21.9042 13.574 22.5012 14.3603 22.2262C15.1728 21.9442 15.438 20.9862 15.6723 20.1422C15.7474 19.7668 15.8818 19.4077 16.0697 19.0802C16.423 18.9885 16.7884 18.9614 17.1502 19.0002C17.9731 19.0212 18.8999 19.0502 19.3995 18.3202C19.899 17.5902 19.5869 16.6672 19.3132 15.8462C19.1639 15.4859 19.0748 15.1004 19.0499 14.7072C19.2814 14.4239 19.555 14.183 19.8596 13.9942C20.5456 13.4942 21.3244 12.9242 21.3244 12.0002C21.3244 11.0762 20.5428 10.5082 19.8559 10.0072Z" fill="#49ADF4"/>
-                            <path d="M10.309 14.75C10.2166 14.7502 10.1252 14.7308 10.04 14.6931C9.9547 14.6553 9.8773 14.5999 9.81225 14.53L7.93791 12.53C7.81376 12.3878 7.74616 12.1998 7.74938 12.0055C7.75259 11.8112 7.82636 11.6258 7.95514 11.4884C8.08392 11.351 8.25765 11.2723 8.43975 11.2688C8.62184 11.2654 8.79807 11.3375 8.93131 11.47L10.3746 13.01L13.6359 10.4C13.785 10.2807 13.9725 10.2294 14.157 10.2575C14.3416 10.2857 14.5081 10.3909 14.6199 10.55C14.7318 10.7091 14.7798 10.9092 14.7534 11.1061C14.7271 11.303 14.6285 11.4807 14.4794 11.6L10.7307 14.6C10.609 14.6973 10.461 14.7499 10.309 14.75Z" fill="white"/>
-                          </svg>
-                          <span>{{ block.settings.verified_label | escape }}</span>
-                        </div>
-                      {%- endif -%}
                     </div>
                   </div>
                 </div>

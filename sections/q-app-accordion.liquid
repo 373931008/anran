@@ -54,7 +54,7 @@
     .section-{{ section.id }} .q-app-accordion__grid {
       grid-template-columns: minmax(0, 1fr) minmax(280px, 668px);
       gap: 48px;
-      align-items: center;
+      align-items: start;
     }
   }
 
@@ -130,7 +130,7 @@
     list-style: none;
     color: var(--aa-title-row, #ffffff);
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 500;
     line-height: 1.35;
     background: transparent;
   }
@@ -223,6 +223,14 @@
     vertical-align: middle;
   }
 
+  .section-{{ section.id }} .q-app-accordion__item-visual video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    vertical-align: middle;
+    display: block;
+  }
+
   /* 桌面端：隐藏行内配图，使用右栏 */
   @media screen and (min-width: 990px) {
     .section-{{ section.id }} .q-app-accordion__item-visual {
@@ -268,6 +276,13 @@
     object-fit: cover;
   }
 
+  .section-{{ section.id }} .q-app-accordion__media-panel video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
   .section-{{ section.id }} .q-section-header__title {
     font-weight: 600 !important;
   }
@@ -302,6 +317,10 @@
               {%- if img_m == blank -%}
                 {%- assign img_m = block.settings.image -%}
               {%- endif -%}
+              {%- assign video_m = block.settings.video_mobile -%}
+              {%- if video_m == blank -%}
+                {%- assign video_m = block.settings.video -%}
+              {%- endif -%}
               <div
                 class="q-app-accordion__item{% if is_default_open_item %} q-app-accordion__item--default-open{% endif %}"
                 data-item-index="{{ forloop.index0 }}"
@@ -326,7 +345,20 @@
                       {%- if block.settings.answer != blank -%}
                         <div class="q-app-accordion__answer">{{- block.settings.answer -}}</div>
                       {%- endif -%}
-                      {%- if img_m != blank -%}
+                      {%- if video_m != blank -%}
+                        <div class="q-app-accordion__item-visual">
+                          {{
+                            video_m
+                            | video_tag:
+                              autoplay: true,
+                              loop: true,
+                              muted: true,
+                              playsinline: true,
+                              image_size: '400x',
+                              controls: false
+                          }}
+                        </div>
+                      {%- elsif img_m != blank -%}
                         <div class="q-app-accordion__item-visual">
                           {{
                             img_m
@@ -356,12 +388,24 @@
             {%- if should_default_open_first_item and forloop.first -%}
               {%- assign panel_active = true -%}
             {%- endif -%}
+            {%- assign panel_video = block.settings.video -%}
             <div
               class="q-app-accordion__media-panel{% if panel_active %} q-app-accordion__media-panel--active{% endif %}"
               data-media-index="{{ forloop.index0 }}"
               aria-hidden="{% if panel_active %}false{% else %}true{% endif %}"
             >
-              {%- if block.settings.image != blank -%}
+              {%- if panel_video != blank -%}
+                {{
+                  panel_video
+                  | video_tag:
+                    autoplay: true,
+                    loop: true,
+                    muted: true,
+                    playsinline: true,
+                    image_size: '800x',
+                    controls: false
+                }}
+              {%- elsif block.settings.image != blank -%}
                 {{
                   block.settings.image
                   | image_url: width: 1600
@@ -667,6 +711,18 @@
           "id": "image_mobile",
           "label": "配图（移动端，留空则沿用桌面图）",
           "info": "alt 沿用媒体库中对应图片的设置"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "视频（桌面端右侧，设置后优先于图片）",
+          "info": "图片和视频二选一：设置视频后将不显示图片"
+        },
+        {
+          "type": "video",
+          "id": "video_mobile",
+          "label": "视频（移动端，留空则沿用桌面视频）",
+          "info": "移动端默认不展示右栏；视频会在展开项下方显示"
         }
       ]
     }
