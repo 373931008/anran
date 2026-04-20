@@ -7,7 +7,7 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
- {
+{
   "layout": "theme",
   "sections": {
     "q-hero-banner": {
@@ -24,8 +24,8 @@
             "btn_text_color": "#ffffff",
             "btn_bg_start": "#6cbce7",
             "btn_bg_end": "#367cf6",
-            "show_rating": true,
-            "rating_text": "4.9",
+            "show_rating": false,
+            "rating_text": "",
             "description": "Designed for home security, this wireless security cameras puts real-time monitoring in the palm of your hand!",
             "button_label": "Shop with Free App",
             "button_link": "/",
@@ -126,7 +126,7 @@
         "bb-item-6"
       ],
       "settings": {
-        "scroll_speed": 15,
+        "scroll_speed": 5,
         "item_gap": 40,
         "icon_size_mobile": 24,
         "icon_size_desktop": 24,
@@ -214,7 +214,7 @@
         "header_title": "<em>Best</em> Sellers",
         "header_description": "",
         "header_center": false,
-        "header_em_color": "linear-gradient(135deg, rgba(30, 30, 30, 1), rgba(132, 132, 132, 1) 100%)",
+        "header_em_color": "linear-gradient(135deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 100%)",
         "header_title_size_desktop": 46,
         "header_title_size_mobile": 24,
         "header_desc_size_desktop": 16,
@@ -243,6 +243,8 @@
             "body_position": "bottom",
             "title_color": "#1e1e1e",
             "desc_color": "#4e5357",
+            "title_color_mobile": "",
+            "desc_color_mobile": "",
             "link": ""
           }
         },
@@ -256,6 +258,8 @@
             "body_position": "bottom",
             "title_color": "#1e1e1e",
             "desc_color": "#4e5357",
+            "title_color_mobile": "",
+            "desc_color_mobile": "",
             "link": ""
           }
         },
@@ -269,6 +273,8 @@
             "body_position": "top",
             "title_color": "#1e1e1e",
             "desc_color": "#4e5357",
+            "title_color_mobile": "",
+            "desc_color_mobile": "",
             "link": ""
           }
         },
@@ -282,6 +288,8 @@
             "body_position": "bottom",
             "title_color": "#1e1e1e",
             "desc_color": "#4e5357",
+            "title_color_mobile": "",
+            "desc_color_mobile": "",
             "link": ""
           }
         },
@@ -295,6 +303,8 @@
             "body_position": "bottom",
             "title_color": "#1e1e1e",
             "desc_color": "#4e5357",
+            "title_color_mobile": "",
+            "desc_color_mobile": "",
             "link": ""
           }
         }
