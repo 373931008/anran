@@ -29,7 +29,7 @@
             "description": "Designed for home security, this wireless security cameras puts real-time monitoring in the palm of your hand!",
             "button_label": "Shop with Free App",
             "button_link": "/",
-            "show_btn_icon": true
+            "show_btn_icon": false
           }
         },
         "slide_it9FF7": {
@@ -334,7 +334,7 @@
         "padding_top_mobile": 40,
         "padding_bottom_mobile": 40,
         "padding_top_desktop": 60,
-        "padding_bottom_desktop": 60
+        "padding_bottom_desktop": 80
       }
     },
     "q-app-accordion": {
@@ -382,7 +382,7 @@
       "settings": {
         "padding_top_mobile": 40,
         "padding_bottom_mobile": 40,
-        "padding_top_desktop": 60,
+        "padding_top_desktop": 80,
         "padding_bottom_desktop": 60,
         "bg_color": "#000000",
         "divider_color": "#333940",
@@ -486,7 +486,7 @@
         "padding_top_mobile": 40,
         "padding_bottom_mobile": 40,
         "padding_top_desktop": 56,
-        "padding_bottom_desktop": 56
+        "padding_bottom_desktop": 80
       }
     },
     "q-professionals-saying": {
