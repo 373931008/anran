@@ -7,7 +7,7 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
- {
+{
   "layout": "theme",
   "sections": {
     "q-hero-banner": {
@@ -30,16 +30,16 @@
             "rating_text": "",
             "description": "<p>Designed for home security, this wireless security cameras puts real-time monitoring in the palm of your hand!</p>",
             "button_label": "Shop with Free App",
-            "button_link": "/",
+            "button_link": "shopify://products/anran-4mp-fhd-integrated-solar-panel-battery-cameras-system-with-32gb-sd-card",
             "show_btn_icon": true
           }
         },
         "slide_it9FF7": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/773b1515f06b4b9d9ed57b6dc6a435b2.jpg",
-            "title": "Pro Wireless Security Camera for Home",
-            "eyebrow": "ONE-TIME COST, ZERO SUBSCRIPTIONS",
+            "image": "shopify://shop_images/1920x1080_2.jpg",
+            "title": "",
+            "eyebrow": "",
             "eyebrow_color": "#ffffff",
             "title_color": "#ffffff",
             "desc_color": "#ffffff",
@@ -47,10 +47,10 @@
             "btn_text_color": "#ffffff",
             "btn_bg_start": "#6cbce7",
             "btn_bg_end": "#367cf6",
-            "show_rating": true,
-            "rating_text": "4.9",
-            "description": "<p>Designed for home security, this wireless security cameras puts real-time monitoring in the palm of your hand!</p>",
-            "button_label": "Shop with Free App",
+            "show_rating": false,
+            "rating_text": "",
+            "description": "",
+            "button_label": "",
             "button_link": "/",
             "show_btn_icon": true
           }
@@ -61,7 +61,7 @@
         "slide_it9FF7"
       ],
       "settings": {
-        "title_heading": "h2",
+        "title_heading": "h1",
         "autoplay_delay": 5000,
         "height_mobile": 540,
         "height_desktop": 670,
