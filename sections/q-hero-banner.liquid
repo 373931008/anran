@@ -82,6 +82,13 @@
     display: block;
   }
 
+  .section-{{ section.id }} .q-hero-banner__full-link {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    display: block;
+  }
+
   /* ─── 左侧渐变遮罩，提升文字可读性（桌面更强） ─── */
   .section-{{ section.id }} .q-hero-banner__overlay {
     position: absolute;
@@ -112,6 +119,7 @@
     z-index: 1;
     height: 100%;
     padding-top: var(--hb-content-pt-mobile, 24px);
+    pointer-events: none;
   }
 
   @media screen and (min-width: 750px) {
@@ -126,6 +134,7 @@
     margin-left: var(--hb-content-ml-mobile, 0);
     margin-right: auto;
     text-align: var(--hb-text-align-mobile, left);
+    pointer-events: auto;
   }
 
   @media screen and (min-width: 750px) {
@@ -502,6 +511,10 @@
 
             {%- comment -%} 半透明遮罩，提升左侧文字可读性 {%- endcomment -%}
             <div class="q-hero-banner__overlay" aria-hidden="true"></div>
+
+            {%- if block.settings.button_link != blank -%}
+              <a href="{{ block.settings.button_link }}" class="q-hero-banner__full-link" aria-label="{{ block.settings.button_label | escape }}"></a>
+            {%- endif -%}
 
             {%- comment -%} 文字内容（page-width 提供水平对齐） {%- endcomment -%}
             <div class="q-hero-banner__slide-content" style="--slide-title-color:{{ block.settings.title_color | default: '#ffffff' }};--slide-eyebrow-color:{{ block.settings.eyebrow_color | default: '#ffffff' }};--slide-desc-color:{{ block.settings.desc_color | default: '#ffffff' }};--slide-rating-text-color:{{ block.settings.rating_text_color | default: '#ffffff' }};--slide-btn-text-color:{{ block.settings.btn_text_color | default: '#ffffff' }};--slide-btn-bg-start:{{ block.settings.btn_bg_start | default: '#6cbce7' }};--slide-btn-bg-end:{{ block.settings.btn_bg_end | default: '#367cf6' }};">
