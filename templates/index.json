@@ -282,7 +282,7 @@
           "type": "category",
           "settings": {
             "image": "shopify://shop_images/Rectangle_300_1.png",
-            "empty_bg": "#d5d5d6",
+            "empty_bg": "#FFFFFF",
             "title": "Outdoor Cameras",
             "description": "<p>Guard Every Corner, Rain or Shine.</p>",
             "body_position": "bottom",
@@ -297,7 +297,7 @@
           "type": "category",
           "settings": {
             "image": "shopify://shop_images/Rectangle_300_2.png",
-            "empty_bg": "#d5d5d6",
+            "empty_bg": "#FFFFFF",
             "title": "Indoor Cameras",
             "description": "<p>Peace of Mind, Room by Room.</p>",
             "body_position": "top",
@@ -312,7 +312,7 @@
           "type": "category",
           "settings": {
             "image": "shopify://shop_images/Rectangle_300_3.png",
-            "empty_bg": "#d5d5d6",
+            "empty_bg": "#FFFFFF",
             "title": "Solar Cameras",
             "description": "<p>Smart Security, Solar Simple.</p>",
             "body_position": "bottom",
@@ -327,7 +327,7 @@
           "type": "category",
           "settings": {
             "image": "shopify://shop_images/Rectangle_300_4.png",
-            "empty_bg": "#d5d5d6",
+            "empty_bg": "#FFFFFF",
             "title": "Dual-Lens Security Cameras",
             "description": "<p>Guard Every Corner, Rain or Shine.</p>",
             "body_position": "bottom",
