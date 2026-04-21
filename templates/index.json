@@ -266,6 +266,7 @@
           "type": "category",
           "settings": {
             "image": "shopify://shop_images/Rectangle_300.png",
+            "hover_image": "shopify://shop_images/1-2-1.jpg",
             "empty_bg": "#d5d5d6",
             "title": "Camera Kits",
             "description": "<p>All-in-One Security Made Simple.</p>",
