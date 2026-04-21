@@ -205,14 +205,14 @@
         "bs-card-3": {
           "type": "card",
           "settings": {
-            "image": "shopify://shop_images/Rectangle_300_2.jpg",
+            "image": "shopify://shop_images/Q7_cameras_01.png",
             "empty_bg": "#d5d5d6",
             "title": "Floodlight Cam F2",
             "description": "<p>360° 3K PTZ Camera with Enhanced AI Detection.</p>",
             "button_label": "Shop Now",
             "button_link": "/",
-            "title_color": "#ffffff",
-            "desc_color": "#ffffff",
+            "title_color": "#121212",
+            "desc_color": "#4e5357",
             "btn_bg_start": "#6cbce7",
             "btn_bg_end": "#367cf6"
           }
@@ -220,7 +220,7 @@
         "bs-card-1": {
           "type": "card",
           "settings": {
-            "image": "shopify://shop_images/Rectangle_300.jpg",
+            "image": "shopify://shop_images/Q4_Camera_001.png",
             "empty_bg": "#d5d5d6",
             "title": "Guardian Cam Q3 Max",
             "description": "<p>360° 3K PTZ Camera with Enhanced AI Detection.</p>",
