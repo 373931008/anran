@@ -469,12 +469,19 @@
   }
 
   .section-{{ section.id }} .q-vr__pagination .swiper-pagination-bullet {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
     border-radius: 8px;
     background: #c4c4c4;
     opacity: 1;
     transition: background 0.2s, transform 0.2s;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-vr__pagination .swiper-pagination-bullet {
+      width: 8px;
+      height: 8px;
+    }
   }
 
   .section-{{ section.id }} .q-vr__pagination .swiper-pagination-bullet-active {
@@ -483,8 +490,8 @@
   }
 
   .section-{{ section.id }} .q-vr__nav-btn {
-    width: 44px;
-    height: 44px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     border: 1px solid var(--vr-nav-border);
     background: #ffffff;
@@ -496,6 +503,13 @@
     transition: background 0.2s, opacity 0.2s, border-color 0.2s;
     -webkit-tap-highlight-color: transparent;
     color: var(--vr-nav-arrow);
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .q-vr__nav-btn {
+      width: 44px;
+      height: 44px;
+    }
   }
 
   .section-{{ section.id }} .q-vr__nav-btn:hover:not(:disabled):not(.swiper-button-disabled) {
