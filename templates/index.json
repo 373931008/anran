@@ -79,6 +79,27 @@
     "q-benefit-bar": {
       "type": "q-benefit-bar",
       "blocks": {
+        "item_QdTrhp": {
+          "type": "item",
+          "settings": {
+            "icon": "shopify://shop_images/fi_16328753.png",
+            "text": "30-Day Trial"
+          }
+        },
+        "item_9EK7ja": {
+          "type": "item",
+          "settings": {
+            "icon": "shopify://shop_images/image_288.png",
+            "text": "2-Year Warranty"
+          }
+        },
+        "item_YkYMFr": {
+          "type": "item",
+          "settings": {
+            "icon": "shopify://shop_images/image_290.png",
+            "text": "Priority Support"
+          }
+        },
         "bb-item-1": {
           "type": "item",
           "settings": {
@@ -123,6 +144,9 @@
         }
       },
       "block_order": [
+        "item_QdTrhp",
+        "item_9EK7ja",
+        "item_YkYMFr",
         "bb-item-1",
         "item_EeN3zj",
         "bb-item-3",
@@ -148,12 +172,12 @@
     "q-best-sellers": {
       "type": "q-best-sellers",
       "blocks": {
-        "bs-card-1": {
+        "bs-card-4": {
           "type": "card",
           "settings": {
-            "image": "shopify://shop_images/Rectangle_300.jpg",
+            "image": "shopify://shop_images/Solar_Security_Cameras_Longer_Battery_Life_01.jpg",
             "empty_bg": "#d5d5d6",
-            "title": "Guardian Cam Q3 Max",
+            "title": "Solar Cam Q3 Max",
             "description": "<p>360° 3K PTZ Camera with Enhanced AI Detection.</p>",
             "button_label": "Shop Now",
             "button_link": "/",
@@ -193,12 +217,12 @@
             "btn_bg_end": "#367cf6"
           }
         },
-        "bs-card-4": {
+        "bs-card-1": {
           "type": "card",
           "settings": {
-            "image": "shopify://shop_images/Rectangle_300_3.jpg",
+            "image": "shopify://shop_images/Rectangle_300.jpg",
             "empty_bg": "#d5d5d6",
-            "title": "Solar Cam Q3 Max",
+            "title": "Guardian Cam Q3 Max",
             "description": "<p>360° 3K PTZ Camera with Enhanced AI Detection.</p>",
             "button_label": "Shop Now",
             "button_link": "/",
@@ -210,10 +234,10 @@
         }
       },
       "block_order": [
-        "bs-card-1",
+        "bs-card-4",
         "bs-card-2",
         "bs-card-3",
-        "bs-card-4"
+        "bs-card-1"
       ],
       "settings": {
         "header_title": "<em>Best</em> Sellers",
