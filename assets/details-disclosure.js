@@ -36,6 +36,25 @@ class HeaderMenu extends DetailsDisclosure {
   constructor() {
     super();
     this.header = document.querySelector('.header-wrapper');
+    
+    // Add hover support for desktop mega menu
+    if (window.matchMedia('(min-width: 990px)').matches) {
+      this.addEventListener('mouseenter', this.onMouseEnter.bind(this));
+      this.addEventListener('mouseleave', this.onMouseLeave.bind(this));
+    }
+  }
+
+  onMouseEnter() {
+    if (!this.mainDetailsToggle.hasAttribute('open')) {
+      this.mainDetailsToggle.setAttribute('open', '');
+      this.mainDetailsToggle.querySelector('summary').setAttribute('aria-expanded', true);
+    }
+  }
+
+  onMouseLeave() {
+    if (this.mainDetailsToggle.hasAttribute('open')) {
+      this.close();
+    }
   }
 
   onToggle() {
