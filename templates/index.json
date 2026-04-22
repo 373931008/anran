@@ -297,6 +297,7 @@
           "type": "category",
           "settings": {
             "image": "shopify://shop_images/Rectangle_300_2.png",
+            "hover_image": "shopify://shop_images/Y1M5_19-1.jpg",
             "empty_bg": "#FFFFFF",
             "title": "Indoor Cameras",
             "description": "<p>Peace of Mind, Room by Room.</p>",
