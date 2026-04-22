@@ -1,0 +1,450 @@
+{% comment %}
+  Renders a custom megamenu with products for 3-level menus.
+  Accepts:
+  - link: {Object} The main menu link object (Level 1).
+{% endcomment %}
+
+<div class="mega-menu-products page-width">
+  <div class="mega-menu-products__container">
+    <div class="mega-menu-products__sidebar">
+      <ul class="mega-menu-products__sidebar-list list-unstyled" role="list">
+        {%- for childlink in link.links -%}
+          <li class="mega-menu-products__sidebar-item">
+            <button
+              class="mega-menu-products__sidebar-btn {% if forloop.first %}is-active{% endif %}"
+              data-target="mega-menu-content-{{ link.handle }}-{{ childlink.handle }}"
+            >
+              {{ childlink.title | escape }}
+              <svg xmlns="http://www.w3.org/2000/svg" class="mega-menu-products__sidebar-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M13.5386 5.74357L8.20524 11.0769L2.87191 5.74357" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </button>
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+
+    <div class="mega-menu-products__content">
+      {%- for childlink in link.links -%}
+        <div
+          id="mega-menu-content-{{ link.handle }}-{{ childlink.handle }}"
+          class="mega-menu-products__panel {% if forloop.first %}is-active{% endif %}"
+        >
+          {%- if childlink.links != blank -%}
+            <div class="mega-menu-products__tabs">
+              <ul class="mega-menu-products__tabs-list list-unstyled" role="list">
+                {%- for grandchildlink in childlink.links -%}
+                  <li class="mega-menu-products__tabs-item">
+                    <button
+                      class="mega-menu-products__tabs-btn {% if forloop.first %}is-active{% endif %}"
+                      data-target="mega-menu-products-{{ link.handle }}-{{ childlink.handle }}-{{ grandchildlink.handle }}"
+                    >
+                      {{ grandchildlink.title | escape }}
+                    </button>
+                  </li>
+                {%- endfor -%}
+                <li class="mega-menu-products__tabs-item mega-menu-products__tabs-view-all">
+                  <a href="{{ childlink.url }}" class="mega-menu-products__view-all-link">
+                    View all {{ childlink.title | escape }} &nbsp;>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="mega-menu-products__tab-panels">
+              {%- for grandchildlink in childlink.links -%}
+                <div
+                  id="mega-menu-products-{{ link.handle }}-{{ childlink.handle }}-{{ grandchildlink.handle }}"
+                  class="mega-menu-products__tab-panel {% if forloop.first %}is-active{% endif %}"
+                >
+                  <div class="mega-menu-products__grid">
+                    {%- assign collection = grandchildlink.object -%}
+                    {%- if collection != blank and collection.products.size > 0 -%}
+                      {%- for product in collection.products limit: 4 -%}
+                        <div class="mega-menu-products__card">
+                          <a href="{{ product.url }}" class="mega-menu-products__card-link">
+                            <div class="mega-menu-products__card-image-wrapper">
+                              <div class="mega-menu-products__card-image-inner">
+                                {%- if product.featured_image -%}
+                                  <img
+                                    src="{{ product.featured_image | image_url: width: 400 }}"
+                                    alt="{{ product.featured_image.alt | escape }}"
+                                    class="mega-menu-products__card-image"
+                                    loading="lazy"
+                                    width="200"
+                                    height="200"
+                                  >
+                                {%- else -%}
+                                  {{ 'product-1' | placeholder_svg_tag: 'mega-menu-products__card-image placeholder-svg' }}
+                                {%- endif -%}
+                              </div>
+                              
+                              {%- if product.tags contains 'New' or product.tags contains 'new' -%}
+                                <div class="mega-menu-products__badge mega-menu-products__badge--new">New</div>
+                              {%- endif -%}
+                              {%- if product.compare_at_price > product.price -%}
+                                {%- assign discount = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round -%}
+                                <div class="mega-menu-products__badge mega-menu-products__badge--sale">{{ discount }}% OFF</div>
+                              {%- endif -%}
+
+                              <div class="mega-menu-products__card-info">
+                                <h3 class="mega-menu-products__card-title">{{ product.title | escape }}</h3>
+                                {%- if product.metafields.custom.subtitle != blank -%}
+                                  <p class="mega-menu-products__card-subtitle">{{ product.metafields.custom.subtitle }}</p>
+                                {%- endif -%}
+                              </div>
+                            </div>
+                          </a>
+                        </div>
+                      {%- endfor -%}
+                      <div class="mega-menu-products__card mega-menu-products__card--view-all">
+                        <a href="{{ grandchildlink.url }}" class="mega-menu-products__circle-link">
+                          <span class="mega-menu-products__circle-text">View all</span>
+                          <span class="mega-menu-products__circle-icon">
+                            <svg width="55" height="55" viewBox="0 0 55 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <circle cx="27.5" cy="27.5" r="27.5" fill="#F7F8F9"/>
+                              <path d="M24 18L33 27.5L24 37" stroke="#1E1E1E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                          </span>
+                        </a>
+                      </div>
+                    {%- else -%}
+                      <p>No products found in this collection.</p>
+                    {%- endif -%}
+                  </div>
+                </div>
+              {%- endfor -%}
+            </div>
+          {%- else -%}
+            <div class="mega-menu-products__grid">
+              {%- assign collection = childlink.object -%}
+              {%- if collection != blank and collection.products.size > 0 -%}
+                {%- for product in collection.products limit: 4 -%}
+                  <div class="mega-menu-products__card">
+                    <a href="{{ product.url }}" class="mega-menu-products__card-link">
+                      <div class="mega-menu-products__card-image-wrapper">
+                        <div class="mega-menu-products__card-image-inner">
+                          {%- if product.featured_image -%}
+                            <img
+                              src="{{ product.featured_image | image_url: width: 400 }}"
+                              alt="{{ product.featured_image.alt | escape }}"
+                              class="mega-menu-products__card-image"
+                              loading="lazy"
+                              width="200"
+                              height="200"
+                            >
+                          {%- else -%}
+                            {{ 'product-1' | placeholder_svg_tag: 'mega-menu-products__card-image placeholder-svg' }}
+                          {%- endif -%}
+                        </div>
+
+                        {%- if product.tags contains 'New' or product.tags contains 'new' -%}
+                          <div class="mega-menu-products__badge mega-menu-products__badge--new">New</div>
+                        {%- endif -%}
+                        {%- if product.compare_at_price > product.price -%}
+                          {%- assign discount = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round -%}
+                          <div class="mega-menu-products__badge mega-menu-products__badge--sale">{{ discount }}% OFF</div>
+                        {%- endif -%}
+
+                        <div class="mega-menu-products__card-info">
+                          <h3 class="mega-menu-products__card-title">{{ product.title | escape }}</h3>
+                          {%- if product.metafields.custom.subtitle != blank -%}
+                            <p class="mega-menu-products__card-subtitle">{{ product.metafields.custom.subtitle }}</p>
+                          {%- endif -%}
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                {%- endfor -%}
+                <div class="mega-menu-products__card mega-menu-products__card--view-all">
+                  <a href="{{ childlink.url }}" class="mega-menu-products__circle-link">
+                    <span class="mega-menu-products__circle-text">View all</span>
+                    <span class="mega-menu-products__circle-icon">
+                      <svg width="55" height="55" viewBox="0 0 55 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="27.5" cy="27.5" r="27.5" fill="#F7F8F9"/>
+                        <path d="M24 18L33 27.5L24 37" stroke="#1E1E1E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </span>
+                  </a>
+                </div>
+              {%- else -%}
+                <p>No products found in this collection.</p>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+<style>
+  .mega-menu-products {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+  .mega-menu-products__container {
+    display: flex;
+    gap: 40px;
+  }
+  .mega-menu-products__sidebar {
+    width: 253px;
+    flex-shrink: 0;
+    padding: 0;
+  }
+  .mega-menu-products__sidebar-list {
+    margin: 0;
+    padding: 0;
+  }
+  .mega-menu-products__sidebar-item {
+    margin-bottom: 8px;
+  }
+  .mega-menu-products__sidebar-btn {
+    width: 100%;
+    text-align: left;
+    padding: 0 20px;
+    height: 50px;
+    background: transparent;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: #1E1E1E;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .mega-menu-products__sidebar-icon {
+    width: 16px;
+    height: 16px;
+    opacity: 0;
+    transform: rotate(-90deg) translateY(-10px);
+    transition: all 0.3s ease;
+  }
+  .mega-menu-products__sidebar-btn:hover,
+  .mega-menu-products__sidebar-btn.is-active {
+    color: #1565D8;
+    font-weight: 500;
+    background: #F7F8F9;
+  }
+  .mega-menu-products__sidebar-btn:hover .mega-menu-products__sidebar-icon,
+  .mega-menu-products__sidebar-btn.is-active .mega-menu-products__sidebar-icon {
+    opacity: 1;
+    transform: rotate(-90deg) translateY(0);
+  }
+  
+  .mega-menu-products__content {
+    flex-grow: 1;
+  }
+  .mega-menu-products__panel {
+    display: none;
+  }
+  .mega-menu-products__panel.is-active {
+    display: block;
+  }
+  
+  .mega-menu-products__tabs {
+    margin-bottom: 24px;
+  }
+  .mega-menu-products__tabs-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+  }
+  .mega-menu-products__tabs-btn {
+    padding: 8px 20px;
+    border-radius: 30px;
+    background: #F7F8F9;
+    border: none;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1E1E1E;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .mega-menu-products__tabs-btn:hover,
+  .mega-menu-products__tabs-btn.is-active {
+    background: #1565D8;
+    color: #FFFFFF;
+  }
+  .mega-menu-products__tabs-view-all {
+    margin-left: auto;
+  }
+  .mega-menu-products__view-all-link {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    color: #656565;
+    text-decoration: none;
+  }
+  .mega-menu-products__view-all-link:hover {
+    color: #1565D8;
+  }
+  
+  .mega-menu-products__tab-panel {
+    display: none;
+  }
+  .mega-menu-products__tab-panel.is-active {
+    display: block;
+  }
+  
+  .mega-menu-products__grid {
+    display: flex;
+    gap: 20px;
+  }
+  .mega-menu-products__card {
+    width: 244px;
+    flex-shrink: 0;
+  }
+  .mega-menu-products__card-link {
+    text-decoration: none;
+    display: block;
+  }
+  .mega-menu-products__card-image-wrapper {
+    background: #F7F8F9;
+    border-radius: 10px;
+    height: 304px;
+    width: 244px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding: 24px 16px;
+    box-sizing: border-box;
+  }
+  .mega-menu-products__card-image-inner {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 16px;
+  }
+  .mega-menu-products__card-image {
+    max-width: 100%;
+    max-height: 160px;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+  }
+  .mega-menu-products__card-link:hover .mega-menu-products__card-image {
+    transform: scale(1.05);
+  }
+  .mega-menu-products__badge {
+    position: absolute;
+    top: 12px;
+    border-radius: 15px;
+    padding: 2px 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    color: #FFFFFF;
+    line-height: 1.2;
+  }
+  .mega-menu-products__badge--new {
+    left: 12px;
+    background: linear-gradient(90deg, #6CBCE7 0%, #367CF6 100%);
+  }
+  .mega-menu-products__badge--sale {
+    right: 12px;
+    background: #FAA61A;
+  }
+  
+  .mega-menu-products__card-info {
+    text-align: center;
+    width: 100%;
+  }
+  .mega-menu-products__card-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: #1E1E1E;
+    margin: 0 0 8px 0;
+    line-height: 1.2;
+  }
+  .mega-menu-products__card-subtitle {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #656565;
+    margin: 0;
+    line-height: 1.4;
+    white-space: pre-wrap;
+  }
+  
+  .mega-menu-products__card--view-all {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .mega-menu-products__circle-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    gap: 12px;
+  }
+  .mega-menu-products__circle-text {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1E1E1E;
+  }
+  .mega-menu-products__circle-icon svg circle {
+    transition: fill 0.3s ease;
+  }
+  .mega-menu-products__circle-link:hover .mega-menu-products__circle-icon svg circle {
+    fill: #EAEAEA;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Handle Sidebar Hover
+    const sidebarBtns = document.querySelectorAll('.mega-menu-products__sidebar-btn');
+    sidebarBtns.forEach(btn => {
+      btn.addEventListener('mouseenter', function() {
+        const targetId = this.getAttribute('data-target');
+        const container = this.closest('.mega-menu-products');
+        
+        // Remove active class from all sidebar buttons
+        container.querySelectorAll('.mega-menu-products__sidebar-btn').forEach(b => b.classList.remove('is-active'));
+        this.classList.add('is-active');
+        
+        // Hide all panels
+        container.querySelectorAll('.mega-menu-products__panel').forEach(p => p.classList.remove('is-active'));
+        // Show target panel
+        const targetPanel = document.getElementById(targetId);
+        if (targetPanel) {
+          targetPanel.classList.add('is-active');
+        }
+      });
+    });
+
+    // Handle Tabs Hover
+    const tabsBtns = document.querySelectorAll('.mega-menu-products__tabs-btn');
+    tabsBtns.forEach(btn => {
+      btn.addEventListener('mouseenter', function() {
+        const targetId = this.getAttribute('data-target');
+        const panel = this.closest('.mega-menu-products__panel');
+        
+        // Remove active class from all tab buttons in this panel
+        panel.querySelectorAll('.mega-menu-products__tabs-btn').forEach(b => b.classList.remove('is-active'));
+        this.classList.add('is-active');
+        
+        // Hide all tab panels in this panel
+        panel.querySelectorAll('.mega-menu-products__tab-panel').forEach(p => p.classList.remove('is-active'));
+        // Show target tab panel
+        const targetTabPanel = document.getElementById(targetId);
+        if (targetTabPanel) {
+          targetTabPanel.classList.add('is-active');
+        }
+      });
+    });
+  });
+</script>
