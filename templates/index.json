@@ -17,6 +17,7 @@
           "type": "slide",
           "settings": {
             "image": "shopify://shop_images/1920x1080_a38dc751-fdcf-4911-87ea-6b9c0cf86e2f.jpg",
+            "image_mobile": "shopify://shop_images/375X541sj.png",
             "title": "",
             "eyebrow": "",
             "eyebrow_color": "#ffffff",
@@ -409,7 +410,7 @@
           "settings": {
             "title": "Motion Zones",
             "answer": "<p>Customize detection areas so you only get alerts that matter.</p>",
-            "image": "shopify://shop_images/Rectangle_300.jpg"
+            "image": "shopify://shop_images/Rectangle_298.png"
           }
         },
         "app-acc-3": {
@@ -417,7 +418,7 @@
           "settings": {
             "title": "Easy Playback",
             "answer": "<p>Review recordings quickly with timeline scrubbing and smart highlights.</p>",
-            "image": "shopify://shop_images/Rectangle_300_3.jpg"
+            "image": "shopify://shop_images/Easy_Playback.jpg"
           }
         },
         "app-acc-4": {
