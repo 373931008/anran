@@ -314,6 +314,7 @@
           "type": "category",
           "settings": {
             "image": "shopify://shop_images/Rectangle_300_3.png",
+            "hover_image": "shopify://shop_images/Q3_CAMERAS_01.jpg",
             "empty_bg": "#FFFFFF",
             "title": "Solar Cameras",
             "description": "<p>Smart Security, Solar Simple.</p>",
@@ -330,7 +331,7 @@
           "settings": {
             "image": "shopify://shop_images/Rectangle_300_4.png",
             "empty_bg": "#FFFFFF",
-            "title": "Dual-Lens Security Cameras",
+            "title": "Dual-Lens Cameras",
             "description": "<p>Guard Every Corner, Rain or Shine.</p>",
             "body_position": "bottom",
             "title_color": "#1e1e1e",
