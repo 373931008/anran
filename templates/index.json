@@ -272,7 +272,7 @@
             "description": "<p>All-in-One Security Made Simple.</p>",
             "body_position": "bottom",
             "title_color": "#1e1e1e",
-            "desc_color": "#4e5357",
+            "desc_color": "#332f2f",
             "title_color_mobile": "",
             "desc_color_mobile": "",
             "link": ""
@@ -281,13 +281,14 @@
         "sc-cat-2": {
           "type": "category",
           "settings": {
-            "image": "shopify://shop_images/Rectangle_300_1.png",
+            "image": "shopify://shop_images/anran_c2_camesra_03.jpg",
+            "hover_image": "shopify://shop_images/Floodlight_Cam_F2_01.jpg",
             "empty_bg": "#FFFFFF",
             "title": "Outdoor Cameras",
             "description": "<p>Guard Every Corner, Rain or Shine.</p>",
             "body_position": "bottom",
-            "title_color": "#1e1e1e",
-            "desc_color": "#4e5357",
+            "title_color": "#ffffff",
+            "desc_color": "#fafafa",
             "title_color_mobile": "",
             "desc_color_mobile": "",
             "link": ""
@@ -303,7 +304,7 @@
             "description": "<p>Peace of Mind, Room by Room.</p>",
             "body_position": "top",
             "title_color": "#1e1e1e",
-            "desc_color": "#4e5357",
+            "desc_color": "#332f2f",
             "title_color_mobile": "",
             "desc_color_mobile": "",
             "link": ""
@@ -318,7 +319,7 @@
             "description": "<p>Smart Security, Solar Simple.</p>",
             "body_position": "bottom",
             "title_color": "#1e1e1e",
-            "desc_color": "#4e5357",
+            "desc_color": "#332f2f",
             "title_color_mobile": "",
             "desc_color_mobile": "",
             "link": ""
@@ -333,7 +334,7 @@
             "description": "<p>Guard Every Corner, Rain or Shine.</p>",
             "body_position": "bottom",
             "title_color": "#1e1e1e",
-            "desc_color": "#4e5357",
+            "desc_color": "#332f2f",
             "title_color_mobile": "",
             "desc_color_mobile": "",
             "link": ""
