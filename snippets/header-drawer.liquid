@@ -29,7 +29,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 2rem;
+            padding: 1.4rem;
             position: sticky;
             top: 0;
             background-color: rgb(var(--color-background));
@@ -39,12 +39,12 @@
             background: none;
             border: none;
             cursor: pointer;
-            padding: 0;
+            padding: 10px;
             display: flex;
           }
           .menu-drawer__close-button-custom svg {
-            width: 24px;
-            height: 24px;
+            width: 14px;
+            height: 14px;
           }
           .menu-drawer__navigation-container {
             overflow-y: visible !important;
@@ -54,7 +54,7 @@
             flex: 1;
           }
           .menu-drawer__search-custom {
-            padding: 0 2rem 2rem;
+            padding: 0.5rem 2rem 2rem;
           }
           .menu-drawer__search-custom .field {
             position: relative;
@@ -202,7 +202,7 @@
             padding: 2rem 16px;
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 6px;
           }
           .menu-drawer__login-link {
             display: flex;
@@ -221,6 +221,7 @@
             justify-content: flex-start !important;
             padding: 0;
             margin: 0;
+            margin-left: -1.1rem;
             list-style: none;
           }
           .menu-drawer__login-section .list-social__link {
@@ -259,7 +260,7 @@
           .trust-badge-list {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 16px 12px;
+            gap: 10px 12px;
           }
           .trust-badge-item {
             display: flex;
@@ -304,7 +305,9 @@
         <div class="menu-drawer__header-custom">
           {% render 'header-logo', logo_class: 'menu-drawer__logo', logo_sizes: '120px' %}
           <button type="button" class="menu-drawer__close-button-custom" aria-label="{{ 'accessibility.close' | t }}" onclick="document.querySelector('#Details-menu-drawer-container').removeAttribute('open')">
-            <span class="svg-wrapper">{{- 'icon-close.svg' | inline_asset_content -}}</span>
+            <span class="svg-wrapper"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none">
+              <path d="M13.7246 0.707107L0.724639 13.7071M0.704865 0.726942L13.7444 13.6873" stroke="#656565" stroke-width="2"/>
+            </svg></span>
           </button>
         </div>
 
