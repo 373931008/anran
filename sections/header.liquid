@@ -89,7 +89,6 @@
       gap: 2rem; /* 调整菜单项之间的间距 */
     }
     .header__menu-item {
-      font-family: var(--font-heading-family);;
       font-size: 17px;
       font-weight: 400;
       color: #1e1e1e;
@@ -117,7 +116,20 @@
     height: 24px !important;
   }
 
-  /* --- 新增：移动端 Logo 尺寸调整 --- */
+  /* --- 新增：强制设置 Header 高度 --- */
+  .header {
+    min-height: 44px !important;
+    height: 44px !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+  @media screen and (min-width: 990px) {
+    .header {
+      min-height: 58px !important;
+      height: 58px !important;
+    }
+  }
+  /* ----------------------------------- */
   @media screen and (max-width: 989px) {
     .header__heading-logo-wrapper {
       width: 74px !important;
@@ -508,6 +520,111 @@
       "unit": "px",
       "label": "t:sections.all.padding.padding_bottom",
       "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Payment Secured (Mobile Drawer)"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_payment_secured",
+      "label": "Enable Payment Secured",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "payment_secured_image",
+      "label": "Icon Image"
+    },
+    {
+      "type": "html",
+      "id": "payment_secured_svg",
+      "label": "Custom SVG Code",
+      "info": "Overrides the image if provided."
+    },
+    {
+      "type": "text",
+      "id": "payment_secured_title",
+      "label": "Title",
+      "default": "Payment Secured"
+    },
+    {
+      "type": "textarea",
+      "id": "payment_secured_desc",
+      "label": "Description",
+      "default": "Your privacy is important to ANRAN. All transactions are secured and encrypted by Transport Layer Security (TLS) technology."
+    },
+    {
+      "type": "header",
+      "content": "Trust Badges (Mobile Drawer)"
+    },
+    {
+      "type": "image_picker",
+      "id": "trust_badge_1_icon",
+      "label": "Badge 1 Icon Image"
+    },
+    {
+      "type": "html",
+      "id": "trust_badge_1_svg",
+      "label": "Badge 1 Custom SVG Code",
+      "info": "Overrides the image if provided."
+    },
+    {
+      "type": "text",
+      "id": "trust_badge_1_text",
+      "label": "Badge 1 Text",
+      "default": "30-Day Trial"
+    },
+    {
+      "type": "image_picker",
+      "id": "trust_badge_2_icon",
+      "label": "Badge 2 Icon Image"
+    },
+    {
+      "type": "html",
+      "id": "trust_badge_2_svg",
+      "label": "Badge 2 Custom SVG Code",
+      "info": "Overrides the image if provided."
+    },
+    {
+      "type": "text",
+      "id": "trust_badge_2_text",
+      "label": "Badge 2 Text",
+      "default": "Free Local Shipping"
+    },
+    {
+      "type": "image_picker",
+      "id": "trust_badge_3_icon",
+      "label": "Badge 3 Icon Image"
+    },
+    {
+      "type": "html",
+      "id": "trust_badge_3_svg",
+      "label": "Badge 3 Custom SVG Code",
+      "info": "Overrides the image if provided."
+    },
+    {
+      "type": "text",
+      "id": "trust_badge_3_text",
+      "label": "Badge 3 Text",
+      "default": "2-Year Warranty"
+    },
+    {
+      "type": "image_picker",
+      "id": "trust_badge_4_icon",
+      "label": "Badge 4 Icon Image"
+    },
+    {
+      "type": "html",
+      "id": "trust_badge_4_svg",
+      "label": "Badge 4 Custom SVG Code",
+      "info": "Overrides the image if provided."
+    },
+    {
+      "type": "text",
+      "id": "trust_badge_4_text",
+      "label": "Badge 4 Text",
+      "default": "Free lifetime cloud storage with 6-second event videos"
     }
   ],
   "blocks": [

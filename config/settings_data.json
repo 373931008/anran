@@ -7,7 +7,7 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
-{
+ {
   "current": {
     "logo": "shopify://shop_images/logo_0c060853-c621-47c8-8cc8-1e1e9f343f0e.jpg",
     "logo_width": 120,
@@ -144,11 +144,6 @@
     },
     "content_for_index": [],
     "blocks": {
-      "6588702529468458379": {
-        "type": "shopify://apps/ecomposer-builder/blocks/app-embed/a0fc26e1-7741-4773-8b27-39389b4fb4a0",
-        "disabled": false,
-        "settings": {}
-      },
       "14060646107696862457": {
         "type": "shopify://apps/judge-me-reviews/blocks/judgeme_core/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
         "disabled": false,
@@ -174,11 +169,6 @@
         "disabled": false,
         "settings": {}
       },
-      "15922962008143023269": {
-        "type": "shopify://apps/hukify-mega-menu-creator-pro/blocks/app-embed/314182c7-a8e4-4865-bb75-355b6d1f17ea",
-        "disabled": false,
-        "settings": {}
-      },
       "8857984110089213392": {
         "type": "shopify://apps/hextom-sales-boost/blocks/usb-embeded-block/00e81c42-8ae7-4b0b-b43d-99393b885fc4",
         "disabled": false,
@@ -192,6 +182,16 @@
       "5903646244566583804": {
         "type": "shopify://apps/voc-ai-live-chat-ai-chatbots/blocks/bot_embed/3935c286-06dd-44ad-b3bf-81f24637a373",
         "disabled": false,
+        "settings": {}
+      },
+      "6588702529468458379": {
+        "type": "shopify://apps/ecomposer-builder/blocks/app-embed/a0fc26e1-7741-4773-8b27-39389b4fb4a0",
+        "disabled": false,
+        "settings": {}
+      },
+      "15922962008143023269": {
+        "type": "shopify://apps/hukify-mega-menu-creator-pro/blocks/app-embed/314182c7-a8e4-4865-bb75-355b6d1f17ea",
+        "disabled": true,
         "settings": {}
       }
     },

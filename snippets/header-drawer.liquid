@@ -19,11 +19,21 @@
     <div id="menu-drawer" class="gradient menu-drawer motion-reduce color-{{ section.settings.menu_color_scheme }}">
       <div class="menu-drawer__inner-container">
         <style>
+          .menu-drawer__inner-container {
+            height: 100%;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+          }
           .menu-drawer__header-custom {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 2rem;
+            position: sticky;
+            top: 0;
+            background-color: rgb(var(--color-background));
+            z-index: 10;
           }
           .menu-drawer__close-button-custom {
             background: none;
@@ -35,6 +45,13 @@
           .menu-drawer__close-button-custom svg {
             width: 24px;
             height: 24px;
+          }
+          .menu-drawer__navigation-container {
+            overflow-y: visible !important;
+            height: auto !important;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
           }
           .menu-drawer__search-custom {
             padding: 0 2rem 2rem;
@@ -67,27 +84,154 @@
             border: none;
             box-shadow: none;
             padding: 0;
-            font-family: 'Poppins', sans-serif;
             font-size: 14px;
             color: #656565;
             width: 100%;
             height: 4rem;
             background: transparent;
+            border-radius: 0;
+            -webkit-appearance: none;
           }
-          .menu-drawer__search-custom .field__input:focus {
-            outline: none;
-            box-shadow: none;
+          .menu-drawer__search-custom .field__input:focus,
+          .menu-drawer__search-custom .field__input:focus-visible,
+          .menu-drawer__search-custom .field__input:active {
+            outline: none !important;
+            box-shadow: none !important;
+            background-color: transparent !important;
+          }
+          .menu-drawer__search-custom .field__input:-webkit-autofill,
+          .menu-drawer__search-custom .field__input:-webkit-autofill:hover, 
+          .menu-drawer__search-custom .field__input:-webkit-autofill:focus, 
+          .menu-drawer__search-custom .field__input:-webkit-autofill:active {
+            transition: background-color 5000s ease-in-out 0s;
+            -webkit-text-fill-color: #656565 !important;
+          }
+          .menu-drawer__navigation {
+            border-top: 1px solid rgba(213, 213, 214, 0.5);
+            border-bottom: 1px solid rgba(213, 213, 214, 0.5);
+            padding: 1rem 0;
+            margin: 0 16px;
           }
           .menu-drawer__menu-item {
-            font-family: 'Poppins', sans-serif !important;
             font-size: 18px !important;
             font-weight: 500 !important;
             color: #1e1e1e !important;
+            line-height: 55px !important;
+            padding: 0 !important;
+          }
+          .menu-drawer__menu {
+            padding: 0 !important;
+          }
+          .menu-drawer__menu li {
+            /* Removed border-bottom to match design */
           }
           .menu-drawer__footer-custom {
-            background-color: #f5f5f7;
-            padding: 2rem;
+            display: flex;
+            flex-direction: column;
             margin-top: auto;
+          }
+          .menu-drawer__trust-payment {
+            padding: 2rem 16px;
+            background: #fff;
+          }
+          .trust-badge-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px 12px;
+            margin-bottom: 2rem;
+          }
+          .trust-badge-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            font-size: 10px;
+            color: #1d1d1f;
+            line-height: 1.4;
+          }
+          .trust-badge-item .icon-placeholder {
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+            font-family: var(--font-heading-family);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+          }
+          .payment-secured {
+            background: #fff;
+            border: 1px solid rgba(213, 213, 214, 0.5);
+            border-radius: 15px;
+            padding: 16px;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+          }
+          .payment-secured__icon {
+            width: 25px;
+            height: 27px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          .payment-secured__icon img, .payment-secured__icon svg {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+          }
+          .payment-secured__content {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+          }
+          .payment-secured__title {
+            color: #007400;
+            font-size: 14px;
+            line-height: 1.2;
+            margin: 0;
+          }
+          .payment-secured__desc {
+            font-size: 12px;
+            color: #333;
+            line-height: 1.5;
+            margin: 0;
+          }
+          .menu-drawer__login-section {
+            background-color: #f5f5f7;
+            padding: 2rem 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+          }
+          .menu-drawer__login-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 16px;
+            color: #1e1e1e;
+            text-decoration: none;
+          }
+          .menu-drawer__login-link svg {
+            width: 24px;
+            height: 24px;
+          }
+          .menu-drawer__login-section .list-social {
+            display: flex;
+            justify-content: flex-start !important;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+          }
+          .menu-drawer__login-section .list-social__link {
+            color: #1e1e1e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          .menu-drawer__login-section .list-social__link svg {
+            width: 24px;
+            height: 24px;
           }
           /* --- 修复：强制菜单全屏覆盖 --- */
           .menu-drawer {
@@ -103,34 +247,33 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            font-family: 'Poppins', sans-serif;
             font-size: 16px;
             color: #1e1e1e;
             text-decoration: none;
-            margin-bottom: 2rem;
+            {% comment %} margin-bottom: 2rem; {% endcomment %}
           }
           .menu-drawer__login-link svg {
             width: 24px;
             height: 24px;
           }
           .trust-badge-list {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px 12px;
           }
           .trust-badge-item {
             display: flex;
             align-items: center;
-            gap: 12px;
-            font-family: 'Poppins', sans-serif;
-            font-size: 12px;
+            gap: 8px;
+            font-size: 10px;
             color: #1d1d1f;
+            line-height: 1.4;
           }
           .trust-badge-item .icon-placeholder {
             width: 24px;
             height: 24px;
-            background: #e0e0e0;
-            border-radius: 50%;
+            {% comment %} background: #e0e0e0; {% endcomment %}
+            {% comment %} border-radius: 50%; {% endcomment %}
             display: flex;
             align-items: center;
             justify-content: center;
@@ -147,12 +290,10 @@
             align-items: center;
             gap: 8px;
             color: #007400;
-            font-family: 'Poppins', sans-serif;
             font-size: 14px;
             margin-bottom: 8px;
           }
           .payment-secured__desc {
-            font-family: 'Poppins', sans-serif;
             font-size: 12px;
             color: #333;
             line-height: 1.5;
@@ -294,44 +435,68 @@
             </ul>
           </nav>
           <div class="menu-drawer__footer-custom">
-            {%- if shop.customer_accounts_enabled -%}
-              <a href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}" class="menu-drawer__login-link">
-                <span class="svg-wrapper">{{- 'icon-account.svg' | inline_asset_content -}}</span>
-                {%- liquid
-                  if customer
-                    echo 'customer.account_fallback' | t
-                  else
-                    echo 'Log in'
-                  endif
-                -%}
-              </a>
-            {%- endif -%}
+            <div class="menu-drawer__trust-payment">
+              <div class="trust-badge-list">
+                {%- for i in (1..4) -%}
+                  {%- assign icon_key = 'trust_badge_' | append: i | append: '_icon' -%}
+                  {%- assign svg_key = 'trust_badge_' | append: i | append: '_svg' -%}
+                  {%- assign text_key = 'trust_badge_' | append: i | append: '_text' -%}
+                  
+                  {%- assign badge_icon = section.settings[icon_key] -%}
+                  {%- assign badge_svg = section.settings[svg_key] -%}
+                  {%- assign badge_text = section.settings[text_key] -%}
 
-            <div class="trust-badge-list">
-              <div class="trust-badge-item">
-                <div class="icon-placeholder"></div>
-                <span>30-Day Trial</span>
+                  {%- if badge_svg != blank or badge_icon != blank or badge_text != blank -%}
+                    <div class="trust-badge-item">
+                      <div class="icon-placeholder">
+                        {%- if badge_svg != blank -%}
+                          {{ badge_svg }}
+                        {%- elsif badge_icon != blank -%}
+                          {{ badge_icon | image_url: width: 24 | image_tag: loading: "lazy" }}
+                        {%- else -%}
+                          {{ "image" | placeholder_svg_tag: "placeholder-svg" }}
+                        {%- endif -%}
+                      </div>
+                      <span>{{ badge_text }}</span>
+                    </div>
+                  {%- endif -%}
+                {%- endfor -%}
               </div>
-              <div class="trust-badge-item">
-                <div class="icon-placeholder"></div>
-                <span>Free Local Shipping</span>
-              </div>
-              <div class="trust-badge-item">
-                <div class="icon-placeholder"></div>
-                <span>2-Year Warranty</span>
-              </div>
-              <div class="trust-badge-item">
-                <div class="icon-placeholder"></div>
-                <span>Free lifetime cloud storage with 6-second event videos</span>
-              </div>
+
+              {%- if section.settings.enable_payment_secured -%}
+                <div class="payment-secured">
+                  <div class="payment-secured__icon">
+                    {%- if section.settings.payment_secured_svg != blank -%}
+                      {{ section.settings.payment_secured_svg }}
+                    {%- elsif section.settings.payment_secured_image != blank -%}
+                      {{ section.settings.payment_secured_image | image_url: width: 25 | image_tag: loading: "lazy" }}
+                    {%- else -%}
+                      <div style="width:16px;height:16px;background:#007400;border-radius:50%;"></div>
+                    {%- endif -%}
+                  </div>
+                  <div class="payment-secured__content">
+                    <div class="payment-secured__title">{{ section.settings.payment_secured_title }}</div>
+                    <p class="payment-secured__desc">{{ section.settings.payment_secured_desc }}</p>
+                  </div>
+                </div>
+              {%- endif -%}
             </div>
 
-            <div class="payment-secured">
-              <div class="payment-secured__title">
-                <div class="icon-placeholder" style="width:16px;height:16px;background:#007400;border-radius:50%;"></div>
-                <span>Payment Secured</span>
-              </div>
-              <p class="payment-secured__desc">Your privacy is important to ANRAN. All transactions are secured and encrypted by Transport Layer Security (TLS) technology.</p>
+            <div class="menu-drawer__login-section">
+              {%- if shop.customer_accounts_enabled -%}
+                <a href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}" class="menu-drawer__login-link">
+                  <span class="svg-wrapper">{{- 'icon-account.svg' | inline_asset_content -}}</span>
+                  {%- liquid
+                    if customer
+                      echo 'customer.account_fallback' | t
+                    else
+                      echo 'Log in'
+                    endif
+                  -%}
+                </a>
+              {%- endif -%}
+
+              {% render 'social-icons', class: 'footer__list-social' %}
             </div>
           </div>
         </div>
