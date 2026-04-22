@@ -330,6 +330,7 @@
           "type": "category",
           "settings": {
             "image": "shopify://shop_images/Q7_Dual-Lens_Cameras_16a8abc7-5bfc-4ed2-b51f-ccad028c78cf.jpg",
+            "hover_image": "shopify://shop_images/Q7_Dual-Lens_Cameras_03.jpg",
             "empty_bg": "#FFFFFF",
             "title": "Dual-Lens Cameras",
             "description": "<p>Guard Every Corner, Rain or Shine.</p>",
