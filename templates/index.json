@@ -76,6 +76,27 @@
             "show_btn_icon": true
           }
         },
+        "slide_eQXBzd": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/ANRAN_Celebrate_Earth_Day_1920x667_c3253962-25eb-4f3a-a9bb-3d2bde9761b6.jpg",
+            "title": "",
+            "eyebrow": "",
+            "eyebrow_color": "#ffffff",
+            "title_color": "#ffffff",
+            "desc_color": "#ffffff",
+            "rating_text_color": "#ffffff",
+            "btn_text_color": "#ffffff",
+            "btn_bg_start": "#6cbce7",
+            "btn_bg_end": "#367cf6",
+            "show_rating": false,
+            "rating_text": "",
+            "description": "",
+            "button_label": "",
+            "button_link": "shopify://products/anran-q3-4k-8mp-solar-battery-camera",
+            "show_btn_icon": true
+          }
+        },
         "slide_DqfWr4": {
           "type": "slide",
           "settings": {
@@ -102,6 +123,7 @@
         "hero-slide-1",
         "slide_NqPg3z",
         "slide_it9FF7",
+        "slide_eQXBzd",
         "slide_DqfWr4"
       ],
       "settings": {
