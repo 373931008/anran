@@ -493,14 +493,6 @@
             "link": ""
           }
         },
-        "wb-slide-2": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/Rectangle_303.jpg",
-            "description": "<p><strong>Always-On Solar Power. </strong>Just a couple of hours of sunlight each day keeps your camera powered continuously, so you can enjoy truly wire-free security without interruptions.</p>",
-            "link": ""
-          }
-        },
         "wb-slide-3": {
           "type": "slide",
           "settings": {
@@ -530,7 +522,6 @@
         "slide_9dCAzJ",
         "slide_YGEeBh",
         "wb-slide-1",
-        "wb-slide-2",
         "wb-slide-3",
         "wb-slide-4",
         "slide_iLUC7W"
