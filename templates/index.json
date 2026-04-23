@@ -474,6 +474,7 @@
         "slide_9dCAzJ": {
           "type": "slide",
           "settings": {
+            "image": "shopify://shop_images/Identify_True_Threats_with_Smart_Detection_anran_k3j3l4.jpg",
             "description": "<p><strong>Smart Detection.</strong> Advanced AI detects people, vehicles, pets, and more and then determines the real threats. You don’t have to worry about dealing with unnecessary alerts.</p>",
             "link": ""
           }
@@ -481,6 +482,7 @@
         "slide_YGEeBh": {
           "type": "slide",
           "settings": {
+            "image": "shopify://shop_images/Long-Range_Awareness_anran_camera_a5s2e4.jpg",
             "description": "<p><strong>Long-Range Awareness. </strong>Detect motion from up to 100 feet away, giving you earlier visibility and more time to respond to what’s happening around your home.</p>",
             "link": ""
           }
@@ -496,7 +498,7 @@
         "wb-slide-3": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/Rectangle_304.jpg",
+            "image": "shopify://shop_images/Smart_Human_Tracking_anran_360d8js9.jpg",
             "description": "<p><strong>Smart Human Tracking. </strong>The camera intelligently detects and locks onto people, automatically following their movement to keep them in frame at all times.</p>",
             "link": ""
           }
@@ -504,7 +506,7 @@
         "wb-slide-4": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/Rectangle_300.png",
+            "image": "shopify://shop_images/See_every_detail_F1.6-2.0.jpg",
             "description": "<p><strong>Sharper 4K Clarity. </strong>Capture stunning 4K detail day and night, with full-color night vision that keeps every scene vivid even in low light.</p>",
             "link": ""
           }
