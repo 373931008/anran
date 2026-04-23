@@ -471,6 +471,20 @@
     "q-worth-buying-slider": {
       "type": "q-worth-buying-slider",
       "blocks": {
+        "slide_9dCAzJ": {
+          "type": "slide",
+          "settings": {
+            "description": "<p><strong>Receive real-time</strong> push notifications or emails to stay in-the-know when anything happens at home.</p>",
+            "link": ""
+          }
+        },
+        "slide_YGEeBh": {
+          "type": "slide",
+          "settings": {
+            "description": "<p><strong>Long-Range Awareness. </strong>Detect motion from up to 100 feet away, giving you earlier visibility and more time to respond to what’s happening around your home.</p>",
+            "link": ""
+          }
+        },
         "wb-slide-1": {
           "type": "slide",
           "settings": {
@@ -499,15 +513,7 @@
           "type": "slide",
           "settings": {
             "image": "shopify://shop_images/Rectangle_300.png",
-            "description": "<p><strong>Sharper 4K Clarity. </strong>Capture clearer, more detailed footage with 4K resolution, delivering noticeably sharper images compared to standard 1080p.</p>",
-            "link": ""
-          }
-        },
-        "slide_crfkxt": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/Anran_Security_Instant_App_Alerts.jpg",
-            "description": "<p><strong>Instant Alerts. </strong>When motion is detected, you’ll receive real-time notifications, keeping you informed of what matters most no matter where you are.</p>",
+            "description": "<p><strong>Sharper 4K Clarity. </strong>Capture stunning 4K detail day and night, with full-color night vision that keeps every scene vivid even in low light.</p>",
             "link": ""
           }
         },
@@ -521,11 +527,12 @@
         }
       },
       "block_order": [
+        "slide_9dCAzJ",
+        "slide_YGEeBh",
         "wb-slide-1",
         "wb-slide-2",
         "wb-slide-3",
         "wb-slide-4",
-        "slide_crfkxt",
         "slide_iLUC7W"
       ],
       "settings": {
