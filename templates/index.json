@@ -458,7 +458,7 @@
         "header_margin_bottom_desktop": 20,
         "header_margin_bottom_mobile": 16,
         "cta_label": "Download Our APP",
-        "cta_link": "",
+        "cta_link": "shopify://pages/support-app-download",
         "cta_bg_start": "#6cbce7",
         "cta_bg_end": "#367cf6",
         "cta_text_color": "#ffffff",
@@ -475,7 +475,7 @@
           "type": "slide",
           "settings": {
             "image": "shopify://shop_images/Rectangle_300_4.jpg",
-            "description": "<p><strong>Receive real-time</strong> push notifications or emails to stay in-the-know when anything happens at home.</p>",
+            "description": "<p><strong>Full-Circle Control. </strong>Tap anywhere on the panoramic view and the camera smoothly rotates to follow, giving you complete visibility with effortless control.</p>",
             "link": ""
           }
         },
@@ -483,7 +483,7 @@
           "type": "slide",
           "settings": {
             "image": "shopify://shop_images/Rectangle_303.jpg",
-            "description": "<p><strong>Receive real-time</strong> push notifications or emails to stay in-the-know when anything happens at home.</p>",
+            "description": "<p><strong>Always-On Solar Power. </strong>Just a couple of hours of sunlight each day keeps your camera powered continuously, so you can enjoy truly wire-free security without interruptions.</p>",
             "link": ""
           }
         },
@@ -491,7 +491,7 @@
           "type": "slide",
           "settings": {
             "image": "shopify://shop_images/Rectangle_304.jpg",
-            "description": "<p><strong>Receive real-time</strong> push notifications or emails to stay in-the-know when anything happens at home.</p>",
+            "description": "<p><strong>Smart Human Tracking. </strong>The camera intelligently detects and locks onto people, automatically following their movement to keep them in frame at all times.</p>",
             "link": ""
           }
         },
@@ -499,7 +499,7 @@
           "type": "slide",
           "settings": {
             "image": "shopify://shop_images/Rectangle_300.png",
-            "description": "<p><strong>Receive real-time</strong> push notifications or emails to stay in-the-know when anything happens at home.</p>",
+            "description": "<p><strong>Sharper 4K Clarity. </strong>Capture clearer, more detailed footage with 4K resolution, delivering noticeably sharper images compared to standard 1080p.</p>",
             "link": ""
           }
         },
@@ -507,7 +507,15 @@
           "type": "slide",
           "settings": {
             "image": "shopify://shop_images/Rectangle_300.png",
-            "description": "<p><strong>Receive real-time</strong> push notifications or emails to stay in-the-know when anything happens at home.</p>",
+            "description": "<p><strong>Instant Alerts. </strong>When motion is detected, you’ll receive real-time notifications, keeping you informed of what matters most no matter where you are.</p>",
+            "link": ""
+          }
+        },
+        "slide_iLUC7W": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Rectangle_300.png",
+            "description": "<p><strong>Active Defense. </strong>A built-in spotlight and two-way audio let you see, speak, and respond instantly—helping deter unwanted visitors before they get closer.</p>",
             "link": ""
           }
         }
@@ -517,7 +525,8 @@
         "wb-slide-2",
         "wb-slide-3",
         "wb-slide-4",
-        "slide_crfkxt"
+        "slide_crfkxt",
+        "slide_iLUC7W"
       ],
       "settings": {
         "headline": "<p>ANRAN® New look.</p><p>Even more magic.</p>",
@@ -604,7 +613,7 @@
         "header_title": "What <em>professionals</em> are saying",
         "header_description": "<p>Real users, real feedback. Let their experiences guide you.</p>",
         "header_center": true,
-        "header_em_color": "linear-gradient(90deg, #6CBCE7 0%, #367CF6 100%)",
+        "header_em_color": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 100%)",
         "header_title_size_desktop": 46,
         "header_title_size_mobile": 24,
         "header_desc_size_desktop": 18,
