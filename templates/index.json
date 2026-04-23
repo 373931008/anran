@@ -506,7 +506,7 @@
         "slide_crfkxt": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/Rectangle_300.png",
+            "image": "shopify://shop_images/Anran_Security_Instant_App_Alerts.jpg",
             "description": "<p><strong>Instant Alerts. </strong>When motion is detected, you’ll receive real-time notifications, keeping you informed of what matters most no matter where you are.</p>",
             "link": ""
           }
@@ -514,7 +514,7 @@
         "slide_iLUC7W": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/Rectangle_300.png",
+            "image": "shopify://shop_images/Rectangle_303.jpg",
             "description": "<p><strong>Active Defense. </strong>A built-in spotlight and two-way audio let you see, speak, and respond instantly—helping deter unwanted visitors before they get closer.</p>",
             "link": ""
           }
