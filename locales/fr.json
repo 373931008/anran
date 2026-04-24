@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "general": {
     "password_page": {
@@ -180,7 +189,14 @@
       },
       "taxes_included": "Taxes incluses.",
       "duties_included": "Frais de douane inclus.",
-      "duties_and_taxes_included": "Frais de douane et taxes inclus."
+      "duties_and_taxes_included": "Frais de douane et taxes inclus.",
+      "sticky_bar": {
+        "region_label": "Barre d’achat fixe",
+        "buy_now": "Acheter maintenant"
+      },
+      "discount_code_copy": "Copier le code promo",
+      "discount_code_copied": "Copié",
+      "discount_code_copy_failed": "Impossible de copier"
     },
     "modal": {
       "label": "Galerie de supports multimédias"
