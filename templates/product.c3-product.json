@@ -1413,7 +1413,7 @@
           "type": "spec_item",
           "settings": {
             "label": "Video Capture Resolution",
-            "value": "5MP"
+            "value": "{{ product.metafields.custom.specs_1.value }}"
           }
         },
         "spec-2": {
