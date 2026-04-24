@@ -164,11 +164,6 @@
         "disabled": false,
         "settings": {}
       },
-      "pagefly-page-builder": {
-        "type": "shopify://apps/pagefly-page-builder/blocks/app-embed/83e179f7-59a0-4589-8c66-c0dddf959200",
-        "disabled": false,
-        "settings": {}
-      },
       "8857984110089213392": {
         "type": "shopify://apps/hextom-sales-boost/blocks/usb-embeded-block/00e81c42-8ae7-4b0b-b43d-99393b885fc4",
         "disabled": false,
