@@ -17,48 +17,6 @@
         "padding_bottom": 28
       }
     },
-    "image_banner_J6RUtc": {
-      "type": "image-banner",
-      "disabled": true,
-      "custom_css": [
-        "@media screen and (max-width: 749px) {.banner {display: none !important; }}"
-      ],
-      "name": "t:sections.image-banner.presets.name",
-      "settings": {
-        "image": "shopify://shop_images/1920x1080_2.jpg",
-        "image_overlay_opacity": 0,
-        "image_height": "adapt",
-        "image_behavior": "none",
-        "desktop_content_position": "middle-center",
-        "desktop_content_alignment": "center",
-        "show_text_box": false,
-        "color_scheme": "",
-        "stack_images_on_mobile": false,
-        "mobile_content_alignment": "center",
-        "show_text_below": false
-      }
-    },
-    "image_banner_nDLiBL": {
-      "type": "image-banner",
-      "disabled": true,
-      "custom_css": [
-        "@media screen and (min-width: 750px) {.banner {display: none !important; }}"
-      ],
-      "name": "t:sections.image-banner.presets.name",
-      "settings": {
-        "image": "shopify://shop_images/Anran_security_camera_spring_flash_sale.jpg",
-        "image_overlay_opacity": 0,
-        "image_height": "adapt",
-        "image_behavior": "none",
-        "desktop_content_position": "middle-center",
-        "desktop_content_alignment": "center",
-        "show_text_box": false,
-        "color_scheme": "",
-        "stack_images_on_mobile": false,
-        "mobile_content_alignment": "center",
-        "show_text_below": false
-      }
-    },
     "177449525509dcff96": {
       "type": "_blocks",
       "blocks": {
@@ -367,8 +325,6 @@
   },
   "order": [
     "main",
-    "image_banner_J6RUtc",
-    "image_banner_nDLiBL",
     "177449525509dcff96",
     "custom_liquid_UHWHkn",
     "rich_text_iqDYhn",
