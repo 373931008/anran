@@ -1020,8 +1020,8 @@
         "header_desc_size_mobile": 12,
         "header_margin_bottom_desktop": 40,
         "header_margin_bottom_mobile": 24,
-        "image_desktop": "shopify://shop_images/Group_371.jpg",
-        "image_mobile": "shopify://shop_images/Wireless_Home_Security_Camera_Systems_-3.jpg",
+        "image_desktop": "shopify://shop_images/1_ca08b3d5-c27f-45fd-ae5c-b515b37b5d9e.jpg",
+        "image_mobile": "shopify://shop_images/2_345bf7b9-5a03-4ee0-8b3f-b29e6b87b1db.jpg",
         "bg_color": "#FFFFFF",
         "padding_top_mobile": 40,
         "padding_bottom_mobile": 40,
@@ -1043,8 +1043,8 @@
             "feature_2": "Supports 8–128GB microSD card (sold separately)",
             "feature_3": "Free lifetime cloud storage with 6-second event videos",
             "feature_4": "Subscribe to unlock longer event video recordings",
-            "button_label": "Buy now",
-            "button_link": "/cart/41859158278221:1"
+            "button_label": "",
+            "button_link": ""
           }
         },
         "card-cloud": {
@@ -1058,8 +1058,8 @@
             "feature_2": "Check your home anytime, anywhere",
             "feature_3": "Compatible with Alexa-enabled devices",
             "feature_4": "Get convenient hands-free control",
-            "button_label": "Buy now",
-            "button_link": "/cart/41859158278221:1"
+            "button_label": "",
+            "button_link": ""
           }
         }
       },
