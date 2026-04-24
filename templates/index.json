@@ -203,7 +203,7 @@
             "title": "Solar Cam Q3 Max",
             "description": "<p>360° 3K PTZ Camera with Enhanced AI Detection.</p>",
             "button_label": "Shop Now",
-            "button_link": "/",
+            "button_link": "shopify://products/anran-q3-4k-8mp-solar-battery-camera",
             "title_color": "#1e1e1e",
             "desc_color": "#4e5357",
             "btn_bg_start": "#6cbce7",
@@ -218,7 +218,7 @@
             "title": "Shield Cam C3 Max",
             "description": "<p>360° 3K PTZ Camera with Enhanced AI Detection.</p>",
             "button_label": "Shop Now",
-            "button_link": "/",
+            "button_link": "shopify://products/anran-c3-5mp-integrated-solar-battery-camera",
             "title_color": "#1e1e1e",
             "desc_color": "#4e5357",
             "btn_bg_start": "#6cbce7",
@@ -230,10 +230,10 @@
           "settings": {
             "image": "shopify://shop_images/Q7_cameras_01.png",
             "empty_bg": "#d5d5d6",
-            "title": "Dual-Lens Cam",
+            "title": "Dual-Lens Q7 Cam",
             "description": "<p>360° 3K PTZ Camera with Enhanced AI Detection.</p>",
             "button_label": "Shop Now",
-            "button_link": "/",
+            "button_link": "shopify://products/anran-4mp2mp-2mp-dual-lens-wireless-solar-security-camera-with-2-way-talk",
             "title_color": "#121212",
             "desc_color": "#4e5357",
             "btn_bg_start": "#6cbce7",
@@ -245,10 +245,10 @@
           "settings": {
             "image": "shopify://shop_images/Q4_Camera_001.png",
             "empty_bg": "#d5d5d6",
-            "title": "Guardian Cam Q3 Max",
+            "title": "Guardian Cam Q4 Max",
             "description": "<p>360° 3K PTZ Camera with Enhanced AI Detection.</p>",
             "button_label": "Shop Now",
-            "button_link": "/",
+            "button_link": "shopify://products/anran-q4-max-5mp-integrated-solar-camera",
             "title_color": "#1e1e1e",
             "desc_color": "#4e5357",
             "btn_bg_start": "#6cbce7",
@@ -298,7 +298,7 @@
             "desc_color": "#332f2f",
             "title_color_mobile": "",
             "desc_color_mobile": "",
-            "link": ""
+            "link": "shopify://collections/security-camera-systems"
           }
         },
         "sc-cat-2": {
@@ -314,7 +314,7 @@
             "desc_color": "#fafafa",
             "title_color_mobile": "",
             "desc_color_mobile": "",
-            "link": ""
+            "link": "shopify://collections/solar-battery-powered-security-camera"
           }
         },
         "sc-cat-3": {
@@ -346,7 +346,7 @@
             "desc_color": "#332f2f",
             "title_color_mobile": "",
             "desc_color_mobile": "",
-            "link": ""
+            "link": "shopify://collections/wifi-cameras"
           }
         },
         "sc-cat-5": {
