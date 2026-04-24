@@ -50,109 +50,10 @@
         "padding_bottom": 16
       }
     },
-    "featured_collection_tYRY7x": {
-      "type": "featured-collection",
-      "disabled": true,
-      "settings": {
-        "collection": "flash-sale",
-        "products_to_show": 10,
-        "title": "Easter Sale Up to 65% OFF",
-        "heading_size": "h1",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "columns_desktop": 5,
-        "enable_desktop_slider": false,
-        "full_width": false,
-        "show_view_all": true,
-        "view_all_style": "solid",
-        "color_scheme": "background-2",
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": true,
-        "quick_add": "none",
-        "columns_mobile": "2",
-        "swipe_on_mobile": false,
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
     "main": {
       "type": "main-page",
       "disabled": true,
       "settings": {
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
-    },
-    "featured_collection_NWzLB3": {
-      "type": "featured-collection",
-      "disabled": true,
-      "settings": {
-        "collection": "solar-battery-powered-security-camera",
-        "products_to_show": 8,
-        "title": "Easter Sale for Solar Battery Camera",
-        "heading_size": "h2",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "columns_desktop": 4,
-        "enable_desktop_slider": false,
-        "full_width": false,
-        "show_view_all": false,
-        "view_all_style": "solid",
-        "color_scheme": "background-2",
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": true,
-        "quick_add": "none",
-        "columns_mobile": "2",
-        "swipe_on_mobile": false,
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
-    "featured_collection_WTW636": {
-      "type": "featured-collection",
-      "disabled": true,
-      "settings": {
-        "collection": "security-camera-systems",
-        "products_to_show": 8,
-        "title": "Easter Sale for Security Camera System",
-        "heading_size": "h2",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "columns_desktop": 4,
-        "enable_desktop_slider": false,
-        "full_width": false,
-        "show_view_all": true,
-        "view_all_style": "solid",
-        "color_scheme": "background-2",
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": true,
-        "quick_add": "none",
-        "columns_mobile": "2",
-        "swipe_on_mobile": false,
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
-    "page_pJfNp6": {
-      "type": "page",
-      "disabled": true,
-      "name": "t:sections.page.presets.name",
-      "settings": {
-        "page": "camera-sale",
-        "heading_size": "h1",
-        "color_scheme": "",
         "padding_top": 0,
         "padding_bottom": 0
       }
@@ -403,11 +304,7 @@
   "order": [
     "177440908745c624b7",
     "rich_text_JyQFTr",
-    "featured_collection_tYRY7x",
     "main",
-    "featured_collection_NWzLB3",
-    "featured_collection_WTW636",
-    "page_pJfNp6",
     "featured_blog_9yJyCM",
     "1775187809c6458664"
   ]
