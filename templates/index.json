@@ -638,10 +638,10 @@
           "type": "review",
           "settings": {
             "image": "shopify://shop_images/Rectangle_144.jpg",
-            "quote_title": "Comfortable and Easy to Wear",
-            "quote_body": "<p>I like the product, comfortable for walking and easy to wear. Clear video day and night—exactly what we needed for peace of mind.</p>",
-            "reviewer_name": "Dave B.",
-            "reviewer_meta": "12-27-25 · CA, US",
+            "quote_title": "Smooth Purchase, Great Experience",
+            "quote_body": "<p>My purchase went smoothly. Delivery was fast. Plus, the camera has been even better than I hoped. I’m very satisfied.</p>",
+            "reviewer_name": "Maria C.",
+            "reviewer_meta": "02-15-26",
             "avatar_image": "shopify://shop_images/Ellipse_1.jpg",
             "verified_label": "Verified customer",
             "product": "",
@@ -652,10 +652,10 @@
           "type": "review",
           "settings": {
             "image": "shopify://shop_images/Rectangle_144_1.jpg",
-            "quote_title": "Comfortable and Easy to Wear",
-            "quote_body": "<p>Fast setup and reliable alerts. The app is intuitive and video quality beats our old cameras.</p>",
-            "reviewer_name": "Nare S.",
-            "reviewer_meta": "01-08-26 · TX, US",
+            "quote_title": "Stable Connection, Reliable Protection",
+            "quote_body": "<p>Very reliable camera. Setup was simple and the connection is stable. I feel much more secure at home now.</p>",
+            "reviewer_name": "Lukas S.",
+            "reviewer_meta": "03-20-26",
             "avatar_image": "shopify://shop_images/Ellipse_1.jpg",
             "verified_label": "Verified Buyer",
             "product": "",
@@ -666,10 +666,10 @@
           "type": "review",
           "settings": {
             "image": "shopify://shop_images/Rectangle_144_2.jpg",
-            "quote_title": "Comfortable and Easy to Wear",
-            "quote_body": "<p>Great hardware and customer support answered my install questions quickly.</p>",
-            "reviewer_name": "Alex R.",
-            "reviewer_meta": "02-14-26 · FL, US",
+            "quote_title": "Reliable Security You Can Trust",
+            "quote_body": "<p>I was looking for a dependable camera and Guardian is certainly that. Has all the best features, too.</p>",
+            "reviewer_name": "Christopher H.",
+            "reviewer_meta": "02-14-26",
             "avatar_image": "shopify://shop_images/Ellipse_1.jpg",
             "verified_label": "Verified customer",
             "product": "",
@@ -679,10 +679,22 @@
         "review_4tTTKz": {
           "type": "review",
           "settings": {
-            "quote_title": "Comfortable and Easy to Wear",
-            "quote_body": "<p>I like the product, comfortable for walking and easy to wear. Clear video day and night—exactly what we needed for peace of mind.</p>",
-            "reviewer_name": "Dave B.",
-            "reviewer_meta": "12-27-25 · CA, US",
+            "quote_title": "Clear View, Total Peace of Mind",
+            "quote_body": "<p>I don’t have to wonder what is going on outside, I can see it. This is a high-quality camera for a great price.</p>",
+            "reviewer_name": "Lynda C.",
+            "reviewer_meta": "03-25-26",
+            "verified_label": "Verified customer",
+            "product": "",
+            "star_rating": 5
+          }
+        },
+        "review_dDYX7G": {
+          "type": "review",
+          "settings": {
+            "quote_title": "Simple Setup, Clear Night Vision",
+            "quote_body": "<p>Très easy to install and works perfectly. The video quality is clear, even at night. Great value for the price.</p>",
+            "reviewer_name": "Julien M.",
+            "reviewer_meta": "03-12-26",
             "verified_label": "Verified customer",
             "product": "",
             "star_rating": 5
@@ -691,10 +703,10 @@
         "review_zHjTNW": {
           "type": "review",
           "settings": {
-            "quote_title": "Comfortable and Easy to Wear",
-            "quote_body": "<p>I like the product, comfortable for walking and easy to wear. Clear video day and night—exactly what we needed for peace of mind.</p>",
-            "reviewer_name": "Dave B.",
-            "reviewer_meta": "12-27-25 · CA, US",
+            "quote_title": "Easy Setup, Excellent Performance",
+            "quote_body": "<p>This is a great outdoor camera. It was easy to setup and is easy to operate. The video is very detailed and bright.</p>",
+            "reviewer_name": "Ashley O.",
+            "reviewer_meta": "03-15-26",
             "verified_label": "Verified customer",
             "product": "",
             "star_rating": 5
@@ -706,6 +718,7 @@
         "vr-review-2",
         "vr-review-3",
         "review_4tTTKz",
+        "review_dDYX7G",
         "review_zHjTNW"
       ],
       "settings": {
