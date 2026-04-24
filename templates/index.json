@@ -637,7 +637,7 @@
         "vr-review-1": {
           "type": "review",
           "settings": {
-            "image": "shopify://shop_images/Rectangle_144.jpg",
+            "image": "shopify://shop_images/1772616233__0__TcAZeEpb__81bAM-POaRL__original.avif",
             "quote_title": "Smooth Purchase, Great Experience",
             "quote_body": "<p>My purchase went smoothly. Delivery was fast. Plus, the camera has been even better than I hoped. I’m very satisfied.</p>",
             "reviewer_name": "Maria C.",
@@ -651,7 +651,7 @@
         "vr-review-2": {
           "type": "review",
           "settings": {
-            "image": "shopify://shop_images/Rectangle_144_1.jpg",
+            "image": "shopify://shop_images/1776968554__screenshot_20260328_163524_anran__original.avif",
             "quote_title": "Stable Connection, Reliable Protection",
             "quote_body": "<p>Very reliable camera. Setup was simple and the connection is stable. I feel much more secure at home now.</p>",
             "reviewer_name": "Lukas S.",
@@ -665,7 +665,7 @@
         "vr-review-3": {
           "type": "review",
           "settings": {
-            "image": "shopify://shop_images/Rectangle_144_2.jpg",
+            "image": "shopify://shop_images/1772289624__12968__original.avif",
             "quote_title": "Reliable Security You Can Trust",
             "quote_body": "<p>I was looking for a dependable camera and Guardian is certainly that. Has all the best features, too.</p>",
             "reviewer_name": "Chris H.",
@@ -679,6 +679,7 @@
         "review_4tTTKz": {
           "type": "review",
           "settings": {
+            "image": "shopify://shop_images/1748110854__img_9163__original.avif",
             "quote_title": "Clear View, Total Peace of Mind",
             "quote_body": "<p>I don’t have to wonder what is going on outside, I can see it. This is a high-quality camera for a great price.</p>",
             "reviewer_name": "Lynda C.",
@@ -692,6 +693,7 @@
         "review_dDYX7G": {
           "type": "review",
           "settings": {
+            "image": "shopify://shop_images/1776968556__20260328_163305__original.avif",
             "quote_title": "Simple Setup, Clear Night Vision",
             "quote_body": "<p>Très easy to install and works perfectly. The video quality is clear, even at night. Great value for the price.</p>",
             "reviewer_name": "Julien M.",
@@ -705,6 +707,7 @@
         "review_zHjTNW": {
           "type": "review",
           "settings": {
+            "image": "shopify://shop_images/1736334632__17363345250437893087166789477301__original.avif",
             "quote_title": "Easy Setup, Excellent Performance",
             "quote_body": "<p>This is a great outdoor camera. It was easy to setup and is easy to operate. The video is very detailed and bright.</p>",
             "reviewer_name": "Ashley O.",
