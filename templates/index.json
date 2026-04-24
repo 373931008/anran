@@ -709,7 +709,8 @@
         "review_zHjTNW"
       ],
       "settings": {
-        "trust_badge_label": "Verified Reviews",
+        "trust_logo": "shopify://shop_images/Group_158_93d31f41-d333-474d-bbe0-510c6bfeea20.png",
+        "trust_badge_label": "",
         "trust_row_gap": 12,
         "trust_margin_bottom_mobile": 20,
         "trust_margin_bottom_desktop": 32,
