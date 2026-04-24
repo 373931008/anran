@@ -600,7 +600,7 @@
         "header_margin_bottom_mobile": 8,
         "subtitle": "",
         "cta_label": "100% Worth Buying >",
-        "cta_link": "{{ product.metafields.custom[\"100_worth_buying\"].value }}",
+        "cta_link": "/cart/41859158278221:1",
         "cta_color": "#329bff",
         "bg_color": "#000000",
         "inner_bg_color": "#121214",
