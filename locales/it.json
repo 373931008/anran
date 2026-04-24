@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "general": {
     "password_page": {
@@ -180,7 +189,14 @@
       "product_variants": "Varianti di prodotto",
       "taxes_included": "Imposte incluse.",
       "duties_included": "Dazi inclusi.",
-      "duties_and_taxes_included": "Dazi e imposte inclusi."
+      "duties_and_taxes_included": "Dazi e imposte inclusi.",
+      "sticky_bar": {
+        "region_label": "Barra di acquisto fissa",
+        "buy_now": "Acquista ora"
+      },
+      "discount_code_copy": "Copia codice sconto",
+      "discount_code_copied": "Copiato",
+      "discount_code_copy_failed": "Impossibile copiare"
     },
     "modal": {
       "label": "Galleria contenuti multimediali"
