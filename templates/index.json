@@ -642,7 +642,7 @@
             "quote_body": "<p>My purchase went smoothly. Delivery was fast. Plus, the camera has been even better than I hoped. I’m very satisfied.</p>",
             "reviewer_name": "Maria C.",
             "reviewer_meta": "02-15-26",
-            "avatar_image": "shopify://shop_images/Ellipse_1.jpg",
+            "avatar_image": "shopify://shop_images/customer_review_4.jpg",
             "verified_label": "Verified customer",
             "product": "",
             "star_rating": 5
@@ -656,7 +656,7 @@
             "quote_body": "<p>Very reliable camera. Setup was simple and the connection is stable. I feel much more secure at home now.</p>",
             "reviewer_name": "Lukas S.",
             "reviewer_meta": "03-20-26",
-            "avatar_image": "shopify://shop_images/Ellipse_1.jpg",
+            "avatar_image": "shopify://shop_images/customer_review_2.jpg",
             "verified_label": "Verified Buyer",
             "product": "",
             "star_rating": 5
@@ -670,7 +670,7 @@
             "quote_body": "<p>I was looking for a dependable camera and Guardian is certainly that. Has all the best features, too.</p>",
             "reviewer_name": "Chris H.",
             "reviewer_meta": "02-14-26",
-            "avatar_image": "shopify://shop_images/Ellipse_1.jpg",
+            "avatar_image": "shopify://shop_images/customer_review_6.jpg",
             "verified_label": "Verified customer",
             "product": "",
             "star_rating": 5
@@ -683,6 +683,7 @@
             "quote_body": "<p>I don’t have to wonder what is going on outside, I can see it. This is a high-quality camera for a great price.</p>",
             "reviewer_name": "Lynda C.",
             "reviewer_meta": "03-25-26",
+            "avatar_image": "shopify://shop_images/customer_review_5.jpg",
             "verified_label": "Verified customer",
             "product": "",
             "star_rating": 5
@@ -695,6 +696,7 @@
             "quote_body": "<p>Très easy to install and works perfectly. The video quality is clear, even at night. Great value for the price.</p>",
             "reviewer_name": "Julien M.",
             "reviewer_meta": "03-12-26",
+            "avatar_image": "shopify://shop_images/customer_review_1.jpg",
             "verified_label": "Verified customer",
             "product": "",
             "star_rating": 5
@@ -707,6 +709,7 @@
             "quote_body": "<p>This is a great outdoor camera. It was easy to setup and is easy to operate. The video is very detailed and bright.</p>",
             "reviewer_name": "Ashley O.",
             "reviewer_meta": "03-15-26",
+            "avatar_image": "shopify://shop_images/customer_review_3.jpg",
             "verified_label": "Verified customer",
             "product": "",
             "star_rating": 5
