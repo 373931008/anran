@@ -86,6 +86,152 @@
                     <div class="footer-block__details-content rte">
                       {{ block.settings.subtext }}
                     </div>
+                  {%- when 'contact_info' -%}
+                    <div class="footer-block__details-content footer-block__contact-info">
+                      {%- if block.settings.logo != blank -%}
+                        {%- assign contact_logo_height = block.settings.logo_width
+                          | divided_by: block.settings.logo.aspect_ratio
+                        -%}
+                        <div
+                          class="footer-block__contact-logo"
+                          style="max-width: min(100%, {{ block.settings.logo_width }}px);"
+                        >
+                          {{
+                            block.settings.logo
+                            | image_url: width: 600
+                            | image_tag:
+                              loading: 'lazy',
+                              widths: '90, 120, 150, 180, 240, 300, 360, 480, 600',
+                              height: contact_logo_height,
+                              width: block.settings.logo_width
+                          }}
+                        </div>
+                      {%- endif -%}
+
+                      <div class="footer-block__contact-list">
+                        {%- if block.settings.email != blank -%}
+                          {%- assign contact_email = block.settings.email | strip_html | strip -%}
+                          <a href="mailto:{{ contact_email | escape }}" class="footer-block__contact-link rte">
+                            {{- block.settings.email -}}
+                          </a>
+                        {%- endif -%}
+
+                        {%- if block.settings.phone_1 != blank -%}
+                          {%- assign contact_phone_1 = block.settings.phone_1
+                            | strip_html
+                            | strip
+                            | replace: ' ', ''
+                            | replace: '-', ''
+                            | replace: '(', ''
+                            | replace: ')', ''
+                          -%}
+                          <a href="tel:{{ contact_phone_1 | escape }}" class="footer-block__contact-link rte">
+                            {{- block.settings.phone_1 -}}
+                          </a>
+                        {%- endif -%}
+
+                        {%- if block.settings.phone_2 != blank -%}
+                          {%- assign contact_phone_2 = block.settings.phone_2
+                            | strip_html
+                            | strip
+                            | replace: ' ', ''
+                            | replace: '-', ''
+                            | replace: '(', ''
+                            | replace: ')', ''
+                          -%}
+                          <a href="tel:{{ contact_phone_2 | escape }}" class="footer-block__contact-link rte">
+                            {{- block.settings.phone_2 -}}
+                          </a>
+                        {%- endif -%}
+                      </div>
+
+                      {%- if block.settings.show_social and has_social_icons -%}
+                        {%- render 'social-icons', class: 'footer-block__contact-social' -%}
+                      {%- endif -%}
+                    </div>
+                  {%- when 'accepted_payment' -%}
+                    <div class="footer-block__details-content footer-block__accepted-payment">
+                      {% comment %} {%- if block.settings.heading != blank -%}
+                        <h2 class="footer-block__accepted-payment-heading inline-richtext">
+                          {{- block.settings.heading -}}
+                        </h2>
+                      {%- endif -%} {% endcomment %}
+
+                      <div class="footer-block__trust-badges">
+                        {%- if block.settings.badge_1 != blank -%}
+                          {%- assign badge_1_height = block.settings.badge_1_width
+                            | divided_by: block.settings.badge_1.aspect_ratio
+                          -%}
+                          <div
+                            class="footer-block__trust-badge"
+                            style="max-width: min(100%, {{ block.settings.badge_1_width }}px);"
+                          >
+                            {{
+                              block.settings.badge_1
+                              | image_url: width: 300
+                              | image_tag:
+                                loading: 'lazy',
+                                widths: '60, 90, 120, 150, 180, 240, 300',
+                                height: badge_1_height,
+                                width: block.settings.badge_1_width
+                            }}
+                          </div>
+                        {%- endif -%}
+
+                        {%- if block.settings.badge_2 != blank -%}
+                          {%- assign badge_2_height = block.settings.badge_2_width
+                            | divided_by: block.settings.badge_2.aspect_ratio
+                          -%}
+                          <div
+                            class="footer-block__trust-badge"
+                            style="max-width: min(100%, {{ block.settings.badge_2_width }}px);"
+                          >
+                            {{
+                              block.settings.badge_2
+                              | image_url: width: 240
+                              | image_tag:
+                                loading: 'lazy',
+                                widths: '50, 70, 90, 120, 150, 180, 240',
+                                height: badge_2_height,
+                                width: block.settings.badge_2_width
+                            }}
+                          </div>
+                        {%- endif -%}
+
+                        {%- if block.settings.badge_3 != blank -%}
+                          {%- assign badge_3_height = block.settings.badge_3_width
+                            | divided_by: block.settings.badge_3.aspect_ratio
+                          -%}
+                          <div
+                            class="footer-block__trust-badge"
+                            style="max-width: min(100%, {{ block.settings.badge_3_width }}px);"
+                          >
+                            {{
+                              block.settings.badge_3
+                              | image_url: width: 240
+                              | image_tag:
+                                loading: 'lazy',
+                                widths: '50, 70, 90, 120, 150, 180, 240',
+                                height: badge_3_height,
+                                width: block.settings.badge_3_width
+                            }}
+                          </div>
+                        {%- endif -%}
+                      </div>
+
+                      {%- if block.settings.show_payment_icons -%}
+                        <div class="footer__payment footer-block__payment">
+                          <span class="visually-hidden">{{ 'sections.footer.payment' | t }}</span>
+                          <ul class="list list-payment" role="list">
+                            {%- for type in shop.enabled_payment_types -%}
+                              <li class="list-payment__item">
+                                {{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}
+                              </li>
+                            {%- endfor -%}
+                          </ul>
+                        </div>
+                      {%- endif -%}
+                    </div>
                   {%- when 'link_list' -%}
                     {%- if block.settings.menu != blank -%}
                       <ul class="footer-block__details-content list-unstyled">
@@ -378,6 +524,114 @@
           "id": "subtext",
           "default": "t:sections.footer.blocks.text.settings.subtext.default",
           "label": "t:sections.footer.blocks.text.settings.subtext.label"
+        }
+      ]
+    },
+    {
+      "type": "contact_info",
+      "name": "联系信息",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Logo 图片"
+        },
+        {
+          "type": "range",
+          "id": "logo_width",
+          "min": 80,
+          "max": 260,
+          "step": 5,
+          "unit": "px",
+          "label": "Logo 宽度",
+          "default": 165
+        },
+        {
+          "type": "richtext",
+          "id": "email",
+          "label": "邮箱",
+          "default": "<p>support@anran-cctv.com</p>"
+        },
+        {
+          "type": "richtext",
+          "id": "phone_1",
+          "label": "电话 1",
+          "default": "<p>1-866-958-6988 (US)</p>"
+        },
+        {
+          "type": "richtext",
+          "id": "phone_2",
+          "label": "电话 2",
+          "default": "<p>44-20 8610 1559 (UK)</p>"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_social",
+          "default": true,
+          "label": "显示社交图标"
+        }
+      ]
+    },
+    {
+      "type": "accepted_payment",
+      "name": "支付与信任标识",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "label": "标题",
+          "default": "We Accept"
+        },
+        {
+          "type": "image_picker",
+          "id": "badge_1",
+          "label": "信任标识图片 1"
+        },
+        {
+          "type": "range",
+          "id": "badge_1_width",
+          "min": 60,
+          "max": 180,
+          "step": 4,
+          "unit": "px",
+          "label": "信任标识图片 1 宽度",
+          "default": 112
+        },
+        {
+          "type": "image_picker",
+          "id": "badge_2",
+          "label": "信任标识图片 2"
+        },
+        {
+          "type": "range",
+          "id": "badge_2_width",
+          "min": 40,
+          "max": 140,
+          "step": 4,
+          "unit": "px",
+          "label": "信任标识图片 2 宽度",
+          "default": 60
+        },
+        {
+          "type": "image_picker",
+          "id": "badge_3",
+          "label": "信任标识图片 3"
+        },
+        {
+          "type": "range",
+          "id": "badge_3_width",
+          "min": 40,
+          "max": 140,
+          "step": 4,
+          "unit": "px",
+          "label": "信任标识图片 3 宽度",
+          "default": 60
+        },
+        {
+          "type": "checkbox",
+          "id": "show_payment_icons",
+          "default": true,
+          "label": "底部显示支付图标"
         }
       ]
     },
