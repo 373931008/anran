@@ -2322,7 +2322,7 @@ input[type='checkbox'] {
 
 /* section-header */
 .section-header.shopify-section-group-header-group {
-  z-index: 3;
+  z-index: 999;
 }
 
 .shopify-section-header-sticky {
@@ -2362,6 +2362,11 @@ input[type='checkbox'] {
 }
 
 .section-header:has(.mega-menu[open] .mega-menu-products) .header-wrapper--border-bottom {
+  border-bottom-color: transparent;
+  box-shadow: none;
+}
+
+.section-header:has(.header__search details[open]) .header-wrapper--border-bottom {
   border-bottom-color: transparent;
   box-shadow: none;
 }

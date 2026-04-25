@@ -32,10 +32,14 @@
     right: 0;
     left: 0;
     top: 100%;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
   }
 
   .predictive-search__results-groups-wrapper {
     flex-direction: column;
+    border-bottom: 0;
   }
 
   .predictive-search__results-groups-wrapper:not(.predictive-search__results-groups-wrapper--no-suggestions) {
