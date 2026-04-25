@@ -36,25 +36,41 @@ class HeaderMenu extends DetailsDisclosure {
   constructor() {
     super();
     this.header = document.querySelector('.header-wrapper');
+    this.openTimeout = null;
+    this.closeTimeout = null;
     
     // Add hover support for desktop mega menu
-    if (window.matchMedia('(min-width: 990px)').matches) {
+    if (window.matchMedia('(min-width: 1280px)').matches) {
       this.addEventListener('mouseenter', this.onMouseEnter.bind(this));
       this.addEventListener('mouseleave', this.onMouseLeave.bind(this));
+      this.content.addEventListener('mouseenter', this.onMouseEnter.bind(this));
+      this.content.addEventListener('mouseleave', this.onMouseLeave.bind(this));
     }
   }
 
   onMouseEnter() {
-    if (!this.mainDetailsToggle.hasAttribute('open')) {
-      this.mainDetailsToggle.setAttribute('open', '');
-      this.mainDetailsToggle.querySelector('summary').setAttribute('aria-expanded', true);
-    }
+    window.clearTimeout(this.openTimeout);
+    window.clearTimeout(this.closeTimeout);
+
+    this.openTimeout = window.setTimeout(() => {
+      if (this.matches(':hover') || this.content.matches(':hover')) {
+        if (!this.mainDetailsToggle.hasAttribute('open')) {
+          this.mainDetailsToggle.setAttribute('open', '');
+          this.mainDetailsToggle.querySelector('summary').setAttribute('aria-expanded', true);
+        }
+      }
+    }, 100);
   }
 
   onMouseLeave() {
-    if (this.mainDetailsToggle.hasAttribute('open')) {
-      this.close();
-    }
+    window.clearTimeout(this.openTimeout);
+    window.clearTimeout(this.closeTimeout);
+
+    this.closeTimeout = window.setTimeout(() => {
+      if (!this.matches(':hover') && !this.content.matches(':hover')) {
+        this.close();
+      }
+    }, 180);
   }
 
   onToggle() {

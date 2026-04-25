@@ -29,7 +29,7 @@
   {%- endif -%}
 
   {%- if section.settings.menu_type_desktop != "drawer" -%}
-    @media screen and (min-width: 990px) {
+    @media screen and (min-width: 1280px) {
       header-drawer {
         display: none;
       }
@@ -76,7 +76,7 @@
   }
 
   /* --- 新增：电脑端一级导航自定义样式 --- */
-  @media screen and (min-width: 990px) {
+  @media screen and (min-width: 1280px) {
     .header--middle-left {
       grid-template-columns: auto 1fr auto;
       column-gap: 2rem;
@@ -97,7 +97,7 @@
     .header__menu-item:hover,
     .header__menu-item:hover span,
     .header__active-menu-item {
-      color: #1565d8 !important;
+      color: #1565D8 !important;
       text-decoration: none !important;
     }
     .header__menu-item svg {
@@ -123,14 +123,14 @@
     padding-top: 0 !important;
     padding-bottom: 0 !important;
   }
-  @media screen and (min-width: 990px) {
+  @media screen and (min-width: 1280px) {
     .header {
       min-height: 58px !important;
       height: 58px !important;
     }
   }
   /* ----------------------------------- */
-  @media screen and (max-width: 989px) {
+  @media screen and (max-width: 1279px) {
     .header__heading-logo-wrapper {
       width: 74px !important;
       max-width: 74px !important;
@@ -164,7 +164,7 @@
     }
   }
 
-  @media screen and (min-width: 990px) {
+  @media screen and (min-width: 1280px) {
     .header {
       padding-top: {{ section.settings.padding_top }}px;
       padding-bottom: {{ section.settings.padding_bottom }}px;

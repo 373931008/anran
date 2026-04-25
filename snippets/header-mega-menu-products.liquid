@@ -1,174 +1,256 @@
 {% comment %}
-  Renders a custom megamenu with products for 3-level menus.
+  Renders a product-focused mega menu for three-level navigation.
   Accepts:
-  - link: {Object} The main menu link object (Level 1).
+  - link: {Object} Top-level menu link.
 {% endcomment %}
 
-<div class="mega-menu-products page-width">
-  <div class="mega-menu-products__container">
-    <div class="mega-menu-products__sidebar">
-      <ul class="mega-menu-products__sidebar-list list-unstyled" role="list">
+<div class="mega-menu-products">
+  <div class="mega-menu-products__inner">
+    <div class="mega-menu-products__left">
+      <ul class="mega-menu-products__left-list list-unstyled" role="list">
         {%- for childlink in link.links -%}
-          <li class="mega-menu-products__sidebar-item">
-            <button
-              class="mega-menu-products__sidebar-btn {% if forloop.first %}is-active{% endif %}"
-              data-target="mega-menu-content-{{ link.handle }}-{{ childlink.handle }}"
-            >
-              {{ childlink.title | escape }}
-              <svg xmlns="http://www.w3.org/2000/svg" class="mega-menu-products__sidebar-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M13.5386 5.74357L8.20524 11.0769L2.87191 5.74357" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg>
-            </button>
+          {%- assign child_collection = childlink.object -%}
+          <li>
+            {%- if childlink.links == blank -%}
+              <a
+                href="{{ childlink.url }}"
+                class="mega-menu-products__left-item{% if forloop.first %} is-active{% endif %}"
+                data-mega-menu-left-item
+                data-panel-id="MegaMenuProducts-{{ link.handle }}-{{ childlink.handle }}"
+              >
+            {%- else -%}
+              <button
+                type="button"
+                class="mega-menu-products__left-item{% if forloop.first %} is-active{% endif %}"
+                data-mega-menu-left-item
+                data-panel-id="MegaMenuProducts-{{ link.handle }}-{{ childlink.handle }}"
+              >
+            {%- endif -%}
+            <span class="mega-menu-products__left-main">
+              {%- if child_collection.featured_image -%}
+                <img
+                  src="{{ child_collection.featured_image | image_url: width: 120 }}"
+                  alt=""
+                  class="mega-menu-products__left-image"
+                  loading="eager"
+                  width="44"
+                  height="44"
+                  aria-hidden="true"
+                >
+              {%- elsif child_collection.image -%}
+                <img
+                  src="{{ child_collection.image | image_url: width: 120 }}"
+                  alt=""
+                  class="mega-menu-products__left-image"
+                  loading="eager"
+                  width="44"
+                  height="44"
+                  aria-hidden="true"
+                >
+              {%- endif -%}
+              <span class="mega-menu-products__left-title">{{ childlink.title | escape }}</span>
+            </span>
+            {%- if childlink.links != blank -%}
+              <span class="mega-menu-products__left-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false">
+                  <path d="M8.59 16.59 13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" fill="currentColor"/>
+                </svg>
+              </span>
+            {%- endif -%}
+            {%- if childlink.links == blank -%}
+              </a>
+            {%- else -%}
+              </button>
+            {%- endif -%}
           </li>
         {%- endfor -%}
       </ul>
     </div>
 
-    <div class="mega-menu-products__content">
+    <div class="mega-menu-products__right">
       {%- for childlink in link.links -%}
         <div
-          id="mega-menu-content-{{ link.handle }}-{{ childlink.handle }}"
-          class="mega-menu-products__panel {% if forloop.first %}is-active{% endif %}"
+          id="MegaMenuProducts-{{ link.handle }}-{{ childlink.handle }}"
+          class="mega-menu-products__panel{% if forloop.first %} is-active{% endif %}"
+          data-mega-menu-panel
         >
+          <div class="mega-menu-products__panel-title">{{ childlink.title | escape }}</div>
+
           {%- if childlink.links != blank -%}
-            <div class="mega-menu-products__tabs">
-              <ul class="mega-menu-products__tabs-list list-unstyled" role="list">
+            <div class="mega-menu-products__tab-row">
+              <div class="mega-menu-products__tabs" role="tablist" aria-label="{{ childlink.title | escape }}">
                 {%- for grandchildlink in childlink.links -%}
-                  <li class="mega-menu-products__tabs-item">
-                    <button
-                      class="mega-menu-products__tabs-btn {% if forloop.first %}is-active{% endif %}"
-                      data-target="mega-menu-products-{{ link.handle }}-{{ childlink.handle }}-{{ grandchildlink.handle }}"
-                    >
-                      {{ grandchildlink.title | escape }}
-                    </button>
-                  </li>
+                  <button
+                    type="button"
+                    class="mega-menu-products__tab{% if forloop.first %} is-active{% endif %}"
+                    data-mega-menu-tab
+                    data-tab-index="{{ forloop.index0 }}"
+                  >
+                    {{ grandchildlink.title | escape }}
+                  </button>
                 {%- endfor -%}
-                <li class="mega-menu-products__tabs-item mega-menu-products__tabs-view-all">
-                  <a href="{{ childlink.url }}" class="mega-menu-products__view-all-link">
-                    View all {{ childlink.title | escape }} &nbsp;>
-                  </a>
-                </li>
-              </ul>
+              </div>
+
+              {%- for grandchildlink in childlink.links -%}
+                <a
+                  href="{{ childlink.url }}"
+                  class="mega-menu-products__collection-link{% if forloop.first %} is-active{% endif %}"
+                  data-mega-menu-collection-link
+                  data-tab-index="{{ forloop.index0 }}"
+                >
+                  View all {{ childlink.title | escape }}
+                  <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                    <path d="M8.59 16.59 13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" fill="currentColor"/>
+                  </svg>
+                </a>
+              {%- endfor -%}
             </div>
 
-            <div class="mega-menu-products__tab-panels">
+            <div class="mega-menu-products__grid">
               {%- for grandchildlink in childlink.links -%}
-                <div
-                  id="mega-menu-products-{{ link.handle }}-{{ childlink.handle }}-{{ grandchildlink.handle }}"
-                  class="mega-menu-products__tab-panel {% if forloop.first %}is-active{% endif %}"
-                >
-                  <div class="mega-menu-products__grid">
-                    {%- assign collection = grandchildlink.object -%}
-                    {%- if collection != blank and collection.products.size > 0 -%}
-                      {%- for product in collection.products limit: 4 -%}
-                        <div class="mega-menu-products__card">
-                          <a href="{{ product.url }}" class="mega-menu-products__card-link">
-                            <div class="mega-menu-products__card-image-wrapper">
-                              <div class="mega-menu-products__card-image-inner">
-                                {%- if product.featured_image -%}
-                                  <img
-                                    src="{{ product.featured_image | image_url: width: 400 }}"
-                                    alt="{{ product.featured_image.alt | escape }}"
-                                    class="mega-menu-products__card-image"
-                                    loading="lazy"
-                                    width="200"
-                                    height="200"
-                                  >
-                                {%- else -%}
-                                  {{ 'product-1' | placeholder_svg_tag: 'mega-menu-products__card-image placeholder-svg' }}
+                {%- assign collection = grandchildlink.object -%}
+                {%- if collection != blank and collection.products.size > 0 -%}
+                  {%- for product in collection.products limit: 7 -%}
+                    {%- assign product_short_description = product.metafields.custom.short_description.value
+                      | default: product.metafields.custom.subtitle.value
+                    -%}
+                    {%- assign product_mega_menu_badge = product.metafields.custom.mega_menu_badge.value -%}
+                    {%- assign product_mega_menu_badge_parts = product_mega_menu_badge | split: '|' -%}
+                    {%- assign product_mega_menu_badge_label = product_mega_menu_badge_parts[0] | strip -%}
+                    {%- assign product_mega_menu_badge_background = product_mega_menu_badge_parts[1] | strip -%}
+                    {%- assign product_mega_menu_badge_color = product_mega_menu_badge_parts[2] | strip -%}
+                    <a
+                      href="{{ product.url }}"
+                      class="mega-menu-products__card-wrapper{% if forloop.parentloop.first %} is-active{% endif %}"
+                      data-mega-menu-card
+                      data-tab-index="{{ forloop.parentloop.index0 }}"
+                    >
+                      <span class="mega-menu-products__card">
+                        <span class="mega-menu-products__image-box">
+                          {%- if product.featured_image -%}
+                            <img
+                              src="{{ product.featured_image | image_url: width: 500 }}"
+                              alt="{{ product.featured_image.alt | default: product.title | escape }}"
+                              class="mega-menu-products__image"
+                              loading="eager"
+                              width="166"
+                              height="166"
+                            >
+                          {%- else -%}
+                            {{ 'product-1' | placeholder_svg_tag: 'mega-menu-products__image placeholder-svg' }}
+                          {%- endif -%}
+                          {%- if product.tags contains 'New' or product.tags contains 'new' -%}
+                            <span class="mega-menu-products__badge mega-menu-products__badge--new">New</span>
+                          {%- endif -%}
+                          {%- if product_mega_menu_badge_label != blank -%}
+                            <span
+                              class="mega-menu-products__badge mega-menu-products__badge--custom"
+                              style="
+                                {%- if product_mega_menu_badge_background != blank -%}
+                                  --mega-menu-products-badge-bg: {{ product_mega_menu_badge_background | escape }};
                                 {%- endif -%}
-                              </div>
-                              
-                              {%- if product.tags contains 'New' or product.tags contains 'new' -%}
-                                <div class="mega-menu-products__badge mega-menu-products__badge--new">New</div>
-                              {%- endif -%}
-                              {%- if product.compare_at_price > product.price -%}
-                                {%- assign discount = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round -%}
-                                <div class="mega-menu-products__badge mega-menu-products__badge--sale">{{ discount }}% OFF</div>
-                              {%- endif -%}
+                                {%- if product_mega_menu_badge_color != blank -%}
+                                  --mega-menu-products-badge-color: {{ product_mega_menu_badge_color | escape }};
+                                {%- endif -%}
+                              "
+                            >
+                              {{- product_mega_menu_badge_label | escape -}}
+                            </span>
+                          {%- endif -%}
+                        </span>
+                        <span class="mega-menu-products__card-title">{{ product.title | escape }}</span>
+                        {%- if product_short_description != blank -%}
+                          <span class="mega-menu-products__card-text">{{ product_short_description | escape }}</span>
+                        {%- endif -%}
+                      </span>
+                    </a>
+                  {%- endfor -%}
+                {%- endif -%}
 
-                              <div class="mega-menu-products__card-info">
-                                <h3 class="mega-menu-products__card-title">{{ product.title | escape }}</h3>
-                                {%- if product.metafields.custom.subtitle != blank -%}
-                                  <p class="mega-menu-products__card-subtitle">{{ product.metafields.custom.subtitle }}</p>
-                                {%- endif -%}
-                              </div>
-                            </div>
-                          </a>
-                        </div>
-                      {%- endfor -%}
-                      <div class="mega-menu-products__card mega-menu-products__card--view-all">
-                        <a href="{{ grandchildlink.url }}" class="mega-menu-products__circle-link">
-                          <span class="mega-menu-products__circle-text">View all</span>
-                          <span class="mega-menu-products__circle-icon">
-                            <svg width="55" height="55" viewBox="0 0 55 55" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <circle cx="27.5" cy="27.5" r="27.5" fill="#F7F8F9"/>
-                              <path d="M24 18L33 27.5L24 37" stroke="#1E1E1E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                          </span>
-                        </a>
-                      </div>
-                    {%- else -%}
-                      <p>No products found in this collection.</p>
-                    {%- endif -%}
-                  </div>
-                </div>
+                <a
+                  href="{{ grandchildlink.url }}"
+                  class="mega-menu-products__card-wrapper mega-menu-products__card-wrapper--view-all{% if forloop.first %} is-active{% endif %}"
+                  data-mega-menu-card
+                  data-tab-index="{{ forloop.index0 }}"
+                >
+                  <span class="mega-menu-products__card mega-menu-products__card--view-all">
+                    <span class="mega-menu-products__view-icon">
+                      <svg viewBox="0 0 512 512" focusable="false" aria-hidden="true">
+                        <path d="M320 0c-17.7 0-32 14.3-32 32s14.3 32 32 32h82.7L201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L448 109.3V192c0 17.7 14.3 32 32 32s32-14.3 32-32V32c0-17.7-14.3-32-32-32H320zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z"/>
+                      </svg>
+                    </span>
+                    <span class="mega-menu-products__view-text">View all</span>
+                  </span>
+                </a>
               {%- endfor -%}
             </div>
           {%- else -%}
+            {%- assign collection = childlink.object -%}
             <div class="mega-menu-products__grid">
-              {%- assign collection = childlink.object -%}
               {%- if collection != blank and collection.products.size > 0 -%}
-                {%- for product in collection.products limit: 4 -%}
-                  <div class="mega-menu-products__card">
-                    <a href="{{ product.url }}" class="mega-menu-products__card-link">
-                      <div class="mega-menu-products__card-image-wrapper">
-                        <div class="mega-menu-products__card-image-inner">
-                          {%- if product.featured_image -%}
-                            <img
-                              src="{{ product.featured_image | image_url: width: 400 }}"
-                              alt="{{ product.featured_image.alt | escape }}"
-                              class="mega-menu-products__card-image"
-                              loading="lazy"
-                              width="200"
-                              height="200"
-                            >
-                          {%- else -%}
-                            {{ 'product-1' | placeholder_svg_tag: 'mega-menu-products__card-image placeholder-svg' }}
-                          {%- endif -%}
-                        </div>
-
+                {%- for product in collection.products limit: 7 -%}
+                  {%- assign product_short_description = product.metafields.custom.short_description.value
+                    | default: product.metafields.custom.subtitle.value
+                  -%}
+                  {%- assign product_mega_menu_badge = product.metafields.custom.mega_menu_badge.value -%}
+                  {%- assign product_mega_menu_badge_parts = product_mega_menu_badge | split: '|' -%}
+                  {%- assign product_mega_menu_badge_label = product_mega_menu_badge_parts[0] | strip -%}
+                  {%- assign product_mega_menu_badge_background = product_mega_menu_badge_parts[1] | strip -%}
+                  {%- assign product_mega_menu_badge_color = product_mega_menu_badge_parts[2] | strip -%}
+                  <a href="{{ product.url }}" class="mega-menu-products__card-wrapper is-active">
+                    <span class="mega-menu-products__card">
+                      <span class="mega-menu-products__image-box">
+                        {%- if product.featured_image -%}
+                          <img
+                            src="{{ product.featured_image | image_url: width: 500 }}"
+                            alt="{{ product.featured_image.alt | default: product.title | escape }}"
+                            class="mega-menu-products__image"
+                            loading="eager"
+                            width="166"
+                            height="166"
+                          >
+                        {%- else -%}
+                          {{ 'product-1' | placeholder_svg_tag: 'mega-menu-products__image placeholder-svg' }}
+                        {%- endif -%}
                         {%- if product.tags contains 'New' or product.tags contains 'new' -%}
-                          <div class="mega-menu-products__badge mega-menu-products__badge--new">New</div>
+                          <span class="mega-menu-products__badge mega-menu-products__badge--new">New</span>
                         {%- endif -%}
-                        {%- if product.compare_at_price > product.price -%}
-                          {%- assign discount = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round -%}
-                          <div class="mega-menu-products__badge mega-menu-products__badge--sale">{{ discount }}% OFF</div>
+                        {%- if product_mega_menu_badge_label != blank -%}
+                          <span
+                            class="mega-menu-products__badge mega-menu-products__badge--custom"
+                            style="
+                              {%- if product_mega_menu_badge_background != blank -%}
+                                --mega-menu-products-badge-bg: {{ product_mega_menu_badge_background | escape }};
+                              {%- endif -%}
+                              {%- if product_mega_menu_badge_color != blank -%}
+                                --mega-menu-products-badge-color: {{ product_mega_menu_badge_color | escape }};
+                              {%- endif -%}
+                            "
+                          >
+                            {{- product_mega_menu_badge_label | escape -}}
+                          </span>
                         {%- endif -%}
-
-                        <div class="mega-menu-products__card-info">
-                          <h3 class="mega-menu-products__card-title">{{ product.title | escape }}</h3>
-                          {%- if product.metafields.custom.subtitle != blank -%}
-                            <p class="mega-menu-products__card-subtitle">{{ product.metafields.custom.subtitle }}</p>
-                          {%- endif -%}
-                        </div>
-                      </div>
-                    </a>
-                  </div>
-                {%- endfor -%}
-                <div class="mega-menu-products__card mega-menu-products__card--view-all">
-                  <a href="{{ childlink.url }}" class="mega-menu-products__circle-link">
-                    <span class="mega-menu-products__circle-text">View all</span>
-                    <span class="mega-menu-products__circle-icon">
-                      <svg width="55" height="55" viewBox="0 0 55 55" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="27.5" cy="27.5" r="27.5" fill="#F7F8F9"/>
-                        <path d="M24 18L33 27.5L24 37" stroke="#1E1E1E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
+                      </span>
+                      <span class="mega-menu-products__card-title">{{ product.title | escape }}</span>
+                      {%- if product_short_description != blank -%}
+                        <span class="mega-menu-products__card-text">{{ product_short_description | escape }}</span>
+                      {%- endif -%}
                     </span>
                   </a>
-                </div>
-              {%- else -%}
-                <p>No products found in this collection.</p>
+                {%- endfor -%}
+                <a
+                  href="{{ childlink.url }}"
+                  class="mega-menu-products__card-wrapper mega-menu-products__card-wrapper--view-all is-active"
+                >
+                  <span class="mega-menu-products__card mega-menu-products__card--view-all">
+                    <span class="mega-menu-products__view-icon">
+                      <svg viewBox="0 0 512 512" focusable="false" aria-hidden="true">
+                        <path d="M320 0c-17.7 0-32 14.3-32 32s14.3 32 32 32h82.7L201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L448 109.3V192c0 17.7 14.3 32 32 32s32-14.3 32-32V32c0-17.7-14.3-32-32-32H320zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z"/>
+                      </svg>
+                    </span>
+                    <span class="mega-menu-products__view-text">View all</span>
+                  </span>
+                </a>
               {%- endif -%}
             </div>
           {%- endif -%}
@@ -179,272 +261,526 @@
 </div>
 
 <style>
-  .mega-menu-products {
-    padding-top: 40px;
-    padding-bottom: 40px;
-  }
-  .mega-menu-products__container {
-    display: flex;
-    gap: 40px;
-  }
-  .mega-menu-products__sidebar {
-    width: 253px;
-    flex-shrink: 0;
+  .mega-menu__content:has(.mega-menu-products) {
+    position: fixed;
+    top: var(--mega-menu-products-top, var(--header-height, 0));
+    left: 0;
+    right: auto;
+    width: 100vw;
+    border: 0;
+    box-shadow: none;
+    overflow: hidden;
     padding: 0;
   }
-  .mega-menu-products__sidebar-list {
+
+  .shopify-section-header-sticky .mega-menu__content:has(.mega-menu-products) {
+    max-height: none;
+  }
+
+  .mega-menu-products {
+    --mega-menu-products-blue: #1565D8;
+    --mega-menu-products-black: #000000;
+    --mega-menu-products-muted: #939396;
+    --mega-menu-products-link: #858585;
+    --mega-menu-products-surface: #f7f8f9;
+    --mega-menu-products-card-hover: #fafafa;
+    width: 100%;
+    height: calc(90vh - 100px);
+    min-height: 430px;
+    max-height: 720px;
+    overflow: hidden;
+    background: #ffffff;
+  }
+
+  .mega-menu-products__inner {
+    width: min(1400px, calc(100vw - 64px));
+    height: 100%;
+    margin: 0 auto;
+    padding: 44px 0 20px;
+    display: flex;
+    gap: 40px;
+    overflow: hidden;
+  }
+
+  .mega-menu-products__left {
+    width: 320px;
+    flex: 0 0 320px;
+    height: 100%;
+  }
+
+  .mega-menu-products__left-list {
     margin: 0;
     padding: 0;
   }
-  .mega-menu-products__sidebar-item {
-    margin-bottom: 8px;
-  }
-  .mega-menu-products__sidebar-btn {
+
+  .mega-menu-products__left-item {
     width: 100%;
-    text-align: left;
+    height: 64px;
     padding: 0 20px;
-    height: 50px;
+    border: 0;
+    border-radius: 8px;
     background: transparent;
-    border: none;
-    border-radius: 10px;
-    font-family: 'Poppins', sans-serif;
-    font-size: 16px;
-    font-weight: 400;
-    color: #1E1E1E;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    color: var(--mega-menu-products-black);
     display: flex;
     align-items: center;
     justify-content: space-between;
+    cursor: pointer;
+    text-decoration: none;
+    transition:
+      background 0.2s ease,
+      color 0.2s ease;
   }
-  .mega-menu-products__sidebar-icon {
+
+  .mega-menu-products__left-item:hover,
+  .mega-menu-products__left-item.is-active {
+    background: var(--mega-menu-products-surface);
+    color: var(--mega-menu-products-blue);
+  }
+
+  .mega-menu-products__left-main {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+  }
+
+  .mega-menu-products__left-image {
+    width: 44px;
+    height: 44px;
+    flex: 0 0 44px;
+    object-fit: contain;
+  }
+
+  .mega-menu-products__left-title {
+    font-family: Poppins, var(--font-body-family);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 25px;
+    color: currentColor;
+    text-align: left;
+  }
+
+  .mega-menu-products__left-item.is-active .mega-menu-products__left-title {
+    font-weight: 500;
+  }
+
+  .mega-menu-products__left-icon {
     width: 16px;
     height: 16px;
     opacity: 0;
-    transform: rotate(-90deg) translateY(-10px);
-    transition: all 0.3s ease;
+    color: currentColor;
+    transition: opacity 0.2s ease;
   }
-  .mega-menu-products__sidebar-btn:hover,
-  .mega-menu-products__sidebar-btn.is-active {
-    color: #1565D8;
-    font-weight: 500;
-    background: #F7F8F9;
+
+  .mega-menu-products__left-icon svg {
+    width: 16px;
+    height: 16px;
+    display: block;
   }
-  .mega-menu-products__sidebar-btn:hover .mega-menu-products__sidebar-icon,
-  .mega-menu-products__sidebar-btn.is-active .mega-menu-products__sidebar-icon {
+
+  .mega-menu-products__left-item:hover .mega-menu-products__left-icon,
+  .mega-menu-products__left-item.is-active .mega-menu-products__left-icon {
     opacity: 1;
-    transform: rotate(-90deg) translateY(0);
   }
-  
-  .mega-menu-products__content {
-    flex-grow: 1;
+
+  .mega-menu-products__right {
+    flex: 1 1 auto;
+    min-width: 0;
+    height: 100%;
   }
+
   .mega-menu-products__panel {
     display: none;
+    height: 100%;
+    overflow-y: auto;
+    padding-right: 2px;
   }
+
+  .mega-menu-products__panel::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+
   .mega-menu-products__panel.is-active {
     display: block;
   }
-  
-  .mega-menu-products__tabs {
-    margin-bottom: 24px;
+
+  .mega-menu-products__panel-title {
+    margin-bottom: 6px;
+    padding-top: 16px;
+    font-family: Poppins, var(--font-body-family);
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 30px;
+    color: var(--mega-menu-products-black);
   }
-  .mega-menu-products__tabs-list {
+
+  .mega-menu-products__tab-row {
+    margin: 12px 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .mega-menu-products__tabs {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
-    gap: 12px;
-    margin: 0;
-    padding: 0;
+    gap: 10px;
   }
-  .mega-menu-products__tabs-btn {
-    padding: 8px 20px;
-    border-radius: 30px;
-    background: #F7F8F9;
-    border: none;
-    font-family: 'Poppins', sans-serif;
+
+  .mega-menu-products__tab {
+    min-height: 36px;
+    padding: 0 16px;
+    border: 0;
+    border-radius: 36px;
+    background: var(--mega-menu-products-surface);
+    color: var(--mega-menu-products-black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-family: Poppins, var(--font-body-family);
     font-size: 14px;
     font-weight: 500;
-    color: #1E1E1E;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    line-height: 21px;
+    transition:
+      background 0.2s ease,
+      color 0.2s ease;
   }
-  .mega-menu-products__tabs-btn:hover,
-  .mega-menu-products__tabs-btn.is-active {
-    background: #1565D8;
-    color: #FFFFFF;
+
+  .mega-menu-products__tab:hover,
+  .mega-menu-products__tab.is-active {
+    background: var(--mega-menu-products-blue);
+    color: #ffffff;
   }
-  .mega-menu-products__tabs-view-all {
-    margin-left: auto;
-  }
-  .mega-menu-products__view-all-link {
-    font-family: 'Poppins', sans-serif;
-    font-size: 14px;
-    color: #656565;
-    text-decoration: none;
-  }
-  .mega-menu-products__view-all-link:hover {
-    color: #1565D8;
-  }
-  
-  .mega-menu-products__tab-panel {
+
+  .mega-menu-products__collection-link {
     display: none;
+    align-items: center;
+    gap: 9px;
+    flex: 0 0 auto;
+    color: var(--mega-menu-products-link);
+    text-decoration: none;
+    font-family: Poppins, var(--font-body-family);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 21px;
   }
-  .mega-menu-products__tab-panel.is-active {
-    display: block;
-  }
-  
-  .mega-menu-products__grid {
+
+  .mega-menu-products__collection-link.is-active {
     display: flex;
+  }
+
+  .mega-menu-products__collection-link:hover {
+    color: var(--mega-menu-products-blue);
+  }
+
+  .mega-menu-products__collection-link svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .mega-menu-products__grid {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
     gap: 20px;
   }
-  .mega-menu-products__card {
-    width: 244px;
-    flex-shrink: 0;
-  }
-  .mega-menu-products__card-link {
+
+  .mega-menu-products__card-wrapper {
+    width: calc((100% - 60px) / 4);
+    min-width: 0;
+    display: none;
+    color: inherit;
     text-decoration: none;
-    display: block;
   }
-  .mega-menu-products__card-image-wrapper {
-    background: #F7F8F9;
-    border-radius: 10px;
-    height: 304px;
-    width: 244px;
+
+  .mega-menu-products__card-wrapper.is-active {
+    display: flex;
+  }
+
+  .mega-menu-products__card {
+    width: 100%;
+    height: 100%;
+    {% comment %} min-height: 305px; {% endcomment %}
+    padding: 14px;
+    border-radius: 8px;
+    background: var(--mega-menu-products-surface);
     display: flex;
     flex-direction: column;
-    align-items: center;
-    position: relative;
-    overflow: hidden;
-    padding: 24px 16px;
-    box-sizing: border-box;
+    cursor: pointer;
+    transition: background 0.2s ease;
   }
-  .mega-menu-products__card-image-inner {
-    flex-grow: 1;
+
+  .mega-menu-products__card:hover {
+    background: var(--mega-menu-products-card-hover);
+  }
+
+  .mega-menu-products__image-box {
+    width: 100%;
+    min-height: 166px;
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    margin-bottom: 16px;
+    overflow: hidden;
   }
-  .mega-menu-products__card-image {
+
+  .mega-menu-products__image {
+    width: 166px;
+    height: 166px;
     max-width: 100%;
-    max-height: 160px;
     object-fit: contain;
-    transition: transform 0.3s ease;
+    aspect-ratio: 1 / 1;
+    display: block;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  .mega-menu-products__card-link:hover .mega-menu-products__card-image {
-    transform: scale(1.05);
+
+  .mega-menu-products__card:hover .mega-menu-products__image {
+    transform: scale(1.02);
   }
+
   .mega-menu-products__badge {
     position: absolute;
-    top: 12px;
-    border-radius: 15px;
-    padding: 2px 10px;
-    font-family: 'Poppins', sans-serif;
+    left: 0;
+    top: 0;
+    min-width: 47px;
+    height: 22px;
+    padding: 0 8px;
+    border-radius: 11px;
+    background-image: linear-gradient(90deg, #1a6bff 0%, #1ae0ff 100%);
+    color: #ffffff;
+    font-family: Poppins, var(--font-body-family);
     font-size: 12px;
-    color: #FFFFFF;
-    line-height: 1.2;
-  }
-  .mega-menu-products__badge--new {
-    left: 12px;
-    background: linear-gradient(90deg, #6CBCE7 0%, #367CF6 100%);
-  }
-  .mega-menu-products__badge--sale {
-    right: 12px;
-    background: #FAA61A;
-  }
-  
-  .mega-menu-products__card-info {
+    font-weight: 400;
+    line-height: 22px;
     text-align: center;
-    width: 100%;
   }
+
+  .mega-menu-products__badge--custom {
+    left: auto;
+    right: 0;
+    min-width: 58px;
+    background: var(--mega-menu-products-badge-bg, #ff6000);
+    background-image: none;
+    color: var(--mega-menu-products-badge-color, #ffffff);
+  }
+
   .mega-menu-products__card-title {
-    font-family: 'Poppins', sans-serif;
+    margin-top: 20px;
+    color: var(--mega-menu-products-black);
+    display: -webkit-box;
+    font-family: Poppins, var(--font-body-family);
     font-size: 16px;
     font-weight: 500;
-    color: #1E1E1E;
-    margin: 0 0 8px 0;
-    line-height: 1.2;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    line-height: 24px;
+    min-height: 48px;
+    overflow: hidden;
+    text-align: left;
   }
-  .mega-menu-products__card-subtitle {
-    font-family: 'Poppins', sans-serif;
+
+  .mega-menu-products__card-text {
+    margin-top: 4px;
+    color: var(--mega-menu-products-muted);
+    font-family: Poppins, var(--font-body-family);
     font-size: 14px;
-    font-weight: 500;
-    color: #656565;
-    margin: 0;
-    line-height: 1.4;
-    white-space: pre-wrap;
+    font-weight: 400;
+    line-height: 15px;
+    overflow: hidden;
+    text-align: left;
+    text-transform: none;
   }
-  
+
   .mega-menu-products__card--view-all {
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .mega-menu-products__view-icon {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background: #f0f0f1;
     display: flex;
     align-items: center;
     justify-content: center;
   }
-  .mega-menu-products__circle-link {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-decoration: none;
-    gap: 12px;
+
+  .mega-menu-products__view-icon svg {
+    width: 16px;
+    height: 16px;
   }
-  .mega-menu-products__circle-text {
-    font-family: 'Poppins', sans-serif;
+
+  .mega-menu-products__view-text {
+    color: var(--mega-menu-products-black);
+    font-family: Poppins, var(--font-body-family);
     font-size: 14px;
     font-weight: 500;
-    color: #1E1E1E;
+    line-height: 21px;
   }
-  .mega-menu-products__circle-icon svg circle {
-    transition: fill 0.3s ease;
+
+  @media screen and (max-width: 1399px) {
+    .mega-menu-products__inner {
+      width: min(1180px, calc(100vw - 48px));
+      gap: 32px;
+    }
+
+    .mega-menu-products__left {
+      width: 280px;
+      flex-basis: 280px;
+    }
   }
-  .mega-menu-products__circle-link:hover .mega-menu-products__circle-icon svg circle {
-    fill: #EAEAEA;
+
+  @media screen and (max-width: 1149px) {
+    .mega-menu-products__inner {
+      width: calc(100vw - 32px);
+      gap: 24px;
+    }
+
+    .mega-menu-products__left {
+      width: 240px;
+      flex-basis: 240px;
+    }
+
+    .mega-menu-products__left-image {
+      width: 30px;
+      height: 30px;
+      flex-basis: 30px;
+    }
   }
 </style>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // Handle Sidebar Hover
-    const sidebarBtns = document.querySelectorAll('.mega-menu-products__sidebar-btn');
-    sidebarBtns.forEach(btn => {
-      btn.addEventListener('mouseenter', function() {
-        const targetId = this.getAttribute('data-target');
-        const container = this.closest('.mega-menu-products');
-        
-        // Remove active class from all sidebar buttons
-        container.querySelectorAll('.mega-menu-products__sidebar-btn').forEach(b => b.classList.remove('is-active'));
-        this.classList.add('is-active');
-        
-        // Hide all panels
-        container.querySelectorAll('.mega-menu-products__panel').forEach(p => p.classList.remove('is-active'));
-        // Show target panel
-        const targetPanel = document.getElementById(targetId);
-        if (targetPanel) {
-          targetPanel.classList.add('is-active');
-        }
-      });
-    });
+  document.addEventListener('DOMContentLoaded', () => {
+    const menus = document.querySelectorAll('.mega-menu-products')
 
-    // Handle Tabs Hover
-    const tabsBtns = document.querySelectorAll('.mega-menu-products__tabs-btn');
-    tabsBtns.forEach(btn => {
-      btn.addEventListener('mouseenter', function() {
-        const targetId = this.getAttribute('data-target');
-        const panel = this.closest('.mega-menu-products__panel');
-        
-        // Remove active class from all tab buttons in this panel
-        panel.querySelectorAll('.mega-menu-products__tabs-btn').forEach(b => b.classList.remove('is-active'));
-        this.classList.add('is-active');
-        
-        // Hide all tab panels in this panel
-        panel.querySelectorAll('.mega-menu-products__tab-panel').forEach(p => p.classList.remove('is-active'));
-        // Show target tab panel
-        const targetTabPanel = document.getElementById(targetId);
-        if (targetTabPanel) {
-          targetTabPanel.classList.add('is-active');
+    for (const menu of menus) {
+      if (menu.dataset.megaMenuProductsInitialized === 'true') {
+        continue
+      }
+
+      menu.dataset.megaMenuProductsInitialized = 'true'
+      const menuContent = menu.closest('.mega-menu__content')
+      const headerMenu = menu.closest('header-menu')
+      const updateMenuTop = () => {
+        const header = document.querySelector('.header-wrapper')
+
+        if (!menuContent || !header) {
+          return
         }
-      });
-    });
-  });
+
+        const headerBottom = Math.max(0, Math.round(header.getBoundingClientRect().bottom))
+        menuContent.style.setProperty('--mega-menu-products-top', `${headerBottom}px`)
+      }
+
+      updateMenuTop()
+
+      if (headerMenu) {
+        headerMenu.addEventListener('mouseenter', updateMenuTop)
+        headerMenu.addEventListener('focusin', updateMenuTop)
+      }
+
+      window.addEventListener('resize', updateMenuTop)
+      window.addEventListener('scroll', updateMenuTop, { passive: true })
+
+      const leftItems = menu.querySelectorAll('[data-mega-menu-left-item]')
+      const leftSwitchDelay = 180
+      let leftSwitchTimeout
+
+      const activateLeftItem = (item) => {
+        const panelId = item.dataset.panelId
+        const panel = menu.querySelector(`#${CSS.escape(panelId)}`)
+
+        if (!panel || item.classList.contains('is-active')) {
+          return
+        }
+
+        for (const leftItem of leftItems) {
+          leftItem.classList.remove('is-active')
+        }
+
+        for (const menuPanel of menu.querySelectorAll('[data-mega-menu-panel]')) {
+          menuPanel.classList.remove('is-active')
+        }
+
+        item.classList.add('is-active')
+        panel.classList.add('is-active')
+        panel.scrollTop = 0
+      }
+
+      for (const item of leftItems) {
+        item.addEventListener('mouseenter', () => {
+          window.clearTimeout(leftSwitchTimeout)
+
+          leftSwitchTimeout = window.setTimeout(() => {
+            activateLeftItem(item)
+          }, leftSwitchDelay)
+        })
+
+        item.addEventListener('mouseleave', () => {
+          window.clearTimeout(leftSwitchTimeout)
+        })
+
+        item.addEventListener('focus', () => {
+          window.clearTimeout(leftSwitchTimeout)
+          activateLeftItem(item)
+        })
+      }
+
+      const panels = menu.querySelectorAll('[data-mega-menu-panel]')
+
+      for (const panel of panels) {
+        const tabs = panel.querySelectorAll('[data-mega-menu-tab]')
+        const cards = panel.querySelectorAll('[data-mega-menu-card]')
+        const links = panel.querySelectorAll('[data-mega-menu-collection-link]')
+        const tabSwitchDelay = 160
+        let tabSwitchTimeout
+
+        const activateTab = (tab) => {
+          const tabIndex = tab.dataset.tabIndex
+
+          if (tab.classList.contains('is-active')) {
+            return
+          }
+
+          for (const item of tabs) {
+            item.classList.toggle('is-active', item === tab)
+          }
+
+          for (const card of cards) {
+            card.classList.toggle('is-active', card.dataset.tabIndex === tabIndex)
+          }
+
+          for (const link of links) {
+            link.classList.toggle('is-active', link.dataset.tabIndex === tabIndex)
+          }
+        }
+
+        for (const tab of tabs) {
+          tab.addEventListener('mouseenter', () => {
+            window.clearTimeout(tabSwitchTimeout)
+
+            tabSwitchTimeout = window.setTimeout(() => {
+              activateTab(tab)
+            }, tabSwitchDelay)
+          })
+
+          tab.addEventListener('mouseleave', () => {
+            window.clearTimeout(tabSwitchTimeout)
+          })
+
+          tab.addEventListener('focus', () => {
+            window.clearTimeout(tabSwitchTimeout)
+            activateTab(tab)
+          })
+        }
+      }
+    }
+  })
 </script>
