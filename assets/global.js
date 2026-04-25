@@ -466,7 +466,7 @@ class MenuDrawer extends HTMLElement {
       if (isOpen) event.preventDefault();
       isOpen ? this.closeMenuDrawer(event, summaryElement) : this.openMenuDrawer(summaryElement);
 
-      if (window.matchMedia('(max-width: 990px)')) {
+      if (window.matchMedia('(max-width: 1279px)').matches) {
         document.documentElement.style.setProperty('--viewport-height', `${window.innerHeight}px`);
       }
     } else {
@@ -505,7 +505,7 @@ class MenuDrawer extends HTMLElement {
     removeTrapFocus(elementToFocus);
     this.closeAnimation(this.mainDetailsToggle);
 
-    if (event instanceof KeyboardEvent) elementToFocus?.setAttribute('aria-expanded', false);
+    elementToFocus?.setAttribute('aria-expanded', false);
   }
 
   onFocusOut() {
@@ -517,6 +517,12 @@ class MenuDrawer extends HTMLElement {
 
   onCloseButtonClick(event) {
     const detailsElement = event.currentTarget.closest('details');
+
+    if (detailsElement === this.mainDetailsToggle) {
+      this.closeMenuDrawer(event, this.mainDetailsToggle.querySelector('summary'));
+      return;
+    }
+
     this.closeSubmenu(detailsElement);
   }
 

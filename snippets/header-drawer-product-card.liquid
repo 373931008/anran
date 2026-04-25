@@ -1,0 +1,57 @@
+{% comment %}
+  Renders a compact product card for the mobile header drawer.
+
+  Accepts:
+  - product: {Object} Product object
+{% endcomment %}
+
+{%- assign product_short_description = product.metafields.custom.short_description.value
+  | default: product.metafields.custom.subtitle.value
+-%}
+{%- assign product_mega_menu_badge = product.metafields.custom.mega_menu_badge.value -%}
+{%- assign product_mega_menu_badge_parts = product_mega_menu_badge | split: '|' -%}
+{%- assign product_mega_menu_badge_label = product_mega_menu_badge_parts[0] | strip -%}
+{%- assign product_mega_menu_badge_background = product_mega_menu_badge_parts[1] | strip -%}
+{%- assign product_mega_menu_badge_color = product_mega_menu_badge_parts[2] | strip -%}
+
+<a href="{{ product.url }}" class="menu-drawer-product-card">
+  <span class="menu-drawer-product-card__media">
+    {%- if product.featured_image -%}
+      <img
+        src="{{ product.featured_image | image_url: width: 240 }}"
+        alt="{{ product.featured_image.alt | default: product.title | escape }}"
+        class="menu-drawer-product-card__image"
+        loading="lazy"
+        width="120"
+        height="120"
+      >
+    {%- else -%}
+      {{ 'product-1' | placeholder_svg_tag: 'menu-drawer-product-card__image placeholder-svg' }}
+    {%- endif -%}
+
+    {%- if product.tags contains 'New' or product.tags contains 'new' -%}
+      <span class="menu-drawer-product-card__badge menu-drawer-product-card__badge--new">New</span>
+    {%- endif -%}
+
+    {%- if product_mega_menu_badge_label != blank -%}
+      <span
+        class="menu-drawer-product-card__badge menu-drawer-product-card__badge--custom"
+        style="
+          {%- if product_mega_menu_badge_background != blank -%}
+            --menu-drawer-product-badge-bg: {{ product_mega_menu_badge_background | escape }};
+          {%- endif -%}
+          {%- if product_mega_menu_badge_color != blank -%}
+            --menu-drawer-product-badge-color: {{ product_mega_menu_badge_color | escape }};
+          {%- endif -%}
+        "
+      >
+        {{- product_mega_menu_badge_label | escape -}}
+      </span>
+    {%- endif -%}
+  </span>
+
+  <span class="menu-drawer-product-card__title">{{ product.title | escape }}</span>
+  {%- if product_short_description != blank -%}
+    <span class="menu-drawer-product-card__text">{{ product_short_description | escape }}</span>
+  {%- endif -%}
+</a>
