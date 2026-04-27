@@ -1,0 +1,296 @@
+{%- style -%}
+  .section-{{ section.id }}-offer-signup {
+    background: {{ section.settings.background_color }};
+    color: {{ section.settings.text_color }};
+  }
+
+  .section-{{ section.id }}-offer-signup .footer-offer-signup__inner {
+    display: grid;
+    grid-template-areas:
+      'heading'
+      'form'
+      'description';
+    gap: 2.2rem;
+    align-content: start;
+    width: 100%;
+    max-width: 140rem;
+    min-height: 25.6rem;
+    margin: 0 auto;
+    padding: 3rem 1.6rem 3.8rem;
+  }
+
+  .section-{{ section.id }}-offer-signup .footer-offer-signup__heading {
+    grid-area: heading;
+    margin: 0;
+    color: inherit;
+    font-family: Poppins, var(--font-heading-family);
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  .section-{{ section.id }}-offer-signup .footer-offer-signup__description {
+    grid-area: description;
+    color: inherit;
+    font-family: Poppins, var(--font-body-family);
+    font-size: 1.2rem;
+    line-height: 1.333;
+  }
+
+  .section-{{ section.id }}-offer-signup .footer-offer-signup__description p {
+    margin: 0;
+  }
+
+  .section-{{ section.id }}-offer-signup .footer-offer-signup__description a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 0.2rem;
+  }
+
+  .section-{{ section.id }}-offer-signup .footer-offer-signup__form {
+    grid-area: form;
+    width: 100%;
+  }
+
+  .section-{{ section.id }}-offer-signup .footer-offer-signup__field {
+    display: flex;
+    width: 100%;
+    min-height: 4.9rem;
+    overflow: hidden;
+    border-radius: 0.4rem;
+    background: #fff;
+  }
+
+  .section-{{ section.id }}-offer-signup .footer-offer-signup__input {
+    flex: 1 1 auto;
+    min-width: 0;
+    border: 0;
+    padding: 0 1.6rem;
+    color: #1e1e1e;
+    font-family: Poppins, var(--font-body-family);
+    font-size: 1.4rem;
+    line-height: 2.4rem;
+  }
+
+  .section-{{ section.id }}-offer-signup .footer-offer-signup__input::placeholder {
+    color: #cacbcc;
+    opacity: 1;
+  }
+
+  .section-{{ section.id }}-offer-signup .footer-offer-signup__input:focus-visible {
+    outline: 0.2rem solid {{ section.settings.button_background_color }};
+    outline-offset: -0.2rem;
+  }
+
+  .section-{{ section.id }}-offer-signup .footer-offer-signup__button {
+    flex: 0 0 10.7rem;
+    border: 0;
+    padding: 0 1.6rem;
+    border-radius: 0.4rem;
+    background: {{ section.settings.button_background_color }};
+    color: {{ section.settings.button_text_color }};
+    font-family: Poppins, var(--font-body-family);
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 2.4rem;
+    text-align: center;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .section-{{ section.id }}-offer-signup .footer-offer-signup__button:hover {
+    filter: brightness(1.08);
+  }
+
+  .section-{{ section.id }}-offer-signup .footer-offer-signup__message {
+    margin: 1rem 0 0;
+    color: inherit;
+    font-size: 1.2rem;
+    line-height: 1.4;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-offer-signup .footer-offer-signup__inner {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      grid-template-areas:
+        'heading form'
+        'description form';
+      column-gap: clamp(3rem, 5vw, 8rem);
+      row-gap: 1.5rem;
+      align-content: center;
+      align-items: center;
+      min-height: 21.6rem;
+      padding: 5.2rem 2rem;
+    }
+
+    .section-{{ section.id }}-offer-signup .footer-offer-signup__heading {
+      max-width: 59.3rem;
+      font-size: 3.6rem;
+      line-height: 1.111;
+    }
+
+    .section-{{ section.id }}-offer-signup .footer-offer-signup__description {
+      max-width: 67.6rem;
+      font-size: 1.6rem;
+      line-height: 1.5;
+    }
+
+    .section-{{ section.id }}-offer-signup .footer-offer-signup__form {
+      max-width: 67rem;
+    }
+
+    .section-{{ section.id }}-offer-signup .footer-offer-signup__field {
+      min-height: 6.6rem;
+    }
+
+    .section-{{ section.id }}-offer-signup .footer-offer-signup__input {
+      padding: 0 3rem;
+      font-size: 1.6rem;
+    }
+
+    .section-{{ section.id }}-offer-signup .footer-offer-signup__button {
+      flex-basis: 20.9rem;
+      font-size: 1.6rem;
+    }
+  }
+{%- endstyle -%}
+
+<div class="footer-offer-signup section-{{ section.id }}-offer-signup">
+  <div class="footer-offer-signup__inner">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="footer-offer-signup__heading inline-richtext">
+        {{- section.settings.heading -}}
+      </h2>
+    {%- endif -%}
+
+    {%- form 'customer', id: 'FooterOfferSignup', class: 'footer-offer-signup__form' -%}
+      <input type="hidden" name="contact[tags]" value="newsletter">
+      <div class="footer-offer-signup__field">
+        <label class="visually-hidden" for="FooterOfferSignupEmail-{{ section.id }}">
+          {{- section.settings.email_placeholder | escape -}}
+        </label>
+        <input
+          id="FooterOfferSignupEmail-{{ section.id }}"
+          class="footer-offer-signup__input"
+          type="email"
+          name="contact[email]"
+          value="{{ form.email }}"
+          autocorrect="off"
+          autocapitalize="off"
+          autocomplete="email"
+          placeholder="{{ section.settings.email_placeholder | escape }}"
+          aria-required="true"
+          required
+          {% if form.errors %}
+            aria-invalid="true"
+            aria-describedby="FooterOfferSignupError-{{ section.id }}"
+          {% elsif form.posted_successfully? %}
+            aria-describedby="FooterOfferSignupSuccess-{{ section.id }}"
+          {% endif %}
+        >
+        <button
+          class="footer-offer-signup__button"
+          type="submit"
+          name="commit"
+          aria-label="{{ section.settings.button_label | escape }}"
+        >
+          {{- section.settings.button_label | escape -}}
+        </button>
+      </div>
+
+      {%- if form.errors -%}
+        <p class="footer-offer-signup__message" id="FooterOfferSignupError-{{ section.id }}">
+          {{- form.errors.translated_fields.email | capitalize }}
+          {{ form.errors.messages.email -}}
+        </p>
+      {%- endif -%}
+
+      {%- if form.posted_successfully? -%}
+        <p
+          class="footer-offer-signup__message"
+          id="FooterOfferSignupSuccess-{{ section.id }}"
+          tabindex="-1"
+          autofocus
+        >
+          {{- 'newsletter.success' | t -}}
+        </p>
+      {%- endif -%}
+    {%- endform -%}
+
+    {%- if section.settings.description != blank -%}
+      <div class="footer-offer-signup__description rte">
+        {{- section.settings.description -}}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "页脚优惠订阅",
+  "tag": "section",
+  "class": "section",
+  "enabled_on": {
+    "groups": ["footer"]
+  },
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "标题",
+      "default": "Get offers and security advice"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "说明",
+      "default": "<p>Enter your email address below to receive exclusive promotions.<br>You may receive email offers from us in accordance with <a href=\"/policies/privacy-policy\">our Privacy Policy</a>.</p>"
+    },
+    {
+      "type": "text",
+      "id": "email_placeholder",
+      "label": "邮箱占位文案",
+      "default": "Your email address"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "按钮文案",
+      "default": "SUBSCRIBE"
+    },
+    {
+      "type": "header",
+      "content": "颜色"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "背景",
+      "default": "#1565D8"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "文字",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "button_background_color",
+      "label": "按钮背景",
+      "default": "#1E1E1E"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "按钮文字",
+      "default": "#FFFFFF"
+    }
+  ],
+  "presets": [
+    {
+      "name": "页脚优惠订阅"
+    }
+  ]
+}
+{% endschema %}

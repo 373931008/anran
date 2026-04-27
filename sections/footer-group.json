@@ -11,6 +11,19 @@
   "name": "t:sections.footer.name",
   "type": "footer",
   "sections": {
+    "footer_offer_signup": {
+      "type": "q-footer-offer-signup",
+      "settings": {
+        "heading": "Get offers and security advice",
+        "description": "<p>Enter your email address below to receive exclusive promotions.<br>You may receive email offers from us in accordance with <a href=\"/policies/privacy-policy\">our Privacy Policy</a>.</p>",
+        "email_placeholder": "Your email address",
+        "button_label": "SUBSCRIBE",
+        "background_color": "#1565D8",
+        "text_color": "#FFFFFF",
+        "button_background_color": "#1E1E1E",
+        "button_text_color": "#FFFFFF"
+      }
+    },
     "footer": {
       "type": "footer",
       "blocks": {
@@ -84,6 +97,7 @@
     }
   },
   "order": [
+    "footer_offer_signup",
     "footer"
   ]
 }
