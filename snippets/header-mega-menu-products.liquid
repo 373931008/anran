@@ -9,7 +9,10 @@
     <div class="mega-menu-products__left">
       <ul class="mega-menu-products__left-list list-unstyled" role="list">
         {%- for childlink in link.links -%}
-          {%- assign child_collection = childlink.object -%}
+          {%- assign should_switch_panel = false -%}
+          {%- if childlink.links != blank or childlink.type == 'collection_link' -%}
+            {%- assign should_switch_panel = true -%}
+          {%- endif -%}
           <li>
             {%- if childlink.links == blank -%}
               <a
@@ -17,6 +20,7 @@
                 class="mega-menu-products__left-item{% if forloop.first %} is-active{% endif %}"
                 data-mega-menu-left-item
                 data-panel-id="MegaMenuProducts-{{ link.handle }}-{{ childlink.handle }}"
+                data-switches-panel="{{ should_switch_panel }}"
               >
             {%- else -%}
               <button
@@ -24,6 +28,7 @@
                 class="mega-menu-products__left-item{% if forloop.first %} is-active{% endif %}"
                 data-mega-menu-left-item
                 data-panel-id="MegaMenuProducts-{{ link.handle }}-{{ childlink.handle }}"
+                data-switches-panel="{{ should_switch_panel }}"
               >
             {%- endif -%}
             <span class="mega-menu-products__left-main">
@@ -271,6 +276,22 @@
     box-shadow: none;
     overflow: hidden;
     padding: 0;
+  }
+
+  .mega-menu[open]:has(.mega-menu-products)::before {
+    content: '';
+    position: fixed;
+    top: var(--mega-menu-products-top, var(--header-height, 0));
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: rgba(0, 0, 0, 0.45);
+  }
+
+  .mega-menu[open] .mega-menu__content:has(.mega-menu-products) {
+    z-index: 1;
   }
 
   .shopify-section-header-sticky .mega-menu__content:has(.mega-menu-products) {
@@ -532,7 +553,7 @@
     width: 166px;
     height: 166px;
     max-width: 100%;
-    object-fit: contain;
+    object-fit: cover;
     aspect-ratio: 1 / 1;
     display: block;
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -667,6 +688,7 @@
       menu.dataset.megaMenuProductsInitialized = 'true'
       const menuContent = menu.closest('.mega-menu__content')
       const headerMenu = menu.closest('header-menu')
+      const detailsMenu = menu.closest('.mega-menu')
       const updateMenuTop = () => {
         const header = document.querySelector('.header-wrapper')
 
@@ -676,6 +698,9 @@
 
         const headerBottom = Math.max(0, Math.round(header.getBoundingClientRect().bottom))
         menuContent.style.setProperty('--mega-menu-products-top', `${headerBottom}px`)
+        if (detailsMenu) {
+          detailsMenu.style.setProperty('--mega-menu-products-top', `${headerBottom}px`)
+        }
       }
 
       updateMenuTop()
@@ -693,6 +718,10 @@
       let leftSwitchTimeout
 
       const activateLeftItem = (item) => {
+        if (item.dataset.switchesPanel !== 'true') {
+          return
+        }
+
         const panelId = item.dataset.panelId
         const panel = menu.querySelector(`#${CSS.escape(panelId)}`)
 
