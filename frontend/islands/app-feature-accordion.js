@@ -10,6 +10,8 @@
 export default class AppFeatureAccordion extends HTMLElement {
   constructor() {
     super()
+    /** @type {string | undefined} 最近一次关联右侧素材的条目索引；收起全部项时仍用于桌面端展示该配图 */
+    this.lastMediaIndex = undefined
     this.handleItemClick = this.handleItemClick.bind(this)
     this.handleItemKeydown = this.handleItemKeydown.bind(this)
   }
@@ -83,6 +85,11 @@ export default class AppFeatureAccordion extends HTMLElement {
     const answerWrap = item.querySelector('.q-app-accordion__answer-wrap')
     const summary = item.querySelector('.q-app-accordion__summary')
 
+    const index = item.dataset.itemIndex
+    if (index !== undefined && index !== '') {
+      this.lastMediaIndex = index
+    }
+
     item.setAttribute('data-open', '')
     if (summary) summary.setAttribute('aria-expanded', 'true')
 
@@ -131,7 +138,12 @@ export default class AppFeatureAccordion extends HTMLElement {
 
   syncMedia() {
     const openEl = this.querySelector('.q-app-accordion__item[data-open]')
-    const idx = openEl?.dataset?.itemIndex ?? ''
+    let idx = openEl?.dataset?.itemIndex ?? ''
+
+    // 桌面端：全部收起时仍显示最近一次展开项对应的右侧素材（避免整块留白）
+    if (idx === '' && this.lastMediaIndex != null && this.lastMediaIndex !== '') {
+      idx = String(this.lastMediaIndex)
+    }
 
     this.querySelectorAll('.q-app-accordion__media-panel').forEach((panel) => {
       const match = idx !== '' && panel.dataset.mediaIndex === idx
