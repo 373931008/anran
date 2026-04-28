@@ -92,7 +92,7 @@
                                         class="menu-drawer__category-summary link link--text focus-inset"
                                       >
                                         <span class="menu-drawer__category-main">
-                                          <span class="menu-drawer__category-media">
+                                          {% comment %} <span class="menu-drawer__category-media">
                                             {%- if child_collection != blank
                                               and child_collection.featured_image != blank
                                             -%}
@@ -116,7 +116,7 @@
                                                 aria-hidden="true"
                                               >
                                             {%- endif -%}
-                                          </span>
+                                          </span> {% endcomment %}
                                           <span class="menu-drawer__category-title">
                                             {{- childlink.title | escape -}}
                                           </span>
@@ -187,7 +187,7 @@
                                       {% endif %}
                                     >
                                       <span class="menu-drawer__category-main">
-                                        <span class="menu-drawer__category-media">
+                                        {% comment %} <span class="menu-drawer__category-media">
                                           {%- if child_collection != blank
                                             and child_collection.featured_image != blank
                                           -%}
@@ -216,7 +216,7 @@
                                               | placeholder_svg_tag: 'menu-drawer__category-image placeholder-svg'
                                             }}
                                           {%- endif -%}
-                                        </span>
+                                        </span> {% endcomment %}
                                         <span class="menu-drawer__category-title">{{ childlink.title | escape }}</span>
                                       </span>
                                       <span class="menu-drawer__category-link-text">View all</span>
