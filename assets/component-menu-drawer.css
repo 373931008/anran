@@ -517,8 +517,8 @@ details[open].menu-opening > .menu-drawer__submenu {
 
   .menu-drawer__category-summary,
   .menu-drawer__category-link {
-    min-height: 72px;
-    padding: 12px;
+    /* min-height: 72px; */
+    padding: 0 12px;
   }
 
   .menu-drawer__category-main {
@@ -557,7 +557,7 @@ details[open].menu-opening > .menu-drawer__submenu {
 
   .menu-drawer__product-row {
     display: flex;
-    gap: 12px;
+    gap: 0px;
     overflow-x: auto;
     overscroll-behavior-x: contain;
     scroll-snap-type: x proximity;
