@@ -269,8 +269,8 @@
 
   /* 页脚：贴卡片底部（body 为 column flex，正文 flex:1，footer margin-top:auto） */
   .section-{{ section.id }} .q-vr__footer {
-    margin-top: auto;
-    padding-top: 14px;
+    {% comment %} margin-top: auto; {% endcomment %}
+    padding-bottom: 14px;
     display: grid;
     grid-template-columns: 1fr;
     gap: 6px;
@@ -279,7 +279,7 @@
 
   @media screen and (min-width: 750px) {
     .section-{{ section.id }} .q-vr__footer {
-      padding-top: 18px;
+      padding-bottom: 18px;
     }
 
     .section-{{ section.id }} .q-vr__footer--has-avatar {
@@ -632,13 +632,6 @@
                 </div>
 
                 <div class="q-vr__body">
-                  {%- if block.settings.quote_title != blank -%}
-                    <h3 class="q-vr__quote-title">{{ block.settings.quote_title | escape }}</h3>
-                  {%- endif -%}
-                  {%- if block.settings.quote_body != blank -%}
-                    <div class="q-vr__quote-body rte">{{ block.settings.quote_body }}</div>
-                  {%- endif -%}
-
                   <div class="q-vr__footer{% if vr_avatar != blank %} q-vr__footer--has-avatar{% endif %}">
                     {%- if vr_avatar != blank -%}
                       <div class="q-vr__avatar">
@@ -692,6 +685,13 @@
                       </div>
                     </div>
                   </div>
+
+                  {%- if block.settings.quote_title != blank -%}
+                    <h3 class="q-vr__quote-title">{{ block.settings.quote_title | escape }}</h3>
+                  {%- endif -%}
+                  {%- if block.settings.quote_body != blank -%}
+                    <div class="q-vr__quote-body rte">{{ block.settings.quote_body }}</div>
+                  {%- endif -%}
                 </div>
               </article>
             </swiper-slide>

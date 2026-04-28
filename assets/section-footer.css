@@ -356,6 +356,10 @@
   .footer-block__details-content > li:not(:last-child) {
     margin-right: 1.5rem;
   }
+
+  .footer-block__details-content > h6:not(:first-child) {
+    margin-top: 1rem;
+  }
 }
 
 .footer-block__details-content .list-menu__item--link,
@@ -509,7 +513,7 @@
 
 .footer-block__contact-social.list-social {
   justify-content: flex-start;
-  gap: 1.5rem;
+  /* gap: 1.5rem; */
   margin-left: -1.1rem;
 }
 
