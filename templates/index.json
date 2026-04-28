@@ -289,7 +289,9 @@
           "type": "category",
           "settings": {
             "image": "shopify://shop_images/Rectangle_300.png",
+            "image_mobile": "shopify://shop_images/Camera_Kits_P2_ptz_J9S9S.jpg",
             "hover_image": "shopify://shop_images/1-2-1.jpg",
+            "hover_image_mobile": "shopify://shop_images/Camera_Kits_POE_s9sks9ss.jpg",
             "empty_bg": "#d5d5d6",
             "title": "Camera Kits",
             "description": "<p>All-in-One Security Made Simple.</p>",
