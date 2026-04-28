@@ -41,21 +41,21 @@
         "text_jCAtHP": {
           "type": "text",
           "settings": {
-            "heading": "<strong>PRODUCT</strong>",
+            "heading": "<strong>Products </strong>",
             "subtext": "<h6><a href=\"/collections/solar-battery-powered-security-camera\" title=\"Solar Battery-Powered Security Camera\">Solar Battery Camera</a></h6><h6><a href=\"/collections/wifi-cameras\" title=\"Wi-Fi Cameras\">WiFi Security Camera</a></h6><h6><a href=\"/collections/security-camera-systems\" title=\"Security Camera Systems\">Security Camera System</a></h6><h6><a href=\"/collections/accessories\" title=\"Accessories\">Accessories</a></h6>"
           }
         },
         "text_UxTcNF": {
           "type": "text",
           "settings": {
-            "heading": "<strong>COMPANY</strong>",
+            "heading": "<strong>Company</strong>",
             "subtext": "<h6><a href=\"/pages/warranty-policy\" title=\"Warranty Policy\">Warranty Policy</a></h6><h6><a href=\"/pages/shipping-policy\" title=\"Shipping policy\">Shipping Policy</a></h6><h6><a href=\"/pages/refund-policy\" title=\"Refund policy\">Warranty & Return Policy</a></h6><h6><a href=\"/pages/privacy-policy\" title=\"Privacy Policy\">Privacy Policy</a></h6><h6><a href=\"/pages/terms-of-service\" title=\"Terms of Service\">Terms of Use</a></h6><h6><a href=\"/pages/payment-methods\" title=\"Payment Methods\">Payment Methods</a></h6>"
           }
         },
         "text_LeLNKD": {
           "type": "text",
           "settings": {
-            "heading": "<strong>SUPPORT</strong>",
+            "heading": "<strong>Support</strong>",
             "subtext": "<h6><a href=\"/pages/about-us\" title=\"About Us\">About Us</a><a href=\"https://anransec.com/pages/warranty-policy\" target=\"_self\"><br/></a><a href=\"/pages/contact\" title=\"Contact\">Contact Us</a></h6><h6><a href=\"/pages/affiliate-program\" title=\"Affiliate Program\">ANRAN Affiliate Program</a></h6><h6><a href=\"https://www.shareasale.com/shareasale.cfm?merchantID=139565\" target=\"_blank\">ShareASale Affiliate Program</a></h6><h6><a href=\"/blogs/news\" target=\"_blank\" title=\"News\">Blog</a></h6>"
           }
         },
