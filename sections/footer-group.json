@@ -56,7 +56,7 @@
           "type": "text",
           "settings": {
             "heading": "<strong>Support</strong>",
-            "subtext": "<h6><a href=\"/pages/about-us\" title=\"About Us\">About Us</a><a href=\"https://anransec.com/pages/warranty-policy\" target=\"_self\"><br/></a><a href=\"/pages/contact\" title=\"Contact\">Contact Us</a></h6><h6><a href=\"/pages/affiliate-program\" title=\"Affiliate Program\">ANRAN Affiliate Program</a></h6><h6><a href=\"https://www.shareasale.com/shareasale.cfm?merchantID=139565\" target=\"_blank\">ShareASale Affiliate Program</a></h6><h6><a href=\"/blogs/news\" target=\"_blank\" title=\"News\">Blog</a></h6>"
+            "subtext": "<h6><a href=\"/pages/about-us\" title=\"About Us\">About Us</a></h6><h6><a href=\"/pages/contact\" title=\"Contact\">Contact Us</a></h6><h6><a href=\"/pages/affiliate-program\" title=\"Affiliate Program\">ANRAN Affiliate Program</a></h6><h6><a href=\"https://www.shareasale.com/shareasale.cfm?merchantID=139565\" target=\"_blank\">ShareASale Affiliate Program</a></h6><h6><a href=\"/blogs/news\" target=\"_blank\" title=\"News\">Blog</a></h6>"
           }
         },
         "accepted_payment_FhCAwK": {
