@@ -874,17 +874,65 @@
         "product_card_KBi48x": {
           "type": "product_card",
           "settings": {
-            "product": "anran-4k-8mp-poe-security-camera-system",
+            "product": "anran-4k-8mp-solar-battery-camera",
             "tab_id": "2",
             "custom_title": "",
             "custom_price": "",
             "custom_compare_price": "",
             "review_count": "",
-            "feature_1": "4K Ultra HD Clarity | 100ft Full-Color Night Vision",
-            "feature_2": "2-Way Talk & Remote Access | No Subscription Fees",
-            "save_badge": "Save 24%",
+            "feature_1": "360° Coverage and Tracking",
+            "feature_2": "A Rare and Remarkable 8MP Integrated Solar Camera",
+            "save_badge": "Save 50%",
             "button_label": "Shop Now",
-            "button_link": "shopify://products/anran-4k-8mp-poe-security-camera-system"
+            "button_link": "shopify://products/anran-4k-8mp-solar-battery-camera"
+          }
+        },
+        "product_card_e9C3my": {
+          "type": "product_card",
+          "settings": {
+            "product": "anran-q4-max-5mp-integrated-solar-camera",
+            "tab_id": "2",
+            "custom_title": "",
+            "custom_price": "",
+            "custom_compare_price": "",
+            "review_count": "",
+            "feature_1": "5MP Crisp Image Quality",
+            "feature_2": "Smart PIR Human Detection",
+            "save_badge": "Save 50%",
+            "button_label": "Shop Now",
+            "button_link": "shopify://products/anran-q4-max-5mp-integrated-solar-camera"
+          }
+        },
+        "product_card_y4tmN3": {
+          "type": "product_card",
+          "settings": {
+            "product": "anran-4mp2mp-2mp-dual-lens-wireless-solar-security-camera-with-2-way-talk",
+            "tab_id": "2",
+            "custom_title": "",
+            "custom_price": "",
+            "custom_compare_price": "",
+            "review_count": "",
+            "feature_1": "360° Coverage & Smart Tracking",
+            "feature_2": "Instant Alerts with Active Defense",
+            "save_badge": "Save 53%",
+            "button_label": "Shop Now",
+            "button_link": "shopify://products/anran-4mp2mp-2mp-dual-lens-wireless-solar-security-camera-with-2-way-talk"
+          }
+        },
+        "product_card_KeEdEy": {
+          "type": "product_card",
+          "settings": {
+            "product": "anran-c3-5mp-integrated-solar-battery-camera",
+            "tab_id": "2",
+            "custom_title": "",
+            "custom_price": "",
+            "custom_compare_price": "",
+            "review_count": "",
+            "feature_1": "Smart PIR Human Detection",
+            "feature_2": "More Sensitive and Accurate PIR Sensor",
+            "save_badge": "Save 55%",
+            "button_label": "Shop Now",
+            "button_link": "shopify://products/anran-c3-5mp-integrated-solar-battery-camera"
           }
         }
       },
@@ -895,7 +943,10 @@
         "product_card_Cwt6z8",
         "product_card_cy4LBL",
         "tab_Hn8mgy",
-        "product_card_KBi48x"
+        "product_card_KBi48x",
+        "product_card_e9C3my",
+        "product_card_y4tmN3",
+        "product_card_KeEdEy"
       ],
       "name": "q-product-recommend",
       "settings": {
