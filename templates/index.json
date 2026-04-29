@@ -31,7 +31,7 @@
             "rating_text": "",
             "description": "",
             "button_label": "",
-            "button_link": "shopify://pages/sale",
+            "button_link": "shopify://products/anran-q3-4k-8mp-solar-battery-camera",
             "show_btn_icon": true
           }
         }
@@ -791,6 +791,113 @@
         "padding_top_desktop": 52,
         "padding_bottom_desktop": 80
       }
+    },
+    "q_product_recommend_7FYRjz": {
+      "type": "q-product-recommend",
+      "blocks": {
+        "tab_n7tKUm": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "Camera Kits"
+          }
+        },
+        "product_card_tABzbf": {
+          "type": "product_card",
+          "settings": {
+            "product": "anran-4mp-fhd-integrated-solar-panel-battery-cameras-system-with-32gb-sd-card",
+            "tab_id": "1",
+            "custom_title": "",
+            "custom_price": "",
+            "custom_compare_price": "",
+            "review_count": "2K 4MP Crisp Image & 360° View",
+            "feature_1": "4 Channel NVR with 32GB SD Card Built-in NVR to Recording",
+            "feature_2": "Full Protection for the whole Home",
+            "save_badge": "Save 43%",
+            "button_label": "Shop Now",
+            "button_link": "shopify://products/anran-4mp-fhd-integrated-solar-panel-battery-cameras-system-with-32gb-sd-card"
+          }
+        },
+        "product_card_4zzWmn": {
+          "type": "product_card",
+          "settings": {
+            "product": "anran-c3-4mp-wifi-solar-battery-camera-kit-surveillance-security-system",
+            "tab_id": "1",
+            "custom_title": "",
+            "custom_price": "",
+            "custom_compare_price": "",
+            "review_count": "",
+            "feature_1": "Smart PIR Human Detection",
+            "feature_2": "4Channel NVR with 32GB SD Card Built-in NVR to Recording",
+            "save_badge": "Save 41%",
+            "button_label": "Shop Now",
+            "button_link": "shopify://products/anran-c3-4mp-wifi-solar-battery-camera-kit-surveillance-security-system"
+          }
+        },
+        "product_card_Cwt6z8": {
+          "type": "product_card",
+          "settings": {
+            "product": "anran-5mp-wifi-ptz-kit-8ch-nvr-2tb-hdd",
+            "tab_id": "1",
+            "custom_title": "",
+            "custom_price": "",
+            "custom_compare_price": "",
+            "review_count": "",
+            "feature_1": "8-Channel NVR With 4Pcs 5MP PTZ Cameras",
+            "feature_2": "5MP Outdoor 2Way Audio 360° PTZ Camera",
+            "save_badge": "Save 45%",
+            "button_label": "Shop Now",
+            "button_link": "shopify://products/anran-5mp-wifi-ptz-kit-8ch-nvr-2tb-hdd"
+          }
+        },
+        "product_card_cy4LBL": {
+          "type": "product_card",
+          "settings": {
+            "product": "anran-4k-8mp-poe-security-camera-system",
+            "tab_id": "1",
+            "custom_title": "",
+            "custom_price": "",
+            "custom_compare_price": "",
+            "review_count": "",
+            "feature_1": "4K Ultra HD Clarity | 100ft Full-Color Night Vision",
+            "feature_2": "2-Way Talk & Remote Access | No Subscription Fees",
+            "save_badge": "Save 24%",
+            "button_label": "Shop Now",
+            "button_link": "shopify://products/anran-4k-8mp-poe-security-camera-system"
+          }
+        },
+        "tab_Hn8mgy": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "You May Also Like"
+          }
+        }
+      },
+      "block_order": [
+        "tab_n7tKUm",
+        "product_card_tABzbf",
+        "product_card_4zzWmn",
+        "product_card_Cwt6z8",
+        "product_card_cy4LBL",
+        "tab_Hn8mgy"
+      ],
+      "name": "q-product-recommend",
+      "settings": {
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60,
+        "tab_active_bg": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 57.21%)",
+        "header_title": "<p>Pair Up Our Products to<br/>Unlock Features and Save</p>",
+        "header_description": "",
+        "header_center": true,
+        "header_em_color": "#FF6B35",
+        "header_title_size_desktop": 42,
+        "header_title_size_mobile": 22,
+        "header_desc_size_desktop": 16,
+        "header_desc_size_mobile": 12,
+        "header_margin_bottom_desktop": 40,
+        "header_margin_bottom_mobile": 20
+      }
     }
   },
   "order": [
@@ -802,6 +909,7 @@
     "q-worth-buying-slider",
     "q-professionals-saying",
     "q-verified-reviews",
-    "q-risk-free-trial"
+    "q-risk-free-trial",
+    "q_product_recommend_7FYRjz"
   ]
 }
