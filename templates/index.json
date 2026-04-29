@@ -422,7 +422,7 @@
           "type": "item",
           "settings": {
             "title": "Easy Playback",
-            "answer": "<p>Review recordings quickly with timeline scrubbing and smart highlights.</p><p>Free lifetime cloud storage with 6-second event videos.</p>",
+            "answer": "<p>Review recordings quickly with timeline scrubbing and smart highlights.</p><p><strong>Free </strong>lifetime cloud storage with 6-second event videos.</p>",
             "image": "shopify://shop_images/Easy_Playback_01j0ak.jpg"
           }
         },
@@ -536,7 +536,7 @@
       "settings": {
         "headline": "<p>ANRAN® New look.</p><p>Even more magic.</p>",
         "eyebrow_link_text": "100% Worth Buying >",
-        "eyebrow_link": "",
+        "eyebrow_link": "shopify://pages/sale",
         "headline_color": "#ffffff",
         "eyebrow_color": "#329bff",
         "headline_size_mobile": 24,
