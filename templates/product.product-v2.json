@@ -1020,7 +1020,7 @@
         "header_desc_size_mobile": 12,
         "header_margin_bottom_desktop": 40,
         "header_margin_bottom_mobile": 24,
-        "image_desktop": "shopify://shop_images/Group_371.jpg",
+        "image_desktop": "shopify://shop_images/Wireless_Home_Security_Camera_Systems_Wi-Fi_6.jpg",
         "image_mobile": "shopify://shop_images/Wireless_Home_Security_Camera_Systems_-3.jpg",
         "bg_color": "#FFFFFF",
         "padding_top_mobile": 40,
@@ -1043,8 +1043,8 @@
             "feature_2": "Supports 8–128GB microSD card (sold separately)",
             "feature_3": "Free lifetime cloud storage with 6-second event videos",
             "feature_4": "Subscribe to unlock longer event video recordings",
-            "button_label": "Buy now",
-            "button_link": "/cart/41859158278221:1"
+            "button_label": "",
+            "button_link": ""
           }
         },
         "card-cloud": {
