@@ -37,9 +37,7 @@
     },
     "header": {
       "type": "header",
-      "custom_css": [
-        ".header {width: 100%; margin: 0 auto;}"
-      ],
+      "custom_css": [],
       "settings": {
         "logo_position": "middle-left",
         "mobile_logo_position": "center",
@@ -64,13 +62,13 @@
         "trust_badge_1_svg": "",
         "trust_badge_1_text": "30-Day Trial",
         "trust_badge_2_icon": "shopify://shop_images/image_289_2.jpg",
-        "trust_badge_2_svg": "<svg width=\"22\" height=\"22\" viewbox=\"0 0 22 22\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">\n<rect width=\"22\" height=\"22\" fill=\"url(#pattern0_169_259)\"></rect>\n<defs>\n<pattern id=\"pattern0_169_259\" patterncontentunits=\"objectBoundingBox\" width=\"1\" height=\"1\">\n<use xlink:href=\"#image0_169_259\" transform=\"scale(0.04)\"></use>\n</pattern>\n<image id=\"image0_169_259\" width=\"25\" height=\"25\" preserveaspectratio=\"none\" xlink:href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAD3ElEQVR4AbSWz24cRRDGq3pnJNtcNraRkJBgDQjMn8P6Dew38AMgYcsrxAmbJ4jzBAmcELJl58A5iBdwxAvYQkjYkRAWJyQUsoqIvXhnplK/3u3R2NlNTmlNbXVXffV1d01P9QZ5RWv3fl+d753dXtw6ffDm1umfyGLv7Hhh6/Rooffo6/bGb91XUMjUSSCHKJNw5KBdUV031Q7ipF1VXVWxb7MsjxOCd/vEx+Ov29sbx+3F3qO7kENkVvbF7KeEMrOHzb6anYMDT1zyNfW1SZggy+eORGwH8kpktyz/X1KRcUr03uP95TUzORRvHtxp5Zdr4Hzoj+0seirbvlAf1I/j6r60WrMPxKTL6sqyWvt376M7IZvbJkXYiuLZHfFWlhffMMZeFG9sg8uyiyVs7u5GHu+kp55k3l8u2wbI6vqHn5289dVxxwG7gEe2lT79/uFKf6i2SZ9dg/v7+5VzMMTDA9/IL6MXDyiREUwAgOFw7jaa9CQbY6S/9/FD7PQTDgzx2NTKHXjpO7dIAmHITQ84poiqbEhs5TrjmxLEVnGDSz7iR7ZW+6qY+4J+nCSBMdj4mKIZI6qtNuNJgh9p+hgj7AYdON8AyOV/IXuXF4hOR9VEt5NtksYPEXjiEgY+FsfHGnSob0eQyMngh/f/Iq9oDdrGXhZXvyTbJJ1nz34G5ynpEJcwlWj8ntSyT4Pm+gGgSvUEXYsfZfqcMvQ0gRQf2UAnMZVz8Qa/L8B7r/kJKvqEOdSkI41GThnOfPnHO+hpko4pFaKJCaIx3er8oZTyV5wapCuNVonE7c5UV+/JS9qgmBkvLlxLt1kV+eAPUgxO4ir8HaSzjhYZgVpmdYnHflPwj9ZQdZs+VY3fEPyBEiEyWoU1vhH1b4NgdNN+s49/Eg4bFQH+wKBUi4WPHRVSrWVe7DjzVpd1vZdsTQ0J8eCSnXhsSKnVfXSchDokfmewqkzD3cFA+pz5sp68iOUFG0cWPQq2mBJw2Geunj4lHh8LiLw+iJO4lqK83FS/gCj1lGruBECsksmHw9kDcEmod0Z6/W4BBz7jLvJ3C0+eX8TsgK8nIXfNUp23Zo8pCXl+uUkaeZELfqcTNB+vBdlIZJQm8CwQGzzsTMatnoQxDgAAWSX3NztQCaMS4Xf6wtbZQRDZFW/mpQg/Vy944oiHx9314/i6HzsA/tlfXqrGROxA/E9EdPqP1uU/DtbVjyo7BT8sL1eId8+154VJkjddqeXQPue9QJR8aMbR7lWa/wHgSTm+mzJ1EoCs6sn95R/58/B4/5NbRXFxi6PNcWUc7XsffjeNHA7kOQAAAP//saF7cwAAAAZJREFUAwCGTpR4T6eUUwAAAABJRU5ErkJggg==\"></image>\n</defs>\n</svg>",
+        "trust_badge_2_svg": "",
         "trust_badge_2_text": "Free Local Shipping",
         "trust_badge_3_icon": "shopify://shop_images/fi_7532627_03f0e7ac-aa35-405a-a039-103be897b7da.svg",
         "trust_badge_3_svg": "",
         "trust_badge_3_text": "2-Year Warranty",
         "trust_badge_4_icon": "shopify://shop_images/image_289_3.jpg",
-        "trust_badge_4_svg": "<svg width=\"22\" height=\"22\" viewbox=\"0 0 22 22\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">\n<rect width=\"22\" height=\"22\" fill=\"url(#pattern0_169_256)\"></rect>\n<defs>\n<pattern id=\"pattern0_169_256\" patterncontentunits=\"objectBoundingBox\" width=\"1\" height=\"1\">\n<use xlink:href=\"#image0_169_256\" transform=\"translate(-0.0178571) scale(0.0357143)\"></use>\n</pattern>\n<image id=\"image0_169_256\" width=\"29\" height=\"28\" preserveaspectratio=\"none\" xlink:href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB0AAAAcCAYAAACdz7SqAAAEn0lEQVR4AYxWS24bRxCtag6RQMmCBikguygLS/AmoS8QyyewfAIxEAVkFekGGp8gZlYBpMDUCWT5AqJPQDmLyNRGWgYgBTOLGDbIYfm95vR4OCYpNaamf9X9ur7dTu5QKo1uZbV5+Vttt3dS3e1d1Zo9+0xv94tbYO6guvPPVnE89JeCfvfrxdpqs9eOopV3JtYSky01WZOZ4p7ku+RHP1aN9lDP/RaC1ppv98dj1zWR7XTlUEQ7ptoymzQCRVHyi6SFa8hvKtf58XQ6q1zWShtUJdUoor+LSEVEACbxePz+h8HR+uObw/X9m78eHAf6988H15IWHMS3FdoYjeQRNcW9eJiUxVdfgEKVZwI1+lmVl1OwjWfD9kOC++HijyqtNXvdJPnYAXCD86quTU1xLxU3kVyZAa3uXj7HXB3ELx4cbjxdBkYmAqYqrZCXGgjAmK8IDt4/Wv+DUgfnykCrOxfbahaMHw+ONp5h0dKvutPbIiCZnOhT1jRPknw4zYChNWjhYJS4M9XSCXkcf56ci1nTCe4CuLp7WU+S9x2sOQeJmb3gWKm80qWJChLHtDP4PIZDQ6ZSig+FcmnyWG4pXqVm3aj87c+wOfkJXAdwN938JbcoAgdhPCjE9sYXhETeG2VOod2pUmNYlMZ/0445YOE4+i3akIcrl+U1wBSUmcvRBiK2yf3NkjbrZQS7p3GrpzwgNy+VvtoEkJeYklK9tKEhxsdJ9GNxPxeVv/4pDPJUob2oVlVuPgT4HqXm5tDUSbn8zVoAxto6wVEjAu6/Qi0UrpqmRqdWCqBDnpwMy6h/uH6uOeCwOceDqlXkWEX38iql9ArvrSJKnIndI4ipzA3+2u7FI7p8NT2loBAgAKM78xG4f7TR6CM28xPYv8K+qlvzjsTOPKL6xBzDIlacko4R+ArAMQ8W5m6rndkk5MsZSSkh7YYTXoOn4WuR7WXAdKpFgGoylVT0nWMsibonqRNIKDYRH7dgbpOH8bsIOIomD3mwRT6RHsaDmiZvnKAMDu+/oi3QFEpIT3Ou9IZ9ADW4iBvmgfPq5BwPRv55xBsnjI9HH6agYYC5VGBDetpo9D/VHiuvKeTNPDD5TSVNKHJrgT+kvNqhcF7SsCqXS+sEhspbmIvzwONEvseYYGzGBzg2j3jYYvLxoDW8EuggERIFgBj8PpcWgXE/Xgk0wc1hw+esbyMmD/IY0mYwgQcVvBKYsrghbwlTfS3TF0MmMUCgIkX4aEcR+GED8C38as3egcI8nmEyiX2NXwoq2QCZGCoyfaqgEg/MO3KA5wqpGPhkKhIBMeb3hRCt/CEdJmQwvbA9A/uC296gDt+e/urlaOVO6qTn1/BUxbKw3/kN3lXoZ58HZW8G2GTT8SWgk01FHuU81H/FehF5MKgTfgC7y5aw4PCpj7CXkctaaOSAK2Z2plL6r488ivHsPqQ3VpG0M8K7qta8PPNgIpSOSWCosPuiN9YMqKAAgJetX0xgDM1843HpheKll5F/V9kmmAgmKnLMDNUvJHzMZ98XoJwhsOFBraIH7M/S5DTf97aHGsG7B1Xe60MzzFB5nmL7EwAAAP//AbLipQAAAAZJREFUAwCuQqW1ALNTWQAAAABJRU5ErkJggg==\"></image>\n</defs>\n</svg>",
+        "trust_badge_4_svg": "",
         "trust_badge_4_text": "Free lifetime cloud storage with 6-second event videos"
       }
     }
