@@ -1673,7 +1673,7 @@
           "type": "item",
           "settings": {
             "question": "What is the viewing angle and What range of coverage is it?",
-            "answer": "<p>The camera has a 130° wide-angle lens with up to 50 feet of night vision range.</p>",
+            "answer": "<p>Dual-Lens System:The camera has a 95° wide-angle lens and 360 pan-angle with up to 50 feet of night vision range.</p>",
             "tab_index": "1"
           }
         },
