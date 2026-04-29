@@ -1,1 +1,332 @@
-{"sections":{"image_banner_fpfQhX":{"type":"image-banner","blocks":{"heading_HVQz9t":{"type":"heading","disabled":true,"settings":{"heading":"ANRAN security camera","heading_size":"h1"}},"text_iLnQjx":{"type":"text","disabled":true,"settings":{"text":"Give customers details about the banner image(s) or content on the template.","text_style":"body"}},"buttons_fDEK7k":{"type":"buttons","disabled":true,"settings":{"button_label_1":"Button label","button_link_1":"shopify:\/\/products\/anran-5mp-wifi-ptz-kit-8ch-nvr-2tb-hdd","button_style_secondary_1":false,"button_label_2":"Button label","button_link_2":"","button_style_secondary_2":false}}},"block_order":["heading_HVQz9t","text_iLnQjx","buttons_fDEK7k"],"settings":{"image":"shopify:\/\/shop_images\/solar_battery_security_camera.jpg","image_overlay_opacity":0,"image_height":"small","image_behavior":"none","desktop_content_position":"middle-center","desktop_content_alignment":"center","show_text_box":true,"color_scheme":"","stack_images_on_mobile":true,"mobile_content_alignment":"center","show_text_below":true}},"rich_text_RNERf7":{"type":"rich-text","blocks":{"heading_BpfWVn":{"type":"heading","settings":{"heading":"Explore ANRAN’s Best Solar Security Cameras","heading_size":"h1"}}},"block_order":["heading_BpfWVn"],"name":"t:sections.rich-text.presets.name","settings":{"desktop_content_position":"center","content_alignment":"center","color_scheme":"","full_width":true,"padding_top":24,"padding_bottom":24}},"banner":{"type":"main-collection-banner","settings":{"show_collection_description":false,"show_collection_image":false,"color_scheme":"background-1"}},"product-grid":{"type":"main-collection-product-grid","settings":{"products_per_page":16,"columns_desktop":4,"columns_mobile":"2","color_scheme":"background-2","image_ratio":"adapt","image_shape":"default","show_secondary_image":true,"show_vendor":false,"show_rating":true,"enable_filtering":true,"filter_type":"horizontal","enable_sorting":true,"padding_top":36,"padding_bottom":36}},"rich_text_AmYhDG":{"type":"rich-text","blocks":{"text_NdKcQk":{"type":"text","settings":{"text":"<p>Secure your home or business with ANRAN’s full line of advanced surveillance solutions. From <strong>solar-powered security cameras<\/strong>, <strong>wireless CCTV systems<\/strong>, to <strong>4G\/5G smart cameras<\/strong>, our products offer easy DIY setup, HD video, motion alerts, and mobile app control. Discover the perfect security system for your needs — whether it's outdoor, remote, or no-wiring required.<\/p>"}}},"block_order":["text_NdKcQk"],"disabled":true,"settings":{"desktop_content_position":"center","content_alignment":"center","color_scheme":"","full_width":true,"padding_top":0,"padding_bottom":0}},"rich_text_npyhht":{"type":"rich-text","blocks":{"heading_fAJTCk":{"type":"heading","settings":{"heading":"<strong>ANRAN’s Complete Range of Smart Security Cameras & Wireless CCTV System<\/strong>","heading_size":"h2"}},"text_naL9gA":{"type":"text","settings":{"text":"<p>Secure your home or business with ANRAN’s full line of advanced surveillance solutions. From <a href=\"\/collections\/solar-battery-powered-security-camera\" target=\"_blank\" title=\"Solar Battery Security Camera\"><strong>solar-powered security cameras<\/strong><\/a>, <a href=\"\/collections\/security-camera-systems\" target=\"_blank\" title=\"Security Camera Systems\"><strong>wireless CCTV system<\/strong><\/a>, to <a href=\"\/products\/anran-g1-2k-3g-4g-lte-solar-battery-security-camera\" target=\"_blank\" title=\"ANRAN G1 2K 3G\/4G LTE Solar Battery Security Camera\"><strong>4G smart cameras<\/strong><\/a>, our products offer easy DIY setup, HD video, motion alerts, and mobile app control. Discover the perfect security system for your needs — whether it's outdoor, remote, or no-wiring required.<\/p>"}},"button_g6HPYX":{"type":"button","disabled":true,"settings":{"button_label":"Button label","button_link":"","button_style_secondary":false,"button_label_2":"","button_link_2":"","button_style_secondary_2":false}}},"block_order":["heading_fAJTCk","text_naL9gA","button_g6HPYX"],"name":"t:sections.rich-text.presets.name","settings":{"desktop_content_position":"center","content_alignment":"center","color_scheme":"","full_width":true,"padding_top":40,"padding_bottom":52}},"collapsible_content_3FE6GQ":{"type":"collapsible-content","blocks":{"collapsible_row_9MyJHD":{"type":"collapsible_row","settings":{"heading":"{{ collection.metafields.custom.collectionfaq1.value }}","icon":"none","row_content":"{{ collection.metafields.custom.collectionfaq1answer | metafield_tag }}","page":""}}},"block_order":["collapsible_row_9MyJHD"],"settings":{"caption":"","heading":"Collapsible content","heading_size":"h1","heading_alignment":"center","layout":"none","container_color_scheme":"","color_scheme":"","open_first_collapsible_row":false,"image_ratio":"adapt","desktop_layout":"image_second","padding_top":36,"padding_bottom":36}},"rich_text_UaYgTn":{"type":"rich-text","blocks":{"text_ndmz7a":{"type":"text","settings":{"text":"{{ collection.metafields.custom.collectionrichtext | metafield_tag }}"}}},"block_order":["text_ndmz7a"],"disabled":true,"name":"t:sections.rich-text.presets.name","settings":{"desktop_content_position":"center","content_alignment":"center","color_scheme":"","full_width":true,"padding_top":40,"padding_bottom":52}},"collection_post_WGwFqW":{"type":"collection-post","name":"集合页文章","settings":{"content_position":"left","padding_top":40,"padding_bottom":52,"padding_left":0,"padding_right":0}},"page_LACUCk":{"type":"page","name":"t:sections.page.presets.name","settings":{"page":"about-us","heading_size":"h1","color_scheme":"","padding_top":16,"padding_bottom":0}},"featured_blog_k4kz9R":{"type":"featured-blog","name":"t:sections.featured-blog.presets.name","settings":{"blog":"news","post_limit":3,"heading":"Blog posts","heading_size":"h1","columns_desktop":3,"show_view_all":true,"show_image":true,"show_date":true,"show_author":false,"color_scheme":"","padding_top":36,"padding_bottom":36}}},"order":["image_banner_fpfQhX","rich_text_RNERf7","banner","product-grid","rich_text_AmYhDG","rich_text_npyhht","collapsible_content_3FE6GQ","rich_text_UaYgTn","collection_post_WGwFqW","page_LACUCk","featured_blog_k4kz9R"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "1777454654a811493c": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_10d073a_TMkzTd": {
+          "type": "ai_gen_block_10d073a",
+          "settings": {
+            "banner_image": "shopify://shop_images/solar_battery_security_camera.jpg",
+            "banner_link": "",
+            "aspect_ratio": "16/9",
+            "border_radius": 0,
+            "desktop_width_percent": 100,
+            "show_overlay": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 30,
+            "show_content": false,
+            "heading": "",
+            "heading_size": 48,
+            "heading_color": "#ffffff",
+            "text": "",
+            "text_size": 16,
+            "text_color": "#ffffff",
+            "show_button": false,
+            "button_text": "立即购买",
+            "button_link": "",
+            "button_text_size": 16,
+            "button_radius": 4,
+            "button_bg_color": "#121212",
+            "button_text_color": "#ffffff",
+            "button_hover_bg_color": "#000000",
+            "button_hover_text_color": "#ffffff"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_10d073a_TMkzTd"
+      ],
+      "settings": {}
+    },
+    "image_banner_fpfQhX": {
+      "type": "image-banner",
+      "blocks": {
+        "heading_HVQz9t": {
+          "type": "heading",
+          "disabled": true,
+          "settings": {
+            "heading": "ANRAN security camera",
+            "heading_size": "h1"
+          }
+        },
+        "text_iLnQjx": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "text": "Give customers details about the banner image(s) or content on the template.",
+            "text_style": "body"
+          }
+        },
+        "buttons_fDEK7k": {
+          "type": "buttons",
+          "disabled": true,
+          "settings": {
+            "button_label_1": "Button label",
+            "button_link_1": "shopify://products/anran-5mp-wifi-ptz-kit-8ch-nvr-2tb-hdd",
+            "button_style_secondary_1": false,
+            "button_label_2": "Button label",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_HVQz9t",
+        "text_iLnQjx",
+        "buttons_fDEK7k"
+      ],
+      "disabled": true,
+      "settings": {
+        "image": "shopify://shop_images/solar_battery_security_camera.jpg",
+        "image_overlay_opacity": 0,
+        "image_height": "small",
+        "image_behavior": "none",
+        "desktop_content_position": "middle-center",
+        "desktop_content_alignment": "center",
+        "show_text_box": true,
+        "color_scheme": "",
+        "stack_images_on_mobile": true,
+        "mobile_content_alignment": "center",
+        "show_text_below": true
+      }
+    },
+    "rich_text_RNERf7": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_BpfWVn": {
+          "type": "heading",
+          "settings": {
+            "heading": "Explore ANRAN’s Best Solar Security Cameras",
+            "heading_size": "h1"
+          }
+        }
+      },
+      "block_order": [
+        "heading_BpfWVn"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 24,
+        "padding_bottom": 24
+      }
+    },
+    "banner": {
+      "type": "main-collection-banner",
+      "settings": {
+        "show_collection_description": false,
+        "show_collection_image": false,
+        "color_scheme": "background-1"
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "settings": {
+        "products_per_page": 16,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "color_scheme": "background-2",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": true,
+        "quick_add": "none",
+        "enable_filtering": true,
+        "filter_type": "horizontal",
+        "enable_sorting": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "rich_text_AmYhDG": {
+      "type": "rich-text",
+      "blocks": {
+        "text_NdKcQk": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Secure your home or business with ANRAN’s full line of advanced surveillance solutions. From <strong>solar-powered security cameras</strong>, <strong>wireless CCTV systems</strong>, to <strong>4G/5G smart cameras</strong>, our products offer easy DIY setup, HD video, motion alerts, and mobile app control. Discover the perfect security system for your needs — whether it's outdoor, remote, or no-wiring required.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "text_NdKcQk"
+      ],
+      "disabled": true,
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "rich_text_npyhht": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_fAJTCk": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>ANRAN’s Complete Range of Smart Security Cameras & Wireless CCTV System</strong>",
+            "heading_size": "h2"
+          }
+        },
+        "text_naL9gA": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Secure your home or business with ANRAN’s full line of advanced surveillance solutions. From <a href=\"/collections/solar-battery-powered-security-camera\" target=\"_blank\" title=\"Solar Battery Security Camera\"><strong>solar-powered security cameras</strong></a>, <a href=\"/collections/security-camera-systems\" target=\"_blank\" title=\"Security Camera Systems\"><strong>wireless CCTV system</strong></a>, to <a href=\"/products/anran-g1-2k-3g-4g-lte-solar-battery-security-camera\" target=\"_blank\" title=\"ANRAN G1 2K 3G/4G LTE Solar Battery Security Camera\"><strong>4G smart cameras</strong></a>, our products offer easy DIY setup, HD video, motion alerts, and mobile app control. Discover the perfect security system for your needs — whether it's outdoor, remote, or no-wiring required.</p>"
+          }
+        },
+        "button_g6HPYX": {
+          "type": "button",
+          "disabled": true,
+          "settings": {
+            "button_label": "Button label",
+            "button_link": "",
+            "button_style_secondary": false,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_fAJTCk",
+        "text_naL9gA",
+        "button_g6HPYX"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "collapsible_content_3FE6GQ": {
+      "type": "collapsible-content",
+      "blocks": {
+        "collapsible_row_9MyJHD": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "{{ collection.metafields.custom.collectionfaq1.value }}",
+            "icon": "none",
+            "row_content": "{{ collection.metafields.custom.collectionfaq1answer | metafield_tag }}",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "collapsible_row_9MyJHD"
+      ],
+      "settings": {
+        "caption": "",
+        "heading": "Collapsible content",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "layout": "none",
+        "container_color_scheme": "",
+        "color_scheme": "",
+        "open_first_collapsible_row": false,
+        "image_ratio": "adapt",
+        "desktop_layout": "image_second",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "rich_text_UaYgTn": {
+      "type": "rich-text",
+      "blocks": {
+        "text_ndmz7a": {
+          "type": "text",
+          "settings": {
+            "text": "{{ collection.metafields.custom.collectionrichtext | metafield_tag }}"
+          }
+        }
+      },
+      "block_order": [
+        "text_ndmz7a"
+      ],
+      "disabled": true,
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "collection_post_WGwFqW": {
+      "type": "collection-post",
+      "name": "集合页文章",
+      "settings": {
+        "content_position": "left",
+        "padding_top": 40,
+        "padding_bottom": 52,
+        "padding_left": 0,
+        "padding_right": 0
+      }
+    },
+    "page_LACUCk": {
+      "type": "page",
+      "name": "t:sections.page.presets.name",
+      "settings": {
+        "page": "about-us",
+        "heading_size": "h1",
+        "color_scheme": "",
+        "padding_top": 16,
+        "padding_bottom": 0
+      }
+    },
+    "featured_blog_k4kz9R": {
+      "type": "featured-blog",
+      "name": "t:sections.featured-blog.presets.name",
+      "settings": {
+        "blog": "news",
+        "post_limit": 3,
+        "heading": "Blog posts",
+        "heading_size": "h1",
+        "columns_desktop": 3,
+        "show_view_all": true,
+        "show_image": true,
+        "show_date": true,
+        "show_author": false,
+        "color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "1777454654a811493c",
+    "image_banner_fpfQhX",
+    "rich_text_RNERf7",
+    "banner",
+    "product-grid",
+    "rich_text_AmYhDG",
+    "rich_text_npyhht",
+    "collapsible_content_3FE6GQ",
+    "rich_text_UaYgTn",
+    "collection_post_WGwFqW",
+    "page_LACUCk",
+    "featured_blog_k4kz9R"
+  ]
+}
