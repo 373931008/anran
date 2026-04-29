@@ -781,7 +781,7 @@
         "card_radius": 10,
         "card_bg": "#eff4fe",
         "cta_label": "START YOUR RISK-FREE TRIAL",
-        "cta_link": "shopify://pages/sale",
+        "cta_link": "shopify://collections/all",
         "cta_bg": "#384968",
         "cta_margin_top_mobile": 32,
         "cta_margin_top_desktop": 48,
