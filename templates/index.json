@@ -31,7 +31,7 @@
             "rating_text": "",
             "description": "",
             "button_label": "",
-            "button_link": "shopify://products/anran-q3-4k-8mp-solar-battery-camera",
+            "button_link": "shopify://pages/sale",
             "show_btn_icon": true
           }
         }
@@ -870,6 +870,22 @@
           "settings": {
             "tab_label": "You May Also Like"
           }
+        },
+        "product_card_KBi48x": {
+          "type": "product_card",
+          "settings": {
+            "product": "anran-4k-8mp-poe-security-camera-system",
+            "tab_id": "2",
+            "custom_title": "",
+            "custom_price": "",
+            "custom_compare_price": "",
+            "review_count": "",
+            "feature_1": "4K Ultra HD Clarity | 100ft Full-Color Night Vision",
+            "feature_2": "2-Way Talk & Remote Access | No Subscription Fees",
+            "save_badge": "Save 24%",
+            "button_label": "Shop Now",
+            "button_link": "shopify://products/anran-4k-8mp-poe-security-camera-system"
+          }
         }
       },
       "block_order": [
@@ -878,7 +894,8 @@
         "product_card_4zzWmn",
         "product_card_Cwt6z8",
         "product_card_cy4LBL",
-        "tab_Hn8mgy"
+        "tab_Hn8mgy",
+        "product_card_KBi48x"
       ],
       "name": "q-product-recommend",
       "settings": {
