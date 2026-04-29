@@ -759,7 +759,7 @@
         "padding_top_mobile": 40,
         "padding_bottom_mobile": 40,
         "padding_top_desktop": 60,
-        "padding_bottom_desktop": 60
+        "padding_bottom_desktop": 52
       }
     },
     "q-risk-free-trial": {
@@ -829,10 +829,10 @@
         "cta_margin_top_mobile": 32,
         "cta_margin_top_desktop": 48,
         "bg_color": "#ffffff",
-        "padding_top_mobile": 40,
+        "padding_top_mobile": 32,
         "padding_bottom_mobile": 40,
-        "padding_top_desktop": 60,
-        "padding_bottom_desktop": 60
+        "padding_top_desktop": 52,
+        "padding_bottom_desktop": 80
       }
     }
   },
