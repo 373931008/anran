@@ -14,7 +14,7 @@
     "footer_offer_signup": {
       "type": "q-footer-offer-signup",
       "settings": {
-        "heading": "Join Our Newsletter For 10% OFF",
+        "heading": "Join Us Get offers 10% OFF",
         "description": "<p>We'll email you voucher your first order over $50.<br/>You may receive email offers from us in accordance with <a href=\"/policies/privacy-policy\">our Privacy Policy</a>.</p>",
         "email_placeholder": "Your email address",
         "button_label": "SUBSCRIBE",
