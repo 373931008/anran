@@ -65,9 +65,9 @@
         "ai_gen_block_ebe5200_c9Vdp4": {
           "type": "ai_gen_block_ebe5200",
           "settings": {
-            "desktop_image": "shopify://shop_images/1920_800.jpg",
+            "desktop_image": "shopify://shop_images/earth_day1920x800.jpg",
             "desktop_width_percent": 100,
-            "mobile_image": "shopify://shop_images/Easter_Deal_199747fa-5b8f-4293-be1b-209cb548e363.jpg",
+            "mobile_image": "shopify://shop_images/earth_day375541.jpg",
             "banner_link": "shopify://products/anran-q3-4k-8mp-solar-battery-camera",
             "border_radius": 0
           },
