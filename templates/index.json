@@ -317,7 +317,7 @@
             "desc_color": "#fafafa",
             "title_color_mobile": "",
             "desc_color_mobile": "",
-            "link": "shopify://collections/solar-battery-powered-security-camera"
+            "link": "shopify://collections/outdoor-cameras"
           }
         },
         "sc-cat-3": {
@@ -333,7 +333,7 @@
             "desc_color": "#332f2f",
             "title_color_mobile": "",
             "desc_color_mobile": "",
-            "link": ""
+            "link": "shopify://collections/desk-cameras"
           }
         },
         "sc-cat-4": {
@@ -349,7 +349,7 @@
             "desc_color": "#332f2f",
             "title_color_mobile": "",
             "desc_color_mobile": "",
-            "link": "shopify://collections/wifi-cameras"
+            "link": "shopify://collections/solar-battery-powered-security-camera"
           }
         },
         "sc-cat-5": {
@@ -367,7 +367,7 @@
             "desc_color": "#332f2f",
             "title_color_mobile": "",
             "desc_color_mobile": "",
-            "link": ""
+            "link": "shopify://collections/dual-lens-cameras"
           }
         }
       },
