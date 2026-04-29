@@ -742,6 +742,7 @@
         "rft-sub": {
           "type": "benefit",
           "settings": {
+            "icon": "shopify://shop_images/No_Subscription_Fees_App_8s9sis9.png",
             "title": "No Subscription Fees App",
             "description": "<p>Free lifetime cloud storage with 6-second event videos.</p>",
             "link_label": "",
