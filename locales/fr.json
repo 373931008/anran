@@ -406,7 +406,8 @@
       "play_video": "Lire la vidéo",
       "view_more": "Voir plus",
       "nav_label": "Carrousel vidéo de professionnels",
-      "previous": "Diapositive précédente"
+      "previous": "Diapositive précédente",
+      "next": "Diapositive suivante"
     }
   },
   "localization": {
