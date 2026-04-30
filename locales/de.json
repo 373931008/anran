@@ -465,7 +465,8 @@
       "play_video": "Video abspielen",
       "view_more": "Mehr anzeigen",
       "nav_label": "Karussell mit professionellen Videos",
-      "previous": "Vorherige Folie"
+      "previous": "Vorherige Folie",
+      "next": "Nächste Folie"
     }
   },
   "localization": {
