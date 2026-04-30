@@ -2973,22 +2973,36 @@ details-disclosure > details {
   }
 }
 
-.overflow-hidden-mobile,
-.overflow-hidden-tablet,
-.overflow-hidden-desktop {
-  overflow: hidden;
-  overscroll-behavior: none;
+/* 1. Force HTML to always reserve space for scrollbar, preventing page jump */
+html {
+  scrollbar-gutter: stable;
+}
+
+/* 2. Lock body scroll completely when menu is open */
+html.overflow-hidden,
+body[class*="overflow-hidden"],
+html:has(body[class*="overflow-hidden"]),
+body:has(details.mega-menu[open]) {
+  overflow: hidden !important;
+  overscroll-behavior: none !important;
+}
+
+/* 3. Disable pointer events on background overlay */
+.js menu-drawer > details > summary::before,
+.js menu-drawer > details[open]:not(.menu-opening) > summary::before {
+  overscroll-behavior: none !important;
+  touch-action: none !important;
 }
 
 @media screen and (min-width: 750px) {
   .overflow-hidden-mobile {
-    overflow: auto;
+    overflow: auto !important;
   }
 }
 
 @media screen and (min-width: 1280px) {
   .overflow-hidden-tablet {
-    overflow: auto;
+    overflow: auto !important;
   }
 }
 

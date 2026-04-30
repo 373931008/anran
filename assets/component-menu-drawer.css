@@ -17,6 +17,8 @@
   visibility: hidden;
   z-index: 2;
   transition: opacity 0s, visibility 0s;
+  overscroll-behavior: none;
+  touch-action: none;
 }
 
 menu-drawer > details[open] > summary::before {
@@ -94,6 +96,7 @@ details[open].menu-opening > .menu-drawer__submenu {
   height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 .js .menu-drawer__menu li {
