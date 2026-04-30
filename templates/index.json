@@ -733,7 +733,7 @@
         "rft-easy": {
           "type": "benefit",
           "settings": {
-            "title": "We’re here for you 24/7",
+            "title": "We’re here for\nyou 24/7",
             "description": "<p>Reach our support team anytime by chat, email, or phone for fast help.</p>",
             "link_label": "",
             "link": "/"
@@ -743,7 +743,7 @@
           "type": "benefit",
           "settings": {
             "icon": "shopify://shop_images/No_Subscription_Fees_App_8s9sis9.png",
-            "title": "No Subscription Fees App",
+            "title": "No Subscription\nFees App",
             "description": "<p>Free lifetime cloud storage with 6-second event videos.</p>",
             "link_label": "",
             "link": "/"
