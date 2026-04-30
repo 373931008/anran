@@ -463,7 +463,9 @@
     },
     "professionals_saying": {
       "play_video": "Video abspielen",
-      "view_more": "Mehr anzeigen"
+      "view_more": "Mehr anzeigen",
+      "nav_label": "Karussell mit professionellen Videos",
+      "previous": "Vorherige Folie"
     }
   },
   "localization": {
