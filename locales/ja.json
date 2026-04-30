@@ -392,7 +392,10 @@
     },
     "professionals_saying": {
       "play_video": "動画を再生する",
-      "view_more": "さらに表示"
+      "view_more": "さらに表示",
+      "nav_label": "プロフェッショナル向け動画カルーセル",
+      "previous": "前のスライド",
+      "next": "次のスライド"
     }
   },
   "localization": {
