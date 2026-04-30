@@ -212,8 +212,8 @@
             "card_2_label": "Is my privacy protected?",
             "card_2_content": "<p>Yes. All camera recordings are encrypted, and data transmission is conducted securely should you choose to have cloud storage backup. With local storage, footage is saved directly on the camera’s microSD card. You have total control over this data.</p>",
             "card_3_icon": "shopify://shop_images/fi_2525795.png",
-            "card_3_label": "Does the camera detect motion?",
-            "card_3_content": "<p>Yes. This camera is equipped with advanced AI and PIR motion detection to not just detect motion but also identify human motion. When movement is detected, an alert is immediately sent to you so that you can check the video and respond instantly, if needed.</p>"
+            "card_3_label": "Important notice before you buy:",
+            "card_3_content": "<ol><li>Not support 24/7 continuous recording, only support motion detection recording.</li><li>Can not work or programmed with computers or NVR systems, Blue Iris, or any third-party software.</li><li>No motion tracking function.</li><li>\"ANRAN\" & ClouldEdge\" APP is free, camera doesn't include SD card, you need to pay to experience the cloud storage after 7 days free trial.</li></ol>"
           }
         }
       },
@@ -1058,8 +1058,8 @@
             "feature_2": "Check your home anytime, anywhere",
             "feature_3": "Compatible with Alexa-enabled devices",
             "feature_4": "Get convenient hands-free control",
-            "button_label": "Buy now",
-            "button_link": "/cart/41859158278221:1"
+            "button_label": "",
+            "button_link": ""
           }
         }
       },

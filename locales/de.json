@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "general": {
     "password_page": {
@@ -179,7 +188,14 @@
       "product_variants": "Produktvarianten",
       "taxes_included": "Inkl. Steuern.",
       "duties_included": "Inkl. Zollgebühren.",
-      "duties_and_taxes_included": "Inkl. Zollgebühren und Steuern."
+      "duties_and_taxes_included": "Inkl. Zollgebühren und Steuern.",
+      "sticky_bar": {
+        "region_label": "Sticky-Kaufleiste",
+        "buy_now": "Jetzt kaufen"
+      },
+      "discount_code_copy": "Rabattcode kopieren",
+      "discount_code_copied": "Kopiert",
+      "discount_code_copy_failed": "Kopieren nicht möglich"
     },
     "modal": {
       "label": "Medien-Galerie"
@@ -374,9 +390,6 @@
       "max_error": "Dieser Artikel hat ein Maximum von {{ max }}",
       "step_error": "Du kannst diesen Artikel nur in Abstufungen von {{ step }} hinzufügen."
     },
-    "ecom-ecomposer-product-2-product": {},
-    "ecom-ecomposer-product-product": {},
-    "ecom-ecomposer-product-v3-product": {},
     "ecom-ecomposer-product-v2-product": {
       "include_taxes_qrgw14cpgy_html": "Steuern inklusive.",
       "product_single_sale_text_qrgw14cpgy_html": "{price}% RABATT",
@@ -396,8 +409,6 @@
       "ecomiconlisttitle0_ecompmkwuduw18f_pmkwuduw18f_html": "Kostenlose Rücksendungen",
       "ecomiconlisttitle1_ecompmkwuduw18f_pmkwuduw18f_html": "Kohlenstoffneutral"
     },
-    "ecom-preview-product-product": {},
-    "ecom-support-page": {},
     "ecom-ecomposer-home-home": {
       "buttoncontent_j83fsoi858c_html": "Jetzt einkaufen",
       "buttoncontent_fsqlhzh5xbr_html": "Jetzt einkaufen",
@@ -646,15 +657,6 @@
       "signup_form_email_label": "Email",
       "signup_form_success": "We will send you an email right before we open!",
       "password_link": "Enter using password"
-    }
-  },
-  "shopify": {
-    "checkout": {
-      "wallets": {
-        "errors": {
-          "unavailable_terminal": {}
-        }
-      }
     }
   }
 }
