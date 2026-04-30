@@ -401,6 +401,10 @@
       "min_error": "Cet article a un minimum de {{ min }}",
       "max_error": "Cet article a un maximum de {{ max }}",
       "step_error": "Vous pouvez ajouter cet article uniquement par incréments de {{ step }}"
+    },
+    "professionals_saying": {
+      "play_video": "Lire la vidéo",
+      "view_more": "Voir plus"
     }
   },
   "localization": {
