@@ -404,7 +404,10 @@
     },
     "professionals_saying": {
       "play_video": "Riproduci video",
-      "view_more": "Visualizza altro"
+      "view_more": "Visualizza altro",
+      "nav_label": "Carosello video professionali",
+      "previous": "Diapositiva precedente",
+      "next": "Prossima diapositiva"
     }
   },
   "localization": {
