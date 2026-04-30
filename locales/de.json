@@ -195,7 +195,7 @@
       },
       "discount_code_copy": "Rabattcode kopieren",
       "discount_code_copied": "Kopiert",
-      "discount_code_copy_failed": "Kopieren nicht möglich"
+      "discount_code_copy_failed": "Konnte nicht kopiert werden"
     },
     "modal": {
       "label": "Medien-Galerie"
