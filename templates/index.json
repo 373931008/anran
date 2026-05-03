@@ -817,22 +817,6 @@
             "button_link": "shopify://products/anran-4mp-fhd-integrated-solar-panel-battery-cameras-system-with-32gb-sd-card"
           }
         },
-        "product_card_4zzWmn": {
-          "type": "product_card",
-          "settings": {
-            "product": "anran-c3-4mp-wifi-solar-battery-camera-kit-surveillance-security-system",
-            "tab_id": "1",
-            "custom_title": "",
-            "custom_price": "",
-            "custom_compare_price": "",
-            "review_count": "",
-            "feature_1": "Smart PIR Human Detection",
-            "feature_2": "4Channel NVR with 32GB SD Card Built-in NVR to Recording",
-            "save_badge": "Save 41%",
-            "button_label": "Shop Now",
-            "button_link": "shopify://products/anran-c3-4mp-wifi-solar-battery-camera-kit-surveillance-security-system"
-          }
-        },
         "product_card_y7qykQ": {
           "type": "product_card",
           "settings": {
@@ -847,6 +831,22 @@
             "save_badge": "Save 45%",
             "button_label": "Shop Now",
             "button_link": "shopify://products/anran-5mp-wifi-ptz-kit-8ch-nvr-2tb-hdd"
+          }
+        },
+        "product_card_4zzWmn": {
+          "type": "product_card",
+          "settings": {
+            "product": "anran-c3-4mp-wifi-solar-battery-camera-kit-surveillance-security-system",
+            "tab_id": "1",
+            "custom_title": "",
+            "custom_price": "",
+            "custom_compare_price": "",
+            "review_count": "",
+            "feature_1": "Smart PIR Human Detection",
+            "feature_2": "4Channel NVR with 32GB SD Card Built-in NVR to Recording",
+            "save_badge": "Save 41%",
+            "button_label": "Shop Now",
+            "button_link": "shopify://products/anran-c3-4mp-wifi-solar-battery-camera-kit-surveillance-security-system"
           }
         },
         "product_card_cy4LBL": {
@@ -939,8 +939,8 @@
       "block_order": [
         "tab_n7tKUm",
         "product_card_tABzbf",
-        "product_card_4zzWmn",
         "product_card_y7qykQ",
+        "product_card_4zzWmn",
         "product_card_cy4LBL",
         "tab_Hn8mgy",
         "product_card_KBi48x",
