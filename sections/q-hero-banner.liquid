@@ -21,6 +21,7 @@
   .section-{{ section.id }} {
     --hb-height-mobile: {{ section.settings.height_mobile }}px;
     --hb-height-desktop: {{ section.settings.height_desktop }}px;
+    --hb-image-fit: {{ section.settings.image_fit | default: 'cover' }};
     --hb-title-size-mobile: {{ section.settings.title_size_mobile }}px;
     --hb-title-size-desktop: {{ section.settings.title_size_desktop }}px;
     --hb-desc-size-mobile: {{ section.settings.desc_size_mobile }}px;
@@ -49,12 +50,21 @@
     }
   }
 
+  /* ─── 完整显示（contain）：高度随图片比例自适应（不裁剪、不固定高度） ─── */
+  .section-{{ section.id }}.q-hero-banner.q-hero-banner--auto-height {
+    height: auto;
+  }
+
   /* ─── Swiper：占满 section ─── */
   /* width: 100% 在 JS 初始化前给出正确宽度，防止 CLS 重绘 */
   .section-{{ section.id }} swiper-container {
     width: 100%;
     height: 100%;
     display: block;
+  }
+
+  .section-{{ section.id }}.q-hero-banner.q-hero-banner--auto-height swiper-container {
+    height: auto;
   }
 
   .section-{{ section.id }} swiper-slide {
@@ -65,6 +75,10 @@
     overflow: hidden;
   }
 
+  .section-{{ section.id }}.q-hero-banner.q-hero-banner--auto-height swiper-slide {
+    height: auto;
+  }
+
   /* ─── 背景图 ─── */
   .section-{{ section.id }} picture {
     position: absolute;
@@ -73,13 +87,28 @@
     height: 100%;
   }
 
+  /* contain 模式下让图片参与布局，避免断点覆盖导致初始化 CLS */
+  .section-{{ section.id }}.q-hero-banner.q-hero-banner--auto-height picture {
+    position: relative;
+    inset: auto;
+    height: auto;
+    display: block;
+  }
+
   .section-{{ section.id }} .q-hero-banner__bg {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: var(--hb-image-fit, cover);
     display: block;
+  }
+
+  .section-{{ section.id }}.q-hero-banner.q-hero-banner--auto-height .q-hero-banner__bg {
+    position: relative;
+    inset: auto;
+    height: auto;
+    width: 100%;
   }
 
   .section-{{ section.id }} .q-hero-banner__full-link {
@@ -450,7 +479,7 @@
   }
 </style>
 
-<div class="q-hero-banner section-{{ section.id }}">
+<div class="q-hero-banner section-{{ section.id }}{% if section.settings.image_fit == 'contain' %} q-hero-banner--auto-height{% endif %}">
   <hero-banner-element client:visible>
 
     {%- assign slide_count = section.blocks | where: 'type', 'slide' | size -%}
@@ -471,7 +500,13 @@
       {%- assign slide_idx = 0 -%}
       {%- for block in section.blocks -%}
         {%- if block.type == 'slide' -%}
-          <swiper-slide {{ block.shopify_attributes }}>
+          <swiper-slide
+            style="
+              --hb-slide-ar-mobile: {{ block.settings.image_mobile.aspect_ratio | default: block.settings.image.aspect_ratio | default: 1.7778 }};
+              --hb-slide-ar-desktop: {{ block.settings.image.aspect_ratio | default: block.settings.image_mobile.aspect_ratio | default: 1.7778 }};
+            "
+            {{ block.shopify_attributes }}
+          >
 
             {%- comment -%} 背景图：桌面/移动端各自图片，用 <picture> 按断点切换 {%- endcomment -%}
             {%- if block.settings.image != blank or block.settings.image_mobile != blank -%}
@@ -696,6 +731,17 @@
       "step": 10,
       "unit": "px",
       "default": 670
+    },
+    { "type": "header", "content": "图片展示" },
+    {
+      "type": "select",
+      "id": "image_fit",
+      "label": "背景图适配",
+      "options": [
+        { "value": "cover", "label": "铺满（可能裁剪）" },
+        { "value": "contain", "label": "完整显示（不裁剪）" }
+      ],
+      "default": "cover"
     },
     { "type": "header", "content": "内容位置与对齐" },
     {

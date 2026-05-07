@@ -1043,7 +1043,7 @@ a.product__text {
 }
 
 .product-popup-modal--warranty .product-popup-modal__content-info {
-  text-align: center;
+  text-align: left;
   padding-right: 0;
   max-width: 36ch;
   margin: 0 auto;
