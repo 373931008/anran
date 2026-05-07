@@ -253,6 +253,14 @@
   .section-{{ section.id }} .q-so__btn:active {
     opacity: 0.8;
   }
+
+  .section-{{ section.id }} .q-so__feature-item .rte > *:first-child {
+    margin-top: 0;
+  }
+
+  .section-{{ section.id }} .q-so__feature-item .rte > *:last-child {
+    margin-bottom: 0;
+  }
 </style>
 
 <div class="q-storage-options section-{{ section.id }}">
@@ -296,7 +304,7 @@
             {%- endif -%}
 
             {%- if block.settings.card_description != blank -%}
-              <p class="q-so__card-desc">{{ block.settings.card_description }}</p>
+              <div class="q-so__card-desc rte">{{ block.settings.card_description }}</div>
             {%- endif -%}
 
             {%- if block.settings.feature_1 != blank -%}
@@ -304,25 +312,25 @@
                 {%- if block.settings.feature_1 != blank -%}
                   <li class="q-so__feature-item">
                     <svg class="q-so__feature-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M19.801 10.222C19.931 10.794 20 11.389 20 12C20 16.415 16.415 20 12 20C7.585 20 4 16.415 4 12C4 7.585 7.585 4 12 4C12.923 4 13.809 4.156 14.634 4.444C15.155 4.626 15.725 4.351 15.907 3.83C16.089 3.308 15.814 2.738 15.293 2.556C14.261 2.196 13.153 2 12 2C6.481 2 2 6.481 2 12C2 17.519 6.481 22 12 22C17.519 22 22 17.519 22 12C22 11.237 21.914 10.493 21.752 9.778C21.629 9.24 21.093 8.903 20.555 9.025C20.017 9.147 19.679 9.683 19.801 10.222ZM11 12.586L19.293 4.293C19.683 3.903 20.317 3.903 20.707 4.293C21.097 4.683 21.097 5.317 20.707 5.707L11.707 14.707C11.317 15.098 10.683 15.098 10.293 14.707L7.293 11.707C6.903 11.317 6.903 10.683 7.293 10.293C7.683 9.903 8.317 9.903 8.707 10.293L11 12.586Z" fill="#1BBD88"/></svg>
-                    {{ block.settings.feature_1 }}
+                    <div class="rte">{{ block.settings.feature_1 }}</div>
                   </li>
                 {%- endif -%}
                 {%- if block.settings.feature_2 != blank -%}
                   <li class="q-so__feature-item">
                     <svg class="q-so__feature-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M19.801 10.222C19.931 10.794 20 11.389 20 12C20 16.415 16.415 20 12 20C7.585 20 4 16.415 4 12C4 7.585 7.585 4 12 4C12.923 4 13.809 4.156 14.634 4.444C15.155 4.626 15.725 4.351 15.907 3.83C16.089 3.308 15.814 2.738 15.293 2.556C14.261 2.196 13.153 2 12 2C6.481 2 2 6.481 2 12C2 17.519 6.481 22 12 22C17.519 22 22 17.519 22 12C22 11.237 21.914 10.493 21.752 9.778C21.629 9.24 21.093 8.903 20.555 9.025C20.017 9.147 19.679 9.683 19.801 10.222ZM11 12.586L19.293 4.293C19.683 3.903 20.317 3.903 20.707 4.293C21.097 4.683 21.097 5.317 20.707 5.707L11.707 14.707C11.317 15.098 10.683 15.098 10.293 14.707L7.293 11.707C6.903 11.317 6.903 10.683 7.293 10.293C7.683 9.903 8.317 9.903 8.707 10.293L11 12.586Z" fill="#1BBD88"/></svg>
-                    {{ block.settings.feature_2 }}
+                    <div class="rte">{{ block.settings.feature_2 }}</div>
                   </li>
                 {%- endif -%}
                 {%- if block.settings.feature_3 != blank -%}
                   <li class="q-so__feature-item">
                     <svg class="q-so__feature-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M19.801 10.222C19.931 10.794 20 11.389 20 12C20 16.415 16.415 20 12 20C7.585 20 4 16.415 4 12C4 7.585 7.585 4 12 4C12.923 4 13.809 4.156 14.634 4.444C15.155 4.626 15.725 4.351 15.907 3.83C16.089 3.308 15.814 2.738 15.293 2.556C14.261 2.196 13.153 2 12 2C6.481 2 2 6.481 2 12C2 17.519 6.481 22 12 22C17.519 22 22 17.519 22 12C22 11.237 21.914 10.493 21.752 9.778C21.629 9.24 21.093 8.903 20.555 9.025C20.017 9.147 19.679 9.683 19.801 10.222ZM11 12.586L19.293 4.293C19.683 3.903 20.317 3.903 20.707 4.293C21.097 4.683 21.097 5.317 20.707 5.707L11.707 14.707C11.317 15.098 10.683 15.098 10.293 14.707L7.293 11.707C6.903 11.317 6.903 10.683 7.293 10.293C7.683 9.903 8.317 9.903 8.707 10.293L11 12.586Z" fill="#1BBD88"/></svg>
-                    {{ block.settings.feature_3 }}
+                    <div class="rte">{{ block.settings.feature_3 }}</div>
                   </li>
                 {%- endif -%}
                 {%- if block.settings.feature_4 != blank -%}
                   <li class="q-so__feature-item">
                     <svg class="q-so__feature-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M19.801 10.222C19.931 10.794 20 11.389 20 12C20 16.415 16.415 20 12 20C7.585 20 4 16.415 4 12C4 7.585 7.585 4 12 4C12.923 4 13.809 4.156 14.634 4.444C15.155 4.626 15.725 4.351 15.907 3.83C16.089 3.308 15.814 2.738 15.293 2.556C14.261 2.196 13.153 2 12 2C6.481 2 2 6.481 2 12C2 17.519 6.481 22 12 22C17.519 22 22 17.519 22 12C22 11.237 21.914 10.493 21.752 9.778C21.629 9.24 21.093 8.903 20.555 9.025C20.017 9.147 19.679 9.683 19.801 10.222ZM11 12.586L19.293 4.293C19.683 3.903 20.317 3.903 20.707 4.293C21.097 4.683 21.097 5.317 20.707 5.707L11.707 14.707C11.317 15.098 10.683 15.098 10.293 14.707L7.293 11.707C6.903 11.317 6.903 10.683 7.293 10.293C7.683 9.903 8.317 9.903 8.707 10.293L11 12.586Z" fill="#1BBD88"/></svg>
-                    {{ block.settings.feature_4 }}
+                    <div class="rte">{{ block.settings.feature_4 }}</div>
                   </li>
                 {%- endif -%}
               </ul>
@@ -399,16 +407,16 @@
           "default": "Local Storage (Free)"
         },
         {
-          "type": "text",
+          "type": "richtext",
           "id": "card_description",
           "label": "卡片描述",
-          "default": "Essential recording and playback — no subscription required."
+          "default": "<p>Essential recording and playback — no subscription required.</p>"
         },
         { "type": "header", "content": "特性列表" },
-        { "type": "text", "id": "feature_1", "label": "特性 1", "default": "Continuous or event-based local recording" },
-        { "type": "text", "id": "feature_2", "label": "特性 2", "default": "Instant playback from device storage" },
-        { "type": "text", "id": "feature_3", "label": "特性 3", "default": "Full access to live view & motion alerts" },
-        { "type": "text", "id": "feature_4", "label": "特性 4" },
+        { "type": "richtext", "id": "feature_1", "label": "特性 1", "default": "<p>Continuous or event-based local recording</p>" },
+        { "type": "richtext", "id": "feature_2", "label": "特性 2", "default": "<p>Instant playback from device storage</p>" },
+        { "type": "richtext", "id": "feature_3", "label": "特性 3", "default": "<p>Full access to live view & motion alerts</p>" },
+        { "type": "richtext", "id": "feature_4", "label": "特性 4" },
         { "type": "header", "content": "按钮" },
         {
           "type": "text",
@@ -434,11 +442,11 @@
           "settings": {
             "badge_label": "No Monthly Fees",
             "card_title": "Local Storage (Free)",
-            "card_description": "Essential recording and playback — no subscription required.",
-            "feature_1": "Continuous or event-based local recording",
-            "feature_2": "Instant playback from device storage",
-            "feature_3": "Full access to live view & motion alerts",
-            "feature_4": "Footage stays private and under your control",
+            "card_description": "<p>Essential recording and playback — no subscription required.</p>",
+            "feature_1": "<p>Continuous or event-based local recording</p>",
+            "feature_2": "<p>Instant playback from device storage</p>",
+            "feature_3": "<p>Full access to live view & motion alerts</p>",
+            "feature_4": "<p>Footage stays private and under your control</p>",
             "button_label": "Buy now",
             "button_link": "/"
           }
@@ -448,11 +456,11 @@
           "settings": {
             "badge_label": "Optional Backup",
             "card_title": "Cloud Storage",
-            "card_description": "Extra protection and convenience — only if you choose.",
-            "feature_1": "Encrypted cloud backup",
-            "feature_2": "Extended video history",
-            "feature_3": "Easy sharing & remote access",
-            "feature_4": "Subscription required (optional, not mandatory)",
+            "card_description": "<p>Extra protection and convenience — only if you choose.</p>",
+            "feature_1": "<p>Encrypted cloud backup</p>",
+            "feature_2": "<p>Extended video history</p>",
+            "feature_3": "<p>Easy sharing & remote access</p>",
+            "feature_4": "<p>Subscription required (optional, not mandatory)</p>",
             "button_label": "Buy now",
             "button_link": "/"
           }

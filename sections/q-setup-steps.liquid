@@ -141,7 +141,7 @@
               <p class="q-ss__card-title">{{ block.settings.title }}</p>
             {%- endif -%}
             {%- if block.settings.description != blank -%}
-              <p class="q-ss__card-desc">{{ block.settings.description }}</p>
+              <div class="q-ss__card-desc rte">{{ block.settings.description }}</div>
             {%- endif -%}
           </div>
         </swiper-slide>
@@ -183,7 +183,7 @@
       "settings": [
         { "type": "image_picker", "id": "image", "label": "图片" },
         { "type": "text", "id": "title", "label": "标题", "default": "Step Title" },
-        { "type": "text", "id": "description", "label": "描述", "default": "Short description of this installation step." }
+        { "type": "richtext", "id": "description", "label": "描述", "default": "<p>Short description of this installation step.</p>" }
       ]
     }
   ],
@@ -195,21 +195,21 @@
           "type": "step",
           "settings": {
             "title": "Wireless, Battery-Powered Installation",
-            "description": "Skip the hassle of wiring. The battery-powered design makes installation quick, clean, and stress-free—no outlets needed."
+            "description": "<p>Skip the hassle of wiring. The battery-powered design makes installation quick, clean, and stress-free—no outlets needed.</p>"
           }
         },
         {
           "type": "step",
           "settings": {
             "title": "Bluetooth Setup",
-            "description": "Connect in seconds with Bluetooth-assisted setup. Just enable Bluetooth, select your Wi-Fi, and you're ready to go—simple and foolproof."
+            "description": "<p>Connect in seconds with Bluetooth-assisted setup. Just enable Bluetooth, select your Wi-Fi, and you're ready to go—simple and foolproof.</p>"
           }
         },
         {
           "type": "step",
           "settings": {
             "title": "Wall or Ceiling Mount",
-            "description": "Mount it on a wall or ceiling to fit your space. Flexible installation options make it easy to place the camera exactly where you need it."
+            "description": "<p>Mount it on a wall or ceiling to fit your space. Flexible installation options make it easy to place the camera exactly where you need it.</p>"
           }
         }
       ]
