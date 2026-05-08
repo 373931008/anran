@@ -16,8 +16,8 @@
         "slide_it9FF7": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/1920x1080_a38dc751-fdcf-4911-87ea-6b9c0cf86e2f.jpg",
-            "image_mobile": "shopify://shop_images/375X541sj.png",
+            "image": "shopify://shop_images/1920x667_1.jpg",
+            "image_mobile": "shopify://shop_images/375x541_1.jpg",
             "title": "",
             "eyebrow": "",
             "eyebrow_color": "#ffffff",
@@ -44,8 +44,9 @@
         "autoplay_delay": 5000,
         "height_mobile": 540,
         "height_desktop": 670,
-        "content_pt_mobile": 24,
-        "content_pt_desktop": 56,
+        "image_fit": "contain",
+        "content_pt_mobile": 0,
+        "content_pt_desktop": 0,
         "content_align_mobile": "center",
         "content_align_desktop": "left",
         "title_size_mobile": 30,
