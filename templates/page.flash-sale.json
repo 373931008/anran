@@ -15,8 +15,8 @@
         "ai_gen_block_d986865_GLFWwf": {
           "type": "tupian_hengfu",
           "settings": {
-            "desktop_image": "shopify://shop_images/earth_day1920x800.jpg",
-            "mobile_image": "shopify://shop_images/earth_day375541.jpg"
+            "desktop_image": "shopify://shop_images/1920x667.jpg",
+            "mobile_image": "shopify://shop_images/375x541.jpg"
           },
           "blocks": {}
         }
