@@ -288,7 +288,7 @@
         </div>
 
         {%- if section.settings.description != blank -%}
-          <p class="q-smart-detection__desc">{{ section.settings.description }}</p>
+          <div class="q-smart-detection__desc rte">{{ section.settings.description }}</div>
         {%- endif -%}
       </div>
 
@@ -368,10 +368,10 @@
     { "type": "range", "id": "header_margin_bottom_mobile", "label": "标题下边距（移动端）", "min": 0, "max": 80, "step": 4, "unit": "px", "default": 24 },
     { "type": "header", "content": "描述文字" },
     {
-      "type": "text",
+      "type": "richtext",
       "id": "description",
       "label": "描述文字",
-      "default": "AI-powered detection recognizes, and filters out false alerts—so you stay informed without constant interruptions."
+      "default": "<p>AI-powered detection recognizes, and filters out false alerts—so you stay informed without constant interruptions.</p>"
     },
     { "type": "header", "content": "上传视频" },
     {
@@ -415,7 +415,7 @@
       "name": "q-smart-detection",
       "settings": {
         "header_title": "Smarter Detection Camera Tracking",
-        "description": "AI-powered detection recognizes, and filters out false alerts—so you stay informed without constant interruptions."
+        "description": "<p>AI-powered detection recognizes, and filters out false alerts—so you stay informed without constant interruptions.</p>"
       },
       "blocks": [
         {

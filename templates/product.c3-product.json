@@ -617,7 +617,7 @@
         "padding_bottom_desktop": 80
       }
     },
-    "q-smart-detection": {
+    "q-smart-detection": { 
       "type": "q-smart-detection",
       "blocks": {
         "detection-people": {

@@ -137,7 +137,7 @@
             {%- endif -%}
 
             {%- if block.settings.description != blank -%}
-              <p class="q-sf__desc">{{ block.settings.description }}</p>
+              <div class="q-sf__desc rte">{{ block.settings.description }}</div>
             {%- endif -%}
           </div>
         {%- endfor -%}
@@ -201,10 +201,10 @@
           "default": "Free Shipping"
         },
         {
-          "type": "text",
+          "type": "richtext",
           "id": "description",
           "label": "描述",
-          "default": "Enjoy fast, free delivery on all orders, returns within 30 days."
+          "default": "<p>Enjoy fast, free delivery on all orders, returns within 30 days.</p>"
         }
       ]
     }
@@ -217,28 +217,28 @@
           "type": "card",
           "settings": {
             "title": "Free Shipping",
-            "description": "Enjoy fast, free delivery on all orders, returns within 30 days."
+            "description": "<p>Enjoy fast, free delivery on all orders, returns within 30 days.</p>"
           }
         },
         {
           "type": "card",
           "settings": {
             "title": "Official Warranty",
-            "description": "All Anran cameras are backed by our quality guarantee."
+            "description": "<p>All Anran cameras are backed by our quality guarantee.</p>"
           }
         },
         {
           "type": "card",
           "settings": {
             "title": "Flexible Payment",
-            "description": "Pay in installments for your camera."
+            "description": "<p>Pay in installments for your camera.</p>"
           }
         },
         {
           "type": "card",
           "settings": {
             "title": "Expert Support",
-            "description": "Our team is here to help you every step of the way."
+            "description": "<p>Our team is here to help you every step of the way.</p>"
           }
         }
       ]

@@ -240,7 +240,7 @@
                     <p class="q-af__card-title">{{ block.settings.title }}</p>
                   {%- endif -%}
                   {%- if block.settings.description != blank -%}
-                    <p class="q-af__card-desc">{{ block.settings.description }}</p>
+                    <div class="q-af__card-desc rte">{{ block.settings.description }}</div>
                   {%- endif -%}
                 </div>
               </div>
@@ -341,10 +341,10 @@
           "default": "Live View & Event Playback"
         },
         {
-          "type": "text",
+          "type": "richtext",
           "id": "description",
           "label": "功能描述",
-          "default": "Watch live video and replay key moments anytime, from anywhere."
+          "default": "<p>Watch live video and replay key moments anytime, from anywhere.</p>"
         }
       ]
     }
@@ -357,28 +357,28 @@
           "type": "feature",
           "settings": {
             "title": "Live View & Event Playback",
-            "description": "Watch live video and replay key moments anytime, from anywhere."
+            "description": "<p>Watch live video and replay key moments anytime, from anywhere.</p>"
           }
         },
         {
           "type": "feature",
           "settings": {
             "title": "Smart Alerts That Matter",
-            "description": "Get real-time notifications with visual previews, so you never miss what matters."
+            "description": "<p>Get real-time notifications with visual previews, so you never miss what matters.</p>"
           }
         },
         {
           "type": "feature",
           "settings": {
             "title": "Connected Devices",
-            "description": "View, manage, and securely share devices with family from one app."
+            "description": "<p>View, manage, and securely share devices with family from one app.</p>"
           }
         },
         {
           "type": "feature",
           "settings": {
             "title": "Security & Privacy Controls",
-            "description": "Manage permissions, access, and key security settings to keep your data protected."
+            "description": "<p>Manage permissions, access, and key security settings to keep your data protected.</p>"
           }
         }
       ]
