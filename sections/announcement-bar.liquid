@@ -1,6 +1,28 @@
 {{ 'component-slideshow.css' | asset_url | stylesheet_tag }}
 {{ 'component-slider.css' | asset_url | stylesheet_tag }}
 
+<style>
+  .announcement-bar__btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.3rem 1.2rem;
+    border-radius: 2rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+    text-decoration: none;
+    background-color: var(--btn-bg, #000);
+    color: var(--btn-color, #fff);
+    margin-left: 1.2rem;
+    white-space: nowrap;
+    transition: opacity 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  .announcement-bar__btn:hover {
+    opacity: 0.8;
+  }
+</style>
+
 {%- liquid
   assign social_icons = true
   if settings.social_facebook_link == blank and settings.social_instagram_link == blank and settings.social_youtube_link == blank and settings.social_tiktok_link == blank and settings.social_twitter_link == blank and settings.social_pinterest_link == blank and settings.social_snapchat_link == blank and settings.social_tumblr_link == blank and settings.social_vimeo_link == blank
@@ -33,19 +55,33 @@
         {{ section.blocks.first.shopify_attributes }}
       >
         {%- if section.blocks.first.settings.text != blank -%}
-          {%- if section.blocks.first.settings.link != blank -%}
+          {%- assign first_block = section.blocks.first -%}
+          {%- assign show_btn = false -%}
+          {%- if first_block.settings.button_label != blank -%}
+            {%- assign show_btn = true -%}
+          {%- endif -%}
+          {%- if first_block.settings.link != blank and show_btn == false -%}
             <a
-              href="{{ section.blocks.first.settings.link }}"
+              href="{{ first_block.settings.link }}"
               class="announcement-bar__link link link--text focus-inset animate-arrow"
             >
           {%- endif -%}
           <p class="announcement-bar__message h5">
-            <span>{{ section.blocks.first.settings.text | escape }}</span>
-            {%- if section.blocks.first.settings.link != blank -%}
+            <span>{{ first_block.settings.text | escape }}</span>
+            {%- if first_block.settings.link != blank and show_btn == false -%}
               {{- 'icon-arrow.svg' | inline_asset_content -}}
             {%- endif -%}
           </p>
-          {%- if section.blocks.first.settings.link != blank -%}
+          {%- if first_block.settings.link != blank and show_btn == false -%}
+            </a>
+          {%- endif -%}
+          {%- if show_btn -%}
+            <a
+              href="{{ first_block.settings.link | default: '#' }}"
+              class="announcement-bar__btn"
+              style="--btn-bg: {{ first_block.settings.button_bg_color }}; --btn-color: {{ first_block.settings.button_text_color }};"
+            >
+              {{- first_block.settings.button_label | escape -}}
             </a>
           {%- endif -%}
         {%- endif -%}
@@ -93,7 +129,11 @@
                   aria-label="{{ 'sections.header.announcement' | t }}"
                 >
                   {%- if block.settings.text != blank -%}
-                    {%- if block.settings.link != blank -%}
+                    {%- assign block_show_btn = false -%}
+                    {%- if block.settings.button_label != blank -%}
+                      {%- assign block_show_btn = true -%}
+                    {%- endif -%}
+                    {%- if block.settings.link != blank and block_show_btn == false -%}
                       <a
                         href="{{ block.settings.link }}"
                         class="announcement-bar__link link link--text focus-inset animate-arrow"
@@ -101,11 +141,20 @@
                     {%- endif -%}
                     <p class="announcement-bar__message h5">
                       <span>{{ block.settings.text | escape }}</span>
-                      {%- if block.settings.link != blank -%}
+                      {%- if block.settings.link != blank and block_show_btn == false -%}
                         {{- 'icon-arrow.svg' | inline_asset_content -}}
                       {%- endif -%}
                     </p>
-                    {%- if block.settings.link != blank -%}
+                    {%- if block.settings.link != blank and block_show_btn == false -%}
+                      </a>
+                    {%- endif -%}
+                    {%- if block_show_btn -%}
+                      <a
+                        href="{{ block.settings.link | default: '#' }}"
+                        class="announcement-bar__btn"
+                        style="--btn-bg: {{ block.settings.button_bg_color }}; --btn-color: {{ block.settings.button_text_color }};"
+                      >
+                        {{- block.settings.button_label | escape -}}
                       </a>
                     {%- endif -%}
                   {%- endif -%}
@@ -244,6 +293,27 @@
           "type": "url",
           "id": "link",
           "label": "t:sections.announcement-bar.blocks.announcement.settings.link.label"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.announcement-bar.blocks.announcement.settings.button_header.content"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "t:sections.announcement-bar.blocks.announcement.settings.button_label.label"
+        },
+        {
+          "type": "color",
+          "id": "button_bg_color",
+          "label": "t:sections.announcement-bar.blocks.announcement.settings.button_bg_color.label",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "button_text_color",
+          "label": "t:sections.announcement-bar.blocks.announcement.settings.button_text_color.label",
+          "default": "#ffffff"
         }
       ]
     }
