@@ -351,9 +351,37 @@
         "card_radius": 15,
         "bg_color": "#F5F6F7",
         "padding_top_mobile": 40,
-        "padding_bottom_mobile": 40,
+        "padding_bottom_mobile": 32,
         "padding_top_desktop": 60,
-        "padding_bottom_desktop": 80
+        "padding_bottom_desktop": 40
+      }
+    },
+    "rich_text_qFAF9m": {
+      "type": "rich-text",
+      "blocks": {
+        "button_qbjpnD": {
+          "type": "button",
+          "settings": {
+            "button_label": "View All Products",
+            "button_link": "shopify://collections/all-product",
+            "button_style_secondary": false,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "button_qbjpnD"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 0,
+        "padding_bottom": 52
       }
     },
     "q-app-accordion": {
@@ -974,6 +1002,7 @@
     "q-benefit-bar",
     "q-best-sellers",
     "q-shop-by-categories",
+    "rich_text_qFAF9m",
     "q-app-accordion",
     "q-worth-buying-slider",
     "q-professionals-saying",
