@@ -60,8 +60,13 @@
                         class="menu-drawer__menu-item menu-drawer__menu-item--level-1 list-menu__item link link--text focus-inset{% if link.child_active %} menu-drawer__menu-item--active{% endif %}"
                       >
                         <span>{{ link.title | escape }}</span>
-                        <span class="svg-wrapper menu-drawer__arrow">
-                          {{- 'icon-arrow.svg' | inline_asset_content -}}
+                        <span class="mega-menu-products__left-icon" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" focusable="false">
+                            <path
+                              d="M8.59 16.59 13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"
+                              fill="currentColor"
+                            ></path>
+                          </svg>
                         </span>
                       </summary>
 
@@ -76,7 +81,20 @@
                               <span class="svg-wrapper">
                                 {{- 'icon-arrow.svg' | inline_asset_content -}}
                               </span>
-                              <span>{{ link.title | escape }}</span>
+                              <span class="menu-drawer__close-button-text">{{ link.title | escape }}</span>
+                            </button>
+
+                            <button
+                              type="button"
+                              class="menu-drawer__panel-close"
+                              data-close-menu-drawer
+                              aria-label="{{ 'accessibility.close' | t }}"
+                            >
+                              <span class="svg-wrapper" aria-hidden="true">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none">
+                                  <path d="M13.7246 0.707107L0.724639 13.7071M0.704865 0.726942L13.7444 13.6873" stroke="currentColor" stroke-width="2" />
+                                </svg>
+                              </span>
                             </button>
                           </div>
 
@@ -121,8 +139,13 @@
                                             {{- childlink.title | escape -}}
                                           </span>
                                         </span>
-                                        <span class="svg-wrapper menu-drawer__arrow">
-                                          {{- 'icon-arrow.svg' | inline_asset_content -}}
+                                        <span class="mega-menu-products__left-icon" aria-hidden="true">
+                                          <svg viewBox="0 0 24 24" focusable="false">
+                                            <path
+                                              d="M8.59 16.59 13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"
+                                              fill="currentColor"
+                                            ></path>
+                                          </svg>
                                         </span>
                                       </summary>
 
@@ -140,9 +163,20 @@
                                               <span class="svg-wrapper">
                                                 {{- 'icon-arrow.svg' | inline_asset_content -}}
                                               </span>
-                                              <span>{{ childlink.title | escape }}</span>
+                                              <span class="menu-drawer__close-button-text">{{ childlink.title | escape }}</span>
                                             </button>
-                                            <a href="{{ childlink.url }}" class="menu-drawer__view-all">View all</a>
+                                            <button
+                                              type="button"
+                                              class="menu-drawer__panel-close"
+                                              data-close-menu-drawer
+                                              aria-label="{{ 'accessibility.close' | t }}"
+                                            >
+                                              <span class="svg-wrapper" aria-hidden="true">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none">
+                                                  <path d="M13.7246 0.707107L0.724639 13.7071M0.704865 0.726942L13.7444 13.6873" stroke="currentColor" stroke-width="2" />
+                                                </svg>
+                                              </span>
+                                            </button>
                                           </div>
 
                                           <div class="menu-drawer__collection-groups">
@@ -178,56 +212,99 @@
                                       </div>
                                     </details>
                                   {%- else -%}
-                                    <a
-                                      id="HeaderDrawer-{{ link.handle }}-{{ childlink.handle }}"
-                                      href="{{ childlink.url }}"
-                                      class="menu-drawer__category-link link link--text focus-inset{% if childlink.current %} menu-drawer__menu-item--active{% endif %}"
-                                      {% if childlink.current %}
-                                        aria-current="page"
-                                      {% endif %}
-                                    >
-                                      <span class="menu-drawer__category-main">
-                                        {% comment %} <span class="menu-drawer__category-media">
-                                          {%- if child_collection != blank
-                                            and child_collection.featured_image != blank
-                                          -%}
-                                            <img
-                                              src="{{ child_collection.featured_image | image_url: width: 96 }}"
-                                              alt=""
-                                              class="menu-drawer__category-image"
-                                              loading="lazy"
-                                              width="48"
-                                              height="48"
-                                              aria-hidden="true"
-                                            >
-                                          {%- elsif child_collection != blank and child_collection.image != blank -%}
-                                            <img
-                                              src="{{ child_collection.image | image_url: width: 96 }}"
-                                              alt=""
-                                              class="menu-drawer__category-image"
-                                              loading="lazy"
-                                              width="48"
-                                              height="48"
-                                              aria-hidden="true"
-                                            >
-                                          {%- else -%}
-                                            {{
-                                              'collection-1'
-                                              | placeholder_svg_tag: 'menu-drawer__category-image placeholder-svg'
-                                            }}
-                                          {%- endif -%}
-                                        </span> {% endcomment %}
-                                        <span class="menu-drawer__category-title">{{ childlink.title | escape }}</span>
-                                      </span>
-                                      <span class="menu-drawer__category-link-text">View all</span>
-                                    </a>
-
+                                    {%- comment -%}
+                                      无子菜单链接时：不在二级页直接展示产品；与「有子链接」一致，点击分类行进入下一屏再显示产品列表。
+                                    {%- endcomment -%}
                                     {%- if child_collection != blank and child_collection.products.size > 0 -%}
-                                      <div class="menu-drawer__product-row menu-drawer__product-row--category">
-                                        {%- for product in child_collection.products limit: 4 -%}
-                                          {% render 'header-drawer-product-card', product: product %}
-                                        {%- endfor -%}
-                                      </div>
+                                      <details id="Details-menu-drawer-{{ link.handle }}-{{ childlink.handle }}-leaf">
+                                        <summary
+                                          id="HeaderDrawer-{{ link.handle }}-{{ childlink.handle }}"
+                                          class="menu-drawer__category-summary link link--text focus-inset"
+                                        >
+                                          <span class="menu-drawer__category-main">
+                                            <span class="menu-drawer__category-title">{{ childlink.title | escape }}</span>
+                                          </span>
+                                          <span class="mega-menu-products__left-icon" aria-hidden="true">
+                                            <svg viewBox="0 0 24 24" focusable="false">
+                                              <path
+                                                d="M8.59 16.59 13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"
+                                                fill="currentColor"
+                                              ></path>
+                                            </svg>
+                                          </span>
+                                        </summary>
+
+                                        <div
+                                          id="childlink-{{ childlink.handle | escape }}-leaf"
+                                          class="menu-drawer__submenu has-submenu gradient motion-reduce"
+                                          tabindex="-1"
+                                        >
+                                          <div class="menu-drawer__inner-submenu">
+                                            <div class="menu-drawer__panel-header">
+                                              <button
+                                                class="menu-drawer__close-button link link--text focus-inset"
+                                                aria-expanded="true"
+                                              >
+                                                <span class="svg-wrapper">
+                                                  {{- 'icon-arrow.svg' | inline_asset_content -}}
+                                                </span>
+                                                <span class="menu-drawer__close-button-text">{{ childlink.title | escape }}</span>
+                                              </button>
+                                              <button
+                                                type="button"
+                                                class="menu-drawer__panel-close"
+                                                data-close-menu-drawer
+                                                aria-label="{{ 'accessibility.close' | t }}"
+                                              >
+                                                <span class="svg-wrapper" aria-hidden="true">
+                                                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none">
+                                                    <path d="M13.7246 0.707107L0.724639 13.7071M0.704865 0.726942L13.7444 13.6873" stroke="currentColor" stroke-width="2" />
+                                                  </svg>
+                                                </span>
+                                              </button>
+                                            </div>
+
+                                            <div class="menu-drawer__collection-groups">
+                                              <section class="menu-drawer__collection-group">
+                                                <div class="menu-drawer__collection-heading">
+                                                  <a
+                                                    href="{{ childlink.url }}"
+                                                    class="menu-drawer__collection-title"
+                                                  >
+                                                    {{- childlink.title | escape -}}
+                                                  </a>
+                                                  <a
+                                                    href="{{ childlink.url }}"
+                                                    class="menu-drawer__collection-link"
+                                                  >
+                                                    View all
+                                                  </a>
+                                                </div>
+
+                                                <div class="menu-drawer__product-row">
+                                                  {%- for product in child_collection.products limit: 4 -%}
+                                                    {% render 'header-drawer-product-card', product: product %}
+                                                  {%- endfor -%}
+                                                </div>
+                                              </section>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </details>
+                                    {%- else -%}
+                                      <a
+                                        id="HeaderDrawer-{{ link.handle }}-{{ childlink.handle }}"
+                                        href="{{ childlink.url }}"
+                                        class="menu-drawer__category-link link link--text focus-inset{% if childlink.current %} menu-drawer__menu-item--active{% endif %}"
+                                        {% if childlink.current %}
+                                          aria-current="page"
+                                        {% endif %}
+                                      >
+                                        <span class="menu-drawer__category-main">
+                                          <span class="menu-drawer__category-title">{{ childlink.title | escape }}</span>
+                                        </span>
+                                        <span class="menu-drawer__category-link-text">View all</span>
+                                      </a>
                                     {%- endif -%}
                                   {%- endif -%}
                                 </div>
@@ -255,8 +332,13 @@
                                         class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
                                       >
                                         <span>{{ childlink.title | escape }}</span>
-                                        <span class="svg-wrapper menu-drawer__arrow">
-                                          {{- 'icon-arrow.svg' | inline_asset_content -}}
+                                        <span class="mega-menu-products__left-icon" aria-hidden="true">
+                                          <svg viewBox="0 0 24 24" focusable="false">
+                                            <path
+                                              d="M8.59 16.59 13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"
+                                              fill="currentColor"
+                                            ></path>
+                                          </svg>
                                         </span>
                                       </summary>
                                       <div
@@ -273,7 +355,20 @@
                                               <span class="svg-wrapper">
                                                 {{- 'icon-arrow.svg' | inline_asset_content -}}
                                               </span>
-                                              <span>{{ childlink.title | escape }}</span>
+                                              <span class="menu-drawer__close-button-text">{{ childlink.title | escape }}</span>
+                                            </button>
+
+                                            <button
+                                              type="button"
+                                              class="menu-drawer__panel-close"
+                                              data-close-menu-drawer
+                                              aria-label="{{ 'accessibility.close' | t }}"
+                                            >
+                                              <span class="svg-wrapper" aria-hidden="true">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none">
+                                                  <path d="M13.7246 0.707107L0.724639 13.7071M0.704865 0.726942L13.7444 13.6873" stroke="currentColor" stroke-width="2" />
+                                                </svg>
+                                              </span>
                                             </button>
                                           </div>
 

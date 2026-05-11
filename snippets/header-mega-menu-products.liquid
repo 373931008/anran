@@ -131,11 +131,12 @@
                       data-tab-index="{{ forloop.parentloop.index0 }}"
                     >
                       <span class="mega-menu-products__card">
+                        {%- assign product_display_title = product.metafields.custom.short_title.value | default: product.title -%}
                         <span class="mega-menu-products__image-box">
                           {%- if product.featured_image -%}
                             <img
                               src="{{ product.featured_image | image_url: width: 500 }}"
-                              alt="{{ product.featured_image.alt | default: product.title | escape }}"
+                              alt="{{ product.featured_image.alt | default: product_display_title | escape }}"
                               class="mega-menu-products__image"
                               loading="eager"
                               width="166"
@@ -163,7 +164,7 @@
                             </span>
                           {%- endif -%}
                         </span>
-                        <span class="mega-menu-products__card-title">{{ product.title | escape }}</span>
+                        <span class="mega-menu-products__card-title">{{ product_display_title | escape }}</span>
                         {%- if product_short_description != blank -%}
                           <span class="mega-menu-products__card-text">{{ product_short_description | escape }}</span>
                         {%- endif -%}
@@ -204,11 +205,12 @@
                   {%- assign product_mega_menu_badge_color = product_mega_menu_badge_parts[2] | strip -%}
                   <a href="{{ product.url }}" class="mega-menu-products__card-wrapper is-active">
                     <span class="mega-menu-products__card">
+                      {%- assign product_display_title = product.metafields.custom.short_title.value | default: product.title -%}
                       <span class="mega-menu-products__image-box">
                         {%- if product.featured_image -%}
                           <img
                             src="{{ product.featured_image | image_url: width: 500 }}"
-                            alt="{{ product.featured_image.alt | default: product.title | escape }}"
+                            alt="{{ product.featured_image.alt | default: product_display_title | escape }}"
                             class="mega-menu-products__image"
                             loading="eager"
                             width="166"
@@ -236,7 +238,7 @@
                           </span>
                         {%- endif -%}
                       </span>
-                      <span class="mega-menu-products__card-title">{{ product.title | escape }}</span>
+                      <span class="mega-menu-products__card-title">{{ product_display_title | escape }}</span>
                       {%- if product_short_description != blank -%}
                         <span class="mega-menu-products__card-text">{{ product_short_description | escape }}</span>
                       {%- endif -%}
