@@ -60,15 +60,9 @@ alwaysApply: true
 {% endschema %}
 ```
 
-## 自动化测试规范
-
-<!-- > **强制要求**：每次开发完成后，必须使用 `user-chrome-devtools` MCP 对 `http://127.0.0.1:9292/` 进行自动测试，确认无报错、无上传失败、页面渲染正确后方可结束任务。 -->
-
 ### 标准测试流程
 
 ```javascript
-// 1. 刷新页面（强制忽略缓存）
-navigate_page({ type: "url", url: "http://127.0.0.1:9292/", ignoreCache: true })
 
 // 2. 截图检查页面渲染
 take_screenshot({ format: "png" })
