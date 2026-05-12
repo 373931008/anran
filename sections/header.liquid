@@ -36,6 +36,29 @@
     }
   {%- endif -%}
 
+  {%- comment -%}
+    全宽「抽屉菜单」时 header-drawer 在宽屏仍可用：All Products 在窄屏直达集合，≥1280px 保留三级产品预览（与上方 1280px 断点一致）。
+  {%- endcomment -%}
+  {%- if section.settings.menu_type_desktop == 'drawer' -%}
+    .header.drawer-menu .menu-drawer__all-products--wide-only {
+      display: none;
+    }
+
+    .header.drawer-menu .menu-drawer__all-products--narrow-only {
+      display: flex;
+    }
+
+    @media screen and (min-width: 1280px) {
+      .header.drawer-menu .menu-drawer__all-products--wide-only {
+        display: block;
+      }
+
+      .header.drawer-menu .menu-drawer__all-products--narrow-only {
+        display: none !important;
+      }
+    }
+  {%- endif -%}
+
   .menu-drawer-container {
     display: flex;
   }

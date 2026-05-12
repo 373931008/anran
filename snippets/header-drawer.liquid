@@ -102,8 +102,28 @@
                             <div class="menu-drawer__product-menu">
                               {%- for childlink in link.links -%}
                                 {%- assign child_collection = childlink.object -%}
+                                {%- liquid
+                                  assign child_menu_label = childlink.title | strip | downcase
+                                  assign is_all_products_row = false
+                                  if child_menu_label == 'all products'
+                                    assign is_all_products_row = true
+                                  endif
+                                -%}
                                 <div class="menu-drawer__category">
-                                  {%- if childlink.links != blank -%}
+                                  {%- if childlink.links != blank and is_all_products_row -%}
+                                    <a
+                                      id="HeaderDrawer-{{ link.handle }}-{{ childlink.handle }}"
+                                      href="{{ childlink.url }}"
+                                      class="menu-drawer__category-link link link--text focus-inset{% if childlink.current %} menu-drawer__menu-item--active{% endif %}"
+                                      {% if childlink.current %}
+                                        aria-current="page"
+                                      {% endif %}
+                                    >
+                                      <span class="menu-drawer__category-main">
+                                        <span class="menu-drawer__category-title">{{ childlink.title | escape }}</span>
+                                      </span>
+                                    </a>
+                                  {%- elsif childlink.links != blank -%}
                                     <details id="Details-menu-drawer-{{ link.handle }}-{{ childlink.handle }}">
                                       <summary
                                         id="HeaderDrawer-{{ link.handle }}-{{ childlink.handle }}"
@@ -200,7 +220,7 @@
 
                                                 {%- if collection != blank and collection.products.size > 0 -%}
                                                   <div class="menu-drawer__product-row">
-                                                    {%- for product in collection.products limit: 4 -%}
+                                                    {%- for product in collection.products limit: 5 -%}
                                                       {% render 'header-drawer-product-card', product: product %}
                                                     {%- endfor -%}
                                                   </div>
@@ -213,9 +233,118 @@
                                     </details>
                                   {%- else -%}
                                     {%- comment -%}
-                                      无子菜单链接时：不在二级页直接展示产品；与「有子链接」一致，点击分类行进入下一屏再显示产品列表。
+                                      无子菜单链接：默认可进三级屏看产品预览。
+                                      All Products：Mega 或下拉模式下抽屉仅在小屏出现，直达集合；若主题为「桌面也用抽屉」且集合有商品，宽屏保留三级预览（见 header 样式，断点 1280px）。
                                     {%- endcomment -%}
-                                    {%- if child_collection != blank and child_collection.products.size > 0 -%}
+                                    {%- if is_all_products_row -%}
+                                      {%- if section.settings.menu_type_desktop == 'drawer'
+                                        and child_collection != blank
+                                        and child_collection.products.size > 0
+                                      -%}
+                                        <a
+                                          id="HeaderDrawer-{{ link.handle }}-{{ childlink.handle }}-narrow"
+                                          href="{{ childlink.url }}"
+                                          class="menu-drawer__category-link menu-drawer__all-products--narrow-only link link--text focus-inset{% if childlink.current %} menu-drawer__menu-item--active{% endif %}"
+                                          {% if childlink.current %}
+                                            aria-current="page"
+                                          {% endif %}
+                                        >
+                                          <span class="menu-drawer__category-main">
+                                            <span class="menu-drawer__category-title">{{ childlink.title | escape }}</span>
+                                          </span>
+                                        </a>
+                                        <div class="menu-drawer__all-products--wide-only">
+                                          <details id="Details-menu-drawer-{{ link.handle }}-{{ childlink.handle }}-leaf-wide">
+                                            <summary
+                                              id="HeaderDrawer-{{ link.handle }}-{{ childlink.handle }}-wide"
+                                              class="menu-drawer__category-summary link link--text focus-inset"
+                                            >
+                                              <span class="menu-drawer__category-main">
+                                                <span class="menu-drawer__category-title">{{ childlink.title | escape }}</span>
+                                              </span>
+                                              <span class="mega-menu-products__left-icon" aria-hidden="true">
+                                                <svg viewBox="0 0 24 24" focusable="false">
+                                                  <path
+                                                    d="M8.59 16.59 13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"
+                                                    fill="currentColor"
+                                                  ></path>
+                                                </svg>
+                                              </span>
+                                            </summary>
+
+                                            <div
+                                              id="childlink-{{ childlink.handle | escape }}-leaf-wide"
+                                              class="menu-drawer__submenu has-submenu gradient motion-reduce"
+                                              tabindex="-1"
+                                            >
+                                              <div class="menu-drawer__inner-submenu">
+                                                <div class="menu-drawer__panel-header">
+                                                  <button
+                                                    class="menu-drawer__close-button link link--text focus-inset"
+                                                    aria-expanded="true"
+                                                  >
+                                                    <span class="svg-wrapper">
+                                                      {{- 'icon-arrow.svg' | inline_asset_content -}}
+                                                    </span>
+                                                    <span class="menu-drawer__close-button-text">{{ childlink.title | escape }}</span>
+                                                  </button>
+                                                  <button
+                                                    type="button"
+                                                    class="menu-drawer__panel-close"
+                                                    data-close-menu-drawer
+                                                    aria-label="{{ 'accessibility.close' | t }}"
+                                                  >
+                                                    <span class="svg-wrapper" aria-hidden="true">
+                                                      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none">
+                                                        <path d="M13.7246 0.707107L0.724639 13.7071M0.704865 0.726942L13.7444 13.6873" stroke="currentColor" stroke-width="2" />
+                                                      </svg>
+                                                    </span>
+                                                  </button>
+                                                </div>
+
+                                                <div class="menu-drawer__collection-groups">
+                                                  <section class="menu-drawer__collection-group">
+                                                    <div class="menu-drawer__collection-heading">
+                                                      <a
+                                                        href="{{ childlink.url }}"
+                                                        class="menu-drawer__collection-title"
+                                                      >
+                                                        {{- childlink.title | escape -}}
+                                                      </a>
+                                                      <a
+                                                        href="{{ childlink.url }}"
+                                                        class="menu-drawer__collection-link"
+                                                      >
+                                                        View all
+                                                      </a>
+                                                    </div>
+
+                                                    <div class="menu-drawer__product-row">
+                                                      {%- for product in child_collection.products limit: 5 -%}
+                                                        {% render 'header-drawer-product-card', product: product %}
+                                                      {%- endfor -%}
+                                                    </div>
+                                                  </section>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </details>
+                                        </div>
+                                      {%- else -%}
+                                        <a
+                                          id="HeaderDrawer-{{ link.handle }}-{{ childlink.handle }}"
+                                          href="{{ childlink.url }}"
+                                          class="menu-drawer__category-link link link--text focus-inset{% if childlink.current %} menu-drawer__menu-item--active{% endif %}"
+                                          {% if childlink.current %}
+                                            aria-current="page"
+                                          {% endif %}
+                                        >
+                                          <span class="menu-drawer__category-main">
+                                            <span class="menu-drawer__category-title">{{ childlink.title | escape }}</span>
+                                          </span>
+                                        </a>
+                                      {%- endif -%}
+                                    {%- elsif child_collection != blank and child_collection.products.size > 0 -%}
                                       <details id="Details-menu-drawer-{{ link.handle }}-{{ childlink.handle }}-leaf">
                                         <summary
                                           id="HeaderDrawer-{{ link.handle }}-{{ childlink.handle }}"
@@ -282,7 +411,7 @@
                                                 </div>
 
                                                 <div class="menu-drawer__product-row">
-                                                  {%- for product in child_collection.products limit: 4 -%}
+                                                  {%- for product in child_collection.products limit: 5 -%}
                                                     {% render 'header-drawer-product-card', product: product %}
                                                   {%- endfor -%}
                                                 </div>
