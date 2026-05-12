@@ -248,8 +248,8 @@
           "settings": {
             "image": "shopify://shop_images/Rectangle_300.png",
             "image_mobile": "shopify://shop_images/Camera_Kits_P2_ptz_J9S9S.jpg",
-            "hover_image": "shopify://shop_images/1-2-1.jpg",
-            "hover_image_mobile": "shopify://shop_images/Camera_Kits_POE_s9sks9ss.jpg",
+            "hover_image": "shopify://shop_images/Rectangle_300.png",
+            "hover_image_mobile": "shopify://shop_images/Camera_Kits_P2_ptz_J9S9S.jpg",
             "empty_bg": "#d5d5d6",
             "title": "Camera Kits",
             "description": "<p>5MP WIFI Security Camera System.<br/>8MP POE Security Camera System.</p>",
