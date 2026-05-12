@@ -159,11 +159,6 @@
         "disabled": false,
         "settings": {}
       },
-      "14518425691352670886": {
-        "type": "shopify://apps/salesmartly-chat/blocks/app-embed/4bf78eed-749c-492d-93f8-2182f15aa6da",
-        "disabled": false,
-        "settings": {}
-      },
       "8857984110089213392": {
         "type": "shopify://apps/hextom-sales-boost/blocks/usb-embeded-block/00e81c42-8ae7-4b0b-b43d-99393b885fc4",
         "disabled": false,
@@ -182,11 +177,6 @@
       "6588702529468458379": {
         "type": "shopify://apps/ecomposer-builder/blocks/app-embed/a0fc26e1-7741-4773-8b27-39389b4fb4a0",
         "disabled": false,
-        "settings": {}
-      },
-      "15922962008143023269": {
-        "type": "shopify://apps/hukify-mega-menu-creator-pro/blocks/app-embed/314182c7-a8e4-4865-bb75-355b6d1f17ea",
-        "disabled": true,
         "settings": {}
       }
     },
@@ -248,7 +238,7 @@
       },
       "scheme-2b9a84c2-6b22-42ee-ae63-5a9c5b5abbfc": {
         "settings": {
-          "background": "#f7f7f7",
+          "background": "#f5f6f7",
           "background_gradient": "",
           "text": "#121212",
           "button": "#121212",
