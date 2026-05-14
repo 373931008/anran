@@ -154,11 +154,6 @@
         "disabled": false,
         "settings": {}
       },
-      "5047492217346442670": {
-        "type": "shopify://apps/smartpush-email-sms-pop-up/blocks/smartpush-shopify-script/3340d60c-069c-44d6-9fbd-073d3112e7ba",
-        "disabled": false,
-        "settings": {}
-      },
       "8857984110089213392": {
         "type": "shopify://apps/hextom-sales-boost/blocks/usb-embeded-block/00e81c42-8ae7-4b0b-b43d-99393b885fc4",
         "disabled": false,
@@ -177,6 +172,16 @@
       "6588702529468458379": {
         "type": "shopify://apps/ecomposer-builder/blocks/app-embed/a0fc26e1-7741-4773-8b27-39389b4fb4a0",
         "disabled": false,
+        "settings": {}
+      },
+      "4015264832934714879": {
+        "type": "shopify://apps/sendwill-email-popups/blocks/app/a5670cf8-5705-4b01-ad9e-447033feae26",
+        "disabled": false,
+        "settings": {}
+      },
+      "5047492217346442670": {
+        "type": "shopify://apps/smartpush-email-sms-pop-up/blocks/smartpush-shopify-script/3340d60c-069c-44d6-9fbd-073d3112e7ba",
+        "disabled": true,
         "settings": {}
       }
     },
