@@ -505,7 +505,7 @@
       "type": "_blocks",
       "blocks": {
         "ai_gen_block_b429a13_mgRCth": {
-          "type": "d_Image_file",
+          "type": "d_image_file",
           "settings": {
             "metafield_key": "overview_extra_image_list",
             "title": "",
@@ -653,7 +653,7 @@
           "settings": {
             "icon": "shopify://shop_images/fi_1670915.svg",
             "title": "Free Shipping",
-            "description": "Enjoy fast, free delivery on all orders, returns within 30 days."
+            "description": "<p>Enjoy fast, free delivery on all orders, returns within 30 days.</p>"
           }
         },
         "card-warranty": {
@@ -661,7 +661,7 @@
           "settings": {
             "icon": "shopify://shop_images/fi_5782872.svg",
             "title": "Official Warranty",
-            "description": "All Anran cameras are backed by our quality guarantee."
+            "description": "<p>All Anran cameras are backed by our quality guarantee.</p>"
           }
         },
         "card-payment": {
@@ -669,7 +669,7 @@
           "settings": {
             "icon": "shopify://shop_images/fi_2169854.svg",
             "title": "Flexible Payment",
-            "description": "Paypal & Credit Card Secure Payments."
+            "description": "<p>Paypal & Credit Card Secure Payments.</p>"
           }
         },
         "card-support": {
@@ -677,7 +677,7 @@
           "settings": {
             "icon": "shopify://shop_images/fi_508190.svg",
             "title": "Expert Support",
-            "description": "Our team is here to help you every step of the way."
+            "description": "<p>Our team is here to help you every step of the way.</p>"
           }
         }
       },
