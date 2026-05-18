@@ -1,0 +1,931 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "layout": "theme",
+  "sections": {
+    "main": {
+      "type": "main-product-v2",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {
+            "subtitle": ""
+          }
+        },
+        "judge_me_reviews_preview_badge_zMwFUy": {
+          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "show_promo_strip": true,
+            "promo_primary_text": "5% OFF",
+            "promo_subtitle": "",
+            "discount_code": "ANRAN2026",
+            "copy_label": "Copy:",
+            "promo_bg": "#b51010"
+          }
+        },
+        "q_feature_list_ibgtN8": {
+          "type": "q_feature_list",
+          "settings": {
+            "heading": "{{ product.metafields.custom.product_selling_point | metafield_tag }}",
+            "feature_1": "",
+            "feature_2": "",
+            "feature_3": "",
+            "feature_4": "",
+            "feature_5": "",
+            "feature_6": ""
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "show_variant_images": true,
+            "swatch_shape": "circle"
+          }
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "q_warranty_GUqegQ": {
+          "type": "q_warranty",
+          "settings": {
+            "title": "2-Year Extended Protection Plan",
+            "label": "Free",
+            "link_prefix": "View all",
+            "link_suffix": "warranty",
+            "modal_heading": "Warranty Information Tips",
+            "modal_content": "<p>Register Your Products to Extend Warranty to 24 Months<br/><br/>1. Free Warranty Extension: In addition to our regular 12-month warranty, ANRAN offcial buyers can extend the warranty on their ANRAN products to 24 months.<br/><br/>2. Submit your ANRAN offcial Order ID to get warrantv extended. you can check our rules as followed to ensure that you can apply for an extended warranty.<br/><br/>3. After registering with your Order ID, you can make a warranty claim on my product. You’ll get a response on one business day.</p>",
+            "bg_color": "#DBECFF"
+          }
+        },
+        "q_worry_free_returns_g3Jexz": {
+          "type": "q_worry_free_returns",
+          "settings": {
+            "icon": "shopify://shop_images/fi_4989753.png",
+            "title": "Worry-Free Returns",
+            "description": "<p>Buy online with confidence with our 30-day risk-free return policy.</p>",
+            "bg_color": "#f3f7ff",
+            "title_color": "#1565d8"
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons_v2",
+          "settings": {
+            "secondary_checkout": "direct",
+            "show_gift_card_recipient": false
+          }
+        },
+        "q_accordion_item_Vbkz8W": {
+          "type": "q_accordion_item",
+          "disabled": true,
+          "settings": {
+            "heading": "What you’ll love",
+            "content": "<p>See more, worry less with this solar-powered 2K security camera. Get full 360° coverage, smart motion alerts, and clear day-to-night monitoring.</p><ul><li>2K HD Video with 360° PTZ View</li><li>Solar Powered – No Wires Needed</li><li>Real-Time Motion Alerts & Two-Way Talk</li></ul>",
+            "list_marker_color": "#adc5fa",
+            "layout": "image_top_content_bottom"
+          }
+        },
+        "q_accordion_item_qm7B6g": {
+          "type": "q_accordion_item",
+          "disabled": true,
+          "settings": {
+            "heading": "Key Benefits",
+            "content": "<ul><li>Comprehensive security features with no monthly fees;</li><li>Solar-powered wireless camera with included panel;</li><li>2K HD video with full 360° view;</li><li>Color night vision with spotlight protection;</li><li>Smart motion detection with instant alerts;</li><li>Two-way talk with visitors or delivery drivers;</li><li>Local SD storage with optional cloud backup;</li><li>Alexa compatible for easy voice control. (Can't add to NVR)</li></ul>",
+            "list_marker_color": "#adc5fa",
+            "list_item_icon": "shopify://shop_images/fi_7641727.png",
+            "image": "shopify://shop_images/Gemini_Generated_Image_oakgk7oakgk7oakg.webp",
+            "layout": "image_top_content_bottom"
+          }
+        },
+        "q_accordion_item_b3qTjT": {
+          "type": "q_accordion_item",
+          "disabled": true,
+          "settings": {
+            "heading": "Included in your Box",
+            "content": "<ul><li>1 Wireless Solar Security Camera</li><li>1  3W Solar Panel</li><li>1 USB Charging Cable</li><li>1 Mounting Screw Pack</li><li>1 User Manual</li></ul>",
+            "list_marker_color": "#adc5fa",
+            "image": "shopify://shop_images/anran_Q3M8_product_box_list.jpg",
+            "layout": "image_left_content_right"
+          }
+        },
+        "q_accordion_item_8xHHm8": {
+          "type": "q_accordion_item",
+          "disabled": true,
+          "settings": {
+            "heading": "Installation Instructions",
+            "content": "<ol><li>Download ANRAN APP and Register Account.</li><li>Fully Charged and Connect the 2.4 GHz WiFi.</li><li>Choose a suitable location and mount the camera using the included screws.</li><li>Attach the solar panel to provide continuous power.</li><li>Control the camera to view the screen through the APP.</li></ol><p><strong>Setup takes only a few minutes.</strong></p>",
+            "list_marker_color": "#adc5fa",
+            "layout": "image_top_content_bottom"
+          }
+        },
+        "q_accordion_item_PCXGy9": {
+          "type": "q_accordion_item",
+          "disabled": true,
+          "settings": {
+            "heading": "Specs",
+            "content": "<ul><li>Video Resolution: <strong>2K / 3MP</strong></li><li>Viewing Angle: <strong>355° Pan / 90° Tilt</strong></li><li>Zoom: <strong>4× Digital Zoom</strong></li><li>Night Vision: <strong>Color & Infrared (up to 50 ft)</strong></li><li>Connectivity: <strong>2.4GHz Wi-Fi</strong></li><li>Power: <strong>Solar + Rechargeable Battery</strong></li><li>Storage: <strong>MicroSD (up to 128GB) or Cloud</strong></li><li>Weather Resistance: <strong>IP66 Weatherproof</strong></li><li>Smart Integration: <strong>Alexa Compatible</strong></li></ul>",
+            "list_marker_color": "#adc5fa",
+            "layout": "image_top_content_bottom"
+          }
+        },
+        "trust_cards_7izheJ": {
+          "type": "trust_cards",
+          "settings": {
+            "card_1_icon": "shopify://shop_images/fi_7420534.png",
+            "card_1_label": "30-Day Risk-Free Trial",
+            "card_1_content": "",
+            "card_2_icon": "shopify://shop_images/fi_7532627.png",
+            "card_2_label": "24-Month Warranty",
+            "card_2_content": "",
+            "card_3_icon": "shopify://shop_images/fi_9502802.png",
+            "card_3_label": "Free App Access",
+            "card_3_content": "",
+            "card_4_label": "",
+            "card_4_content": "",
+            "logo_image": "shopify://shop_images/image_273.png"
+          }
+        },
+        "testimonial_7pQ6qr": {
+          "type": "testimonial",
+          "disabled": true,
+          "settings": {
+            "avatar": "shopify://shop_images/Ellipse_2.png",
+            "stars": 5,
+            "quote": "Great traction for outdoor adventures.",
+            "author_name": "Karen B"
+          }
+        },
+        "q_camera_finder_MKbeYn": {
+          "type": "q_camera_finder",
+          "disabled": true,
+          "settings": {
+            "heading": "Find the perfect security cameras!",
+            "card_1_icon": "shopify://shop_images/fi_2525795.png",
+            "card_1_label": "Is there a subscription required?",
+            "card_1_content": "<p>Describe subscription options for your cameras here.</p>",
+            "card_2_icon": "shopify://shop_images/fi_2525795.png",
+            "card_2_label": "Does it protect my data privacy?",
+            "card_2_content": "<p>Explain how you protect customer data and privacy.</p>",
+            "card_3_icon": "shopify://shop_images/fi_2525795.png",
+            "card_3_label": "Can it detect motion?",
+            "card_3_content": "<p>Describe motion detection capabilities here.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "judge_me_reviews_preview_badge_zMwFUy",
+        "price",
+        "q_feature_list_ibgtN8",
+        "variant_picker",
+        "quantity_selector",
+        "q_warranty_GUqegQ",
+        "q_worry_free_returns_g3Jexz",
+        "buy_buttons",
+        "q_accordion_item_Vbkz8W",
+        "q_accordion_item_qm7B6g",
+        "q_accordion_item_b3qTjT",
+        "q_accordion_item_8xHHm8",
+        "q_accordion_item_PCXGy9",
+        "trust_cards_7izheJ",
+        "testimonial_7pQ6qr",
+        "q_camera_finder_MKbeYn"
+      ],
+      "settings": {
+        "enable_sticky_info": true,
+        "enable_sticky_cart_bar": true,
+        "color_scheme": "scheme-1",
+        "media_size": "large",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "gallery_layout": "thumbnail_slider",
+        "mobile_thumbnails": "show",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": true,
+        "use_variant_featured_media": true,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 12
+      }
+    },
+    "1774954448a89154ab": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_dfa7101_QGUgdp": {
+          "type": "d_tab_image",
+          "settings": {
+            "title": "Why Choose This Camera?",
+            "description": "",
+            "header_alignment": "center",
+            "header_spacing": 10,
+            "title_font_size": 36,
+            "title_margin_bottom": 10,
+            "title_color": "#121212",
+            "description_font_size": 16,
+            "description_color": "#666666",
+            "desktop_width_px": 1400,
+            "spacing": 20,
+            "tab_alignment": "center",
+            "tab_gap": 10,
+            "tab_padding_horizontal": 25,
+            "tab_padding_vertical": 10,
+            "tab_font_size": 12,
+            "tab_border_radius": 30,
+            "tab_border_width": 1,
+            "tab_bg_color": "#ffffff",
+            "tab_text_color": "#121212",
+            "tab_border_color": "#cccccc",
+            "tab_hover_bg_color": "#f3f3f3",
+            "tab_hover_text_color": "#121212",
+            "tab_hover_border_color": "#999999",
+            "tab_active_bg_color": "#121212",
+            "tab_active_text_color": "#ffffff",
+            "tab_active_border_color": "#121212",
+            "image_border_radius": 16,
+            "tab_1_enabled": true,
+            "tab_1_label": "{{ closest.product.metafields.custom.overview_text_01.value }}",
+            "tab_1_image": "{{ closest.product.metafields.custom.overview_image_01.value }}",
+            "tab_2_enabled": true,
+            "tab_2_label": "{{ closest.product.metafields.custom.overview_text_02.value }}",
+            "tab_2_image": "{{ closest.product.metafields.custom.overview_image_02.value }}",
+            "tab_3_enabled": true,
+            "tab_3_label": "{{ closest.product.metafields.custom.overview_text_03.value }}",
+            "tab_3_image": "{{ closest.product.metafields.custom.overview_image_03.value }}",
+            "tab_4_enabled": true,
+            "tab_4_label": "{{ closest.product.metafields.custom.overview_text_04.value }}",
+            "tab_4_image": "{{ closest.product.metafields.custom.overview_image_04.value }}",
+            "tab_5_enabled": true,
+            "tab_5_label": "{{ closest.product.metafields.custom.overview_text_05.value }}",
+            "tab_5_image": "{{ closest.product.metafields.custom.overview_image_05.value }}"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_dfa7101_QGUgdp"
+      ],
+      "settings": {}
+    },
+    "q-reviews-slider": {
+      "type": "q-reviews-slider",
+      "blocks": {
+        "review-1": {
+          "type": "review",
+          "settings": {
+            "author_name": "Lynda C.",
+            "date_place": "02-05-26-CA, US",
+            "body": "<p>Outstanding customer service. Fast response and very helpful. Highly recommended.</p>"
+          }
+        },
+        "review-2": {
+          "type": "review",
+          "settings": {
+            "author_name": "Christopher H.",
+            "date_place": "01-28-26-US",
+            "body": "<p>Bought it as a gift. Setup was easy and everything looks well made so far.</p>"
+          }
+        },
+        "review-3": {
+          "type": "review",
+          "settings": {
+            "author_name": "Maria S.",
+            "date_place": "01-15-26-UK",
+            "body": "<p>Great communication and prompt support. The camera works exactly as described.</p>"
+          }
+        },
+        "review_TGw7M4": {
+          "type": "review",
+          "settings": {
+            "author_name": "Maria S.",
+            "date_place": "01-15-26-UK",
+            "body": "<p>Great communication and prompt support. The camera works exactly as described.</p>"
+          }
+        },
+        "review_NAVQwt": {
+          "type": "review",
+          "settings": {
+            "author_name": "Maria S.",
+            "date_place": "01-15-26-UK",
+            "body": "<p>Great communication and prompt support. The camera works exactly as described.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "review-1",
+        "review-2",
+        "review-3",
+        "review_TGw7M4",
+        "review_NAVQwt"
+      ],
+      "disabled": true,
+      "settings": {
+        "header_title": "",
+        "header_description": "",
+        "header_center": true,
+        "header_em_color": "#FF6B35",
+        "header_title_size_desktop": 42,
+        "header_title_size_mobile": 26,
+        "header_desc_size_desktop": 16,
+        "header_desc_size_mobile": 12,
+        "header_margin_bottom_desktop": 40,
+        "header_margin_bottom_mobile": 24,
+        "rating_score": "4.7",
+        "rating_max": "5",
+        "review_count": "82 Verified Reviews",
+        "seamless_loop": false,
+        "autoplay_carousel": false,
+        "autoplay_delay": 5,
+        "footer_logo": "shopify://shop_images/Group_167.png",
+        "bg_color": "#f4f7ff",
+        "padding_top_mobile": 20,
+        "padding_bottom_mobile": 20,
+        "padding_top_desktop": 20,
+        "padding_bottom_desktop": 20
+      }
+    },
+    "q_camera_showcase_kYWAec": {
+      "type": "q-camera-showcase",
+      "blocks": {
+        "tab_PCpRtA": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "{{ product.metafields.custom.overview_text_01.value }}",
+            "media_type": "image",
+            "image_desktop": "{{ product.metafields.custom.overview_image_01.value }}",
+            "image_mobile": "{{ product.metafields.custom.overview_image_01.value }}"
+          }
+        },
+        "tab_McVqLi": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "{{ product.metafields.custom.overview_text_02.value }}",
+            "media_type": "image",
+            "image_desktop": "{{ product.metafields.custom.overview_image_02.value }}",
+            "image_mobile": "{{ product.metafields.custom.overview_image_02.value }}"
+          }
+        },
+        "tab_FJw3FG": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "{{ product.metafields.custom.overview_text_03.value }}",
+            "media_type": "image",
+            "image_desktop": "{{ product.metafields.custom.overview_image_03.value }}",
+            "image_mobile": "{{ product.metafields.custom.overview_image_03.value }}"
+          }
+        },
+        "tab_P48bUT": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "{{ product.metafields.custom.overview_text_04.value }}",
+            "media_type": "image",
+            "image_desktop": "{{ product.metafields.custom.overview_image_04.value }}",
+            "image_mobile": "{{ product.metafields.custom.overview_image_04.value }}"
+          }
+        },
+        "tab_VDHrUh": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "{{ product.metafields.custom.overview_text_05.value }}",
+            "media_type": "image",
+            "image_desktop": "{{ product.metafields.custom.overview_image_05.value }}",
+            "image_mobile": "{{ product.metafields.custom.overview_image_05.value }}"
+          }
+        }
+      },
+      "block_order": [
+        "tab_PCpRtA",
+        "tab_McVqLi",
+        "tab_FJw3FG",
+        "tab_P48bUT",
+        "tab_VDHrUh"
+      ],
+      "disabled": true,
+      "name": "q-camera-showcase",
+      "settings": {
+        "header_title": "<em>Why Choose</em> This Camera?",
+        "header_description": "",
+        "header_center": true,
+        "header_em_color": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 100%)",
+        "header_title_size_desktop": 50,
+        "header_title_size_mobile": 26,
+        "header_desc_size_desktop": 16,
+        "header_desc_size_mobile": 12,
+        "header_margin_bottom_desktop": 40,
+        "header_margin_bottom_mobile": 24,
+        "media_height_mode": "auto",
+        "bg_color": "#FFFFFF",
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60
+      }
+    },
+    "multicolumn_6cMcap": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_3Ddzgm": {
+          "type": "column",
+          "settings": {
+            "image": "{{ product.metafields.custom.overview_extra_image_01.value }}",
+            "title": "",
+            "text": "<p></p>{{ product.metafields.custom.overview_extra_text_01 | metafield_tag }}",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_netQfT": {
+          "type": "column",
+          "settings": {
+            "image": "{{ product.metafields.custom.overview_extra_image_02.value }}",
+            "title": "",
+            "text": "{{ product.metafields.custom.overview_extra_text_02 | metafield_tag }}",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_ALEFVp": {
+          "type": "column",
+          "settings": {
+            "image": "{{ product.metafields.custom.overview_extra_image_03.value }}",
+            "title": "",
+            "text": "{{ product.metafields.custom.overview_extra_text_03 | metafield_tag }}",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_KmhpAx": {
+          "type": "column",
+          "settings": {
+            "image": "{{ product.metafields.custom.overview_extra_image_04.value }}",
+            "title": "",
+            "text": "{{ product.metafields.custom.overview_extra_text_04 | metafield_tag }}",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_3Ddzgm",
+        "column_netQfT",
+        "column_ALEFVp",
+        "column_KmhpAx"
+      ],
+      "name": "t:sections.multicolumn.presets.name",
+      "settings": {
+        "title": "",
+        "heading_size": "h1",
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "button_label": "",
+        "button_link": "",
+        "columns_desktop": 4,
+        "column_alignment": "left",
+        "background_style": "primary",
+        "color_scheme": "background-1",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "1774861317e9ce9929": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_b429a13_mgRCth": {
+          "type": "d_image_file",
+          "settings": {
+            "metafield_key": "overview_extra_image_list",
+            "title": "",
+            "description": "",
+            "text_alignment": "center",
+            "title_size": 28,
+            "description_size": 16,
+            "title_color": "#121212",
+            "description_color": "#666666",
+            "title_spacing": 12,
+            "header_spacing": 32,
+            "container_width": 1000,
+            "columns_desktop": 1,
+            "columns_mobile": "1",
+            "horizontal_padding": 0,
+            "horizontal_padding_mobile": 16,
+            "image_spacing": 16,
+            "image_border_radius": 16,
+            "section_padding": 20
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_b429a13_mgRCth"
+      ],
+      "settings": {}
+    },
+    "17740849476b89dca3": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_bYjAaY": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "real_data",
+            "max_width": 1000,
+            "show_shop_reviews": false,
+            "empty_state": "empty_widget"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_bYjAaY"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "q-trial-guarantee": {
+      "type": "q-trial-guarantee",
+      "blocks": {
+        "step-1": {
+          "type": "step",
+          "settings": {
+            "icon": "shopify://shop_images/fi_1828640.jpg",
+            "title": "Buy Anran Camera",
+            "description": "Today"
+          }
+        },
+        "step-2": {
+          "type": "step",
+          "settings": {
+            "icon": "shopify://shop_images/fi_3180087.jpg",
+            "title": "Free shipping",
+            "description": "3-8 Business Days"
+          }
+        },
+        "step-3": {
+          "type": "step",
+          "settings": {
+            "icon": "shopify://shop_images/fi_4379000.jpg",
+            "title": "You try it at home",
+            "description": "Start your 30-Day Risk-Free Trial"
+          }
+        }
+      },
+      "block_order": [
+        "step-1",
+        "step-2",
+        "step-3"
+      ],
+      "settings": {
+        "title": "You have <em>30 days</em> to test Anran",
+        "btn_label": "",
+        "btn_link": "",
+        "bg_color": "#2d3f60",
+        "em_color_from": "#6cbce7",
+        "em_color_to": "#367cf6",
+        "btn_border_color": "#ffffff",
+        "btn_text_color": "#ffffff",
+        "padding_top_mobile": 32,
+        "padding_bottom_mobile": 32,
+        "padding_top_desktop": 40,
+        "padding_bottom_desktop": 40
+      }
+    },
+    "17748769960b9d81f8": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_93cd808_dmkBkT": {
+          "type": "d_specs_list",
+          "settings": {
+            "title": "Specifications",
+            "title_alignment": "center",
+            "title_size": 26,
+            "title_color": "#3c4043",
+            "content": "{{ closest.product.metafields.custom.product_rich_text | metafield_tag }}",
+            "initial_items": 6,
+            "desktop_columns": "2",
+            "column_gap": 20,
+            "text_size": 14,
+            "text_color": "#121212",
+            "item_padding": 10,
+            "divider_color": "#e5e5e5",
+            "show_more_text": "Show more",
+            "show_less_text": "Show less",
+            "button_alignment": "center",
+            "button_text_size": 16,
+            "button_padding": 12,
+            "button_radius": 30,
+            "button_bg_color": "#ffffff",
+            "button_text_color": "#121212",
+            "button_border_color": "#4e5357",
+            "button_hover_bg_color": "#f3f7ff",
+            "button_hover_text_color": "#121212",
+            "max_width": 1200,
+            "padding": 20,
+            "spacing": 20,
+            "border_radius": 0,
+            "background_color": "#ffffff"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_93cd808_dmkBkT"
+      ],
+      "settings": {}
+    },
+    "q-service-features": {
+      "type": "q-service-features",
+      "blocks": {
+        "card-shipping": {
+          "type": "card",
+          "settings": {
+            "icon": "shopify://shop_images/fi_1670915.svg",
+            "title": "Free Shipping",
+            "description": "<p>Enjoy fast, free delivery on all orders, returns within 30 days.</p>"
+          }
+        },
+        "card-warranty": {
+          "type": "card",
+          "settings": {
+            "icon": "shopify://shop_images/fi_5782872.svg",
+            "title": "Official Warranty",
+            "description": "<p>All Anran cameras are backed by our quality guarantee.</p>"
+          }
+        },
+        "card-payment": {
+          "type": "card",
+          "settings": {
+            "icon": "shopify://shop_images/fi_2169854.svg",
+            "title": "Flexible Payment",
+            "description": "<p>Paypal & Credit Card Secure Payments.</p>"
+          }
+        },
+        "card-support": {
+          "type": "card",
+          "settings": {
+            "icon": "shopify://shop_images/fi_508190.svg",
+            "title": "Expert Support",
+            "description": "<p>Our team is here to help you every step of the way.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "card-shipping",
+        "card-warranty",
+        "card-payment",
+        "card-support"
+      ],
+      "settings": {
+        "header_title": "",
+        "header_description": "",
+        "header_center": true,
+        "header_em_color": "#FF6B35",
+        "header_title_size_desktop": 36,
+        "header_title_size_mobile": 26,
+        "header_desc_size_desktop": 16,
+        "header_desc_size_mobile": 12,
+        "header_margin_bottom_desktop": 40,
+        "header_margin_bottom_mobile": 24,
+        "bg_color": "#ffffff",
+        "card_bg_color": "#f9f9f9",
+        "padding_top_mobile": 32,
+        "padding_bottom_mobile": 20,
+        "padding_top_desktop": 40,
+        "padding_bottom_desktop": 24
+      }
+    },
+    "collapsible_content_mHXHW8": {
+      "type": "collapsible-content",
+      "blocks": {
+        "collapsible_row_wwNPBU": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Answers to Frequently Asked Questions",
+            "icon": "none",
+            "row_content": "{{ product.metafields.custom.faq | metafield_tag }}",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "collapsible_row_wwNPBU"
+      ],
+      "custom_css": [],
+      "name": "t:sections.collapsible_content.presets.name",
+      "settings": {
+        "caption": "",
+        "heading": "<strong>FAQ</strong>",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "layout": "section",
+        "container_color_scheme": "",
+        "color_scheme": "",
+        "open_first_collapsible_row": true,
+        "image_ratio": "adapt",
+        "desktop_layout": "image_first",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "q-product-recommend": {
+      "type": "q-product-recommend",
+      "blocks": {
+        "tab-1": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "You May Also Like"
+          }
+        },
+        "card-3": {
+          "type": "product_card",
+          "settings": {
+            "product": "anran-q3-4k-8mp-solar-battery-camera",
+            "tab_id": "1",
+            "custom_title": "",
+            "custom_price": "",
+            "custom_compare_price": "",
+            "review_count": "",
+            "feature_1": "360° Coverage and Tracking",
+            "feature_2": "A Rare and Remarkable 8MP Integrated Solar Camera",
+            "save_badge": "Save 47%",
+            "button_label": "Shop Now",
+            "button_link": "/"
+          }
+        },
+        "card-1": {
+          "type": "product_card",
+          "settings": {
+            "product": "anran-q4-max-5mp-integrated-solar-camera",
+            "tab_id": "1",
+            "custom_title": "",
+            "custom_price": "",
+            "custom_compare_price": "",
+            "review_count": "",
+            "feature_1": "5MP Crisp Image Quality",
+            "feature_2": "Smart PIR Human Detection",
+            "save_badge": "Save 50%",
+            "button_label": "Shop Now",
+            "button_link": "/"
+          }
+        },
+        "card-2": {
+          "type": "product_card",
+          "settings": {
+            "product": "anran-4mp2mp-2mp-dual-lens-wireless-solar-security-camera-with-2-way-talk",
+            "tab_id": "1",
+            "custom_title": "",
+            "custom_price": "",
+            "custom_compare_price": "",
+            "review_count": "",
+            "feature_1": "360° Coverage & Smart Tracking",
+            "feature_2": "Instant Alerts with Active Defense",
+            "save_badge": "Save 53%",
+            "button_label": "Shop Now",
+            "button_link": "/"
+          }
+        },
+        "card-4": {
+          "type": "product_card",
+          "settings": {
+            "product": "anran-c3-5mp-integrated-solar-battery-camera",
+            "tab_id": "1",
+            "custom_title": "",
+            "custom_price": "",
+            "custom_compare_price": "",
+            "review_count": "",
+            "feature_1": "Smart PIR Human Detection",
+            "feature_2": "More Sensitive and Accurate PIR Sensor",
+            "save_badge": "Save 55%",
+            "button_label": "Shop Now",
+            "button_link": "/"
+          }
+        },
+        "tab-2": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "Camera Kits"
+          }
+        },
+        "product_card_9DQqWV": {
+          "type": "product_card",
+          "settings": {
+            "product": "anran-5mp-wifi-ptz-kit-8ch-nvr-2tb-hdd",
+            "tab_id": "2",
+            "custom_title": "",
+            "custom_price": "",
+            "custom_compare_price": "",
+            "review_count": "",
+            "feature_1": "8-Channel NVR With 4Pcs 5MP PTZ Cameras",
+            "feature_2": "5MP Outdoor 2Way Audio 360° PTZ Camera",
+            "save_badge": "Save 45%",
+            "button_label": "Shop Now",
+            "button_link": "/"
+          }
+        },
+        "product_card_HrTLVg": {
+          "type": "product_card",
+          "settings": {
+            "product": "anran-4k-8mp-poe-security-camera-system",
+            "tab_id": "2",
+            "custom_title": "",
+            "custom_price": "",
+            "custom_compare_price": "",
+            "review_count": "",
+            "feature_1": "4K Ultra HD Clarity | 100ft Full-Color Night Vision",
+            "feature_2": "2-Way Talk & Remote Access | No Subscription Fees",
+            "save_badge": "Save 24%",
+            "button_label": "Shop Now",
+            "button_link": "/"
+          }
+        },
+        "product_card_49aR8K": {
+          "type": "product_card",
+          "settings": {
+            "product": "anran-4mp-fhd-integrated-solar-panel-battery-cameras-system-with-32gb-sd-card",
+            "tab_id": "2",
+            "custom_title": "",
+            "custom_price": "",
+            "custom_compare_price": "",
+            "review_count": "",
+            "feature_1": "2K 4MP Crisp Image & 360° View",
+            "feature_2": "4 Channel NVR with 32GB SD Card Built-in NVR to Recording",
+            "save_badge": "Save 43%",
+            "button_label": "Shop Now",
+            "button_link": "/"
+          }
+        },
+        "product_card_bgeyjR": {
+          "type": "product_card",
+          "settings": {
+            "product": "anran-c3-4mp-wifi-solar-battery-camera-kit-surveillance-security-system",
+            "tab_id": "2",
+            "custom_title": "",
+            "custom_price": "",
+            "custom_compare_price": "",
+            "review_count": "",
+            "feature_1": "Smart PIR Human Detection",
+            "feature_2": "4Channel NVR with 32GB SD Card Built-in NVR to Recording",
+            "save_badge": "Save 41%",
+            "button_label": "Shop Now",
+            "button_link": "/"
+          }
+        }
+      },
+      "block_order": [
+        "tab-1",
+        "card-3",
+        "card-1",
+        "card-2",
+        "card-4",
+        "tab-2",
+        "product_card_9DQqWV",
+        "product_card_HrTLVg",
+        "product_card_49aR8K",
+        "product_card_bgeyjR"
+      ],
+      "settings": {
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 60,
+        "tab_active_bg": "linear-gradient(90deg, rgba(108, 188, 231, 1), rgba(54, 124, 246, 1) 57.21%)",
+        "header_title": "<p>Pair Up Our Products to<br/>Unlock Features and Save</p>",
+        "header_description": "",
+        "header_center": true,
+        "header_em_color": "#FF6B35",
+        "header_title_size_desktop": 42,
+        "header_title_size_mobile": 22,
+        "header_desc_size_desktop": 16,
+        "header_desc_size_mobile": 12,
+        "header_margin_bottom_desktop": 40,
+        "header_margin_bottom_mobile": 20
+      }
+    }
+  },
+  "order": [
+    "main",
+    "1774954448a89154ab",
+    "q-reviews-slider",
+    "q_camera_showcase_kYWAec",
+    "multicolumn_6cMcap",
+    "1774861317e9ce9929",
+    "17740849476b89dca3",
+    "q-trial-guarantee",
+    "17748769960b9d81f8",
+    "q-service-features",
+    "collapsible_content_mHXHW8",
+    "q-product-recommend"
+  ]
+}
