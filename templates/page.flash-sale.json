@@ -9,6 +9,24 @@
  */
 {
   "sections": {
+    "177918503670ab24a9": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_007d4a6_VcXF4f": {
+          "type": "ai_gen_block_007d4a6",
+          "settings": {
+            "desktop_image": "shopify://shop_images/security_camera_1cac8587-11a9-4881-887e-41c5d6d0583a.jpg",
+            "mobile_image": "shopify://shop_images/Q3M8_a72ce15b-d28e-4f57-8ed7-99e008f04416.png",
+            "product_link": "shopify://products/anran-q3-4k-8mp-solar-battery-camera"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_007d4a6_VcXF4f"
+      ],
+      "settings": {}
+    },
     "177440908745c624b7": {
       "type": "_blocks",
       "blocks": {
@@ -24,6 +42,7 @@
       "block_order": [
         "ai_gen_block_d986865_GLFWwf"
       ],
+      "disabled": true,
       "settings": {}
     },
     "rich_text_JyQFTr": {
@@ -283,6 +302,7 @@
     }
   },
   "order": [
+    "177918503670ab24a9",
     "177440908745c624b7",
     "rich_text_JyQFTr",
     "main",
